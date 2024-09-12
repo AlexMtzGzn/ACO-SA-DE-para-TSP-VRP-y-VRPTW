@@ -1,0 +1,9 @@
+\babel@toc {nil}{}\relax 
+\contentsline {chapter}{\numberline {1}Resumen}{1}{}%
+\contentsline {chapter}{\numberline {2}Introducci\'on}{3}{}%
+\contentsline {chapter}{\numberline {3}Conocimientos preliminares}{5}{}%
+\contentsline {section}{\numberline {3.1}Problema de Optimizacion}{5}{}%
+\contentsline {section}{\numberline {3.2}Optimizaci\'on discreta}{5}{}%
+\contentsline {section}{\numberline {3.3}Optimizaci\'on continua}{5}{}%
+\contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{7}{}%
+\contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{9}{}%
