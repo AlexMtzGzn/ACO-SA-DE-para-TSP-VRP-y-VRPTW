@@ -1,5 +1,0 @@
-#ifndef ASIGNACION_MEMORIA_H
-#define ASIGNACION_MEMORIA_H
-
-
-#endif
