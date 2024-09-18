@@ -1,4 +1,5 @@
 #include "algoritmo_evolutivo_diferencial.h"
+#include "asignacion _memoria.h"
 #include <stdio.h>
 #include <time.h>
 
