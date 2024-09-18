@@ -4,6 +4,6 @@
 #include <stdlib.h>
 
 // Declaración de funciones o variables
-void* asignar_memoria(size_t tamano);
+void* asignar_memoria_arreglo(size_t tamano);
 
 #endif // ASIGNACION_MEMORIA_H

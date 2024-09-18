@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "asignacion _Memoria.c"
+#include "asignacion_memoria.h"
 
 int main (int argc, char * argv[]){
 
