@@ -5,7 +5,7 @@
 #include "algoritmo_evolutivo_diferencial.h"
 
 void tsp(int poblacion, int tamanio_instancia,char * instancia){
-    a_v_d(poblacion);  
+    a_v_d(poblacion,tamanio_instancia,instancia);  
 }
 
 int main (int argc, char * argv[]){

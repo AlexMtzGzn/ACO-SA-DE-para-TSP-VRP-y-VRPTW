@@ -118,14 +118,16 @@ void imprimePoblacion(individuo *objetivo, int poblacion) {
     }
 }
 
-void a_v_d(int poblacion)
+void a_v_d(int poblacion,int tamanio_instancia,char *instancia)
 {
     int generacion = 0;
 
     individuo *objetivo = asignar_memoria_arreglo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo(poblacion);
     individuo *prueba = asignar_memoria_arreglo(poblacion);
-
+    double ** instancia = asignacion_memoria_intancias(tamanio_instancia);
+    double ** instancia_feremona = asignacion_memoria_intancias(tamanio_instancia);
+    
     inicializaPoblacion(objetivo, poblacion);
 
     while (generacion < 10)
