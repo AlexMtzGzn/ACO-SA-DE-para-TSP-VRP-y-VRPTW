@@ -19,10 +19,10 @@ void inicializaPoblacion(individuo *objetivo, int poblacion)
     for (int i = 0; i < poblacion; ++i)
     {
         objetivo[i].alpha = generaAleatorio(0.1, 2.0);
-        objetivo[i].beta = generaAleatorio(0.1, 5.0);
-        objetivo[i].rho = generaAleatorio(0.1, 0.9);
-        objetivo[i].numHormigas = (int)generaAleatorio(10, 100);
-        objetivo[i].numIteraciones = (int)generaAleatorio(100, 1000);
+        objetivo[i].beta = generaAleatorio(1.5, 2.5);
+        objetivo[i].rho = generaAleatorio(0.0, 1.0);
+        objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
+        objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
     }
 }
 
@@ -53,29 +53,29 @@ void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
         if (ruidoso[i].alpha < 0.1)
             ruidoso[i].alpha = 0.1;
 
-        if (ruidoso[i].beta > 5.0)
-            ruidoso[i].beta = 5.0;
+        if (ruidoso[i].beta > 2.5)
+            ruidoso[i].beta = 2.5;
 
-        if (ruidoso[i].beta < 0.1)
-            ruidoso[i].beta = 0.1;
+        if (ruidoso[i].beta < 1.5)
+            ruidoso[i].beta = 1.5;
 
-        if (ruidoso[i].rho > 0.9)
-            ruidoso[i].rho = 0.9;
+        if (ruidoso[i].rho > 1.0)
+            ruidoso[i].rho = 1.0;
       
-        if (ruidoso[i].rho < 0.1)
-            ruidoso[i].rho = 0.1;
+        if (ruidoso[i].rho < 0.0)
+            ruidoso[i].rho = 0.0;
       
-        if (ruidoso[i].numHormigas > 100)
-            ruidoso[i].numHormigas = 100;
+        if (ruidoso[i].numHormigas > 20)
+            ruidoso[i].numHormigas = 20;
       
         if (ruidoso[i].numHormigas < 10)
             ruidoso[i].numHormigas = 10;
       
-        if (ruidoso[i].numIteraciones > 1000)
-            ruidoso[i].numIteraciones = 1000;
+        if (ruidoso[i].numIteraciones > 50)
+            ruidoso[i].numIteraciones = 50;
       
-        if (ruidoso[i].numIteraciones < 100)
-            ruidoso[i].numIteraciones = 100;
+        if (ruidoso[i].numIteraciones < 20)
+            ruidoso[i].numIteraciones = 20;
     }
 }
 
@@ -128,7 +128,7 @@ void a_v_d(int poblacion)
 
     inicializaPoblacion(objetivo, poblacion);
 
-    while (generacion < 1000)
+    while (generacion < 10)
     {
         construyeRuidosos(objetivo, ruidoso, poblacion);
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
