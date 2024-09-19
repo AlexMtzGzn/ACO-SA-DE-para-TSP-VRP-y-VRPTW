@@ -4,6 +4,10 @@
 #include "algoritmo_evolutivo_diferencial.h"
 #include "asignacion_memoria.h"
 
+double evaluaFO(){
+
+}
+
 double generaAleatorio(double minimo, double maximo)
 {
     double aleatorio = (double)rand() / RAND_MAX;
