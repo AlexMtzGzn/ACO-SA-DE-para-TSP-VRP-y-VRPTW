@@ -4,8 +4,8 @@
 #include "algoritmo_evolutivo_diferencial.h"
 #include "asignacion_memoria.h"
 
-double evaluaFO(){
-
+double evaluaFO()
+{
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -61,19 +61,19 @@ void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
 
         if (ruidoso[i].rho > 1.0)
             ruidoso[i].rho = 1.0;
-      
+
         if (ruidoso[i].rho < 0.0)
             ruidoso[i].rho = 0.0;
-      
+
         if (ruidoso[i].numHormigas > 20)
             ruidoso[i].numHormigas = 20;
-      
+
         if (ruidoso[i].numHormigas < 10)
             ruidoso[i].numHormigas = 10;
-      
+
         if (ruidoso[i].numIteraciones > 50)
             ruidoso[i].numIteraciones = 50;
-      
+
         if (ruidoso[i].numIteraciones < 20)
             ruidoso[i].numIteraciones = 20;
     }
@@ -106,8 +106,10 @@ void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
     }
 }
 
-void imprimePoblacion(individuo *objetivo, int poblacion) {
-    for (int i = 0; i < poblacion; ++i) {
+void imprimePoblacion(individuo *objetivo, int poblacion)
+{
+    for (int i = 0; i < poblacion; ++i)
+    {
         printf("\nSoy el individuo %d de la población: ", i + 1);
         printf("alpha: %f ", objetivo[i].alpha);
         printf("beta: %f ", objetivo[i].beta);
@@ -118,58 +120,63 @@ void imprimePoblacion(individuo *objetivo, int poblacion) {
     }
 }
 
-void leer_instancia(double ** instancia_matriz,int tamanio_instancia, char * archivo ){
+void leer_instancia(double **instancia_matriz, int tamanio_instancia, char *archivo)
+{
 
-     FILE *instancia = fopen(archivo, "r");
+    FILE *instancia = fopen(archivo, "r");
+
     for (int i = 0; i < tamanio_instancia; i++)
     {
         for (int j = 0; j < tamanio_instancia; j++)
-            fscanf(instancia, "%f ", &instancia_matriz[i][j]);
+        {
+            fscanf(instancia, "%lf", &instancia_matriz[i][j]);
+        }
     }
     fclose(instancia);
 }
 
-void inializacion_instancia_feromona(double ** instancia_matriz,int tamanio_instancia){
+void inializacion_instancia_feromona(double **instancia_matriz, int tamanio_instancia)
+{
 
-    for(int i = 0; i < tamanio_instancia; i++){
+    for (int i = 0; i < tamanio_instancia; i++)
+    {
         for (int j = 0; j < tamanio_instancia; j++)
         {
-            if(i==j)
+            if (i == j)
                 instancia_matriz[i][j] = 0.0;
             else
-                instancia_matriz[i][j] = 1.0;    
+                instancia_matriz[i][j] = 1.0;
         }
-        
     }
-
 }
 
-void imprimir_instancias(double ** instancia, int tamanio_instancia)
+void imprimir_instancias(double **instancia, int tamanio_instancia)
 {
-     for(int i = 0; i < tamanio_instancia; i++){
+   for (int i = 0; i < tamanio_instancia; i++)
+    {
         for (int j = 0; j < tamanio_instancia; j++)
         {
-           printf("%d ",instancia[i][j]);  
+            printf("%0.2f ", instancia[i][j]);
         }
         printf("\n");
     }
 }
 
-void a_v_d(int tamanio_instancia,char *instancia)
+void a_v_d(int tamanio_instancia, char *instancia)
 {
-    int generacion = 50,poblacion = 20;
+    int generacion = 50, poblacion = 20;
 
     individuo *objetivo = asignar_memoria_arreglo_estructura(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura(poblacion);
-    double ** instancia_matriz = asignacion_memoria_intancias(tamanio_instancia);
-    double ** instancia_feremona = asignacion_memoria_intancias(tamanio_instancia);
-    
-    leer_instancia(instancia_matriz,tamanio_instancia,instancia);
-    inializacion_instancia_feromona(instancia_feremona,tamanio_instancia);
-    
-    /*inicializaPoblacion(objetivo, poblacion);
+    double **instancia_matriz = asignacion_memoria_intancias(tamanio_instancia);
+    double **instancia_feremona = asignacion_memoria_intancias(tamanio_instancia);
 
+    leer_instancia(instancia_matriz, tamanio_instancia, instancia);
+    inializacion_instancia_feromona(instancia_feremona, tamanio_instancia);
+    inicializaPoblacion(objetivo, poblacion);
+    
+    /*
     for(int i = 0; i < generacion; i++ )
     {
         construyeRuidosos(objetivo, ruidoso, poblacion);
