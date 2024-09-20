@@ -165,7 +165,7 @@ void a_v_d(int tamanio_instancia, char *archivo_instancia)
     individuo *ruidoso = asignar_memoria_arreglo_estructura(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura(poblacion);
     double **instancia_distancias = asignacion_memoria_instancia(tamanio_instancia);
-    double **instancia_feremonas = asignacion_memoria_instancia(tamanio_instancia);
+    double **instancia_feromonas = asignacion_memoria_instancia(tamanio_instancia);
 
     leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
     inicializaPoblacion(objetivo, poblacion);
@@ -176,8 +176,8 @@ void a_v_d(int tamanio_instancia, char *archivo_instancia)
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
         for (int j = 0; j < poblacion; ++j)
         {
-            objetivo[j].fitness = evaluaFO(&objetivo[j],instancia_feremonas,instancia_distancias,tamanio_instancia);
-            prueba[j].fitness = evaluaFO(&prueba[j],instancia_feremonas,instancia_distancias,tamanio_instancia);
+            objetivo[j].fitness = evaluaFO(&objetivo[j],instancia_feromonas,instancia_distancias,tamanio_instancia);
+            prueba[j].fitness = evaluaFO(&prueba[j],instancia_feromonas,instancia_distancias,tamanio_instancia);
         }
 
         seleccion(objetivo, prueba, poblacion);
