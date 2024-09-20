@@ -4,7 +4,7 @@
 #include "algoritmo_evolutivo_diferencial.h"
 #include "asignacion_memoria.h"
 
-double evaluaFO()
+double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia)
 {
 }
 
@@ -109,7 +109,7 @@ void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
 void imprimePoblacion(individuo *objetivo, int poblacion)
 {
     for (int i = 0; i < poblacion; ++i)
-        printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n",i+1,objetivo[i].alpha,objetivo[i].beta,objetivo[i].rho,objetivo[i].numHormigas,objetivo[i].numIteraciones,objetivo[i].fitness);
+        printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n", i + 1, objetivo[i].alpha, objetivo[i].beta, objetivo[i].rho, objetivo[i].numHormigas, objetivo[i].numIteraciones, objetivo[i].fitness);
 }
 
 void leer_instancia(double **instancia_matriz, int tamanio_instancia, char *archivo)
@@ -174,8 +174,8 @@ void a_v_d(int tamanio_instancia, char *instancia)
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
         for (int j = 0; j < poblacion; ++j)
         {
-            objetivo[j].fitness = evaluaFO(&objetivo[j]);
-            prueba[j].fitness = evaluaFO(&prueba[j]);
+            objetivo[j].fitness = evaluaFO(&objetivo[j],instancia_feremona,instancia_matriz);
+            prueba[j].fitness = evaluaFO(&prueba[j],instancia_feremona,instancia_matriz);
         }
 
         seleccion(objetivo, prueba, poblacion);

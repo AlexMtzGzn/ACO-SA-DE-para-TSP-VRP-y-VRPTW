@@ -10,7 +10,7 @@ typedef struct
     double fitness;     // Valor de fitness
 } individuo;
 
-double evaluacionFO();
+double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia);
 double generaAleatorio(double minimo, double maximo);
 void inicializaPoblacion(individuo *objetivo, int poblacion);
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);
