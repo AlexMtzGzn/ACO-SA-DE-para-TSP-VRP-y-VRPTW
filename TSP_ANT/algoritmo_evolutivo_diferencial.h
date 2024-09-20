@@ -18,6 +18,6 @@ void inicializaPoblacion(individuo *objetivo, int poblacion);
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);
 void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba, int poblacion);
 void imprimePoblacion(individuo *objetivo, int poblacion);
-void a_v_d(int poblacion,int tamanio_instancia,char *instancia);
+void a_v_d(int tamanio_instancia,char *instancia);
 
 #endif // ALGORITMO_EVOLUTIVO_DIFERENCIAL_H

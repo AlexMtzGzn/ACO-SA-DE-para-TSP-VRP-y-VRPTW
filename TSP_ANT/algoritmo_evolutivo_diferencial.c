@@ -134,10 +134,10 @@ void a_v_d(int tamanio_instancia,char *instancia)
     {
         construyeRuidosos(objetivo, ruidoso, poblacion);
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
-        for (int i = 0; i < poblacion; ++i)
+        for (int j = 0; j < poblacion; ++j)
         {
-            objetivo[i].fitness = evaluaFO(&objetivo[i]);
-            prueba[i].fitness = evaluaFO(&prueba[i]);
+            objetivo[j].fitness = evaluaFO(&objetivo[j]);
+            prueba[j].fitness = evaluaFO(&prueba[j]);
         }
 
         seleccion(objetivo, prueba, poblacion);
