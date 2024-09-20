@@ -1,11 +1,11 @@
 #ifndef TSP_ANT_H
 #define TSP_ANT_H
 
-typedef struct tsp_ant
+typedef struct
 {
     double *ruta;
     double fitness;
-};
+}hormiga;
 
 
 

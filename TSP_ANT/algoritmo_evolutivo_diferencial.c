@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "algoritmo_evolutivo_diferencial.h"
 #include "asignacion_memoria.h"
+#include "tsp_ant.h"
 
 double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia)
 {
