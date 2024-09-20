@@ -11,7 +11,6 @@ void inializacionHormiga(hormiga * hor, int tamanio_instancia,int numHormigas){
         hor[i].tabu = asignacion_memoria_arreglo(tamanio_instancia);
         hor[i].fitness = 0.0;
     }
-    printf("Acabe de inicializar");
 }
 
 void tsp_ant(individuo * ind, double ** instancia_feromona,double ** instancia_distancias,int tamanio_instancia){
