@@ -118,6 +118,17 @@ void imprimePoblacion(individuo *objetivo, int poblacion) {
     }
 }
 
+void leer_instancia(double ** instancia_matriz,int tamanio_instancia, char * archivo ){
+
+     FILE *instancia = fopen(archivo, "r");
+    for (int i = 0; i < tamanio_instancia; i++)
+    {
+        for (int j = 0; j < tamanio_instancia; j++)
+            fscanf(instancia, "%f ", &instancia_matriz[i][j]);
+    }
+    fclose(instancia);
+}
+
 void a_v_d(int tamanio_instancia,char *instancia)
 {
     int generacion = 50,poblacion = 20;
@@ -125,8 +136,10 @@ void a_v_d(int tamanio_instancia,char *instancia)
     individuo *objetivo = asignar_memoria_arreglo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo(poblacion);
     individuo *prueba = asignar_memoria_arreglo(poblacion);
-    double ** instancia = asignacion_memoria_intancias(tamanio_instancia);
+    double ** instancia_matriz = asignacion_memoria_intancias(tamanio_instancia);
     double ** instancia_feremona = asignacion_memoria_intancias(tamanio_instancia);
+    
+    leer_instancia(instancia_matriz,tamanio_instancia,instancia);
     
     inicializaPoblacion(objetivo, poblacion);
 
