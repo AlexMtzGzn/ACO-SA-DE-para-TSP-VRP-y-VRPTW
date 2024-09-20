@@ -181,7 +181,7 @@ void a_v_d(int tamanio_instancia, char *archivo_instancia)
         }
 
         seleccion(objetivo, prueba, poblacion);
-        imprimePoblacion(objetivo, poblacion);
+        //imprimePoblacion(objetivo, poblacion);
     }
 
     free(objetivo);
