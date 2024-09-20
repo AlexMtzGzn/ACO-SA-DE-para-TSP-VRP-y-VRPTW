@@ -148,9 +148,9 @@ void a_v_d(int tamanio_instancia,char *instancia)
 {
     int generacion = 50,poblacion = 20;
 
-    individuo *objetivo = asignar_memoria_arreglo(poblacion);
-    individuo *ruidoso = asignar_memoria_arreglo(poblacion);
-    individuo *prueba = asignar_memoria_arreglo(poblacion);
+    individuo *objetivo = asignar_memoria_arreglo_estructura(poblacion);
+    individuo *ruidoso = asignar_memoria_arreglo_estructura(poblacion);
+    individuo *prueba = asignar_memoria_arreglo_estructura(poblacion);
     double ** instancia_matriz = asignacion_memoria_intancias(tamanio_instancia);
     double ** instancia_feremona = asignacion_memoria_intancias(tamanio_instancia);
     
