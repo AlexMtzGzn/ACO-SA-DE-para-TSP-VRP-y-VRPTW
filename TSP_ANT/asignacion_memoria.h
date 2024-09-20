@@ -6,5 +6,5 @@
 
 // Prototipos de funciones
 individuo *asignar_memoria_arreglo_estructura(int poblacion);
-double **asignacion_memoria_intancias(int tamanio);
+double **asignacion_memoria_intancia(int tamanio_instancia);
 #endif // ASIGNACION_MEMORIA_H

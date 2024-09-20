@@ -6,6 +6,14 @@
 #include "tsp_ant.h"
 
 
-void tsp(){
-    
+void tsp_ant(individuo * ind, double ** instancia_feromona,double ** intancia_distancias){
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            printf("%0.2f ", instancia_feromona[i][j]);
+        }
+        printf("\n");
+    }
 }

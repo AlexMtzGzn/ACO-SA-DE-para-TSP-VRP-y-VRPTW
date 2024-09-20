@@ -10,15 +10,15 @@ typedef struct
     double fitness;     // Valor de fitness
 } individuo;
 
-double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia);
+void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha);
+double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia);
 double generaAleatorio(double minimo, double maximo);
 void inicializaPoblacion(individuo *objetivo, int poblacion);
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);
 void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba, int poblacion);
 void imprimePoblacion(individuo *objetivo, int poblacion);
-void leer_instancia(double ** instancia_matriz,int tamanio_instancia, char * archivo );
-void inializacion_instancia_feromona(double ** instancia_matriz,int tamanio_instancia);
-void imprimir_instancias(double ** instancia, int tamanio_instancia);
-void a_v_d(int tamanio_instancia,char *instancia);
+void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia);
+void imprimir_instancia(double ** instancia, int tamanio_instancia);
+void a_v_d(int tamanio_instancia, char *archivo_instancia);
 
 #endif // ALGORITMO_EVOLUTIVO_DIFERENCIAL_H

@@ -3,10 +3,11 @@
 
 typedef struct
 {
-    double *ruta;
+    int *ruta;
+    int *tabu;
     double fitness;
 }hormiga;
 
-
+void tsp_ant(individuo * ind, double ** instancia_feromona,double ** intancia_distancias);
 
 #endif // TSP_ANT_H

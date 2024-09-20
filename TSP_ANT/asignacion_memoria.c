@@ -8,12 +8,12 @@ individuo *asignar_memoria_arreglo_estructura(int poblacion)
     return ind;
 }
 
-double **asignacion_memoria_intancias(int tamanio)
+double **asignacion_memoria_instancia(int tamanio_instancia)
 {
-    double **matriz = (double **)malloc(tamanio * sizeof(double *));
+    double **matriz = (double **)malloc(tamanio_instancia * sizeof(double *));
 
-    for (int i = 0; i < tamanio; i++)
-        matriz[i] = (double *)malloc(tamanio * sizeof(double));
+    for (int i = 0; i < tamanio_instancia; i++)
+        matriz[i] = (double *)malloc(tamanio_instancia * sizeof(double));
 
     return matriz;
 }

@@ -5,8 +5,25 @@
 #include "asignacion_memoria.h"
 #include "tsp_ant.h"
 
-double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia)
+void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha)
 {
+
+    for (int i = 0; i < tamanio_instancia; i++)
+    {
+        for (int j = 0; j < tamanio_instancia; j++)
+        {
+            if (i == j)
+                instancia_feromona[i][j] = 0.0;
+            else
+                instancia_feromona[i][j] = alpha;
+        }
+    }
+}
+
+double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia)
+{
+    inializacion_instancia_feromona(instancia_feromona,tamanio_instancia,ind->alpha);
+    tsp_ant(ind,instancia_feromona,instancia_distancias);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -113,37 +130,22 @@ void imprimePoblacion(individuo *objetivo, int poblacion)
         printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n", i + 1, objetivo[i].alpha, objetivo[i].beta, objetivo[i].rho, objetivo[i].numHormigas, objetivo[i].numIteraciones, objetivo[i].fitness);
 }
 
-void leer_instancia(double **instancia_matriz, int tamanio_instancia, char *archivo)
+void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia)
 {
 
-    FILE *instancia = fopen(archivo, "r");
+    FILE *instancia = fopen(archivo_instancia, "r");
 
     for (int i = 0; i < tamanio_instancia; i++)
     {
         for (int j = 0; j < tamanio_instancia; j++)
         {
-            fscanf(instancia, "%lf", &instancia_matriz[i][j]);
+            fscanf(instancia, "%lf", &instancia_distancias[i][j]);
         }
     }
     fclose(instancia);
 }
 
-void inializacion_instancia_feromona(double **instancia_matriz, int tamanio_instancia)
-{
-
-    for (int i = 0; i < tamanio_instancia; i++)
-    {
-        for (int j = 0; j < tamanio_instancia; j++)
-        {
-            if (i == j)
-                instancia_matriz[i][j] = 0.0;
-            else
-                instancia_matriz[i][j] = 1.0;
-        }
-    }
-}
-
-void imprimir_instancias(double **instancia, int tamanio_instancia)
+void imprimir_instancia(double **instancia, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia; i++)
     {
@@ -155,18 +157,17 @@ void imprimir_instancias(double **instancia, int tamanio_instancia)
     }
 }
 
-void a_v_d(int tamanio_instancia, char *instancia)
+void a_v_d(int tamanio_instancia, char *archivo_instancia)
 {
     int generacion = 50, poblacion = 20;
 
     individuo *objetivo = asignar_memoria_arreglo_estructura(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura(poblacion);
-    double **instancia_matriz = asignacion_memoria_intancias(tamanio_instancia);
-    double **instancia_feremona = asignacion_memoria_intancias(tamanio_instancia);
+    double **instancia_distancias = asignacion_memoria_instancias(tamanio_instancia);
+    double **instancia_feremonas = asignacion_memoria_instancias(tamanio_instancia);
 
-    leer_instancia(instancia_matriz, tamanio_instancia, instancia);
-    inializacion_instancia_feromona(instancia_feremona, tamanio_instancia);
+    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
     inicializaPoblacion(objetivo, poblacion);
 
     for (int i = 0; i < generacion; i++)
@@ -175,8 +176,8 @@ void a_v_d(int tamanio_instancia, char *instancia)
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
         for (int j = 0; j < poblacion; ++j)
         {
-            objetivo[j].fitness = evaluaFO(&objetivo[j],instancia_feremona,instancia_matriz);
-            prueba[j].fitness = evaluaFO(&prueba[j],instancia_feremona,instancia_matriz);
+            objetivo[j].fitness = evaluaFO(&objetivo[j],instancia_feremonas,instancia_distancias,tamanio_instancia);
+            prueba[j].fitness = evaluaFO(&prueba[j],instancia_feremonas,instancia_distancias,tamanio_instancia);
         }
 
         seleccion(objetivo, prueba, poblacion);

@@ -4,14 +4,14 @@
 #include <string.h>
 #include "algoritmo_evolutivo_diferencial.h"
 
-void tsp(int tamanio_instancia,char * instancia){
-    a_v_d(tamanio_instancia,instancia);  
+void tsp(int tamanio_instancia,char * archivo_instancia){
+    a_v_d(tamanio_instancia,archivo_instancia);  
 }
 
 int main (int argc, char * argv[]){
     int tamanio_instancia = atoi(argv[1]);
-    char instancia[20];
-    strcpy(instancia,argv[2]);
-    tsp(tamanio_instancia,instancia); 
+    char archivo_instancia[20];
+    strcpy(archivo_instancia,argv[2]);
+    tsp(tamanio_instancia,archivo_instancia); 
     return 0;
 }
