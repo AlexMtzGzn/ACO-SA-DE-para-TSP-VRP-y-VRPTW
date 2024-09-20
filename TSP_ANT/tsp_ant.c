@@ -6,7 +6,7 @@
 #include "tsp_ant.h"
 
 
-void tsp_ant(individuo * ind, double ** instancia_feromona,double ** intancia_distancias){
+void tsp_ant(individuo * ind, double ** instancia_feromona,double ** intancia_distancias,int tamanio_instancia){
 
     for (int i = 0; i < 8; i++)
     {
