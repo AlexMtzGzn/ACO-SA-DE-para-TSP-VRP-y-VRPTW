@@ -144,6 +144,17 @@ void inializacion_instancia_feromona(double ** instancia_matriz,int tamanio_inst
 
 }
 
+void imprimir_instancias(double ** instancia, int tamanio_instancia)
+{
+     for(int i = 0; i < tamanio_instancia; i++){
+        for (int j = 0; j < tamanio_instancia; j++)
+        {
+           printf("%d ",instancia[i][j]);  
+        }
+        printf("\n");
+    }
+}
+
 void a_v_d(int tamanio_instancia,char *instancia)
 {
     int generacion = 50,poblacion = 20;
@@ -155,8 +166,9 @@ void a_v_d(int tamanio_instancia,char *instancia)
     double ** instancia_feremona = asignacion_memoria_intancias(tamanio_instancia);
     
     leer_instancia(instancia_matriz,tamanio_instancia,instancia);
+    inializacion_instancia_feromona(instancia_feremona,tamanio_instancia);
     
-    inicializaPoblacion(objetivo, poblacion);
+    /*inicializaPoblacion(objetivo, poblacion);
 
     for(int i = 0; i < generacion; i++ )
     {
@@ -174,5 +186,5 @@ void a_v_d(int tamanio_instancia,char *instancia)
 
     free(objetivo);
     free(ruidoso);
-    free(prueba);
+    free(prueba);*/
 }
