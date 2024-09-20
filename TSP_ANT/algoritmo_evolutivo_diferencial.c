@@ -129,6 +129,21 @@ void leer_instancia(double ** instancia_matriz,int tamanio_instancia, char * arc
     fclose(instancia);
 }
 
+void inializacion_instancia_feromona(double ** instancia_matriz,int tamanio_instancia){
+
+    for(int i = 0; i < tamanio_instancia; i++){
+        for (int j = 0; j < tamanio_instancia; j++)
+        {
+            if(i==j)
+                instancia_matriz[i][j] = 0.0;
+            else
+                instancia_matriz[i][j] = 1.0;    
+        }
+        
+    }
+
+}
+
 void a_v_d(int tamanio_instancia,char *instancia)
 {
     int generacion = 50,poblacion = 20;
