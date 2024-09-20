@@ -1,7 +1,5 @@
 #ifndef ALGORITMO_EVOLUTIVO_DIFERENCIAL_H
 #define ALGORITMO_EVOLUTIVO_DIFERENCIAL_H
-
-// Estructura de individuo
 typedef struct
 {
     double alpha;       // Influencia de la feromona

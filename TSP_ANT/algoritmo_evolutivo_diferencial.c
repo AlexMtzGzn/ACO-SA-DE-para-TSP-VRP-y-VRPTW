@@ -109,15 +109,7 @@ void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
 void imprimePoblacion(individuo *objetivo, int poblacion)
 {
     for (int i = 0; i < poblacion; ++i)
-    {
-        printf("\nSoy el individuo %d de la población: ", i + 1);
-        printf("alpha: %f ", objetivo[i].alpha);
-        printf("beta: %f ", objetivo[i].beta);
-        printf("rho: %f ", objetivo[i].rho);
-        printf("Número de hormigas: %d ", objetivo[i].numHormigas);
-        printf("Número de iteraciones: %d ", objetivo[i].numIteraciones);
-        printf("\nCon fitness: %f", objetivo[i].fitness);
-    }
+        printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n",i+1,objetivo[i].alpha,objetivo[i].beta,objetivo[i].rho,objetivo[i].numHormigas,objetivo[i].numIteraciones,objetivo[i].fitness);
 }
 
 void leer_instancia(double **instancia_matriz, int tamanio_instancia, char *archivo)
@@ -152,7 +144,7 @@ void inializacion_instancia_feromona(double **instancia_matriz, int tamanio_inst
 
 void imprimir_instancias(double **instancia, int tamanio_instancia)
 {
-   for (int i = 0; i < tamanio_instancia; i++)
+    for (int i = 0; i < tamanio_instancia; i++)
     {
         for (int j = 0; j < tamanio_instancia; j++)
         {
@@ -175,9 +167,8 @@ void a_v_d(int tamanio_instancia, char *instancia)
     leer_instancia(instancia_matriz, tamanio_instancia, instancia);
     inializacion_instancia_feromona(instancia_feremona, tamanio_instancia);
     inicializaPoblacion(objetivo, poblacion);
-    
-    /*
-    for(int i = 0; i < generacion; i++ )
+
+    for (int i = 0; i < generacion; i++)
     {
         construyeRuidosos(objetivo, ruidoso, poblacion);
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
@@ -193,5 +184,5 @@ void a_v_d(int tamanio_instancia, char *instancia)
 
     free(objetivo);
     free(ruidoso);
-    free(prueba);*/
+    free(prueba);
 }
