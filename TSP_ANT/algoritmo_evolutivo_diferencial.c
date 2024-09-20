@@ -118,9 +118,9 @@ void imprimePoblacion(individuo *objetivo, int poblacion) {
     }
 }
 
-void a_v_d(int poblacion,int tamanio_instancia,char *instancia)
+void a_v_d(int tamanio_instancia,char *instancia)
 {
-    int generacion = 0;
+    int generacion = 50,poblacion = 20;
 
     individuo *objetivo = asignar_memoria_arreglo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo(poblacion);
@@ -130,7 +130,7 @@ void a_v_d(int poblacion,int tamanio_instancia,char *instancia)
     
     inicializaPoblacion(objetivo, poblacion);
 
-    while (generacion < 10)
+    for(int i = 0; i < generacion; i++ )
     {
         construyeRuidosos(objetivo, ruidoso, poblacion);
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
@@ -142,7 +142,6 @@ void a_v_d(int poblacion,int tamanio_instancia,char *instancia)
 
         seleccion(objetivo, prueba, poblacion);
         imprimePoblacion(objetivo, poblacion);
-        generacion++;
     }
 
     free(objetivo);
