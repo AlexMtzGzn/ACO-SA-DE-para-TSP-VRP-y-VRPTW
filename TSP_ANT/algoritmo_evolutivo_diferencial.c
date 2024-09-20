@@ -23,7 +23,7 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
 double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia)
 {
     inializacion_instancia_feromona(instancia_feromona,tamanio_instancia,ind->alpha);
-    tsp_ant(ind,instancia_feromona,instancia_distancias);
+    tsp_ant(ind,instancia_feromona,instancia_distancias,tamanio_instancia);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -164,8 +164,8 @@ void a_v_d(int tamanio_instancia, char *archivo_instancia)
     individuo *objetivo = asignar_memoria_arreglo_estructura(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura(poblacion);
-    double **instancia_distancias = asignacion_memoria_instancias(tamanio_instancia);
-    double **instancia_feremonas = asignacion_memoria_instancias(tamanio_instancia);
+    double **instancia_distancias = asignacion_memoria_instancia(tamanio_instancia);
+    double **instancia_feremonas = asignacion_memoria_instancia(tamanio_instancia);
 
     leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
     inicializaPoblacion(objetivo, poblacion);
