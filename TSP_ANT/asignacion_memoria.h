@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include "algoritmo_evolutivo_diferencial.h"
+#include "tsp_ant.h"
 
 // Prototipos de funciones
 individuo *asignar_memoria_arreglo_estructura_individuo(int poblacion);
