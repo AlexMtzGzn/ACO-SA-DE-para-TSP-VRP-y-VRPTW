@@ -19,9 +19,8 @@ double mejor_fitness(hormiga *hor, int numHormigas) {
 
 void actualizar_feromonas(double **instacia_feromona, hormiga *hor, individuo *ind, int tamanio_instancia) {
     for (int i = 0; i < tamanio_instancia; i++) {
-        for (int j = 0; j < tamanio_instancia; j++) {
+        for (int j = 0; j < tamanio_instancia; j++)
             instacia_feromona[i][j] *= (1 - ind->rho);
-        }
     }
 
     for (int k = 0; k < ind->numHormigas; k++) {
@@ -37,9 +36,8 @@ void actualizar_feromonas(double **instacia_feromona, hormiga *hor, individuo *i
 
 double calcular_distancia(hormiga *hor, double **instancia_distancias, int tamanio_instancia) {
     double distancia = 0.0;
-    for (int i = 0; i < tamanio_instancia; i++) {
+    for (int i = 0; i < tamanio_instancia; i++) 
         distancia += instancia_distancias[(int)hor->ruta[i]][(int)hor->ruta[i + 1]];
-    }
     distancia += instancia_distancias[(int)hor->ruta[tamanio_instancia - 1]][(int)hor->ruta[0]];
     return distancia;
 }
@@ -62,9 +60,7 @@ void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabi
         for (int k = 0; k < tamanio_instancia; k++)
         {
             if (hor->tabu[k] == 0) 
-            {
                 acumulador += probabilidad[(int)hor->ruta[j - 1]][k];
-            }
         }
         double prob_acumulada = 0.0;
         for (int k = 0; k < tamanio_instancia; k++)
@@ -111,9 +107,8 @@ void inicializar_ruleta(double **instancia_feromona, double **instacia_distancia
 
         if (suma_probabilidades > 0) {
             for (int j = 0; j < tamanio_instancia; j++) {
-                if (i != j) {
+                if (i != j)
                     probabilidad[i][j] /= suma_probabilidades;
-                }
             }
         }
     }
@@ -143,9 +138,8 @@ void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas) {
 void imprimir_rutas_hormigas(hormiga *hor, int numHormigas, int tamanio_instancia) {
     for (int i = 0; i < numHormigas; i++) {
         printf("Hormiga %d: ", i + 1);
-        for (int j = 0; j < tamanio_instancia + 1; j++) {
-            printf("%d ->", (int)hor[i].ruta[j]);
-        }
+        for (int j = 0; j < tamanio_instancia + 1; j++)
+            printf(" %d ->", (int)hor[i].ruta[j]);
         printf("Fitness: %f\n", hor[i].fitness);
     }
 }
