@@ -11,7 +11,7 @@ typedef struct
 } individuo;
 
 void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha);
-void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia);
+double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia);
 double generaAleatorio(double minimo, double maximo);
 void inicializaPoblacion(individuo *objetivo, int poblacion);
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);
