@@ -5,7 +5,6 @@
 #include "algoritmo_evolutivo_diferencial.h"
 #include "tsp_ant.h"
 
-// Prototipos de funciones
 individuo *asignar_memoria_arreglo_estructura_individuo(int poblacion);
 hormiga * asignar_memoria_arreglo_estructura_hormiga(int numHormigas);
 double **asignacion_memoria_instancia(int tamanio_instancia);
