@@ -7,6 +7,7 @@ typedef struct
     double fitness;
 }hormiga;
 
+double mejor_fitness(hormiga * hor, int numHormigas);
 void actualizar_feromonas(double ** instacia_feromona, hormiga *hor, individuo * ind, int tamanio_instancia);
 void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabilidad, double **visibilidad, int tamanio_instancia);
 void inicializar_ruleta(double ** instancia_feromona,double ** instacia_distancias, double **visibilidad, double **probabilidad, hormiga * hor, individuo * ind, int tamanio_instancia);

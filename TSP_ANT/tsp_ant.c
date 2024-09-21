@@ -5,6 +5,20 @@
 #include "algoritmo_evolutivo_diferencial.h"
 #include "tsp_ant.h"
 
+double mejor_fitness(hormiga * hor, int numHormigas){
+
+    double mejor_fitness;
+
+    mejor_fitness = hor[0].fitness;
+    
+    for(int i = 1; i < numHormigas; i++){
+        if (mejor_fitness > hor[i].fitness)
+            mejor_fitness =  hor[i].fitness;
+    }
+
+    return mejor_fitness;
+}
+
 void actualizar_feromonas(double ** instacia_feromona, hormiga *hor, individuo * ind, int tamanio_instancia) {
     for (int i = 0; i < tamanio_instancia; i++) {
         for (int j = 0; j < tamanio_instancia; j++) {
@@ -101,6 +115,7 @@ void aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_dis
 
     inializacionHormiga(hor, tamanio_instancia, ind->numHormigas);
     ant_system(hor, ind, instancia_distancias, instancia_feromona,probabilidad,visibilidad,tamanio_instancia);
+    ind->fitness = mejor_fitness(hor,ind->numHormigas);
 
     for (int i = 0; i < tamanio_instancia; i++) {
         free(hor[i].ruta); 
