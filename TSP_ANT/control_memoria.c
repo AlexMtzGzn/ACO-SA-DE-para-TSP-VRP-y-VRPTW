@@ -1,6 +1,6 @@
 // asignacion_memoria.c
 #include <stdlib.h>
-#include "asignacion_memoria.h"
+#include "control_memoria.h"
 
 individuo *asignar_memoria_arreglo_estructura_individuo(int poblacion)
 {

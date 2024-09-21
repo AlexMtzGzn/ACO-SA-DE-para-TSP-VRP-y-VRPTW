@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "algoritmo_evolutivo_diferencial.h"
-#include "asignacion_memoria.h"
+#include "control_memoria.h"
 #include "tsp_ant.h"
 
 void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha)

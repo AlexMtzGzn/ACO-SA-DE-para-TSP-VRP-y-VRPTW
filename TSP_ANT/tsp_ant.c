@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include "asignacion_memoria.h"
+#include "control_memoria.h"
 #include "algoritmo_evolutivo_diferencial.h"
 #include "tsp_ant.h"
 
@@ -40,7 +40,6 @@ double calcular_distancia(hormiga *hor, double **instancia_distancias, int taman
     for (int i = 0; i < tamanio_instancia; i++) {
         distancia += instancia_distancias[(int)hor->ruta[i]][(int)hor->ruta[i + 1]];
     }
-    // Cerrar el ciclo volviendo a la ciudad inicial
     distancia += instancia_distancias[(int)hor->ruta[tamanio_instancia - 1]][(int)hor->ruta[0]];
     return distancia;
 }
@@ -135,7 +134,7 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
 
 void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas) {
     for (int i = 0; i < numHormigas; i++) {
-        hor[i].ruta = (double *)malloc((tamanio_instancia + 1) * sizeof(double)); // +1 para cerrar el ciclo
+        hor[i].ruta = (double *)malloc((tamanio_instancia + 1) * sizeof(double));
         hor[i].tabu = (double *)calloc(tamanio_instancia, sizeof(double)); // Inicializa a 0
         hor[i].fitness = 0.0;
     }
