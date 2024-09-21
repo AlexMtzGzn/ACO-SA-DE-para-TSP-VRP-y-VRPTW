@@ -23,7 +23,7 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
 void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia)
 {
     inializacion_instancia_feromona(instancia_feromona,tamanio_instancia,ind->alpha);
-    tsp_ant(ind,instancia_feromona,instancia_distancias,tamanio_instancia);
+    tsp(ind,instancia_feromona,instancia_distancias,tamanio_instancia);
 }
 
 double generaAleatorio(double minimo, double maximo)

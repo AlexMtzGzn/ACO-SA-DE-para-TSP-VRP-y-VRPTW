@@ -93,7 +93,7 @@ void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas)
     }
 }
 
-void tsp_ant(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
+void tsp(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
 {
     hormiga *hor = asignar_memoria_arreglo_estructura_hormiga(ind->numHormigas);
     double **probabilidad = asignacion_memoria_instancia(tamanio_instancia);
