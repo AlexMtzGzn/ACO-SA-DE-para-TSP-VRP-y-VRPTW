@@ -50,7 +50,7 @@ void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabi
 }
 
 
-void  inicializar_ruleta(double ** instancia_feromona,double ** instacia_distancias, double **visibilidad, double **probabilidad, hormiga * hor, individuo * ind, int tamanio_instancia){
+void inicializar_ruleta(double ** instancia_feromona,double ** instacia_distancias, double **visibilidad, double **probabilidad, hormiga * hor, individuo * ind, int tamanio_instancia){
     for (int i = 0; i < tamanio_instancia; i++) {
         double suma_probabilidades = 0.0;
         for (int j = 0; j < tamanio_instancia; j++) {
