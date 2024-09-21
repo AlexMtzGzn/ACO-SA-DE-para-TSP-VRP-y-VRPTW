@@ -20,7 +20,7 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
     }
 }
 
-double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia)
+void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia)
 {
     inializacion_instancia_feromona(instancia_feromona,tamanio_instancia,ind->alpha);
     tsp_ant(ind,instancia_feromona,instancia_distancias,tamanio_instancia);
@@ -175,8 +175,8 @@ void algoritmo_evolutivo_diferencial(int poblacion,int generaciones,int tamanio_
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
         for (int j = 0; j < poblacion; ++j)
         {
-            objetivo[j].fitness = evaluaFO(&objetivo[j],instancia_feromonas,instancia_distancias,tamanio_instancia);
-            prueba[j].fitness = evaluaFO(&prueba[j],instancia_feromonas,instancia_distancias,tamanio_instancia);
+            evaluaFO(&objetivo[j],instancia_feromonas,instancia_distancias,tamanio_instancia);
+            evaluaFO(&prueba[j],instancia_feromonas,instancia_distancias,tamanio_instancia);
         }
 
         seleccion(objetivo, prueba, poblacion);
