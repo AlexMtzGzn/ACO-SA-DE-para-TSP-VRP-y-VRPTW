@@ -93,7 +93,7 @@ void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabi
         hor->ruta[j] = ciudad_seleccionada;
         hor->tabu[ciudad_seleccionada] = 1;
     }
-    
+
     hor->ruta[tamanio_instancia] = hor->ruta[0];
 }
 
@@ -145,7 +145,7 @@ void imprimir_rutas_hormigas(hormiga *hor, int numHormigas, int tamanio_instanci
     for (int i = 0; i < numHormigas; i++) {
         printf("Hormiga %d: ", i + 1);
         for (int j = 0; j < tamanio_instancia + 1; j++) { // +1 para incluir el regreso a la ciudad inicial
-            printf("%d ", (int)hor[i].ruta[j]);
+            printf("%d ->", (int)hor[i].ruta[j]);
         }
         printf("Fitness: %f\n", hor[i].fitness);
     }
