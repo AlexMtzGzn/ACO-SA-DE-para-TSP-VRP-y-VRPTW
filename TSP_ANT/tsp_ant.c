@@ -135,7 +135,7 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
 void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas) {
     for (int i = 0; i < numHormigas; i++) {
         hor[i].ruta = (double *)malloc((tamanio_instancia + 1) * sizeof(double));
-        hor[i].tabu = (double *)calloc(tamanio_instancia, sizeof(double)); // Inicializa a 0
+        hor[i].tabu = (double *)calloc(tamanio_instancia, sizeof(double));
         hor[i].fitness = 0.0;
     }
 }
@@ -143,7 +143,7 @@ void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas) {
 void imprimir_rutas_hormigas(hormiga *hor, int numHormigas, int tamanio_instancia) {
     for (int i = 0; i < numHormigas; i++) {
         printf("Hormiga %d: ", i + 1);
-        for (int j = 0; j < tamanio_instancia + 1; j++) { // +1 para incluir el regreso a la ciudad inicial
+        for (int j = 0; j < tamanio_instancia + 1; j++) {
             printf("%d ->", (int)hor[i].ruta[j]);
         }
         printf("Fitness: %f\n", hor[i].fitness);
@@ -159,7 +159,6 @@ double aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_d
     ant_system(hor, ind, instancia_distancias, instancia_feromona, probabilidad, visibilidad, tamanio_instancia);
     imprimir_rutas_hormigas(hor, ind->numHormigas, tamanio_instancia);
 
-    // Liberación de memoria
     for (int i = 0; i < ind->numHormigas; i++) {
         free(hor[i].ruta);
         free(hor[i].tabu);
@@ -173,5 +172,5 @@ double aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_d
     free(probabilidad);
     free(visibilidad);
 
-    return mejor_fitness(hor, ind->numHormigas); // Devuelve el mejor fitness
+    return mejor_fitness(hor, ind->numHormigas);
 }

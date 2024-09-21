@@ -104,13 +104,9 @@ void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba,
     {
         double aleatorio = (double)rand() / RAND_MAX;
         if (aleatorio <= 0.5)
-        {
             prueba[i] = objetivo[i];
-        }
         else
-        {
             prueba[i] = ruidoso[i];
-        }
     }
 }
 
@@ -119,9 +115,7 @@ void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
     for (int i = 0; i < poblacion; ++i)
     {
         if (objetivo[i].fitness > prueba[i].fitness)
-        {
             objetivo[i] = prueba[i];
-        }
     }
 }
 
@@ -139,9 +133,7 @@ void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *
     for (int i = 0; i < tamanio_instancia; i++)
     {
         for (int j = 0; j < tamanio_instancia; j++)
-        {
             fscanf(instancia, "%lf", &instancia_distancias[i][j]);
-        }
     }
     fclose(instancia);
 }
@@ -151,9 +143,7 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
     for (int i = 0; i < tamanio_instancia; i++)
     {
         for (int j = 0; j < tamanio_instancia; j++)
-        {
             printf("%0.2f ", instancia[i][j]);
-        }
         printf("\n");
     }
 }
@@ -180,7 +170,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
         for (int j = 0; j < poblacion; ++j)
         {
-            objetivo[j].fitness= evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+            objetivo[j].fitness = evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
             prueba[j].fitness = evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
         }
 
