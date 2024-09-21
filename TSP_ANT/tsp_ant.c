@@ -47,49 +47,56 @@ double calcular_distancia(hormiga *hor, double **instancia_distancias, int taman
 
 void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabilidad, double **visibilidad, int tamanio_instancia)
 {
-    // Inicializa el arreglo tabu para marcar ciudades visitadas
     for (int i = 0; i < tamanio_instancia; i++)
         hor->tabu[i] = 0;
 
-    // Selecciona una ciudad inicial aleatoria
     int ciudad_inicial = rand() % tamanio_instancia;
     hor->ruta[0] = ciudad_inicial;
-    hor->tabu[ciudad_inicial] = 1; // Marca la ciudad inicial como visitada
+    hor->tabu[ciudad_inicial] = 1;
 
-    // Visita todas las ciudades
     for (int j = 1; j < tamanio_instancia; j++)
     {
         double rand_value = (double)rand() / RAND_MAX;
         double acumulador = 0.0;
+        int ciudad_seleccionada = -1;
 
-        // Calcula probabilidades solo para ciudades no visitadas
         for (int k = 0; k < tamanio_instancia; k++)
         {
-            if (hor->tabu[k] == 0) // Solo ciudades no visitadas
+            if (hor->tabu[k] == 0) 
             {
                 acumulador += probabilidad[(int)hor->ruta[j - 1]][k];
             }
         }
-
-        // Elige la próxima ciudad basada en las probabilidades
+        double prob_acumulada = 0.0;
         for (int k = 0; k < tamanio_instancia; k++)
         {
-            if (hor->tabu[k] == 0) // Solo ciudades no visitadas
+            if (hor->tabu[k] == 0)
             {
-                acumulador += probabilidad[(int)hor->ruta[j - 1]][k];
-                if (acumulador >= rand_value)
+                prob_acumulada += probabilidad[(int)hor->ruta[j - 1]][k] / acumulador;
+                if (prob_acumulada >= rand_value)
                 {
-                    hor->ruta[j] = k;
-                    hor->tabu[k] = 1; // Marca la ciudad como visitada
+                    ciudad_seleccionada = k;
                     break;
                 }
             }
         }
-    }
 
-    // Cierra el ciclo volviendo a la ciudad inicial
-    hor->ruta[tamanio_instancia] = ciudad_inicial;
+        if (ciudad_seleccionada == -1) {
+            for (int k = 0; k < tamanio_instancia; k++) {
+                if (hor->tabu[k] == 0) {
+                    ciudad_seleccionada = k;
+                    break;
+                }
+            }
+        }
+
+        hor->ruta[j] = ciudad_seleccionada;
+        hor->tabu[ciudad_seleccionada] = 1;
+    }
+    
+    hor->ruta[tamanio_instancia] = hor->ruta[0];
 }
+
 
 
 void inicializar_ruleta(double **instancia_feromona, double **instacia_distancias, double **visibilidad, double **probabilidad, hormiga *hor, individuo *ind, int tamanio_instancia) {
