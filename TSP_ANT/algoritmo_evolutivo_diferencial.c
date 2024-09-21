@@ -157,7 +157,7 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
     }
 }
 
-void a_v_d(int tamanio_instancia, char *archivo_instancia)
+void algoritmo_evolutivo_diferencial(int tamanio_instancia, char *archivo_instancia)
 {
     int generacion = 50, poblacion = 20;
 

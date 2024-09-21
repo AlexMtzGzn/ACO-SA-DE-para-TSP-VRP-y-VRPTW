@@ -19,6 +19,6 @@ void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba,
 void imprimePoblacion(individuo *objetivo, int poblacion);
 void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia);
 void imprimir_instancia(double ** instancia, int tamanio_instancia);
-void a_v_d(int tamanio_instancia, char *archivo_instancia);
+void algoritmo_evolutivo_diferencial(int tamanio_instancia, char *archivo_instancia);
 
 #endif // ALGORITMO_EVOLUTIVO_DIFERENCIAL_H
