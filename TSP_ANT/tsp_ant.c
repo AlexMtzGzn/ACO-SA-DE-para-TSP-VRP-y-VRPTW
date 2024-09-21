@@ -69,7 +69,7 @@ void  inicializar_ruleta(double ** instancia_feromona,double ** instacia_distanc
     }
 }
 
-void sys_ant(hormiga *hor, individuo *ind, double **instancia_distancias, double **instansia_feromona,double ** probabilidad, double ** visibilidad, int tamanio_instancia)
+void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instansia_feromona,double ** probabilidad, double ** visibilidad, int tamanio_instancia)
 {
     for(int i = 0; i < ind->numIteraciones; i++){
         inicializar_ruleta(instansia_feromona,instancia_distancias, visibilidad, probabilidad, hor, ind, tamanio_instancia);
@@ -100,7 +100,7 @@ void aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_dis
     double **visibilidad = asignacion_memoria_instancia(tamanio_instancia);
 
     inializacionHormiga(hor, tamanio_instancia, ind->numHormigas);
-    sys_ant(hor, ind, instancia_distancias, instancia_feromona,probabilidad,visibilidad,tamanio_instancia);
+    ant_system(hor, ind, instancia_distancias, instancia_feromona,probabilidad,visibilidad,tamanio_instancia);
 
     for (int i = 0; i < tamanio_instancia; i++) {
         free(hor[i].ruta); 

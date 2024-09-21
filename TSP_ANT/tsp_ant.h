@@ -7,6 +7,7 @@ typedef struct
     double fitness;
 }hormiga;
 
+void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instansia_feromona,double ** probabilidad, double ** visibilidad, int tamanio_instancia);
 void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas);
 void inializacionHormiga(hormiga * hor, int tamanio_instancia,int numHormigas);
 void aco_tsp(individuo * ind, double ** instancia_feromona,double ** instancia_distancias,int tamanio_instancia);
