@@ -27,3 +27,32 @@ double * asignacion_memoria_arreglo(int tamanio_instancia){
     double *arreglo = (double*)malloc(tamanio_instancia*sizeof(double));
     return arreglo;
 }
+
+void liberar_memoria_arreglo_estructura_individuo(individuo *ind){
+    if (ind != NULL) {
+        free(ind);
+    }
+}
+
+void liberar_memoria_arreglo_estructura_hormiga(hormiga *hor){
+    if (hor != NULL) {
+        free(hor);
+    }
+}
+
+void liberar_memoria_instancia(double **matriz, int tamanio_instancia){
+    if (matriz != NULL) {
+        for (int i = 0; i < tamanio_instancia; i++) {
+            if (matriz[i] != NULL) {
+                free(matriz[i]); 
+            }
+        }
+        free(matriz);
+    }
+}
+
+void liberar_memoria_arreglo(double *arreglo){
+    if (arreglo != NULL) {
+        free(arreglo);
+    }
+}
