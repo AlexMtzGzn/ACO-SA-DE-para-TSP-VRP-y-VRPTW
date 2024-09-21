@@ -157,9 +157,8 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
     }
 }
 
-void algoritmo_evolutivo_diferencial(int tamanio_instancia, char *archivo_instancia)
+void algoritmo_evolutivo_diferencial(int poblacion,int generaciones,int tamanio_instancia, char *archivo_instancia)
 {
-    int generacion = 50, poblacion = 20;
 
     individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
@@ -170,7 +169,7 @@ void algoritmo_evolutivo_diferencial(int tamanio_instancia, char *archivo_instan
     leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
     inicializaPoblacion(objetivo, poblacion);
 
-    for (int i = 0; i < generacion; i++)
+    for (int i = 0; i < generaciones; i++)
     {
         construyeRuidosos(objetivo, ruidoso, poblacion);
         construyePrueba(objetivo, ruidoso, prueba, poblacion);
