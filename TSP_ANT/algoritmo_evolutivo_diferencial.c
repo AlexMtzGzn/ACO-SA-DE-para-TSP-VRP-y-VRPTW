@@ -177,7 +177,9 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
         seleccion(objetivo, prueba, poblacion);
         imprimePoblacion(objetivo, poblacion);
     }
-    free(objetivo);
-    free(ruidoso);
-    free(prueba);
+    liberar_memoria_arreglo_estructura_individuo(objetivo);
+    liberar_memoria_arreglo_estructura_individuo(ruidoso);
+    liberar_memoria_arreglo_estructura_individuo(prueba);
+    liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
+    liberar_memoria_instancia(instancia_feromonas, tamanio_instancia);
 }
