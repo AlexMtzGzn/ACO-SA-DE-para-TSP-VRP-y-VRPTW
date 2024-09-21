@@ -10,7 +10,7 @@ double mejor_fitness(hormiga * hor, int numHormigas){
     double mejor_fitness;
 
     mejor_fitness = hor[0].fitness;
-    
+
     for(int i = 1; i < numHormigas; i++){
         if (mejor_fitness > hor[i].fitness)
             mejor_fitness =  hor[i].fitness;
@@ -35,6 +35,14 @@ void actualizar_feromonas(double ** instacia_feromona, hormiga *hor, individuo *
             instacia_feromona[siguiente_ciudad][ciudad_actual] += intensidad_feromona; 
         }
     }
+}
+
+double calcular_distancia (hormiga * hor, double ** instancia_distancias, int tamanio_instancia){
+    double distancia = 0.0;
+    for (int i = 0; i < tamanio_instancia+1; i++) {
+        distancia += instancia_distancias[(int)hor->ruta[i]][(int)hor->ruta[(i + 1) % tamanio_instancia]];
+    }
+    return distancia;
 }
 
 void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabilidad, double **visibilidad, int tamanio_instancia) {
@@ -90,7 +98,7 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
 
         for (int j = 0; j < ind->numHormigas; j++) {
             caminar_hormiga(&hor[j], instansia_feromona, probabilidad, visibilidad, tamanio_instancia);
-            hor[j].fitness = calcular_distancia(hor[j].ruta, instancia_distancias, tamanio_instancia);
+            hor[j].fitness = calcular_distancia(&hor[j], instancia_distancias, tamanio_instancia);
         }
 
         actualizar_feromonas(instansia_feromona,hor,ind,tamanio_instancia);
