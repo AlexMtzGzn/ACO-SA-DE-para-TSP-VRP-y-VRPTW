@@ -4,9 +4,11 @@ typedef struct
 {
     double *ruta;
     double *tabu;
+    double *probabilidades;
     double fitness;
 }hormiga;
 
+void ruta_hormiga(hormiga * hor,individuo * ind, double ** instancia_distancia, double ** instancia_feromona, double ** instancia_visibilidad, int tamanio_instancia);
 void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instansia_feromona,double ** instancia_visibilidad, int tamanio_instancia);
 void inicializar_visibilidad(double ** instancia_visibilidad,double ** instancia_distancias, int tamanio_instancia);
 void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas);

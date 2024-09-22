@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[])
 {
+    srand(time(NULL));
     int poblacion=atoi(argv[1]);
     int generaciones = atoi(argv[2]);
     int tamanio_instancia = atoi(argv[3]);
