@@ -148,23 +148,15 @@ double aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_d
     hormiga *hor = asignar_memoria_arreglo_estructura_hormiga(ind->numHormigas);
     double **probabilidad = asignacion_memoria_instancia(tamanio_instancia);
     double **visibilidad = asignacion_memoria_instancia(tamanio_instancia);
-
+    double mejor_fitness_value;
     inializacionHormiga(hor, tamanio_instancia, ind->numHormigas);
     ant_system(hor, ind, instancia_distancias, instancia_feromona, probabilidad, visibilidad, tamanio_instancia);
-    imprimir_rutas_hormigas(hor, ind->numHormigas, tamanio_instancia);
+    //imprimir_rutas_hormigas(hor, ind->numHormigas, tamanio_instancia);
 
-    for (int i = 0; i < ind->numHormigas; i++) {
-        free(hor[i].ruta);
-        free(hor[i].tabu);
-    }
-    free(hor);
+    mejor_fitness_value = mejor_fitness(hor, ind->numHormigas);
 
-    for (int i = 0; i < tamanio_instancia; i++) {
-        free(probabilidad[i]);
-        free(visibilidad[i]);
-    }
-    free(probabilidad);
-    free(visibilidad);
-
+    liberar_memoria_arreglo_estructura_hormiga(hor);
+    liberar_memoria_instancia(probabilidad,tamanio_instancia);
+    liberar_memoria_instancia(visibilidad,tamanio_instancia);
     return mejor_fitness(hor, ind->numHormigas);
 }
