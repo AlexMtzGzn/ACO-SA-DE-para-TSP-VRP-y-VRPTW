@@ -2,10 +2,10 @@
 #define TSP_ANT_H
 typedef struct
 {
-    double *ruta;
-    double *tabu;
+    int *ruta;
+    int *tabu;
     double *probabilidades;
-    double fitness;
+    double *fitness;
 }hormiga;
 
 void ruta_hormiga(hormiga * hor,individuo * ind, double ** instancia_distancia, double ** instancia_feromona, double ** instancia_visibilidad, int tamanio_instancia);

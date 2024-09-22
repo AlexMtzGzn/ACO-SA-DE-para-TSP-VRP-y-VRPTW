@@ -23,9 +23,19 @@ double **asignacion_memoria_instancia(int tamanio_instancia)
     return matriz;
 }
 
-double * asignacion_memoria_arreglo(int tamanio_instancia){
+double * asignacion_memoria_arreglo_double(int tamanio_instancia){
     double *arreglo = (double*)malloc(tamanio_instancia*sizeof(double));
     return arreglo;
+}
+
+int * asignacion_memoria_arreglo_int(int tamanio_instancia){
+    int *arreglo = (int*)malloc(tamanio_instancia*sizeof(int));
+    return arreglo;
+}
+
+double * asignacion_memoria_variable_double(){
+    double *variable = (double *)malloc(sizeof(double));
+    return variable;
 }
 
 void liberar_memoria_arreglo_estructura_individuo(individuo *ind){
@@ -51,8 +61,12 @@ void liberar_memoria_instancia(double **matriz, int tamanio_instancia){
     }
 }
 
-void liberar_memoria_arreglo(double *arreglo){
-    if (arreglo != NULL) {
+void liberar_memoria_arreglo_double(double *arreglo){
+    if (arreglo != NULL) 
         free(arreglo);
-    }
+}
+
+void liberar_memoria_arreglo_entero(int *arreglo){
+    if (arreglo != NULL) 
+        free(arreglo);
 }

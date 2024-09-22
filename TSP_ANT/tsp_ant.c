@@ -5,23 +5,68 @@
 #include "control_memoria.h"
 #include "algoritmo_evolutivo_diferencial.h"
 #include "tsp_ant.h"
-
-void ruta_hormiga(hormiga * hor,individuo * ind, double ** instancia_distancia, double ** instancia_feromona, double ** instancia_visibilidad, int tamanio_instancia){
-
-    hor->ruta[0] = rand() % (tamanio_instancia + 1);
-    hor->ruta[tamanio_instancia-1];
-    hor->tabu[(int)hor->ruta[0]] = 1;
-
-    
+void calcular_costo(){
 
 }
+
+void actualizar_feromona(hormiga * hor, individuo * ind ,double ** instancia_distancias,double **instancia_feromona,int tamanio_instancia){
+
+}
+
+void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancia, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia) {
+
+
+    hor->ruta[0] = rand() % tamanio_instancia;
+    hor->tabu[hor->ruta[0]] = 1; 
+
+    for (int i = 1; i < tamanio_instancia; i++) {
+        hor->probabilidades = asignacion_memoria_arreglo_double(tamanio_instancia);
+        double suma_probabilidades = 0.0;
+
+        for (int j = 0; j < tamanio_instancia; j++) {
+            if (hor->tabu[j] == 0) {  
+                hor->probabilidades[j] = pow(instancia_feromona[hor->ruta[i-1]][j], ind->alpha) * pow(instancia_visibilidad[hor->ruta[i-1]][j], ind->beta);
+                suma_probabilidades += hor->probabilidades[j];
+            } else {
+                hor->probabilidades[j] = 0.0;
+            }
+        }
+
+        if (suma_probabilidades > 0) {
+            for (int j = 0; j < tamanio_instancia; j++) {
+                hor->probabilidades[j] /= suma_probabilidades;
+            }
+        } else {
+            liberar_memoria_arreglo_double(hor->probabilidades);
+            return; 
+        }
+
+        double aleatorio = (double)rand() / RAND_MAX;
+        double prob_acumulada = 0.0;
+        for (int j = 0; j < tamanio_instancia; j++) {
+            prob_acumulada += hor->probabilidades[j];
+            if (aleatorio <= prob_acumulada) {
+                hor->ruta[i] = j; 
+                hor->tabu[j] = 1; 
+                break;
+            }
+        }
+
+        liberar_memoria_arreglo_double(hor->probabilidades); 
+    
+}
+
+}
+
 
 void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, double ** instancia_visibilidad, int tamanio_instancia)
 {
     for (int i = 0; i < ind->numIteraciones; i++)
     {
-        for (int j = 0; j < ind->numHormigas; j++)
+        for (int j = 0; j < ind->numHormigas; j++){
             ruta_hormiga(&hor[j],ind,instancia_distancias,instancia_feromona,instancia_visibilidad,tamanio_instancia);
+            actualizar_feromona(&hor[j],ind,instancia_distancias,instancia_feromona,tamanio_instancia);
+        }
     }
 }
 
@@ -43,9 +88,10 @@ void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas)
 {
     for (int i = 0; i < numHormigas; i++)
     {
-        hor[i].ruta = asignacion_memoria_arreglo(tamanio_instancia+1);
-        hor[i].tabu = asignacion_memoria_arreglo(tamanio_instancia);
-        hor[i].fitness = 0.0;
+        hor[i].ruta = asignacion_memoria_arreglo_int(tamanio_instancia+1);
+        hor[i].tabu = asignacion_memoria_arreglo_int(tamanio_instancia);
+        hor[i].fitness = asignacion_memoria_variable_double();
+        *(hor[i].fitness)=0.0;
     }
 }
 
@@ -60,5 +106,5 @@ double aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_d
 
     liberar_memoria_arreglo_estructura_hormiga(hor);
     liberar_memoria_instancia(instancia_visibilidad, tamanio_instancia);
-    return mejor_fitness(hor, ind->numHormigas);
+    return 2.0;
 }
