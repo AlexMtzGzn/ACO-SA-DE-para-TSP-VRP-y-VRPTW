@@ -23,7 +23,6 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
 double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
 {
     inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
-    // imprimir_instancia(instancia_feromona,tamanio_instancia);
     double mejor_fitness = aco_tsp(ind, instancia_feromona, instancia_distancias, tamanio_instancia);
     return mejor_fitness;
 }
