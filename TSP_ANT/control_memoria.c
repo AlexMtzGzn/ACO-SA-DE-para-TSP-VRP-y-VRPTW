@@ -66,7 +66,7 @@ void liberar_memoria_arreglo_double(double *arreglo){
         free(arreglo);
 }
 
-void liberar_memoria_arreglo_entero(int *arreglo){
+void liberar_memoria_arreglo_int(int *arreglo){
     if (arreglo != NULL) 
         free(arreglo);
 }
