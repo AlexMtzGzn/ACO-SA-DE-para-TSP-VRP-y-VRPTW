@@ -6,10 +6,12 @@
 #include "algoritmo_evolutivo_diferencial.h"
 #include "tsp_ant.h"
 
-double mejor_fitness(hormiga *hor, int numHormigas) {
+double mejor_fitness(hormiga *hor, int numHormigas)
+{
     double mejor_fitness = hor[0].fitness;
 
-    for (int i = 1; i < numHormigas; i++) {
+    for (int i = 1; i < numHormigas; i++)
+    {
         if (mejor_fitness > hor[i].fitness)
             mejor_fitness = hor[i].fitness;
     }
@@ -17,15 +19,19 @@ double mejor_fitness(hormiga *hor, int numHormigas) {
     return mejor_fitness;
 }
 
-void actualizar_feromonas(double **instacia_feromona, hormiga *hor, individuo *ind, int tamanio_instancia) {
-    for (int i = 0; i < tamanio_instancia; i++) {
+void actualizar_feromonas(double **instacia_feromona, hormiga *hor, individuo *ind, int tamanio_instancia)
+{
+    for (int i = 0; i < tamanio_instancia; i++)
+    {
         for (int j = 0; j < tamanio_instancia; j++)
             instacia_feromona[i][j] *= (1 - ind->rho);
     }
 
-    for (int k = 0; k < ind->numHormigas; k++) {
+    for (int k = 0; k < ind->numHormigas; k++)
+    {
         double intensidad_feromona = 1.0 / hor[k].fitness;
-        for (int i = 0; i < tamanio_instancia; i++) {
+        for (int i = 0; i < tamanio_instancia; i++)
+        {
             int ciudad_actual = hor[k].ruta[i];
             int siguiente_ciudad = hor[k].ruta[(i + 1) % tamanio_instancia];
             instacia_feromona[ciudad_actual][siguiente_ciudad] += intensidad_feromona;
@@ -34,9 +40,10 @@ void actualizar_feromonas(double **instacia_feromona, hormiga *hor, individuo *i
     }
 }
 
-double calcular_distancia(hormiga *hor, double **instancia_distancias, int tamanio_instancia) {
+double calcular_distancia(hormiga *hor, double **instancia_distancias, int tamanio_instancia)
+{
     double distancia = 0.0;
-    for (int i = 0; i < tamanio_instancia; i++) 
+    for (int i = 0; i < tamanio_instancia; i++)
         distancia += instancia_distancias[(int)hor->ruta[i]][(int)hor->ruta[i + 1]];
     distancia += instancia_distancias[(int)hor->ruta[tamanio_instancia - 1]][(int)hor->ruta[0]];
     return distancia;
@@ -59,7 +66,7 @@ void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabi
 
         for (int k = 0; k < tamanio_instancia; k++)
         {
-            if (hor->tabu[k] == 0) 
+            if (hor->tabu[k] == 0)
                 acumulador += probabilidad[(int)hor->ruta[j - 1]][k];
         }
         double prob_acumulada = 0.0;
@@ -76,9 +83,12 @@ void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabi
             }
         }
 
-        if (ciudad_seleccionada == -1) {
-            for (int k = 0; k < tamanio_instancia; k++) {
-                if (hor->tabu[k] == 0) {
+        if (ciudad_seleccionada == -1)
+        {
+            for (int k = 0; k < tamanio_instancia; k++)
+            {
+                if (hor->tabu[k] == 0)
+                {
                     ciudad_seleccionada = k;
                     break;
                 }
@@ -92,61 +102,76 @@ void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabi
     hor->ruta[tamanio_instancia] = hor->ruta[0];
 }
 
-
-
-void inicializar_ruleta(double **instancia_feromona, double **instancia_distancias, double **visibilidad, double **probabilidad, hormiga *hor, individuo *ind, int tamanio_instancia) {
-    for (int i = 0; i < tamanio_instancia; i++) {
+void inicializar_ruleta(double **instancia_feromona, double **instancia_distancias, double **visibilidad, double **probabilidad, hormiga *hor, individuo *ind, int tamanio_instancia)
+{
+    for (int i = 0; i < tamanio_instancia; i++)
+    {
         double suma_probabilidades = 0.0;
-        for (int j = 0; j < tamanio_instancia; j++) {
-            if (i != j) {
+        for (int j = 0; j < tamanio_instancia; j++)
+        {
+            if (i != j)
+            {
                 visibilidad[i][j] = 1.0 / instancia_distancias[i][j];
                 probabilidad[i][j] = pow(instancia_feromona[i][j], ind->alpha) * pow(visibilidad[i][j], ind->beta);
                 suma_probabilidades += probabilidad[i][j];
             }
         }
 
-        if (suma_probabilidades > 0) {
-            for (int j = 0; j < tamanio_instancia; j++) {
-                if (i != j) {
+        if (suma_probabilidades > 0)
+        {
+            for (int j = 0; j < tamanio_instancia; j++)
+            {
+                if (i != j)
+                {
                     probabilidad[i][j] /= suma_probabilidades;
                 }
             }
         }
     }
-    for (int k = 0; k < ind->numHormigas; k++) {
+    for (int k = 0; k < ind->numHormigas; k++)
+    {
         caminar_hormiga(&hor[k], instancia_feromona, probabilidad, visibilidad, tamanio_instancia);
         hor[k].fitness = calcular_distancia(&hor[k], instancia_distancias, tamanio_instancia);
     }
 }
 
-
-void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instansia_feromona, double **probabilidad, double **visibilidad, int tamanio_instancia) {
-    for (int i = 0; i < ind->numIteraciones; i++) {
-       for(int j = 0; i < ind->numHormigas;i++){
-
-       }
-}
-
-void inicializar_visibilidad(double ** instancia_visibilidad,double ** instancia_distancias, int tamanio_instancia){
-    for(int i = 0; i < tamanio_instancia; i++)
-        for(int j = 0; j < tamanio_instancia;j++ ){
-            if(i == j)
-                instancia_visibilidad [i][j]=0.0;
-            else
-                instancia_visibilidad [i][j]= 1/instancia_distancias[i][j];
+void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instansia_feromona, double **probabilidad, double **visibilidad, int tamanio_instancia)
+{
+    for (int i = 0; i < ind->numIteraciones; i++)
+    {
+        for (int j = 0; i < ind->numHormigas; i++)
+        {
         }
+    }
+}
+void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia)
+{
+    for (int i = 0; i < tamanio_instancia; i++)
+    {
+        for (int j = 0; j < tamanio_instancia; j++)
+        {
+            if (i == j)
+                instancia_visibilidad[i][j] = 0.0;
+            else
+                instancia_visibilidad[i][j] = 1 / instancia_distancias[i][j];
+        }
+    }
 }
 
-void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas) {
-    for (int i = 0; i < numHormigas; i++) {
+void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas)
+{
+    for (int i = 0; i < numHormigas; i++)
+    {
         hor[i].ruta = (double *)malloc((tamanio_instancia + 1) * sizeof(double));
         hor[i].tabu = (double *)calloc(tamanio_instancia, sizeof(double));
         hor[i].fitness = 0.0;
     }
 }
 
-void imprimir_rutas_hormigas(hormiga *hor, int numHormigas, int tamanio_instancia) {
-    for (int i = 0; i < numHormigas; i++) {
+void imprimir_rutas_hormigas(hormiga *hor, int numHormigas, int tamanio_instancia)
+{
+    for (int i = 0; i < numHormigas; i++)
+    {
         printf("Hormiga %d: ", i + 1);
         for (int j = 0; j < tamanio_instancia + 1; j++)
             printf(" %d ->", (int)hor[i].ruta[j]);
@@ -154,20 +179,19 @@ void imprimir_rutas_hormigas(hormiga *hor, int numHormigas, int tamanio_instanci
     }
 }
 
-double aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia) {
+double aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
+{
     hormiga *hor = asignar_memoria_arreglo_estructura_hormiga(ind->numHormigas);
     double **instancia_visibilidad = asignacion_memoria_instancia(tamanio_instancia);
     double **probabilidad = asignacion_memoria_instancia(tamanio_instancia);
-    inicializar_visibilidad(instancia_visibilidad,instancia_distancias,tamanio_instancia);
-    //inializacionHormiga(hor, tamanio_instancia, ind->numHormigas);
-    
+    inicializar_visibilidad(instancia_visibilidad, instancia_distancias, tamanio_instancia);
+    // inializacionHormiga(hor, tamanio_instancia, ind->numHormigas);
 
-
-    //ant_system(hor, ind, instancia_distancias, instancia_feromona, probabilidad, visibilidad, tamanio_instancia);
-    //imprimir_rutas_hormigas(hor, ind->numHormigas, tamanio_instancia);
+    // ant_system(hor, ind, instancia_distancias, instancia_feromona, probabilidad, visibilidad, tamanio_instancia);
+    // imprimir_rutas_hormigas(hor, ind->numHormigas, tamanio_instancia);
 
     liberar_memoria_arreglo_estructura_hormiga(hor);
-    liberar_memoria_instancia(probabilidad,tamanio_instancia);
-    liberar_memoria_instancia(visibilidad,tamanio_instancia);
+    liberar_memoria_instancia(probabilidad, tamanio_instancia);
+    liberar_memoria_instancia(instancia_visibilidad, tamanio_instancia);
     return mejor_fitness(hor, ind->numHormigas);
 }
