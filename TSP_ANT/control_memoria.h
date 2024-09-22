@@ -16,4 +16,5 @@ void liberar_memoria_arreglo_estructura_hormiga(hormiga *hor);
 void liberar_memoria_instancia(double **matriz, int tamanio_instancia);
 void liberar_memoria_arreglo_double(double *arreglo);
 void liberar_memoria_arreglo_int(int *arreglo);
+void liberar_memoria_variable_double(double *variable);
 #endif // CONTROL_MEMORIA_H

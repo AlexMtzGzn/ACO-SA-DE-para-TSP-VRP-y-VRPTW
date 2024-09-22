@@ -98,11 +98,22 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
             actualizar_feromona(&hor[j], ind, instancia_distancias, instancia_feromona, tamanio_instancia);
-            liberar_memoria_arreglo_int(hor[j].ruta);
-            liberar_memoria_arreglo_int(hor[j].tabu);
+            
+            for(int k = 0; k < tamanio_instancia; k++)
+                printf("%d -> ",hor[j].ruta[k]);
+            printf("\n");
+            printf("%lf\n", *(hor[j].fitness));
         }
     }
+
+    for (int j = 0; j < ind->numHormigas; j++)
+    {
+        liberar_memoria_arreglo_int(hor[j].ruta);
+        liberar_memoria_arreglo_int(hor[j].tabu);
+        liberar_memoria_variable_double(hor[j].fitness);
+    }
 }
+
 
 void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia)
 {

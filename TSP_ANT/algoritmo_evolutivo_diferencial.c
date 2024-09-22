@@ -147,9 +147,9 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
     }
 }
 
-void algoritmo_evolutivo_diferencial(int * poblacion, int * generaciones, int * tamanio_instancia, char *archivo_instancia)
+void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int  tamanio_instancia, char *archivo_instancia)
 {
-    /*individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
+    individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
 
@@ -177,5 +177,5 @@ void algoritmo_evolutivo_diferencial(int * poblacion, int * generaciones, int * 
     liberar_memoria_arreglo_estructura_individuo(ruidoso);
     liberar_memoria_arreglo_estructura_individuo(prueba);
     liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
-    liberar_memoria_instancia(instancia_feromonas, tamanio_instancia);*/
+    liberar_memoria_instancia(instancia_feromonas, tamanio_instancia);
 }

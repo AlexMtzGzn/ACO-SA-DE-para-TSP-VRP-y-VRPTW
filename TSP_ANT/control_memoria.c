@@ -70,3 +70,9 @@ void liberar_memoria_arreglo_int(int *arreglo){
     if (arreglo != NULL) 
         free(arreglo);
 }
+
+void liberar_memoria_variable_double(double *variable) {
+    if (variable != NULL) {
+        free(variable);
+    }
+}
