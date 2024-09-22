@@ -94,12 +94,12 @@ void caminar_hormiga(hormiga *hor, double **instancia_feromona, double **probabi
 
 
 
-void inicializar_ruleta(double **instancia_feromona, double **instacia_distancias, double **visibilidad, double **probabilidad, hormiga *hor, individuo *ind, int tamanio_instancia) {
+void inicializar_ruleta(double **instancia_feromona, double **instancia_distancias, double **visibilidad, double **probabilidad, hormiga *hor, individuo *ind, int tamanio_instancia) {
     for (int i = 0; i < tamanio_instancia; i++) {
         double suma_probabilidades = 0.0;
         for (int j = 0; j < tamanio_instancia; j++) {
             if (i != j) {
-                visibilidad[i][j] = 1.0 / instacia_distancias[i][j];
+                visibilidad[i][j] = 1.0 / instancia_distancias[i][j];
                 probabilidad[i][j] = pow(instancia_feromona[i][j], ind->alpha) * pow(visibilidad[i][j], ind->beta);
                 suma_probabilidades += probabilidad[i][j];
             }
@@ -107,12 +107,18 @@ void inicializar_ruleta(double **instancia_feromona, double **instacia_distancia
 
         if (suma_probabilidades > 0) {
             for (int j = 0; j < tamanio_instancia; j++) {
-                if (i != j)
+                if (i != j) {
                     probabilidad[i][j] /= suma_probabilidades;
+                }
             }
         }
     }
+    for (int k = 0; k < ind->numHormigas; k++) {
+        caminar_hormiga(&hor[k], instancia_feromona, probabilidad, visibilidad, tamanio_instancia);
+        hor[k].fitness = calcular_distancia(&hor[k], instancia_distancias, tamanio_instancia);
+    }
 }
+
 
 void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instansia_feromona, double **probabilidad, double **visibilidad, int tamanio_instancia) {
     for (int i = 0; i < ind->numIteraciones; i++) {

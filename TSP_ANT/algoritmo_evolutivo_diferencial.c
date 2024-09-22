@@ -150,11 +150,10 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
 
 void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-
     individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
-    individuo *mejor_generacion = asignar_memoria_arreglo_estructura_individuo(generaciones);
+
     double **instancia_distancias = asignacion_memoria_instancia(tamanio_instancia);
     double **instancia_feromonas = asignacion_memoria_instancia(tamanio_instancia);
 
@@ -171,27 +170,13 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
             objetivo[j].fitness = evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
             prueba[j].fitness = evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
         }
-        double mejor_gen = objetivo[0].fitness;
-        for (int k = 1; k < poblacion; k++)
-            if (mejor_gen > objetivo[k].fitness){
-                 mejor_gen = objetivo[k].fitness;
-                 mejor_generacion[i].fitness = mejor_gen;
-                 mejor_generacion[i].alpha = objetivo[k].alpha;
-                 mejor_generacion[i].beta = objetivo[k].beta;
-                 mejor_generacion[i].rho = objetivo[k].rho;
-                 mejor_generacion[i].numHormigas = objetivo[k].numHormigas;
-                 mejor_generacion[i].numIteraciones = objetivo[k].numIteraciones;
-            }  
 
         seleccion(objetivo, prueba, poblacion);
-        // imprimePoblacion(objetivo, poblacion);
     }
 
-    imprimePoblacion(mejor_generacion,1);
     liberar_memoria_arreglo_estructura_individuo(objetivo);
     liberar_memoria_arreglo_estructura_individuo(ruidoso);
     liberar_memoria_arreglo_estructura_individuo(prueba);
-    liberar_memoria_arreglo_estructura_individuo(mejor_generacion);
     liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
     liberar_memoria_instancia(instancia_feromonas, tamanio_instancia);
 }
