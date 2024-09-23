@@ -13,7 +13,7 @@ void calcular_costo(hormiga *hor, double **instancia_distancias, int tamanio_ins
     {
         *(hor->fitness) += instancia_distancias[hor->ruta[i]][hor->ruta[i + 1]];
     }
-    *(hor->fitness) += instancia_distancias[hor->ruta[tamanio_instancia-1]][hor->ruta[0]];
+    *(hor->fitness) += instancia_distancias[hor->ruta[tamanio_instancia - 1]][hor->ruta[0]];
 }
 
 void actualizar_feromona(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, int tamanio_instancia)
@@ -37,12 +37,13 @@ void actualizar_feromona(hormiga *hor, individuo *ind, double **instancia_distan
 
 void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancia, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia)
 {
+
     for (int k = 0; k < tamanio_instancia; k++)
     {
         hor->tabu[k] = 0;
     }
 
-    hor->ruta[0] = rand() % tamanio_instancia;  
+    hor->ruta[0] = rand() % tamanio_instancia;
     hor->tabu[hor->ruta[0]] = 1;
 
     for (int i = 1; i < tamanio_instancia; i++)
@@ -67,7 +68,7 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancia, do
         {
             for (int j = 0; j < tamanio_instancia; j++)
             {
-                hor->probabilidades[j] /= suma_probabilidades; 
+                hor->probabilidades[j] /= suma_probabilidades;
             }
         }
         else
@@ -84,7 +85,7 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancia, do
             if (aleatorio <= prob_acumulada)
             {
                 hor->ruta[i] = j;
-                hor->tabu[j] = 1;  
+                hor->tabu[j] = 1;
                 break;
             }
         }
@@ -92,13 +93,6 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancia, do
         liberar_memoria_arreglo_double(hor->probabilidades);
     }
     hor->ruta[tamanio_instancia] = hor->ruta[0];
-}
-
-void imprime_ruta_hormiga(hormiga * hor,int tamanio_instancia){
-     for (int i = 0; i < tamanio_instancia+1; i++)
-                printf("%d -> ",hor->ruta[i]);
-            printf("\n");
-            printf("%lf\n", *(hor->fitness));
 }
 
 void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia)
@@ -109,11 +103,8 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
             actualizar_feromona(&hor[j], ind, instancia_distancias, instancia_feromona, tamanio_instancia);
-            imprime_ruta_hormiga(&hor[j],tamanio_instancia);
         }
     }
-
-    ind->fitness = *(hor[ind->numHormigas - 1].fitness);
 }
 
 void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia)
@@ -134,13 +125,10 @@ void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas)
 {
     for (int i = 0; i < numHormigas; i++)
     {
-        hor[i].ruta = asignacion_memoria_arreglo_int(tamanio_instancia+1);
+        hor[i].ruta = asignacion_memoria_arreglo_int(tamanio_instancia + 1);
         hor[i].tabu = asignacion_memoria_arreglo_int(tamanio_instancia);
         hor[i].fitness = asignacion_memoria_variable_double();
-
     }
-
-    
 }
 
 void aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
@@ -152,13 +140,6 @@ void aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_dis
 
     ant_system(hor, ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
 
-    
-    for (int i = 0; i < ind->numHormigas; i++)
-    {
-        //liberar_memoria_arreglo_int(hor[i].ruta);
-        //liberar_memoria_arreglo_int(hor[i].tabu);
-        //liberar_memoria_variable_double(hor[i].fitness);
-    }
     liberar_memoria_arreglo_estructura_hormiga(hor);
     liberar_memoria_instancia(instancia_visibilidad, tamanio_instancia);
 }
