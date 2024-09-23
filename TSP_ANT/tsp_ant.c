@@ -119,7 +119,6 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
 void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia; i++)
-    {
         for (int j = 0; j < tamanio_instancia; j++)
         {
             if (i == j)
@@ -127,7 +126,6 @@ void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_
             else
                 instancia_visibilidad[i][j] = 1 / instancia_distancias[i][j];
         }
-    }
 }
 
 void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas)
@@ -138,9 +136,7 @@ void inializacionHormiga(hormiga *hor, int tamanio_instancia, int numHormigas)
         hor[i].tabu = asignacion_memoria_arreglo_int(tamanio_instancia);
         hor[i].fitness = asignacion_memoria_variable_double();
 
-    }
-
-    
+    }    
 }
 
 void aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
