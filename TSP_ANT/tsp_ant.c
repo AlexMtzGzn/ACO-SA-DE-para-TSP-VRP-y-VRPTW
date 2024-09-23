@@ -97,8 +97,8 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
             actualizar_feromona(&hor[j], ind, instancia_distancias, instancia_feromona, tamanio_instancia);
-            /*Podemos imprimir como va la ruta de cada hormiga
-            imprime_ruta_hormiga(&hor[j],tamanio_instancia);*/
+            /*Podemos imprimir como va la ruta de cada hormiga*/
+            //imprime_ruta_hormiga(&hor[j],tamanio_instancia);
         }
     ind->fitness = *(hor[ind->numHormigas - 1].fitness);
 }
