@@ -24,7 +24,7 @@ double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_
 {
     inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
     aco_tsp(ind, instancia_feromona, instancia_distancias, tamanio_instancia);
- 
+
     return ind->fitness;
 }
 
@@ -114,10 +114,8 @@ void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba,
 void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
 {
     for (int i = 0; i < poblacion; ++i)
-    {
         if (objetivo[i].fitness > prueba[i].fitness)
             objetivo[i] = prueba[i];
-    }
 }
 
 void imprimePoblacion(individuo *objetivo, int poblacion)
@@ -148,12 +146,12 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
     }
 }
 
-void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int  tamanio_instancia, char *archivo_instancia)
+void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
+    //Reserva de memoria
     individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
-
     double **instancia_distancias = asignacion_memoria_instancia(tamanio_instancia);
     double **instancia_feromonas = asignacion_memoria_instancia(tamanio_instancia);
 
@@ -168,12 +166,18 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int  taman
         for (int j = 0; j < poblacion; ++j)
         {
             objetivo[j].fitness = evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-            printf("%lf\n",objetivo[j].fitness);
             prueba[j].fitness = evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
         }
 
         seleccion(objetivo, prueba, poblacion);
+        /*Podeemos imprimir la poblacion objetivo de cada generacion
+        printf("\n\nGeneracion i %d\n")
+        imprimePoblacion(objetivo, poblacion);*/
     }
+
+    /*Podemos imprimir la poblacion de la ultima generacion
+    printf("\n\nUltima Generacion i %d\n")
+    imprimePoblacion(objetivo, poblacion);*/
 
     liberar_memoria_arreglo_estructura_individuo(objetivo);
     liberar_memoria_arreglo_estructura_individuo(ruidoso);

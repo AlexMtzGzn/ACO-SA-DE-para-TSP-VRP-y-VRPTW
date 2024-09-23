@@ -152,5 +152,7 @@ void aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_dis
 
     ant_system(hor, ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
 
+    liberar_memoria_arreglo_estructura_hormiga(hor);
+    liberar_memoria_instancia(instancia_visibilidad, tamanio_instancia);
     
 }
