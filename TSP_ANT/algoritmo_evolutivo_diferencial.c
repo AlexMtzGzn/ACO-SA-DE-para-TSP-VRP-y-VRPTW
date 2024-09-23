@@ -24,6 +24,7 @@ double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_
 {
     inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
     aco_tsp(ind, instancia_feromona, instancia_distancias, tamanio_instancia);
+ 
     return ind->fitness;
 }
 
@@ -167,6 +168,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int  taman
         for (int j = 0; j < poblacion; ++j)
         {
             objetivo[j].fitness = evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+            printf("%lf\n",objetivo[j].fitness);
             prueba[j].fitness = evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
         }
 

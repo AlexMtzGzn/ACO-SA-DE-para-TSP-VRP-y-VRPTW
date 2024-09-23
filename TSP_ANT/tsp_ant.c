@@ -109,7 +109,7 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
             actualizar_feromona(&hor[j], ind, instancia_distancias, instancia_feromona, tamanio_instancia);
-            imprime_ruta_hormiga(&hor[j],tamanio_instancia);
+            //imprime_ruta_hormiga(&hor[j],tamanio_instancia);
         }
     }
 
@@ -153,12 +153,4 @@ void aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_dis
     ant_system(hor, ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
 
     
-    for (int i = 0; i < ind->numHormigas; i++)
-    {
-        //liberar_memoria_arreglo_int(hor[i].ruta);
-        //liberar_memoria_arreglo_int(hor[i].tabu);
-        //liberar_memoria_variable_double(hor[i].fitness);
-    }
-    liberar_memoria_arreglo_estructura_hormiga(hor);
-    liberar_memoria_instancia(instancia_visibilidad, tamanio_instancia);
 }
