@@ -129,7 +129,7 @@ void aco_tsp(individuo *ind, double **instancia_feromona, double **instancia_dis
     hormiga *hor = asignar_memoria_arreglo_estructura_hormiga(ind->numHormigas);
     double **instancia_visibilidad = asignacion_memoria_instancia(tamanio_instancia);
     inicializar_visibilidad(instancia_visibilidad, instancia_distancias, tamanio_instancia);
-     /*Podemos imprimir la matriz de visibilidad
+    /*Podemos imprimir la matriz de visibilidad
     printf("\n\nInstancia De Visibilidad\n");
     imprimir_instancia(instancia_visibilidad,tamanio_instancia);
     */
