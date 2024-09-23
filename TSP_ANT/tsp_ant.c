@@ -10,9 +10,7 @@ void calcular_costo(hormiga *hor, double **instancia_distancias, int tamanio_ins
 {
     *(hor->fitness) = 0.0;
     for (int i = 0; i < tamanio_instancia - 1; i++)
-    {
         *(hor->fitness) += instancia_distancias[hor->ruta[i]][hor->ruta[i + 1]];
-    }
     *(hor->fitness) += instancia_distancias[hor->ruta[tamanio_instancia-1]][hor->ruta[0]];
 }
 
