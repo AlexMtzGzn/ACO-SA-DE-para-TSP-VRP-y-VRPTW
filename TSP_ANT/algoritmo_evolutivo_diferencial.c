@@ -156,6 +156,11 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
     double **instancia_feromonas = asignacion_memoria_instancia(tamanio_instancia);
 
     leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
+    /*Podemos imprimir la matriz de distancias
+    printf("\n\nInstancia De Distancias\n");
+    imprimir_instancia(instancia_distancias,tamanio_instancia);
+    */
+   
     inicializaPoblacion(objetivo, poblacion);
 
     for (int i = 0; i < generaciones; i++)
