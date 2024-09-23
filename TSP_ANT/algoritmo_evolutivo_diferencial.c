@@ -9,7 +9,6 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
 {
 
     for (int i = 0; i < tamanio_instancia; i++)
-    {
         for (int j = 0; j < tamanio_instancia; j++)
         {
             if (i == j)
@@ -17,12 +16,12 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
             else
                 instancia_feromona[i][j] = alpha;
         }
-    }
 }
 
 void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
 {
     inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
+
     aco_tsp(ind, instancia_feromona, instancia_distancias, tamanio_instancia);
 }
 
