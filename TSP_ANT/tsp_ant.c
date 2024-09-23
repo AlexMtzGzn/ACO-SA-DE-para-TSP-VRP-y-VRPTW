@@ -102,6 +102,7 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
         }
     ind->fitness = *(hor[ind->numHormigas - 1].fitness);
 }
+
 void ant_system_f(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia)
 {
     for (int i = 0; i < ind->numIteraciones; i++)
