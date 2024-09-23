@@ -7,7 +7,6 @@
 
 void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha)
 {
-
     for (int i = 0; i < tamanio_instancia; i++)
         for (int j = 0; j < tamanio_instancia; j++)
         {
@@ -21,7 +20,10 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
 void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
 {
     inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
-
+    /*Podemos imprimir la matriz de feromonas de cada individo
+    printf("\n\nInstancia De Feromonas\n");
+    imprimir_instancia(instancia_feromona,tamanio_instancia);
+    */
     aco_tsp(ind, instancia_feromona, instancia_distancias, tamanio_instancia);
 }
 
