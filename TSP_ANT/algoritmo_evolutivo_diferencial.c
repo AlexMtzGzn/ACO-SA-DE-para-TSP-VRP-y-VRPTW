@@ -20,12 +20,10 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
     }
 }
 
-double evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
+void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
 {
     inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
     aco_tsp(ind, instancia_feromona, instancia_distancias, tamanio_instancia);
-
-    return ind->fitness;
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -148,7 +146,7 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
 
 void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-    //Reserva de memoria
+    // Reserva de memoria
     individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
@@ -160,7 +158,6 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
     printf("\n\nInstancia De Distancias\n");
     imprimir_instancia(instancia_distancias,tamanio_instancia);
     */
-   
     inicializaPoblacion(objetivo, poblacion);
 
     for (int i = 0; i < generaciones; i++)
@@ -170,8 +167,8 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
         for (int j = 0; j < poblacion; ++j)
         {
-            objetivo[j].fitness = evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-            prueba[j].fitness = evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+            evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+            evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
         }
 
         seleccion(objetivo, prueba, poblacion);
