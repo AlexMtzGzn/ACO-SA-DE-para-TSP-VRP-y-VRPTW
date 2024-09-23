@@ -52,11 +52,9 @@ void liberar_memoria_arreglo_estructura_hormiga(hormiga *hor){
 
 void liberar_memoria_instancia(double **matriz, int tamanio_instancia){
     if (matriz != NULL) {
-        for (int i = 0; i < tamanio_instancia; i++) {
-            if (matriz[i] != NULL) {
+        for (int i = 0; i < tamanio_instancia; i++) 
+            if (matriz[i] != NULL) 
                 free(matriz[i]); 
-            }
-        }
         free(matriz);
     }
 }
