@@ -182,9 +182,11 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
     printf("\n\nUltima Generacion i %d\n")
     imprimePoblacion(objetivo, poblacion);*/
 
-    liberar_memoria_arreglo_estructura_individuo(objetivo);
     liberar_memoria_arreglo_estructura_individuo(ruidoso);
     liberar_memoria_arreglo_estructura_individuo(prueba);
+
+    /*Esto es al final
+    liberar_memoria_arreglo_estructura_individuo(objetivo);
     liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
-    liberar_memoria_instancia(instancia_feromonas, tamanio_instancia);
+    liberar_memoria_instancia(instancia_feromonas, tamanio_instancia);*/
 }
