@@ -4,6 +4,7 @@
 #include "algoritmo_evolutivo_diferencial.h"
 #include "control_memoria.h"
 #include "tsp_ant.h"
+#include "float.h"
 
 void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha)
 {
@@ -117,6 +118,11 @@ void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
             objetivo[i] = prueba[i];
 }
 
+void imprimeIndividuo(individuo ind) {
+    printf("Individuo - alpha: %f, beta: %f, rho: %f, numHormigas: %d, numIteraciones: %d, fitness: %f\n",
+           ind.alpha, ind.beta, ind.rho, ind.numHormigas, ind.numIteraciones, ind.fitness);
+}
+
 void imprimePoblacion(individuo *objetivo, int poblacion)
 {
     for (int i = 0; i < poblacion; ++i)
@@ -178,15 +184,30 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
         imprimePoblacion(objetivo, poblacion);*/
     }
 
-    /*Podemos imprimir la poblacion de la ultima generacion
-    printf("\n\nUltima Generacion i %d\n")
-    imprimePoblacion(objetivo, poblacion);*/
+    //Podemos imprimir la poblacion de la ultima generacion
+    printf("\n\nUltima generacion de %d generaciones\n", generaciones);
+    imprimePoblacion(objetivo, poblacion);
 
     liberar_memoria_arreglo_estructura_individuo(ruidoso);
     liberar_memoria_arreglo_estructura_individuo(prueba);
+    mejor_individuo_t mejor;
+    mejor.mejor_fitness = DBL_MAX; 
+
+    for (int j = 0; j < poblacion; ++j)
+    {
+        if (objetivo[j].fitness < mejor.mejor_fitness)
+        {
+            mejor.mejor_fitness = objetivo[j].fitness;
+            mejor.mejor_individuo = objetivo[j]; 
+        }
+    }
+
+    printf("\nMejor fitness de la última generación: %f\n", mejor.mejor_fitness);
+    imprimeIndividuo(mejor.mejor_individuo);
 
     /*Esto es al final
     liberar_memoria_arreglo_estructura_individuo(objetivo);
     liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
     liberar_memoria_instancia(instancia_feromonas, tamanio_instancia);*/
 }
+
