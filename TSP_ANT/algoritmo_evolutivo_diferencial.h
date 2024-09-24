@@ -1,5 +1,6 @@
 #ifndef ALGORITMO_EVOLUTIVO_DIFERENCIAL_H
 #define ALGORITMO_EVOLUTIVO_DIFERENCIAL_H
+#include <stdbool.h>
 typedef struct
 {
     double alpha;       // Influencia de la feromona
@@ -7,18 +8,18 @@ typedef struct
     double rho;         // Tasa de evaporación de la feromona
     int numHormigas;    // Número de hormigas
     int numIteraciones; // Número de iteraciones
+    int * ruta;         // Ruta, pero solo para ultima generacion.
     double fitness;     // Valor de fitness
 } individuo;
 
 typedef struct {
     individuo mejor_individuo; // Estructura con los parámetros del individuo
     double mejor_fitness;      // Valor del fitness del mejor individuo
-    int * ruta;
 } mejor_individuo_t;
 
 
 void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha);
-void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia);
+void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias,int tamanio_instancia,bool bandera);
 double generaAleatorio(double minimo, double maximo);
 void inicializaPoblacion(individuo *objetivo, int poblacion);
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);
