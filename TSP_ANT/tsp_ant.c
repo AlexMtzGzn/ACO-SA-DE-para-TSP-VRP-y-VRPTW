@@ -16,16 +16,20 @@ void calcular_costo(hormiga *hor, double **instancia_distancias, int tamanio_ins
 
 void actualizar_feromona(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, int tamanio_instancia)
 {
-    calcular_costo(hor, instancia_distancias, tamanio_instancia);
+    for(int i = 0; i < ind->numHormigas; i++){
+
+    calcular_costo(&hor[i], instancia_distancias, tamanio_instancia);
     double delta = 1.0 / *(hor->fitness);
 
-    for (int i = 0; i < tamanio_instancia - 1; i++)
-        instancia_feromona[hor->ruta[i]][hor->ruta[i + 1]] += delta;
+    for (int j = 0; j < tamanio_instancia - 1; j++)
+        instancia_feromona[hor->ruta[j]][hor->ruta[j + 1]] += delta;
 
-    for (int i = 0; i < tamanio_instancia; i++)
+    for (int j = 0; j < tamanio_instancia; j++)
     {
-        for (int j = 0; j < tamanio_instancia; j++)
-            instancia_feromona[i][j] *= (1.0 - ind->rho);
+        for (int k = 0; k < tamanio_instancia; k++)
+            instancia_feromona[j][k] *= (1.0 - ind->rho);
+    }
+
     }
 }
 
@@ -100,7 +104,7 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
             //imprime_ruta_hormiga(&hor[j],tamanio_instancia);
         }
         //Se tiene que acualizar la Feromona aca con todas la hormigas 
-        //actualizar_feromona(&hor[j], ind, instancia_distancias, instancia_feromona, tamanio_instancia);
+        actualizar_feromona(hor, ind, instancia_distancias, instancia_feromona, tamanio_instancia);
 
     ind->fitness = *(hor[ind->numHormigas - 1].fitness);
 }
