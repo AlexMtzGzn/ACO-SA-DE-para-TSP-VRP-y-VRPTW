@@ -211,8 +211,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
     printf("\n\nInstancia De Feromonas\n");
     imprimir_instancia(instancia_feromona,tamanio_instancia);
     */
-    aco_tsp_f(&mejor.mejor_individuo, instancia_feromona, instancia_distancias, tamanio_instancia);
-
+   
     liberar_memoria_arreglo_estructura_individuo(objetivo);
     liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
     liberar_memoria_instancia(instancia_feromona, tamanio_instancia);

@@ -85,7 +85,7 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancia, do
 void imprime_ruta_hormiga(hormiga *hor, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia + 1; i++)
-        printf("%d -> ", hor->ruta[i]);
+        printf("%d -> ", hor->ruta[i]+1);
     printf("\n");
     printf("%lf\n", *(hor->fitness));
 }
@@ -96,10 +96,12 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
         for (int j = 0; j < ind->numHormigas; j++)
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
-            actualizar_feromona(&hor[j], ind, instancia_distancias, instancia_feromona, tamanio_instancia);
             /*Podemos imprimir como va la ruta de cada hormiga*/
             //imprime_ruta_hormiga(&hor[j],tamanio_instancia);
         }
+        //Se tiene que acualizar la Feromona aca con todas la hormigas 
+        //actualizar_feromona(&hor[j], ind, instancia_distancias, instancia_feromona, tamanio_instancia);
+
     ind->fitness = *(hor[ind->numHormigas - 1].fitness);
 }
 
@@ -113,6 +115,7 @@ void ant_system_f(hormiga *hor, individuo *ind, double **instancia_distancias, d
             /*Podemos imprimir como va la ruta de cada hormiga
             imprime_ruta_hormiga(&hor[j],tamanio_instancia);*/
         }
+
 }
 
 void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia)
