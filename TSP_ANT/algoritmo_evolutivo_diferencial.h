@@ -13,6 +13,7 @@ typedef struct
 typedef struct {
     individuo mejor_individuo; // Estructura con los parámetros del individuo
     double mejor_fitness;      // Valor del fitness del mejor individuo
+    int * ruta;
 } mejor_individuo_t;
 
 

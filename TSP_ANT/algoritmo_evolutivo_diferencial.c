@@ -120,14 +120,14 @@ void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
 
 void imprimeIndividuo(individuo ind)
 {
-    printf("Individuo - alpha: %f, beta: %f, rho: %f, numHormigas: %d, numIteraciones: %d, fitness: %f\n",
+    printf("Individuo - alpha: %.2f, beta: %.2f, rho: %.2f, numHormigas: %d, numIteraciones: %d, fitness: %.2f\n",
            ind.alpha, ind.beta, ind.rho, ind.numHormigas, ind.numIteraciones, ind.fitness);
 }
 
 void imprimePoblacion(individuo *objetivo, int poblacion)
 {
     for (int i = 0; i < poblacion; ++i)
-        printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n", i + 1, objetivo[i].alpha, objetivo[i].beta, objetivo[i].rho, objetivo[i].numHormigas, objetivo[i].numIteraciones, objetivo[i].fitness);
+        printf("%d - alpha: %.2f, beta: %.2f, rho: %.2f, hormigas: %d, iteraciones: %d, fitness: %.2f\n", i + 1, objetivo[i].alpha, objetivo[i].beta, objetivo[i].rho, objetivo[i].numHormigas, objetivo[i].numIteraciones, objetivo[i].fitness);
 }
 
 void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia)
@@ -154,7 +154,8 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
 
 void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-    // Reserva de memoria
+    mejor_individuo_t mejor;
+    mejor.mejor_fitness = DBL_MAX;
     individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
@@ -183,6 +184,8 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
         /*Podeemos imprimir la poblacion objetivo de cada generacion
         printf("\n\nGeneracion i %d\n")
         imprimePoblacion(objetivo, poblacion);*/
+
+
     }
 
     // Podemos imprimir la poblacion de la ultima generacion
@@ -191,9 +194,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
     liberar_memoria_arreglo_estructura_individuo(ruidoso);
     liberar_memoria_arreglo_estructura_individuo(prueba);
-    mejor_individuo_t mejor;
-    mejor.mejor_fitness = DBL_MAX;
-
+   
     for (int j = 0; j < poblacion; ++j)
     {
         if (objetivo[j].fitness < mejor.mejor_fitness)
@@ -211,7 +212,8 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
     printf("\n\nInstancia De Feromonas\n");
     imprimir_instancia(instancia_feromona,tamanio_instancia);
     */
-   
+    aco_tsp_f(&mejor.mejor_individuo, instancia_feromona, instancia_distancias, tamanio_instancia);
+
     liberar_memoria_arreglo_estructura_individuo(objetivo);
     liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
     liberar_memoria_instancia(instancia_feromona, tamanio_instancia);
