@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "tsp_ant.h"
 #include "float.h"
-#include "stdbool.h"
 #include "algoritmo_evolutivo_diferencial.h"
 #include "control_memoria.h"
 
@@ -19,7 +18,7 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
         }
 }
 
-void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
+void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia, int bandera)
 {
     inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
     /*Podemos imprimir la matriz de feromonas de cada individo
@@ -161,6 +160,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
     individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
     double **instancia_distancias = asignacion_memoria_instancia(tamanio_instancia);
     double **instancia_feromona = asignacion_memoria_instancia(tamanio_instancia);
+    int bandera = 0;
     leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
     /*Podemos imprimir la matriz de distancias
     printf("\n\nInstancia De Distancias\n");
@@ -175,16 +175,18 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
         for (int j = 0; j < poblacion; ++j)
         {
-            evaluaFO(&objetivo[j], instancia_feromona, instancia_distancias, tamanio_instancia);
-            evaluaFO(&prueba[j], instancia_feromona, instancia_distancias, tamanio_instancia);
+            evaluaFO(&objetivo[j], instancia_feromona, instancia_distancias, tamanio_instancia,bandera);
+            evaluaFO(&prueba[j], instancia_feromona, instancia_distancias, tamanio_instancia,bandera);
         }
 
         seleccion(objetivo, prueba, poblacion);
-        
-        if(i == generaciones -1)
-            for(int k = 0 ; k < poblacion; k++)
-                evaluaFO(&objetivo[k], instancia_feromona, instancia_distancias, tamanio_instancia);
 
+        if (i == generaciones - 1)
+            for (int k = 0; k < poblacion; k++)
+            {
+                bandera = 1;
+                evaluaFO(&objetivo[k], instancia_feromona, instancia_distancias, tamanio_instancia,bandera);
+            }
         /*Podeemos imprimir la poblacion objetivo de cada generacion
         printf("\n\nGeneracion i %d\n")
         imprimePoblacion(objetivo, poblacion);*/
