@@ -1,10 +1,11 @@
 // algoritmo_evolutivo_diferencial.c
 #include <stdio.h>
 #include <stdlib.h>
-#include "algoritmo_evolutivo_diferencial.h"
-#include "control_memoria.h"
 #include "tsp_ant.h"
 #include "float.h"
+#include "stdbool.h"
+#include "algoritmo_evolutivo_diferencial.h"
+#include "control_memoria.h"
 
 void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha)
 {
@@ -154,13 +155,12 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
 
 void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-    mejor_individuo_t mejor[poblacion];
+    mejor_individuo_t mejor;
     individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
     double **instancia_distancias = asignacion_memoria_instancia(tamanio_instancia);
     double **instancia_feromona = asignacion_memoria_instancia(tamanio_instancia);
-
     leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
     /*Podemos imprimir la matriz de distancias
     printf("\n\nInstancia De Distancias\n");
@@ -180,6 +180,11 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
         }
 
         seleccion(objetivo, prueba, poblacion);
+        
+        if(i == generaciones -1)
+            for(int k = 0 ; k < poblacion; k++)
+                evaluaFO(&objetivo[k], instancia_feromona, instancia_distancias, tamanio_instancia);
+
         /*Podeemos imprimir la poblacion objetivo de cada generacion
         printf("\n\nGeneracion i %d\n")
         imprimePoblacion(objetivo, poblacion);*/
@@ -189,7 +194,6 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
     printf("\n\nUltima generacion de %d generaciones\n", generaciones);
     imprimePoblacion(objetivo, poblacion);
 
-    
     /*Aqui vamos analizar
     for (int j = 0; j < poblacion; ++j)
     {
@@ -204,15 +208,15 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
     liberar_memoria_arreglo_estructura_individuo(ruidoso);
     liberar_memoria_arreglo_estructura_individuo(prueba);
 
-    //printf("\nMejor fitness de la última generación: %f\n", mejor.mejor_fitness);
-    //imprimeIndividuo(mejor.mejor_individuo);
+    // printf("\nMejor fitness de la última generación: %f\n", mejor.mejor_fitness);
+    // imprimeIndividuo(mejor.mejor_individuo);
 
-    inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, mejor.mejor_individuo.alpha);
+    // inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, mejor.mejor_individuo.alpha);
     /*Podemos imprimir la matriz de feromonas de cada individo
     printf("\n\nInstancia De Feromonas\n");
     imprimir_instancia(instancia_feromona,tamanio_instancia);
     */
-    //aco_tsp_f(&mejor.mejor_individuo, instancia_feromona, instancia_distancias, tamanio_instancia);
+    // aco_tsp_f(&mejor.mejor_individuo, instancia_feromona, instancia_distancias, tamanio_instancia);
 
     liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
     liberar_memoria_instancia(instancia_feromona, tamanio_instancia);

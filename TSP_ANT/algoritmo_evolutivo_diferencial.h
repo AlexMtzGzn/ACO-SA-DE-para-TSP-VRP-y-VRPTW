@@ -8,6 +8,7 @@ typedef struct
     int numHormigas;    // Número de hormigas
     int numIteraciones; // Número de iteraciones
     double fitness;     // Valor de fitness
+    int *ruta;           // Ruta
 } individuo;
 
 typedef struct {
