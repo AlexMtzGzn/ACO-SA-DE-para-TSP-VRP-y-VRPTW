@@ -154,8 +154,7 @@ void imprimir_instancia(double **instancia, int tamanio_instancia)
 
 void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-    mejor_individuo_t mejor;
-    mejor.mejor_fitness = DBL_MAX;
+    mejor_individuo_t mejor[poblacion];
     individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
     individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
@@ -184,17 +183,14 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
         /*Podeemos imprimir la poblacion objetivo de cada generacion
         printf("\n\nGeneracion i %d\n")
         imprimePoblacion(objetivo, poblacion);*/
-
-
     }
 
     // Podemos imprimir la poblacion de la ultima generacion
     printf("\n\nUltima generacion de %d generaciones\n", generaciones);
     imprimePoblacion(objetivo, poblacion);
 
-    liberar_memoria_arreglo_estructura_individuo(ruidoso);
-    liberar_memoria_arreglo_estructura_individuo(prueba);
-   
+    
+    /*Aqui vamos analizar
     for (int j = 0; j < poblacion; ++j)
     {
         if (objetivo[j].fitness < mejor.mejor_fitness)
@@ -202,19 +198,22 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
             mejor.mejor_fitness = objetivo[j].fitness;
             mejor.mejor_individuo = objetivo[j];
         }
-    }
+    }*/
 
-    printf("\nMejor fitness de la última generación: %f\n", mejor.mejor_fitness);
-    imprimeIndividuo(mejor.mejor_individuo);
+    liberar_memoria_arreglo_estructura_individuo(objetivo);
+    liberar_memoria_arreglo_estructura_individuo(ruidoso);
+    liberar_memoria_arreglo_estructura_individuo(prueba);
+
+    //printf("\nMejor fitness de la última generación: %f\n", mejor.mejor_fitness);
+    //imprimeIndividuo(mejor.mejor_individuo);
 
     inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, mejor.mejor_individuo.alpha);
     /*Podemos imprimir la matriz de feromonas de cada individo
     printf("\n\nInstancia De Feromonas\n");
     imprimir_instancia(instancia_feromona,tamanio_instancia);
     */
-    aco_tsp_f(&mejor.mejor_individuo, instancia_feromona, instancia_distancias, tamanio_instancia);
+    //aco_tsp_f(&mejor.mejor_individuo, instancia_feromona, instancia_distancias, tamanio_instancia);
 
-    liberar_memoria_arreglo_estructura_individuo(objetivo);
     liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
     liberar_memoria_instancia(instancia_feromona, tamanio_instancia);
 }
