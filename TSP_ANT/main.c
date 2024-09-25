@@ -14,5 +14,6 @@ int main(int argc, char *argv[])
     char archivo_instancia[20];
     strcpy(archivo_instancia, argv[4]);
     algoritmo_evolutivo_diferencial(poblacion,generaciones,tamanio_instancia, archivo_instancia);
+    printf("Hola");
     return 0;
 }
