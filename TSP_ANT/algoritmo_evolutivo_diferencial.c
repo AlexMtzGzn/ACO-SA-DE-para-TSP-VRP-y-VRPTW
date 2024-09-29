@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "float.h"
 #include "algoritmo_evolutivo_diferencial.h"
 
-void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha)
+void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, individuo * ind)
 {
    for (int i = 0; i < tamanio_instancia; i++)
       for (int j = 0; j < tamanio_instancia; j++)
@@ -11,32 +10,19 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
          if (i == j)
             instancia_feromona[i][j] = 0.0;
          else
-            instancia_feromona[i][j] = alpha;
+            instancia_feromona[i][j] = ind->alpha;
       }
 }
 
-void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia, int bandera)
+void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
 {
-   inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
-   aco_tsp(ind, instancia_feromona, instancia_distancias, tamanio_instancia);
+   inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind);
 }
 
 double generaAleatorio(double minimo, double maximo)
 {
    double aleatorio = (double)rand() / RAND_MAX;
    return minimo + aleatorio * (maximo - minimo);
-}
-
-void inicializaPoblacion(individuo *objetivo, int poblacion)
-{
-   for (int i = 0; i < poblacion; ++i)
-   {
-      objetivo[i].alpha = generaAleatorio(0.1, 2.0);
-      objetivo[i].beta = generaAleatorio(1.5, 2.5);
-      objetivo[i].rho = generaAleatorio(0.0, 1.0);
-      objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
-      objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
-   }
 }
 
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
@@ -111,16 +97,16 @@ void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
          objetivo[i] = prueba[i];
 }
 
-void imprimeIndividuo(individuo ind)
-{
-   printf("Individuo - alpha: %f, beta: %f, rho: %f, numHormigas: %d, numIteraciones: %d, fitness: %f\n",
-          ind.alpha, ind.beta, ind.rho, ind.numHormigas, ind.numIteraciones, ind.fitness);
-}
-
-void imprimePoblacion(individuo *objetivo, int poblacion)
+void inicializaPoblacion(individuo *objetivo, int poblacion)
 {
    for (int i = 0; i < poblacion; ++i)
-      printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n", i + 1, objetivo[i].alpha, objetivo[i].beta, objetivo[i].rho, objetivo[i].numHormigas, objetivo[i].numIteraciones, objetivo[i].fitness);
+   {
+      objetivo[i].alpha = generaAleatorio(0.1, 2.0);
+      objetivo[i].beta = generaAleatorio(1.5, 2.5);
+      objetivo[i].rho = generaAleatorio(0.0, 1.0);
+      objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
+      objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
+   }
 }
 
 void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia)
@@ -135,7 +121,6 @@ void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *
    fclose(instancia);
 }
 
-
 void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
    // Declaracion de estruturas de objetivo, ruidos, prueba
@@ -145,15 +130,34 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
    ruidoso = (individuo *)malloc(sizeof(individuo) * poblacion);
    prueba = (individuo *)malloc(sizeof(individuo) * poblacion);
    // Declaramos matrices de distancias y de feromona
-   double **instancia_distancias, **instancia_feromona;
+   double **instancia_distancias, **instancia_feromonas;
    // Aqui vamos asignar memoria a las matrices
    instancia_distancias = (double **)malloc(tamanio_instancia * sizeof(double *));
-   instancia_feromona = (double **)malloc(tamanio_instancia * sizeof(double *));
+   instancia_feromonas = (double **)malloc(tamanio_instancia * sizeof(double *));
    for (int i = 0; i < tamanio_instancia; i++)
    {
       instancia_distancias[i] = (double *)malloc(tamanio_instancia * sizeof(double));
-      instancia_feromona[i] = (double *)malloc(tamanio_instancia * sizeof(double));
+      instancia_feromonas[i] = (double *)malloc(tamanio_instancia * sizeof(double));
    }
    // Aqui vamos a leer la instacnia distancia
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
+   // Aqui inicializamos los datos de objetivo de manera aleatoria
+   inicializaPoblacion(objetivo, poblacion);
+   // Aqui podemos imprimir los datos de la poblacion
+   for (int i = 0; i < poblacion; ++i)
+      printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n", i + 1, objetivo[i].alpha, objetivo[i].beta, objetivo[i].rho, objetivo[i].numHormigas, objetivo[i].numIteraciones, objetivo[i].fitness);
+
+   for (int i = 0; i < generaciones; i++)
+   {
+      construyeRuidosos(objetivo, ruidoso, poblacion);
+      construyePrueba(objetivo, ruidoso, prueba, poblacion);
+
+      for (int j = 0; j < poblacion; ++j)
+      {
+         evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+         evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+      }
+
+      seleccion(objetivo, prueba, poblacion);
+   }
 }
