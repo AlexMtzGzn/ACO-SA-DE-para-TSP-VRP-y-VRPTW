@@ -144,8 +144,8 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
    // Aqui inicializamos los datos de objetivo de manera aleatoria
    inicializaPoblacion(objetivo, poblacion);
    // Aqui podemos imprimir los datos de la poblacion
-   for (int i = 0; i < poblacion; ++i)
-      printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n", i + 1, objetivo[i].alpha, objetivo[i].beta, objetivo[i].rho, objetivo[i].numHormigas, objetivo[i].numIteraciones, objetivo[i].fitness);
+   //for (int i = 0; i < poblacion; ++i)
+     // printf("%i - alpha: %f, beta: %f, rho: %f, hormigas: %d, iteraciones: %d, fitness: %f\n", i + 1, objetivo[i].alpha, objetivo[i].beta, objetivo[i].rho, objetivo[i].numHormigas, objetivo[i].numIteraciones, objetivo[i].fitness);
 
    for (int i = 0; i < generaciones; i++)
    {
