@@ -1,22 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "algoritmo_evolutivo_diferencial.h"
+#include "tsp_ant_system.h"
 
-void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, individuo *ind)
+void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind)
 {
    for (int i = 0; i < tamanio_instancia; i++)
       for (int j = 0; j < tamanio_instancia; j++)
       {
          if (i == j)
-            instancia_feromona[i][j] = 0.0;
+            instancia_feromonas[i][j] = 0.0;
          else
-            instancia_feromona[i][j] = ind->alpha;
+            instancia_feromonas[i][j] = ind->alpha;
       }
 }
 
-void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
+void evaluaFO(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
 {
-   inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind);
+   inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
+   tsp_ant_sys(ind,instancia_feromonas,instancia_distancias,tamanio_instancia);
 }
 
 double generaAleatorio(double minimo, double maximo)
