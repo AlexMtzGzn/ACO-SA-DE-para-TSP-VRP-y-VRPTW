@@ -18,10 +18,6 @@ void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_in
 void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia, int bandera)
 {
    inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
-   /*Podemos imprimir la matriz de feromonas de cada individo
-      printf("\n\nInstancia De Feromonas\n");
-      imprimir_instancia(instancia_feromona,tamanio_instancia);
-      */
    aco_tsp(ind, instancia_feromona, instancia_distancias, tamanio_instancia);
 }
 
@@ -139,22 +135,25 @@ void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *
    fclose(instancia);
 }
 
-void imprimir_instancia(double **instancia, int tamanio_instancia)
-{
-   for (int i = 0; i < tamanio_instancia; i++)
-   {
-      for (int j = 0; j < tamanio_instancia; j++)
-         printf("%0.2f ", instancia[i][j]);
-      printf("\n");
-   }
-}
 
 void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   //Declaracion de estruturas de objetivo, ruidos, prueba
-   individuo * objetivo,*ruidoso,*prueba;
-
-   //Aqui vamos a declarar memoria de las estrcuturas
-   
-
+   // Declaracion de estruturas de objetivo, ruidos, prueba
+   individuo *objetivo, *ruidoso, *prueba;
+   // Aqui vamos a asignar memoria de las estrcuturas
+   objetivo = (individuo *)malloc(sizeof(individuo) * poblacion);
+   ruidoso = (individuo *)malloc(sizeof(individuo) * poblacion);
+   prueba = (individuo *)malloc(sizeof(individuo) * poblacion);
+   // Declaramos matrices de distancias y de feromona
+   double **instancia_distancias, **instancia_feromona;
+   // Aqui vamos asignar memoria a las matrices
+   instancia_distancias = (double **)malloc(tamanio_instancia * sizeof(double *));
+   instancia_feromona = (double **)malloc(tamanio_instancia * sizeof(double *));
+   for (int i = 0; i < tamanio_instancia; i++)
+   {
+      instancia_distancias[i] = (double *)malloc(tamanio_instancia * sizeof(double));
+      instancia_feromona[i] = (double *)malloc(tamanio_instancia * sizeof(double));
+   }
+   // Aqui vamos a leer la instacnia distancia
+   leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
 }

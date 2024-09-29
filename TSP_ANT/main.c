@@ -12,7 +12,9 @@ int main(int argc, char *argv[])
     int generaciones = atoi(argv[2]);
     int tamanio_instancia = atoi(argv[3]);
     char archivo_instancia[20];
+    char ruta_instancias[20] = "/Instancias/";
     strcpy(archivo_instancia, argv[4]);
+    strcat(ruta_instancias,archivo_instancia);
     algoritmo_evolutivo_diferencial(poblacion,generaciones,tamanio_instancia, archivo_instancia);
     return 0;
 }
