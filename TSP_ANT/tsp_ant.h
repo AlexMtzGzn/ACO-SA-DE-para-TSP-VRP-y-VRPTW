@@ -2,11 +2,11 @@
 #define TSP_ANT_H
 typedef struct
 {
-    int *ruta;
-    int *tabu;
-    double *probabilidades;
-    double *fitness;
-    
+int *ruta;
+int *tabu;
+double *probabilidades;
+double *fitness;
+
 }hormiga;
 
 void calcular_costo(hormiga *hor, double **instancia_distancias, int tamanio_instancia);

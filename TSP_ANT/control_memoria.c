@@ -1,6 +1,8 @@
 // asignacion_memoria.c
 #include <stdlib.h>
 #include "control_memoria.h"
+#include "algoritmo_evolutivo_diferencial.h"
+#include "tsp_ant.h"
 
 individuo *asignar_memoria_arreglo_estructura_individuo(int poblacion)
 {
