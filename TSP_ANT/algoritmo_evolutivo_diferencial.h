@@ -7,7 +7,8 @@ typedef struct
     double beta;        // Influencia del costo
     double rho;         // Tasa de evaporación de la feromona
     int numHormigas;    // Número de hormigas
-    double fitnees; // Valor del fitness del mejor individuo
+    int numIteraciones;
+    double fitness; // Valor del fitness del mejor individuo
     int * ruta;
 }individuo;
 
