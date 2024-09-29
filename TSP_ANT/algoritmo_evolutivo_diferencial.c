@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "algoritmo_evolutivo_diferencial.h"
 
-void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, individuo * ind)
+void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, individuo *ind)
 {
    for (int i = 0; i < tamanio_instancia; i++)
       for (int j = 0; j < tamanio_instancia; j++)
@@ -160,4 +160,15 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
       seleccion(objetivo, prueba, poblacion);
    }
+   //Aqui limpiamos memoria
+   for (int i = 0; i < tamanio_instancia; i++)
+    {
+        free(instancia_distancias[i]);
+        free(instancia_feromonas[i]);
+    }
+    free(instancia_distancias);
+    free(instancia_feromonas);
+    free(objetivo);
+    free(ruidoso);
+    free(prueba);
 }
