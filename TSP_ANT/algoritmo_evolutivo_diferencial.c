@@ -1,10 +1,9 @@
-// algoritmo_evolutivo_diferencial.c
 #include <stdio.h>
 #include <stdlib.h>
-#include "algoritmo_evolutivo_diferencial.h"
-#include "control_memoria.h"
 #include "tsp_ant.h"
 #include "float.h"
+#include "algoritmo_evolutivo_diferencial.h"
+#include "control_memoria.h"
 
 void inializacion_instancia_feromona(double **instancia_feromona, int tamanio_instancia, double alpha)
 {
@@ -18,7 +17,7 @@ instancia_feromona[i][j] = alpha;
 }
 }
 
-void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia)
+void evaluaFO(individuo *ind, double **instancia_feromona, double **instancia_distancias, int tamanio_instancia, int bandera)
 {
 inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, ind->alpha);
 /*Podemos imprimir la matriz de feromonas de cada individo
@@ -154,67 +153,3 @@ printf("\n");
 
 void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-// Reserva de memoria
-individuo *objetivo = asignar_memoria_arreglo_estructura_individuo(poblacion);
-individuo *ruidoso = asignar_memoria_arreglo_estructura_individuo(poblacion);
-individuo *prueba = asignar_memoria_arreglo_estructura_individuo(poblacion);
-double **instancia_distancias = asignacion_memoria_instancia(tamanio_instancia);
-double **instancia_feromona = asignacion_memoria_instancia(tamanio_instancia);
-
-leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
-/*Podemos imprimir la matriz de distancias
-   printf("\n\nInstancia De Distancias\n");
-   imprimir_instancia(instancia_distancias,tamanio_instancia);
-   */
-inicializaPoblacion(objetivo, poblacion);
-
-for (int i = 0; i < generaciones; i++)
-{
-construyeRuidosos(objetivo, ruidoso, poblacion);
-construyePrueba(objetivo, ruidoso, prueba, poblacion);
-
-for (int j = 0; j < poblacion; ++j)
-{
-evaluaFO(&objetivo[j], instancia_feromona, instancia_distancias, tamanio_instancia);
-evaluaFO(&prueba[j], instancia_feromona, instancia_distancias, tamanio_instancia);
-}
-
-seleccion(objetivo, prueba, poblacion);
-/*Podeemos imprimir la poblacion objetivo de cada generacion
-       printf("\n\nGeneracion i %d\n")
-       imprimePoblacion(objetivo, poblacion);*/
-}
-
-// Podemos imprimir la poblacion de la ultima generacion
-printf("\n\nUltima generacion de %d generaciones\n", generaciones);
-imprimePoblacion(objetivo, poblacion);
-
-liberar_memoria_arreglo_estructura_individuo(ruidoso);
-liberar_memoria_arreglo_estructura_individuo(prueba);
-mejor_individuo_t mejor;
-mejor.mejor_fitness = DBL_MAX;
-
-for (int j = 0; j < poblacion; ++j)
-{
-if (objetivo[j].fitness < mejor.mejor_fitness)
-{
-mejor.mejor_fitness = objetivo[j].fitness;
-mejor.mejor_individuo = objetivo[j];
-}
-}
-
-printf("\nMejor fitness de la última generación: %f\n", mejor.mejor_fitness);
-imprimeIndividuo(mejor.mejor_individuo);
-
-inializacion_instancia_feromona(instancia_feromona, tamanio_instancia, mejor.mejor_individuo.alpha);
-/*Podemos imprimir la matriz de feromonas de cada individo
-   printf("\n\nInstancia De Feromonas\n");
-   imprimir_instancia(instancia_feromona,tamanio_instancia);
-   */
-    aco_tsp_f(&mejor.mejor_individuo, instancia_feromona, instancia_distancias, tamanio_instancia);
-
-   
-liberar_memoria_arreglo_estructura_individuo(objetivo);
-liberar_memoria_instancia(instancia_distancias, tamanio_instancia);
-liberar_memoria_instancia(instancia_feromona, tamanio_instancia);
-}
