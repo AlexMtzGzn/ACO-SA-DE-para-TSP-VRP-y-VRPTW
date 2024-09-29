@@ -154,4 +154,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
    //Declaracion de estruturas de objetivo, ruidos, prueba
    individuo * objetivo,*ruidoso,*prueba;
 
+   //Aqui vamos a declarar memoria de las estrcuturas
+   
+
 }
