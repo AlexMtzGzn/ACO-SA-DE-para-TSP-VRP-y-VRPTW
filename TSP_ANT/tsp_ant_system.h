@@ -9,8 +9,9 @@ typedef struct
     int *tabu;
     int *ruta;
 
-}hormiga;
+} hormiga;
 
-void tsp_ant_system(individuo * ind,double ** instancia_feromonas, double ** instancia_distancias, int tamanio_instancia);
+void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia);
+void tsp_ant_system(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia);
 
 #endif // TSP_ANT_SYSTEM_H
