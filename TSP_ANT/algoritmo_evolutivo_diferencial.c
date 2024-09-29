@@ -108,6 +108,7 @@ void inicializaPoblacion(individuo *objetivo, int poblacion)
       objetivo[i].rho = generaAleatorio(0.0, 1.0);
       objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
       objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
+      objetivo[i].ruta = NULL;
    }
 }
 
