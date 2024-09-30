@@ -184,7 +184,40 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
       for (int j = 0; j < poblacion; ++j)
       {
          evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+         // Podemos imprimir el objetivo n
+         /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
+                objetivo[j].alpha,
+                objetivo[j].beta,
+                objetivo[j].rho,
+                objetivo[j].numHormigas,
+                objetivo[j].numIteraciones,
+                objetivo[j].fitness);
+         printf("Ruta : ");
+         for (int k = 0; k <= tamanio_instancia; k++)
+         {
+            if (k < tamanio_instancia)
+               printf("%d -> ", objetivo[j].ruta[k]);
+            else
+               printf("%d\n", objetivo[j].ruta[k]);
+         }*/
          evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+
+         // Podemos imprimir la prueba n
+         /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
+                prueba[j].alpha,
+                prueba[j].beta,
+                prueba[j].rho,
+                prueba[j].numHormigas,
+                prueba[j].numIteraciones,
+                prueba[j].fitness);
+         printf("Ruta : ");
+         for (int k = 0; k <= tamanio_instancia; k++)
+         {
+            if (k < tamanio_instancia)
+               printf("%d -> ", prueba[j].ruta[k]);
+            else
+               printf("%d\n", prueba[j].ruta[k]);
+         }*/
       }
 
       seleccion(objetivo, prueba, poblacion);
