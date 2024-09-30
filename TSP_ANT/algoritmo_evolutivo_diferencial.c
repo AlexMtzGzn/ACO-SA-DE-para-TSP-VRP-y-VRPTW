@@ -168,7 +168,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
       seleccion(objetivo, prueba, poblacion);
 
       // Evaluar en la última generación
-      /*if (i == generaciones - 1)
+      if (i == generaciones - 1)
       {
          for (int j = 0; j < poblacion; ++j)
          {
@@ -186,7 +186,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
             }
             
          }
-      }*/
+      }
    }
 
    // Seleccionar el mejor individuo de la última generación
@@ -200,7 +200,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
    }
 
    // Imprimir el mejor individuo de la última generación
-   printf("Mejor Individuo:\n");
+   printf("\n\nMejor Individuo:\n");
    printf("Alpha: %f, Beta: %f, Rho: %f, Hormigas: %d, Iteraciones: %d, Fitness: %f\n",
           objetivo[indice_mejor].alpha,
           objetivo[indice_mejor].beta,

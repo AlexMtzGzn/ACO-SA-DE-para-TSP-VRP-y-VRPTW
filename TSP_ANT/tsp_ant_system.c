@@ -5,29 +5,38 @@
 #include "tsp_ant_system.h"
 #include "algoritmo_evolutivo_diferencial.h"
 
-void calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio_instancia)
+double calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio_instancia)
 {
-    hor->fitness = 0.0;
+    double fitness = 0.0;
     for (int i = 0; i < tamanio_instancia - 1; i++)
-        hor->fitness += instancia_distancias[hor->ruta[i]][hor->ruta[i + 1]];
-    hor->fitness += instancia_distancias[hor->ruta[tamanio_instancia - 1]][hor->ruta[0]];
+    {
+        fitness += instancia_distancias[hor->ruta[i]][hor->ruta[i + 1]];
+    }
+    // Incluye el regreso al punto inicial
+    fitness += instancia_distancias[hor->ruta[tamanio_instancia - 1]][hor->ruta[0]];
+
+    return fitness;
 }
 
 void actualizar_feromona(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, int tamanio_instancia)
 {
     for (int i = 0; i < ind->numHormigas; i++)
     {
-        calcular_fitness(&hor[i], instancia_distancias, tamanio_instancia);
-        double delta = 1.0 / hor->fitness;
+        double delta = 1.0 / hor[i].fitness;
 
+        // Si es una ruta cerrada
         for (int j = 0; j < tamanio_instancia - 1; j++)
-            instancia_feromona[hor->ruta[j]][hor->ruta[j + 1]] += delta;
+            instancia_feromona[hor[i].ruta[j]][hor[i].ruta[j + 1]] += delta;
 
-        for (int j = 0; j < tamanio_instancia; j++)
-        {
-            for (int k = 0; k < tamanio_instancia; k++)
-                instancia_feromona[j][k] *= (1.0 - ind->rho);
-        }
+        // Añadir la feromona de vuelta al inicio (si es cerrado)
+        instancia_feromona[hor[i].ruta[tamanio_instancia - 1]][hor[i].ruta[0]] += delta;
+    }
+
+    // Evaporación de feromonas
+    for (int j = 0; j < tamanio_instancia; j++)
+    {
+        for (int k = 0; k < tamanio_instancia; k++)
+            instancia_feromona[j][k] *= (1.0 - ind->rho);
     }
 }
 
@@ -109,11 +118,13 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
     for (int i = 0; i < ind->numIteraciones; i++)
     {
 
+        printf("\nIteracion %d\n",i);
+
         for (int j = 0; j < ind->numHormigas; j++)
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
-            calcular_fitness(&hor[j], instancia_distancias, tamanio_instancia);
-
+            hor[j].fitness = calcular_fitness(&hor[j],instancia_distancias,tamanio_instancia);
+            printf("\n%.2lf\n",hor[j].fitness);
             if (hor[j].fitness < mejor_fitness_iteracion)
             {
                 mejor_fitness_iteracion = hor[j].fitness;
