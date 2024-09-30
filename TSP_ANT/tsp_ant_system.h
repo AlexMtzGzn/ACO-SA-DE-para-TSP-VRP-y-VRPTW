@@ -9,6 +9,7 @@ typedef struct
     int *tabu;
     int *ruta;
 
+
 } hormiga;
 
 void calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio_instancia);
