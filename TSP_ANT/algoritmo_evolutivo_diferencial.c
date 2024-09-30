@@ -19,7 +19,7 @@ void evaluaFO(individuo *ind, double **instancia_feromonas, double **instancia_d
 {
    inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
 
-   //Podemos imprimir matriz de Feromonas
+   // Podemos imprimir matriz de Feromonas
    /*printf("\n\n Instancia de Feromonas\n");
    for(int i = 0; i< tamanio_instancia; i++){
       for (int j = 0; j < tamanio_instancia; j++)
@@ -155,7 +155,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
 
-   //Podemos imprimir matriz de distancias
+   // Podemos imprimir matriz de distancias
    /*printf("\n\n Instancia de Distancias\n");
    for(int i = 0; i< tamanio_instancia; i++){
       for (int j = 0; j < tamanio_instancia; j++)
@@ -166,6 +166,15 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
    }*/
 
    inicializaPoblacion(objetivo, poblacion, tamanio_instancia);
+   // Podemos imprimir el objetivo n
+   /*printf("\nPoblacion Inicial");
+   for(int i = 0; i < poblacion; i++)
+      printf("\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d\n",
+          objetivo[i].alpha,
+          objetivo[i].beta,
+          objetivo[i].rho,
+          objetivo[i].numHormigas,
+          objetivo[i].numIteraciones);*/
 
    for (int i = 0; i < generaciones; i++)
    {
@@ -182,12 +191,13 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
       if (i == generaciones - 1)
       {
-         //Imprime todos los individuos de la ultima generacion
-         //printf("\n\nUltima Generacion De La Poblacion:");
+         // Imprime todos los individuos de la ultima generacion
+         // printf("\n\nUltima Generacion De La Poblacion:");
          for (int j = 0; j < poblacion; ++j)
          {
             evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-            /*printf("\n\nAlpha: %f, Beta: %f, Rho: %f, Hormigas: %d, Iteraciones: %d, Fitness: %f\n",
+            // Podemos imprimir el objetivo n
+            /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
                    objetivo[j].alpha,
                    objetivo[j].beta,
                    objetivo[j].rho,
@@ -215,13 +225,13 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
       }
    }
 
-   //Podemos imprimir las mejores soluciones
+   // Podemos imprimir las mejores soluciones
    /*printf("\n\nLas Mejores Soluciones De La Ultima Generacion");
    for (int i = 0; i < poblacion; i++)
    {
       if (objetivo[indice_mejor].fitness == objetivo[i].fitness)
       {
-         printf("\n\nAlpha: %f, Beta: %f, Rho: %f, Hormigas: %d, Iteraciones: %d, Fitness: %f\n",
+         printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
                 objetivo[i].alpha,
                 objetivo[i].beta,
                 objetivo[i].rho,
@@ -247,7 +257,9 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
    free(instancia_distancias);
    free(instancia_feromonas);
    for (int i = 0; i < poblacion; i++)
+   {
       free(objetivo[i].ruta);
+   }
    free(objetivo);
    free(ruidoso);
    free(prueba);
