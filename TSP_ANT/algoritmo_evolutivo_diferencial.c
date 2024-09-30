@@ -18,6 +18,17 @@ void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_i
 void evaluaFO(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
 {
    inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
+
+   //Podemos imprimir matriz de Feromonas
+   /*printf("\n\n Instancia de Feromonas\n");
+   for(int i = 0; i< tamanio_instancia; i++){
+      for (int j = 0; j < tamanio_instancia; j++)
+      {
+         printf(" %.2lf ",instancia_feromonas[i][j]);
+      }
+      printf("\n");
+   }*/
+
    tsp_ant_system(ind, instancia_feromonas, instancia_distancias, tamanio_instancia);
 }
 
@@ -144,6 +155,16 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
 
+   //Podemos imprimir matriz de distancias
+   /*printf("\n\n Instancia de Distancias\n");
+   for(int i = 0; i< tamanio_instancia; i++){
+      for (int j = 0; j < tamanio_instancia; j++)
+      {
+         printf(" %.2lf ",instancia_distancias[i][j]);
+      }
+      printf("\n");
+   }*/
+
    inicializaPoblacion(objetivo, poblacion, tamanio_instancia);
 
    for (int i = 0; i < generaciones; i++)
@@ -161,20 +182,26 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
       if (i == generaciones - 1)
       {
+         //Imprime todos los individuos de la ultima generacion
+         //printf("\n\nUltima Generacion De La Poblacion:");
          for (int j = 0; j < poblacion; ++j)
          {
             evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-            printf("\n\nAlpha: %f, Beta: %f, Rho: %f, Hormigas: %d, Iteraciones: %d, Fitness: %f\n",
+            /*printf("\n\nAlpha: %f, Beta: %f, Rho: %f, Hormigas: %d, Iteraciones: %d, Fitness: %f\n",
                    objetivo[j].alpha,
                    objetivo[j].beta,
                    objetivo[j].rho,
                    objetivo[j].numHormigas,
                    objetivo[j].numIteraciones,
                    objetivo[j].fitness);
+            printf("Ruta : ");
             for (int k = 0; k <= tamanio_instancia; k++)
             {
-               printf("%d -> ", objetivo[j].ruta[k]);
-            }
+               if (k < tamanio_instancia)
+                  printf("%d -> ", objetivo[j].ruta[k]);
+               else
+                  printf("%d\n", objetivo[j].ruta[k]);
+            }*/
          }
       }
    }
@@ -188,7 +215,8 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
       }
    }
 
-   printf("\n\n\n");
+   //Podemos imprimir las mejores soluciones
+   /*printf("\n\nLas Mejores Soluciones De La Ultima Generacion");
    for (int i = 0; i < poblacion; i++)
    {
       if (objetivo[indice_mejor].fitness == objetivo[i].fitness)
@@ -200,12 +228,16 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
                 objetivo[i].numHormigas,
                 objetivo[i].numIteraciones,
                 objetivo[i].fitness);
+         printf("Ruta : ");
          for (int j = 0; j <= tamanio_instancia; j++)
          {
-            printf("%d -> ", objetivo[i].ruta[j]);
+            if (j < tamanio_instancia)
+                  printf("%d -> ", objetivo[i].ruta[j]);
+               else
+                  printf("%d\n", objetivo[i].ruta[j]);
          }
       }
-   }
+   }*/
 
    for (int i = 0; i < tamanio_instancia; i++)
    {
