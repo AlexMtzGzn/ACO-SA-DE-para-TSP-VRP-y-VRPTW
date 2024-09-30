@@ -12,7 +12,7 @@ double calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio
     {
         fitness += instancia_distancias[hor->ruta[i]][hor->ruta[i + 1]];
     }
-    // Incluye el regreso al punto inicial
+
     fitness += instancia_distancias[hor->ruta[tamanio_instancia - 1]][hor->ruta[0]];
 
     return fitness;
@@ -24,15 +24,12 @@ void actualizar_feromona(hormiga *hor, individuo *ind, double **instancia_distan
     {
         double delta = 1.0 / hor[i].fitness;
 
-        // Si es una ruta cerrada
         for (int j = 0; j < tamanio_instancia - 1; j++)
             instancia_feromona[hor[i].ruta[j]][hor[i].ruta[j + 1]] += delta;
 
-        // Añadir la feromona de vuelta al inicio (si es cerrado)
         instancia_feromona[hor[i].ruta[tamanio_instancia - 1]][hor[i].ruta[0]] += delta;
     }
 
-    // Evaporación de feromonas
     for (int j = 0; j < tamanio_instancia; j++)
     {
         for (int k = 0; k < tamanio_instancia; k++)

@@ -128,11 +128,9 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
    individuo *objetivo, *ruidoso, *prueba;
 
-
    objetivo = (individuo *)malloc(sizeof(individuo) * poblacion);
    ruidoso = (individuo *)malloc(sizeof(individuo) * poblacion);
    prueba = (individuo *)malloc(sizeof(individuo) * poblacion);
-
 
    double **instancia_distancias, **instancia_feromonas;
 
@@ -144,9 +142,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
       instancia_feromonas[i] = (double *)malloc(tamanio_instancia * sizeof(double));
    }
 
-
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
-
 
    inicializaPoblacion(objetivo, poblacion, tamanio_instancia);
 
@@ -179,7 +175,6 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
             {
                printf("%d -> ", objetivo[j].ruta[k]);
             }
-            
          }
       }
    }
@@ -193,14 +188,24 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
       }
    }
 
-   printf("\n\nMejor Individuo:\n");
-   printf("Alpha: %f, Beta: %f, Rho: %f, Hormigas: %d, Iteraciones: %d, Fitness: %f\n",
-          objetivo[indice_mejor].alpha,
-          objetivo[indice_mejor].beta,
-          objetivo[indice_mejor].rho,
-          objetivo[indice_mejor].numHormigas,
-          objetivo[indice_mejor].numIteraciones,
-          objetivo[indice_mejor].fitness);
+   printf("\n\n\n");
+   for (int i = 0; i < poblacion; i++)
+   {
+      if (objetivo[indice_mejor].fitness == objetivo[i].fitness)
+      {
+         printf("\n\nAlpha: %f, Beta: %f, Rho: %f, Hormigas: %d, Iteraciones: %d, Fitness: %f\n",
+                objetivo[i].alpha,
+                objetivo[i].beta,
+                objetivo[i].rho,
+                objetivo[i].numHormigas,
+                objetivo[i].numIteraciones,
+                objetivo[i].fitness);
+         for (int j = 0; j <= tamanio_instancia; j++)
+         {
+            printf("%d -> ", objetivo[i].ruta[j]);
+         }
+      }
+   }
 
    for (int i = 0; i < tamanio_instancia; i++)
    {
@@ -209,6 +214,8 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
    }
    free(instancia_distancias);
    free(instancia_feromonas);
+   for (int i = 0; i < poblacion; i++)
+      free(objetivo[i].ruta);
    free(objetivo);
    free(ruidoso);
    free(prueba);
