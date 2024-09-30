@@ -118,23 +118,23 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
     for (int i = 0; i < ind->numIteraciones; i++)
     {
 
-        printf("\nIteracion %d\n",i);
+        //printf("\nIteracion %d\n",i);
 
         for (int j = 0; j < ind->numHormigas; j++)
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
             hor[j].fitness = calcular_fitness(&hor[j],instancia_distancias,tamanio_instancia);
-            printf("\n%.2lf\n",hor[j].fitness);
-            if (hor[j].fitness < mejor_fitness_iteracion)
+            //printf("\n%.2lf\n",hor[j].fitness);
+            if(i == ind->numIteraciones-1 && hor[j].fitness < mejor_fitness_iteracion)
             {
                 mejor_fitness_iteracion = hor[j].fitness;
                 indice_mejor_hormiga = j;
             }
 
-            printf("Hormiga %d: ", j);
+            /*printf("Hormiga %d: ", j);
             for (int k = 0; k <= tamanio_instancia; k++)
                 printf("%d -> ", hor[j].ruta[k]);
-            printf("fitness: %.2f\n", hor[j].fitness);
+            printf("fitness: %.2f\n", hor[j].fitness);*/
         }
 
         actualizar_feromona(hor, ind, instancia_distancias, instancia_feromona, tamanio_instancia);
