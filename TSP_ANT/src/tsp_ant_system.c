@@ -115,14 +115,14 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
     for (int i = 0; i < ind->numIteraciones; i++)
     {
 
-        //printf("\nIteracion %d\n",i);
+        // printf("\nIteracion %d\n",i);
 
         for (int j = 0; j < ind->numHormigas; j++)
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
-            hor[j].fitness = calcular_fitness(&hor[j],instancia_distancias,tamanio_instancia);
-            //printf("\n%.2lf\n",hor[j].fitness);
-            if(i == ind->numIteraciones-1 && hor[j].fitness < mejor_fitness_iteracion)
+            hor[j].fitness = calcular_fitness(&hor[j], instancia_distancias, tamanio_instancia);
+            // printf("\n%.2lf\n",hor[j].fitness);
+            if (i == ind->numIteraciones - 1 && hor[j].fitness < mejor_fitness_iteracion)
             {
                 mejor_fitness_iteracion = hor[j].fitness;
                 indice_mejor_hormiga = j;
@@ -161,24 +161,16 @@ void tsp_ant_system(individuo *ind, double **instancia_feromonas, double **insta
     ind->ruta = (int *)malloc(sizeof(int) * (tamanio_instancia + 1));
     double **instancia_visibilidad = (double **)malloc(tamanio_instancia * sizeof(double *));
     for (int i = 0; i < tamanio_instancia; i++)
-    {
         instancia_visibilidad[i] = (double *)malloc(tamanio_instancia * sizeof(double));
-    }
 
     for (int i = 0; i < tamanio_instancia; i++)
-    {
         for (int j = 0; j < tamanio_instancia; j++)
         {
             if (i != j)
-            {
                 instancia_visibilidad[i][j] = 1.0 / instancia_distancias[i][j];
-            }
             else
-            {
                 instancia_visibilidad[i][j] = 0.0;
-            }
         }
-    }
 
     inializacionHormiga(hor, ind, tamanio_instancia);
     ant_system(hor, ind, instancia_distancias, instancia_feromonas, instancia_visibilidad, tamanio_instancia);
