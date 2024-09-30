@@ -115,23 +115,26 @@ void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, dou
     for (int i = 0; i < ind->numIteraciones; i++)
     {
 
-        // printf("\nIteracion %d\n",i);
-
         for (int j = 0; j < ind->numHormigas; j++)
         {
             ruta_hormiga(&hor[j], ind, instancia_distancias, instancia_feromona, instancia_visibilidad, tamanio_instancia);
             hor[j].fitness = calcular_fitness(&hor[j], instancia_distancias, tamanio_instancia);
-            // printf("\n%.2lf\n",hor[j].fitness);
             if (i == ind->numIteraciones - 1 && hor[j].fitness < mejor_fitness_iteracion)
             {
                 mejor_fitness_iteracion = hor[j].fitness;
                 indice_mejor_hormiga = j;
             }
-
-            /*printf("Hormiga %d: ", j);
+            // Podemos imprimir la hormiga
+            /*printf("\nHormiga %d Iteracion %d : ", j, i);
+            printf("Ruta : ");
             for (int k = 0; k <= tamanio_instancia; k++)
-                printf("%d -> ", hor[j].ruta[k]);
-            printf("fitness: %.2f\n", hor[j].fitness);*/
+            {
+                if (k < tamanio_instancia)
+                    printf("%d -> ", hor[j].ruta[k]);
+                else
+                    printf("%d\n", hor[j].ruta[k]);
+            }
+            printf("fitness: %.2lf\n", hor[j].fitness);*/
         }
 
         actualizar_feromona(hor, ind, instancia_distancias, instancia_feromona, tamanio_instancia);
@@ -171,6 +174,16 @@ void tsp_ant_system(individuo *ind, double **instancia_feromonas, double **insta
             else
                 instancia_visibilidad[i][j] = 0.0;
         }
+
+    // Podemos imprimir matriz de Visibilidad
+    /*printf("\n\n Instancia de Visibilidad\n");
+    for(int i = 0; i< tamanio_instancia; i++){
+       for (int j = 0; j < tamanio_instancia; j++)
+       {
+          printf(" %.2lf ",instancia_visibilidad[i][j]);
+       }
+       printf("\n");
+    }*/
 
     inializacionHormiga(hor, ind, tamanio_instancia);
     ant_system(hor, ind, instancia_distancias, instancia_feromonas, instancia_visibilidad, tamanio_instancia);
