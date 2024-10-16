@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  16 OCT 2024 17:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  16 OCT 2024 17:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -329,7 +329,10 @@ Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count314
 \l__pdf_internal_box=\box58
-) (./main.aux)
+) (./main.aux
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
@@ -404,21 +407,25 @@ Non-PDF special ignored!
 <special> ps:tx@Dict begin  gsave STV CP T /ps@rot 0 def grestore  end
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
-]
-No file main.toc.
+] (./main.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
-[1
+ [1
 
 ] [2
 
-]
-No file main.lof.
+] (./main.lof
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@lof=\write4
 \openout4 = `main.lof'.
 
-[3] [4
+ [3] [4
 
 ]
 Cap\'{\i }tulo 1.
@@ -455,143 +462,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Cap\'{\i }tulo 3.
 [5]
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:227: Missing $ inserted.
-<inserted text> 
-                $
-l.227 ...roducci√≥n a la Complejidad Algor√≠tmica}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:227: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.227 ...roducci√≥n a la Complejidad Algor√≠tmica}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 227.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:227: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.227 ...roducci√≥n a la Complejidad Algor√≠tmica}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:227: Missing $ inserted.
-<inserted text> 
-                $
-l.227 ...roducci√≥n a la Complejidad Algor√≠tmica}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:227: Missing } inserted.
-<inserted text> 
-                }
-l.227 ...roducci√≥n a la Complejidad Algor√≠tmica}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:229: Missing $ inserted.
-<inserted text> 
-                $
-l.229 En computaci√≥
-                    n, un algoritmo es un procedimiento que resuelve un prob...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:229: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.229 En computaci√≥
-                    n, un algoritmo es un procedimiento que resuelve un prob...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 229.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:229: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.229 ...a salida a partir de una entrada en un n√
-                                                  ∫mero finito de pasos. La ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textordmasculine invalid in math mode on input line 229.
-
-
-LaTeX Warning: Command \textordmasculine invalid in math mode on input line 229.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 229.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:229: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.229 ...s. La complejidad y el tiempo de ejecuci√
-                                                  ≥n de un algoritmo se dete...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 229.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:229: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.229 ...otamiento mediante un polinomio en funci√
-                                                  ≥n del tama√±o de entrada,...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 229.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:229: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.229 ...diante un polinomio en funci√≥n del tama√
-                                                  ±o de entrada, lo cual nos...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:230: Missing $ inserted.
-<inserted text> 
-                $
-l.230 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-Missing character: There is no ∫ in font cmr12!
-
-Overfull \hbox (1090.23982pt too wide) in paragraph at lines 229--230
-[]\OT1/cmr/m/n/12 En compu-taci[]A$[]\OML/cmm/m/it/12 n; unalgoritmoesunprocedimientoqueresuelveunproblemapasoapaso; generandounasalidaapartirdeunaentradaenunn[]merofinitodepasos:Lacomplejidadyeltiempodeejecuci[][]ndeunalgoritmosedeterminanporsuacotamientomedianteunpolinomioenfunci[][]ndeltama[] \OMS/cmsy/m/n/12 ^^F
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 231.
-LaTeX Info: Redefining \% on input line 231.
+LaTeX Info: Redefining \. on input line 228.
+LaTeX Info: Redefining \% on input line 228.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -601,301 +473,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [6]
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:231: Missing $ inserted.
-<inserted text> 
-                $
-l.231 ...tras que NP abarca aquellos cuya soluci√≥
-                                                  n puede verificarse r√°pid...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+LaTeX Info: Redefining \. on input line 248.
+LaTeX Info: Redefining \% on input line 248.
 
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:231: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.231 ...tras que NP abarca aquellos cuya soluci√≥
-                                                  n puede verificarse r√°pid...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 231.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:231: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.231 ...ellos cuya soluci√≥n puede verificarse r√
-                                                  °pidamente. Las clases NP-...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 231.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 231.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:231: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.231 ...damente. Las clases NP-completo y NP-dif√
-                                                  ≠cil incluyen problemas de...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 231.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:231: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.231 ...no de estos de manera eficiente implicar√
-                                                  ≠a la resoluci√≥n eficient...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 231.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:231: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.231 ...manera eficiente implicar√≠a la resoluci√
-                                                  ≥n eficiente de cualquier ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 231.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:231: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.231 ...os lleva al problema fundamental en teor√
-                                                  ≠a de la computaci√≥n: P v...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 231.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:231: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.231 ...a fundamental en teor√≠a de la computaci√
-                                                  ≥n: P vs NP.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:232: Missing $ inserted.
-<inserted text> 
-                $
-l.232 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (148.44522pt too wide) in paragraph at lines 231--232
-\OT1/cmr/m/n/12 efi-cien-te, mien-tras que NP abar-ca aque-llos cu-ya so-lu-ci[]A$[]\OML/cmm/m/it/12 npuedeverificarser[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 pidamente:LasclasesNP \OMS/cmsy/m/n/12 ^^@
- []
-
-
-Overfull \hbox (201.38676pt too wide) in paragraph at lines 231--232
-\OML/cmm/m/it/12 completoyNP \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 dif[]\OT1/cmr/m/n/12 -\OML/cmm/m/it/12 cilincluyenproblemasdemayorcomplejidad\OT1/cmr/m/n/12 ; \OML/cmm/m/it/12 resolverunodeestosdemaneraeficienteimplicar[]\OT1/cmr/m/n/12 -
- []
-
-
-Overfull \hbox (121.04471pt too wide) in paragraph at lines 231--232
-\OML/cmm/m/it/12 alaresoluci[][]neficientedecualquierproblemaenNP:Estonosllevaalproblemafundamentalenteor[]\OT1/cmr/m/n/12 -
- []
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:235: Missing $ inserted.
-<inserted text> 
-                $
-l.235 ...s principalmente en problemas de decisi√≥
-                                                  n, aquellos donde la respu...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:235: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.235 ...s principalmente en problemas de decisi√≥
-                                                  n, aquellos donde la respu...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 235.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:235: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.235 ...ellos donde la respuesta es un simple "s√
-                                                  ≠" o "no". La clase P est√...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 235.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:235: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.235 ...s un simple "s√≠" o "no". La clase P est√
-                                                  ° compuesta por problemas ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 235.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 235.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:235: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.235 ... algoritmo que, dado un problema de tama√
-                                                  ±o $n$, puede resolverlo e...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:236: Missing $ inserted.
-<inserted text> 
-                $
-l.236 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (715.70877pt too wide) in paragraph at lines 235--236
-\OT1/cmr/m/n/12 de de-ci-si[]A$[]\OML/cmm/m/it/12 n; aquellosdondelarespuestaesunsimple\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 s[]\OT1/cmr/m/n/12 -"\OML/cmm/m/it/12 o\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 no\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 :LaclasePest[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 compuestaporproblemasquepuedenserresueltosentiempopolinomial:Estosignificaqueexisteunalgoritmoque; dadounproblemadetama[] \OMS/cmsy/m/n/12 ^^F
- []
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:237: Missing $ inserted.
-<inserted text> 
-                $
-l.237 ...Algoritmo de Ordenamiento por Selecci√≥n}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:237: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.237 ...Algoritmo de Ordenamiento por Selecci√≥n}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:237: Missing $ inserted.
-<inserted text> 
-                $
-l.237 ...Algoritmo de Ordenamiento por Selecci√≥n}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:237: Missing } inserted.
-<inserted text> 
-                }
-l.237 ...Algoritmo de Ordenamiento por Selecci√≥n}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:239: Missing $ inserted.
-<inserted text> 
-                $
-l.239 El algoritmo de ordenamiento por selecci√≥
-                                                n es un m√©todo simple pero ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:239: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.239 El algoritmo de ordenamiento por selecci√≥
-                                                n es un m√©todo simple pero ...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 239.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:239: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.239 ...o de ordenamiento por selecci√≥n es un m√
-                                                  ©todo simple pero ineficie...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 239.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:239: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.239 ...nar una lista de elementos. A continuaci√
-                                                  ≥n, se presenta una explic...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 239.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:239: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.239 ...continuaci√≥n, se presenta una explicaci√
-                                                  ≥n detallada del algoritmo...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 239.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:239: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.239 ...u funcionamiento, complejidad y caracter√
-                                                  ≠sticas.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:240: Missing $ inserted.
-<inserted text> 
-                $
-l.240 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (787.37477pt too wide) in paragraph at lines 239--240
-[]\OT1/cmr/m/n/12 El al-go-rit-mo de or-de-na-mien-to por se-lec-ci[]A$[]\OML/cmm/m/it/12 nesunm[][]todosimpleperoineficienteparaordenarunalistadeelementos:Acontinuaci[][]n; sepresentaunaexplicaci[][]ndetalladadelalgoritmo; sufuncionamiento; complejidadycaracter[]\OT1/cmr/m/n/12 -
- []
-
-LaTeX Info: Redefining \. on input line 249.
-LaTeX Info: Redefining \% on input line 249.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -904,371 +484,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [7]
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:260: Missing $ inserted.
-<inserted text> 
-                $
-l.260     \item √öltima pasada: 1 comparaci√≥
-                                             n
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+LaTeX Info: Redefining \. on input line 270.
+LaTeX Info: Redefining \% on input line 270.
 
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:260: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.260     \item √öltima pasada: 1 comparaci√≥
-                                             n
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:261: LaTeX Error: Command \end{itemize} invalid in math mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.261 \end{itemize}
-                   
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:261: LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.261 \end{itemize}
-                   
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:261: LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.261 \end{itemize}
-                   
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:261: Missing $ inserted.
-<inserted text> 
-                $
-l.261 \end{itemize}
-                   
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:261: Missing } inserted.
-<inserted text> 
-                }
-l.261 \end{itemize}
-                   
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:264: Missing $ inserted.
-<inserted text> 
-                $
-l.264 El algoritmo de ordenamiento por selecci√≥
-                                                n, aunque simple de entender...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:264: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.264 El algoritmo de ordenamiento por selecci√≥
-                                                n, aunque simple de entender...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 264.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:264: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.264 ...as grandes debido a su complejidad cuadr√
-                                                  °tica. Sin embargo, puede ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 264.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 264.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:264: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.264 ...dad cuadr√°tica. Sin embargo, puede ser √
-                                                  ∫til en ciertos escenarios...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textordmasculine invalid in math mode on input line 264.
-
-
-LaTeX Warning: Command \textordmasculine invalid in math mode on input line 264.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 264.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:264: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.264 ...ivamente mayor que el costo de comparaci√
-                                                  ≥n, o cuando se trabaja co...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 264.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:264: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.264 ...≥n, o cuando se trabaja con listas peque√
-                                                  ±as donde la simplicidad d...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 264.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:264: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.264 ...la simplicidad del algoritmo puede ser m√
-                                                  °s importante que su efici...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 264.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:265: Missing $ inserted.
-<inserted text> 
-                $
-l.265 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-Missing character: There is no ∫ in font cmr12!
-
-Overfull \hbox (1291.73726pt too wide) in paragraph at lines 264--265
-[]\OT1/cmr/m/n/12 El al-go-rit-mo de or-de-na-mien-to por se-lec-ci[]A$[]\OML/cmm/m/it/12 n; aunquesimpledeentendereimplementar; noeseficienteparalistasgrandesdebidoasucomplejidadcuadr[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 tica:Sinembargo; puedeser[]tilenciertosescenarios; comocuandoelcostodeintercambioessignificativamentemayorqueelcostodecomparaci[][]n; ocuandosetrabajaconlistaspeque[] \OMS/cmsy/m/n/12 ^^F
- []
-
-
-Overfull \hbox (12.08296pt too wide) in paragraph at lines 264--265
-\OML/cmm/m/it/12 asdondelasimplicidaddelalgoritmopuedeserm[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 simportantequesueficiencia:$ 
- []
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:268: Missing $ inserted.
-<inserted text> 
-                $
-l.268 ...se NP abarca problemas donde una soluci√≥
-                                                  n afirmativa ("s√≠") puede...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:268: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.268 ...se NP abarca problemas donde una soluci√≥
-                                                  n afirmativa ("s√≠") puede...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 268.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:268: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.268 ...lemas donde una soluci√≥n afirmativa ("s√
-                                                  ≠") puede ser verificada e...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:269: Missing $ inserted.
-<inserted text> 
-                $
-l.269 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (1017.03668pt too wide) in paragraph at lines 268--269
-[]\OT1/cmr/m/n/12 La cla-se NP abar-ca pro-ble-mas don-de una so-lu-ci[]A$[]\OML/cmm/m/it/12 nafirmativa\OT1/cmr/m/n/12 ("\OML/cmm/m/it/12 s[]\OT1/cmr/m/n/12 -")\OML/cmm/m/it/12 puedeserverificadaentiempopolinomial:Enestosproblemas; existeuntestigoocertificadoquesirvecomopruebadelavalidezdelarespuesta; yunalgoritmoverificadorquepuedevalidarestetestigoeficientemente:$ 
- []
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:270: Missing $ inserted.
-<inserted text> 
-                $
-l.270 ...suma sea $S$. Para verificar una soluci√≥
-                                                  n afirmativa, bastar√≠a co...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:270: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.270 ...suma sea $S$. Para verificar una soluci√≥
-                                                  n afirmativa, bastar√≠a co...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 270.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:270: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.270 ...rificar una soluci√≥n afirmativa, bastar√
-                                                  ≠a con que nos dieran el s...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 270.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:270: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.270 ... que nos dieran el subconjunto en cuesti√
-                                                  ≥n, y en tiempo lineal pod...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 270.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:270: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.270 ...to en cuesti√≥n, y en tiempo lineal podr√
-                                                  ≠amos sumar sus elementos ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:271: Missing $ inserted.
-<inserted text> 
-                $
-l.271 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (188.35529pt too wide) in paragraph at lines 270--271
-\OT1/cmr/m/n/12 ve-ri-fi-car una so-lu-ci[]A$[]\OML/cmm/m/it/12 nafirmativa; bastar[]\OT1/cmr/m/n/12 -\OML/cmm/m/it/12 aconquenosdieranelsubconjuntoencuesti[][]n; yentiempolinealpodr[]\OT1/cmr/m/n/12 -
- []
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:272: Missing $ inserted.
-<inserted text> 
-                $
-l.272 ...namos, pero con una importante distinci√≥
-                                                  n: aunque podemos verifica...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:272: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.272 ...namos, pero con una importante distinci√≥
-                                                  n: aunque podemos verifica...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 272.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:272: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.272 ...no necesariamente podemos encontrarlas r√
-                                                  °pidamente. De hecho, uno ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 272.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 272.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:272: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.272 ...uno de los grandes interrogantes en teor√
-                                                  ≠a de la complejidad es si...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 272.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:272: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.272 ...dos los problemas en NP pueden ser tambi√
-                                                  ©n resueltos en tiempo pol...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:273: Missing $ inserted.
-<inserted text> 
-                $
-l.273 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (680.47414pt too wide) in paragraph at lines 272--273
-\OT1/cmr/m/n/12 na-mos, pe-ro con una im-por-tan-te dis-tin-ci[]A$[]\OML/cmm/m/it/12 n \OT1/cmr/m/n/12 : \OML/cmm/m/it/12 aunquepodemosverificarsolucionesentiempopolinomial; nonecesariamentepodemosencontrarlasr[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 pidamente:Dehecho; unodelosgrandesinterrogantesenteor[]\OT1/cmr/m/n/12 -
- []
-
-
-Overfull \hbox (117.12808pt too wide) in paragraph at lines 272--273
-\OML/cmm/m/it/12 adelacomplejidadessitodoslosproblemasenNPpuedensertambi[][]nresueltosentiempopolinomial:$ 
- []
-
-LaTeX Info: Redefining \. on input line 278.
-LaTeX Info: Redefining \% on input line 278.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1277,242 +495,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [8]
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:281: Missing $ inserted.
-<inserted text> 
-                $
-l.281 ...riz de distancias $(d_{ij})$ de dimensi√≥
-                                                  n $n \times n$, donde $d_{...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+LaTeX Info: Redefining \. on input line 299.
+LaTeX Info: Redefining \% on input line 299.
 
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:281: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.281 ...riz de distancias $(d_{ij})$ de dimensi√≥
-                                                  n $n \times n$, donde $d_{...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:281: Missing $ inserted.
-<inserted text> 
-                $
-l.281 ...ancias $(d_{ij})$ de dimensi√≥n $n \times
-                                                   n$, donde $d_{ij}$ es un ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:282: Missing } inserted.
-<inserted text> 
-                }
-l.282 \end{itemize}
-                   
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Missing $ inserted.
-<inserted text> 
-                $
-l.285 U
-       na permutaci√≥n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.285 U
-       na permutaci√≥n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 285.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.285 U
-       na permutaci√≥n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 285.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Extra }, or forgotten $.
-\@svsechd ...\@svsec Representaci√≥n matem√°tica:}
-                                                  \csname paragraphmark\endc...
-l.285 U
-       na permutaci√≥n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Missing $ inserted.
-<inserted text> 
-                $
-l.285 U
-       na permutaci√≥n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Missing } inserted.
-<inserted text> 
-                }
-l.285 U
-       na permutaci√≥n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Missing } inserted.
-<inserted text> 
-                }
-l.285 U
-       na permutaci√≥n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Missing $ inserted.
-<inserted text> 
-                $
-l.285 Una permutaci√≥
-                     n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.285 Una permutaci√≥
-                     n $\pi$ c√≠clica representa un recorrido, donde $\pi(j)...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:285: Missing $ inserted.
-<inserted text> 
-                $
-l.285 Una permutaci√≥n $\pi
-                           $ c√≠clica representa un recorrido, donde $\pi(j)...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:288: Missing $ inserted.
-<inserted text> 
-                $
-l.288 ...rido se calcula mediante la siguiente f√≥
-                                                  rmula:
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:288: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.288 ...rido se calcula mediante la siguiente f√≥
-                                                  rmula:
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:289: Missing $ inserted.
-<inserted text> 
-                $
-l.289 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:297: Missing $ inserted.
-<inserted text> 
-                $
-l.297 ...gue en el recorrido seg√∫n la permutaci√≥
-                                                  n $\pi$
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:297: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.297 ...gue en el recorrido seg√∫n la permutaci√≥
-                                                  n $\pi$
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:297: Missing $ inserted.
-<inserted text> 
-                $
-l.297 ... el recorrido seg√∫n la permutaci√≥n $\pi
-                                                  $
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:298: Missing } inserted.
-<inserted text> 
-                }
-l.298 \end{itemize}
-                   
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:308: Missing $ inserted.
-<inserted text> 
-                $
-l.308 ... polinomial) para resolverlo de manera √≥
-                                                  ptima para todos los casos.
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:308: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.308 ... polinomial) para resolverlo de manera √≥
-                                                  ptima para todos los casos.
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:309: Missing $ inserted.
-<inserted text> 
-                $
-l.309 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-LaTeX Info: Redefining \. on input line 309.
-LaTeX Info: Redefining \% on input line 309.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1521,380 +506,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [9]
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:310: Missing $ inserted.
-<inserted text> 
-                $
-l.310 Esta formulaci√≥
-                      n matem√°tica proporciona una base s√≥lida para el an√...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+LaTeX Info: Redefining \. on input line 313.
+LaTeX Info: Redefining \% on input line 313.
 
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:310: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.310 Esta formulaci√≥
-                      n matem√°tica proporciona una base s√≥lida para el an√...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 310.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:310: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.310 Esta formulaci√≥n matem√
-                              °tica proporciona una base s√≥lida para el an√...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 310.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 310.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:310: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.310 ...ci√≥n matem√°tica proporciona una base s√
-                                                  ≥lida para el an√°lisis y ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 310.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:310: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.310 ... proporciona una base s√≥lida para el an√
-                                                  °lisis y desarrollo de alg...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 310.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:311: Missing $ inserted.
-<inserted text> 
-                $
-l.311 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (501.99283pt too wide) in paragraph at lines 310--311
-[]\OT1/cmr/m/n/12 Esta for-mu-la-ci[]A$[]\OML/cmm/m/it/12 nmatem[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 ticaproporcionaunabases[][]lidaparaelan[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 lisisydesarrollodealgoritmosquebuscanresolveroaproximarsolucionesalProblemadelAgenteViajero:$ 
- []
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:314: Missing $ inserted.
-<inserted text> 
-                $
-l.314 ...ncial introducir el concepto de reducci√≥
-                                                  n. Una reducci√≥n entre pr...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:314: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.314 ...ncial introducir el concepto de reducci√≥
-                                                  n. Una reducci√≥n entre pr...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 314.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:314: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.314 ...r el concepto de reducci√≥n. Una reducci√
-                                                  ≥n entre problemas signifi...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 314.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:314: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.314 ...lema de manera eficiente, entonces tambi√
-                                                  ©n podemos resolver el otr...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 314.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:314: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.314 ...o. Esto es clave para entender la relaci√
-                                                  ≥n entre los problemas de ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:315: Missing $ inserted.
-<inserted text> 
-                $
-l.315 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (852.86292pt too wide) in paragraph at lines 314--315
-\OT1/cmr/m/n/12 du-cir el con-cep-to de re-duc-ci[]A$[]\OML/cmm/m/it/12 n:Unareducci[][]nentreproblemassignificaquesipodemosresolverunproblemademaneraeficiente; entoncestambi[][]npodemosresolverelotro:Estoesclaveparaentenderlarelaci[][]nentrelosproblemasdeestasclases:$ 
- []
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:316: Missing $ inserted.
-<inserted text> 
-                $
-l.316 ...ion{Definici√≥n de Reducci√≥n Polinomial}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:316: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.316 ...ion{Definici√≥n de Reducci√≥n Polinomial}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 316.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:316: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.316 ...ion{Definici√≥n de Reducci√≥n Polinomial}
-                                                  
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:316: Missing $ inserted.
-<inserted text> 
-                $
-l.316 ...ion{Definici√≥n de Reducci√≥n Polinomial}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:316: Missing } inserted.
-<inserted text> 
-                }
-l.316 ...ion{Definici√≥n de Reducci√≥n Polinomial}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:318: Missing $ inserted.
-<inserted text> 
-                $
-l.318 ...blema B, diremos que existe una reducci√≥
-                                                  n polinomial de A a B si c...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:318: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.318 ...blema B, diremos que existe una reducci√≥
-                                                  n polinomial de A a B si c...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:319: Missing $ inserted.
-<inserted text> 
-                $
-l.319 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (751.13858pt too wide) in paragraph at lines 318--319
-[]\OT1/cmr/m/n/12 Dado un pro-ble-ma A y un pro-ble-ma B, di-re-mos que exis-te una re-duc-ci[]A$[]\OML/cmm/m/it/12 npolinomialdeAaBsicualquierinstanciadeApuedesertransformadaenunainstanciadeBentiempopolinomial; demaneraqueresolverBimplicaresolverA:$ 
- []
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:322: Missing $ inserted.
-<inserted text> 
-                $
-l.322 \subsection{Conclusi√≥n}
-                              
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:322: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.322 \subsection{Conclusi√≥n}
-                              
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:322: Missing $ inserted.
-<inserted text> 
-                $
-l.322 \subsection{Conclusi√≥n}
-                              
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:322: Missing } inserted.
-<inserted text> 
-                }
-l.322 \subsection{Conclusi√≥n}
-                              
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:324: Missing $ inserted.
-<inserted text> 
-                $
-l.324 ...mportante de la teor√≠a de la computaci√≥
-                                                  n, P vs NP, sigue siendo u...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:324: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.324 ...mportante de la teor√≠a de la computaci√≥
-                                                  n, P vs NP, sigue siendo u...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \^ invalid in math mode on input line 324.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:324: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.324 ...igue siendo una pregunta sin respuesta: ¬
-                                                  øPodemos resolver todos lo...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textquestiondown invalid in math mode on input line 324.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 324.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:324: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.324 ...ientemente? Resolver esta pregunta tendr√
-                                                  ≠a implicaciones profundas...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 324.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:324: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.324 ...plicaciones profundas no solo en la teor√
-                                                  ≠a, sino en muchas √°reas ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 324.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:324: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.324 ...s no solo en la teor√≠a, sino en muchas √
-                                                  °reas pr√°cticas de la com...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 324.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 324.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:324: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.324 ... en la teor√≠a, sino en muchas √°reas pr√
-                                                  °cticas de la computaci√≥n.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \textexclamdown invalid in math mode on input line 324.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 324.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:324: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.324 ...muchas √°reas pr√°cticas de la computaci√
-                                                  ≥n.
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:325: Missing $ inserted.
-<inserted text> 
-                $
-l.325 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (84.76653pt too wide) in paragraph at lines 324--325
-\OT1/cmr/m/n/12 im-por-tan-te de la teor[]A-a de la compu-taci[]A$[]\OML/cmm/m/it/12 n; PvsNP; siguesiendounapreguntasinrespuesta \OT1/cmr/m/n/12 :
- []
-
-
-Overfull \hbox (167.61359pt too wide) in paragraph at lines 324--325
-[]\OT1/cmr/m/n/12 ?`\OML/cmm/m/it/12 Podemosresolvertodoslosproblemasquepodemosverificareficientemente\OT1/cmr/m/n/12 ?\OML/cmm/m/it/12 Resolverestapreguntatendr[]\OT1/cmr/m/n/12 -
- []
-
-
-Overfull \hbox (109.19894pt too wide) in paragraph at lines 324--325
-\OML/cmm/m/it/12 aimplicacionesprofundasnosoloenlateor[]\OT1/cmr/m/n/12 -\OML/cmm/m/it/12 a; sinoenmuchas[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 reaspr[]\OT1/cmr/m/n/12 !`\OML/cmm/m/it/12 cticasdelacomputaci[][]n:$ 
- []
-
-LaTeX Info: Redefining \. on input line 327.
-LaTeX Info: Redefining \% on input line 327.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1903,12 +517,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [10]
-Cap\'{\i }tulo 4.
-[11
+LaTeX Info: Redefining \. on input line 314.
+LaTeX Info: Redefining \% on input line 314.
 
-]
-LaTeX Info: Redefining \. on input line 330.
-LaTeX Info: Redefining \% on input line 330.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[11]
+LaTeX Info: Redefining \. on input line 314.
+LaTeX Info: Redefining \% on input line 314.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1920,10 +541,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [12
 
 ]
-Cap\'{\i }tulo 5.
+Cap\'{\i }tulo 4.
 [13]
-LaTeX Info: Redefining \. on input line 338.
-LaTeX Info: Redefining \% on input line 338.
+LaTeX Info: Redefining \. on input line 317.
+LaTeX Info: Redefining \% on input line 317.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1935,44 +556,41 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [14
 
 ]
+Cap\'{\i }tulo 5.
+[15]
+LaTeX Info: Redefining \. on input line 325.
+LaTeX Info: Redefining \% on input line 325.
 
-LaTeX Warning: Empty `thebibliography' environment on input line 341.
 
-[15] (./main.aux
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[16
+
+]
+
+LaTeX Warning: Empty `thebibliography' environment on input line 328.
+
+[17] (./main.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
-) )
-(\end occurred inside a group at level 15)
-
-### simple group (level 15) entered at line 324 ({)
-### simple group (level 14) entered at line 318 ({)
-### simple group (level 13) entered at line 314 ({)
-### simple group (level 12) entered at line 310 ({)
-### simple group (level 11) entered at line 308 ({)
-### simple group (level 10) entered at line 288 ({)
-### simple group (level 9) entered at line 285 ({)
-### simple group (level 8) entered at line 272 ({)
-### simple group (level 7) entered at line 270 ({)
-### simple group (level 6) entered at line 268 ({)
-### simple group (level 5) entered at line 264 ({)
-### simple group (level 4) entered at line 239 ({)
-### simple group (level 3) entered at line 235 ({)
-### simple group (level 2) entered at line 231 ({)
-### simple group (level 1) entered at line 229 ({)
-### bottom level 
+) ) 
 Here is how much of TeX's memory you used:
- 12626 strings out of 476091
- 219815 string characters out of 5794080
- 1860330 words of memory out of 5000000
- 32814 multiletter control sequences out of 15000+600000
- 523626 words of font info for 74 fonts, out of 8000000 for 9000
+ 12610 strings out of 476091
+ 219568 string characters out of 5794080
+ 1858330 words of memory out of 5000000
+ 32797 multiletter control sequences out of 15000+600000
+ 520311 words of font info for 61 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 75i,13n,72p,705b,769s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (21 pages, 167546 bytes).
+ 75i,12n,72p,660b,491s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (23 pages, 148649 bytes).
 PDF statistics:
- 143 PDF objects out of 1000 (max. 8388607)
- 91 compressed objects within 1 object stream
+ 138 PDF objects out of 1000 (max. 8388607)
+ 88 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
