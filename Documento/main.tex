@@ -1,0 +1,234 @@
+\documentclass[12pt,titlepage,twoside,openright]{book}
+\usepackage{color}
+\usepackage{pstricks, pst-node}
+\usepackage{graphics,graphicx,graphpap}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[ansinew]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\pagestyle{empty}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Plantilla elaborada por Alma Rocío Sagaceta Mejía (2010) y modificada por Julián Alberto Fresán Figueroa (2011-2020) %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Aqui se pueden agregar palabras que Latex separa de forma incorrecta al haber saltos de linea. Al escribir fa-mi-lia se le esta indicando que puede separar la palabra solo en los guiones
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hyphenation{Colores fa-mi-lia caracte-rizarlos}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%              UAM-Logo                   	 %%%
+%%%         Por Ismael Velázquez Ramírez         %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\uamlogo}[3][2pt]{
+    \psset{unit=#2,linewidth=#1 }
+    \psline*[linearc=.25,linecolor=#3](2.8,2)(2,2)(1.8,0)(2.8,2)(3.8,0)(3.6,2)(2,2)(1.8,0)
+    \psline*[linecolor=#3](0,0)(.8,0)(1.8,2)(1,2)(0,0)
+    \psline*[linecolor=#3](4.8,0)(3.8,2)(4.6,2)(5.6,0)(4.8,0)
+    \psline*[linearc=.25,linecolor=#3](3.8,0)(2.8,2)(3.6,2)(4.6,0)(3.8,0)
+    \psline*[linearc=.25,linecolor=#3](4.6,0)(3.8,0)(2.8,2)(3.6,2)(4.6,0)
+    \rput{180}(5.6,2){%
+    \psline*[linearc=.25,linecolor=white](2.8,2)(2,2)(1.8,0)(2.8,2)(3.8,0)(3.6,2)(2,2)(1.8,0)
+    \psline*[linearc=.25,linecolor=white](1,0)(1.8,0)(2.8,2)(2,2)(1,0)
+    \psline*[linearc=.25,linecolor=white](1.8,0)(1,0)(2,2)(2.8,2)(1.8,0)
+    \psline*[linearc=.25,linecolor=white](3.8,0)(2.8,2)(3.6,2)(4.6,0)(3.8,0)
+    \psline*[linearc=.25,linecolor=white](4.6,0)(3.8,0)(2.8,2)(3.6,2)(4.6,0)
+    \psline[linearc=.25,linecolor=#3](1,0)(2,2)(3.6,2)(4.6,0)
+    \psline[linecolor=#3](1,0)(1.8,0)
+    \psline[linearc=.25,linecolor=#3](4.6,0)(3.8,0)
+    \psline[linearc=.25,linecolor=#3](1.8,0)(2.8,2)(3.8,0)}
+    \psline*[linearc=.25,linecolor=#3](1,0)(1.8,0)(2.8,2)(2,2)(1,0)
+    \psline*[linearc=.25,linecolor=#3](1.8,0)(1,0)(2,2)(2.8,2)(1.8,0)}
+    
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aqui se definen los entornos en español.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{teo}{Teorema}
+\newtheorem{defi}{Definici\'on}
+\newtheorem{coro}{Corolario}
+
+
+%Ejemplo de uso:
+%\begin{teo}[Teorema de Completitud] 
+%Sea...
+%\end{teo}
+
+
+
+\newcommand{\titulo}[1]{\def\eltitulo{#1}}
+\newcommand{\carrera}[1]{\def\lacarrera{#1}}
+\newcommand{\nombre}[1]{\def\elnombre{#1}}    %* Del alumno
+\newcommand{\director}[1]{\def\eldirector{#1}}  %* De tesis
+\newcommand{\fecha}[1]{\def\lafecha{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Se deben llenar los siguientes datos
+%Estos datos apareceran en la portada y los encabezados
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titulo{Nombre del Proyecto}
+\nombre{\uppercase{Nombre del alumno}}
+\carrera{Licenciatura en ...}
+\director{\uppercase{Nombre del asesor(es)}}
+\fecha{Mes y a\~no (de finalizaci\'on)}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Portada
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\thispagestyle{empty}
+
+\hskip-1.5cm
+\begin{minipage}[c][5cm][s]{4cm}
+  \begin{center}
+  \rput(-2,.5){\uamlogo{.75}{black}}
+
+  
+    \hskip2pt \vrule width2pt height16cm\hskip1mm
+    \vrule width1pt height16cm\\[10pt]
+
+  \end{center}
+\end{minipage}\quad
+%% Barra derecha - TÃ­Â­tulos
+\begin{minipage}[c][9.5cm][s]{10cm}
+  \begin{center}
+    % Barra superior
+    {\Large \scshape Universidad Aut\'onoma Metropolitana}
+    \vspace{.3cm}
+    \hrule height2pt
+    \vspace{.1cm}
+    \hrule height1pt
+    \vspace{.3cm}
+    % \scshape
+    { UNIDAD CUAJIMALPA}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Poner aquí el título del trabajo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \vspace{2cm}
+    
+    {\Large \textsc{GREEN-VRP}} 
+
+    \vspace{2cm}
+    \makebox[8cm][c]{\Large Proyecto Terminal}\\[8pt]
+    
+   
+    \makebox[6cm]{QUE PRESENTA:}\\[3pt]
+    \elnombre\\
+    \vspace{.5cm}
+  {\textsc {\large \lacarrera}}\\[3pt]
+  \makebox[10cm]{Departamento de Matem\'aticas Aplicadas e Ingenier\'{i}a}\\[13pt]
+\makebox[10cm]{Divisi\'on de Ciencias Naturales e Ingenier\'ia}\\[13pt]
+
+
+    \vspace{2cm}
+
+    { Asesor y Responsable de la tesis:\\ \eldirector\\}
+
+    \vspace{2cm}
+\begin{flushright}
+\lafecha 
+\end{flushright}
+
+  \end{center}
+\end{minipage}
+
+
+\frontmatter{}
+
+
+
+\pagestyle{plain}
+	
+
+\tableofcontents
+\newpage 
+\listoffigures	
+
+
+
+
+\mainmatter{}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{%
+\markboth{\chaptername
+\ \thechapter.\ #1}{}}
+\fancyhead[RO,LE]{\bfseries \thepage}
+\fancyfoot{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5ex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aquí se empieza a colocar la información del trabajo
+% El documento deberá contener al menos los  capítulos que aparecen a continuación.
+% Cada capitulo puede tener secciones y subsecciones
+% Las imágenes deben ser incluidas en formato .eps
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Resumen}
+
+%Uno o dos párrafos de que se hizo en el proyecto terminal
+
+
+\chapter{Introducci\'on}
+%una o dos p\'aginas, escrita para ser comprensible por cualquier persona
+\chapter{Conocimientos preliminares}
+%En este capítulo deberán incluir todos los conocimientos necesarios para poder entender los temas que se trataron en el proyecto. 
+\section{Problema de Optimizaci\'on}
+
+La optimizaci\'on es una rama de las matem\'aticas aplicadas que se enfoca en el desarrollo de principios y m\'etodos para resolver problemas cuantitativos en diversas disciplinas como la f\'isica, biolog\'ia, ingenier\'ia y econom\'ia, as\'i como en cualquier campo donde sea necesaria la toma de decisiones dentro de un conjunto de opciones, con el objetivo de encontrar la mejor o una de las mejores soluciones de manera eficiente.
+
+En t\'erminos formales, consideramos una funci\'on \( f : S \rightarrow \mathbb{R} \), donde \( S \subseteq \mathbb{R}^n \). Denominaremos a \( f \) como funci\'on objetivo, y a \( S \) lo llamaremos conjunto factible o conjunto de soluciones posibles.
+
+\section{Tipos de Optimizaci\'on}
+
+Dentro de la optimizaci\'on, existen dos tipos principales: la optimizaci\'on discreta y la optimizaci\'on continua.
+
+La optimizaci\'on discreta se aplica cuando el dominio \( S \) de la funci\'on objetivo es un conjunto discreto. En este contexto, el conjunto de soluciones posibles es finito o numerablemente infinito. La optimizaci\'on discreta a menudo involucra la b\'usqueda de soluciones en combinaciones espec\'ificas y puede involucrar problemas como la programaci\'on lineal entera o los problemas de asignaci\'on. Las soluciones \'optimas pueden ser dif\'iciles de encontrar debido a la naturaleza combinatoria del problema.
+
+Por otro lado, la optimizaci\'on continua se refiere a situaciones en las que el conjunto \( S \) de la funci\'on objetivo es un conjunto continuo. En este caso, el dominio es un intervalo o un subconjunto de \( \mathbb{R}^n \) que no es discreto. Aqu\'i se buscan soluciones que maximizan o minimizan la funci\'on objetivo sobre un espacio continuo, y los m\'etodos comunes incluyen la programaci\'on lineal, la programaci\'on no lineal y el c\'alculo de variaciones. La optimizaci\'on continua suele implicar el uso de t\'ecnicas de c\'alculo y an\'alisis matem\'atico.
+
+\subsection{Optimizaci\'on Discreta}
+
+\subsection{Optimizaci\'on Combinatoria}
+
+
+\chapter{Desarrollo del proyecto}
+%En Este capítulo se incluirán los resultados obtenidos durante el proyecto
+
+\chapter{Conclusiones y trabajo futuro}
+%En este capítulo se incluirán las conclusiones y posibles líneas de trabajo que podrían surgir a partir de este proyecto
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% La bibliografía debe aparecer de manera homologada
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{0}
+	%\bibitem{}
+		
+\end{thebibliography}
+
+\end{document}
+
+
