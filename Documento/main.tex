@@ -222,7 +222,108 @@ El prefijo ``meta'' otorga un sentido de mayor nivel a la palabra heur\'istica, 
 
 Tanto las heur\'isticas como las metaheur\'isticas se pueden utilizar de manera intercambiable para resolver problemas de optimizaci\'on combinatoria.
 
-\section{Complejidad P, NP, NP-completo y NP-dif\'icil.}
+\section{Complejidad P, NP, NP-completo y NP-difícil}
+
+\subsection{Introducción a la Complejidad Algorítmica}
+
+En computación, un algoritmo es un procedimiento que resuelve un problema paso a paso, generando una salida a partir de una entrada en un número finito de pasos. La complejidad y el tiempo de ejecución de un algoritmo se determinan por su acotamiento mediante un polinomio en función del tamaño de entrada, lo cual nos ayuda a evaluar su eficiencia.
+
+Los algoritmos se clasifican en distintas clases de complejidad dependiendo del algoritmo más eficiente conocido para resolverlos: P, NP, NP-completo y NP-difícil. La clase P contiene problemas que pueden ser resueltos de forma eficiente, mientras que NP abarca aquellos cuya solución puede verificarse rápidamente. Las clases NP-completo y NP-difícil incluyen problemas de mayor complejidad; resolver uno de estos de manera eficiente implicaría la resolución eficiente de cualquier problema en NP. Esto nos lleva al problema fundamental en teoría de la computación: P vs NP.
+
+\subsection{Complejidad P}
+
+En la teoría de la complejidad, nos enfocamos principalmente en problemas de decisión, aquellos donde la respuesta es un simple "sí" o "no". La clase P está compuesta por problemas que pueden ser resueltos en tiempo polinomial. Esto significa que existe un algoritmo que, dado un problema de tamaño $n$, puede resolverlo en un tiempo que crece a lo sumo como un polinomio de $n$.
+
+\subsubsection{Ejemplo: Algoritmo de Ordenamiento por Selección}
+
+El algoritmo de ordenamiento por selección es un método simple pero ineficiente para ordenar una lista de elementos. A continuación, se presenta una explicación detallada del algoritmo, su funcionamiento, complejidad y características.
+
+\paragraph{Ejemplo Paso a Paso}
+Consideremos la lista (3 1 6 8 2). El proceso de ordenamiento sería:
+
+\begin{enumerate}
+    \item (3 1 6 8 2) - Estado inicial
+    \item (1 3 6 8 2) - Se intercambia 1 (mínimo) con 3
+    \item (1 2 6 8 3) - Se intercambia 2 con 3
+    \item (1 2 3 8 6) - Se intercambia 3 con 6
+    \item (1 2 3 6 8) - Se intercambia 6 con 8
+    \item (1 2 3 6 8) - La lista está ordenada
+\end{enumerate}
+
+\paragraph{Análisis de Complejidad}
+Número de Comparaciones:
+Para una lista de $n$ elementos:
+\begin{itemize}
+    \item Primera pasada: $n-1$ comparaciones
+    \item Segunda pasada: $n-2$ comparaciones
+    \item $\vdots$
+    \item Última pasada: 1 comparación
+\end{itemize}
+Total de comparaciones: $(n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2}$
+
+El algoritmo de ordenamiento por selección, aunque simple de entender e implementar, no es eficiente para listas grandes debido a su complejidad cuadrática. Sin embargo, puede ser útil en ciertos escenarios, como cuando el costo de intercambio es significativamente mayor que el costo de comparación, o cuando se trabaja con listas pequeñas donde la simplicidad del algoritmo puede ser más importante que su eficiencia.
+
+\subsection{Clase de complejidad NP}
+
+La clase NP abarca problemas donde una solución afirmativa ("sí") puede ser verificada en tiempo polinomial. En estos problemas, existe un testigo o certificado que sirve como prueba de la validez de la respuesta, y un algoritmo verificador que puede validar este testigo eficientemente.
+
+Un ejemplo clásico es el problema de la suma de subconjuntos: dado un conjunto de $n$ números, se busca si existe un subconjunto cuya suma sea $S$. Para verificar una solución afirmativa, bastaría con que nos dieran el subconjunto en cuestión, y en tiempo lineal podríamos sumar sus elementos para comprobar que la suma es correcta.
+
+Al igual que en P, los problemas en NP pueden incluir aquellos que ya mencionamos, pero con una importante distinción: aunque podemos verificar soluciones en tiempo polinomial, no necesariamente podemos encontrarlas rápidamente. De hecho, uno de los grandes interrogantes en teoría de la complejidad es si todos los problemas en NP pueden ser también resueltos en tiempo polinomial.
+
+\subsubsection{Ejemplo de problema NP: El Problema del Agente Viajero}
+
+El Problema del Agente Viajero es uno de los ejemplos más claros para entender la complejidad NP, dado que es un problema que no se resuelve en tiempo polinomial, buscando encontrar una trayectoria que visita todas las $n$ ciudades exactamente una vez, sin repetir ninguna.
+
+\paragraph{Datos del problema:}
+\begin{itemize}
+    \item Un entero $n > 0$, que representa el número de ciudades.
+    \item Una matriz de distancias $(d_{ij})$ de dimensión $n \times n$, donde $d_{ij}$ es un entero mayor o igual a cero que representa la distancia entre la ciudad $i$ y la ciudad $j$.
+\end{itemize}
+
+\paragraph{Representación matemática:}
+Una permutación $\pi$ cíclica representa un recorrido, donde $\pi(j)$ se interpreta como la ciudad después de la ciudad $j$, para $j = 1, 2, \ldots, n$.
+
+\paragraph{Costo del recorrido:}
+El costo del recorrido se calcula mediante la siguiente fórmula:
+
+\[
+\sum_{j=1}^n d_{j,\pi(j)}
+\]
+
+Donde:
+\begin{itemize}
+    \item $j$ recorre todas las ciudades de 1 a $n$
+    \item $d_{j,\pi(j)}$ representa la distancia entre la ciudad $j$ y la ciudad que le sigue en el recorrido según la permutación $\pi$
+\end{itemize}
+
+\paragraph{Características importantes:}
+\begin{enumerate}
+    \item La matriz de distancias es simétrica, es decir, $d_{ij} = d_{ji}$ para todo $i, j$.
+    \item Las distancias son no negativas: $d_{ij} \geq 0$ para todo $i, j$.
+    \item La diagonal de la matriz de distancias $(d_{ii})$ generalmente se define como 0, ya que representa la distancia de una ciudad a sí misma.
+\end{enumerate}
+
+\paragraph{Complejidad:}
+El Problema del Agente Viajero pertenece a la clase de problemas NP-difícil, lo que significa que no se conoce un algoritmo eficiente (de tiempo polinomial) para resolverlo de manera óptima para todos los casos.
+
+Esta formulación matemática proporciona una base sólida para el análisis y desarrollo de algoritmos que buscan resolver o aproximar soluciones al Problema del Agente Viajero.
+
+\subsection{Reducciones y las clases NP-completo y NP-difícil}
+
+Para profundizar en las clases de NP-completo y NP-difícil, es esencial introducir el concepto de reducción. Una reducción entre problemas significa que si podemos resolver un problema de manera eficiente, entonces también podemos resolver el otro. Esto es clave para entender la relación entre los problemas de estas clases.
+
+\subsubsection{Definición de Reducción Polinomial}
+
+Dado un problema A y un problema B, diremos que existe una reducción polinomial de A a B si cualquier instancia de A puede ser transformada en una instancia de B en tiempo polinomial, de manera que resolver B implica resolver A.
+
+Esto nos lleva a la clase de complejidad NP-difícil, que está compuesta por problemas a los cuales cualquier problema en NP puede ser reducido. NP-completo, por otro lado, incluye aquellos problemas que son tanto NP-difíciles como pertenecientes a NP. Si alguna vez encontráramos un algoritmo eficiente para resolver un problema NP-completo, entonces podríamos resolver todos los problemas en NP de manera eficiente.
+
+\subsection{Conclusión}
+
+Las clases de complejidad P, NP, NP-completo y NP-difícil son fundamentales para comprender la eficiencia de los algoritmos. El problema abierto más importante de la teoría de la computación, P vs NP, sigue siendo una pregunta sin respuesta: ¿Podemos resolver todos los problemas que podemos verificar eficientemente? Resolver esta pregunta tendría implicaciones profundas no solo en la teoría, sino en muchas áreas prácticas de la computación.
+
+
 \chapter{Desarrollo del proyecto}
 %En Este capítulo se incluirán los resultados obtenidos durante el proyecto
 
