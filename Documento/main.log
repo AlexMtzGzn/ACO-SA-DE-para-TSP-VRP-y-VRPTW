@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -329,7 +329,10 @@ Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count314
 \l__pdf_internal_box=\box58
-) (./main.aux)
+) (./main.aux
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
@@ -404,21 +407,25 @@ Non-PDF special ignored!
 <special> ps:tx@Dict begin  gsave STV CP T /ps@rot 0 def grestore  end
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
-]
-No file main.toc.
+] (./main.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
-[1
+ [1
 
 ] [2
 
-]
-No file main.lof.
+] (./main.lof
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@lof=\write4
 \openout4 = `main.lof'.
 
-[3] [4
+ [3] [4
 
 ]
 Cap\'{\i }tulo 1.
@@ -455,136 +462,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Cap\'{\i }tulo 3.
 [5]
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Undefined control sequence.
-l.218 ...izaci\'on, se refiere a t\'ecnicas dise\√
-                                                  ±adas para mejorar o resol...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Missing $ inserted.
-<inserted text> 
-                $
-l.218 ...zaci\'on, se refiere a t\'ecnicas dise\√±
-                                                  adas para mejorar o resolv...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 218.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.218 ... problemas que, de otra manera, no tendr√
-                                                  ≠an una soluci\'on eficien...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 218.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.218 ...e otra manera, no tendr√≠an una soluci\'o
-                                                  n eficiente. Los algoritmo...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 218.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 218.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.218 ...uci\'on eficiente. Los algoritmos heur\'i
-                                                  sticos ayudan a encontrar ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Missing { inserted.
-<to be read again> 
-                   \begingroup 
-l.218 ...uci\'on eficiente. Los algoritmos heur\'i
-                                                  sticos ayudan a encontrar ...
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-
-LaTeX Warning: Command \i invalid in math mode on input line 218.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 219.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 219.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:219: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.219 ...os de inteligencia artificial son heur\'i
-                                                  sticos o se basan en sus p...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:219: Missing { inserted.
-<to be read again> 
-                   \begingroup 
-l.219 ...os de inteligencia artificial son heur\'i
-                                                  sticos o se basan en sus p...
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-
-LaTeX Warning: Command \i invalid in math mode on input line 219.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:220: Missing $ inserted.
-<inserted text> 
-                $
-l.220 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:220: Missing } inserted.
-<inserted text> 
-                }
-l.220 
-      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:220: Missing } inserted.
-<inserted text> 
-                }
-l.220 
-      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-Overfull \hbox (1419.58186pt too wide) in paragraph at lines 217--220
-\OT1/cmr/m/n/12 dise$\OMS/cmsy/m/n/12 ^^F\OML/cmm/m/it/12 adasparamejoraroresolverproblemasque; deotramanera; notendr[]\OT1/cmr/m/n/12 -\OML/cmm/m/it/12 anunasoluci[]neficiente:Losalgoritmosheur[]$ 
- []
-
 LaTeX Info: Redefining \. on input line 225.
 LaTeX Info: Redefining \% on input line 225.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -633,15 +513,15 @@ LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 ) ) 
 Here is how much of TeX's memory you used:
- 12598 strings out of 476091
- 219451 string characters out of 5794080
+ 12596 strings out of 476091
+ 219403 string characters out of 5794080
  1856330 words of memory out of 5000000
- 32789 multiletter control sequences out of 15000+600000
+ 32783 multiletter control sequences out of 15000+600000
  520311 words of font info for 61 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  75i,12n,72p,660b,436s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (17 pages, 114522 bytes).
+Output written on main.pdf (17 pages, 109078 bytes).
 PDF statistics:
  104 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream
