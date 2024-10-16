@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -462,8 +462,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Cap\'{\i }tulo 3.
 [5]
-LaTeX Info: Redefining \. on input line 225.
-LaTeX Info: Redefining \% on input line 225.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 226.
+LaTeX Info: Redefining \% on input line 226.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -473,12 +475,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [6]
-Cap\'{\i }tulo 4.
-[7
+LaTeX Info: Redefining \. on input line 226.
+LaTeX Info: Redefining \% on input line 226.
 
-]
-LaTeX Info: Redefining \. on input line 228.
-LaTeX Info: Redefining \% on input line 228.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[7]
+LaTeX Info: Redefining \. on input line 226.
+LaTeX Info: Redefining \% on input line 226.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -490,10 +499,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [8
 
 ]
-Cap\'{\i }tulo 5.
+Cap\'{\i }tulo 4.
 [9]
-LaTeX Info: Redefining \. on input line 236.
-LaTeX Info: Redefining \% on input line 236.
+LaTeX Info: Redefining \. on input line 229.
+LaTeX Info: Redefining \% on input line 229.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -505,26 +514,41 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [10
 
 ]
+Cap\'{\i }tulo 5.
+[11]
+LaTeX Info: Redefining \. on input line 237.
+LaTeX Info: Redefining \% on input line 237.
 
-LaTeX Warning: Empty `thebibliography' environment on input line 239.
 
-[11] (./main.aux
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[12
+
+]
+
+LaTeX Warning: Empty `thebibliography' environment on input line 240.
+
+[13] (./main.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 ) ) 
 Here is how much of TeX's memory you used:
- 12595 strings out of 476091
- 219395 string characters out of 5794080
- 1856330 words of memory out of 5000000
- 32782 multiletter control sequences out of 15000+600000
+ 12596 strings out of 476091
+ 219403 string characters out of 5794080
+ 1857330 words of memory out of 5000000
+ 32783 multiletter control sequences out of 15000+600000
  520311 words of font info for 61 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  75i,12n,72p,660b,436s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (17 pages, 109047 bytes).
+Output written on main.pdf (19 pages, 110761 bytes).
 PDF statistics:
- 104 PDF objects out of 1000 (max. 8388607)
- 66 compressed objects within 1 object stream
+ 111 PDF objects out of 1000 (max. 8388607)
+ 71 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
