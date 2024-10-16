@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -455,10 +455,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Cap\'{\i }tulo 3.
 [5]
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Undefined control sequence.
+l.218 ...izaci\'on, se refiere a t\'ecnicas dise\√
+                                                  ±adas para mejorar o resol...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
 /home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Missing $ inserted.
 <inserted text> 
                 $
-l.218 ...izaci\'on, se refiere a t\'ecnicas dise√±
+l.218 ...zaci\'on, se refiere a t\'ecnicas dise\√±
                                                   adas para mejorar o resolv...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -570,8 +579,8 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (1418.59854pt too wide) in paragraph at lines 217--220
-\OT1/cmr/m/n/12 se[]A$\OMS/cmsy/m/n/12 ^^F\OML/cmm/m/it/12 adasparamejoraroresolverproblemasque; deotramanera; notendr[]\OT1/cmr/m/n/12 -\OML/cmm/m/it/12 anunasoluci[]neficiente:Losalgoritmosheur[]$ 
+Overfull \hbox (1419.58186pt too wide) in paragraph at lines 217--220
+\OT1/cmr/m/n/12 dise$\OMS/cmsy/m/n/12 ^^F\OML/cmm/m/it/12 adasparamejoraroresolverproblemasque; deotramanera; notendr[]\OT1/cmr/m/n/12 -\OML/cmm/m/it/12 anunasoluci[]neficiente:Losalgoritmosheur[]$ 
  []
 
 LaTeX Info: Redefining \. on input line 225.
@@ -632,7 +641,7 @@ Here is how much of TeX's memory you used:
  1144 hyphenation exceptions out of 8191
  75i,12n,72p,660b,436s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (17 pages, 114529 bytes).
+Output written on main.pdf (17 pages, 114522 bytes).
 PDF statistics:
  104 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream
