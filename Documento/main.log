@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -329,7 +329,10 @@ Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count314
 \l__pdf_internal_box=\box58
-) (./main.aux)
+) (./main.aux
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
@@ -404,21 +407,25 @@ Non-PDF special ignored!
 <special> ps:tx@Dict begin  gsave STV CP T /ps@rot 0 def grestore  end
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
-]
-No file main.toc.
+] (./main.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
-[1
+ [1
 
 ] [2
 
-]
-No file main.lof.
+] (./main.lof
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@lof=\write4
 \openout4 = `main.lof'.
 
-[3] [4
+ [3] [4
 
 ]
 Cap\'{\i }tulo 1.
@@ -455,63 +462,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Cap\'{\i }tulo 3.
 [5]
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:225: Undefined control sequence.
-<argument> ...ad P, NP, NP-completo y NP-dif\icil 
-                                                  .
-l.225 ...ejidad P, NP, NP-completo y NP-dif\icil.}
-                                                  
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:225: Undefined control sequence.
-<argument> ...ad P, NP, NP-completo y NP-dif\icil 
-                                                  .
-l.225 ...ejidad P, NP, NP-completo y NP-dif\icil.}
-                                                  
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:225: Undefined control sequence.
-<argument> ...ad P, NP, NP-completo y NP-dif\icil 
-                                                  .
-l.225 ...ejidad P, NP, NP-completo y NP-dif\icil.}
-                                                  
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:225: Undefined control sequence.
-<argument> ...ad P, NP, NP-completo y NP-dif\icil 
-                                                  .
-l.225 ...ejidad P, NP, NP-completo y NP-dif\icil.}
-                                                  
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:225: Undefined control sequence.
-<argument> ...ad P, NP, NP-completo y NP-dif\icil 
-                                                  .}{\thepage }{}\protected@...
-l.225 ...ejidad P, NP, NP-completo y NP-dif\icil.}
-                                                  
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
 LaTeX Info: Redefining \. on input line 226.
 LaTeX Info: Redefining \% on input line 226.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -560,15 +513,15 @@ LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 ) ) 
 Here is how much of TeX's memory you used:
- 12590 strings out of 476091
- 219330 string characters out of 5794080
+ 12593 strings out of 476091
+ 219362 string characters out of 5794080
  1856330 words of memory out of 5000000
- 32781 multiletter control sequences out of 15000+600000
+ 32780 multiletter control sequences out of 15000+600000
  519706 words of font info for 59 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  75i,12n,72p,660b,436s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (17 pages, 108074 bytes).
+Output written on main.pdf (17 pages, 109603 bytes).
 PDF statistics:
  104 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream

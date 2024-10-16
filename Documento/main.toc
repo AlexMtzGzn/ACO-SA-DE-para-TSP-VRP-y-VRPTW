@@ -5,6 +5,6 @@
 \contentsline {section}{\numberline {3.1}Problema de Optimizaci\'on}{5}{}%
 \contentsline {section}{\numberline {3.2}Tipos de Optimizaci\'on}{5}{}%
 \contentsline {section}{\numberline {3.3}Heur\'istica y Metaheur\'istica}{6}{}%
-\contentsline {section}{\numberline {3.4}Complejidad P, NP, NP-completo y NP-dif.}{6}{}%
+\contentsline {section}{\numberline {3.4}Complejidad P, NP, NP-completo y NP-dif\'icil.}{6}{}%
 \contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{7}{}%
 \contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{9}{}%

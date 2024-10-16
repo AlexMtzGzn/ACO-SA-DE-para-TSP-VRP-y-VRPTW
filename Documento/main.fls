@@ -483,9 +483,15 @@ OUTPUT main.pdf
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-OUTPUT main.toc
-OUTPUT main.lof
+INPUT ./main.toc
+INPUT main.toc
+INPUT main.toc
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+OUTPUT main.toc
+INPUT ./main.lof
+INPUT main.lof
+INPUT main.lof
+OUTPUT main.lof
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsl12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT main.aux
