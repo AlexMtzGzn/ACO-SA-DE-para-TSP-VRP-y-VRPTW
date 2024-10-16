@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 21:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Debian) (preloaded format=pdflatex 2024.10.15)  15 OCT 2024 22:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -455,143 +455,127 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Cap\'{\i }tulo 3.
 [5]
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:216: Missing $ inserted.
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Missing $ inserted.
 <inserted text> 
                 $
-l.216 ...ntrar". En el contexto de la optimizaci√≥
-                                                  n, se refiere a t√©cnicas ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:216: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.216 ...ntrar". En el contexto de la optimizaci√≥
-                                                  n, se refiere a t√©cnicas ...
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 216.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:216: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.216 ...exto de la optimizaci√≥n, se refiere a t√
-                                                  ©cnicas dise√±adas para me...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 216.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:216: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.216 ...timizaci√≥n, se refiere a t√©cnicas dise√
-                                                  ±adas para mejorar o resol...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 216.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:216: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.216 ... problemas que, de otra manera, no tendr√
-                                                  ≠an una soluci√≥n eficient...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 216.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:216: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.216 ... de otra manera, no tendr√≠an una soluci√
-                                                  ≥n eficiente. Los algoritm...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 216.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:216: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.216 ...soluci√≥n eficiente. Los algoritmos heur√
-                                                  ≠sticos ayudan a encontrar...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-
-LaTeX Warning: Command \~ invalid in math mode on input line 216.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:216: Please use \mathaccent for accents in math mode.
-\add@accent ... \let \ignorespaces \relax \accent 
-                                                  #1 #2\egroup \ifmmode \els...
-l.216 ...tmos de inteligencia artificial son heur√
-                                                  ≠sticos o se basan en sus ...
-I'm changing \accent to \mathaccent here; wish me luck.
-(Accents are not the same in formulas as they are in text.)
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:217: Missing $ inserted.
-<inserted text> 
-                $
-l.217 
-      
+l.218 ...izaci\'on, se refiere a t\'ecnicas dise√±
+                                                  adas para mejorar o resolv...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (24.02559pt too wide) in paragraph at lines 216--217
-\OT1/cmr/m/n/12 fi-ca .[]contrar". En el con-tex-to de la op-ti-mi-za-ci[]A$[]\OML/cmm/m/it/12 n; serefiereat[][]cnicasdise[] \OMS/cmsy/m/n/12 ^^F
- []
+LaTeX Warning: Command \~ invalid in math mode on input line 218.
+
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.218 ... problemas que, de otra manera, no tendr√
+                                                  ≠an una soluci\'on eficien...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
 
 
-Overfull \hbox (205.19167pt too wide) in paragraph at lines 216--217
-\OML/cmm/m/it/12 adasparamejoraroresolverproblemasque; deotramanera; notendr[]\OT1/cmr/m/n/12 -\OML/cmm/m/it/12 anunasoluci[][]neficiente:Losalgoritmosheur[]\OT1/cmr/m/n/12 -
- []
+LaTeX Warning: Command \' invalid in math mode on input line 218.
+
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.218 ...e otra manera, no tendr√≠an una soluci\'o
+                                                  n eficiente. Los algoritmo...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
 
 
-Overfull \hbox (539.12949pt too wide) in paragraph at lines 216--217
-\OML/cmm/m/it/12 sticosayudanaencontrarsolucionesaproximadasparaproblemascuyassolucionesexactasnosonfactiblesentiempospolinomiales:Muchosalgoritmosdeinteligenciaartificialsonheur[]\OT1/cmr/m/n/12 -
- []
+LaTeX Warning: Command \' invalid in math mode on input line 218.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 218.
+
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.218 ...uci\'on eficiente. Los algoritmos heur\'i
+                                                  sticos ayudan a encontrar ...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:218: Missing { inserted.
+<to be read again> 
+                   \begingroup 
+l.218 ...uci\'on eficiente. Los algoritmos heur\'i
+                                                  sticos ayudan a encontrar ...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \i invalid in math mode on input line 218.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 219.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 219.
+
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:219: Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.219 ...os de inteligencia artificial son heur\'i
+                                                  sticos o se basan en sus p...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:219: Missing { inserted.
+<to be read again> 
+                   \begingroup 
+l.219 ...os de inteligencia artificial son heur\'i
+                                                  sticos o se basan en sus p...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+LaTeX Warning: Command \i invalid in math mode on input line 219.
 
 /home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:220: Missing $ inserted.
 <inserted text> 
                 $
-l.220 ...e para resolver problemas de optimizaci√≥
-                                                  n combinatoria.
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:220: Extra }, or forgotten $.
-\maththreesuperior ->{^3}
-                         
-l.220 ...e para resolver problemas de optimizaci√≥
-                                                  n combinatoria.
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:221: Missing $ inserted.
-<inserted text> 
-                $
-l.221 
+l.220 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-LaTeX Info: Redefining \. on input line 222.
-LaTeX Info: Redefining \% on input line 222.
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:220: Missing } inserted.
+<inserted text> 
+                }
+l.220 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex:220: Missing } inserted.
+<inserted text> 
+                }
+l.220 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (1418.59854pt too wide) in paragraph at lines 217--220
+\OT1/cmr/m/n/12 se[]A$\OMS/cmsy/m/n/12 ^^F\OML/cmm/m/it/12 adasparamejoraroresolverproblemasque; deotramanera; notendr[]\OT1/cmr/m/n/12 -\OML/cmm/m/it/12 anunasoluci[]neficiente:Losalgoritmosheur[]$ 
+ []
+
+LaTeX Info: Redefining \. on input line 225.
+LaTeX Info: Redefining \% on input line 225.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -604,8 +588,8 @@ Cap\'{\i }tulo 4.
 [7
 
 ]
-LaTeX Info: Redefining \. on input line 225.
-LaTeX Info: Redefining \% on input line 225.
+LaTeX Info: Redefining \. on input line 228.
+LaTeX Info: Redefining \% on input line 228.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -619,8 +603,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Cap\'{\i }tulo 5.
 [9]
-LaTeX Info: Redefining \. on input line 233.
-LaTeX Info: Redefining \% on input line 233.
+LaTeX Info: Redefining \. on input line 236.
+LaTeX Info: Redefining \% on input line 236.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -633,30 +617,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ]
 
-LaTeX Warning: Empty `thebibliography' environment on input line 236.
+LaTeX Warning: Empty `thebibliography' environment on input line 239.
 
 [11] (./main.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
-) )
-(\end occurred inside a group at level 2)
-
-### simple group (level 2) entered at line 220 ({)
-### simple group (level 1) entered at line 216 ({)
-### bottom level 
+) ) 
 Here is how much of TeX's memory you used:
- 12615 strings out of 476091
- 219670 string characters out of 5794080
- 1857330 words of memory out of 5000000
- 32803 multiletter control sequences out of 15000+600000
- 521325 words of font info for 64 fonts, out of 8000000 for 9000
+ 12598 strings out of 476091
+ 219451 string characters out of 5794080
+ 1856330 words of memory out of 5000000
+ 32789 multiletter control sequences out of 15000+600000
+ 520311 words of font info for 61 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 75i,12n,72p,660b,473s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (17 pages, 126069 bytes).
+ 75i,12n,72p,660b,436s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (17 pages, 114529 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 73 compressed objects within 1 object stream
+ 104 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
