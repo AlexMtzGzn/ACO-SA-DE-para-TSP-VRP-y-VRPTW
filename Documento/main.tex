@@ -222,7 +222,7 @@ El prefijo ``meta'' otorga un sentido de mayor nivel a la palabra heur\'istica, 
 
 Tanto las heur\'isticas como las metaheur\'isticas se pueden utilizar de manera intercambiable para resolver problemas de optimizaci\'on combinatoria.
 
-\section{Complejidad P, NP, NP-completo y NP-difícil}
+\section{Complejidad P, NP, NP-completo y NP-dif\'icil}
 
 En computaci\'on, un algoritmo es un procedimiento que resuelve un problema paso a paso, generando una salida a partir de una entrada en un n\'umero finito de pasos. La eficiencia de un algoritmo se eval\'ua a trav\'es de su complejidad temporal, la cual se mide en funci\'on del tama\~no de la entrada. Esto nos permite clasificar los problemas en diferentes clases de complejidad, como P, NP, NP-completo y NP-dif\'icil.
 
@@ -230,7 +230,7 @@ La clase P contiene problemas que pueden resolverse eficientemente (en tiempo po
 
 \subsection{Complejidad P}
 
-En la teor\'ia de la complejidad, nos enfocamos principalmente en problemas de decisi\'on, aquellos donde la respuesta es un simple ''sí'' o ''no''. La clase P est\'a compuesta por problemas que pueden ser resueltos en tiempo polinomial. Esto significa que existe un algoritmo que, dado un problema de tama\~no $n$, puede resolverlo en un tiempo que crece a lo sumo como un polinomio de $n$.
+En la teor\'ia de la complejidad, nos enfocamos principalmente en problemas de decisi\'on, aquellos donde la respuesta es un simple ''s\'i'' o ''no''. La clase P est\'a compuesta por problemas que pueden ser resueltos en tiempo polinomial. Esto significa que existe un algoritmo que, dado un problema de tama\~no $n$, puede resolverlo en un tiempo que crece a lo sumo como un polinomio de $n$.
 
 \subsubsection{Ejemplo: Algoritmo de Ordenamiento por Selecci\'on}
 
@@ -248,7 +248,7 @@ El algoritmo selecciona repetidamente el elemento m\'inimo de la lista y lo colo
     \item (1 2 3 6 8) - La lista est\'a ordenada
 \end{enumerate}
 
-\paragraph{Complejidad del algoritmo}
+\paragraph{Representaci\'on matem\'atica:}
 Para una lista de $n$ elementos:
 \begin{itemize}
     \item Primera pasada: $n-1$ comparaciones
@@ -256,13 +256,15 @@ Para una lista de $n$ elementos:
     \item $\vdots$
     \item \'Ultima pasada: 1 comparaci\'on
 \end{itemize}
+
+\paragraph{Complejidad:}
 El n\'umero total de comparaciones es $(n-1) + (n-2) + \dots + 2 + 1 = \frac{n(n-1)}{2}$, lo que da una complejidad de $O(n^2)$.
 
 El algoritmo de ordenamiento por selecci\'on, aunque simple de entender e implementar, no es eficiente para listas grandes debido a su complejidad cuadr\'atica. Sin embargo, su tiempo de ejecuci\'on es polinomial, por lo que pertenece a la clase P.
 
 \subsection{Clase de complejidad NP}
 
-La clase NP abarca problemas donde una soluci\'on afirmativa ("sí") puede verificarse en tiempo polinomial. En estos problemas, existe un testigo o certificado que sirve como prueba de la validez de la respuesta, y un algoritmo verificador que puede validar este testigo eficientemente.
+La clase NP abarca problemas donde una soluci\'on afirmativa (''s\i'') puede verificarse en tiempo polinomial. En estos problemas, existe un testigo o certificado que sirve como prueba de la validez de la respuesta, y un algoritmo verificador que puede validar este testigo eficientemente.
 
 Un ejemplo cl\'asico es el problema de la suma de subconjuntos: dado un conjunto de $n$ n\'umeros, se busca si existe un subconjunto cuya suma sea $S$. Para verificar una soluci\'on afirmativa, bastar\'ia con que nos dieran el subconjunto en cuesti\'on, y en tiempo lineal podr\'iamos sumar sus elementos para comprobar que la suma es correcta.
 

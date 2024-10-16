@@ -5,11 +5,12 @@
 \contentsline {section}{\numberline {3.1}Problema de Optimizaci\'on}{5}{}%
 \contentsline {section}{\numberline {3.2}Tipos de Optimizaci\'on}{5}{}%
 \contentsline {section}{\numberline {3.3}Heur\'istica y Metaheur\'istica}{6}{}%
-\contentsline {section}{\numberline {3.4}Complejidad P, NP, NP-completo y NP-dif\~A\-cil}{6}{}%
+\contentsline {section}{\numberline {3.4}Complejidad P, NP, NP-completo y NP-dif\'icil}{6}{}%
 \contentsline {subsection}{\numberline {3.4.1}Complejidad P}{7}{}%
 \contentsline {subsubsection}{Ejemplo: Algoritmo de Ordenamiento por Selecci\'on}{7}{}%
 \contentsline {paragraph}{Descripci\'on del algoritmo}{7}{}%
-\contentsline {paragraph}{Complejidad del algoritmo}{8}{}%
+\contentsline {paragraph}{Representaci\'on matem\'atica:}{8}{}%
+\contentsline {paragraph}{Complejidad:}{8}{}%
 \contentsline {subsection}{\numberline {3.4.2}Clase de complejidad NP}{8}{}%
 \contentsline {subsubsection}{Ejemplo de problema NP: El Problema del Agente Viajero}{9}{}%
 \contentsline {paragraph}{Datos del problema:}{9}{}%
