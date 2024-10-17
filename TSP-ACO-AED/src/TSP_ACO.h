@@ -1,5 +1,5 @@
-#ifndef TSP_ANT_SYSTEM_H
-#define TSP_ANT_SYSTEM_H
+#ifndef TSP_ACO_H
+#define TSP_ACO_H
 #include "AED.h"
 
 typedef struct
@@ -19,4 +19,4 @@ void ant_system_f(hormiga *hor, individuo *ind, double **instancia_distancias, d
 void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia);
 void tsp_ant_system(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia);
 
-#endif // TSP_ANT_SYSTEM_H
+#endif // TSP_ACO_H

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include "tsp_ant_system.h"
+#include "TSP_ACO.h"
 #include "AED.h"
 
 double calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio_instancia)

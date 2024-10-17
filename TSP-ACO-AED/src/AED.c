@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "AED.h"
-#include "tsp_ant_system.h"
+#include "TSP_ACO.h"
 
 void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind)
 {
@@ -15,7 +15,7 @@ void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_i
       }
 }
 
-void evaluaFO(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
+void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
 {
    inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
 
@@ -134,7 +134,7 @@ void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *
    fclose(instancia);
 }
 
-void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
+void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
 
    individuo *objetivo, *ruidoso, *prueba;
@@ -183,7 +183,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
 
       for (int j = 0; j < poblacion; ++j)
       {
-         evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+         evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
          // Podemos imprimir el objetivo n
          /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
                 objetivo[j].alpha,
@@ -200,7 +200,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
             else
                printf("%d\n", objetivo[j].ruta[k]);
          }*/
-         evaluaFO(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
 
          // Podemos imprimir la prueba n
          /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
@@ -228,7 +228,7 @@ void algoritmo_evolutivo_diferencial(int poblacion, int generaciones, int tamani
          printf("\n\nUltima Generacion De La Poblacion:");
          for (int j = 0; j < poblacion; ++j)
          {
-            evaluaFO(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+            evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
             // Podemos imprimir el objetivo n
             printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
                    objetivo[j].alpha,

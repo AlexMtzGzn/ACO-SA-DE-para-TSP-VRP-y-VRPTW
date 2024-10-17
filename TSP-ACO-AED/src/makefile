@@ -2,7 +2,7 @@
 CC = gcc
 CFLAGS = -lm
 TARGET = main
-SRCS = main.c AED.c tsp_ant_system.c
+SRCS = main.c AED.c TSP_ACO.c
 
 # Regla por defecto
 all: $(TARGET)
