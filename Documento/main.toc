@@ -19,6 +19,5 @@
 \contentsline {paragraph}{Complejidad:}{10}{}%
 \contentsline {subsection}{\numberline {3.4.3}Reducciones y las clases NP-completo y NP-dif\'icil}{10}{}%
 \contentsline {subsubsection}{Definici\'on de Reducci\'on Polinomial}{10}{}%
-\contentsline {subsection}{\numberline {3.4.4}Conclusi\'on}{10}{}%
-\contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{13}{}%
-\contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{15}{}%
+\contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{11}{}%
+\contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{13}{}%

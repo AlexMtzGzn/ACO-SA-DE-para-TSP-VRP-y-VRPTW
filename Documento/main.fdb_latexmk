@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1729122994 "/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex" "main.pdf" "main" 1729122996 0
+["pdflatex"] 1729123221 "/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex" "main.pdf" "main" 1729123223 2
   "/etc/texmf/web2c/texmf.cnf" 1729045925 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex" 1729122991 16371 2b34bd35f85f67d6e9db14863ced9adc ""
+  "/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex" 1729123217 16383 0705adf8b5fdd8e55e3e833da671f324 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -84,7 +84,6 @@
   "/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty" 1654720880 88393 1adf6fa3f245270d06e3d4f8910f7fc5 ""
   "/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty" 1654720880 4474 f04cd1cc7bd76eb033e6fb12eb6a0d77 ""
   "/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty" 1654720880 2444 70065bddd85997dc1fd0bb7ae634e5fa ""
-  "/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def" 1654720880 6829 83dca3b48b26596f105dcc0c47f55840 ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/bk12.clo" 1667332637 8285 1b093a7880310fd335493621f5803fd7 ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/book.cls" 1667332637 23268 e47ccb36cfcf2953d1028f31ec508224 ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/graphpap.sty" 1654720880 3390 cfe855b9773b1d2b556b0258a16a2850 ""
@@ -114,10 +113,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1681034085 39561 34c98e380bf7c7201ee6a7909aff625a ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1729045944 4623455 fa0568a71dd9a288d6c226ee477506c6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1729046000 7880130 e7df771a9d9804c28189c842e5705aa9 ""
-  "main.aux" 1729122995 3138 cbd0a030052b020acea3fed4f0408c26 "pdflatex"
-  "main.lof" 1729122995 130 6065a55bb8926a8d1f250ea1e44d6185 "pdflatex"
-  "main.tex" 1729122991 16371 2b34bd35f85f67d6e9db14863ced9adc ""
-  "main.toc" 1729122995 1650 0687a91795002965d2050474f6042ab4 "pdflatex"
+  "main.aux" 1729123222 3030 a4474d5b8fb612c56f9f53cbec710101 "pdflatex"
+  "main.lof" 1729123222 130 6065a55bb8926a8d1f250ea1e44d6185 "pdflatex"
+  "main.tex" 1729123217 16383 0705adf8b5fdd8e55e3e833da671f324 ""
+  "main.toc" 1729123222 1583 e7773d97cdc183ffde04c8c142910fc1 "pdflatex"
   (generated)
   "main.aux"
   "main.lof"
