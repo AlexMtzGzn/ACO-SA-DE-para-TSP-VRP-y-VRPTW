@@ -4,13 +4,13 @@
 
 void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia)
 {
-   FILE *instancia = fopen(archivo_instancia, "r");
+    FILE *instancia = fopen(archivo_instancia, "r");
 
-   for (int i = 0; i < tamanio_instancia; i++)
-      for (int j = 0; j < tamanio_instancia; j++)
-         fscanf(instancia, "%lf", &instancia_distancias[i][j]);
+    for (int i = 0; i < tamanio_instancia; i++)
+        for (int j = 0; j < tamanio_instancia; j++)
+            fscanf(instancia, "%lf", &instancia_distancias[i][j]);
 
-   fclose(instancia);
+    fclose(instancia);
 }
 
 void imprimir_instancia(double **matriz_instancia, int tamanio_instancia, char *texto_instancia)
@@ -32,13 +32,13 @@ void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bo
         printf("\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d\n", ind[i].alpha, ind[i].beta, ind[i].rho, ind[i].numHormigas, ind[i].numIteraciones);
         if (bandera == true)
         {
-            printf("Fitness: %.2lf\nRuta : ",ind[i].fitness);
+            printf("Fitness: %.2lf\nRuta : ", ind[i].fitness);
             for (int j = 0; j <= tamanio_instancia; j++)
             {
                 if (j < tamanio_instancia)
-                    printf("%d -> ", ind[i].ruta[j]+1);
+                    printf("%d -> ", ind[i].ruta[j] + 1);
                 else
-                    printf("%d\n", ind[i].ruta[j]+1);
+                    printf("%d\n", ind[i].ruta[j] + 1);
             }
         }
     }

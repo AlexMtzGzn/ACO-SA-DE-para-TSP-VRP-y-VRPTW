@@ -149,6 +149,7 @@ void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **i
     }
     ind->fitness = mejor_fitness_iteracion;
 }
+
 void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia; i++)
@@ -158,7 +159,7 @@ void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_
             if (i != j)
                 instancia_visibilidad[i][j] = 1.0 / instancia_distancias[i][j];
             else
-                instancia_visibilidad[i][j] = 0.0; 
+                instancia_visibilidad[i][j] = 0.0;
         }
     }
 }

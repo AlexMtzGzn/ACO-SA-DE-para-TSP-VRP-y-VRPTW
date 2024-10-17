@@ -181,9 +181,9 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    printf("\n\nLas Mejores Soluciones De La Ultima Generacion\n");
    imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
 
-   liberar_instancia(instancia_distancias,tamanio_instancia);
-   liberar_instancia(instancia_feromonas,tamanio_instancia);
-   liberar_individuos(objetivo,poblacion,true);
-   liberar_individuos(prueba,poblacion,true);
-   liberar_individuos(ruidoso,poblacion,false);
+   liberar_instancia(instancia_distancias, tamanio_instancia);
+   liberar_instancia(instancia_feromonas, tamanio_instancia);
+   liberar_individuos(objetivo, poblacion, true);
+   liberar_individuos(prueba, poblacion, true);
+   liberar_individuos(ruidoso, poblacion, false);
 }
