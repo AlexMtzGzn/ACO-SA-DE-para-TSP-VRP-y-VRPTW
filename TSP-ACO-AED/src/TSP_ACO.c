@@ -24,7 +24,7 @@ void actualizar_feromona(hormiga *hor, individuo *ind, double **instancia_distan
 {
     for (int i = 0; i < ind->numHormigas; i++)
     {
-        double delta = 1.0 / hor[i].fitness;
+        double delta = ind->beta / (hor[i].fitness + 1e-6);
 
         for (int j = 0; j < tamanio_instancia - 1; j++)
             instancia_feromona[hor[i].ruta[j]][hor[i].ruta[j + 1]] += delta;
@@ -107,6 +107,8 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, d
     }
 
     hor->ruta[tamanio_instancia] = hor->ruta[0];
+    for(int i = 0; i < tamanio_instancia; i++)
+        hor->probabilidades[i] = 0.0;
 }
 
 void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia)
@@ -128,19 +130,11 @@ void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **i
                 indice_mejor_hormiga = j;
             }
             // Podemos imprimir la hormiga
-            /*printf("\nHormiga %d Iteracion %d : ", j, i);
-            printf("Ruta : ");
-            for (int k = 0; k <= tamanio_instancia; k++)
-            {
-                if (k < tamanio_instancia)
-                    printf("%d -> ", hor[j].ruta[k]);
-                else
-                    printf("%d\n", hor[j].ruta[k]);
-            }
-            printf("fitness: %.2lf\n", hor[j].fitness);*/
+            imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
         }
 
         actualizar_feromona(hor, ind, instancia_distancias, instancia_feromona, tamanio_instancia);
+        printf("\n\n");
     }
 
     for (int i = 0; i <= tamanio_instancia; i++)
@@ -150,19 +144,27 @@ void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **i
     ind->fitness = mejor_fitness_iteracion;
 }
 
-void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia)
+void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia, individuo *ind)
 {
     for (int i = 0; i < tamanio_instancia; i++)
     {
         for (int j = 0; j < tamanio_instancia; j++)
         {
             if (i != j)
-                instancia_visibilidad[i][j] = 1.0 / instancia_distancias[i][j];
+            {
+                if (instancia_distancias[i][j] < 1e-6)
+                    instancia_visibilidad[i][j] = 0.0;
+                else
+                    instancia_visibilidad[i][j] = ind->beta / instancia_distancias[i][j];
+            }
             else
+            {
                 instancia_visibilidad[i][j] = 0.0;
+            }
         }
     }
 }
+
 
 void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia)
 {
@@ -170,7 +172,7 @@ void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia)
     {
         hor[i].ruta = asignar_memoria_ruta(tamanio_instancia + 1);
         hor[i].tabu = asignar_memoria_ruta(tamanio_instancia);
-        hor[i].probabilidades = (double *)malloc(sizeof(double) * tamanio_instancia);
+        hor[i].probabilidades = asignar_memoria_posibilidades(tamanio_instancia);
         hor[i].fitness = 0.0;
     }
 }
@@ -180,18 +182,12 @@ void tsp_aco(individuo *ind, double **instancia_feromonas, double **instancia_di
     hormiga *hor = asignar_memoria_hormiga(ind);
     ind->ruta = asignar_memoria_ruta(tamanio_instancia + 1);
     double **instancia_visibilidad = asignar_memoria_instancia(tamanio_instancia);
-    inicializar_visibilidad(instancia_visibilidad, instancia_distancias, tamanio_instancia);
+    inicializar_visibilidad(instancia_visibilidad, instancia_distancias, tamanio_instancia, ind);
     // Podemos imprimir matriz de Visibilidad
     // imprimir_instancia(instancia_visibilidad,tamanio_instancia,"Instancia de Visibilidad");
     inializacionHormiga(hor, ind, tamanio_instancia);
     aco(hor, ind, instancia_distancias, instancia_feromonas, instancia_visibilidad, tamanio_instancia);
 
     liberar_instancia(instancia_visibilidad, tamanio_instancia);
-
-    for (int i = 0; i < ind->numHormigas; i++)
-    {
-        free(hor[i].ruta);
-        free(hor[i].tabu);
-    }
-    free(hor);
+    liberar_hormigas(hor, ind);
 }

@@ -10,4 +10,7 @@ void liberar_instancia(double **instancia, int tamanio_instancia);
 void liberar_individuos(individuo *ind, int poblacion, bool bandera);
 hormiga *asignar_memoria_hormiga(individuo *ind);
 int *asignar_memoria_ruta(int tamanio_instancia);
+double *asignar_memoria_posibilidades(int tamanio_instancia);
+void liberar_hormigas(hormiga *hor, individuo *ind);
+
 #endif // CONTROL_MEMORIA_H

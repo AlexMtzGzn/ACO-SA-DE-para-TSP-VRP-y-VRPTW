@@ -38,3 +38,21 @@ int *asignar_memoria_ruta(int tamanio_instancia)
 {
     return (int *)malloc(sizeof(int) * (tamanio_instancia));
 }
+
+
+double *asignar_memoria_posibilidades(int tamanio_instancia)
+{
+    return (double *)malloc(sizeof(double) * (tamanio_instancia));
+}
+
+void liberar_hormigas(hormiga *hor, individuo *ind)
+{
+    for (int i = 0; i < ind->numHormigas; i++)
+    {
+        free(hor[i].ruta);
+        free(hor[i].tabu);
+       
+    }
+    free(hor->probabilidades);
+    free(hor);
+}

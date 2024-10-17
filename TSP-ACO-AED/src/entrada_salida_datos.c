@@ -43,3 +43,17 @@ void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bo
         }
     }
 }
+
+void imprimir_ruta_hormiga(hormiga *hor, int tamanio_instancia, int n_hormiga, int n_iteracion)
+{
+    printf("\nHormiga %d Iteracion %d : ", (n_hormiga+1), (n_iteracion+1));
+    printf("Ruta : ");
+    for (int i = 0; i <= tamanio_instancia; i++)
+    {
+        if (i < tamanio_instancia)
+            printf("%d -> ", hor->ruta[i]);
+        else
+            printf("%d\n", hor->ruta[i]);
+    }
+    printf("fitness: %.2lf\n", hor->fitness);
+}
