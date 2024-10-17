@@ -183,7 +183,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
    liberar_instancia(instancia_distancias, tamanio_instancia);
    liberar_instancia(instancia_feromonas, tamanio_instancia);
-   liberar_individuos(objetivo, poblacion, true);
-   liberar_individuos(prueba, poblacion, true);
-   liberar_individuos(ruidoso, poblacion, false);
+   liberar_individuos(objetivo, true);
+   liberar_individuos(prueba, true);
+   liberar_individuos(ruidoso, false);
 }

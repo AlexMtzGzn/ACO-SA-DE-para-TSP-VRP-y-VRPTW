@@ -36,9 +36,9 @@ void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bo
             for (int j = 0; j <= tamanio_instancia; j++)
             {
                 if (j < tamanio_instancia)
-                    printf("%d -> ", ind[i].ruta[j] + 1);
+                    printf("%d -> ", ind[i].ruta[j]+1);
                 else
-                    printf("%d\n", ind[i].ruta[j] + 1);
+                    printf("%d\n", ind[i].ruta[j]+1);
             }
         }
     }
@@ -51,9 +51,9 @@ void imprimir_ruta_hormiga(hormiga *hor, int tamanio_instancia, int n_hormiga, i
     for (int i = 0; i <= tamanio_instancia; i++)
     {
         if (i < tamanio_instancia)
-            printf("%d -> ", hor->ruta[i]);
+            printf("%d -> ", hor->ruta[i]+1);
         else
-            printf("%d\n", hor->ruta[i]);
+            printf("%d\n", hor->ruta[i]+1);
     }
     printf("fitness: %.2lf\n", hor->fitness);
 }

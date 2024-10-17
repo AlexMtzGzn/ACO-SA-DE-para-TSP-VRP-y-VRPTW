@@ -22,7 +22,7 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
-void liberar_individuos(individuo *ind, int poblacion, bool bandera)
+void liberar_individuos(individuo *ind,bool bandera)
 {
     free(ind);
     if (bandera == true)

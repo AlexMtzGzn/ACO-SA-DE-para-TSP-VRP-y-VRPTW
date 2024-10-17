@@ -12,10 +12,10 @@ double calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio
     double fitness = 0.0;
     for (int i = 0; i < tamanio_instancia - 1; i++)
     {
-        fitness += instancia_distancias[hor->ruta[i]][hor->ruta[i + 1]];
+        fitness += instancia_distancias[hor->ruta[i+1]][hor->ruta[i]];
     }
 
-    fitness += instancia_distancias[hor->ruta[tamanio_instancia - 1]][hor->ruta[0]];
+    fitness += instancia_distancias[hor->ruta[0]][hor->ruta[tamanio_instancia-1]];
 
     return fitness;
 }
@@ -57,7 +57,7 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, d
                 hor->probabilidades[j] = pow(instancia_feromonas[hor->ruta[i - 1]][j], ind->alpha) *
                                          pow(instancia_visibilidad[hor->ruta[i - 1]][j], ind->beta);
                 suma_probabilidades += hor->probabilidades[j];
-                // imprimir_instancia(instancia_visibilidad,tamanio_instancia,"Instancia de Visibilidad");
+                //imprimir_instancia(instancia_visibilidad,tamanio_instancia,"Instancia de Visibilidad");
             }
             else
             {
@@ -130,11 +130,11 @@ void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **i
                 indice_mejor_hormiga = j;
             }
             // Podemos imprimir la hormiga
-            imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
+            //imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
         }
 
         actualizar_feromona(hor, ind, instancia_distancias, instancia_feromona, tamanio_instancia);
-        printf("\n\n");
+        //printf("\n\n");
     }
 
     for (int i = 0; i <= tamanio_instancia; i++)
