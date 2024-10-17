@@ -21,7 +21,7 @@ void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instanc
    inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
 
    // Podemos imprimir matriz de Feromonas
-   //imprimir_instancia(instancia_feromonas,tamanio_instancia,"Instancia de Feromonas");
+   // imprimir_instancia(instancia_feromonas,tamanio_instancia,"Instancia de Feromonas");
    tsp_aco(ind, instancia_feromonas, instancia_distancias, tamanio_instancia);
 }
 
@@ -120,10 +120,9 @@ void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *
    FILE *instancia = fopen(archivo_instancia, "r");
 
    for (int i = 0; i < tamanio_instancia; i++)
-   {
       for (int j = 0; j < tamanio_instancia; j++)
          fscanf(instancia, "%lf", &instancia_distancias[i][j]);
-   }
+         
    fclose(instancia);
 }
 
@@ -149,19 +148,12 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
 
    // Podemos imprimir matriz de distancias
-   //imprimir_instancia(instancia_distancias,tamanio_instancia,"Instancia de Distancias");
-
+   // imprimir_instancia(instancia_distancias,tamanio_instancia,"Instancia de Distancias");
 
    inicializaPoblacion(objetivo, poblacion, tamanio_instancia);
    // Podemos imprimir el objetivo n
-   /*printf("\nPoblacion Inicial");
-   for(int i = 0; i < poblacion; i++)
-      printf("\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d\n",
-          objetivo[i].alpha,
-          objetivo[i].beta,
-          objetivo[i].rho,
-          objetivo[i].numHormigas,
-          objetivo[i].numIteraciones);*/
+   // printf("\nPoblacion Inicial\n");
+   // imprimir_individuo(objetivo, tamanio_instancia, poblacion, false);
 
    for (int i = 0; i < generaciones; i++)
    {
@@ -171,68 +163,22 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       for (int j = 0; j < poblacion; ++j)
       {
          evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-         // Podemos imprimir el objetivo n
-         /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
-                objetivo[j].alpha,
-                objetivo[j].beta,
-                objetivo[j].rho,
-                objetivo[j].numHormigas,
-                objetivo[j].numIteraciones,
-                objetivo[j].fitness);
-         printf("Ruta : ");
-         for (int k = 0; k <= tamanio_instancia; k++)
-         {
-            if (k < tamanio_instancia)
-               printf("%d -> ", objetivo[j].ruta[k]);
-            else
-               printf("%d\n", objetivo[j].ruta[k]);
-         }*/
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-
-         // Podemos imprimir la prueba n
-         /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
-                prueba[j].alpha,
-                prueba[j].beta,
-                prueba[j].rho,
-                prueba[j].numHormigas,
-                prueba[j].numIteraciones,
-                prueba[j].fitness);
-         printf("Ruta : ");
-         for (int k = 0; k <= tamanio_instancia; k++)
-         {
-            if (k < tamanio_instancia)
-               printf("%d -> ", prueba[j].ruta[k]);
-            else
-               printf("%d\n", prueba[j].ruta[k]);
-         }*/
       }
 
+      // imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
+      // imprimir_individuo(prueba, tamanio_instancia, poblacion, true);
       seleccion(objetivo, prueba, poblacion);
 
       if (i == generaciones - 1)
       {
-         // Imprime todos los individuos de la ultima generacion
-         printf("\n\nUltima Generacion De La Poblacion:");
+
          for (int j = 0; j < poblacion; ++j)
-         {
             evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-            // Podemos imprimir el objetivo n
-            /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
-                   objetivo[j].alpha,
-                   objetivo[j].beta,
-                   objetivo[j].rho,
-                   objetivo[j].numHormigas,
-                   objetivo[j].numIteraciones,
-                   objetivo[j].fitness);
-            printf("Ruta : ");
-            for (int k = 0; k <= tamanio_instancia; k++)
-            {
-               if (k < tamanio_instancia)
-                  printf("%d -> ", objetivo[j].ruta[k]);
-               else
-                  printf("%d\n", objetivo[j].ruta[k]);
-            }*/
-         }
+
+         // Imprime todos los individuos de la ultima generacion
+         // printf("\n\nUltima Generacion De La Poblacion:\n");
+         // imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
       }
    }
 
@@ -246,28 +192,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    }
 
    // Podemos imprimir las mejores soluciones
-   /*printf("\n\nLas Mejores Soluciones De La Ultima Generacion");
-   for (int i = 0; i < poblacion; i++)
-   {
-      if (objetivo[indice_mejor].fitness == objetivo[i].fitness)
-      {
-         printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
-                objetivo[i].alpha,
-                objetivo[i].beta,
-                objetivo[i].rho,
-                objetivo[i].numHormigas,
-                objetivo[i].numIteraciones,
-                objetivo[i].fitness);
-         printf("Ruta : ");
-         for (int j = 0; j <= tamanio_instancia; j++)
-         {
-            if (j < tamanio_instancia)
-                  printf("%d -> ", objetivo[i].ruta[j]);
-               else
-                  printf("%d\n", objetivo[i].ruta[j]);
-         }
-      }
-   }*/
+   // printf("\n\nLas Mejores Soluciones De La Ultima Generacion\n");
+   // imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
 
    for (int i = 0; i < tamanio_instancia; i++)
    {
