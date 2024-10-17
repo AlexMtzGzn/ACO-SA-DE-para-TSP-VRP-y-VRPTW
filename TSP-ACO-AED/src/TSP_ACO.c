@@ -106,7 +106,7 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, d
     hor->ruta[tamanio_instancia] = hor->ruta[0];
 }
 
-void ant_system(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia)
+void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia)
 {
 
     double mejor_fitness_iteracion = INFINITY;
@@ -158,7 +158,7 @@ void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia)
     }
 }
 
-void tsp_ant_system(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
+void tsp_aco(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
 {
     hormiga *hor = (hormiga *)malloc(sizeof(hormiga) * ind->numHormigas);
     ind->ruta = (int *)malloc(sizeof(int) * (tamanio_instancia + 1));
@@ -186,7 +186,7 @@ void tsp_ant_system(individuo *ind, double **instancia_feromonas, double **insta
     }*/
 
     inializacionHormiga(hor, ind, tamanio_instancia);
-    ant_system(hor, ind, instancia_distancias, instancia_feromonas, instancia_visibilidad, tamanio_instancia);
+    aco(hor, ind, instancia_distancias, instancia_feromonas, instancia_visibilidad, tamanio_instancia);
 
     for (int i = 0; i < tamanio_instancia; i++)
         free(instancia_visibilidad[i]);

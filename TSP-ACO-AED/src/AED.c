@@ -29,7 +29,7 @@ void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instanc
       printf("\n");
    }*/
 
-   tsp_ant_system(ind, instancia_feromonas, instancia_distancias, tamanio_instancia);
+   tsp_aco(ind, instancia_feromonas, instancia_distancias, tamanio_instancia);
 }
 
 double generaAleatorio(double minimo, double maximo)
