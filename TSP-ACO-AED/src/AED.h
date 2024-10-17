@@ -20,7 +20,6 @@ void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);
 void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba, int poblacion);
 void imprimePoblacion(individuo *objetivo, int poblacion);
 void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia);
-void imprimir_instancia(double ** instancia, int tamanio_instancia);
 void aed(int poblacion,int generaciones,int tamanio_instancia, char *archivo_instancia);
 
 

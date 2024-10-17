@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "AED.h"
 #include "TSP_ACO.h"
+#include "entrada_salida_datos.h"
 
 void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind)
 {
@@ -20,15 +21,7 @@ void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instanc
    inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
 
    // Podemos imprimir matriz de Feromonas
-   /*printf("\n\n Instancia de Feromonas\n");
-   for(int i = 0; i< tamanio_instancia; i++){
-      for (int j = 0; j < tamanio_instancia; j++)
-      {
-         printf(" %.2lf ",instancia_feromonas[i][j]);
-      }
-      printf("\n");
-   }*/
-
+   //imprimir_instancia(instancia_feromonas,tamanio_instancia,"Instancia de Feromonas");
    tsp_aco(ind, instancia_feromonas, instancia_distancias, tamanio_instancia);
 }
 
@@ -156,14 +149,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
 
    // Podemos imprimir matriz de distancias
-   /*printf("\n\n Instancia de Distancias\n");
-   for(int i = 0; i< tamanio_instancia; i++){
-      for (int j = 0; j < tamanio_instancia; j++)
-      {
-         printf(" %.2lf ",instancia_distancias[i][j]);
-      }
-      printf("\n");
-   }*/
+   //imprimir_instancia(instancia_distancias,tamanio_instancia,"Instancia de Distancias");
+
 
    inicializaPoblacion(objetivo, poblacion, tamanio_instancia);
    // Podemos imprimir el objetivo n
@@ -230,7 +217,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          {
             evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
             // Podemos imprimir el objetivo n
-            printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
+            /*printf("\n\nAlpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d, Fitness: %.2lf\n",
                    objetivo[j].alpha,
                    objetivo[j].beta,
                    objetivo[j].rho,
@@ -244,7 +231,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
                   printf("%d -> ", objetivo[j].ruta[k]);
                else
                   printf("%d\n", objetivo[j].ruta[k]);
-            }
+            }*/
          }
       }
    }
@@ -259,7 +246,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    }
 
    // Podemos imprimir las mejores soluciones
-   printf("\n\nLas Mejores Soluciones De La Ultima Generacion");
+   /*printf("\n\nLas Mejores Soluciones De La Ultima Generacion");
    for (int i = 0; i < poblacion; i++)
    {
       if (objetivo[indice_mejor].fitness == objetivo[i].fitness)
@@ -280,7 +267,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
                   printf("%d\n", objetivo[i].ruta[j]);
          }
       }
-   }
+   }*/
 
    for (int i = 0; i < tamanio_instancia; i++)
    {
