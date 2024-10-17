@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "algoritmo_evolutivo_diferencial.h"
+#include "AED.h"
 #include "tsp_ant_system.h"
 
 void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind)

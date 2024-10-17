@@ -1,5 +1,5 @@
-#ifndef ALGORITMO_EVOLUTIVO_DIFERENCIAL_H
-#define ALGORITMO_EVOLUTIVO_DIFERENCIAL_H
+#ifndef AED
+#define AED
 
 typedef struct {
     double alpha;
@@ -24,4 +24,4 @@ void imprimir_instancia(double ** instancia, int tamanio_instancia);
 void algoritmo_evolutivo_diferencial(int poblacion,int generaciones,int tamanio_instancia, char *archivo_instancia);
 
 
-#endif // ALGORITMO_EVOLUTIVO_DIFERENCIAL_H
+#endif // AED

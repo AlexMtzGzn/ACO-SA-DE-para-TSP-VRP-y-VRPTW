@@ -1,6 +1,6 @@
 #ifndef TSP_ANT_SYSTEM_H
 #define TSP_ANT_SYSTEM_H
-#include "algoritmo_evolutivo_diferencial.h"
+#include "AED.h"
 
 typedef struct
 {

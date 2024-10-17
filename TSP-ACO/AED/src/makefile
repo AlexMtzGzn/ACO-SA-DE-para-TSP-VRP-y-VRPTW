@@ -2,7 +2,7 @@
 CC = gcc
 CFLAGS = -lm
 TARGET = main
-SRCS = main.c algoritmo_evolutivo_diferencial.c tsp_ant_system.c
+SRCS = main.c AED.c tsp_ant_system.c
 
 # Regla por defecto
 all: $(TARGET)
