@@ -16,6 +16,7 @@ double calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio
 void actualizar_feromona(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, int tamanio_instancia);
 void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancia, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia);
 void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, double **instancia_visibilidad, int tamanio_instancia);
+void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia);
 void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia);
 void tsp_aco(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia);
 

@@ -4,6 +4,8 @@
 #include <string.h>
 #include "TSP_ACO.h"
 #include "AED.h"
+#include "entrada_salida_datos.h"
+#include "control_memoria.h"
 
 double calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio_instancia)
 {
@@ -55,6 +57,7 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, d
                 hor->probabilidades[j] = pow(instancia_feromonas[hor->ruta[i - 1]][j], ind->alpha) *
                                          pow(instancia_visibilidad[hor->ruta[i - 1]][j], ind->beta);
                 suma_probabilidades += hor->probabilidades[j];
+                // imprimir_instancia(instancia_visibilidad,tamanio_instancia,"Instancia de Visibilidad");
             }
             else
             {
@@ -146,13 +149,26 @@ void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **i
     }
     ind->fitness = mejor_fitness_iteracion;
 }
+void inicializar_visibilidad(double **instancia_visibilidad, double **instancia_distancias, int tamanio_instancia)
+{
+    for (int i = 0; i < tamanio_instancia; i++)
+    {
+        for (int j = 0; j < tamanio_instancia; j++)
+        {
+            if (i != j)
+                instancia_visibilidad[i][j] = 1.0 / instancia_distancias[i][j];
+            else
+                instancia_visibilidad[i][j] = 0.0; 
+        }
+    }
+}
 
 void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia)
 {
     for (int i = 0; i < ind->numHormigas; i++)
     {
-        hor[i].ruta = (int *)malloc(sizeof(int) * (tamanio_instancia + 1));
-        hor[i].tabu = (int *)malloc(sizeof(int) * tamanio_instancia);
+        hor[i].ruta = asignar_memoria_ruta(tamanio_instancia + 1);
+        hor[i].tabu = asignar_memoria_ruta(tamanio_instancia);
         hor[i].probabilidades = (double *)malloc(sizeof(double) * tamanio_instancia);
         hor[i].fitness = 0.0;
     }
@@ -160,37 +176,16 @@ void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia)
 
 void tsp_aco(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
 {
-    hormiga *hor = (hormiga *)malloc(sizeof(hormiga) * ind->numHormigas);
-    ind->ruta = (int *)malloc(sizeof(int) * (tamanio_instancia + 1));
-    double **instancia_visibilidad = (double **)malloc(tamanio_instancia * sizeof(double *));
-    for (int i = 0; i < tamanio_instancia; i++)
-        instancia_visibilidad[i] = (double *)malloc(tamanio_instancia * sizeof(double));
-
-    for (int i = 0; i < tamanio_instancia; i++)
-        for (int j = 0; j < tamanio_instancia; j++)
-        {
-            if (i != j)
-                instancia_visibilidad[i][j] = 1.0 / instancia_distancias[i][j];
-            else
-                instancia_visibilidad[i][j] = 0.0;
-        }
-
+    hormiga *hor = asignar_memoria_hormiga(ind);
+    ind->ruta = asignar_memoria_ruta(tamanio_instancia + 1);
+    double **instancia_visibilidad = asignar_memoria_instancia(tamanio_instancia);
+    inicializar_visibilidad(instancia_visibilidad, instancia_distancias, tamanio_instancia);
     // Podemos imprimir matriz de Visibilidad
-    /*printf("\n\n Instancia de Visibilidad\n");
-    for(int i = 0; i< tamanio_instancia; i++){
-       for (int j = 0; j < tamanio_instancia; j++)
-       {
-          printf(" %.2lf ",instancia_visibilidad[i][j]);
-       }
-       printf("\n");
-    }*/
-
+    // imprimir_instancia(instancia_visibilidad,tamanio_instancia,"Instancia de Visibilidad");
     inializacionHormiga(hor, ind, tamanio_instancia);
     aco(hor, ind, instancia_distancias, instancia_feromonas, instancia_visibilidad, tamanio_instancia);
 
-    for (int i = 0; i < tamanio_instancia; i++)
-        free(instancia_visibilidad[i]);
-    free(instancia_visibilidad);
+    liberar_instancia(instancia_visibilidad, tamanio_instancia);
 
     for (int i = 0; i < ind->numHormigas; i++)
     {

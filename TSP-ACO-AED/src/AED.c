@@ -3,6 +3,7 @@
 #include "AED.h"
 #include "TSP_ACO.h"
 #include "entrada_salida_datos.h"
+#include "control_memoria.h"
 
 void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind)
 {
@@ -115,25 +116,14 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
    }
 }
 
-void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia)
-{
-   FILE *instancia = fopen(archivo_instancia, "r");
-
-   for (int i = 0; i < tamanio_instancia; i++)
-      for (int j = 0; j < tamanio_instancia; j++)
-         fscanf(instancia, "%lf", &instancia_distancias[i][j]);
-         
-   fclose(instancia);
-}
-
 void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
 
    individuo *objetivo, *ruidoso, *prueba;
 
-   objetivo = (individuo *)malloc(sizeof(individuo) * poblacion);
-   ruidoso = (individuo *)malloc(sizeof(individuo) * poblacion);
-   prueba = (individuo *)malloc(sizeof(individuo) * poblacion);
+   objetivo = asignar_memoria_individuos(poblacion);
+   ruidoso = asignar_memoria_individuos(poblacion);
+   prueba = asignar_memoria_individuos(poblacion);
 
    double **instancia_distancias, **instancia_feromonas;
 
@@ -184,29 +174,16 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
    int indice_mejor = 0;
    for (int j = 1; j < poblacion; ++j)
-   {
       if (objetivo[j].fitness < objetivo[indice_mejor].fitness)
-      {
          indice_mejor = j;
-      }
-   }
 
    // Podemos imprimir las mejores soluciones
-   // printf("\n\nLas Mejores Soluciones De La Ultima Generacion\n");
-   // imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
+   printf("\n\nLas Mejores Soluciones De La Ultima Generacion\n");
+   imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
 
-   for (int i = 0; i < tamanio_instancia; i++)
-   {
-      free(instancia_distancias[i]);
-      free(instancia_feromonas[i]);
-   }
-   free(instancia_distancias);
-   free(instancia_feromonas);
-   for (int i = 0; i < poblacion; i++)
-   {
-      free(objetivo[i].ruta);
-   }
-   free(objetivo);
-   free(ruidoso);
-   free(prueba);
+   liberar_instancia(instancia_distancias,tamanio_instancia);
+   liberar_instancia(instancia_feromonas,tamanio_instancia);
+   liberar_individuos(objetivo,poblacion,true);
+   liberar_individuos(prueba,poblacion,true);
+   liberar_individuos(ruidoso,poblacion,false);
 }

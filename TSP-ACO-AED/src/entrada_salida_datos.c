@@ -2,6 +2,17 @@
 #include <stdlib.h>
 #include "entrada_salida_datos.h"
 
+void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia)
+{
+   FILE *instancia = fopen(archivo_instancia, "r");
+
+   for (int i = 0; i < tamanio_instancia; i++)
+      for (int j = 0; j < tamanio_instancia; j++)
+         fscanf(instancia, "%lf", &instancia_distancias[i][j]);
+
+   fclose(instancia);
+}
+
 void imprimir_instancia(double **matriz_instancia, int tamanio_instancia, char *texto_instancia)
 {
     printf("\n\n%s\n\n", texto_instancia);
@@ -25,9 +36,9 @@ void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bo
             for (int j = 0; j <= tamanio_instancia; j++)
             {
                 if (j < tamanio_instancia)
-                    printf("%d -> ", ind[i].ruta[j]);
+                    printf("%d -> ", ind[i].ruta[j]+1);
                 else
-                    printf("%d\n", ind[i].ruta[j]);
+                    printf("%d\n", ind[i].ruta[j]+1);
             }
         }
     }
