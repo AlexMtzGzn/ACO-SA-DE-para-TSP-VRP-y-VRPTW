@@ -12,38 +12,38 @@ double calcular_fitness(hormiga *hor, double **instancia_distancias, int tamanio
     double fitness = 0.0;
     for (int i = 0; i < tamanio_instancia - 1; i++)
     {
-        fitness += instancia_distancias[hor->ruta[i + 1]][hor->ruta[i]];
+        fitness += instancia_distancias[hor->ruta[i]][hor->ruta[i + 1]];
     }
 
-    fitness += instancia_distancias[hor->ruta[0]][hor->ruta[tamanio_instancia - 1]];
+    fitness += instancia_distancias[hor->ruta[tamanio_instancia - 1]][hor->ruta[0]];
 
     return fitness;
 }
 
 void actualizar_feromona(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromona, int tamanio_instancia)
 {
-    for (int i = 0; i < tamanio_instancia; i++)
-    {
-        for (int j = 0; j < tamanio_instancia; j++)
-        {
-            if (i != j)
-                instancia_feromona[i][j] *= (1.0 - ind->rho); 
+    double **delta_feromona = asignar_memoria_instancia(tamanio_instancia);
+
+    for (int k = 0; k < ind->numHormigas; k++) {
+        double delta = 1.0 / hor[k].fitness;
+        for (int j = 0; j < tamanio_instancia - 1; j++) {
+            int ciudad_actual = hor[k].ruta[j];
+            int ciudad_siguiente = hor[k].ruta[j + 1];
+            delta_feromona[ciudad_actual][ciudad_siguiente] += delta;
+            delta_feromona[ciudad_siguiente][ciudad_actual] += delta;
         }
     }
 
-    for (int i = 0; i < ind->numHormigas; i++)
-    {
-        double delta = 1.0 / hor[i].fitness; 
-
-        for (int j = 0; j < tamanio_instancia - 1; j++)
-        {
-            int ciudad_actual = hor[i].ruta[j];
-            int ciudad_siguiente = hor[i].ruta[j + 1];
-            instancia_feromona[ciudad_actual][ciudad_siguiente] += delta;
-            instancia_feromona[ciudad_siguiente][ciudad_actual] += delta;
+    for (int i = 0; i < tamanio_instancia; i++) {
+        for (int j = 0; j < tamanio_instancia; j++) {
+            if (i != j) {
+                instancia_feromona[i][j] = (1.0 - ind->rho) * instancia_feromona[i][j] + 
+                                         delta_feromona[i][j];
+            }
         }
-
     }
+
+    liberar_instancia(delta_feromona,tamanio_instancia);
 }
 
 void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, double **instancia_feromonas, double **instancia_visibilidad, int tamanio_instancia)
