@@ -188,4 +188,5 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    liberar_individuos(objetivo, true);
    liberar_individuos(prueba, true);
    liberar_individuos(ruidoso, false);
+   liberar_individuos(individuo_prueba,true);
 }
