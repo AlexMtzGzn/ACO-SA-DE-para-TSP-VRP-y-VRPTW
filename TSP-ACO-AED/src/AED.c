@@ -118,8 +118,7 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
 
 void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-
-   individuo *objetivo, *ruidoso, *prueba;
+   individuo *objetivo, *ruidoso, *prueba, *individuo_prueba;
 
    objetivo = asignar_memoria_individuos(poblacion);
    ruidoso = asignar_memoria_individuos(poblacion);
@@ -137,13 +136,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
 
-   // Podemos imprimir matriz de distancias
-   // imprimir_instancia(instancia_distancias,tamanio_instancia,"Instancia de Distancias");
-
    inicializaPoblacion(objetivo, poblacion, tamanio_instancia);
-   // Podemos imprimir el objetivo n
-   // printf("\nPoblacion Inicial\n");
-   // imprimir_individuo(objetivo, tamanio_instancia, poblacion, false);
 
    for (int i = 0; i < generaciones; i++)
    {
@@ -156,19 +149,12 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
       }
 
-      // imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
-      // imprimir_individuo(prueba, tamanio_instancia, poblacion, true);
       seleccion(objetivo, prueba, poblacion);
 
       if (i == generaciones - 1)
       {
-
          for (int j = 0; j < poblacion; ++j)
             evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-
-         // Imprime todos los individuos de la ultima generacion
-         // printf("\n\nUltima Generacion De La Poblacion:\n");
-         // imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
       }
    }
 
@@ -177,10 +163,26 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       if (objetivo[j].fitness < objetivo[indice_mejor].fitness)
          indice_mejor = j;
 
-   // Podemos imprimir las mejores soluciones
-   printf("\n\nLas Mejores Soluciones De La Ultima Generacion\n");
-   imprimir_individuo(objetivo, tamanio_instancia, poblacion, true);
+   // Imprimir el mejor individuo de la última generación
+   printf("\n\nMejor Individuo de la Generacion\n");
+   imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
 
+   // Asignar memoria para un único individuo de prueba
+   individuo_prueba =  asignar_memoria_individuos(1);
+   individuo_prueba->alpha = objetivo[indice_mejor].alpha;
+   individuo_prueba->beta = objetivo[indice_mejor].beta;
+   individuo_prueba->rho = objetivo[indice_mejor].rho;
+   individuo_prueba->numHormigas= objetivo[indice_mejor].numHormigas;
+   individuo_prueba->numIteraciones = objetivo[indice_mejor].numIteraciones;
+   
+   // Evaluar el mejor individuo
+   evaluaFO_AED(individuo_prueba, instancia_feromonas, instancia_distancias, tamanio_instancia);
+
+   // Imprimir el resultado del individuo de prueba
+   printf("\n\nPrueba de Mejor Individuo: \n");
+   imprimir_ind(individuo_prueba, tamanio_instancia, 1);
+
+   // Liberar memoria
    liberar_instancia(instancia_distancias, tamanio_instancia);
    liberar_instancia(instancia_feromonas, tamanio_instancia);
    liberar_individuos(objetivo, true);

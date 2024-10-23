@@ -135,7 +135,7 @@ void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **i
                 indice_mejor_hormiga = j;
             }
             // Podemos imprimir la hormiga
-            imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
+            // imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
         }
 
         actualizar_feromona(hor, ind, instancia_distancias, instancia_feromona, tamanio_instancia);
