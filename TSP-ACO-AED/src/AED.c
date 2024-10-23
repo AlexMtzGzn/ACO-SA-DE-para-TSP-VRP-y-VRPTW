@@ -164,7 +164,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          indice_mejor = j;
 
    // Imprimir el mejor individuo de la última generación
-   printf("\n\nMejor Individuo de la Generacion\n");
+   printf("\n\nMejor Individuo de la Ultima Generacion\n");
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
 
    // Asignar memoria para un único individuo de prueba
