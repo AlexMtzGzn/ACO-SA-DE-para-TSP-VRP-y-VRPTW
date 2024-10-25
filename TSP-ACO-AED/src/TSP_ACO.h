@@ -1,10 +1,14 @@
 #ifndef TSP_ACO_H
 #define TSP_ACO_H
 #include "AED.h"
+#include "lista.h"
 
 typedef struct
 {
     double fitness;
+    struct Lista *probabilidades2;
+    struct Lista *tabu2;
+    struct Lista *noVisitadas;
     double *probabilidades;
     int *tabu;
     int *ruta;

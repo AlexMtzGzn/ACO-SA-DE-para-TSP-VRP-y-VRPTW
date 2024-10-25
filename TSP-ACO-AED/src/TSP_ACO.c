@@ -4,6 +4,7 @@
 #include <string.h>
 #include "TSP_ACO.h"
 #include "AED.h"
+#include "lista.h"
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
@@ -57,7 +58,7 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, d
 {
     for (int i = 0; i < tamanio_instancia; i++)
         hor->tabu[i] = 0;
-
+    
     hor->ruta[0] = rand() % tamanio_instancia;
     hor->tabu[hor->ruta[0]] = 1;
 
@@ -181,6 +182,9 @@ void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia)
         hor[i].ruta = asignar_memoria_ruta(tamanio_instancia + 1);
         hor[i].tabu = asignar_memoria_ruta(tamanio_instancia);
         hor[i].probabilidades = asignar_memoria_posibilidades(tamanio_instancia);
+        hor[i].probabilidades2 = malloc(sizeof(struct Lista));
+        hor[i].noVisitadas = malloc(sizeof(struct Lista));
+        hor[i].tabu2 = malloc(sizeof(struct Lista));
         hor[i].fitness = 0.0;
     }
 }
