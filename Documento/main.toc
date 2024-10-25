@@ -4,8 +4,10 @@
 \contentsline {chapter}{\numberline {3}Conocimientos preliminares}{5}{}%
 \contentsline {section}{\numberline {3.1}Problema de Optimizaci\'on}{5}{}%
 \contentsline {subsection}{\numberline {3.1.1}Tipos de Optimizaci\'on}{5}{}%
+\contentsline {subsubsection}{Optimizaci\'on Discreta}{6}{}%
+\contentsline {subsubsection}{Optimizaci\'on continua}{6}{}%
 \contentsline {section}{\numberline {3.2}Heur\'istica y Metaheur\'istica}{6}{}%
-\contentsline {section}{\numberline {3.3}Complejidad P, NP, NP-completo y NP-dif\'icil}{6}{}%
+\contentsline {section}{\numberline {3.3}Complejidad P, NP, NP-completo y NP-dif\'icil}{7}{}%
 \contentsline {subsection}{\numberline {3.3.1}Complejidad P}{7}{}%
 \contentsline {subsubsection}{Ejemplo: Algoritmo de Ordenamiento por Selecci\'on}{7}{}%
 \contentsline {paragraph}{Descripci\'on del algoritmo}{7}{}%
@@ -21,15 +23,15 @@
 \contentsline {subsubsection}{Definici\'on de Reducci\'on Polinomial}{10}{}%
 \contentsline {section}{\numberline {3.4}Computación Evolutiva}{11}{}%
 \contentsline {subsection}{\numberline {3.4.1}Esquema General de un Algoritmo Evolutivo}{11}{}%
-\contentsline {section}{\numberline {3.5}Evolución Diferencial}{11}{}%
-\contentsline {subsection}{\numberline {3.5.1}Inicialización}{11}{}%
+\contentsline {section}{\numberline {3.5}Evolución Diferencial}{12}{}%
+\contentsline {subsection}{\numberline {3.5.1}Inicialización}{12}{}%
 \contentsline {subsection}{\numberline {3.5.2}Mutación}{12}{}%
 \contentsline {subsection}{\numberline {3.5.3}Recombinación}{12}{}%
-\contentsline {subsection}{\numberline {3.5.4}Selección}{12}{}%
+\contentsline {subsection}{\numberline {3.5.4}Selección}{13}{}%
 \contentsline {section}{\numberline {3.6}El Problema del Agente Viajero (TSP)}{13}{}%
 \contentsline {subsection}{\numberline {3.6.1}Función Objetivo}{13}{}%
-\contentsline {subsection}{\numberline {3.6.2}Restricciones}{13}{}%
-\contentsline {subsection}{\numberline {3.6.3}Ejemplo}{14}{}%
+\contentsline {subsection}{\numberline {3.6.2}Restricciones}{14}{}%
+\contentsline {subsection}{\numberline {3.6.3}Ejemplo}{15}{}%
 \contentsline {subsection}{\numberline {3.6.4}Complejidad Computacional: TSP es NP-completo}{15}{}%
 \contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{17}{}%
 \contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{19}{}%
