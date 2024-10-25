@@ -19,5 +19,10 @@
 \contentsline {paragraph}{Complejidad:}{10}{}%
 \contentsline {subsection}{\numberline {3.4.3}Reducciones y las clases NP-completo y NP-dif\'icil}{10}{}%
 \contentsline {subsubsection}{Definici\'on de Reducci\'on Polinomial}{10}{}%
-\contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{11}{}%
-\contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{13}{}%
+\contentsline {section}{\numberline {3.5}El Problema del Agente Viajero (TSP)}{11}{}%
+\contentsline {subsection}{\numberline {3.5.1}Función Objetivo}{11}{}%
+\contentsline {subsection}{\numberline {3.5.2}Restricciones}{11}{}%
+\contentsline {subsection}{\numberline {3.5.3}Ejemplo}{12}{}%
+\contentsline {subsection}{\numberline {3.5.4}Complejidad Computacional: TSP es NP-completo}{13}{}%
+\contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{15}{}%
+\contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{17}{}%

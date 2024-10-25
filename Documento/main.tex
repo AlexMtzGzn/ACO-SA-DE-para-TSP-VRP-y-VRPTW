@@ -311,6 +311,74 @@ Esto nos lleva a la clase de complejidad NP-dif\'icil, que est\'a compuesta por 
 
 En resumen las clases de complejidad P, NP, NP-completo y NP-dif\'icil son fundamentales para comprender la eficiencia de los algoritmos. El problema abierto m\'as importante de la teor\'ia de la computaci\'on, P vs NP, sigue siendo una pregunta sin respuesta: ¿Podemos resolver todos los problemas que podemos verificar eficientemente? Resolver esta pregunta tendr\'ia implicaciones profundas no solo en la teor\'ia, sino en muchas \'areas pr\'acticas de la computaci\'on.
 
+\section{El Problema del Agente Viajero (TSP)}
+El problema del agente viajero (Travelling Salesman Problem - TSP) es uno de los problemas más estudiados en el campo de la optimización y la planificación de rutas. El TSP consiste en encontrar un recorrido de longitud mínima que permita a un agente visitar un conjunto de $n$ ciudades, pasando por cada una exactamente una vez y regresando a la ciudad de origen. Este problema es de gran importancia en aplicaciones como la logística, la distribución de productos y el diseño de circuitos.
+
+\subsection{Función Objetivo}
+
+La función objetivo del TSP tiene como meta minimizar la distancia total recorrida entre las ciudades. Matemáticamente, se expresa de la siguiente forma:
+
+\[
+\min \sum_{i=1}^{n} \sum_{j=1}^{n} d_{ij} X_{ij}
+\]
+
+Donde:
+\begin{itemize}
+    \item $d_{ij}$ representa la distancia entre la ciudad $i$ y la ciudad $j$.
+    \item $X_{ij}$ es una variable binaria que toma el valor 1 si la ciudad $i$ es visitada justo antes de la ciudad $j$, y 0 en caso contrario.
+\end{itemize}
+
+El objetivo es minimizar la suma total de las distancias $d_{ij}$ de todas las transiciones $i \to j$, asegurando que cada ciudad sea visitada solo una vez.
+
+\subsection{Restricciones}
+
+Para garantizar que el recorrido cumpla con las condiciones del problema, se deben cumplir las siguientes restricciones:
+
+\begin{enumerate}
+    \item \textbf{Restricción de unicidad de salida:} Cada ciudad $i$ debe tener exactamente una ciudad sucesora (una ciudad $j$ a la que viajar):
+    \[
+    \sum_{j=1}^{n} X_{ij} = 1, \quad \forall i = 1, 2, \dots, n
+    \]
+    Esta restricción asegura que cada ciudad tenga exactamente una ciudad siguiente en el recorrido.
+    
+    \item \textbf{Restricción de unicidad de entrada:} Cada ciudad $j$ debe ser visitada exactamente una vez por alguna ciudad anterior $i$:
+    \[
+    \sum_{i=1}^{n} X_{ij} = 1, \quad \forall j = 1, 2, \dots, n
+    \]
+    Esta restricción asegura que cada ciudad sea visitada por exactamente una ciudad anterior.
+    
+    \item \textbf{Restricciones de subciclo:} Para evitar subciclos (recorridos más cortos que no incluyan todas las ciudades), se introducen variables auxiliares $u_i$ que controlan el orden en el que se visitan las ciudades. Estas variables deben cumplir la siguiente restricción:
+    \[
+    u_i - u_j + n X_{ij} \leq n - 1, \quad \forall i, j = 2, 3, \dots, n, \, i \neq j
+    \]
+    Donde $u_i$ y $u_j$ son variables auxiliares que ayudan a eliminar los subciclos. Estas restricciones aseguran que no se generen ciclos más pequeños que el recorrido completo.
+    
+    \item \textbf{Restricción binaria:} Las variables $X_{ij}$ son binarias, es decir, pueden tomar solo los valores 0 o 1, indicando si una ciudad $i$ es seguida por la ciudad $j$ en el recorrido:
+    \[
+    X_{ij} \in \{0,1\}, \quad \forall i,j = 1, 2, \dots, n
+    \]
+\end{enumerate}
+
+\subsection{Ejemplo}
+
+Consideremos un problema con $n = 4$ ciudades. La matriz de distancias $d_{ij}$ podría ser:
+
+\[
+d_{ij} = 
+\begin{pmatrix}
+0 & 10 & 15 & 20 \\
+10 & 0 & 35 & 25 \\
+15 & 35 & 0 & 30 \\
+20 & 25 & 30 & 0
+\end{pmatrix}
+\]
+
+El objetivo es encontrar un recorrido que minimice la suma de las distancias entre las ciudades, cumpliendo con las restricciones mencionadas anteriormente. Usando programación lineal entera, se puede resolver el problema encontrando los valores óptimos para las variables $X_{ij}$.
+
+\subsection{Complejidad Computacional: TSP es NP-completo}
+
+Una de las características más importantes del TSP es que pertenece a la clase de problemas NP-completos. Esto significa que no existe un algoritmo eficiente conocido que pueda resolver el TSP de manera óptima en tiempo polinomial para todos los casos posibles. Dado que el número de posibles recorridos crece factorialmente con el número de ciudades ($n!$), resolver el TSP para grandes instancias no es computacionalmente eficiente.
+
 \chapter{Desarrollo del proyecto}
 %En Este capítulo se incluirán los resultados obtenidos durante el proyecto
 
