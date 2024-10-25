@@ -65,16 +65,30 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, d
     hor->ruta[0] = ciudadAleatoria;
     inserta_lista_ordenada_entero(hor->tabu2, ciudadAleatoria);
 
-    for (int i = 0; i < tamanio_instancia; i++){
-        if(i != ciudadAleatoria)
-            inserta_lista_ordenada_entero(hor->noVisitadas,i);
+    for (int i = 0; i < tamanio_instancia; i++)
+    {
+        if (i != ciudadAleatoria)
+            inserta_lista_ordenada_entero(hor->noVisitadas, i);
     }
 
-    
-        
+    while (obtener_Longitud(hor->noVisitadas != 0))
+    {
+        for (int i = 0; i < tamanio_instancia; i++)
+        {
+            for (int j = 0; j < obtener_Longitud(hor->noVisitadas); j++)
+            {
+                double suma_probabilidades2 = 0.0;
+                double probabilidad;
+                probabilidad = pow(instancia_feromonas[hor->ruta[i]][j], ind->alpha) *
+                               pow(instancia_visibilidad[hor->ruta[i]][j], ind->beta);
+                suma_probabilidades2 += probabilidad;
+                inserta_lista_ordenada_double(hor->probabilidades2,probabilidad);
+            }
+        }
+    }
 
-    //hor->ruta[0] = rand() % tamanio_instancia;
-    //hor->tabu[hor->ruta[0]] = 1;
+    // hor->ruta[0] = rand() % tamanio_instancia;
+    // hor->tabu[hor->ruta[0]] = 1;
 
     for (int i = 1; i < tamanio_instancia; i++)
     {
