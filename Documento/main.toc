@@ -19,10 +19,17 @@
 \contentsline {paragraph}{Complejidad:}{10}{}%
 \contentsline {subsection}{\numberline {3.4.3}Reducciones y las clases NP-completo y NP-dif\'icil}{10}{}%
 \contentsline {subsubsection}{Definici\'on de Reducci\'on Polinomial}{10}{}%
-\contentsline {section}{\numberline {3.5}El Problema del Agente Viajero (TSP)}{11}{}%
-\contentsline {subsection}{\numberline {3.5.1}Función Objetivo}{11}{}%
-\contentsline {subsection}{\numberline {3.5.2}Restricciones}{11}{}%
-\contentsline {subsection}{\numberline {3.5.3}Ejemplo}{12}{}%
-\contentsline {subsection}{\numberline {3.5.4}Complejidad Computacional: TSP es NP-completo}{13}{}%
-\contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{15}{}%
-\contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{17}{}%
+\contentsline {section}{\numberline {3.5}Computación Evolutiva}{11}{}%
+\contentsline {subsection}{\numberline {3.5.1}Esquema General de un Algoritmo Evolutivo}{11}{}%
+\contentsline {section}{\numberline {3.6}Evolución Diferencial}{11}{}%
+\contentsline {subsection}{\numberline {3.6.1}Inicialización}{11}{}%
+\contentsline {subsection}{\numberline {3.6.2}Mutación}{12}{}%
+\contentsline {subsection}{\numberline {3.6.3}Recombinación}{12}{}%
+\contentsline {subsection}{\numberline {3.6.4}Selección}{12}{}%
+\contentsline {section}{\numberline {3.7}El Problema del Agente Viajero (TSP)}{13}{}%
+\contentsline {subsection}{\numberline {3.7.1}Función Objetivo}{13}{}%
+\contentsline {subsection}{\numberline {3.7.2}Restricciones}{13}{}%
+\contentsline {subsection}{\numberline {3.7.3}Ejemplo}{14}{}%
+\contentsline {subsection}{\numberline {3.7.4}Complejidad Computacional: TSP es NP-completo}{15}{}%
+\contentsline {chapter}{\numberline {4}Desarrollo del proyecto}{17}{}%
+\contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{19}{}%
