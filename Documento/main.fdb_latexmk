@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1729829629 "/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex" "main.pdf" "main" 1729829630 0
+["pdflatex"] 1729829792 "/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex" "main.pdf" "main" 1729829793 0
   "/etc/texmf/web2c/texmf.cnf" 1729045925 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex" 1729829629 20164 20542d8c25ceb61fa8075ff354cfcbcc ""
+  "/home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex" 1729829792 20188 1626c64122aa2280715405c09fdec234 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -113,10 +113,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1681034085 39561 34c98e380bf7c7201ee6a7909aff625a ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1729045944 4623455 fa0568a71dd9a288d6c226ee477506c6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1729046000 7880130 e7df771a9d9804c28189c842e5705aa9 ""
-  "main.aux" 1729829629 3623 3a775d2d9055e509c004b287e43602e8 "pdflatex"
-  "main.lof" 1729829629 130 6065a55bb8926a8d1f250ea1e44d6185 "pdflatex"
-  "main.tex" 1729829629 20164 20542d8c25ceb61fa8075ff354cfcbcc ""
-  "main.toc" 1729829629 1971 64e73250c50db9e5a1b48a47dff09ec7 "pdflatex"
+  "main.aux" 1729829793 3623 3a775d2d9055e509c004b287e43602e8 "pdflatex"
+  "main.lof" 1729829793 130 6065a55bb8926a8d1f250ea1e44d6185 "pdflatex"
+  "main.tex" 1729829792 20188 1626c64122aa2280715405c09fdec234 ""
+  "main.toc" 1729829793 1971 64e73250c50db9e5a1b48a47dff09ec7 "pdflatex"
   (generated)
   "main.aux"
   "main.lof"
