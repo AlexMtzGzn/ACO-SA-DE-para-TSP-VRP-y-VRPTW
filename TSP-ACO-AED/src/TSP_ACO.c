@@ -58,9 +58,23 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, d
 {
     for (int i = 0; i < tamanio_instancia; i++)
         hor->tabu[i] = 0;
+
+    // Aqui implemento como lista
+
+    int ciudadAleatoria = rand() % tamanio_instancia;
+    hor->ruta[0] = ciudadAleatoria;
+    inserta_lista_ordenada_entero(hor->tabu2, ciudadAleatoria);
+
+    for (int i = 0; i < tamanio_instancia; i++){
+        if(i != ciudadAleatoria)
+            inserta_lista_ordenada_entero(hor->noVisitadas,i);
+    }
+
     
-    hor->ruta[0] = rand() % tamanio_instancia;
-    hor->tabu[hor->ruta[0]] = 1;
+        
+
+    //hor->ruta[0] = rand() % tamanio_instancia;
+    //hor->tabu[hor->ruta[0]] = 1;
 
     for (int i = 1; i < tamanio_instancia; i++)
     {
@@ -143,7 +157,7 @@ void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **i
                 indice_mejor_hormiga = j;
             }
             // Podemos imprimir la hormiga
-             //imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
+            // imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
         }
 
         actualizar_feromona(hor, ind, instancia_distancias, instancia_feromona, tamanio_instancia);

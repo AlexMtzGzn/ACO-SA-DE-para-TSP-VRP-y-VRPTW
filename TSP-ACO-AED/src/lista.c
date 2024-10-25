@@ -67,3 +67,31 @@ void inserta_lista_ordenada_entero(struct Lista *lista, int elemento)
         printf("\nError al asignar memoria al nodo.");
     }
 }
+
+void eliminar_valor_Lista(struct Lista *lista, int *elemento) {
+    if (!es_Vacia_Lista(lista)) {
+        struct Nodo *nodoActual = lista->cabeza, *nodoAnterior = NULL;
+
+        while (nodoActual != NULL) {
+            if (*elemento == nodoActual->dato) {
+                if (nodoAnterior == NULL) { 
+                    lista->cabeza = nodoActual->siguiente;
+                    free(nodoActual);
+
+                    if (lista->cabeza == NULL)
+                        lista->cola = NULL;
+                } else { 
+                    nodoAnterior->siguiente = nodoActual->siguiente;
+                    free(nodoActual);
+
+                    if (nodoAnterior->siguiente == NULL)
+                        lista->cola = nodoAnterior;
+                }
+                break;
+            } else {
+                nodoAnterior = nodoActual;
+                nodoActual = nodoActual->siguiente;
+            }
+        }
+    }
+}

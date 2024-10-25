@@ -25,6 +25,7 @@ int obtener_Longitud(struct Lista *lista);
 void inserta_Principio_Lista(struct Lista *lista,int * elemento);
 void inserta_Final_Lista(struct Lista *lista,int * elemento);
 void inserta_Posicion_Lista(struct Lista * lista, int *elemento, int *posicion);
+void inserta_lista_ordenada_entero(struct Lista *lista, int elemento);
 
 //Eliminacion
 void eliminar_Principio_Lista(struct Lista *lista);
