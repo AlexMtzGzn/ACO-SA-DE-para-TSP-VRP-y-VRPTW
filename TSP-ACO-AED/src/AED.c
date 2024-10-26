@@ -128,11 +128,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
    instancia_distancias = asignar_memoria_instancia(tamanio_instancia);
    instancia_feromonas = asignar_memoria_instancia(tamanio_instancia);
-   for (int i = 0; i < tamanio_instancia; i++)
-   {
-      instancia_distancias[i] = (double *)malloc(tamanio_instancia * sizeof(double));
-      instancia_feromonas[i] = (double *)malloc(tamanio_instancia * sizeof(double));
-   }
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
 

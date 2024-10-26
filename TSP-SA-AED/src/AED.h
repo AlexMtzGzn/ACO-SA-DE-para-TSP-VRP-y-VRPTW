@@ -3,17 +3,15 @@
 
 typedef struct
 {
-    double alpha;
-    double beta;
-    double rho;
-    int numHormigas;
+    double temperatura_incial;
+    double temperatura_final;
+    double factor_enfriamiento;
     int numIteraciones;
     double fitness;
     int *ruta;
 } individuo;
 
-void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind);
-void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia);
+void evaluaFO_AED();
 double generaAleatorio(double minimo, double maximo);
 void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instancia);
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);

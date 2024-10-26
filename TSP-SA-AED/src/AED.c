@@ -1,29 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "AED.h"
-#include "TSP_ACO.h"
-#include "entrada_salida_datos.h"
-#include "control_memoria.h"
 
-void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind)
+void evaluaFO_AED()
 {
-   for (int i = 0; i < tamanio_instancia; i++)
-      for (int j = 0; j < tamanio_instancia; j++)
-      {
-         if (i == j)
-            instancia_feromonas[i][j] = 0.0;
-         else
-            instancia_feromonas[i][j] = ind->alpha;
-      }
-}
-
-void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
-{
-   inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
-
-   // Podemos imprimir matriz de Feromonas
-   // imprimir_instancia(instancia_feromonas,tamanio_instancia,"Instancia de Feromonas");
-   tsp_aco(ind, instancia_feromonas, instancia_distancias, tamanio_instancia);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -47,41 +27,34 @@ void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
          aleatorio3 = rand() % poblacion;
       }
 
-      ruidoso[i].alpha = objetivo[aleatorio1].alpha + 0.5 * (objetivo[aleatorio2].alpha - objetivo[aleatorio3].alpha);
-      ruidoso[i].beta = objetivo[aleatorio1].beta + 0.5 * (objetivo[aleatorio2].beta - objetivo[aleatorio3].beta);
-      ruidoso[i].rho = objetivo[aleatorio1].rho + 0.5 * (objetivo[aleatorio2].rho - objetivo[aleatorio3].rho);
-      ruidoso[i].numHormigas = objetivo[aleatorio1].numHormigas + (int)(0.5 * (objetivo[aleatorio2].numHormigas - objetivo[aleatorio3].numHormigas));
+      ruidoso[i].temperatura_incial = objetivo[aleatorio1].temperatura_final + 0.5 * (objetivo[aleatorio2].temperatura_final - objetivo[aleatorio3].temperatura_final);
+      ruidoso[i].temperatura_final = objetivo[aleatorio1].temperatura_final + 0.5 * (objetivo[aleatorio2].temperatura_final - objetivo[aleatorio3].temperatura_final);
+      ruidoso[i].factor_enfriamiento = objetivo[aleatorio1].factor_enfriamiento + 0.5 * (objetivo[aleatorio2].factor_enfriamiento - objetivo[aleatorio3].factor_enfriamiento);
       ruidoso[i].numIteraciones = objetivo[aleatorio1].numIteraciones + (int)(0.5 * (objetivo[aleatorio2].numIteraciones - objetivo[aleatorio3].numIteraciones));
 
-      if (ruidoso[i].alpha > 2.0)
-         ruidoso[i].alpha = 2.0;
+      if (ruidoso[i].temperatura_incial > 1000.0)
+         ruidoso[i].temperatura_incial = 1000.0;
 
-      if (ruidoso[i].alpha < 0.1)
-         ruidoso[i].alpha = 0.1;
+      if (ruidoso[i].temperatura_incial < 900.0)
+         ruidoso[i].temperatura_incial = 900.0;
 
-      if (ruidoso[i].beta > 2.5)
-         ruidoso[i].beta = 2.5;
+      if (ruidoso[i].temperatura_final > 0.25)
+         ruidoso[i].temperatura_final = 0.25;
 
-      if (ruidoso[i].beta < 1.5)
-         ruidoso[i].beta = 1.5;
+      if (ruidoso[i].temperatura_final < 0.1)
+         ruidoso[i].temperatura_final = 0.1;
 
-      if (ruidoso[i].rho > 1.0)
-         ruidoso[i].rho = 1.0;
+      if (ruidoso[i].factor_enfriamiento > 0.99)
+         ruidoso[i].factor_enfriamiento = 0.99;
 
-      if (ruidoso[i].rho < 0.0)
-         ruidoso[i].rho = 0.0;
+      if (ruidoso[i].factor_enfriamiento < 0.9)
+         ruidoso[i].factor_enfriamiento = 0.9;
 
-      if (ruidoso[i].numHormigas > 20)
-         ruidoso[i].numHormigas = 20;
-
-      if (ruidoso[i].numHormigas < 10)
-         ruidoso[i].numHormigas = 10;
-
-      if (ruidoso[i].numIteraciones > 50)
-         ruidoso[i].numIteraciones = 50;
-
-      if (ruidoso[i].numIteraciones < 20)
+      if (ruidoso[i].numIteraciones > 20)
          ruidoso[i].numIteraciones = 20;
+
+      if (ruidoso[i].numIteraciones < 5)
+         ruidoso[i].numIteraciones = 5;
    }
 }
 
@@ -108,11 +81,10 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
 {
    for (int i = 0; i < poblacion; ++i)
    {
-      objetivo[i].alpha = generaAleatorio(0.1, 2.0);
-      objetivo[i].beta = generaAleatorio(1.5, 2.5);
-      objetivo[i].rho = generaAleatorio(0.0, 1.0);
-      objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
-      objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
+      objetivo[i].temperatura_incial = generaAleatorio(900.0, 1000.0);
+      objetivo[i].temperatura_final = generaAleatorio(0.1, 0.25);
+      objetivo[i].factor_enfriamiento = generaAleatorio(0.9, 0.99);
+      objetivo[i].numIteraciones = (int)generaAleatorio(5, 20);
    }
 }
 
@@ -124,15 +96,9 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    ruidoso = asignar_memoria_individuos(poblacion);
    prueba = asignar_memoria_individuos(poblacion);
 
-   double **instancia_distancias, **instancia_feromonas;
+   double **instancia_distancias;
 
    instancia_distancias = (double **)malloc(tamanio_instancia * sizeof(double *));
-   instancia_feromonas = (double **)malloc(tamanio_instancia * sizeof(double *));
-   for (int i = 0; i < tamanio_instancia; i++)
-   {
-      instancia_distancias[i] = (double *)malloc(tamanio_instancia * sizeof(double));
-      instancia_feromonas[i] = (double *)malloc(tamanio_instancia * sizeof(double));
-   }
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
 
@@ -145,8 +111,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
       for (int j = 0; j < poblacion; ++j)
       {
-         evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+         evaluaFO_AED();
+         evaluaFO_AED();
       }
 
       seleccion(objetivo, prueba, poblacion);
@@ -154,7 +120,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       if (i == generaciones - 1)
       {
          for (int j = 0; j < poblacion; ++j)
-            evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+            evaluaFO_AED();
       }
    }
 
@@ -168,25 +134,23 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
 
    // Asignar memoria para un único individuo de prueba
-   individuo_prueba =  asignar_memoria_individuos(1);
-   individuo_prueba->alpha = objetivo[indice_mejor].alpha;
-   individuo_prueba->beta = objetivo[indice_mejor].beta;
-   individuo_prueba->rho = objetivo[indice_mejor].rho;
-   individuo_prueba->numHormigas= objetivo[indice_mejor].numHormigas;
+   individuo_prueba = asignar_memoria_individuos(1);
+   individuo_prueba->temperatura_incial = objetivo[indice_mejor].temperatura_incial;
+   individuo_prueba->temperatura_final = objetivo[indice_mejor].temperatura_final;
+   individuo_prueba->factor_enfriamiento = objetivo[indice_mejor].factor_enfriamiento;
    individuo_prueba->numIteraciones = objetivo[indice_mejor].numIteraciones;
-   
+
    // Evaluar el mejor individuo
-   evaluaFO_AED(individuo_prueba, instancia_feromonas, instancia_distancias, tamanio_instancia);
+   evaluaFO_AED();
 
    // Imprimir el resultado del individuo de prueba
    printf("\n\nPrueba de Mejor Individuo: \n");
    imprimir_ind(individuo_prueba, tamanio_instancia, 1);
 
    // Liberar memoria
-   liberar_instancia(instancia_distancias, tamanio_instancia);
-   liberar_instancia(instancia_feromonas, tamanio_instancia);
-   liberar_individuos(objetivo, true);
-   liberar_individuos(prueba, true);
-   liberar_individuos(ruidoso, false);
-   liberar_individuos(individuo_prueba,true);
+   // liberar_instancia(instancia_distancias, tamanio_instancia);
+   // liberar_individuos(objetivo, true);
+   // liberar_individuos(prueba, true);
+   // liberar_individuos(ruidoso, false);
+   // liberar_individuos(individuo_prueba, true);
 }
