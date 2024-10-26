@@ -20,18 +20,29 @@ void copiaSolucion(solucion *solucion_original, solucion *solucion_copia, int ta
 {
     for (int i = 0; i < tamanio_instancia; ++i)
         solucion_copia->solucion[i] = solucion_original->solucion[i];
+    
+    // Asegurar que el último elemento sea igual al primero
+    solucion_copia->solucion[tamanio_instancia] = solucion_copia->solucion[0];
     solucion_copia->fitness = solucion_original->fitness;
 }
 
 void intercambiarCiudades(solucion *solucion, int tamanio_instancia)
 {
+    // Generar dos posiciones aleatorias diferentes
     int ciudad1 = rand() % tamanio_instancia;
     int ciudad2 = rand() % tamanio_instancia;
+    
+    while (ciudad1 == ciudad2)
+        ciudad2 = rand() % tamanio_instancia;
+
+    // Realizar el intercambio
     int temp = solucion->solucion[ciudad1];
     solucion->solucion[ciudad1] = solucion->solucion[ciudad2];
     solucion->solucion[ciudad2] = temp;
-}
 
+    // Asegurar que el último elemento sea igual al primero
+    solucion->solucion[tamanio_instancia] = solucion->solucion[0];
+}
 void generaVecino(solucion *solucion_inicial, solucion *solucion_vecina, int tamanio_instancia)
 {
     copiaSolucion(solucion_inicial, solucion_vecina, tamanio_instancia);
@@ -43,10 +54,7 @@ void sa(individuo *ind, solucion *solucion_inicial, solucion *solucion_vecina, s
     evaluaFO(solucion_inicial, instancias_distancias, tamanio_instancia);
     copiaSolucion(solucion_inicial, mejor_solucion, tamanio_instancia);
 
-    double temperatura = ind->temperatura_inicial;
-    double mejorFO = mejor_solucion->fitness;
-
-    while (temperatura > ind->temperatura_final)
+    while (ind->temperatura_inicial > ind->temperatura_final)
     {
         for (int i = 0; i < ind->numIteraciones; ++i)
         {
@@ -54,41 +62,43 @@ void sa(individuo *ind, solucion *solucion_inicial, solucion *solucion_vecina, s
             evaluaFO(solucion_vecina, instancias_distancias, tamanio_instancia);
             double delta = solucion_vecina->fitness - solucion_inicial->fitness;
 
-            if (delta <= 0 || (rand() / (double)RAND_MAX) < exp(-delta / temperatura))
+            if (delta <= 0 || (rand() / (double)RAND_MAX) < exp(-delta / ind->temperatura_inicial))
             {
                 copiaSolucion(solucion_vecina, solucion_inicial, tamanio_instancia);
             }
 
-            if (solucion_inicial->fitness < mejorFO)
+            if (solucion_inicial->fitness < mejor_solucion->fitness)
             {
                 copiaSolucion(solucion_inicial, mejor_solucion, tamanio_instancia);
-                mejorFO = mejor_solucion->fitness;
             }
         }
-        temperatura *= ind->enfriamiento;
+        ind->temperatura_inicial *= ind->enfriamiento;
     }
 
-    printf("Mejor distancia encontrada: %f\n", mejorFO);
-    printf("Mejor ruta: ");
-    for (int i = 0; i < tamanio_instancia; ++i)
-    {
-        printf("%d ", mejor_solucion->solucion[i]);
-    }
-    printf("\n");
+    ind->fitness = mejor_solucion->fitness;
+    ind->ruta = asignar_memoria_ruta(tamanio_instancia + 1);
+
+    // Copiar la ruta completa, incluyendo el retorno a la ciudad inicial
+    for (int i = 0; i <= tamanio_instancia; ++i)
+        ind->ruta[i] = mejor_solucion->solucion[i];
 }
-
 void generaSolInicial(solucion *solucion_inicial, int tamanio_instancia)
 {
+    // Inicializar el arreglo con valores secuenciales
     for (int i = 0; i < tamanio_instancia; ++i)
         solucion_inicial->solucion[i] = i;
 
-    for (int i = 0; i < tamanio_instancia; ++i)
+    // Realizar intercambios aleatorios (Fisher-Yates shuffle)
+    for (int i = tamanio_instancia - 1; i > 0; --i)
     {
-        int j = rand() % tamanio_instancia;
+        int j = rand() % (i + 1);
         int temp = solucion_inicial->solucion[i];
         solucion_inicial->solucion[i] = solucion_inicial->solucion[j];
         solucion_inicial->solucion[j] = temp;
     }
+
+    // Asegurar que el último elemento sea igual al primero
+    solucion_inicial->solucion[tamanio_instancia] = solucion_inicial->solucion[0];
 }
 
 void tsp_sa(individuo *ind, double **instancias_distancias, int tamanio_instancia)
@@ -97,9 +107,9 @@ void tsp_sa(individuo *ind, double **instancias_distancias, int tamanio_instanci
     solucion *solucion_vecina = (solucion *)malloc(sizeof(solucion));
     solucion *mejor_solucion = (solucion *)malloc(sizeof(solucion));
 
-    solucion_inicial->solucion = asignar_memoria_ruta(tamanio_instancia);
-    solucion_vecina->solucion = asignar_memoria_ruta(tamanio_instancia);
-    mejor_solucion->solucion = asignar_memoria_ruta(tamanio_instancia);
+    solucion_inicial->solucion = asignar_memoria_ruta(tamanio_instancia + 1);
+    solucion_vecina->solucion = asignar_memoria_ruta(tamanio_instancia + 1);
+    mejor_solucion->solucion = asignar_memoria_ruta(tamanio_instancia + 1);
 
     generaSolInicial(solucion_inicial, tamanio_instancia);
     sa(ind, solucion_inicial, solucion_vecina, mejor_solucion, instancias_distancias, tamanio_instancia);
