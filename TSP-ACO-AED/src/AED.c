@@ -163,13 +163,13 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
 
    // Asignar memoria para un único individuo de prueba
-   individuo_prueba =  asignar_memoria_individuos(1);
+   individuo_prueba = asignar_memoria_individuos(1);
    individuo_prueba->alpha = objetivo[indice_mejor].alpha;
    individuo_prueba->beta = objetivo[indice_mejor].beta;
    individuo_prueba->rho = objetivo[indice_mejor].rho;
-   individuo_prueba->numHormigas= objetivo[indice_mejor].numHormigas;
+   individuo_prueba->numHormigas = objetivo[indice_mejor].numHormigas;
    individuo_prueba->numIteraciones = objetivo[indice_mejor].numIteraciones;
-   
+
    // Evaluar el mejor individuo
    evaluaFO_AED(individuo_prueba, instancia_feromonas, instancia_distancias, tamanio_instancia);
 
@@ -183,5 +183,5 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    liberar_individuos(objetivo, true);
    liberar_individuos(prueba, true);
    liberar_individuos(ruidoso, false);
-   liberar_individuos(individuo_prueba,true);
+   liberar_individuos(individuo_prueba, true);
 }

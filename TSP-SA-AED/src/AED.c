@@ -38,18 +38,25 @@ void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
 
       if (ruidoso[i].temperatura_inicial > 1000.0)
          ruidoso[i].temperatura_inicial = 1000.0;
+
       if (ruidoso[i].temperatura_inicial < 900.0)
          ruidoso[i].temperatura_inicial = 900.0;
+
       if (ruidoso[i].temperatura_final > 0.25)
          ruidoso[i].temperatura_final = 0.25;
+
       if (ruidoso[i].temperatura_final < 0.1)
          ruidoso[i].temperatura_final = 0.1;
+
       if (ruidoso[i].enfriamiento > 0.99)
          ruidoso[i].enfriamiento = 0.99;
+
       if (ruidoso[i].enfriamiento < 0.9)
          ruidoso[i].enfriamiento = 0.9;
+
       if (ruidoso[i].numIteraciones > 20)
          ruidoso[i].numIteraciones = 20;
+
       if (ruidoso[i].numIteraciones < 5)
          ruidoso[i].numIteraciones = 5;
    }
@@ -108,24 +115,24 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       seleccion(objetivo, prueba, poblacion);
    }
 
-       int indice_mejor = 0;
-       for (int j = 1; j < poblacion; ++j)
-           if (objetivo[j].fitness < objetivo[indice_mejor].fitness)
-               indice_mejor = j;
+   int indice_mejor = 0;
+   for (int j = 1; j < poblacion; ++j)
+      if (objetivo[j].fitness < objetivo[indice_mejor].fitness)
+         indice_mejor = j;
 
-       printf("\n\nMejor Individuo de la Ultima Generacion\n");
-       imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
+   printf("\n\nMejor Individuo de la Ultima Generacion\n");
+   imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
 
-       individuo *individuo_prueba = asignar_memoria_individuos(1);
-       *individuo_prueba = objetivo[indice_mejor];
-       evaluaFO_AED(individuo_prueba, instancia_distancias, tamanio_instancia);
+   individuo *individuo_prueba = asignar_memoria_individuos(1);
+   *individuo_prueba = objetivo[indice_mejor];
+   evaluaFO_AED(individuo_prueba, instancia_distancias, tamanio_instancia);
 
-       printf("\n\nPrueba de Mejor Individuo: \n");
-       imprimir_ind(individuo_prueba, tamanio_instancia, 1);
+   printf("\n\nPrueba de Mejor Individuo: \n");
+   imprimir_ind(individuo_prueba, tamanio_instancia, 1);
 
-      /* liberar_instancia(instancia_distancias, tamanio_instancia);
-       liberar_individuos(objetivo);
-       liberar_individuos(prueba);
-       liberar_individuos(ruidoso);
-       liberar_individuos(individuo_prueba);*/
+   /* liberar_instancia(instancia_distancias, tamanio_instancia);
+    liberar_individuos(objetivo);
+    liberar_individuos(prueba);
+    liberar_individuos(ruidoso);
+    liberar_individuos(individuo_prueba);*/
 }
