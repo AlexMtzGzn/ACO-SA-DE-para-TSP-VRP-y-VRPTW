@@ -11,7 +11,7 @@ typedef struct
     int *ruta;
 } individuo;
 
-void evaluaFO_AED();
+void evaluaFO_AED(individuo *ind,double ** instancia_distacias,int tamanio_instancia);
 double generaAleatorio(double minimo, double maximo);
 void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instancia);
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);

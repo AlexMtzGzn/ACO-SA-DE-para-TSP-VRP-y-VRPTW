@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "AED.h"
+#include "TSP_SA.h"
 
-void evaluaFO_AED()
+void evaluaFO_AED(individuo *ind,double ** instancia_distacias,int tamanio_instancia)
 {
+   tsp_sa(ind,instancia_distacias,tamanio_instancia);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -111,8 +113,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
       for (int j = 0; j < poblacion; ++j)
       {
-         evaluaFO_AED();
-         evaluaFO_AED();
+         //evaluaFO_AED();
+         //evaluaFO_AED();
       }
 
       seleccion(objetivo, prueba, poblacion);
@@ -120,7 +122,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       if (i == generaciones - 1)
       {
          for (int j = 0; j < poblacion; ++j)
-            evaluaFO_AED();
+         printf("Hola");
+            //evaluaFO_AED();
       }
    }
 
@@ -141,7 +144,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    individuo_prueba->numIteraciones = objetivo[indice_mejor].numIteraciones;
 
    // Evaluar el mejor individuo
-   evaluaFO_AED();
+   //evaluaFO_AED();
 
    // Imprimir el resultado del individuo de prueba
    printf("\n\nPrueba de Mejor Individuo: \n");
