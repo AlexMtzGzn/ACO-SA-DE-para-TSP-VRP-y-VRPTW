@@ -1,7 +1,6 @@
 #ifndef TSP_ACO_H
 #define TSP_ACO_H
 #include "AED.h"
-#include "lista.h"
 
 typedef struct
 {

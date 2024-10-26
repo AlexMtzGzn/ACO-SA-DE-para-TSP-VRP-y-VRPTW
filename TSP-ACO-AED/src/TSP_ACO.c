@@ -4,7 +4,6 @@
 #include <string.h>
 #include "TSP_ACO.h"
 #include "AED.h"
-#include "lista.h"
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
@@ -59,36 +58,8 @@ void ruta_hormiga(hormiga *hor, individuo *ind, double **instancia_distancias, d
     for (int i = 0; i < tamanio_instancia; i++)
         hor->tabu[i] = 0;
 
-    // Aqui implemento como lista
-
-    int ciudadAleatoria = rand() % tamanio_instancia;
-    hor->ruta[0] = ciudadAleatoria;
-    inserta_lista_ordenada_entero(hor->tabu2, ciudadAleatoria);
-
-    for (int i = 0; i < tamanio_instancia; i++)
-    {
-        if (i != ciudadAleatoria)
-            inserta_lista_ordenada_entero(hor->noVisitadas, i);
-    }
-
-    while (obtener_Longitud(hor->noVisitadas != 0))
-    {
-        for (int i = 0; i < tamanio_instancia; i++)
-        {
-            for (int j = 0; j < obtener_Longitud(hor->noVisitadas); j++)
-            {
-                double suma_probabilidades2 = 0.0;
-                double probabilidad;
-                probabilidad = pow(instancia_feromonas[hor->ruta[i]][j], ind->alpha) *
-                               pow(instancia_visibilidad[hor->ruta[i]][j], ind->beta);
-                suma_probabilidades2 += probabilidad;
-                inserta_lista_ordenada_double(hor->probabilidades2,probabilidad);
-            }
-        }
-    }
-
-    // hor->ruta[0] = rand() % tamanio_instancia;
-    // hor->tabu[hor->ruta[0]] = 1;
+    hor->ruta[0] = rand() % tamanio_instancia;
+    hor->tabu[hor->ruta[0]] = 1;
 
     for (int i = 1; i < tamanio_instancia; i++)
     {
@@ -171,7 +142,7 @@ void aco(hormiga *hor, individuo *ind, double **instancia_distancias, double **i
                 indice_mejor_hormiga = j;
             }
             // Podemos imprimir la hormiga
-            // imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
+             //imprimir_ruta_hormiga(&hor[j], tamanio_instancia, j, i);
         }
 
         actualizar_feromona(hor, ind, instancia_distancias, instancia_feromona, tamanio_instancia);
@@ -210,9 +181,6 @@ void inializacionHormiga(hormiga *hor, individuo *ind, int tamanio_instancia)
         hor[i].ruta = asignar_memoria_ruta(tamanio_instancia + 1);
         hor[i].tabu = asignar_memoria_ruta(tamanio_instancia);
         hor[i].probabilidades = asignar_memoria_posibilidades(tamanio_instancia);
-        hor[i].probabilidades2 = malloc(sizeof(struct Lista));
-        hor[i].noVisitadas = malloc(sizeof(struct Lista));
-        hor[i].tabu2 = malloc(sizeof(struct Lista));
         hor[i].fitness = 0.0;
     }
 }
