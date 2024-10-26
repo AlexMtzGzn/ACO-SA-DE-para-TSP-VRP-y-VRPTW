@@ -29,7 +29,7 @@ void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bo
     for (int i = 0; i < poblacion; i++)
     {
         printf("\nIndividio:  %d", i + 1);
-        printf("\nTemperatuara Inicial: %.2lf, Temperatura Final: %.2lf, Factor Enfriamiento: %.2lf, Iteraciones: %d\n", ind->temperatura_incial, ind->temperatura_final, ind->factor_enfriamiento, ind->numIteraciones);
+        printf("\nTemperatuara Inicial: %.2lf, Temperatura Final: %.2lf, Factor Enfriamiento: %.2lf, Iteraciones: %d\n", ind->temperatura_inicial, ind->temperatura_final, ind->enfriamiento, ind->numIteraciones);
         if (bandera == true)
         {
             printf("Fitness: %.2lf\nRuta : ", ind[i].fitness);
@@ -47,7 +47,7 @@ void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bo
 void imprimir_ind(individuo *ind, int tamanio_instancia, int poblacion)
 {
 
-    printf("\nTemperatuara Inicial: %.2lf, Temperatura Final: %.2lf, Factor Enfriamiento: %.2lf, Iteraciones: %d\n", ind->temperatura_incial, ind->temperatura_final, ind->factor_enfriamiento, ind->numIteraciones);
+    printf("\nTemperatuara Inicial: %.2lf, Temperatura Final: %.2lf, Factor Enfriamiento: %.2lf, Iteraciones: %d\n", ind->temperatura_inicial, ind->temperatura_final, ind->enfriamiento, ind->numIteraciones);
 
     printf("Fitness: %.2lf\nRuta : ", ind->fitness);
     for (int j = 0; j <= tamanio_instancia; j++)
