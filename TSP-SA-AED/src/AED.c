@@ -93,6 +93,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    individuo *prueba = asignar_memoria_individuos(poblacion);
    individuo individuo_prueba;
    individuo individuo_mejor_global;
+   generacion *generacion = asignar_memoria_generaciones(poblacion, generaciones);
    double **instancia_distancias = asignar_memoria_instancia(tamanio_instancia);
 
    individuo_prueba.ruta = asignar_memoria_ruta(tamanio_instancia + 1);
@@ -102,8 +103,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    individuo_mejor_global.fitness = __FLT_MAX__;
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
-   //Podemos imprimir la matriz de distancias
-   //imprimir_instancia(instancia_distancias,tamanio_instancia,"Instancia Distancias");
+   // Podemos imprimir la matriz de distancias
+   // imprimir_instancia(instancia_distancias,tamanio_instancia,"Instancia Distancias");
    inicializaPoblacion(objetivo, poblacion);
 
    int indice_mejor = 0;
@@ -124,6 +125,10 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          evaluaFO_AED(&objetivo[j], instancia_distancias, tamanio_instancia);
          evaluaFO_AED(&prueba[j], instancia_distancias, tamanio_instancia);
 
+         generacion[j].fitness = objetivo[j].fitness;
+         generacion[j].generacion = i + 1;
+         generacion[j].poblacion = j + 1;
+
          if (objetivo[j].fitness < individuo_mejor_global.fitness)
          {
             individuo_mejor_global.temperatura_inicial = objetivo[j].temperatura_inicial;
@@ -134,7 +139,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
             for (int k = 0; k <= tamanio_instancia; k++)
                individuo_mejor_global.ruta[k] = objetivo[j].ruta[k];
-            
          }
 
          if (prueba[j].fitness < individuo_mejor_global.fitness)
@@ -147,7 +151,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
             for (int k = 0; k <= tamanio_instancia; k++)
                individuo_mejor_global.ruta[k] = prueba[j].ruta[k];
-            
          }
       }
       /*
@@ -164,7 +167,10 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          for (int j = 0; j < poblacion; j++)
          {
             evaluaFO_AED(&objetivo[j], instancia_distancias, tamanio_instancia);
-
+            generacion[j].fitness = objetivo[j].fitness;
+            generacion[j].generacion = i + 1;
+            generacion[j].poblacion = j + 1;
+            
             if (objetivo[j].fitness < individuo_prueba.fitness)
             {
                indice_mejor = j;
@@ -185,6 +191,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia);
 
    evaluaFO_AED(&individuo_prueba, instancia_distancias, tamanio_instancia);
+
    if (individuo_prueba.fitness < individuo_mejor_global.fitness)
    {
       individuo_mejor_global.temperatura_inicial = individuo_prueba.temperatura_inicial;
@@ -195,7 +202,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
       for (int k = 0; k <= tamanio_instancia; k++)
          individuo_mejor_global.ruta[k] = individuo_prueba.ruta[k];
-
    }
    printf("\n\nPrueba de Mejor Individuo: \n");
    imprimir_ind(&individuo_prueba, tamanio_instancia);

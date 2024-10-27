@@ -7,6 +7,9 @@ typedef struct{
     double fitness;
 } solucion;
 
+
+
+
 void evaluaFO(solucion *solucion_inicial, double **instancia_distancias, int tamanio_instancia);
 void copiaSolucion(solucion *solucion_original, solucion *solucion_copia, int tamanio_instancia);
 void intercambiarCiudades(solucion *solucion, int tamanio_instancia);

@@ -7,6 +7,7 @@
 double **asignar_memoria_instancia(int tamanio_instancia);
 individuo *asignar_memoria_individuos(int poblacion);
 solucion *asignar_memoria_soluciones();
+generacion * asignar_memoria_generaciones (int poblacion, int generaciones);
 int *asignar_memoria_ruta(int tamanio_instancia);
 void liberar_instancia(double **instancia, int tamanio_instancia);
 void liberar_ruta(int *ruta);

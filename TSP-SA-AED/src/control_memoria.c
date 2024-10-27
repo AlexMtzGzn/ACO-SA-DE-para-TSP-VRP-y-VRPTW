@@ -14,6 +14,8 @@ individuo *asignar_memoria_individuos(int poblacion) { return (individuo *)mallo
 
 solucion *asignar_memoria_soluciones() { return (solucion *)malloc(sizeof(solucion)); }
 
+generacion * asignar_memoria_generaciones (int poblacion, int generaciones){return (generacion *) malloc(sizeof(generacion) * (poblacion * generaciones));}
+
 int *asignar_memoria_ruta(int tamanio_instancia) { return (int *)malloc(sizeof(int) * (tamanio_instancia)); }
 
 void liberar_instancia(double **instancia, int tamanio_instancia)

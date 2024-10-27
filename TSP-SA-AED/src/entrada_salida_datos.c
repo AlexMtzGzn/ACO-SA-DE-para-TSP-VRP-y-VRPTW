@@ -70,3 +70,7 @@ void imprimir_ind(individuo *ind, int tamanio_instancia)
             printf("%d\n", ind->ruta[j] + 1);
     }
 }
+
+void imprimir_Archivo(generacion * generacion, double tiempo, int poblacion, int generaciones, char * nombre_archivo){
+
+}

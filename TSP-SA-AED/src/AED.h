@@ -11,6 +11,13 @@ typedef struct
     int *ruta;
 } individuo;
 
+typedef struct 
+{
+    int generacion;
+    double fitness;
+    int poblacion;
+} generacion;
+
 void evaluaFO_AED(individuo *ind,double ** instancia_distacias,int tamanio_instancia);
 double generaAleatorio(double minimo, double maximo);
 void inicializaPoblacion(individuo *objetivo, int poblacion);
