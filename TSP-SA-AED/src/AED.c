@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "AED.h"
 #include "TSP_SA.h"
 #include "control_memoria.h"
@@ -108,7 +109,10 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    inicializaPoblacion(objetivo, poblacion);
 
    int indice_mejor = 0;
+   clock_t inicio, fin;
+   double tiempo;
 
+   inicio = clock();
    for (int i = 0; i < generaciones; i++)
    {
       construyeRuidosos(objetivo, ruidoso, poblacion);
@@ -170,7 +174,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
             generacion[j].fitness = objetivo[j].fitness;
             generacion[j].generacion = i + 1;
             generacion[j].poblacion = j + 1;
-            
+
             if (objetivo[j].fitness < individuo_prueba.fitness)
             {
                indice_mejor = j;
@@ -186,7 +190,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          }
       }
    }
-
+   fin = clock();
+   tiempo = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
    printf("\n\nMejor Individuo de la Ultima Generacion\n");
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia);
 
