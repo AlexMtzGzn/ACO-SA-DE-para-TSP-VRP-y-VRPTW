@@ -97,7 +97,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    double **instancia_distancias = asignar_memoria_instancia(tamanio_instancia);
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
-   imprimir_instancia(instancia_distancias, tamanio_instancia, "Instancia de Distancias");
+   //imprimir_instancia(instancia_distancias, tamanio_instancia, "Instancia de Distancias");
 
    inicializaPoblacion(objetivo, poblacion);
 
@@ -123,10 +123,12 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    printf("\n\nMejor Individuo de la Ultima Generacion\n");
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
 
-   individuo *individuo_prueba = asignar_memoria_individuos(1);
-   *individuo_prueba = objetivo[indice_mejor];
+   individuo * individuo_prueba = asignar_memoria_individuos(1);
+   individuo_prueba->temperatura_inicial = objetivo[indice_mejor].temperatura_inicial;
+   individuo_prueba->temperatura_final = objetivo[indice_mejor].temperatura_final;
+   individuo_prueba->enfriamiento=objetivo[indice_mejor].enfriamiento;
+   individuo_prueba->numIteraciones = objetivo[indice_mejor].numIteraciones;
    evaluaFO_AED(individuo_prueba, instancia_distancias, tamanio_instancia);
-
    printf("\n\nPrueba de Mejor Individuo: \n");
    imprimir_ind(individuo_prueba, tamanio_instancia, 1);
 

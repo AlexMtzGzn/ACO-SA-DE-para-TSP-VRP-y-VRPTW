@@ -51,15 +51,18 @@ void sa(individuo *ind, solucion *solucion_inicial, solucion *solucion_vecina, s
     evaluaFO(solucion_inicial, instancias_distancias, tamanio_instancia);
     copiaSolucion(solucion_inicial, mejor_solucion, tamanio_instancia);
 
-    while (ind->temperatura_inicial > ind->temperatura_final)
+    double temperatura = ind->temperatura_inicial;
+
+    while (temperatura > ind->temperatura_final)
     {
+
         for (int i = 0; i < ind->numIteraciones; ++i)
         {
             generaVecino(solucion_inicial, solucion_vecina, tamanio_instancia);
             evaluaFO(solucion_vecina, instancias_distancias, tamanio_instancia);
             double delta = solucion_vecina->fitness - solucion_inicial->fitness;
 
-            if (delta <= 0 || (rand() / (double)RAND_MAX) < exp(-delta / ind->temperatura_inicial))
+            if (delta <= 0 || (rand() / (double)RAND_MAX) < exp(-delta / temperatura))
             {
                 copiaSolucion(solucion_vecina, solucion_inicial, tamanio_instancia);
             }
@@ -69,20 +72,17 @@ void sa(individuo *ind, solucion *solucion_inicial, solucion *solucion_vecina, s
                 copiaSolucion(solucion_inicial, mejor_solucion, tamanio_instancia);
             }
         }
-        ind->temperatura_inicial *= ind->enfriamiento; // Asegúrate de que ind->enfriamiento sea < 1
+        temperatura *= ind->enfriamiento;
     }
 
     ind->fitness = mejor_solucion->fitness;
-    ind->ruta = asignar_memoria_ruta(tamanio_instancia + 1); // Verificar liberación anterior
+    ind->ruta = asignar_memoria_ruta(tamanio_instancia + 1);
 
     for (int i = 0; i <= tamanio_instancia; ++i)
     {
         ind->ruta[i] = mejor_solucion->solucion[i];
-        printf("%i -> ", mejor_solucion->solucion[i]);
     }
-    printf("\n%lf\n",mejor_solucion->fitness);
 }
-
 
 void generaSolInicial(solucion *solucion_inicial, int tamanio_instancia)
 {
