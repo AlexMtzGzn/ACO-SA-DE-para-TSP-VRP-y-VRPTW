@@ -44,7 +44,7 @@ void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bo
     }
 }
 
-void imprimir_ind(individuo *ind, int tamanio_instancia, int poblacion)
+void imprimir_ind(individuo *ind, int tamanio_instancia)
 {
 
     printf("\nTemperatuara Inicial: %.2lf, Temperatura Final: %.2lf, Factor Enfriamiento: %.2lf, Iteraciones: %d\n", ind->temperatura_inicial, ind->temperatura_final, ind->enfriamiento, ind->numIteraciones);

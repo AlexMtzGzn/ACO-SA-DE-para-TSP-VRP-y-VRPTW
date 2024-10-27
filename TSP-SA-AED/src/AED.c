@@ -5,10 +5,7 @@
 #include "control_memoria.h"
 #include "entrada_salida_datos.h"
 
-void evaluaFO_AED(individuo *ind, double **instancia_distancias, int tamanio_instancia)
-{
-   tsp_sa(ind, instancia_distancias, tamanio_instancia);
-}
+void evaluaFO_AED(individuo *ind, double **instancia_distancias, int tamanio_instancia) { tsp_sa(ind, instancia_distancias, tamanio_instancia); }
 
 double generaAleatorio(double minimo, double maximo)
 {
@@ -105,6 +102,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    individuo_mejor_global.fitness = __FLT_MAX__;
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
+   //Podemos imprimir la matriz de distancias
+   //imprimir_instancia(instancia_distancias,tamanio_instancia,"Instancia Distancias");
    inicializaPoblacion(objetivo, poblacion);
 
    int indice_mejor = 0;
@@ -113,13 +112,18 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    {
       construyeRuidosos(objetivo, ruidoso, poblacion);
       construyePrueba(objetivo, ruidoso, prueba, poblacion);
+      /*
+      printf("\nGeneracion %d Ruidosos Objetivo ");
+      imprimir_individuo (objetivo,tamanio_instancia,poblacion,false);
+      printf("\nGeneracion %d Prueba ");
+      imprimir_individuo (prueba,tamanio_instancia,poblacion,false);
+      */
 
       for (int j = 0; j < poblacion; ++j)
       {
          evaluaFO_AED(&objetivo[j], instancia_distancias, tamanio_instancia);
          evaluaFO_AED(&prueba[j], instancia_distancias, tamanio_instancia);
 
-         // Actualizar mejor global considerando tanto objetivo como prueba
          if (objetivo[j].fitness < individuo_mejor_global.fitness)
          {
             individuo_mejor_global.temperatura_inicial = objetivo[j].temperatura_inicial;
@@ -148,7 +152,13 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
             }
          }
       }
-
+      /*
+      //podemos imprimir los individuos de Prueba y Objetivo
+      printf("\nGeneracion %d Objetivo ");
+      imprimir_individuo (objetivo,tamanio_instancia,poblacion,true);
+      printf("\nGeneracion %d Prueba ");
+      imprimir_individuo (prueba,tamanio_instancia,poblacion,true);
+      */
       seleccion(objetivo, prueba, poblacion);
 
       if (i == generaciones - 1)
@@ -176,10 +186,10 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    }
 
    printf("\n\nMejor Individuo de la Ultima Generacion\n");
-   imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, 1);
+   imprimir_ind(&objetivo[indice_mejor], tamanio_instancia);
 
    evaluaFO_AED(&individuo_prueba, instancia_distancias, tamanio_instancia);
-   if (individuo_prueba.fitness < individuo_mejor_global.fitness )
+   if (individuo_prueba.fitness < individuo_mejor_global.fitness)
    {
       individuo_mejor_global.temperatura_inicial = individuo_prueba.temperatura_inicial;
       individuo_mejor_global.temperatura_final = individuo_prueba.temperatura_final;
@@ -193,10 +203,10 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       }
    }
    printf("\n\nPrueba de Mejor Individuo: \n");
-   imprimir_ind(&individuo_prueba, tamanio_instancia, 1);
+   imprimir_ind(&individuo_prueba, tamanio_instancia);
 
    printf("\n\nMejor Individuo Global: \n");
-   imprimir_ind(&individuo_mejor_global, tamanio_instancia, 1);
+   imprimir_ind(&individuo_mejor_global, tamanio_instancia);
    // Liberar memoria
    /*liberar_instancia(instancia_distancias, tamanio_instancia);
    liberar_individuos(objetivo, poblacion);
