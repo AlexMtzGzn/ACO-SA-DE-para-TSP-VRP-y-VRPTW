@@ -23,11 +23,13 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
+void liberar_ruta(int *ruta){free(ruta);}
+
 void liberar_individuos(individuo *ind, bool bandera)
 {
 
     if (bandera == true)
-        free(ind->ruta);
+        liberar_ruta(ind->ruta);
     free(ind);
 }
 
@@ -35,6 +37,8 @@ void liberar_soluciones(solucion *solucion, bool bandera)
 {
 
     if (bandera == true)
-        free(solucion->solucion);
+        liberar_ruta(solucion->solucion);
     free(solucion);
 }
+
+

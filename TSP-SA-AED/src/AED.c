@@ -207,6 +207,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    liberar_individuos(objetivo, poblacion);
    liberar_individuos(prueba, poblacion);
    liberar_individuos(ruidoso, poblacion);
-   free(individuo_prueba.ruta);
-   free(individuo_mejor_global.ruta);
+   liberar_ruta(individuo_prueba.ruta);
+   liberar_ruta(individuo_mejor_global.ruta);
 }
