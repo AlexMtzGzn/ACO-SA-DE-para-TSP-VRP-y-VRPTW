@@ -113,10 +113,8 @@ void tsp_sa(individuo *ind, double **instancias_distancias, int tamanio_instanci
     generaSolInicial(solucion_inicial, tamanio_instancia);
     sa(ind, solucion_inicial, solucion_vecina, mejor_solucion, instancias_distancias, tamanio_instancia);
 
-    free(solucion_inicial->solucion);
-    free(solucion_vecina->solucion);
-    free(mejor_solucion->solucion);
-    free(solucion_inicial);
-    free(solucion_vecina);
-    free(mejor_solucion);
+   liberar_soluciones(solucion_inicial,true);
+    liberar_soluciones(solucion_vecina,true);
+    liberar_soluciones(mejor_solucion,true);
+
 }
