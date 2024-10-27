@@ -10,9 +10,7 @@ void evaluaFO(solucion *solucion_inicial, double **instancia_distancias, int tam
 {
     solucion_inicial->fitness = 0.0;
     for (int i = 0; i < tamanio_instancia - 1; ++i)
-    {
         solucion_inicial->fitness += instancia_distancias[solucion_inicial->solucion[i]][solucion_inicial->solucion[i + 1]];
-    }
     solucion_inicial->fitness += instancia_distancias[solucion_inicial->solucion[tamanio_instancia - 1]][solucion_inicial->solucion[0]]; // regreso a la ciudad inicial
 }
 
@@ -40,6 +38,7 @@ void intercambiarCiudades(solucion *solucion, int tamanio_instancia)
 
     solucion->solucion[tamanio_instancia] = solucion->solucion[0];
 }
+
 void generaVecino(solucion *solucion_inicial, solucion *solucion_vecina, int tamanio_instancia)
 {
     copiaSolucion(solucion_inicial, solucion_vecina, tamanio_instancia);
@@ -63,14 +62,10 @@ void sa(individuo *ind, solucion *solucion_inicial, solucion *solucion_vecina, s
             double delta = solucion_vecina->fitness - solucion_inicial->fitness;
 
             if (delta <= 0 || (rand() / (double)RAND_MAX) < exp(-delta / temperatura))
-            {
                 copiaSolucion(solucion_vecina, solucion_inicial, tamanio_instancia);
-            }
 
             if (solucion_inicial->fitness < mejor_solucion->fitness)
-            {
                 copiaSolucion(solucion_inicial, mejor_solucion, tamanio_instancia);
-            }
         }
         temperatura *= ind->enfriamiento;
     }
@@ -79,9 +74,7 @@ void sa(individuo *ind, solucion *solucion_inicial, solucion *solucion_vecina, s
     ind->ruta = asignar_memoria_ruta(tamanio_instancia + 1);
 
     for (int i = 0; i <= tamanio_instancia; ++i)
-    {
         ind->ruta[i] = mejor_solucion->solucion[i];
-    }
 }
 
 void generaSolInicial(solucion *solucion_inicial, int tamanio_instancia)
@@ -113,8 +106,7 @@ void tsp_sa(individuo *ind, double **instancias_distancias, int tamanio_instanci
     generaSolInicial(solucion_inicial, tamanio_instancia);
     sa(ind, solucion_inicial, solucion_vecina, mejor_solucion, instancias_distancias, tamanio_instancia);
 
-   liberar_soluciones(solucion_inicial,true);
-    liberar_soluciones(solucion_vecina,true);
-    liberar_soluciones(mejor_solucion,true);
-
+    liberar_soluciones(solucion_inicial, true);
+    liberar_soluciones(solucion_vecina, true);
+    liberar_soluciones(mejor_solucion, true);
 }
