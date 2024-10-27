@@ -32,8 +32,8 @@ void intercambiarCiudades(solucion *solucion, int tamanio_instancia)
     while (ciudad1 == ciudad2)
         ciudad2 = rand() % tamanio_instancia;
 
-    //Ciudades que se intercambian
-    //printf("\nIntercambiando ciudades %d y %d", ciudad1, ciudad2);
+    // Ciudades que se intercambian
+    // printf("\nIntercambiando ciudades %d y %d", ciudad1, ciudad2);
 
     int temp = solucion->solucion[ciudad1];
     solucion->solucion[ciudad1] = solucion->solucion[ciudad2];
@@ -112,10 +112,11 @@ void tsp_sa(individuo *ind, double **instancias_distancias, int tamanio_instanci
 
     generaSolInicial(solucion_inicial, tamanio_instancia);
     sa(ind, solucion_inicial, solucion_vecina, mejor_solucion, instancias_distancias, tamanio_instancia);
-    
+    /*
     printf("\nNueva mejor solución encontrada: ");
     imprimir_solucion(mejor_solucion,tamanio_instancia);
-    
+    */
+
     liberar_soluciones(solucion_inicial, true);
     liberar_soluciones(solucion_vecina, true);
     liberar_soluciones(mejor_solucion, true);
