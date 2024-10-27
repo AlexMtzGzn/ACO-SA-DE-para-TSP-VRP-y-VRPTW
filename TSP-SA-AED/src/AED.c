@@ -133,9 +133,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
             individuo_mejor_global.fitness = objetivo[j].fitness;
 
             for (int k = 0; k <= tamanio_instancia; k++)
-            {
                individuo_mejor_global.ruta[k] = objetivo[j].ruta[k];
-            }
+            
          }
 
          if (prueba[j].fitness < individuo_mejor_global.fitness)
@@ -147,9 +146,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
             individuo_mejor_global.fitness = prueba[j].fitness;
 
             for (int k = 0; k <= tamanio_instancia; k++)
-            {
                individuo_mejor_global.ruta[k] = prueba[j].ruta[k];
-            }
+            
          }
       }
       /*
@@ -177,9 +175,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
                individuo_prueba.fitness = objetivo[j].fitness;
 
                for (int k = 0; k <= tamanio_instancia; k++)
-               {
                   individuo_prueba.ruta[k] = objetivo[j].ruta[k];
-               }
             }
          }
       }
@@ -198,9 +194,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       individuo_mejor_global.fitness = individuo_prueba.fitness;
 
       for (int k = 0; k <= tamanio_instancia; k++)
-      {
          individuo_mejor_global.ruta[k] = individuo_prueba.ruta[k];
-      }
+
    }
    printf("\n\nPrueba de Mejor Individuo: \n");
    imprimir_ind(&individuo_prueba, tamanio_instancia);
@@ -208,10 +203,10 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    printf("\n\nMejor Individuo Global: \n");
    imprimir_ind(&individuo_mejor_global, tamanio_instancia);
    // Liberar memoria
-   /*liberar_instancia(instancia_distancias, tamanio_instancia);
+   liberar_instancia(instancia_distancias, tamanio_instancia);
    liberar_individuos(objetivo, poblacion);
    liberar_individuos(prueba, poblacion);
    liberar_individuos(ruidoso, poblacion);
    free(individuo_prueba.ruta);
-   free(individuo_mejor_global.ruta);*/
+   free(individuo_mejor_global.ruta);
 }
