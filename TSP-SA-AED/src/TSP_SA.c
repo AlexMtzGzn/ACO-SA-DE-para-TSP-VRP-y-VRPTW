@@ -95,9 +95,9 @@ void generaSolInicial(solucion *solucion_inicial, int tamanio_instancia)
 
 void tsp_sa(individuo *ind, double **instancias_distancias, int tamanio_instancia)
 {
-    solucion *solucion_inicial = (solucion *)malloc(sizeof(solucion));
-    solucion *solucion_vecina = (solucion *)malloc(sizeof(solucion));
-    solucion *mejor_solucion = (solucion *)malloc(sizeof(solucion));
+    solucion *solucion_inicial = asignar_memoria_soluciones();
+    solucion *solucion_vecina = asignar_memoria_soluciones();
+    solucion *mejor_solucion = asignar_memoria_soluciones();
 
     solucion_inicial->solucion = asignar_memoria_ruta(tamanio_instancia + 1);
     solucion_vecina->solucion = asignar_memoria_ruta(tamanio_instancia + 1);
