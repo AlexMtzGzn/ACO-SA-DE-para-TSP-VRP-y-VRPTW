@@ -179,7 +179,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, 1);
 
    evaluaFO_AED(&individuo_prueba, instancia_distancias, tamanio_instancia);
-   if (individuo_mejor_global.fitness < individuo_prueba.fitness)
+   if (individuo_prueba.fitness < individuo_mejor_global.fitness )
    {
       individuo_mejor_global.temperatura_inicial = individuo_prueba.temperatura_inicial;
       individuo_mejor_global.temperatura_final = individuo_prueba.temperatura_final;
