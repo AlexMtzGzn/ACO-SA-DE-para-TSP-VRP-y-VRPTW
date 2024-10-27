@@ -32,6 +32,9 @@ void intercambiarCiudades(solucion *solucion, int tamanio_instancia)
     while (ciudad1 == ciudad2)
         ciudad2 = rand() % tamanio_instancia;
 
+    //Ciudades que se intercambian
+    //printf("\nIntercambiando ciudades %d y %d", ciudad1, ciudad2);
+
     int temp = solucion->solucion[ciudad1];
     solucion->solucion[ciudad1] = solucion->solucion[ciudad2];
     solucion->solucion[ciudad2] = temp;
@@ -54,7 +57,11 @@ void sa(individuo *ind, solucion *solucion_inicial, solucion *solucion_vecina, s
 
     while (temperatura > ind->temperatura_final)
     {
-
+        /*
+        // Podemos imprimri la temperatura y el mejor fitness
+        printf("\nTemperatura actual: %.2f", temperatura);
+        printf("\nMejor fitness actual: %.2f", mejor_solucion->fitness);
+        */
         for (int i = 0; i < ind->numIteraciones; ++i)
         {
             generaVecino(solucion_inicial, solucion_vecina, tamanio_instancia);
@@ -105,7 +112,10 @@ void tsp_sa(individuo *ind, double **instancias_distancias, int tamanio_instanci
 
     generaSolInicial(solucion_inicial, tamanio_instancia);
     sa(ind, solucion_inicial, solucion_vecina, mejor_solucion, instancias_distancias, tamanio_instancia);
-
+    
+    printf("\nNueva mejor solución encontrada: ");
+    imprimir_solucion(mejor_solucion,tamanio_instancia);
+    
     liberar_soluciones(solucion_inicial, true);
     liberar_soluciones(solucion_vecina, true);
     liberar_soluciones(mejor_solucion, true);

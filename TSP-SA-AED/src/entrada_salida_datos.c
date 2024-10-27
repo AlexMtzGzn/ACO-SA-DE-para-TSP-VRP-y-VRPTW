@@ -44,6 +44,18 @@ void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bo
     }
 }
 
+void imprimir_solucion(solucion *solucion, int tamanio_instancia)
+{
+    printf("Fitness: %.2lf\nRuta : ", solucion->fitness);
+    for (int j = 0; j <= tamanio_instancia; j++)
+    {
+        if (j < tamanio_instancia)
+            printf("%d -> ", solucion->solucion[j] + 1);
+        else
+            printf("%d\n", solucion->solucion[j] + 1);
+    }
+}
+
 void imprimir_ind(individuo *ind, int tamanio_instancia)
 {
 
