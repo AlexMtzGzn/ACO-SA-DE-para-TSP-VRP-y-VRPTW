@@ -13,6 +13,7 @@ void liberar_instancia(double **instancia, int tamanio_instancia);
 void liberar_ruta(int *ruta);
 void liberar_individuos(individuo *ind, bool bandera);
 void liberar_soluciones(solucion *solucion, bool bandera);
+void liberar_generaciones(generacion *generacion);
 
 
 #endif // CONTROL_MEMORIA_H

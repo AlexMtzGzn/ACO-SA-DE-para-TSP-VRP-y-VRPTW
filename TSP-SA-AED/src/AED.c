@@ -229,4 +229,5 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    liberar_individuos(ruidoso, poblacion);
    liberar_ruta(individuo_prueba.ruta);
    liberar_ruta(individuo_mejor_global.ruta);
+   liberar_generaciones(generacion);
 }

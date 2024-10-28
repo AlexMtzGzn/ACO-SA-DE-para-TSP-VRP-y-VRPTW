@@ -14,7 +14,7 @@ individuo *asignar_memoria_individuos(int poblacion) { return (individuo *)mallo
 
 solucion *asignar_memoria_soluciones() { return (solucion *)malloc(sizeof(solucion)); }
 
-generacion * asignar_memoria_generaciones (int poblacion, int generaciones){return (generacion *) malloc(sizeof(generacion) * (poblacion * generaciones));}
+generacion *asignar_memoria_generaciones(int poblacion, int generaciones) { return (generacion *)malloc(sizeof(generacion) * (poblacion * generaciones)); }
 
 int *asignar_memoria_ruta(int tamanio_instancia) { return (int *)malloc(sizeof(int) * (tamanio_instancia)); }
 
@@ -25,7 +25,7 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
-void liberar_ruta(int *ruta){free(ruta);}
+void liberar_ruta(int *ruta) { free(ruta); }
 
 void liberar_individuos(individuo *ind, bool bandera)
 {
@@ -43,4 +43,4 @@ void liberar_soluciones(solucion *solucion, bool bandera)
     free(solucion);
 }
 
-
+void liberar_generaciones(generacion *generacion) { free(generacion); }
