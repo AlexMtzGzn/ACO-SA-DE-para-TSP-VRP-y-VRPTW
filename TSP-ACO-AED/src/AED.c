@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "AED.h"
 #include "TSP_ACO.h"
 #include "entrada_salida_datos.h"
@@ -118,21 +119,30 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
 
 void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   individuo *objetivo, *ruidoso, *prueba, *individuo_prueba;
 
-   objetivo = asignar_memoria_individuos(poblacion);
-   ruidoso = asignar_memoria_individuos(poblacion);
-   prueba = asignar_memoria_individuos(poblacion);
+   individuo *objetivo = asignar_memoria_individuos(poblacion);
+   individuo *ruidoso = asignar_memoria_individuos(poblacion);
+   individuo *prueba = asignar_memoria_individuos(poblacion);
+   individuo *individuo_prueba = asignar_memoria_individuos(1);
+   individuo *individuo_mejor_global = asignar_memoria_individuos(1);
+   generacion *generacion = asignar_memoria_generaciones(poblacion, generaciones);
+   double **instancia_distancias = asignar_memoria_instancia(tamanio_instancia);
+   double **instancia_feromonas = asignar_memoria_instancia(tamanio_instancia);
 
-   double **instancia_distancias, **instancia_feromonas;
+   individuo_mejor_global->ruta = asignar_memoria_ruta(tamanio_instancia + 1);
 
-   instancia_distancias = asignar_memoria_instancia(tamanio_instancia);
-   instancia_feromonas = asignar_memoria_instancia(tamanio_instancia);
+   individuo_prueba->fitness = __FLT_MAX__;
+   individuo_mejor_global->fitness = __FLT_MAX__;
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
-
    inicializaPoblacion(objetivo, poblacion, tamanio_instancia);
 
+   int indice_generacion = 0;
+   int indice_mejor = 0;
+   clock_t inicio, fin;
+   double tiempo;
+
+   inicio = clock();
    for (int i = 0; i < generaciones; i++)
    {
       construyeRuidosos(objetivo, ruidoso, poblacion);
