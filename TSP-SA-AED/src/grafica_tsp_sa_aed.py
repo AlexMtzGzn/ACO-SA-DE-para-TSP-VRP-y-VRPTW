@@ -41,5 +41,5 @@ def plot_evolution_from_file(direccion):
     plt.show()
 
 
-direccion = 'TSP-SA-AED/src/poblacion_generacion_tsp_sa.txt'
+direccion = 'TSP-SA-AED/src/poblacion_generacion_tsp_sa_aed.txt'
 plot_evolution_from_file(direccion)
