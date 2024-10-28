@@ -130,8 +130,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    double **instancia_feromonas = asignar_memoria_instancia(tamanio_instancia);
 
    individuo_mejor_global->ruta = asignar_memoria_ruta(tamanio_instancia + 1);
-
-   individuo_prueba->fitness = __FLT_MAX__;
    individuo_mejor_global->fitness = __FLT_MAX__;
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
@@ -152,40 +150,96 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       {
          evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+
+         if (objetivo[j].fitness < individuo_mejor_global->fitness)
+         {
+            individuo_mejor_global->alpha = objetivo[j].alpha;
+            individuo_mejor_global->beta = objetivo[j].beta;
+            individuo_mejor_global->rho = objetivo[j].rho;
+            individuo_mejor_global->numHormigas = objetivo[j].numHormigas;
+            individuo_mejor_global->numIteraciones = objetivo[j].numIteraciones;
+            individuo_mejor_global->fitness = objetivo[j].fitness;
+
+            for (int k = 0; k <= tamanio_instancia; k++)
+               individuo_mejor_global->ruta[k] = objetivo[j].ruta[k];
+         }
+
+         if (prueba[j].fitness < individuo_mejor_global->fitness)
+         {
+            individuo_mejor_global->alpha = objetivo[j].alpha;
+            individuo_mejor_global->beta = objetivo[j].beta;
+            individuo_mejor_global->rho = objetivo[j].rho;
+            individuo_mejor_global->numHormigas = objetivo[j].numHormigas;
+            individuo_mejor_global->numIteraciones = objetivo[j].numIteraciones;
+            individuo_mejor_global->fitness = objetivo[j].fitness;
+
+            for (int k = 0; k <= tamanio_instancia; k++)
+               individuo_mejor_global->ruta[k] = prueba[j].ruta[k];
+         }
       }
 
+      for (int j = 0; j < poblacion; j++)
+      {
+         indice_generacion = i * poblacion + j;
+         generacion[indice_generacion].fitness = objetivo[j].fitness;
+         generacion[indice_generacion].generacion = i + 1;
+         generacion[indice_generacion].poblacion = j + 1;
+      }
       seleccion(objetivo, prueba, poblacion);
 
       if (i == generaciones - 1)
       {
-         for (int j = 0; j < poblacion; ++j)
+         for (int j = 0; j < poblacion; j++)
+         {
             evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+            indice_generacion = i * poblacion + j;
+            generacion[indice_generacion].fitness = objetivo[j].fitness;
+            generacion[indice_generacion].generacion = i + 1;
+            generacion[indice_generacion].poblacion = j + 1;
+
+            if (objetivo[j].fitness < individuo_prueba->fitness)
+            {
+               indice_mejor = j;
+               individuo_prueba->alpha = objetivo[j].alpha;
+               individuo_prueba->beta = objetivo[j].beta;
+               individuo_prueba->rho = objetivo[j].rho;
+               individuo_prueba->numHormigas = objetivo[j].numHormigas;
+               individuo_prueba->numIteraciones = objetivo[j].numIteraciones;
+               individuo_prueba->fitness = objetivo[j].fitness;
+
+               for (int k = 0; k <= tamanio_instancia; k++)
+                  individuo_prueba->ruta[k] = objetivo[j].ruta[k];
+            }
+         }
       }
    }
 
-   int indice_mejor = 0;
-   for (int j = 1; j < poblacion; ++j)
-      if (objetivo[j].fitness < objetivo[indice_mejor].fitness)
-         indice_mejor = j;
+   fin = clock();
+   __PTRDIFF_WIDTH__;
+   tiempo = (((double)(fin - inicio)) / CLOCKS_PER_SEC);
 
    // Imprimir el mejor individuo de la última generación
    printf("\n\nMejor Individuo de la Ultima Generacion\n");
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
-
-   // Asignar memoria para un único individuo de prueba
-   individuo_prueba = asignar_memoria_individuos(1);
-   individuo_prueba->alpha = objetivo[indice_mejor].alpha;
-   individuo_prueba->beta = objetivo[indice_mejor].beta;
-   individuo_prueba->rho = objetivo[indice_mejor].rho;
-   individuo_prueba->numHormigas = objetivo[indice_mejor].numHormigas;
-   individuo_prueba->numIteraciones = objetivo[indice_mejor].numIteraciones;
-
-   // Evaluar el mejor individuo
    evaluaFO_AED(individuo_prueba, instancia_feromonas, instancia_distancias, tamanio_instancia);
 
-   // Imprimir el resultado del individuo de prueba
+   if (individuo_prueba->fitness < individuo_mejor_global->fitness)
+   {
+      individuo_mejor_global->alpha = individuo_prueba->alpha;
+      individuo_mejor_global->beta = individuo_prueba->beta;
+      individuo_mejor_global->rho = individuo_prueba->rho;
+      individuo_mejor_global->numHormigas = individuo_prueba->numHormigas;
+      individuo_mejor_global->numIteraciones = individuo_prueba->numIteraciones;
+      individuo_mejor_global->fitness = individuo_prueba->fitness;
+
+      for (int k = 0; k <= tamanio_instancia; k++)
+         individuo_mejor_global->ruta[k] = individuo_prueba->ruta[k];
+   }
    printf("\n\nPrueba de Mejor Individuo: \n");
-   imprimir_ind(individuo_prueba, tamanio_instancia, 1);
+   imprimir_ind(individuo_prueba, tamanio_instancia,1);
+
+   printf("\n\nMejor Individuo Global: \n");
+   imprimir_ind(individuo_mejor_global, tamanio_instancia,1);
 
    // Liberar memoria
    liberar_instancia(instancia_distancias, tamanio_instancia);

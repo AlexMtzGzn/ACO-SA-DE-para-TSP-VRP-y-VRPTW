@@ -165,7 +165,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       for (int j = 0; j < poblacion; j++)
       {
          indice_generacion = i * poblacion + j;
-         ;
          generacion[indice_generacion].fitness = objetivo[j].fitness;
          generacion[indice_generacion].generacion = i + 1;
          generacion[indice_generacion].poblacion = j + 1;
