@@ -82,14 +82,10 @@ void imprimir_Archivo(generacion* datos, double tiempo, int poblacion, int gener
     }
 
     // Escribir encabezado con metadatos
-    fprintf(file, "Tiempo_Ejecucion: %.4f minutos\n", tiempo);
-    fprintf(file, "Tamaño_Poblacion: %d\n", poblacion);
-    fprintf(file, "Numero_Generaciones: %d\n\n", generaciones);
-    fprintf(file, "Poblacion,Generacion,Fitness\n");
-
+    fprintf(file,"%lf %d %d\n",tiempo,poblacion,generaciones);
     // Escribir datos de cada generación
     for (int i = 0; i < poblacion * generaciones; i++) {
-        fprintf(file, "%d,%d,%.6f\n", 
+        fprintf(file, "%d,%d,%.lf\n", 
             datos[i].poblacion,
             datos[i].generacion,
             datos[i].fitness

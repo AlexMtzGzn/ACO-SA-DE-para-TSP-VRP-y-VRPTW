@@ -130,11 +130,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          evaluaFO_AED(&objetivo[j], instancia_distancias, tamanio_instancia);
          evaluaFO_AED(&prueba[j], instancia_distancias, tamanio_instancia);
 
-         indice_generacion = i * poblacion + j;
-         generacion[j].fitness = objetivo[j].fitness;
-         generacion[j].generacion = i + 1;
-         generacion[j].poblacion = j + 1;
-         
          if (objetivo[j].fitness < individuo_mejor_global.fitness)
          {
             individuo_mejor_global.temperatura_inicial = objetivo[j].temperatura_inicial;
@@ -166,6 +161,14 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       printf("\nGeneracion %d Prueba ");
       imprimir_individuo (prueba,tamanio_instancia,poblacion,true);
       */
+
+      for (int j = 0; j < poblacion; j++)
+      {
+         indice_generacion = i * poblacion + j;;
+         generacion[indice_generacion].fitness = objetivo[j].fitness;
+         generacion[indice_generacion].generacion = i + 1;
+         generacion[indice_generacion].poblacion = j + 1;
+      }
       seleccion(objetivo, prueba, poblacion);
 
       if (i == generaciones - 1)
