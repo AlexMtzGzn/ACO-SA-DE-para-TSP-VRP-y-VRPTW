@@ -94,5 +94,4 @@ void imprimir_Archivo(generacion *datos, double tiempo, int poblacion, int gener
     }
 
     fclose(file);
-    printf("\nDatos guardados exitosamente en: %s\n", filename);
 }

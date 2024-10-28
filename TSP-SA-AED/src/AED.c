@@ -198,7 +198,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       }
    }
    fin = clock();
-   tiempo = (((double)(fin - inicio)) / CLOCKS_PER_SEC) / 60;
+   tiempo = (((double)(fin - inicio)) / CLOCKS_PER_SEC) ;
 
    printf("\n\nMejor Individuo de la Ultima Generacion\n");
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia);
