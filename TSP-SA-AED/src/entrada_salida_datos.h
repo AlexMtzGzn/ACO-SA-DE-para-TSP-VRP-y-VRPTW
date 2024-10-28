@@ -9,6 +9,6 @@ void imprimir_instancia(double **matriz_instancia, int tamanio_instancia, char *
 void imprimir_individuo(individuo *ind, int tamanio_instancia, int poblacion, bool bandera);
 void imprimir_solucion(solucion *solucion, int tamanio_instancia);
 void imprimir_ind(individuo *ind, int tamanio_instancia);
-void imprimir_Archivo(generacion * generacion, double tiempo, int poblacion, int generaciones, char * nombre_archivo);
+void imprimir_Archivo(generacion * generacion, double tiempo, int poblacion, int generaciones, const char * nombre_archivo);
 
 #endif // ENTRADA_SALIDA_DATOS_H

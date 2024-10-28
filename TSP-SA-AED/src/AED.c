@@ -108,6 +108,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    // imprimir_instancia(instancia_distancias,tamanio_instancia,"Instancia Distancias");
    inicializaPoblacion(objetivo, poblacion);
 
+   int indice_generacion = 0;
    int indice_mejor = 0;
    clock_t inicio, fin;
    double tiempo;
@@ -129,10 +130,11 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          evaluaFO_AED(&objetivo[j], instancia_distancias, tamanio_instancia);
          evaluaFO_AED(&prueba[j], instancia_distancias, tamanio_instancia);
 
+         indice_generacion = i * poblacion + j;
          generacion[j].fitness = objetivo[j].fitness;
          generacion[j].generacion = i + 1;
          generacion[j].poblacion = j + 1;
-
+         
          if (objetivo[j].fitness < individuo_mejor_global.fitness)
          {
             individuo_mejor_global.temperatura_inicial = objetivo[j].temperatura_inicial;
@@ -171,9 +173,10 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
          for (int j = 0; j < poblacion; j++)
          {
             evaluaFO_AED(&objetivo[j], instancia_distancias, tamanio_instancia);
-            generacion[j].fitness = objetivo[j].fitness;
-            generacion[j].generacion = i + 1;
-            generacion[j].poblacion = j + 1;
+            indice_generacion = i * poblacion + j;
+            generacion[indice_generacion].fitness = objetivo[j].fitness;
+            generacion[indice_generacion].generacion = i + 1;
+            generacion[indice_generacion].poblacion = j + 1;
 
             if (objetivo[j].fitness < individuo_prueba.fitness)
             {
@@ -191,7 +194,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
       }
    }
    fin = clock();
-   tiempo = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
+   tiempo = (((double)(fin - inicio)) / CLOCKS_PER_SEC) / 60;
+
    printf("\n\nMejor Individuo de la Ultima Generacion\n");
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia);
 
@@ -213,6 +217,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
    printf("\n\nMejor Individuo Global: \n");
    imprimir_ind(&individuo_mejor_global, tamanio_instancia);
+   imprimir_Archivo(generacion, tiempo, poblacion, generaciones, "poblacion_generacion_tsp_sa");
    // Liberar memoria
    liberar_instancia(instancia_distancias, tamanio_instancia);
    liberar_individuos(objetivo, poblacion);

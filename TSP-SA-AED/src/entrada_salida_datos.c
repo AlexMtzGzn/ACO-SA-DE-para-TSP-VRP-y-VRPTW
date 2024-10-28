@@ -71,6 +71,31 @@ void imprimir_ind(individuo *ind, int tamanio_instancia)
     }
 }
 
-void imprimir_Archivo(generacion * generacion, double tiempo, int poblacion, int generaciones, char * nombre_archivo){
+void imprimir_Archivo(generacion* datos, double tiempo, int poblacion, int generaciones, const char* nombre_archivo) {
+    char filename[256];
+    snprintf(filename, sizeof(filename), "%s.txt", nombre_archivo);
+    
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        fprintf(stderr, "Error: No se pudo abrir el archivo %s\n", filename);
+        return;
+    }
 
+    // Escribir encabezado con metadatos
+    fprintf(file, "Tiempo_Ejecucion: %.4f minutos\n", tiempo);
+    fprintf(file, "Tamaño_Poblacion: %d\n", poblacion);
+    fprintf(file, "Numero_Generaciones: %d\n\n", generaciones);
+    fprintf(file, "Poblacion,Generacion,Fitness\n");
+
+    // Escribir datos de cada generación
+    for (int i = 0; i < poblacion * generaciones; i++) {
+        fprintf(file, "%d,%d,%.6f\n", 
+            datos[i].poblacion,
+            datos[i].generacion,
+            datos[i].fitness
+        );
+    }
+
+    fclose(file);
+    printf("\nDatos guardados exitosamente en: %s\n", filename);
 }
