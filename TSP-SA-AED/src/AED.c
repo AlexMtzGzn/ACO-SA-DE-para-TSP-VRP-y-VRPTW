@@ -164,7 +164,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
       for (int j = 0; j < poblacion; j++)
       {
-         indice_generacion = i * poblacion + j;;
+         indice_generacion = i * poblacion + j;
+         ;
          generacion[indice_generacion].fitness = objetivo[j].fitness;
          generacion[indice_generacion].generacion = i + 1;
          generacion[indice_generacion].poblacion = j + 1;
@@ -220,7 +221,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
    printf("\n\nMejor Individuo Global: \n");
    imprimir_ind(&individuo_mejor_global, tamanio_instancia);
-   imprimir_Archivo(generacion, tiempo, poblacion, generaciones, "poblacion_generacion_tsp_sa");
+   imprimir_Archivo(generacion, tiempo, poblacion, generaciones, "poblacion_generacion_tsp_sa_aed.txt");
    // Liberar memoria
    liberar_instancia(instancia_distancias, tamanio_instancia);
    liberar_individuos(objetivo, poblacion);
