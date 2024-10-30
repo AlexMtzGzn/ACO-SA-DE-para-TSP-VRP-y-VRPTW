@@ -6,6 +6,7 @@
 
 double **asignar_memoria_instancia(int tamanio_instancia);
 individuo *asignar_memoria_individuos(int poblacion);
+generacion *asignar_memoria_generaciones(int poblacion, int generaciones);
 void liberar_instancia(double **instancia, int tamanio_instancia);
 void liberar_individuos(individuo *ind, bool bandera);
 hormiga *asignar_memoria_hormiga(individuo *ind);

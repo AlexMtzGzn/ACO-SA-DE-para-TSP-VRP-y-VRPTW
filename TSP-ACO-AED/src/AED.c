@@ -131,6 +131,7 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
 
    individuo_mejor_global->ruta = asignar_memoria_ruta(tamanio_instancia + 1);
    individuo_mejor_global->fitness = __FLT_MAX__;
+   individuo_prueba->fitness = __FLT_MAX__;
 
    leer_instancia(instancia_distancias, tamanio_instancia, archivo_instancia);
    inicializaPoblacion(objetivo, poblacion, tamanio_instancia);
@@ -205,10 +206,6 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
                individuo_prueba->rho = objetivo[j].rho;
                individuo_prueba->numHormigas = objetivo[j].numHormigas;
                individuo_prueba->numIteraciones = objetivo[j].numIteraciones;
-               individuo_prueba->fitness = objetivo[j].fitness;
-
-               for (int k = 0; k <= tamanio_instancia; k++)
-                  individuo_prueba->ruta[k] = objetivo[j].ruta[k];
             }
          }
       }
@@ -221,6 +218,8 @@ void aed(int poblacion, int generaciones, int tamanio_instancia, char *archivo_i
    // Imprimir el mejor individuo de la última generación
    printf("\n\nMejor Individuo de la Ultima Generacion\n");
    imprimir_ind(&objetivo[indice_mejor], tamanio_instancia, poblacion);
+
+
    evaluaFO_AED(individuo_prueba, instancia_feromonas, instancia_distancias, tamanio_instancia);
 
    if (individuo_prueba->fitness < individuo_mejor_global->fitness)

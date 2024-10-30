@@ -15,6 +15,9 @@ individuo *asignar_memoria_individuos(int poblacion)
     return (individuo *)malloc(sizeof(individuo) * poblacion);
 }
 
+generacion *asignar_memoria_generaciones(int poblacion, int generaciones) { return (generacion *)malloc(sizeof(generacion) * (poblacion * generaciones)); }
+
+
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia; i++)
