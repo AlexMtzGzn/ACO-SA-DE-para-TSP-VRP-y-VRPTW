@@ -119,6 +119,7 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
    {
       objetivo[i].alpha = generaAleatorio(0.1, 2.0);
       objetivo[i].beta = generaAleatorio(1.5, 2.5);
+      objetivo[i].gamma = generaAleatorio(0.0,1.5);
       objetivo[i].rho = generaAleatorio(0.0, 1.0);
       objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
       objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
