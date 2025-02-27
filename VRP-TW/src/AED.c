@@ -6,6 +6,34 @@
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
+void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind)
+{
+   for (int i = 0; i < tamanio_instancia; i++)
+      for (int j = 0; j < tamanio_instancia; j++)
+      {
+         if (i == j)
+            instancia_feromonas[i][j] = 0.0;
+         else
+            instancia_feromonas[i][j] = ind->alpha;
+      }
+}
+
+void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
+{
+   inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
+
+   // Podemos imprimir matriz de Feromonas
+   // imprimir_instancia(instancia_feromonas,tamanio_instancia,"Instancia de Feromonas");
+   //tsp_aco(ind, instancia_feromonas, instancia_distancias, tamanio_instancia);
+}
+
+double generaAleatorio(double minimo, double maximo)
+{
+   double aleatorio = (double)rand() / RAND_MAX;
+   return minimo + aleatorio * (maximo - minimo);
+}
+
+
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
 {
    for (int i = 0; i < poblacion; ++i)
