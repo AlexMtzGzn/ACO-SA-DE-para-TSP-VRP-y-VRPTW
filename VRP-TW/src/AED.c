@@ -9,8 +9,8 @@
 int aed_vrp_tw (int num_poblacion, int num_generaciones, int num_clientes /*, faltan algunos valores*/)
 {
 
-   individuo *objetivo = asignar_memoria_individuos(num_poblacion);
-   individuo *ruidoso = asignar_memoria_individuos(num_poblacion);
-   individuo *prueba = asignar_memoria_individuos(num_poblacion);
-
+   individuo *objetivo = asignar_memoria_individuos(num_poblacion); /*Arreglo para objetivos*/
+   individuo *ruidoso = asignar_memoria_individuos(num_poblacion); /*Arreglo para ruidosos*/
+   individuo *prueba = asignar_memoria_individuos(num_poblacion); /*Arreglo para prueba*/
+   generacion *generacion = asignar_memoria_generaciones(num_poblacion, num_generaciones);
 }
