@@ -20,5 +20,7 @@ typedef struct
     int poblacion;
 } generacion;
 
+int aed_vrp_tw (int num_poblacion, int num_generaciones, int num_clientes /*, faltan algunos valores*/);
+
 
 #endif // AED_H
