@@ -113,6 +113,18 @@ void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
          objetivo[i] = prueba[i];
 }
 
+void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instancia)
+{
+   for (int i = 0; i < poblacion; ++i)
+   {
+      objetivo[i].alpha = generaAleatorio(0.1, 2.0);
+      objetivo[i].beta = generaAleatorio(1.5, 2.5);
+      objetivo[i].rho = generaAleatorio(0.0, 1.0);
+      objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
+      objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
+   }
+}
+
 int aed_vrp_tw(int num_poblacion, int num_generaciones, int num_clientes /*, faltan algunos valores*/)
 {
 
