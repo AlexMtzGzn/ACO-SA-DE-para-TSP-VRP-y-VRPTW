@@ -2,29 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include "AED.h"
-// #include "TSP_ACO.h" hay que cambialor para e vrp 
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
-void inializacion_instancia_feromona(double **instancia_feromonas, int tamanio_instancia, individuo *ind)
-{
-   for (int i = 0; i < tamanio_instancia; i++)
-      for (int j = 0; j < tamanio_instancia; j++)
-      {
-         if (i == j)
-            instancia_feromonas[i][j] = 0.0;
-         else
-            instancia_feromonas[i][j] = ind->alpha;
-      }
-}
-
 void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
 {
-   inializacion_instancia_feromona(instancia_feromonas, tamanio_instancia, ind);
-
-   // Podemos imprimir matriz de Feromonas
-   // imprimir_instancia(instancia_feromonas,tamanio_instancia,"Instancia de Feromonas");
-   //tsp_aco(ind, instancia_feromonas, instancia_distancias, tamanio_instancia);
+ 
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -32,7 +15,6 @@ double generaAleatorio(double minimo, double maximo)
    double aleatorio = (double)rand() / RAND_MAX;
    return minimo + aleatorio * (maximo - minimo);
 }
-
 
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
 {
@@ -119,7 +101,7 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
    {
       objetivo[i].alpha = generaAleatorio(0.1, 2.0);
       objetivo[i].beta = generaAleatorio(1.5, 2.5);
-      objetivo[i].gamma = generaAleatorio(0.0,1.5);
+      objetivo[i].gamma = generaAleatorio(0.0, 1.5);
       objetivo[i].rho = generaAleatorio(0.0, 1.0);
       objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
       objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
@@ -133,6 +115,8 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, int num_clientes /*, fal
    individuo *ruidoso = asignar_memoria_individuos(num_poblacion);                         /*Arreglo para ruidosos*/
    individuo *prueba = asignar_memoria_individuos(num_poblacion);                          /*Arreglo para prueba*/
    generacion *generacion = asignar_memoria_generaciones(num_poblacion, num_generaciones); /*Arreglo para prueba*/
+
+   /*Aqui tenemos que leer los csv*/
 
    for (int i = 0; i < num_generaciones; i++)
    {
@@ -171,38 +155,37 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, int num_clientes /*, fal
          }
       }*/
 
-      for (int j = 0; j < num_poblacion; j++)
-      {
-         indice_generacion = i * num_poblacion + j;
-         generacion[indice_generacion].fitness = objetivo[j].fitness;
-         generacion[indice_generacion].generacion = i + 1;
-         generacion[indice_generacion].poblacion = j + 1;
-      }
-
-      seleccion(objetivo, prueba, num_poblacion);
-
-      if (i == num_generaciones - 1)
-      {
          for (int j = 0; j < num_poblacion; j++)
          {
-            //evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
             indice_generacion = i * num_poblacion + j;
             generacion[indice_generacion].fitness = objetivo[j].fitness;
             generacion[indice_generacion].generacion = i + 1;
             generacion[indice_generacion].poblacion = j + 1;
+         }
 
-            if (objetivo[j].fitness < individuo_prueba->fitness)
+         seleccion(objetivo, prueba, num_poblacion);
+
+         if (i == num_generaciones - 1)
+         {
+            for (int j = 0; j < num_poblacion; j++)
             {
-               indice_mejor = j;
-               individuo_prueba->alpha = objetivo[j].alpha;
-               individuo_prueba->beta = objetivo[j].beta;
-               individuo_prueba->rho = objetivo[j].rho;
-               individuo_prueba->numHormigas = objetivo[j].numHormigas;
-               individuo_prueba->numIteraciones = objetivo[j].numIteraciones;
+               // evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
+               indice_generacion = i * num_poblacion + j;
+               generacion[indice_generacion].fitness = objetivo[j].fitness;
+               generacion[indice_generacion].generacion = i + 1;
+               generacion[indice_generacion].poblacion = j + 1;
+
+               if (objetivo[j].fitness < individuo_prueba->fitness)
+               {
+                  indice_mejor = j;
+                  individuo_prueba->alpha = objetivo[j].alpha;
+                  individuo_prueba->beta = objetivo[j].beta;
+                  individuo_prueba->rho = objetivo[j].rho;
+                  individuo_prueba->numHormigas = objetivo[j].numHormigas;
+                  individuo_prueba->numIteraciones = objetivo[j].numIteraciones;
+               }
             }
          }
       }
    }
-
-}
 }
