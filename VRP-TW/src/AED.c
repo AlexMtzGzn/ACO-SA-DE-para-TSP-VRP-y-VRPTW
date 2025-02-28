@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "AED.h"
-// #include "TSP_ACO.h"
+// #include "TSP_ACO.h" hay que cambialor para e vrp 
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
@@ -171,9 +171,9 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, int num_clientes /*, fal
          }
       }*/
 
-      for (int j = 0; j < poblacion; j++)
+      for (int j = 0; j < num_poblacion; j++)
       {
-         indice_generacion = i * poblacion + j;
+         indice_generacion = i * num_poblacion + j;
          generacion[indice_generacion].fitness = objetivo[j].fitness;
          generacion[indice_generacion].generacion = i + 1;
          generacion[indice_generacion].poblacion = j + 1;
@@ -186,7 +186,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, int num_clientes /*, fal
          for (int j = 0; j < num_poblacion; j++)
          {
             //evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-            indice_generacion = i * poblacion + j;
+            indice_generacion = i * num_poblacion + j;
             generacion[indice_generacion].fitness = objetivo[j].fitness;
             generacion[indice_generacion].generacion = i + 1;
             generacion[indice_generacion].poblacion = j + 1;
@@ -204,4 +204,5 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, int num_clientes /*, fal
       }
    }
 
+}
 }
