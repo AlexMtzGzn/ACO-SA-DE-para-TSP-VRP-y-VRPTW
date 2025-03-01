@@ -43,6 +43,9 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion * vrp,char * ruta) {
 struct vrp_configuracion * leer_instancia(char *archivo_instancia) {
     char ruta[100];
     struct vrp_configuracion * vrp;
+    vrp->num_vehiculos = 0;
+    vrp->num_capacidad = 0;
+    vrp->num_clientes = 0;
 
     snprintf(ruta, sizeof(ruta), "../Instancias/%s.csv", archivo_instancia);
     FILE *archivo = fopen(ruta, "r");
