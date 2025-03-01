@@ -23,7 +23,6 @@ struct vrp_configuracion
 };
 
 
-void abrimostxt_creamosxcvs(int *num_clientes, int *num_vehiculos, int *capacidad, char *ruta);
-void leer_instancia(int *num_clientes, int *num_vehiculos, int *capacidad, char *archivo_instancia);
-
+void abrimostxt_creamosxcvs(struct vrp_configuracion * vrp,char * ruta);
+struct vrp_configuracion * leer_instancia(char *archivo_instancia);
 #endif // VRP_TW_SETTING_H

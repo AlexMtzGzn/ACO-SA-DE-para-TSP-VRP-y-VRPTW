@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "entrada_salida_datos.h": "c",
-        "tsp_sa.h": "c"
+        "tsp_sa.h": "c",
+        "string.h": "c"
     }
 }
