@@ -210,9 +210,14 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
     else
     {
         snprintf(ruta, sizeof(ruta), "../VRP_Solomon/%s.txt", archivo_instancia);
-        abrimostxt_creamosxcvs(vrp, ruta);
-        printf("%s", archivo_instancia);
-        creamos_csv(vrp, archivo_instancia);
+
+        if (!ruta)
+        {
+            abrimostxt_creamosxcvs(vrp, ruta);
+            printf("%s", archivo_instancia);
+            creamos_csv(vrp, archivo_instancia);
+        }
+
         return vrp;
     }
 }
