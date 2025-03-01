@@ -117,8 +117,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char * archivo_instancia
    //individuo *prueba = asignar_memoria_individuos(num_poblacion);                          /*Arreglo para prueba*/
    //generacion *generacion = asignar_memoria_generaciones(num_poblacion, num_generaciones); /*Arreglo para generaciones queda pendiente */
 
-   int num_clientes = 0, num_vehiculos = 0, capacidad = 0; /*Varible para el numero de clientes y el numero de vehiculos*/
-   leer_instancia(&num_clientes,&num_vehiculos,&capacidad,archivo_instancia);
+   leer_instancia(archivo_instancia);
 
 
    /*Aqui tenemos que leer txt y crear cvs en la carpeta instancia*/
