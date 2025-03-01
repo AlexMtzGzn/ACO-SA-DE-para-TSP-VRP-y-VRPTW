@@ -3,6 +3,65 @@
 #include <string.h>
 #include "vrp_tw_setting.h"
 
+void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
+{
+    char ruta[100];
+    snprintf(ruta, sizeof(ruta), "../Instancias/%s.csv", archivo_instancia);
+
+    FILE *archivo = fopen(ruta, "r");
+    if (archivo == NULL)
+    {
+        printf("Error al abrir el archivo CSV para lectura.\n");
+        return;
+    }
+
+    char buffer[256];
+    fgets(buffer, sizeof(buffer), archivo);
+
+    int num_vehiculos, num_capacidad, num_clientes;
+    if (fscanf(archivo, "%d, %d, %d\n", &num_vehiculos, &num_capacidad, &num_clientes) != 3)
+    {
+        printf("Error al leer los parámetros de configuración del archivo CSV.\n");
+        fclose(archivo);
+        return;
+    }
+
+    vrp->num_vehiculos = num_vehiculos;
+    vrp->num_capacidad = num_capacidad;
+    vrp->num_clientes = num_clientes;
+
+    vrp->clientes = (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente));
+    if (vrp->clientes == NULL)
+    {
+        printf("Error al asignar memoria para los clientes.\n");
+        fclose(archivo);
+        return;
+    }
+
+    int cliente_index = 0;
+    while (fgets(buffer, sizeof(buffer), archivo) && cliente_index < vrp->num_clientes)
+    {
+        int id;
+        double x, y, demanda, inicio, fin, servicio;
+
+        if (sscanf(buffer, "%d, %lf, %lf, %lf, %lf, %lf, %lf",
+                   &id, &x, &y, &demanda, &inicio, &fin, &servicio) == 7)
+        {
+            vrp->clientes[cliente_index].id = id;
+            vrp->clientes[cliente_index].cordenada_x = x;
+            vrp->clientes[cliente_index].cordenada_y = y;
+            vrp->clientes[cliente_index].demanda = demanda;
+            vrp->clientes[cliente_index].timpo_inicial = inicio;
+            vrp->clientes[cliente_index].tiempo_final = fin;
+            vrp->clientes[cliente_index].servicio = servicio;
+
+            cliente_index++;
+        }
+    }
+
+    fclose(archivo);
+}
+
 void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
 {
     char ruta[100];
@@ -16,13 +75,11 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
         return;
     }
 
-
     fprintf(archivo, "%s\n%d, %d, %d\n",
             archivo_instancia,
             vrp->num_vehiculos,
             vrp->num_capacidad,
             vrp->num_clientes);
-
 
     for (int i = 0; i < vrp->num_clientes; i++)
     {
@@ -146,16 +203,15 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
 
     if (archivo)
     {
-        printf("Archivo CSV abierto exitosamente.\n");
-        fclose(archivo); // Cerrar archivo CSV si existe
+
+        leemos_csv(vrp, archivo_instancia);
         return vrp;
     }
     else
     {
-        printf("No se encontró el archivo CSV, buscando el TXT...\n");
         snprintf(ruta, sizeof(ruta), "../VRP_Solomon/%s.txt", archivo_instancia);
         abrimostxt_creamosxcvs(vrp, ruta);
-        printf("%s",archivo_instancia);
+        printf("%s", archivo_instancia);
         creamos_csv(vrp, archivo_instancia);
         return vrp;
     }
