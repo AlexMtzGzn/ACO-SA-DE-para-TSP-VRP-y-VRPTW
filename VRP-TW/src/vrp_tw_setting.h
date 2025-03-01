@@ -22,7 +22,8 @@ struct vrp_configuracion
     struct cliente *clientes; 
 };
 
-
+void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia);
+void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia);
 void abrimostxt_creamosxcvs(struct vrp_configuracion * vrp,char * ruta);
 struct vrp_configuracion * leer_instancia(char *archivo_instancia);
 #endif // VRP_TW_SETTING_H

@@ -108,7 +108,6 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
     char buffer[256];
     int linea_contador = 0;
 
-    // Leer la cabecera de VEHICULOS y CAPACIDAD
     while (fgets(buffer, sizeof(buffer), file))
     {
         if (strstr(buffer, "NUMBER") && strstr(buffer, "CAPACITY"))
@@ -129,7 +128,7 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
     {
         if (strstr(buffer, "CUST NO."))
         {
-            fgets(buffer, sizeof(buffer), file); // Para saltar la línea con "CUST NO."
+            fgets(buffer, sizeof(buffer), file); 
             break;
         }
     }
@@ -156,7 +155,7 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
         return;
     }
 
-    fseek(file, posicion_inicial, SEEK_SET); // Volver al principio de los clientes
+    fseek(file, posicion_inicial, SEEK_SET); 
 
     int cliente_index = 0;
     while (fgets(buffer, sizeof(buffer), file) && cliente_index < vrp->num_clientes)
