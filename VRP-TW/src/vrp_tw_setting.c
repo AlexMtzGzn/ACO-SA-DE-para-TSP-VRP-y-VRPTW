@@ -3,6 +3,37 @@
 #include <string.h>
 #include "vrp_tw_setting.h"
 
+void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
+{
+    char ruta[100];
+    snprintf(ruta, sizeof(ruta), "../Instancias/Modificado/%s.csv", archivo_instancia);
+    FILE *archivo = fopen(ruta, "w");
+    if (archivo == NULL)
+    {
+        printf("Error al abrir el archivo CSV para escritura.\n");
+        return;
+    }
+    fprintf(archivo, "%s\n%d, %d\n%d",
+            archivo_instancia,
+            vrp->num_vehiculos,
+            vrp->num_capacidad,
+            vrp->num_clientes);
+
+    for (int i = 0; i < vrp->num_clientes; i++)
+    {
+        fprintf(archivo, "%d, %lf, %lf, %lf, %lf, %lf, %lf\n",
+                vrp->clientes[i].id,
+                vrp->clientes[i].cordenada_x,
+                vrp->clientes[i].cordenada_y,
+                vrp->clientes[i].demanda,
+                vrp->clientes[i].timpo_inicial,
+                vrp->clientes[i].tiempo_final,
+                vrp->clientes[i].servicio);
+    }
+
+    fclose(archivo);
+}
+
 void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
 {
     FILE *file = fopen(ruta, "r");
@@ -13,6 +44,7 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
     }
 
     char buffer[256];
+    ;
     int linea_contador = 0;
 
     fgets(buffer, sizeof(buffer), file);
@@ -119,6 +151,7 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
         printf("No se encontró el archivo CSV, buscando el TXT...\n");
         snprintf(ruta, sizeof(ruta), "../VRP_Solomon/%s.txt", archivo_instancia);
         abrimostxt_creamosxcvs(vrp, ruta);
+        creamos_csv(vrp, archivo_instancia);
         return vrp;
     }
 }
