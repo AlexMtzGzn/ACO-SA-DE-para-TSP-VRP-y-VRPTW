@@ -118,6 +118,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char * archivo_instancia
    //generacion *generacion = asignar_memoria_generaciones(num_poblacion, num_generaciones); /*Arreglo para generaciones queda pendiente */
 
    struct vrp_configuracion * vrp = leer_instancia(archivo_instancia);
+   printf("%lf %lf",vrp->num_capacidad,vrp->num_vehiculos);
 
 
    /*Aqui tenemos que leer txt y crear cvs en la carpeta instancia*/
