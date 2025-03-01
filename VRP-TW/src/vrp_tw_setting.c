@@ -6,18 +6,23 @@
 void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
 {
     char ruta[100];
-    snprintf(ruta, sizeof(ruta), "../Instancias/Modificado/%s.csv", archivo_instancia);
+    snprintf(ruta, sizeof(ruta), "../Instancias/%s.csv", archivo_instancia);
+
     FILE *archivo = fopen(ruta, "w");
+
     if (archivo == NULL)
     {
         printf("Error al abrir el archivo CSV para escritura.\n");
         return;
     }
-    fprintf(archivo, "%s\n%d, %d\n%d",
+
+
+    fprintf(archivo, "%s\n%d, %d, %d\n",
             archivo_instancia,
             vrp->num_vehiculos,
             vrp->num_capacidad,
             vrp->num_clientes);
+
 
     for (int i = 0; i < vrp->num_clientes; i++)
     {
@@ -44,11 +49,9 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
     }
 
     char buffer[256];
-    ;
     int linea_contador = 0;
 
-    fgets(buffer, sizeof(buffer), file);
-
+    // Leer la cabecera de VEHICULOS y CAPACIDAD
     while (fgets(buffer, sizeof(buffer), file))
     {
         if (strstr(buffer, "NUMBER") && strstr(buffer, "CAPACITY"))
@@ -64,18 +67,19 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
         }
     }
 
+    // Leer la lista de CLIENTES
     while (fgets(buffer, sizeof(buffer), file))
     {
         if (strstr(buffer, "CUST NO."))
         {
-            fgets(buffer, sizeof(buffer), file);
+            fgets(buffer, sizeof(buffer), file); // Para saltar la línea con "CUST NO."
             break;
         }
     }
 
+    // Contar el número de clientes
     int num_clientes = 0;
     long posicion_inicial = ftell(file);
-
     while (fgets(buffer, sizeof(buffer), file))
     {
         int id;
@@ -94,10 +98,10 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
         fclose(file);
         return;
     }
-    fseek(file, posicion_inicial, SEEK_SET);
+
+    fseek(file, posicion_inicial, SEEK_SET); // Volver al principio de los clientes
 
     int cliente_index = 0;
-
     while (fgets(buffer, sizeof(buffer), file) && cliente_index < vrp->num_clientes)
     {
         int id;
@@ -151,6 +155,7 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
         printf("No se encontró el archivo CSV, buscando el TXT...\n");
         snprintf(ruta, sizeof(ruta), "../VRP_Solomon/%s.txt", archivo_instancia);
         abrimostxt_creamosxcvs(vrp, ruta);
+        printf("%s",archivo_instancia);
         creamos_csv(vrp, archivo_instancia);
         return vrp;
     }
