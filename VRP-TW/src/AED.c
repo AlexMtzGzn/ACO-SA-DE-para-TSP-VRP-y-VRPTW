@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "AED.h"
+#include "vrp_tw_setting.h"
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
@@ -111,16 +112,19 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
 int aed_vrp_tw(int num_poblacion, int num_generaciones, char * archivo_instancia)
 {
 
-   individuo *objetivo = asignar_memoria_individuos(num_poblacion);                        /*Arreglo para objetivos*/
-   individuo *ruidoso = asignar_memoria_individuos(num_poblacion);                         /*Arreglo para ruidosos*/
-   individuo *prueba = asignar_memoria_individuos(num_poblacion);                          /*Arreglo para prueba*/
+   //individuo *objetivo = asignar_memoria_individuos(num_poblacion);                        /*Arreglo para objetivos*/
+   //individuo *ruidoso = asignar_memoria_individuos(num_poblacion);                         /*Arreglo para ruidosos*/
+   //individuo *prueba = asignar_memoria_individuos(num_poblacion);                          /*Arreglo para prueba*/
    //generacion *generacion = asignar_memoria_generaciones(num_poblacion, num_generaciones); /*Arreglo para generaciones queda pendiente */
 
-   int * num_clientes, * num_vehiculos; /*Varible para el numero de clientes y el numero de vehiculos*/
+   int num_clientes = 0, num_vehiculos = 0, capacidad = 0; /*Varible para el numero de clientes y el numero de vehiculos*/
+   leer_instancia(&num_clientes,&num_vehiculos,&capacidad,archivo_instancia);
 
-   /*Aqui tenemos que leer los csv*/
 
-   for (int i = 0; i < num_generaciones; i++)
+   /*Aqui tenemos que leer txt y crear cvs en la carpeta instancia*/
+
+
+ /*  for (int i = 0; i < num_generaciones; i++)
    {
       construyeRuidosos(objetivo, ruidoso, num_poblacion);
       construyePrueba(objetivo, ruidoso, prueba, num_poblacion);
@@ -155,7 +159,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char * archivo_instancia
             for (int k = 0; k <= tamanio_instancia; k++)
                individuo_mejor_global->ruta[k] = prueba[j].ruta[k];
          }
-      }*/
+      }
 
          for (int j = 0; j < num_poblacion; j++)
          {
@@ -189,5 +193,6 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char * archivo_instancia
             }
          }
       }
-   }
+   }*/
+  return 0;
 }

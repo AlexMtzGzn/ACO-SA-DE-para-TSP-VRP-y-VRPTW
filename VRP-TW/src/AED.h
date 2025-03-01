@@ -20,7 +20,7 @@ typedef struct
     int poblacion;
 } generacion;
 
-int aed_vrp_tw (int num_poblacion, int num_generaciones, int num_clientes /*, faltan algunos valores*/);
+int aed_vrp_tw (int num_poblacion, int num_generaciones, char * archivo_instancia /*, faltan algunos valores*/);
 
 
 #endif // AED_H
