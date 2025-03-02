@@ -31,15 +31,15 @@ void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configura
       }
 }
 
-void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona)
+void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona, struct individuo *ind)
 {
    for (int i = 0; i < vrp->num_clientes; i++)
       for (int j = 1 + 1; j < vrp->num_clientes; j++)
       {
          if (i != j)
          {
-            instancia_feromona[i][j] = ;
-            instancia_feromona[j][i] = ;
+            instancia_feromona[i][j] = ind->alpha;
+            instancia_feromona[j][i] = ind->alpha;
          }
          else
          {
@@ -48,8 +48,12 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
       }
 }
 
-void evaluaFO_AED()
+void evaluaFO_AED(struct individuo * ind, double ** instancia_feromona, struct vrp_configuracion *vrp)
 {
+   inicializar_Feromona(vrp,instancia_feromona,ind);
+   //Aquie tiene que mandar ya al colonia de hormigas
+
+
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -162,6 +166,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
    // Aqui tengo que calcular la visibilidad
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);
+   double ** instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);
 
    for (int i = 0; i < num_generaciones; i++)
    {
@@ -170,10 +175,10 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
       for (int j = 0; j < num_poblacion; ++j)
       {
-         /*evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);*/
+         evaluaFO_AED(&objetivo[j], instancia_feromonas, vrp);
+         evaluaFO_AED(&prueba[j], instancia_feromonas, vrp);
 
-         if (objetivo[j].fitness < individuo_mejor_global->fitness)
+        /* if (objetivo[j].fitness < individuo_mejor_global->fitness)
          {
             individuo_mejor_global->alpha = objetivo[j].alpha;
             individuo_mejor_global->beta = objetivo[j].beta;
@@ -197,20 +202,20 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
             for (int k = 0; k <= tamanio_instancia; k++)
                individuo_mejor_global->ruta[k] = prueba[j].ruta[k];
-         }
+         }*/
       }
 
-      for (int j = 0; j < num_poblacion; j++)
+      /*for (int j = 0; j < num_poblacion; j++)
       {
          indice_generacion = i * num_poblacion + j;
          generacion[indice_generacion].fitness = objetivo[j].fitness;
          generacion[indice_generacion].generacion = i + 1;
          generacion[indice_generacion].poblacion = j + 1;
-      }
+      }*/
 
       seleccion(objetivo, prueba, num_poblacion);
 
-      if (i == num_generaciones - 1)
+     /* if (i == num_generaciones - 1)
       {
          for (int j = 0; j < num_poblacion; j++)
          {
@@ -230,7 +235,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
                individuo_prueba->numIteraciones = objetivo[j].numIteraciones;
             }
          }
-      }
+      }*/
    }
    return 0;
 }
