@@ -25,7 +25,7 @@ typedef struct generacion
 double calcular_distancia(vrp_configuracion *vrp, int cliente_origen, int cliente_destino);
 void inicializar_Visibilidad(double **instancia_visibilida, vrp_configuracion *vrp);
 void inicializar_Feromona(vrp_configuracion *vrp, double **instancia_feromona, individuo *ind);
-void evaluaFO_AED(individuo *ind, double **instancia_feromona, vrp_configuracion *vrp);
+void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double ** instancia_visibilidad,struct vrp_configuracion *vrp);
 double generaAleatorio(double minimo, double maximo);
 void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion);
 void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba, int poblacion);

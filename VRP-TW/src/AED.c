@@ -16,12 +16,12 @@ void inicializar_Visibilidad(double **instancia_visibilidad, vrp_configuracion *
 {
    for (int i = 0; i < vrp->num_clientes; i++)
    {
-      for (int j = 0; j < vrp->num_clientes; j++)
+      for (int j = i + 1; j < vrp->num_clientes; j++)
       {
          if (i != j)
          {
             instancia_visibilidad[i][j] = 1.0 / calcular_distancia(vrp, i, j);
-            // instancia_visibilidad[j][i] = instancia_visibilidad[i][j];
+            instancia_visibilidad[j][i] = instancia_visibilidad[i][j];
          }
          else
          {
@@ -34,7 +34,7 @@ void inicializar_Visibilidad(double **instancia_visibilidad, vrp_configuracion *
 void inicializar_Feromona(vrp_configuracion *vrp, double **instancia_feromona, individuo *ind)
 {
    for (int i = 0; i < vrp->num_clientes; i++)
-      for (int j = 1 + 1; j < vrp->num_clientes; j++)
+      for (int j = i + 1; j < vrp->num_clientes; j++)
       {
          if (i != j)
          {
@@ -48,7 +48,7 @@ void inicializar_Feromona(vrp_configuracion *vrp, double **instancia_feromona, i
       }
 }
 
-void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, struct vrp_configuracion *vrp)
+void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
    inicializar_Feromona(vrp, instancia_feromona, ind);
    // Aquie tiene que mandar ya al colonia de hormigas
@@ -174,8 +174,8 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
       for (int j = 0; j < num_poblacion; ++j)
       {
-         evaluaFO_AED(&objetivo[j], instancia_feromonas, vrp);
-         evaluaFO_AED(&prueba[j], instancia_feromonas, vrp);
+         evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_visibilidad, vrp);
+         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, vrp);
 
          /* if (objetivo[j].fitness < individuo_mejor_global->fitness)
           {
