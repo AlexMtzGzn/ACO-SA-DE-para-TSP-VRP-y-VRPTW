@@ -1,13 +1,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "AED.h"
-#include "TSP_ACO.h"
+//#include "TSP_ACO.h"
 
 double **asignar_memoria_instancia(int tamanio_instancia)
 {
     double **instancia = (double **)malloc(tamanio_instancia * sizeof(double *));
     for (int i = 0; i < tamanio_instancia; i++)
         instancia[i] = (double *)malloc(tamanio_instancia * sizeof(double));
+
     return instancia;
 }
 individuo *asignar_memoria_individuos(int poblacion)
@@ -15,7 +16,7 @@ individuo *asignar_memoria_individuos(int poblacion)
     return (individuo *)malloc(sizeof(individuo) * poblacion);
 }
 
-generacion *asignar_memoria_generaciones(int poblacion, int generaciones) { return (generacion *)malloc(sizeof(generacion) * (poblacion * generaciones)); }
+/*generacion *asignar_memoria_generaciones(int poblacion, int generaciones) { return (generacion *)malloc(sizeof(generacion) * (poblacion * generaciones)); }
 
 
 void liberar_instancia(double **instancia, int tamanio_instancia)
@@ -58,4 +59,4 @@ void liberar_hormigas(hormiga *hor, individuo *ind)
     }
     free(hor->probabilidades);
     free(hor);
-}
+}*/
