@@ -17,18 +17,39 @@ void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configura
 {
 
    for (int i = 0; i < vrp->num_clientes; i++)
-      for (int j = 0; j < vrp->num_clientes; j++)
+      for (int j = 1 + 1; j < vrp->num_clientes; j++)
       {
          if (i != j)
+         {
             instancia_visibilida[i][j] = calcular_distancia(vrp, i, j);
+            instancia_visibilida[j][i] = calcular_distancia(vrp, j, i);
+         }
          else
+         {
             instancia_visibilida[i][j] = 0.0;
+         }
+      }
+}
+
+void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona)
+{
+   for (int i = 0; i < vrp->num_clientes; i++)
+      for (int j = 1 + 1; j < vrp->num_clientes; j++)
+      {
+         if (i != j)
+         {
+            instancia_feromona[i][j] = ;
+            instancia_feromona[j][i] = ;
+         }
+         else
+         {
+            instancia_feromona[i][j] = 0.0;
+         }
       }
 }
 
 void evaluaFO_AED()
 {
-
 }
 
 double generaAleatorio(double minimo, double maximo)
