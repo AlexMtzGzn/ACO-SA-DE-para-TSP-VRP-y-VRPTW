@@ -4,6 +4,7 @@
         "stdlib.h": "c",
         "entrada_salida_datos.h": "c",
         "tsp_sa.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "control_memoria.h": "c"
     }
 }

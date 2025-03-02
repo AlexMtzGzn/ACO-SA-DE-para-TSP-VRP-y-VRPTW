@@ -10,7 +10,7 @@
 double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
 
-   return sqrt(pow((vrp->clientes[cliente_destino].cordenada_x - vrp->clientes[cliente_origen].cordenada_x), 2.0) - pow((vrp->clientes[cliente_destino].cordenada_y - vrp->clientes[cliente_origen].cordenada_y), 2.0));
+   return sqrt(pow((vrp->clientes[cliente_destino].cordenada_x - vrp->clientes[cliente_origen].cordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].cordenada_y - vrp->clientes[cliente_origen].cordenada_y), 2.0));
 }
 
 void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configuracion *vrp)
@@ -19,7 +19,7 @@ void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configura
    for (int i = 0; i < vrp->num_clientes; i++)
       for (int j = 0; j < vrp->num_clientes; j++)
       {
-         if (i == j)
+         if (i != j)
             instancia_visibilida[i][j] = calcular_distancia(vrp, i, j);
          else
             instancia_visibilida[i][j] = 0.0;
