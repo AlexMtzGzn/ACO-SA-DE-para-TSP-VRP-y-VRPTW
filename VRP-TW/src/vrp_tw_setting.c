@@ -123,7 +123,6 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
         }
     }
 
-    // Leer la lista de CLIENTES
     while (fgets(buffer, sizeof(buffer), file))
     {
         if (strstr(buffer, "CUST NO."))
@@ -133,7 +132,6 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
         }
     }
 
-    // Contar el número de clientes
     int num_clientes = 0;
     long posicion_inicial = ftell(file);
     while (fgets(buffer, sizeof(buffer), file))
