@@ -22,7 +22,7 @@ void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configura
          if (i != j)
          {
             instancia_visibilida[i][j] = calcular_distancia(vrp, i, j);
-            instancia_visibilida[j][i] = calcular_distancia(vrp, j, i);
+            instancia_visibilida[j][i] = instancia_visibilida[i][j];
          }
          else
          {
