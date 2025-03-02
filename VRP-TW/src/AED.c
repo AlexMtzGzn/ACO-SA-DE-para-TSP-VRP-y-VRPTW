@@ -1,14 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <time.h>
 #include "AED.h"
 #include "vrp_tw_setting.h"
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
-void evaluaFO_AED(individuo *ind, double **instancia_feromonas, double **instancia_distancias, int tamanio_instancia)
+double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
- 
+
+   return sqrt(pow((vrp->clientes[cliente_destino].cordenada_x - vrp->clientes[cliente_origen].cordenada_x), 2.0) - pow((vrp->clientes[cliente_destino].cordenada_y - vrp->clientes[cliente_origen].cordenada_y), 2.0));
+}
+
+void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configuracion *vrp)
+{
+
+   for (int i = 0; i < vrp->num_clientes; i++)
+      for (int j = 0; j < vrp->num_clientes; j++)
+      {
+         if (i == j)
+            instancia_visibilida[i][j] = calcular_distancia(vrp, i, j);
+         else
+            instancia_visibilida[i][j] = 0.0;
+      }
+}
+
+void evaluaFO_AED()
+{
+
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -109,18 +129,20 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
    }
 }
 
-int aed_vrp_tw(int num_poblacion, int num_generaciones, char * archivo_instancia)
+int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
 
-   individuo *objetivo = asignar_memoria_individuos(num_poblacion);                        /*Arreglo para objetivos*/
-   individuo *ruidoso = asignar_memoria_individuos(num_poblacion);                         /*Arreglo para ruidosos*/
-   individuo *prueba = asignar_memoria_individuos(num_poblacion);                          /*Arreglo para prueba*/
-   //generacion *generacion = asignar_memoria_generaciones(num_poblacion, num_generaciones); /*Arreglo para generaciones queda pendiente */
+   individuo *objetivo = asignar_memoria_individuos(num_poblacion); /*Arreglo para objetivos*/
+   individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  /*Arreglo para ruidosos*/
+   individuo *prueba = asignar_memoria_individuos(num_poblacion);   /*Arreglo para prueba*/
+   // generacion *generacion = asignar_memoria_generaciones(num_poblacion, num_generaciones); /*Arreglo para generaciones queda pendiente */
 
-   struct vrp_configuracion * vrp = leer_instancia(archivo_instancia);
+   struct vrp_configuracion *vrp = leer_instancia(archivo_instancia);
 
+   // Aqui tengo que calcular la visibilidad
+   double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);
 
- /*  for (int i = 0; i < num_generaciones; i++)
+   for (int i = 0; i < num_generaciones; i++)
    {
       construyeRuidosos(objetivo, ruidoso, num_poblacion);
       construyePrueba(objetivo, ruidoso, prueba, num_poblacion);
@@ -130,7 +152,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char * archivo_instancia
          /*evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_distancias, tamanio_instancia);*/
 
-         /*if (objetivo[j].fitness < individuo_mejor_global->fitness)
+         if (objetivo[j].fitness < individuo_mejor_global->fitness)
          {
             individuo_mejor_global->alpha = objetivo[j].alpha;
             individuo_mejor_global->beta = objetivo[j].beta;
@@ -157,38 +179,37 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char * archivo_instancia
          }
       }
 
+      for (int j = 0; j < num_poblacion; j++)
+      {
+         indice_generacion = i * num_poblacion + j;
+         generacion[indice_generacion].fitness = objetivo[j].fitness;
+         generacion[indice_generacion].generacion = i + 1;
+         generacion[indice_generacion].poblacion = j + 1;
+      }
+
+      seleccion(objetivo, prueba, num_poblacion);
+
+      if (i == num_generaciones - 1)
+      {
          for (int j = 0; j < num_poblacion; j++)
          {
+            // evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
             indice_generacion = i * num_poblacion + j;
             generacion[indice_generacion].fitness = objetivo[j].fitness;
             generacion[indice_generacion].generacion = i + 1;
             generacion[indice_generacion].poblacion = j + 1;
-         }
 
-         seleccion(objetivo, prueba, num_poblacion);
-
-         if (i == num_generaciones - 1)
-         {
-            for (int j = 0; j < num_poblacion; j++)
+            if (objetivo[j].fitness < individuo_prueba->fitness)
             {
-               // evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-               indice_generacion = i * num_poblacion + j;
-               generacion[indice_generacion].fitness = objetivo[j].fitness;
-               generacion[indice_generacion].generacion = i + 1;
-               generacion[indice_generacion].poblacion = j + 1;
-
-               if (objetivo[j].fitness < individuo_prueba->fitness)
-               {
-                  indice_mejor = j;
-                  individuo_prueba->alpha = objetivo[j].alpha;
-                  individuo_prueba->beta = objetivo[j].beta;
-                  individuo_prueba->rho = objetivo[j].rho;
-                  individuo_prueba->numHormigas = objetivo[j].numHormigas;
-                  individuo_prueba->numIteraciones = objetivo[j].numIteraciones;
-               }
+               indice_mejor = j;
+               individuo_prueba->alpha = objetivo[j].alpha;
+               individuo_prueba->beta = objetivo[j].beta;
+               individuo_prueba->rho = objetivo[j].rho;
+               individuo_prueba->numHormigas = objetivo[j].numHormigas;
+               individuo_prueba->numIteraciones = objetivo[j].numIteraciones;
             }
          }
       }
-   }*/
-  return 0;
+   }
+   return 0;
 }
