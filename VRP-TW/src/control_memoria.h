@@ -2,7 +2,6 @@
 #define CONTROL_MEMORIA_H
 #include <stdbool.h>
 #include "AED.h"
-// #include "TSP_ACO.h"
 
  double **asignar_memoria_instancia(int tamanio_instancia);
  individuo *asignar_memoria_individuos(int poblacion);

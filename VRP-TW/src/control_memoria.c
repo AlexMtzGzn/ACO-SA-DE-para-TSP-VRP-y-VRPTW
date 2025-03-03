@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "AED.h"
-//#include "TSP_ACO.h"
 
 double **asignar_memoria_instancia(int tamanio_instancia)
 {

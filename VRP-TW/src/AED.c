@@ -158,7 +158,6 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    individuo *objetivo = asignar_memoria_individuos(num_poblacion); /*Arreglo para objetivos*/
    individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  /*Arreglo para ruidosos*/
    individuo *prueba = asignar_memoria_individuos(num_poblacion);   /*Arreglo para prueba*/
-   // generacion *generacion = asignar_memoria_generaciones(num_poblacion, num_generaciones); /*Arreglo para generaciones queda pendiente */
 
    vrp_configuracion *vrp = leer_instancia(archivo_instancia);
 
@@ -177,64 +176,10 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
          evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_visibilidad, vrp);
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, vrp);
 
-         /* if (objetivo[j].fitness < individuo_mejor_global->fitness)
-          {
-             individuo_mejor_global->alpha = objetivo[j].alpha;
-             individuo_mejor_global->beta = objetivo[j].beta;
-             individuo_mejor_global->rho = objetivo[j].rho;
-             individuo_mejor_global->numHormigas = objetivo[j].numHormigas;
-             individuo_mejor_global->numIteraciones = objetivo[j].numIteraciones;
-             individuo_mejor_global->fitness = objetivo[j].fitness;
-
-             for (int k = 0; k <= tamanio_instancia; k++)
-                individuo_mejor_global->ruta[k] = objetivo[j].ruta[k];
-          }
-
-          if (prueba[j].fitness < individuo_mejor_global->fitness)
-          {
-             individuo_mejor_global->alpha = objetivo[j].alpha;
-             individuo_mejor_global->beta = objetivo[j].beta;
-             individuo_mejor_global->rho = objetivo[j].rho;
-             individuo_mejor_global->numHormigas = objetivo[j].numHormigas;
-             individuo_mejor_global->numIteraciones = objetivo[j].numIteraciones;
-             individuo_mejor_global->fitness = objetivo[j].fitness;
-
-             for (int k = 0; k <= tamanio_instancia; k++)
-                individuo_mejor_global->ruta[k] = prueba[j].ruta[k];
-          }*/
       }
-
-      /*for (int j = 0; j < num_poblacion; j++)
-      {
-         indice_generacion = i * num_poblacion + j;
-         generacion[indice_generacion].fitness = objetivo[j].fitness;
-         generacion[indice_generacion].generacion = i + 1;
-         generacion[indice_generacion].poblacion = j + 1;
-      }*/
 
       seleccion(objetivo, prueba, num_poblacion);
 
-      /* if (i == num_generaciones - 1)
-       {
-          for (int j = 0; j < num_poblacion; j++)
-          {
-             // evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_distancias, tamanio_instancia);
-             indice_generacion = i * num_poblacion + j;
-             generacion[indice_generacion].fitness = objetivo[j].fitness;
-             generacion[indice_generacion].generacion = i + 1;
-             generacion[indice_generacion].poblacion = j + 1;
-
-             if (objetivo[j].fitness < individuo_prueba->fitness)
-             {
-                indice_mejor = j;
-                individuo_prueba->alpha = objetivo[j].alpha;
-                individuo_prueba->beta = objetivo[j].beta;
-                individuo_prueba->rho = objetivo[j].rho;
-                individuo_prueba->numHormigas = objetivo[j].numHormigas;
-                individuo_prueba->numIteraciones = objetivo[j].numIteraciones;
-             }
-          }
-       }*/
    }
    return 0;
 }

@@ -14,13 +14,6 @@ typedef struct individuo
     double fitness;
 } individuo;
 
-typedef struct generacion
-{
-    int generacion;
-    double fitness;
-    int poblacion;
-} generacion;
-
 // Prototipos de funciones con las correcciones
 double calcular_distancia(vrp_configuracion *vrp, int cliente_origen, int cliente_destino);
 void inicializar_Visibilidad(double **instancia_visibilida, vrp_configuracion *vrp);
