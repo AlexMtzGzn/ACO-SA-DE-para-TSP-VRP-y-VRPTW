@@ -7,6 +7,7 @@
 /*Para arreglos y instancias*/
 double **asignar_memoria_instancia(int tamanio_instancia);
 int *asignar_memoria_arreglo(int tamanio_arreglo);
+int *reasignar_memoria_arreglo(vehiculo *vehiculo);
 void liberar_instancia(double **instancia, int tamanio_instancia);
 
 /*Para estructura del individuo*/

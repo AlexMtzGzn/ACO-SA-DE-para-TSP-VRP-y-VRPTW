@@ -19,6 +19,9 @@ int *asignar_memoria_arreglo(int tamanio_arreglo)
     return (int *)malloc(sizeof(int) * (tamanio_arreglo));
 }
 
+int reasignar_memoria_arreglo(vehiculo *vehiculo){
+    return (int *)realloc(vehiculo->ruta, vehiculo->clientes_contados * sizeof(int));
+}
 
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {

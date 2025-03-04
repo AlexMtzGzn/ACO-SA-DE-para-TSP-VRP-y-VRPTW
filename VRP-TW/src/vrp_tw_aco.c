@@ -6,17 +6,31 @@
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
+void imprimir_info_hormiga(hormiga *h, int numHormiga) {
+   printf("Hormiga %d:\n", numHormiga);
+   printf("  Número de vehículos usados: %d\n", h->vehiculos_contados);
+
+   for (int i = 0; i < h->vehiculos_contados; i++) {
+       printf("  Vehículo %d:\n", h->flota[i].id_vehiculo);
+       printf("    Capacidad: %d\n", h->flota[i].capacidad);
+       printf("    Capacidad restante: %d\n", h->flota[i].capacidad_restante);
+       printf("    Tiempo consumido: %.2f\n", h->flota[i].tiempo_consumido);
+       printf("    Clientes atendidos: %d\n", h->flota[i].clientes_contados);
+       printf("    Ruta: ");
+
+       for (int j = 0; j < h->flota[i].clientes_contados; j++) {
+           printf("%d ", h->flota[i].ruta[j]);
+       }
+       printf("\n");
+   }
+   printf("\n");
+}
+
 
 void agregar_cliente_a_ruta(vehiculo *vehiculo, int nuevo_cliente) {
    //Pendiente por que puedo hacer la operacion de las capacidades, etc 
    vehiculo->clientes_contados++;
-   vehiculo->ruta = (int *)realloc(vehiculo->ruta, vehiculo->clientes_contados * sizeof(int));
-   
-   if (vehiculo->ruta == NULL) {
-       printf("Error al asignar memoria para la ruta\n");
-       exit(EXIT_FAILURE);
-   }
-
+   vehiculo->ruta = reasignar_memoria_arreglo(vehiculo);
    vehiculo->ruta[vehiculo->clientes_contados - 1] = nuevo_cliente;
 }
 
@@ -38,9 +52,7 @@ void inicializar_hormigas_vehiculos(vrp_configuracion *vrp, individuo *ind, horm
       hormiga[i].flota[0].tiempo_maximo = 0.0;
       hormiga[i].flota[0].clientes_contados = 1;
       hormiga[i].flota[0].ruta = asignar_memoria_arreglo(1);
-      agregar_cliente_a_ruta(&hormiga[i].flota[0], 0); 
-
-
+      agregar_cliente_a_ruta(&hormiga[i].flota[0], vrp->clientes[0].id_cliente); 
 
    }
 }
@@ -49,6 +61,10 @@ void vrp_tw_aco(vrp_configuracion *vrp, individuo *ind, double **instancia_visib
 {
 
    struct hormiga *hormiga = asignar_memoria_hormiga(ind);
+   inicializar_hormigas_vehiculos(vrp, ind, hormiga);
    
+   for (int i = 0; i < ind->numHormigas; i++) {
+      imprimir_info_hormiga(&hormiga[i], i + 1);
+  }
 
 }
