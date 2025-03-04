@@ -5,9 +5,6 @@
 typedef struct
 {
     double fitness;
-    struct Lista *probabilidades2;
-    struct Lista *tabu2;
-    struct Lista *noVisitadas;
     double *probabilidades;
     int *tabu;
     int *ruta;
