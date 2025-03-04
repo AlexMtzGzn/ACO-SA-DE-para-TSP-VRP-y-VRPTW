@@ -1,7 +1,8 @@
 #ifndef AED_H
 #define AED_H
 
-#include "vrp_tw_setting.h"
+/*Bibleotecas*/
+#include "configuracion_vrp_tw.h"
 
 typedef struct individuo
 {

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "entrada_salida_datos.h"
 
-void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia)
+/*void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia)
 {
     FILE *instancia = fopen(archivo_instancia, "r");
 
@@ -71,4 +71,4 @@ void imprimir_ruta_hormiga(hormiga *hor, int tamanio_instancia, int n_hormiga, i
             printf("%d\n", hor->ruta[i] + 1);
     }
     printf("fitness: %.2lf\n", hor->fitness);
-}
+}*/

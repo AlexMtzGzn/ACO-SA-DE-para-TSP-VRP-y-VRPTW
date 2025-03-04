@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "vrp_tw_setting.h"
+#include "control_memoria.h"
+#include "configuracion_vrp_tw.h"
+
+
 
 void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
 {
@@ -47,11 +50,11 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
         if (sscanf(buffer, "%d, %lf, %lf, %lf, %lf, %lf, %lf",
                    &id, &x, &y, &demanda, &inicio, &fin, &servicio) == 7)
         {
-            vrp->clientes[cliente_index].id = id;
+            vrp->clientes[cliente_index].id_cliente = id;
             vrp->clientes[cliente_index].cordenada_x = x;
             vrp->clientes[cliente_index].cordenada_y = y;
             vrp->clientes[cliente_index].demanda = demanda;
-            vrp->clientes[cliente_index].timpo_inicial = inicio;
+            vrp->clientes[cliente_index].tiempo_inicial = inicio;
             vrp->clientes[cliente_index].tiempo_final = fin;
             vrp->clientes[cliente_index].servicio = servicio;
 
@@ -84,11 +87,11 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
     for (int i = 0; i < vrp->num_clientes; i++)
     {
         fprintf(archivo, "%d, %lf, %lf, %lf, %lf, %lf, %lf\n",
-                vrp->clientes[i].id,
+                vrp->clientes[i].id_cliente,
                 vrp->clientes[i].cordenada_x,
                 vrp->clientes[i].cordenada_y,
                 vrp->clientes[i].demanda,
-                vrp->clientes[i].timpo_inicial,
+                vrp->clientes[i].tiempo_inicial,
                 vrp->clientes[i].tiempo_final,
                 vrp->clientes[i].servicio);
     }
@@ -96,7 +99,7 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
     fclose(archivo);
 }
 
-void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
+void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
 {
     FILE *file = fopen(ruta, "r");
     if (!file)
@@ -145,7 +148,7 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
 
     vrp->num_clientes = num_clientes;
 
-    vrp->clientes = (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente));
+    vrp->clientes = asignar_memoria_clientes(vrp);
     if (vrp->clientes == NULL)
     {
         printf("Error al asignar memoria para los clientes.\n");
@@ -164,11 +167,11 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
         if (sscanf(buffer, "%d %lf %lf %lf %lf %lf %lf",
                    &id, &x, &y, &demanda, &inicio, &fin, &servicio) == 7)
         {
-            vrp->clientes[cliente_index].id = id;
+            vrp->clientes[cliente_index].id_cliente = id;
             vrp->clientes[cliente_index].cordenada_x = x;
             vrp->clientes[cliente_index].cordenada_y = y;
             vrp->clientes[cliente_index].demanda = demanda;
-            vrp->clientes[cliente_index].timpo_inicial = inicio;
+            vrp->clientes[cliente_index].tiempo_inicial = inicio;
             vrp->clientes[cliente_index].tiempo_final = fin;
             vrp->clientes[cliente_index].servicio = servicio;
 
@@ -182,7 +185,7 @@ void abrimostxt_creamosxcvs(struct vrp_configuracion *vrp, char *ruta)
 struct vrp_configuracion *leer_instancia(char *archivo_instancia)
 {
     char ruta[100];
-    struct vrp_configuracion *vrp = (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion));
+    struct vrp_configuracion *vrp = asignar_memoria_vrp_configuracion();
 
     if (vrp == NULL)
     {
@@ -210,8 +213,7 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
 
         if (!ruta)
         {
-            abrimostxt_creamosxcvs(vrp, ruta);
-            printf("%s", archivo_instancia);
+            leemos_txt(vrp, ruta);
             creamos_csv(vrp, archivo_instancia);
         }
 

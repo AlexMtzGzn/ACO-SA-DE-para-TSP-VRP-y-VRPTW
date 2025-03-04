@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include "AED.h"
+#include "aed.h"
+
+/*Para arreglos y instancias*/
 
 double **asignar_memoria_instancia(int tamanio_instancia)
 {
@@ -10,13 +12,6 @@ double **asignar_memoria_instancia(int tamanio_instancia)
 
     return instancia;
 }
-individuo *asignar_memoria_individuos(int poblacion)
-{
-    return (individuo *)malloc(sizeof(individuo) * poblacion);
-}
-
-/*generacion *asignar_memoria_generaciones(int poblacion, int generaciones) { return (generacion *)malloc(sizeof(generacion) * (poblacion * generaciones)); }
-
 
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
@@ -25,12 +20,31 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
-void liberar_individuos(individuo *ind,bool bandera)
+/*Para estructuras del individuo*/
+
+individuo *asignar_memoria_individuos(int poblacion)
+{
+    return (individuo *)malloc(sizeof(individuo) * poblacion);
+}
+
+void liberar_individuos(individuo *ind, bool bandera)
 {
     free(ind);
-    if (bandera == true)
-        free(ind->ruta);
+    /*if (bandera == true)
+        free(ind->ruta); Falta ajustar esto*/
 }
+
+/*Para la estructura vrp_configuracion*/
+vrp_configuracion *asignar_memoria_vrp_configuracion() { return (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion)); }
+
+/*Para la estructura clientes*/
+cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente)); }
+
+/*generacion *asignar_memoria_generaciones(int poblacion, int generaciones) { return (generacion *)malloc(sizeof(generacion) * (poblacion * generaciones)); }
+
+
+
+
 
 hormiga *asignar_memoria_hormiga(individuo *ind)
 {
@@ -54,7 +68,7 @@ void liberar_hormigas(hormiga *hor, individuo *ind)
     {
         free(hor[i].ruta);
         free(hor[i].tabu);
-       
+
     }
     free(hor->probabilidades);
     free(hor);

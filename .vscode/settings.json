@@ -5,6 +5,7 @@
         "entrada_salida_datos.h": "c",
         "tsp_sa.h": "c",
         "string.h": "c",
-        "control_memoria.h": "c"
+        "control_memoria.h": "c",
+        "configuracion_vrp_tw.h": "c"
     }
 }

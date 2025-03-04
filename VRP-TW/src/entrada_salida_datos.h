@@ -1,8 +1,7 @@
 #ifndef ENTRADA_SALIDA_DATOS_H
 #define ENTRADA_SALIDA_DATOS_H
 #include <stdbool.h>
-#include "AED.h"
-// #include "TSP_ACO.h"
+#include "aed.h"
 
 // void leer_instancia(double **instancia_distancias, int tamanio_instancia, char *archivo_instancia);
 // void imprimir_instancia(double **matriz_instancia, int tamanio_instancia, char *texto_instancia);
