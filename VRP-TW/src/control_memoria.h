@@ -6,6 +6,7 @@
 
 /*Para arreglos y instancias*/
 double **asignar_memoria_instancia(int tamanio_instancia);
+int *asignar_memoria_arreglo(int tamanio_arreglo);
 void liberar_instancia(double **instancia, int tamanio_instancia);
 
 /*Para estructura del individuo*/
@@ -17,6 +18,15 @@ vrp_configuracion *asignar_memoria_vrp_configuracion();
 
 /*Para la estructura clientes*/
 cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);
+
+/*Para la estructura de la hormiga*/
+hormiga *asignar_memoria_hormiga(individuo *ind);
+
+
+/*Para la estructura clientes*/
+vehiculo *asignar_memoria_vehiculo();
+
+
 
 // generacion *asignar_memoria_generaciones(int poblacion, int generaciones);
 // void liberar_instancia(double **instancia, int tamanio_instancia);

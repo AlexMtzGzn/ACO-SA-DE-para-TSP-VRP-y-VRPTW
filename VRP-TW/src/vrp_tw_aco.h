@@ -12,14 +12,19 @@ typedef struct vehiculo {
     double capacidad_restante;
     double tiempo_consumido;
     double tiempo_maximo;
-    int clientes;
+    int clientes_contados;
     int *ruta;
 } vehiculo;
 
 typedef struct hormiga {
+    int id_hormiga;
     int *tabu;
-    int vehiculos;
+    int vehiculos_contados;
+    int vehiculos_maximos;
     vehiculo *flota;  
 } hormiga;
+
+void inicializar_hormigas_vehiculos(vrp_configuracion * vrp, individuo *ind, hormiga * hormiga);
+void vrp_tw_aco(vrp_configuracion * vrp,individuo *ind, double ** instancia_visiblidad, double ** instancia_feromona);
 
 #endif // VRP_TW_ACO_H

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "aed.h"
+#include "vrp_tw_aco.h"
 
 /*Para arreglos y instancias*/
 
@@ -12,6 +13,12 @@ double **asignar_memoria_instancia(int tamanio_instancia)
 
     return instancia;
 }
+
+int *asignar_memoria_arreglo(int tamanio_arreglo)
+{
+    return (int *)malloc(sizeof(int) * (tamanio_arreglo));
+}
+
 
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
@@ -40,16 +47,22 @@ vrp_configuracion *asignar_memoria_vrp_configuracion() { return (struct vrp_conf
 /*Para la estructura clientes*/
 cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente)); }
 
+/*Para la estructura de la hormiga*/
+hormiga *asignar_memoria_hormiga(individuo *ind)
+{
+    return (hormiga *)malloc(sizeof(hormiga) * ind->numHormigas);
+}
+
+/*Para la estructura clientes*/
+vehiculo *asignar_memoria_vehiculo() { return (vehiculo *)malloc(sizeof(vehiculo));}
+
 /*generacion *asignar_memoria_generaciones(int poblacion, int generaciones) { return (generacion *)malloc(sizeof(generacion) * (poblacion * generaciones)); }
 
 
 
 
 
-hormiga *asignar_memoria_hormiga(individuo *ind)
-{
-    return (hormiga *)malloc(sizeof(hormiga) * ind->numHormigas);
-}
+
 
 int *asignar_memoria_ruta(int tamanio_instancia)
 {

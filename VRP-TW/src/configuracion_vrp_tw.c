@@ -4,8 +4,6 @@
 #include "control_memoria.h"
 #include "configuracion_vrp_tw.h"
 
-
-
 void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
 {
     char ruta[100];

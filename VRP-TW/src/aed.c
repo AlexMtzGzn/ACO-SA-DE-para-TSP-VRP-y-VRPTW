@@ -6,6 +6,7 @@
 #include "configuracion_vrp_tw.h"
 #include "entrada_salida_datos.h"
 #include "control_memoria.h"
+#include "vrp_tw_aco.h"
 
 double calcular_distancia(vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
@@ -51,6 +52,7 @@ void inicializar_Feromona(vrp_configuracion *vrp, double **instancia_feromona, i
 void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
    inicializar_Feromona(vrp, instancia_feromona, ind);
+   vrp_tw_aco(vrp,ind,instancia_visibilidad,instancia_feromona);
 }
 
 double generaAleatorio(double minimo, double maximo)
