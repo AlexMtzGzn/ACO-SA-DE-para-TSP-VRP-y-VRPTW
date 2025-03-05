@@ -6,7 +6,7 @@
 #include "vrp_tw_aco.h"
 #include "control_memoria.h"
 
-void imprimir_info_hormiga(struct hormiga *hormiga, int numHormiga)
+/*void imprimir_info_hormiga(struct hormiga *hormiga, int numHormiga)
 {
    printf("Hormiga %d:\n", hormiga->id_hormiga);
    printf("  Número de vehículos usados: %d\n", hormiga->vehiculos_contados);
@@ -28,7 +28,7 @@ void imprimir_info_hormiga(struct hormiga *hormiga, int numHormiga)
       }
       printf("\n");
    }
-}
+}*/
 
 double calcular_tiempo_viaje(double distancia){
    int velocidad = 1; //Pendiente
@@ -165,14 +165,14 @@ void inicializar_hormigas_vehiculos(struct vrp_configuracion *vrp, struct indivi
    {
       hormiga[i].id_hormiga = i;
       hormiga[i].tabu = asignar_memoria_arreglo(vrp->num_clientes);
-      hormiga[i].posiblididades = asignar_memoria_arreglo(vrp->num_clientes);
+      hormiga[i].probabilidades = asignar_memoria_arreglo_double(vrp->num_clientes);
       for (int j = 0; j < vrp->num_clientes; j++)
       {
          hormiga[i].tabu[i] = 0;
-         hormiga[i].posiblididades[i] = 0;
+         hormiga[i].probabilidades[i] = 0;
       }
       hormiga[i].tabu[0] = 1;
-      hormiga[i].posiblididades[0] = 1;
+      hormiga[i].probabilidades[0] = 1;
       hormiga[i].vehiculos_contados = 1;
       hormiga[i].vehiculos_maximos = vrp->num_vehiculos;
       hormiga[i].fitness_global = 0.0;
@@ -195,9 +195,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
    struct hormiga *hormiga = asignar_memoria_hormiga(ind);
    inicializar_hormigas_vehiculos(vrp, ind, hormiga);
 
-   for (int i = 0; i < ind->numHormigas; i++)
+   /*for (int i = 0; i < ind->numHormigas; i++)
    {
       imprimir_info_hormiga(&hormiga[i], i + 1);
    }
-   printf("\n\n\n");
+   printf("\n\n\n");*/
 }
