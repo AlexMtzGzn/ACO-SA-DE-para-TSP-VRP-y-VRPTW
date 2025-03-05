@@ -28,5 +28,6 @@ struct hormiga *asignar_memoria_hormiga(struct individuo *ind);
 
 /*Para la estructura clientes*/
 struct vehiculo *asignar_memoria_vehiculo(struct vrp_configuracion *vrp);
+struct vehiculo *redimensionar_memoria_vehiculo(struct hormiga *hormiga);
 
 #endif // CONTROL_MEMORIA_H

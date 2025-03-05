@@ -21,22 +21,24 @@ int *asignar_memoria_arreglo(int tamanio_arreglo)
     return arreglo;
 }
 
-double *asignar_memoria_arreglo_double(int tamanio_instancia){
-    double *arreglo =(double *)malloc(sizeof(double)* (tamanio_instancia));
+double *asignar_memoria_arreglo_double(int tamanio_instancia)
+{
+    double *arreglo = (double *)malloc(sizeof(double) * (tamanio_instancia));
     return arreglo;
 }
 
-int *reasignar_memoria_ruta(int *ruta, int nuevos_clientes) {
+int *reasignar_memoria_ruta(int *ruta, int nuevos_clientes)
+{
     int *nueva_ruta = realloc(ruta, nuevos_clientes * sizeof(int));
-    
-    if (nueva_ruta == NULL) {
-        //Falta hacer algo en caso de que no lo regrese ebien 
-        return ruta;  // Devolvemos la ruta original para evitar pérdida de memoria.
+
+    if (nueva_ruta == NULL)
+    {
+        // Falta hacer algo en caso de que no lo regrese ebien
+        return ruta; // Devolvemos la ruta original para evitar pérdida de memoria.
     }
 
     return nueva_ruta;
 }
-
 
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
@@ -75,4 +77,8 @@ struct hormiga *asignar_memoria_hormiga(struct individuo *ind)
 struct vehiculo *asignar_memoria_vehiculo(struct vrp_configuracion *vrp)
 {
     return (struct vehiculo *)malloc(vrp->num_vehiculos * sizeof(struct vehiculo));
+}
+struct vehiculo *redimensionar_memoria_vehiculo(struct hormiga *hormiga)
+{
+    return (struct vehiculo *)realloc(hormiga->flota, hormiga->vehiculos_contados * sizeof(struct vehiculo));
 }

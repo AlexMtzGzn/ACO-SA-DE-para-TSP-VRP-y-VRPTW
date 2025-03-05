@@ -30,11 +30,12 @@ typedef struct hormiga {
 
 //void imprimir_info_hormiga(struct hormiga *h, int numHormiga);
 double calcular_tiempo_viaje(double distancia);
+void agregar_cliente_a_ruta(struct vehiculo *vehiculo, int nuevo_cliente);
+void inicializar_vehiculo(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);
 void aco_principal(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);
 void aco_individuo(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);
-void agregar_cliente_a_ruta(struct vehiculo *vehiculo, int nuevo_cliente);
-void inicializar_hormigas_vehiculos(struct vrp_configuracion * vrp, struct individuo *ind, struct hormiga * hormiga);
+void inicializar_hormiga(struct vrp_configuracion * vrp, struct individuo *ind, struct hormiga * hormiga);
 void vrp_tw_aco(struct vrp_configuracion * vrp,struct individuo *ind, double ** instancia_visiblidad, double ** instancia_feromona);
 
 #endif // VRP_TW_ACO_H
