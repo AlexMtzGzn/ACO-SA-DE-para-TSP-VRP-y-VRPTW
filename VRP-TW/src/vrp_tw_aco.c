@@ -39,7 +39,11 @@ double calcular_tiempo_viaje(double distancia){
 void calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona)
 {
    int origen = hormiga->flota->ruta[hormiga->flota->clientes_contados-1];
+
+   for(int i = 0; i < vrp->clientes; i++) hormiga->probabilidades[i] =0.0;
+   
    double suma_propbabilidades = 0.0;
+   
    for(int i = 0; i < vrp->clientes-1; i++){
       if (hormiga->tabu[i] == 0){
          double distancia_viaje = calcular_distancia(vrp,origen,hormiga->tabu[i]);
@@ -63,7 +67,7 @@ void calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
    
    }
 
-   if(suma_propbabilidades > 0){
+   if(suma_propbabilidades > 0.0){
       double aleatorio = (double)rand() / RAND_MAX;
       double prob_acumulada = 0.0;
       for (int j = 0; j < vrp->clientes; j++)
