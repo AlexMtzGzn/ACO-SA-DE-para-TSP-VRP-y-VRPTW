@@ -21,6 +21,11 @@ int *asignar_memoria_arreglo(int tamanio_arreglo)
     return arreglo;
 }
 
+double *asignar_memoria_arreglo_double(int tamanio_instancia){
+    double *arreglo =(double *)malloc(sizeof(double)* (tamanio_instancia));
+    return arreglo;
+}
+
 int *reasignar_memoria_ruta(int *ruta, int nuevos_clientes) {
     int *nueva_ruta = realloc(ruta, nuevos_clientes * sizeof(int));
     

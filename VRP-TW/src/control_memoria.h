@@ -9,6 +9,7 @@
 /*Para arreglos y instancias*/
 double **asignar_memoria_instancia(int tamanio_instancia);
 int *asignar_memoria_arreglo(int tamanio_arreglo);
+double *asignar_memoria_arreglo_double(int tamanio_instancia);
 int *reasignar_memoria_ruta(int *ruta, int nuevos_clientes);
 void liberar_instancia(double **instancia, int tamanio_instancia);
 
