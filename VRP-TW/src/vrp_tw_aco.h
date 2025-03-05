@@ -29,6 +29,9 @@ typedef struct hormiga {
 }hormiga;
 
 //void imprimir_info_hormiga(struct hormiga *h, int numHormiga);
+double calcular_tiempo_viaje(double distancia);
+bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);
+void aco_principal(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);
 void aco_individuo(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);
 void agregar_cliente_a_ruta(struct vehiculo *vehiculo, int nuevo_cliente);
 void inicializar_hormigas_vehiculos(struct vrp_configuracion * vrp, struct individuo *ind, struct hormiga * hormiga);
