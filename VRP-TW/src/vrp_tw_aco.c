@@ -30,9 +30,9 @@
    }
 }*/
 
-void actualizar_feromona()
+void actualizar_feromona(struct individuo * ind, struct vrp_configuracion *vrp, struct hormiga,double ** instancia_feromona)
 {
-   
+
 }
 
 double calcular_tiempo_viaje(double distancia)
@@ -174,7 +174,6 @@ void aco_individuo(struct vrp_configuracion *vrp, struct individuo *ind, struct 
       {
          aco_principal(vrp, ind, &hormiga[i], instancia_visiblidad, instancia_feromona);
       }
-      // Aqui tendria que ajustar la feromona
    }
 }
 
