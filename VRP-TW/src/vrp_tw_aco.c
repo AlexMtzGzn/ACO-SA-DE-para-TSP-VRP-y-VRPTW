@@ -87,7 +87,7 @@ void inicializar_vehiculo(struct hormiga *hormiga, struct vrp_configuracion *vrp
    hormiga->flota[hormiga->vehiculos_contados - 1].clientes_contados = 0;                                           // Inicializamos los clientes en 0
    hormiga->flota[hormiga->vehiculos_contados - 1].ruta = NULL;                                                     // Inicializmos laruta en NULL
    hormiga->flota[hormiga->vehiculos_contados - 1].fitness_vehiculo = 0.0;                                          // Inicializamos  el fitness_vehiculo
-   agregar_cliente_a_ruta(&hormiga, &hormiga->flota[hormiga->vehiculos_contados - 1], vrp->clientes[0].id_cliente); // Enviamos a la funcion agregar_cliente_ruta, la hormiga, y el vehiculo
+   agregar_cliente_a_ruta(hormiga, &hormiga->flota[hormiga->vehiculos_contados - 1], vrp->clientes[0].id_cliente); // Enviamos a la funcion agregar_cliente_ruta, la hormiga, y el vehiculo
 }
 bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_feromona)
 {
@@ -175,34 +175,50 @@ int contar_tabu(struct vrp_configuracion *vrp, struct hormiga *hormiga)
 
 void aco_principal(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona)
 {
-   bool intento = true;
-   int numero_intento = 0;
-   bool resultado;
-
-   while (true)
-   {
-      resultado = calcular_ruta(vrp, ind, &hormiga, &hormiga->flota[hormiga->vehiculos_contados - 1], instancia_visiblidad, instancia_feromona);
-
-      if (!resultado)
-      {
-         numero_intento++;
-
-         if (numero_intento == 20 && contar_tabu(vrp, hormiga) != 0)
-         {
-            intento = false;
-            hormiga->vehiculos_contados++;
-            hormiga->flota = redimensionar_memoria_vehiculo(hormiga);
-            inicializar_vehiculo(&hormiga, vrp);
-            break;
-         }
-      }
-      else
-      {
-         numero_intento = 0;
-         intento = true;
-         break;
-      }
-   }
+    int max_intentos = 20; // Número máximo de intentos para agregar un cliente
+    int intentos = 0;
+    bool cliente_agregado;
+    
+    // Mientras queden clientes sin visitar
+    while (contar_tabu(vrp, hormiga) < vrp->num_clientes - 1) // -1 para excluir el depósito
+    {
+        // Intentar agregar un cliente
+        cliente_agregado = calcular_ruta(vrp, ind, hormiga, &(hormiga->flota[hormiga->vehiculos_contados - 1]), 
+                                        instancia_visiblidad, instancia_feromona);
+        
+        if (cliente_agregado)
+        {
+            // Reiniciar contador de intentos si se agregó un cliente exitosamente
+            intentos = 0;
+        }
+        else
+        {
+            intentos++;
+            
+            // Si después de varios intentos no se puede agregar un cliente,
+            // verificar si necesitamos un nuevo vehículo
+            if (intentos >= max_intentos || necesita_nuevo_vehiculo(vrp, hormiga))
+            {
+                // Verificar si hay vehículos disponibles
+                if (hormiga->vehiculos_contados >= hormiga->vehiculos_maximos)
+                {
+                    // No hay más vehículos disponibles, no podemos completar la solución
+                    // Marcar solución como infactible o penalizar en el fitness
+                    hormiga->fitness_global = 999999.0; // Un valor muy alto como penalización
+                    break;
+                }
+                
+                // Agregar un nuevo vehículo
+                hormiga->vehiculos_contados++;
+                hormiga->flota = redimensionar_memoria_vehiculo(hormiga);
+                inicializar_vehiculo(hormiga, vrp);
+                intentos = 0; // Reiniciar contador de intentos
+            }
+        }
+    }
+    
+    // Calcular fitness total de la hormiga
+    calcular_fitness_hormiga(vrp, hormiga);
 }
 
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga)
