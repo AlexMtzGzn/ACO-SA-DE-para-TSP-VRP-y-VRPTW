@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
         do
         {
 
-            printf("\n La poblacion debe ser mayo a 2 !!!\nIngresa de nuevo el valor de la poblacion: ");
+            printf("\n La poblacion debe ser mayor a 2 !!!\nIngresa de nuevo el valor de la poblacion: ");
             scanf("%i", &num_poblacion);
 
         } while (num_poblacion < 3);
