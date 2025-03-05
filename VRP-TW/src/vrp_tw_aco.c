@@ -31,8 +31,9 @@ void imprimir_info_hormiga(struct hormiga *hormiga, int numHormiga)
 
 void calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona)
 {
-   hormiga->flota[0].ruta[hormiga->flota[0].clientes_contados - 1];
+
 }
+
 void aco_principal(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona)
 {
    bool intento = true;
@@ -42,13 +43,11 @@ void aco_principal(struct vrp_configuracion *vrp, struct individuo *ind, struct 
    {
 
       if (!intento)
-      {
          break;
-      }
 
       while (true)
       {
-         calcular_ruta();
+         //calcular_ruta();
 
          if (!resultado)
          {
@@ -94,14 +93,18 @@ void inicializar_hormigas_vehiculos(struct vrp_configuracion *vrp, struct indivi
 
    for (int i = 0; i < ind->numHormigas; i++)
    {
+      hormiga[i].id_hormiga = i;
       hormiga[i].tabu = asignar_memoria_arreglo(vrp->num_clientes);
-      for (int j = 0; j < vrp->num_clientes; j++)
+      hormiga[i].posiblididades = asignar_memoria_arreglo(vrp->num_clientes);
+      for (int j = 0; j < vrp->num_clientes; j++){
          hormiga[i].tabu[i] = 0;
+         hormiga[i].posiblididades[i] = 0;
+      }
       hormiga[i].tabu[0] = 1;
+      hormiga[i].posiblididades[0]=1;
       hormiga[i].vehiculos_contados = 1;
       hormiga[i].vehiculos_maximos = vrp->num_vehiculos;
-
-      hormiga[i].id_hormiga = i;
+      hormiga[i].fitness_global = 0.0;
 
       hormiga[i].flota = asignar_memoria_vehiculo(vrp);
       hormiga[i].flota[0].id_vehiculo = 0;

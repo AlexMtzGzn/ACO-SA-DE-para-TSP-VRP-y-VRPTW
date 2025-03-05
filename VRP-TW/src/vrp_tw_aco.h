@@ -19,11 +19,11 @@ typedef struct vehiculo {
 
 typedef struct hormiga {
     int id_hormiga;
-    double fitness_global;
     int *tabu;
     int *posiblididades;
     int vehiculos_contados;
     int vehiculos_maximos;
+    double fitness_global;
     struct vehiculo *flota;  
 }hormiga;
 
