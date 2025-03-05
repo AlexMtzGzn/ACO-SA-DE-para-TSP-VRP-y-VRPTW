@@ -183,7 +183,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
 struct vrp_configuracion *leer_instancia(char *archivo_instancia)
 {
     char ruta[100];
-    struct vrp_configuracion *vrp = asignar_memoria_vrp_configuracion();
+    struct vrp_configuracion *vrp = asignar_memoria_vrp_configuracion(); //Asiganamos memoria para la estructura vrp_configuracion
 
     if (vrp == NULL)
     {
@@ -191,25 +191,25 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
         return NULL;
     }
 
-    vrp->num_vehiculos = 0;
-    vrp->num_capacidad = 0;
-    vrp->num_clientes = 0;
-    vrp->clientes = NULL;
+    vrp->num_vehiculos = 0; //Inicializamos numero de vehiculos en 0
+    vrp->num_capacidad = 0; //Inicializamos la capacidad del vehiculo en 0
+    vrp->num_clientes = 0; //Inicializamos numero de clientes en 0
+    vrp->clientes = NULL; //Inicializamos la estructura vrp_clientes en NULL
 
-    snprintf(ruta, sizeof(ruta), "../Instancias/%s.csv", archivo_instancia);
+    snprintf(ruta, sizeof(ruta), "../Instancias/%s.csv", archivo_instancia); //Concatenamos el archivo_instancia con la ruta de la carpeta y la extension de formato
     FILE *archivo = fopen(ruta, "r");
 
-    if (archivo)
+    if (archivo) //Verificamos si el archivo existe con el formato csv
     {
 
-        leemos_csv(vrp, archivo_instancia);
+        leemos_csv(vrp, archivo_instancia); //Vamos a
         return vrp;
     }
-    else
+    else //Si no existe leemos la instancia en txt
     {
-        snprintf(ruta, sizeof(ruta), "../VRP_Solomon/%s.txt", archivo_instancia);
+        snprintf(ruta, sizeof(ruta), "../VRP_Solomon/%s.txt", archivo_instancia); //Cambiomos la concatenacion de la instancia
 
-        if (!ruta)
+        if (!ruta) //Verificamos si existe el archivo con la ruta
         {
             leemos_txt(vrp, ruta);
             creamos_csv(vrp, archivo_instancia);

@@ -4,6 +4,7 @@
 /*Bibleotecas*/
 #include "configuracion_vrp_tw.h"
 
+//Estructura individuo
 typedef struct individuo
 {
     double alpha;

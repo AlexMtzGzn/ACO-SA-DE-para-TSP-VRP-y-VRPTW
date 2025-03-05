@@ -155,10 +155,10 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion, int tamanio_
 int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
 
-   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);
-   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);
-   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);
-   vrp_configuracion *vrp = leer_instancia(archivo_instancia);
+   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); //Asignamos memoria para el arreglo objetivo
+   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion); //Asignamos memoria para el arreglo ruidoso
+   struct individuo *prueba = asignar_memoria_individuos(num_poblacion); //Asiganamos memoria para el arreglo prueba
+   vrp_configuracion *vrp = leer_instancia(archivo_instancia); //Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
 
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);
@@ -177,5 +177,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
       seleccion(objetivo, prueba, num_poblacion);
    }
+
+   //Falta una funcion que libere la mamoria de las instancias
    return 0;
 }
