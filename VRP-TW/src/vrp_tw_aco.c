@@ -30,8 +30,37 @@
    }
 }*/
 
-void actualizar_feromona(struct individuo * ind, struct vrp_configuracion *vrp, struct hormiga,double ** instancia_feromona)
+void actualizar_feromona(struct individuo * ind, struct vrp_configuracion *vrp, struct hormiga *hormiga,double ** instancia_feromona)
 {
+   double ** delta_feromona=asignar_memoria_instancia(vrp->num_clientes);
+
+   for(int i = 0; i < hormiga->vehiculos_contados; i++){
+      double delta = 1.0/ hormiga->flota[i].fitness_vehiculo;
+
+      for(int j = 0; j < vrp->num_clientes -1; j++){
+         int cliente_actual = hormiga->flota->ruta[j];
+         int cliente_siguiente = hormiga->flota->ruta[j+1];
+         delta_feromona[cliente_actual][cliente_siguiente] += delta;
+         delta_feromona[cliente_siguiente][cliente_actual] += delta;
+      }
+
+   }
+
+   for (int i = 0; i < vrp->num_clientes; i++)
+    {
+        for (int j = 0; j < vrp->num_clientes; j++)
+        {
+            if (i != j)
+            {
+                instancia_feromona[i][j] = (1.0 - ind->rho) * instancia_feromona[i][j] +
+                                           delta_feromona[i][j];
+                instancia_feromona[j][i] = (1.0 - ind->rho) * instancia_feromona[j][i] +
+                                           delta_feromona[j][i];
+            }
+        }
+    }
+
+    //Hay que liberar la isntancia delta_feromona
 
 }
 
@@ -173,6 +202,10 @@ void aco_individuo(struct vrp_configuracion *vrp, struct individuo *ind, struct 
       for (int j = 0; j < ind->numHormigas; j++)
       {
          aco_principal(vrp, ind, &hormiga[i], instancia_visiblidad, instancia_feromona);
+      }
+      for (int j = 0; j < ind->numHormigas; j++)
+      {
+         actualizar_feromona(ind,vrp,&hormiga[j],instancia_feromona); //Ain falta ajustarla
       }
    }
 }
