@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include "aed.h"
 #include "vrp_tw_aco.h"
+#include "aed.h"
+#include "configuracion_vrp_tw.h"
 
 /*Para arreglos y instancias*/
 
@@ -16,12 +17,21 @@ double **asignar_memoria_instancia(int tamanio_instancia)
 
 int *asignar_memoria_arreglo(int tamanio_arreglo)
 {
-    return (int *)malloc(sizeof(int) * (tamanio_arreglo));
+    int *arreglo = (int *)malloc(sizeof(int) * (tamanio_arreglo));
+    return arreglo;
 }
 
-int reasignar_memoria_arreglo(vehiculo *vehiculo){
-    return (int *)realloc(vehiculo->ruta, vehiculo->clientes_contados * sizeof(int));
+int *reasignar_memoria_ruta(int *ruta, int nuevos_clientes) {
+    int *nueva_ruta = realloc(ruta, nuevos_clientes * sizeof(int));
+    
+    if (nueva_ruta == NULL) {
+        //Falta hacer algo en caso de que no lo regrese ebien 
+        return ruta;  // Devolvemos la ruta original para evitar pérdida de memoria.
+    }
+
+    return nueva_ruta;
 }
+
 
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
@@ -32,12 +42,12 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
 
 /*Para estructuras del individuo*/
 
-individuo *asignar_memoria_individuos(int poblacion)
+struct individuo *asignar_memoria_individuos(int poblacion)
 {
-    return (individuo *)malloc(sizeof(individuo) * poblacion);
+    return (struct individuo *)malloc(sizeof(struct individuo) * poblacion);
 }
 
-void liberar_individuos(individuo *ind, bool bandera)
+void liberar_individuos(struct individuo *ind, bool bandera)
 {
     free(ind);
     /*if (bandera == true)
@@ -45,47 +55,19 @@ void liberar_individuos(individuo *ind, bool bandera)
 }
 
 /*Para la estructura vrp_configuracion*/
-vrp_configuracion *asignar_memoria_vrp_configuracion() { return (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion)); }
+struct vrp_configuracion *asignar_memoria_vrp_configuracion() { return (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion)); }
 
 /*Para la estructura clientes*/
-cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente)); }
+struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente)); }
 
-/*Para la estructura de la hormiga*/
-hormiga *asignar_memoria_hormiga(individuo *ind)
+// /*Para la estructura de la hormiga*/
+struct hormiga *asignar_memoria_hormiga(struct individuo *ind)
 {
-    return (hormiga *)malloc(sizeof(hormiga) * ind->numHormigas);
+    return (struct hormiga *)malloc(ind->numHormigas * sizeof(struct hormiga));
 }
 
 /*Para la estructura clientes*/
-vehiculo *asignar_memoria_vehiculo() { return (vehiculo *)malloc(sizeof(vehiculo));}
-
-/*generacion *asignar_memoria_generaciones(int poblacion, int generaciones) { return (generacion *)malloc(sizeof(generacion) * (poblacion * generaciones)); }
-
-
-
-
-
-
-
-int *asignar_memoria_ruta(int tamanio_instancia)
+struct vehiculo *asignar_memoria_vehiculo(struct vrp_configuracion *vrp)
 {
-    return (int *)malloc(sizeof(int) * (tamanio_instancia));
+    return (struct vehiculo *)malloc(vrp->num_vehiculos * sizeof(struct vehiculo));
 }
-
-
-double *asignar_memoria_posibilidades(int tamanio_instancia)
-{
-    return (double *)malloc(sizeof(double) * (tamanio_instancia));
-}
-
-void liberar_hormigas(hormiga *hor, individuo *ind)
-{
-    for (int i = 0; i < ind->numHormigas; i++)
-    {
-        free(hor[i].ruta);
-        free(hor[i].tabu);
-
-    }
-    free(hor->probabilidades);
-    free(hor);
-}*/

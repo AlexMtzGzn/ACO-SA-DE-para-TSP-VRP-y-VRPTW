@@ -4,16 +4,15 @@
 #include <time.h>
 #include "aed.h"
 #include "configuracion_vrp_tw.h"
-#include "entrada_salida_datos.h"
 #include "control_memoria.h"
 #include "vrp_tw_aco.h"
 
-double calcular_distancia(vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
+double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
    return sqrt(pow((vrp->clientes[cliente_destino].cordenada_x - vrp->clientes[cliente_origen].cordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].cordenada_y - vrp->clientes[cliente_origen].cordenada_y), 2.0));
 }
 
-void inicializar_Visibilidad(double **instancia_visibilidad, vrp_configuracion *vrp)
+void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
    for (int i = 0; i < vrp->num_clientes; i++)
    {
@@ -32,7 +31,7 @@ void inicializar_Visibilidad(double **instancia_visibilidad, vrp_configuracion *
    }
 }
 
-void inicializar_Feromona(vrp_configuracion *vrp, double **instancia_feromona, individuo *ind)
+void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona, struct individuo *ind)
 {
    for (int i = 0; i < vrp->num_clientes; i++)
       for (int j = i + 1; j < vrp->num_clientes; j++)
@@ -52,7 +51,7 @@ void inicializar_Feromona(vrp_configuracion *vrp, double **instancia_feromona, i
 void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
    inicializar_Feromona(vrp, instancia_feromona, ind);
-   vrp_tw_aco(vrp,ind,instancia_visibilidad,instancia_feromona);
+   vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_feromona);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -61,7 +60,7 @@ double generaAleatorio(double minimo, double maximo)
    return minimo + aleatorio * (maximo - minimo);
 }
 
-void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
+void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, int poblacion)
 {
    for (int i = 0; i < poblacion; ++i)
    {
@@ -121,7 +120,7 @@ void construyeRuidosos(individuo *objetivo, individuo *ruidoso, int poblacion)
    }
 }
 
-void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba, int poblacion)
+void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
    for (int i = 0; i < poblacion; ++i)
    {
@@ -133,14 +132,14 @@ void construyePrueba(individuo *objetivo, individuo *ruidoso, individuo *prueba,
    }
 }
 
-void seleccion(individuo *objetivo, individuo *prueba, int poblacion)
+void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblacion)
 {
    for (int i = 0; i < poblacion; ++i)
       if (objetivo[i].fitness > prueba[i].fitness)
          objetivo[i] = prueba[i];
 }
 
-void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instancia)
+void inicializaPoblacion(struct individuo *objetivo, int poblacion, int tamanio_instancia)
 {
    for (int i = 0; i < poblacion; ++i)
    {
@@ -156,9 +155,9 @@ void inicializaPoblacion(individuo *objetivo, int poblacion, int tamanio_instanc
 int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
 
-   individuo *objetivo = asignar_memoria_individuos(num_poblacion);
-   individuo *ruidoso = asignar_memoria_individuos(num_poblacion); 
-   individuo *prueba = asignar_memoria_individuos(num_poblacion);   
+   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);
+   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);
+   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);
    vrp_configuracion *vrp = leer_instancia(archivo_instancia);
 
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);
@@ -174,11 +173,9 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
       {
          evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_visibilidad, vrp);
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, vrp);
-
       }
 
       seleccion(objetivo, prueba, num_poblacion);
-
    }
    return 0;
 }

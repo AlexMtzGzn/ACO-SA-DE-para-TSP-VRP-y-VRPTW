@@ -3,7 +3,6 @@
 
 #include "aed.h"
 #include "configuracion_vrp_tw.h"
-#include "entrada_salida_datos.h"
 #include "control_memoria.h"
 
 typedef struct vehiculo {
@@ -14,17 +13,19 @@ typedef struct vehiculo {
     double tiempo_maximo;
     int clientes_contados;
     int *ruta;
-} vehiculo;
+}vehiculo;
 
 typedef struct hormiga {
     int id_hormiga;
     int *tabu;
     int vehiculos_contados;
     int vehiculos_maximos;
-    vehiculo *flota;  
-} hormiga;
+    struct vehiculo *flota;  
+}hormiga;
 
-void inicializar_hormigas_vehiculos(vrp_configuracion * vrp, individuo *ind, hormiga * hormiga);
-void vrp_tw_aco(vrp_configuracion * vrp,individuo *ind, double ** instancia_visiblidad, double ** instancia_feromona);
+//void imprimir_info_hormiga(struct hormiga *h, int numHormiga);
+void agregar_cliente_a_ruta(struct vehiculo *vehiculo, int nuevo_cliente);
+void inicializar_hormigas_vehiculos(struct vrp_configuracion * vrp, struct individuo *ind, struct hormiga * hormiga);
+void vrp_tw_aco(struct vrp_configuracion * vrp,struct individuo *ind, double ** instancia_visiblidad, double ** instancia_feromona);
 
 #endif // VRP_TW_ACO_H

@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -lm
 TARGET = main
-SRCS = main.c aed.c configuracion_vrp_tw.c vrp-tw-aco.c control_memoria.c #entrada_salida_datos.c 
+SRCS = main.c aed.c configuracion_vrp_tw.c vrp_tw_aco.c control_memoria.c #entrada_salida_datos.c 
 
 all: $(TARGET)
 

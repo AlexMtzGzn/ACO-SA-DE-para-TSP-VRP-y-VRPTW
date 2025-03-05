@@ -6,6 +6,8 @@
         "tsp_sa.h": "c",
         "string.h": "c",
         "control_memoria.h": "c",
-        "configuracion_vrp_tw.h": "c"
+        "configuracion_vrp_tw.h": "c",
+        "aed.h": "c",
+        "stdbool.h": "c"
     }
 }
