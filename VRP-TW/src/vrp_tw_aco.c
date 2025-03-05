@@ -140,6 +140,7 @@ void aco_principal(struct vrp_configuracion *vrp, struct individuo *ind, struct 
             intento = false;
             hormiga->vehiculos_contados++;
             hormiga->flota = redimensionar_memoria_vehiculo(hormiga);
+            inicializar_vehiculo(&hormiga,vrp);
             break;
          }
       }
