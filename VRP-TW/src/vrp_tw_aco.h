@@ -20,7 +20,8 @@ typedef struct vehiculo {
 typedef struct hormiga {
     int id_hormiga;
     int *tabu;
-    int *posiblididades;
+    double suma_probabilidades;
+    double *probabilidades;
     int vehiculos_contados;
     int vehiculos_maximos;
     double fitness_global;
