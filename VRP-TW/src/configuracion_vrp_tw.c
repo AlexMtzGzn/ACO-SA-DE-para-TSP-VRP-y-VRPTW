@@ -84,7 +84,7 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
 
     for (int i = 0; i < vrp->num_clientes; i++)
     {
-        fprintf(archivo, "%d, %lf, %lf, %lf, %lf, %lf, %lf\n",
+        fprintf(archivo, "%d, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf, %.2lf\n",
                 vrp->clientes[i].id_cliente,
                 vrp->clientes[i].cordenada_x,
                 vrp->clientes[i].cordenada_y,

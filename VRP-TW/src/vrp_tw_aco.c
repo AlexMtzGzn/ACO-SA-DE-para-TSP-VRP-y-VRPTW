@@ -309,7 +309,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
    for (int i = 0; i < ind->numHormigas; i++)
    {
       hormiga[i].id_hormiga = i + 1;                                                 // Asignamos el id de la hormiga con i + 1
-      hormiga[i].tabu = asignar_memoria_arreglo(vrp->num_clientes);                  // Asignamos memoria para el arreglo_tabu
+      hormiga[i].tabu = asignar_memoria_arreglo_int(vrp->num_clientes);                  // Asignamos memoria para el arreglo_tabu
       hormiga[i].probabilidades = asignar_memoria_arreglo_double(vrp->num_clientes); // asiganamos memoria para el arreglo_probabilidades
       for (int j = 0; j < vrp->num_clientes; j++)
          hormiga[i].tabu[j] = 0;                         // LLenamos todas las posiciones del arreglo tabu en 0
@@ -328,7 +328,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
    {
       /*if (i != 0)
       Aquie tenemos que restablecer los datos de la hormiga*/
-       
+      
 
       struct hormiga *hormiga = asignar_memoria_hormiga(ind); // retorna un aputador con la estrutura de hormiga
       inicializar_hormigas_vehiculos(vrp, ind, hormiga);      // Mandamos los parametros vrp, ind ,hormiga para inicializar los datos de la hormiga
@@ -338,7 +338,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
       for (int j = 0; j < ind->numHormigas; j++)
       {
-         actualizar_feromona(ind, vrp, &hormiga[j], instancia_feromona); // Ain falta ajustarla
+         actualizar_feromona(ind, vrp, &hormiga[j], instancia_feromona); 
       }
    }
+
+   //Aqui liberamos la memoria
 }

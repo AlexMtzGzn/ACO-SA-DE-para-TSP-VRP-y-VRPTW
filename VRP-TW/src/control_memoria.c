@@ -15,7 +15,7 @@ double **asignar_memoria_instancia(int tamanio_instancia)
     return instancia;
 }
 
-int *asignar_memoria_arreglo(int tamanio_arreglo)
+int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 {
     int *arreglo = (int *)malloc(sizeof(int) * (tamanio_arreglo));
     return arreglo;
