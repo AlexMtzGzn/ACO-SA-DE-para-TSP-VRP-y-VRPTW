@@ -23,11 +23,17 @@ struct vrp_configuracion *asignar_memoria_vrp_configuracion();
 /*Para la estructura clientes*/
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);
 
-/*Para la estructura de la hormiga*/
-struct hormiga *asignar_memoria_hormiga(struct individuo *ind);
-
-/*Para la estructura clientes*/
+/*Para la estructura vehiculos*/
 struct vehiculo *asignar_memoria_vehiculo(struct vrp_configuracion *vrp);
 struct vehiculo *redimensionar_memoria_vehiculo(struct hormiga *hormiga);
+void liberar_vehiculo(struct vehiculo *vehiculo);
+void liberar_flota(struct vehiculo *flota, int num_vehiculos);
+
+/*Para la estructura de la hormiga*/
+struct hormiga *asignar_memoria_hormiga(struct individuo *ind);
+void liberar_hormiga(struct hormiga *hormiga);
+void liberar_hormigas(struct hormiga *hormigas, int num_hormigas);
+
+
 
 #endif // CONTROL_MEMORIA_H

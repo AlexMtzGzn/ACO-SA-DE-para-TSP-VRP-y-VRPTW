@@ -67,13 +67,7 @@ struct vrp_configuracion *asignar_memoria_vrp_configuracion() { return (struct v
 /*Para la estructura clientes*/
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente)); }
 
-// /*Para la estructura de la hormiga*/
-struct hormiga *asignar_memoria_hormiga(struct individuo *ind)
-{
-    return (struct hormiga *)malloc(ind->numHormigas * sizeof(struct hormiga));
-}
-
-/*Para la estructura clientes*/
+/*Para la estructura vehiculos*/
 struct vehiculo *asignar_memoria_vehiculo(struct vrp_configuracion *vrp)
 {
     return (struct vehiculo *)malloc(vrp->num_vehiculos * sizeof(struct vehiculo));
@@ -81,4 +75,73 @@ struct vehiculo *asignar_memoria_vehiculo(struct vrp_configuracion *vrp)
 struct vehiculo *redimensionar_memoria_vehiculo(struct hormiga *hormiga)
 {
     return (struct vehiculo *)realloc(hormiga->flota, hormiga->vehiculos_contados * sizeof(struct vehiculo));
+}
+
+void liberar_vehiculo(struct vehiculo *vehiculo)
+{
+    if (vehiculo)
+    {
+        // Liberar el arreglo de ruta
+        if (vehiculo->ruta)
+        {
+            free(vehiculo->ruta);
+            vehiculo->ruta = NULL;
+        }
+    }
+}
+void liberar_flota(struct vehiculo *flota, int num_vehiculos)
+{
+    if (flota)
+    {
+        for (int i = 0; i < num_vehiculos; i++)
+        {
+            liberar_vehiculo(&flota[i]);
+        }
+        free(flota);
+    }
+}
+
+// /*Para la estructura de la hormiga*/
+struct hormiga *asignar_memoria_hormiga(struct individuo *ind)
+{
+    return (struct hormiga *)malloc(ind->numHormigas * sizeof(struct hormiga));
+}
+
+void liberar_hormiga(struct hormiga *hormiga)
+{
+    if (hormiga)
+    {
+        // Liberar el arreglo tabú
+        if (hormiga->tabu)
+        {
+            free(hormiga->tabu);
+            hormiga->tabu = NULL;
+        }
+
+        // Liberar el arreglo de probabilidades
+        if (hormiga->probabilidades)
+        {
+            free(hormiga->probabilidades);
+            hormiga->probabilidades = NULL;
+        }
+
+        // Liberar la flota de vehículos
+        if (hormiga->flota)
+        {
+            liberar_flota(hormiga->flota, hormiga->vehiculos_contados);
+            hormiga->flota = NULL;
+        }
+    }
+}
+
+void liberar_hormigas(struct hormiga *hormigas, int num_hormigas)
+{
+    if (hormigas)
+    {
+        for (int i = 0; i < num_hormigas; i++)
+        {
+            liberar_hormiga(&hormigas[i]);
+        }
+        free(hormigas);
+    }
 }
