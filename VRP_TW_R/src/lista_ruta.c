@@ -34,6 +34,7 @@ void insertar_cliente_ruta(struct vehiculo *vehiculo, struct cliente *cliente) {
             vehiculo->ruta->cola = nodo_nuevo;
         }
         vehiculo->clientes_contados++;
+        
     } else {
         printf("\nError al asignar memoria al nodo de la ruta.");
     }

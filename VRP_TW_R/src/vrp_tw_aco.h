@@ -33,7 +33,11 @@ typedef struct hormiga {
     double fitness_global;
     lista_vehiculos *flota; 
 } hormiga;
-
+void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id) ;
+void imprimir_vehiculo(struct vehiculo *vehiculo);
+void imprimir_flota(struct lista_vehiculos *flota) ;
+void imprimir_tabu(int *tabu, int num_clientes);
+void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo * ind, struct hormiga * hormiga);
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_feromona);
 
