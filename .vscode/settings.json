@@ -8,6 +8,7 @@
         "control_memoria.h": "c",
         "configuracion_vrp_tw.h": "c",
         "aed.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "lista_ruta.h": "c"
     }
 }

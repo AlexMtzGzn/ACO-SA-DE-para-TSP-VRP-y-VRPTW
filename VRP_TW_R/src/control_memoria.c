@@ -4,6 +4,7 @@
 #include "vrp_tw_aco.h"
 #include "configuracion_vrp_tw.h"
 #include "lista_ruta.h"
+#include "lista_flota.h"
 
 /*Para arreglos y instancias*/
 
@@ -91,5 +92,15 @@ struct lista_ruta *asignar_memoria_lista_ruta()
         return NULL;
     nueva_lista->cabeza = NULL;
     nueva_lista->cola = NULL;
+    return nueva_lista;
+}
+
+/*Para estructura de lista_vehiculos*/
+lista_vehiculos* asignar_memoria_lista_vehiculos() {
+    lista_vehiculos* nueva_lista = (lista_vehiculos*)malloc(sizeof(lista_vehiculos));
+    if (nueva_lista != NULL) {
+        nueva_lista->cabeza = NULL;
+        nueva_lista->cola = NULL;
+    }
     return nueva_lista;
 }

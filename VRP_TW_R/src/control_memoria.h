@@ -6,6 +6,7 @@
 #include "vrp_tw_aco.h"
 #include "configuracion_vrp_tw.h"
 #include "lista_ruta.h"
+#include "lista_flota.h"
 
 /*Para arreglos y instancias*/
 double **asignar_memoria_instancia(int tamanio_instancia);
@@ -31,5 +32,8 @@ struct hormiga * asignar_memoria_hormigas(struct individuo * ind);
 
 /*Para estructura de lista_ruta*/
 struct lista_ruta * asignar_memoria_lista_ruta();
+
+/*Para estructura de lista_vehiculos*/
+lista_vehiculos* asignar_memoria_lista_vehiculos();
 
 #endif // CONTROL_MEMORIA_H

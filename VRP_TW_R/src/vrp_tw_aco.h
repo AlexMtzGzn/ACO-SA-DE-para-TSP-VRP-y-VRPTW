@@ -4,7 +4,9 @@
 #include "aed.h"
 #include "configuracion_vrp_tw.h"
 #include "control_memoria.h"
+#include "vrp_tw_aco.h"
 #include "lista_ruta.h"
+#include "lista_flota.h"
 
 
 
@@ -31,6 +33,7 @@ typedef struct hormiga {
     lista_vehiculos *flota; 
 } hormiga;
 
+void inicializar_vehiculo(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo * ind, struct hormiga * hormiga);
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_feromona);
 
