@@ -11,7 +11,7 @@ struct nodo_ruta *crear_nodo_ruta(struct cliente *cliente) {
     if (nodo_nuevo == NULL)
         return nodo_nuevo;
     
-    nodo_nuevo->cliente = cliente;
+    nodo_nuevo->cliente = cliente->id_cliente;
     nodo_nuevo->siguiente = NULL;
     
     return nodo_nuevo;
@@ -33,7 +33,6 @@ void insertar_cliente_ruta(struct vehiculo *vehiculo, struct cliente *cliente) {
             vehiculo->ruta->cola->siguiente = nodo_nuevo;
             vehiculo->ruta->cola = nodo_nuevo;
         }
-        // Incrementar contador de clientes en el vehículo
         vehiculo->clientes_contados++;
     } else {
         printf("\nError al asignar memoria al nodo de la ruta.");

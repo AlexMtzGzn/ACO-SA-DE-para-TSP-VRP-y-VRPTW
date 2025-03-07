@@ -21,5 +21,5 @@ typedef struct lista_vehiculos {
 
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 bool es_Vacia_Lista(struct lista_vehiculos *flota);
-void inserta_lista_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp);
+void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 #endif /*lista_flota.h*/

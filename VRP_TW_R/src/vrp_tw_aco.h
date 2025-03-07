@@ -34,7 +34,6 @@ typedef struct hormiga {
     lista_vehiculos *flota; 
 } hormiga;
 
-void inicializar_vehiculo(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo * ind, struct hormiga * hormiga);
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_feromona);
 
