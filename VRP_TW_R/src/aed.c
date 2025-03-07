@@ -140,7 +140,7 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
          objetivo[i] = prueba[i];
 }
 
-void inicializaPoblacion(struct individuo *objetivo, int poblacion, int tamanio_instancia)
+void inicializaPoblacion(struct individuo *objetivo, int poblacion)
 {
    for (int i = 0; i < poblacion; ++i)
    {

@@ -25,7 +25,7 @@ double generaAleatorio(double minimo, double maximo);
 void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, int poblacion);
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion);
 void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblacion);
-void inicializaPoblacion(struct individuo *objetivo, int poblacion, int tamanio_instancia);
+void inicializaPoblacion(struct individuo *objetivo, int poblacion);
 int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia);
 
 #endif // AED_H

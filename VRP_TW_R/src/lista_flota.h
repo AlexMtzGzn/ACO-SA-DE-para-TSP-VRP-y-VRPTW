@@ -5,6 +5,9 @@
 #include "vrp_tw_aco.h"
 #include "configuracion_vrp_tw.h"
 
+struct hormiga;
+struct vrp_configuracion;
+struct vehiculo;
 typedef struct nodo_vehiculo {
     struct vehiculo *vehiculo;  
     struct nodo_vehiculo *siguiente;
@@ -15,7 +18,8 @@ typedef struct lista_vehiculos {
     nodo_vehiculo *cola;
 } lista_vehiculos;
 
-bool es_Vacia_Lista(struct lista_vehiculos *flota);
+
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp);
+bool es_Vacia_Lista(struct lista_vehiculos *flota);
 void inserta_lista_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 #endif /*lista_flota.h*/

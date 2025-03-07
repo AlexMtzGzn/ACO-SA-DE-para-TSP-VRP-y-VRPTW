@@ -107,7 +107,6 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
     }
 
     char buffer[256];
-    int linea_contador = 0;
 
     while (fgets(buffer, sizeof(buffer), file))
     {
@@ -207,12 +206,10 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
     else //Si no existe leemos la instancia en txt
     {
         snprintf(ruta, sizeof(ruta), "../VRP_Solomon/%s.txt", archivo_instancia); //Cambiomos la concatenacion de la instancia
-        printf("%s",ruta);
-        if (ruta) //Verificamos si existe el archivo con la ruta
-        {
+
             leemos_txt(vrp, ruta);
             creamos_csv(vrp, archivo_instancia);
-        }
+        
         return vrp;
     }
 }

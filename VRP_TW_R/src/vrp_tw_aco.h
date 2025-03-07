@@ -9,7 +9,8 @@
 #include "lista_flota.h"
 
 
-
+struct lista_vehiculos;
+struct lista_ruta;
 typedef struct vehiculo {
     int id_vehiculo;
     double capacidad_maxima;
