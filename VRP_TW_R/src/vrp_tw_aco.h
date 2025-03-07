@@ -4,22 +4,22 @@
 #include "aed.h"
 #include "configuracion_vrp_tw.h"
 #include "control_memoria.h"
+#include "lista_ruta.h"
+#include "lista_flota.h"
 
-typedef struct vehiculo
-{
+
+typedef struct vehiculo {
     int id_vehiculo;
     double capacidad_maxima;
     double capacidad_restante;
     double tiempo_consumido;
     double tiempo_maximo;
     int clientes_contados;
-    int *ruta;
+    lista_ruta *ruta;  
     double fitness_vehiculo;
-
 } vehiculo;
 
-typedef struct hormiga
-{
+typedef struct hormiga {
     int id_hormiga;
     int *tabu;
     double suma_probabilidades;
@@ -27,7 +27,7 @@ typedef struct hormiga
     int vehiculos_contados;
     int vehiculos_maximos;
     double fitness_global;
-    struct vehiculo *flota;
+    lista_vehiculos *flota; 
 } hormiga;
 
 
