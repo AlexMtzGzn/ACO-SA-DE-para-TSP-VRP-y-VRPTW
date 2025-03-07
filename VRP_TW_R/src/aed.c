@@ -153,7 +153,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion, int tamanio_
 
 int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
-   srand (time(NULL));
+   //srand (time(NULL));
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); //Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion); //Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion); //Asiganamos memoria para el arreglo prueba
@@ -179,6 +179,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
    liberar_instancia(instancia_feromonas,vrp->num_clientes);
    liberar_instancia(instancia_visibilidad,vrp->num_clientes);
-
+   liberar_memoria_vrp_configuracion(vrp);
+   
    return 0;
 }

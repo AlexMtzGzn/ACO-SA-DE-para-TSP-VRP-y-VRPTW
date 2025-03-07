@@ -195,7 +195,7 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
     vrp->num_capacidad = 0; //Inicializamos la capacidad del vehiculo en 0
     vrp->num_clientes = 0; //Inicializamos numero de clientes en 0
     vrp->clientes = NULL; //Inicializamos la estructura vrp_clientes en NULL
-
+    printf("hola");
     snprintf(ruta, sizeof(ruta), "../Instancias/%s.csv", archivo_instancia); //Concatenamos el archivo_instancia con la ruta de la carpeta y la extension de formato
     FILE *archivo = fopen(ruta, "r");
 

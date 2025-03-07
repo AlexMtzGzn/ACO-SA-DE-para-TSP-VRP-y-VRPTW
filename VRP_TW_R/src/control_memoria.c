@@ -26,6 +26,15 @@ double *asignar_memoria_arreglo_double(int tamanio_instancia)
     return arreglo;
 }
 
+void liberar_memoria_arreglo_int(int *arreglo)
+{
+    free(arreglo);
+}
+
+void liberar_memoria_arreglo_double(double *arreglo)
+{
+    free(arreglo);
+}
 
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
@@ -44,14 +53,25 @@ struct individuo *asignar_memoria_individuos(int poblacion)
 void liberar_individuos(struct individuo *ind, bool bandera)
 {
     free(ind);
-    /*if (bandera == true)
-        free(ind->ruta); Falta ajustar esto*/
+    /*(bandera == true){
+        liberar_memoria_arreglo_int(ind->ruta);
+    }*/
+
 }
 
 /*Para la estructura vrp_configuracion*/
 struct vrp_configuracion *asignar_memoria_vrp_configuracion() { return (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion)); }
 
+void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
+{
+    if (vrp != NULL)
+    {
+        free(vrp->clientes);
+        vrp->clientes = NULL;
+        free(vrp);
+        vrp = NULL;
+    }
+}
+
 /*Para la estructura clientes*/
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente)); }
-
-

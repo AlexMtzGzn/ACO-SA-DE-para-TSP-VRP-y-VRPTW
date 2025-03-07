@@ -9,6 +9,8 @@
 double **asignar_memoria_instancia(int tamanio_instancia);
 int *asignar_memoria_arreglo_int(int tamanio_arreglo);
 double *asignar_memoria_arreglo_double(int tamanio_instancia);
+void liberar_memoria_arreglo_int(int *arreglo);
+void liberar_memoria_arreglo_double(double *arreglo);
 void liberar_instancia(double **instancia, int tamanio_instancia);
 
 /*Para estructura del individuo*/
@@ -17,6 +19,7 @@ void liberar_individuos(struct individuo *ind, bool bandera);
 
 /*Para la estructura vrp_configuracion*/
 struct vrp_configuracion *asignar_memoria_vrp_configuracion();
+void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp);
 
 /*Para la estructura clientes*/
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);

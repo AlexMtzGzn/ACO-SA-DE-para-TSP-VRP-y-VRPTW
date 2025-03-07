@@ -330,21 +330,5 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_feromona)
 {
 
-   for (int i = 0; i < ind->numIteraciones; i++)
-   {
-      // if (i != 0)
-      // Aquie tenemos que restablecer los datos de la hormiga
-
-      struct hormiga *hormiga = asignar_memoria_hormiga(ind); // Retorna un aputador con la estrutura de hormiga
-      inicializar_hormiga(vrp, ind, hormiga);                 // Mandamos los parametros vrp, ind ,hormiga para inicializar los datos de la hormiga
-
-      for (int j = 0; j < ind->numHormigas; j++)
-         aco_principal(vrp, ind, &hormiga[i], instancia_visiblidad, instancia_feromona); // Se envia como argumento el vrp, ind, solo una hormiga, instancia de visibilidad y la instancia de la feromna
-
-      for (int j = 0; j < ind->numHormigas; j++)
-      {
-         actualizar_feromona(ind, vrp, &hormiga[j], instancia_feromona);
-      }
-      liberar_hormigas(hormiga, ind->numHormigas);
-   }
+  
 }
