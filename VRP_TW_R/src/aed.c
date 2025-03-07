@@ -177,5 +177,8 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
       seleccion(objetivo, prueba, num_poblacion);
    }
 
+   liberar_instancia(instancia_feromonas,vrp->num_clientes);
+   liberar_instancia(instancia_visibilidad,vrp->num_clientes);
+
    return 0;
 }
