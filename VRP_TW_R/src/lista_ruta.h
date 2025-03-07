@@ -1,5 +1,5 @@
-#ifndef LISTA_H
-#define LISTA_H
+#ifndef LISTA__RUTA_H
+#define LISTA_RUTA_H
 
 #include <stdbool.h>
 
@@ -43,4 +43,4 @@ void imprimir_Lista(struct Lista *lista);
 void vaciar_Lista(struct Lista *lista);
 
 
-#endif /*lista.c*/
+#endif /*lista_ruta.h*/
