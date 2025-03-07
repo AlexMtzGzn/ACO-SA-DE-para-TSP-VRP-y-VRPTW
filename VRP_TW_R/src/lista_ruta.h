@@ -3,6 +3,9 @@
 
 #include <stdbool.h>
 
+// struct hormiga;
+// struct vrp_configuracion;
+struct vehiculo;
 typedef struct nodo_ruta {
     int cliente;
     struct nodo_ruta *siguiente;
