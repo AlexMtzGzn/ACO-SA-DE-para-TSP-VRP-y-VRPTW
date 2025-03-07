@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "aed.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     }
     char archivo_instancia[100];                                           // Declaramos nombre de la instacia a leer
     snprintf(archivo_instancia, sizeof(archivo_instancia), "%s", argv[3]); // Copiamos el nombre de la instacia a leer a del parametro argv[3];
+    aed_vrp_tw(num_poblacion, num_generaciones, archivo_instancia);        // Enviamos al como parametro el numero de la poblacion , numero de generaciones , y el archivo de la instancia
 
     return 0;
 }
