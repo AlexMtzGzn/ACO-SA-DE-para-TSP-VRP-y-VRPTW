@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "aed.h"
+#include "vrp_tw_aco.h"
 #include "configuracion_vrp_tw.h"
+#include "lista_ruta.h"
 
 /*Para arreglos y instancias*/
 
@@ -56,7 +58,6 @@ void liberar_individuos(struct individuo *ind, bool bandera)
     /*(bandera == true){
         liberar_memoria_arreglo_int(ind->ruta);
     }*/
-
 }
 
 /*Para la estructura vrp_configuracion*/
@@ -75,3 +76,20 @@ void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
 
 /*Para la estructura clientes*/
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente)); }
+
+/*Para estructura de hormiga*/
+struct hormiga *asignar_memoria_hormigas(struct individuo *ind)
+{
+    return (struct hormiga *)malloc(sizeof(struct hormiga) * ind->numHormigas);
+}
+
+/*Para estructura de lista_ruta*/
+struct lista_ruta *asignar_memoria_lista_ruta()
+{
+    struct lista_ruta *nueva_lista = (struct lista_ruta *)malloc(sizeof(struct lista_ruta));
+    if (nueva_lista == NULL)
+        return NULL;
+    nueva_lista->cabeza = NULL;
+    nueva_lista->cola = NULL;
+    return nueva_lista;
+}

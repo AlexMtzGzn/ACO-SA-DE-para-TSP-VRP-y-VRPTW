@@ -3,7 +3,9 @@
 
 #include <stdbool.h>
 #include "aed.h"
+#include "vrp_tw_aco.h"
 #include "configuracion_vrp_tw.h"
+#include "lista_ruta.h"
 
 /*Para arreglos y instancias*/
 double **asignar_memoria_instancia(int tamanio_instancia);
@@ -24,7 +26,10 @@ void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp);
 /*Para la estructura clientes*/
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);
 
+/*Para estructura de hormiga*/
+struct hormiga * asignar_memoria_hormigas(struct individuo * ind);
 
-
+/*Para estructura de lista_ruta*/
+struct lista_ruta * asignar_memoria_lista_ruta();
 
 #endif // CONTROL_MEMORIA_H

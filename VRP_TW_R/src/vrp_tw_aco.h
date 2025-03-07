@@ -5,7 +5,7 @@
 #include "configuracion_vrp_tw.h"
 #include "control_memoria.h"
 #include "lista_ruta.h"
-#include "lista_flota.h"
+
 
 
 typedef struct vehiculo {
@@ -19,6 +19,7 @@ typedef struct vehiculo {
     double fitness_vehiculo;
 } vehiculo;
 
+#include "lista_flota.h"
 typedef struct hormiga {
     int id_hormiga;
     int *tabu;
@@ -30,7 +31,7 @@ typedef struct hormiga {
     lista_vehiculos *flota; 
 } hormiga;
 
-
+void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo * ind, struct hormiga * hormiga);
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_feromona);
 
 #endif // VRP_TW_ACO_H
