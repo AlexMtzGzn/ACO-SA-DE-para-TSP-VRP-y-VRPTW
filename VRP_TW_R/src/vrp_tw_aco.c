@@ -10,9 +10,8 @@
 
 void inicializar_vehiculo(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 {
-   printf("Entresa");
-   inserta_lista_flota(hormiga,vrp);
-   printf("Sali");
+
+
 }
 
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga)
