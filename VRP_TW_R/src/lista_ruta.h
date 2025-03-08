@@ -16,8 +16,8 @@ typedef struct lista_ruta {
     nodo_ruta *cola;
 } lista_ruta;
 
-struct nodo_ruta *crear_nodo_ruta(struct cliente *cliente);
+struct nodo_ruta *crear_nodo_ruta(struct hormiga * hormiga ,struct cliente *cliente);
 bool es_vacia_lista_ruta(struct lista_ruta *ruta);
-void insertar_cliente_ruta(struct vehiculo *vehiculo, struct cliente *cliente);
+void insertar_cliente_ruta(struct hormiga * hormiga,struct vehiculo *vehiculo, struct cliente *cliente);
 
 #endif /*lista_ruta.h*/

@@ -8,9 +8,6 @@
 #include "lista_flota.h"
 #include "lista_ruta.h"
 
-#include <stdio.h>
-#include "vrp_tw_aco.h"
-#include "configuracion_vrp_tw.h"
 
 // Función para imprimir la información de una ruta (lista de clientes)
 void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id) {
@@ -117,8 +114,6 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
          hormiga[i].flota = asignar_memoria_lista_vehiculos();
       while (hormiga[i].flota == NULL); // Asignamos memoria para la flota de la hormiga
       inserta_vehiculo_flota(&hormiga[i],vrp); //Insertamos el vehiculo y sus datos
-      hormiga[i].tabu[0]=1;
-
    }
 }
 
@@ -127,9 +122,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
    struct hormiga *hormiga = asignar_memoria_hormigas(ind);
 
    // for(int i = 0 ; i< ind->numIteraciones; i++){
-
    inicializar_hormiga(vrp, ind, hormiga);
-
    imprimir_hormigas(hormiga, vrp, ind->numHormigas);
 
    //}

@@ -28,10 +28,9 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0; //inicializamos el fitness_vehiculo en 0.0
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta(); //Asiganamos memoria para la lista ruta
     vehiculo_nuevo->siguiente = NULL; //EL nodo siguiente en NULL
-    insertar_cliente_ruta(vehiculo_nuevo->vehiculo,&(vrp->clientes[0])); //Insertamos el cliente a la ruta
+    insertar_cliente_ruta(hormiga,vehiculo_nuevo->vehiculo,&(vrp->clientes[0])); //Insertamos el cliente a la ruta
     return vehiculo_nuevo;
 }
-
 
 bool es_Vacia_Lista(struct lista_vehiculos *flota)
 {
