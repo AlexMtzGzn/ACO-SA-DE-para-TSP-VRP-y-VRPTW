@@ -40,6 +40,7 @@ void imprimir_flota(struct lista_vehiculos *flota) ;
 void imprimir_tabu(int *tabu, int num_clientes);
 void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo * ind, struct hormiga * hormiga);
+double calcular_distancia(struct vrp_configuracion * vrp, int origen, int destino);
 bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_feromona);
 void aco(struct vrp_configuracion *vrp,struct individuo *ind,struct hormiga * hormiga,double **instancia_visiblidad, double **instancia_feromona);
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_feromona);

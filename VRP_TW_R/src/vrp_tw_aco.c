@@ -132,18 +132,32 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
     }
 }
 
+double calcular_distancia(struct vrp_configuracion * vrp, int origen, int destino){
+    return sqrt(pow(vrp->clientes[destino].cordenada_x-vrp->clientes[origen].cordenada_x,2.0) + pow(vrp->clientes[destino].cordenada_y-vrp->clientes[origen].cordenada_y,2.0) );
+}
+
 bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_feromona)
 {
     bool respuesta_agregado = false;
+
     struct lista_ruta *ruta = vehiculo->ruta;
     struct nodo_ruta *ultimo_cliente_ruta = ruta->cola;
-    int origen = ultimo_cliente_ruta->cliente;
+    int origen = ultimo_cliente_ruta->cliente; // Seleccionamos el último elemento de la ruta del vehiculo y lo asignamos como origen
+
+    for(int i = 0; i < vrp->num_clientes; i++){ // Usamos num_clientes en lugar de clientes
+        hormiga->probabilidades[i] = 0.0;
+    hormiga->suma_probabilidades = 0.0;  // Inicializamos en 0.0 la suma de probabilidades
 
     for(int i = 0; i < vrp->num_clientes; i++){
-        hormiga->probabilidades[i] = 0.0;
-    hormiga->suma_probabilidades = 0.0;
+        if(hormiga->tabu[i] == 0){
+            int destino = i; // El destino es el índice del cliente, no el valor en tabu
+            double distancia_viaje = calcular_distancia(vrp, origen, destino);
+            double tiempo_viaje = calcular_tiempo_viaje(distancia_viaje);
+            double distancia_viaje_deposito = calcular_distancia(vrp, destino, 0);
+            double tiempo_viaje_deposito = calcular_tiempo_viaje(distancia_viaje_deposito);  
+        }
+    }
 
-    
     }
     return false;
 }
