@@ -19,16 +19,17 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
         return NULL;
     }
 
-    vehiculo_nuevo->vehiculo->id_vehiculo = hormiga->vehiculos_contados - 1; //Inicializamos el id_vehiculo con vehiculos contados -1
-    vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad; //Inicializamos capacidad maxima con lo que soporta la unidad
-    vehiculo_nuevo->vehiculo->capacidad_restante = vrp->num_capacidad; // iniciamos la capacidad maxima
-    vehiculo_nuevo->vehiculo->tiempo_consumido = 0.0; //Inicializamos tiempo consumido en 0.0
-    vehiculo_nuevo->vehiculo->tiempo_maximo = vrp->clientes[0].tiempo_final; //inicializamos el tiempo maximo del vehiculo
-    vehiculo_nuevo->vehiculo->clientes_contados = 0; //Inicializamos clientes contado en 0
-    vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0; //inicializamos el fitness_vehiculo en 0.0
-    vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta(); //Asiganamos memoria para la lista ruta
-    vehiculo_nuevo->siguiente = NULL; //EL nodo siguiente en NULL
-    insertar_cliente_ruta(hormiga,vehiculo_nuevo->vehiculo,&(vrp->clientes[0])); //Insertamos el cliente a la ruta
+    vehiculo_nuevo->vehiculo->id_vehiculo = hormiga->vehiculos_contados + 1;       // Inicializamos el id_vehiculo con vehiculos contados -1
+    vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad;               // Inicializamos capacidad maxima con lo que soporta la unidad
+    vehiculo_nuevo->vehiculo->capacidad_restante = vrp->num_capacidad;             // iniciamos la capacidad maxima
+    vehiculo_nuevo->vehiculo->tiempo_consumido = 0.0;                              // Inicializamos tiempo consumido en 0.0
+    vehiculo_nuevo->vehiculo->tiempo_maximo = vrp->clientes[0].tiempo_final;       // inicializamos el tiempo maximo del vehiculo
+    vehiculo_nuevo->vehiculo->clientes_contados = 0;                               // Inicializamos clientes contado en 0
+    vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0;                              // inicializamos el fitness_vehiculo en 0.0
+    vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();                 // Asiganamos memoria para la lista ruta
+    vehiculo_nuevo->siguiente = NULL;  
+    hormiga->vehiculos_contados++;                                            // EL nodo siguiente en NULL
+    insertar_cliente_ruta(hormiga, vehiculo_nuevo->vehiculo, &(vrp->clientes[0])); // Insertamos el cliente a la ruta
     return vehiculo_nuevo;
 }
 
@@ -39,14 +40,14 @@ bool es_Vacia_Lista(struct lista_vehiculos *flota)
 
 void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 {
-    struct nodo_vehiculo *vehiculo_nuevo = crearNodo(hormiga,vrp);
+    struct nodo_vehiculo *vehiculo_nuevo = crearNodo(hormiga, vrp);
 
     if (vehiculo_nuevo != NULL)
     {
         if (es_Vacia_Lista(hormiga->flota))
-        
+
             hormiga->flota->cabeza = hormiga->flota->cola = vehiculo_nuevo;
-        
+
         else
         {
             hormiga->flota->cola->siguiente = vehiculo_nuevo;
@@ -55,5 +56,4 @@ void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *v
     }
     else
         printf("\nError al asignar memoria al nodo del vehiculo.");
-    
 }
