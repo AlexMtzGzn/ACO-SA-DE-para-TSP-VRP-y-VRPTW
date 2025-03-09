@@ -1,12 +1,12 @@
 #ifndef VRP_TW_ACO_H
 #define VRP_TW_ACO_H
 
+#include <stdbool.h>
 #include "aed.h"
 #include "configuracion_vrp_tw.h"
 #include "control_memoria.h"
 #include "vrp_tw_aco.h"
 #include "lista_ruta.h"
-#include "lista_flota.h"
 
 
 struct lista_vehiculos;
@@ -26,6 +26,7 @@ typedef struct vehiculo {
 typedef struct hormiga {
     int id_hormiga;
     int *tabu;
+    int tabu_contador;
     double suma_probabilidades;
     double *probabilidades;
     int vehiculos_contados;
@@ -39,6 +40,8 @@ void imprimir_flota(struct lista_vehiculos *flota) ;
 void imprimir_tabu(int *tabu, int num_clientes);
 void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo * ind, struct hormiga * hormiga);
+bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_feromona);
+void aco(struct vrp_configuracion *vrp,struct individuo *ind,struct hormiga * hormiga,double **instancia_visiblidad, double **instancia_feromona);
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_feromona);
 
 #endif // VRP_TW_ACO_H

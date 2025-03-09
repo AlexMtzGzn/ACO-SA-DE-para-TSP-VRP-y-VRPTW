@@ -14,7 +14,7 @@ struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga,struct cliente *client
     nodo_nuevo->cliente = cliente->id_cliente;
     nodo_nuevo->siguiente = NULL;
     hormiga->tabu[cliente->id_cliente] = 1;
-    
+    hormiga->tabu_contador--;
     return nodo_nuevo;
 }
 

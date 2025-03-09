@@ -8,6 +8,7 @@
 struct hormiga;
 struct vrp_configuracion;
 struct vehiculo;
+
 typedef struct nodo_vehiculo {
     struct vehiculo *vehiculo;  
     struct nodo_vehiculo *siguiente;
@@ -22,4 +23,5 @@ typedef struct lista_vehiculos {
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 bool es_Vacia_Lista(struct lista_vehiculos *flota);
 void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp);
+struct lista_vehiculo * recupera_vehiculo_cola(struct hormiga *hormiga);
 #endif /*lista_flota.h*/

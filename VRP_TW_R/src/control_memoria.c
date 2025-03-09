@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "aed.h"
 #include "vrp_tw_aco.h"
@@ -81,8 +82,14 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return
 /*Para estructura de hormiga*/
 struct hormiga *asignar_memoria_hormigas(struct individuo *ind)
 {
-    return (struct hormiga *)malloc(sizeof(struct hormiga) * ind->numHormigas);
+    struct hormiga *hormiga = malloc(sizeof(struct hormiga) * ind->numHormigas);
+    if (hormiga == NULL) {
+        printf("Error: No se pudo asignar memoria para hormigas.\n");
+        exit(EXIT_FAILURE); 
+    }
+    return hormiga;
 }
+
 
 /*Para estructura de lista_ruta*/
 struct lista_ruta *asignar_memoria_lista_ruta()
