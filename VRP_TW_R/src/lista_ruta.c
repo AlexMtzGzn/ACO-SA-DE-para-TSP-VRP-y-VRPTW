@@ -8,14 +8,18 @@
 struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *cliente)
 {
     struct nodo_ruta *nodo_nuevo = malloc(sizeof(struct nodo_ruta));
-    if (nodo_nuevo == NULL)
-        return nodo_nuevo;
+
+    do
+    {
+        nodo_nuevo = malloc(sizeof(struct nodo_ruta));
+
+    } while (nodo_nuevo == NULL);
 
     nodo_nuevo->cliente = cliente->id_cliente;
     nodo_nuevo->siguiente = NULL;
+
     if (hormiga->tabu[cliente->id_cliente] == 0)
     {
-        printf("%d - ",hormiga->tabu_contador);
         hormiga->tabu[cliente->id_cliente] = 1;
         hormiga->tabu_contador++;
     }
