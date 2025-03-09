@@ -44,6 +44,7 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga);
 double calcular_tiempo_viaje(double distancia);
 bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_feromona);
+bool necesita_nuevo_vehiculo(struct vrp_configuracion *vrp, struct hormiga *hormiga, struct vehiculo * vehiculo);
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_feromona);
 

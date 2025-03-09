@@ -194,7 +194,7 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
                 prob_acumulada += hormiga->probabilidades[j] / hormiga->suma_probabilidades;
                 if (aleatorio <= prob_acumulada)
                 {
-                    insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[j].id_cliente));
+                    insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[j]));
 
                     // Actualizamos la capacidad restante (restando la demanda)
                     vehiculo->capacidad_restante -= vrp->clientes[j].demanda;
@@ -213,19 +213,71 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
 
     return respuesta_agregado; // Devolvemos verdadero si se agregó un cliente, falso en caso contrario
 }
+
+bool necesita_nuevo_vehiculo(struct vrp_configuracion *vrp, struct hormiga *hormiga, struct vehiculo *vehiculo)
+{
+    bool respuesta_vehiculo_nuevo = false;
+    if (hormiga->tabu_contador > 0)
+    {
+        return respuesta_vehiculo_nuevo;
+    }
+
+    double capacidad_minima_requerida = 999999.0;
+    // Buscar el cliente con menor demanda entre los no visitados
+    for (int i = 1; i < vrp->num_clientes; i++)
+    {
+        if (hormiga->tabu[i] == 0 && vrp->clientes[i].demanda < capacidad_minima_requerida)
+            capacidad_minima_requerida = vrp->clientes[i].demanda;
+    }
+
+    if (vehiculo->capacidad_restante < capacidad_minima_requerida)
+        return respuesta_vehiculo_nuevo = true;
+
+    int origen = vehiculo->ruta->cola;
+    double tiempo_restante = vehiculo->tiempo_maximo - vehiculo->tiempo_consumido;
+    bool hay_cliente_factible = false;
+
+    for (int i = 1; i < vrp->num_clientes; i++)
+    {
+        if (hormiga->tabu[i] == 0)
+        {
+            double distancia_viaje = calcular_distancia(vrp, origen, i);
+            double tiempo_viaje = calcular_tiempo_viaje(distancia_viaje);
+            double distancia_regreso = calcular_distancia(vrp, i, 0); // Distancia de vuelta al depósito
+            double tiempo_regreso = calcular_tiempo_viaje(distancia_regreso);
+
+            // Verificar ventana de tiempo, capacidad y tiempo máximo
+            if (vehiculo->tiempo_consumido + tiempo_viaje >= vrp->clientes[i].tiempo_inicial &&
+                vehiculo->tiempo_consumido + tiempo_viaje <= vrp->clientes[i].tiempo_final &&
+                vehiculo->capacidad_restante >= vrp->clientes[i].demanda &&
+                vehiculo->tiempo_consumido + tiempo_viaje + vrp->clientes[i].servicio + tiempo_regreso <= vehiculo->tiempo_maximo)
+            {
+                hay_cliente_factible = true;
+                break;
+            }
+        }
+    }
+
+    // Si no hay ningún cliente factible para el vehículo actual
+    if (!hay_cliente_factible)
+        return respuesta_vehiculo_nuevo = true;
+
+    return respuesta_vehiculo_nuevo = false;
+}
+
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona)
 {
 
     int max_intentos = 20; // Número máximo de intentos para agregar un cliente
     int intentos = 0;      // Contador de intentos
     bool cliente_agregado; // Bandera para saber si se agrego el cliente correctamente
-    
 
     while (hormiga->tabu_contador > 0)
     {
         // Intentar agregar un cliente
         struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cola;
         cliente_agregado = calcular_ruta(vrp, ind, hormiga, vehiculo_actual->vehiculo, instancia_visiblidad, instancia_feromona);
+
         if (cliente_agregado)
         {
             // Reiniciar contador de intentos si se agregó un cliente exitosamente
@@ -237,23 +289,26 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
             // Si después de varios intentos no se puede agregar un cliente,
             // verificar si necesitamos un nuevo vehículo
-            //  if (intentos >= max_intentos || necesita_nuevo_vehiculo(vrp, hormiga))
-            //  {
-            //     // Verificar si hay vehículos disponibles
-            //     if (hormiga->vehiculos_contados >= hormiga->vehiculos_maximos)
-            //     {
-            //        // No hay más vehículos disponibles, no podemos completar la solución
-            //        // Marcar solución como infactible o penalizar en el fitness
-            //        hormiga->fitness_global = 999999.0; // Un valor muy alto como penalización
-            //        break;
-            //     }
+            if (intentos >= max_intentos || necesita_nuevo_vehiculo(vrp, hormiga, vehiculo_actual->vehiculo))
+            {
+                // Verificar si hay vehículos disponibles
+                if (hormiga->vehiculos_contados >= hormiga->vehiculos_maximos)
+                {
+                    // No hay más vehículos disponibles, no podemos completar la solución
+                    // Marcar solución como infactible o penalizar en el fitness
+                    hormiga->fitness_global = 999999.0; // Un valor muy alto como penalización
+                    break;
+                }
 
-            //     // Agregar un nuevo vehículo
-            //     hormiga->vehiculos_contados++;
-            //     hormiga->flota = redimensionar_memoria_vehiculo(hormiga);
-            //     inicializar_vehiculo(hormiga, vrp);
-            //     intentos = 0; // Reiniciar contador de intentos
-            //  }
+                //     // Agregar un nuevo vehículo
+                //     hormiga->vehiculos_contados++;
+                //     hormiga->flota = redimensionar_memoria_vehiculo(hormiga);
+                //     inicializar_vehiculo(hormiga, vrp);
+                intentos = 0; // Reiniciar contador de intentos
+                printf("Si entro aca");
+                exit(EXIT_FAILURE);
+
+            }
         }
     }
 }
