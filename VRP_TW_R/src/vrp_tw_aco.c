@@ -163,22 +163,16 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
             double tiempo_viaje_deposito = calcular_tiempo_viaje(distancia_viaje_deposito);
 
             // Verificación de ventanas de tiempo y restricciones
-            if (vehiculo->tiempo_consumido + tiempo_viaje >= vrp->clientes[destino].tiempo_inicial &&
-                vehiculo->tiempo_consumido + tiempo_viaje <= vrp->clientes[destino].tiempo_final)
+            if (vehiculo->tiempo_consumido + tiempo_viaje >= vrp->clientes[i].tiempo_inicial &&
+                vehiculo->tiempo_consumido + tiempo_viaje <= vrp->clientes[i].tiempo_final &&
+                vehiculo->capacidad_restante >= vrp->clientes[i].demanda &&
+                vehiculo->tiempo_consumido + tiempo_viaje + vrp->clientes[i].servicio + tiempo_viaje_deposito <= vehiculo->tiempo_maximo)
             {
-                // Verificación de capacidad
-                if (vehiculo->capacidad_restante - vrp->clientes[destino].demanda >= 0) // Restamos la demanda, no la sumamos
-                {
-                    // Verificación de tiempo máximo
-                    if (vehiculo->tiempo_consumido + tiempo_viaje + vrp->clientes[destino].servicio + tiempo_viaje_deposito <= vehiculo->tiempo_maximo)
-                    {
-                        double valuacion_tiempo = (vehiculo->tiempo_maximo > 0) ? (1.0 / vehiculo->tiempo_maximo) : 0.0;
-                        hormiga->probabilidades[i] = pow(instancia_feromona[origen][destino], ind->alpha) *
-                                                     pow(instancia_visiblidad[origen][destino], ind->beta) *
-                                                     pow(valuacion_tiempo, ind->gamma);
-                        hormiga->suma_probabilidades += hormiga->probabilidades[i];
-                    }
-                }
+                double valuacion_tiempo = (vehiculo->tiempo_maximo > 0) ? (1.0 / vehiculo->tiempo_maximo) : 0.0;
+                hormiga->probabilidades[i] = pow(instancia_feromona[origen][destino], ind->alpha) *
+                                             pow(instancia_visiblidad[origen][destino], ind->beta) *
+                                             pow(valuacion_tiempo, ind->gamma);
+                hormiga->suma_probabilidades += hormiga->probabilidades[i];
             }
         }
     }
@@ -229,7 +223,8 @@ bool necesita_nuevo_vehiculo(struct vrp_configuracion *vrp, struct hormiga *horm
     }
 
     if (vehiculo->capacidad_restante < capacidad_minima_requerida)
-        return respuesta_vehiculo_nuevo = true;
+        respuesta_vehiculo_nuevo = true;
+    return respuesta_vehiculo_nuevo;
 
     int origen = vehiculo->ruta->cola->cliente;
     bool hay_cliente_factible = false;
@@ -257,15 +252,19 @@ bool necesita_nuevo_vehiculo(struct vrp_configuracion *vrp, struct hormiga *horm
 
     // Si no hay ningún cliente factible para el vehículo actual
     if (!hay_cliente_factible)
-        return respuesta_vehiculo_nuevo = true;
+    {
+        respuesta_vehiculo_nuevo = true;
+        return respuesta_vehiculo_nuevo;
+    }
 
-    return respuesta_vehiculo_nuevo = false;
+    respuesta_vehiculo_nuevo = false;
+    return respuesta_vehiculo_nuevo;
 }
 
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona)
 {
 
-    int max_intentos = 20; // Número máximo de intentos para agregar un cliente
+    int max_intentos = 50; // Número máximo de intentos para agregar un cliente
     int intentos = 0;      // Contador de intentos
     bool cliente_agregado; // Bandera para saber si se agrego el cliente correctamente
 
@@ -286,7 +285,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             // printf("\nSe incremento %d", intentos);
             //  Si después de varios intentos no se puede agregar un cliente,
             //  verificar si necesitamos un nuevo vehículo
-            if (intentos >= max_intentos || necesita_nuevo_vehiculo(vrp, hormiga, vehiculo_actual->vehiculo))
+            if (intentos == max_intentos || necesita_nuevo_vehiculo(vrp, hormiga, vehiculo_actual->vehiculo))
             {
 
                 // Verificar si hay vehículos disponibles
@@ -319,5 +318,5 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     }
 
     printf("\n\n\n");
-    // imprimir_hormigas(hormiga, vrp, ind->numHormigas);
+    imprimir_hormigas(hormiga, vrp, ind->numHormigas);
 }
