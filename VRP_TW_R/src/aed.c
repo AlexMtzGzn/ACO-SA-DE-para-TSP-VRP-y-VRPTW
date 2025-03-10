@@ -54,7 +54,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
       }
 }
 
-void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, struct vrp_configuracion *vrp)
+void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad,double **instancia_distancias,struct vrp_configuracion *vrp)
 {
    inicializar_Feromona(vrp, instancia_feromona, ind);
    vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_feromona);
@@ -179,8 +179,8 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
       for (int j = 0; j < num_poblacion; ++j)
       {
-         evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_visibilidad, vrp);
-         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, vrp);
+         evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_visibilidad,instancia_distancias, vrp);
+         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);
       }
 
       seleccion(objetivo, prueba, num_poblacion);

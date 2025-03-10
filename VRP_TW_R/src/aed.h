@@ -21,7 +21,7 @@ double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int
 void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configuracion *vrp);
 void inicializar_Distancias(double **instancia_distancias, struct vrp_configuracion *vrp);
 void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona, struct individuo *ind);
-void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, struct vrp_configuracion *vrp);
+void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad,double ** instancia_distancias, struct vrp_configuracion *vrp);
 double generaAleatorio(double minimo, double maximo);
 void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, int poblacion);
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion);
