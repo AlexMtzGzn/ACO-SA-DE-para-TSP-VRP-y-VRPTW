@@ -100,11 +100,11 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].beta < 1.5)
          ruidoso[i].beta = 1.5;
 
-      if (ruidoso[i].gamma > 1.5)
-         ruidoso[i].gamma = 1.5;
+      if (ruidoso[i].gamma > 2.0)
+         ruidoso[i].gamma = 2.0;
 
-      if (ruidoso[i].gamma < 0)
-         ruidoso[i].gamma = 0;
+      if (ruidoso[i].gamma < 0.5)
+         ruidoso[i].gamma = 0.5;
 
       if (ruidoso[i].rho > 1.0)
          ruidoso[i].rho = 1.0;
@@ -151,7 +151,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    {
       objetivo[i].alpha = generaAleatorio(0.1, 2.0);
       objetivo[i].beta = generaAleatorio(1.5, 2.5);
-      objetivo[i].gamma = generaAleatorio(0.0, 1.5);
+      objetivo[i].gamma = generaAleatorio(0.5, 2.0);
       objetivo[i].rho = generaAleatorio(0.0, 1.0);
       objetivo[i].numHormigas = (int)generaAleatorio(10, 20);
       objetivo[i].numIteraciones = (int)generaAleatorio(20, 50);
