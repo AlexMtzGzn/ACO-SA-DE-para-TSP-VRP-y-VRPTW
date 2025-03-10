@@ -7,7 +7,6 @@
 #include "vrp_tw_aco.h"
 #include "control_memoria.h"
 
-
 double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
    return sqrt(pow((vrp->clientes[cliente_destino].cordenada_x - vrp->clientes[cliente_origen].cordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].cordenada_y - vrp->clientes[cliente_origen].cordenada_y), 2.0));
@@ -17,17 +16,28 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
 {
    for (int i = 0; i < vrp->num_clientes; i++)
    {
-      for (int j = i + 1; j < vrp->num_clientes; j++)
+      for (int j = 0; j < vrp->num_clientes; j++)
       {
          if (i != j)
-         {
             instancia_visibilidad[i][j] = 1.0 / calcular_distancia(vrp, i, j);
-            instancia_visibilidad[j][i] = instancia_visibilidad[i][j];
-         }
+
          else
-         {
             instancia_visibilidad[i][j] = 0.0;
-         }
+      }
+   }
+}
+
+void inicializar_Distancias(double **instancia_distancias, struct vrp_configuracion *vrp)
+{
+   for (int i = 0; i < vrp->num_clientes; i++)
+   {
+      for (int j = 0; j < vrp->num_clientes; j++)
+      {
+         if (i != j)
+            instancia_distancias[i][j] = calcular_distancia(vrp, i, j);
+
+         else
+            instancia_distancias[i][j] = 0.0;
       }
    }
 }
@@ -35,24 +45,19 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
 void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona, struct individuo *ind)
 {
    for (int i = 0; i < vrp->num_clientes; i++)
-      for (int j = i + 1; j < vrp->num_clientes; j++)
+      for (int j = 0; j < vrp->num_clientes; j++)
       {
          if (i != j)
-         {
             instancia_feromona[i][j] = ind->alpha;
-            instancia_feromona[j][i] = ind->alpha;
-         }
          else
-         {
             instancia_feromona[i][j] = 0.0;
-         }
       }
 }
 
 void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
    inicializar_Feromona(vrp, instancia_feromona, ind);
-   vrp_tw_aco(vrp,ind,instancia_visibilidad,instancia_feromona);
+   vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_feromona);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -155,15 +160,17 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
 
 int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
-   //srand (time(NULL));
-   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); //Asignamos memoria para el arreglo objetivo
-   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion); //Asignamos memoria para el arreglo ruidoso
-   struct individuo *prueba = asignar_memoria_individuos(num_poblacion); //Asiganamos memoria para el arreglo prueba
-   vrp_configuracion *vrp = leer_instancia(archivo_instancia); //Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
+   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Asignamos memoria para el arreglo objetivo
+   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  // Asignamos memoria para el arreglo ruidoso
+   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);   // Asiganamos memoria para el arreglo prueba
+   vrp_configuracion *vrp = leer_instancia(archivo_instancia);             // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
 
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);
+   double **instancia_distancias = asignar_memoria_instancia(vrp->num_clientes);
+
    inicializar_Visibilidad(instancia_visibilidad, vrp);
+   inicializar_Distancias(instancia_distancias,vrp);
 
    for (int i = 0; i < num_generaciones; i++)
    {
@@ -179,9 +186,9 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
       seleccion(objetivo, prueba, num_poblacion);
    }
 
-   liberar_instancia(instancia_feromonas,vrp->num_clientes);
-   liberar_instancia(instancia_visibilidad,vrp->num_clientes);
+   liberar_instancia(instancia_feromonas, vrp->num_clientes);
+   liberar_instancia(instancia_visibilidad, vrp->num_clientes);
    liberar_memoria_vrp_configuracion(vrp);
-   
+
    return 0;
 }

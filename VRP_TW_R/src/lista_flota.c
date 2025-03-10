@@ -8,12 +8,9 @@
 
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 {
-    struct nodo_vehiculo *vehiculo_nuevo = malloc(sizeof(struct nodo_vehiculo));
-    do
-    {
-        vehiculo_nuevo = malloc(sizeof(struct nodo_vehiculo));
-    } while (vehiculo_nuevo == NULL);
-
+    struct nodo_vehiculo *vehiculo_nuevo;
+    vehiculo_nuevo = malloc(sizeof(struct nodo_vehiculo));
+    vehiculo_nuevo->vehiculo = malloc(sizeof(struct vehiculo));
     vehiculo_nuevo->vehiculo->id_vehiculo = hormiga->vehiculos_contados + 1; // Inicializamos el id_vehiculo con vehiculos contados -1
     vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad;         // Inicializamos capacidad maxima con lo que soporta la unidad
     vehiculo_nuevo->vehiculo->capacidad_restante = vrp->num_capacidad;       // iniciamos la capacidad maxima
