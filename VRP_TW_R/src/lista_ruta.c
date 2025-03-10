@@ -8,12 +8,7 @@
 struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *cliente)
 {
     struct nodo_ruta *nodo_nuevo = malloc(sizeof(struct nodo_ruta));
-
-    do
-    {
-        nodo_nuevo = malloc(sizeof(struct nodo_ruta));
-
-    } while (nodo_nuevo == NULL);
+    nodo_nuevo = malloc(sizeof(struct nodo_ruta));
 
     nodo_nuevo->cliente = cliente->id_cliente;
     nodo_nuevo->siguiente = NULL;
@@ -47,7 +42,8 @@ void insertar_cliente_ruta(struct hormiga *hormiga, struct vehiculo *vehiculo, s
             vehiculo->ruta->cola->siguiente = nodo_nuevo;
             vehiculo->ruta->cola = nodo_nuevo;
         }
-        vehiculo->clientes_contados++;
+        if(cliente->id_cliente != 0)
+            vehiculo->clientes_contados++;
     }
     else
     {

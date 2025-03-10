@@ -17,6 +17,7 @@ typedef struct vehiculo
     double capacidad_restante;
     double tiempo_consumido;
     double tiempo_maximo;
+    double timepo_inicial;
     int clientes_contados;
     lista_ruta *ruta;
     double fitness_vehiculo;
@@ -43,8 +44,8 @@ void imprimir_tabu(int *tabu, int num_clientes);
 void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga);
 double calcular_tiempo_viaje(double distancia);
-bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_feromona);
-bool necesita_nuevo_vehiculo(struct vrp_configuracion *vrp, struct hormiga *hormiga, struct vehiculo * vehiculo);
-void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias);
-void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad,double ** instancia_distancias, double **instancia_feromona);
+bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad,double ** instancia_distancias, double **instancia_feromona);
+bool necesita_nuevo_vehiculo(struct vrp_configuracion *vrp, struct hormiga *hormiga, struct vehiculo *vehiculo);
+void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad,double **instancia_feromona, double **instancia_distancias);
+void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
 #endif // VRP_TW_ACO_H

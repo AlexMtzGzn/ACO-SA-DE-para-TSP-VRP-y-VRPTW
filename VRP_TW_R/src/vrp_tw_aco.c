@@ -149,7 +149,7 @@ double calcular_tiempo_viaje(double distancia)
     return distancia / velocidad;
 }
 
-bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_feromona)
+bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancias_distancias, double **instancia_feromona)
 {
     bool respuesta_agregado = false;
 
@@ -167,9 +167,9 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
         if (hormiga->tabu[i] == 0)
         {
             int destino = i; // El destino es el índice del cliente, no el valor en tabu
-            double distancia_viaje = calcular_distancia(vrp, origen, destino);
+            double distancia_viaje = instancias_distancias[origen][destino];
             double tiempo_viaje = calcular_tiempo_viaje(distancia_viaje);
-            double distancia_viaje_deposito = calcular_distancia(vrp, destino, 0);
+            double distancia_viaje_deposito = instancias_distancias[destino][0];
             double tiempo_viaje_deposito = calcular_tiempo_viaje(distancia_viaje_deposito);
 
             // Verificación de ventanas de tiempo y restricciones
@@ -178,7 +178,12 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
                 vehiculo->capacidad_restante >= vrp->clientes[i].demanda &&
                 vehiculo->tiempo_consumido + tiempo_viaje + vrp->clientes[i].servicio + tiempo_viaje_deposito <= vehiculo->tiempo_maximo)
             {
-                double valuacion_tiempo = (vehiculo->tiempo_maximo > 0) ? (1.0 / vehiculo->tiempo_maximo) : 0.0;
+                double valuacion_tiempo;
+                if (vehiculo->tiempo_maximo > 0)
+                    valuacion_tiempo = 1.0 / vehiculo->tiempo_maximo;
+                else
+                    valuacion_tiempo = 0.0;
+
                 hormiga->probabilidades[i] = pow(instancia_feromona[origen][destino], ind->alpha) *
                                              pow(instancia_visiblidad[origen][destino], ind->beta) *
                                              pow(valuacion_tiempo, ind->gamma);
@@ -189,14 +194,14 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
 
     if (hormiga->suma_probabilidades > 0.0)
     {
-        double aleatorio = (double)rand() / RAND_MAX;
+        double aleatorio = (double)rand() / RAND_MAX;;
         double prob_acumulada = 0.0;
         for (int j = 0; j < vrp->num_clientes; j++)
         {
-            if (hormiga->tabu[j] == 0 && hormiga->probabilidades[j] > 0.0) // Verificamos que sea un cliente factible
+            if (hormiga->tabu[j] == 0) // Verificamos que sea un cliente factible
             {
                 prob_acumulada += hormiga->probabilidades[j] / hormiga->suma_probabilidades;
-                if (aleatorio <= prob_acumulada)
+                if (aleatorio < prob_acumulada)
                 {
                     insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[j]));
 
@@ -204,12 +209,9 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
                     vehiculo->capacidad_restante -= vrp->clientes[j].demanda;
 
                     // Actualizamos el tiempo consumido
-                    double distancia_viaje = calcular_distancia(vrp, origen, j);
+                    double distancia_viaje = instancias_distancias[origen][j];
                     double tiempo_viaje = calcular_tiempo_viaje(distancia_viaje);
                     vehiculo->tiempo_consumido += tiempo_viaje + vrp->clientes[j].servicio;
-
-                    hormiga->tabu[j] = 1;
-                    hormiga->tabu_contador++;
 
                     respuesta_agregado = true;
                     break; // Salimos del bucle una vez que hemos agregado un cliente
@@ -290,20 +292,11 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
     int intentos = 0;      // Contador de intentos
     bool cliente_agregado; // Bandera para saber si se agrego el cliente correctamente
 
-    // Inicializar tabu_contador a 0
-    hormiga->tabu_contador = 0;
-
-    // Inicializar array tabu a 0 (todos los clientes no visitados)
-    for (int i = 0; i < vrp->num_clientes; i++)
-    {
-        hormiga->tabu[i] = 0;
-    }
-
     while (hormiga->tabu_contador < vrp->num_clientes)
     {
         // Intentar agregar un cliente
         struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cola;
-        cliente_agregado = calcular_ruta(vrp, ind, hormiga, vehiculo_actual->vehiculo, instancia_visiblidad, instancia_feromona);
+        cliente_agregado = calcular_ruta(vrp, ind, hormiga, vehiculo_actual->vehiculo, instancia_visiblidad, instancia_distancias, instancia_feromona);
 
         if (cliente_agregado)
         {

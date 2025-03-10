@@ -57,7 +57,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
 void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad,double **instancia_distancias,struct vrp_configuracion *vrp)
 {
    inicializar_Feromona(vrp, instancia_feromona, ind);
-   vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_feromona);
+   vrp_tw_aco(vrp, ind, instancia_visibilidad,instancia_distancias,instancia_feromona);
 }
 
 double generaAleatorio(double minimo, double maximo)
