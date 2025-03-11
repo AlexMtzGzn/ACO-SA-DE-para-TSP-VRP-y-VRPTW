@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "aed.h"
 
 int main(int argc, char *argv[])
 {
     srand(time(NULL)); //Inicializamos la semilla
+    (void)argc;
     int num_poblacion = atoi(argv[1]);    // Ingresa el tamaño de la poblacion
     int num_generaciones = atoi(argv[2]); // Ingresa el numero de generacones
 
