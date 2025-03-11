@@ -416,8 +416,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
         {
             actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
         }
+        if (i != vrp->num_clientes)
+            liberar_memoria_hormiga(hormiga, ind);
     }
- 
+
     imprimir_hormigas(hormiga, vrp, ind->numHormigas);
-    liberar_memoria_hormiga(hormiga, ind);
 }
