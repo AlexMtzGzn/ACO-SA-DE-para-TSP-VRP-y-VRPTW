@@ -369,6 +369,36 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
         // printf("\nFitness global calculado: %.2f", hormiga->fitness_global);
     }
 }
+void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
+{
+    // Liberar las estructuras dinámicas dentro de cada hormiga
+    for (int i = 0; i < ind->numHormigas; i++)
+    {
+        // Liberar la memoria de la tabla tabu
+        free(hormiga[i].tabu);
+        // Liberar las probabilidades si están asignadas dinámicamente
+        free(hormiga[i].probabilidades);
+
+        // Liberar la flota (si está asignada dinámicamente)
+        struct nodo_vehiculo *vehiculo_actual = hormiga[i].flota->cabeza;
+        while (vehiculo_actual != NULL)
+        {
+            // Liberar las rutas de cada vehículo
+            struct nodo_ruta *nodo_actual = vehiculo_actual->vehiculo->ruta->cabeza;
+            while (nodo_actual != NULL)
+            {
+                struct nodo_ruta *temp = nodo_actual;
+                nodo_actual = nodo_actual->siguiente;
+                free(temp);
+            }
+            free(vehiculo_actual->vehiculo->ruta);
+            vehiculo_actual = vehiculo_actual->siguiente;
+        }
+        free(hormiga[i].flota);
+    }
+    // Finalmente, liberar la memoria de las hormigas
+    free(hormiga);
+}
 
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
@@ -387,6 +417,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
         }
     }
-
+ 
     imprimir_hormigas(hormiga, vrp, ind->numHormigas);
+    liberar_memoria_hormiga(hormiga, ind);
 }
