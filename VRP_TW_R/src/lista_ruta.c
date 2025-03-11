@@ -8,7 +8,6 @@
 struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *cliente)
 {
     struct nodo_ruta *nodo_nuevo = malloc(sizeof(struct nodo_ruta));
-    nodo_nuevo = malloc(sizeof(struct nodo_ruta));
 
     nodo_nuevo->cliente = cliente->id_cliente;
     nodo_nuevo->siguiente = NULL;
