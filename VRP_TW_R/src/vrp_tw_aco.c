@@ -416,9 +416,8 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
         {
             actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
         }
-        
     }
  
     imprimir_hormigas(hormiga, vrp, ind->numHormigas);
-   
+
 }
