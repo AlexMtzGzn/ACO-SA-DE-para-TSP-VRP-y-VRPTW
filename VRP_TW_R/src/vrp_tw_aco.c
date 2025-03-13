@@ -100,7 +100,7 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
     for (int i = 0; i < num_hormigas; i++)
     {
         printf("\nHORMIGA #%d (ID: %d)\n", i + 1, hormigas[i].id_hormiga);
-        printf("  Vehículos contados: %d/%d\n", hormigas[i].vehiculos_contados, hormigas[i].vehiculos_maximos);
+        //printf("  Vehículos contados: %d/%d\n", hormigas[i].vehiculos_contados, hormigas[i].vehiculos_maximos);
         printf("  Fitness global: %.2f\n", hormigas[i].fitness_global);
 
         // Imprimir tabu
@@ -195,7 +195,7 @@ void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
     }
 }
 
-void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga)
+void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga,int vehiculos_necesarios)
 {
     for (int i = 0; i < ind->numHormigas; i++)
     {
@@ -213,7 +213,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
 
         } while (hormiga[i].probabilidades == NULL);
 
-        hormiga[i].vehiculos_contados = 0;                 // Inicializamos el numero de vehiculos contados en 0
+        hormiga[i].vehiculos_necesarios = vehiculos_necesarios;                 // Inicializamos el numero de vehiculos contados en 0
         hormiga[i].vehiculos_maximos = vrp->num_vehiculos; // Inicializamos el nuemro de vehiculos maximos con vrp->num_vehiculos
         do
             hormiga[i].flota = asignar_memoria_lista_vehiculos();
@@ -309,7 +309,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
     int intentos = 0;       // Contador de intentos
     bool cliente_agregado;  // Bandera para saber si se agrego el cliente correctamente
 
-    while (hormiga->tabu_contador < vrp->num_clientes)
+    while (hormiga->tabu_contador <= vrp->num_clientes)
     {
         // Intentar agregar un cliente
         struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cola;
@@ -351,23 +351,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             }
         }
     }
-
-    // Calcular fitness final si la solución es factible
-    if (hormiga->fitness_global != 999999.0)
-    {
-        // Implementar cálculo de fitness basado en objetivos (distancia total, tiempo, etc.)
-        double fitness_total = 0.0;
-        struct nodo_vehiculo *actual = hormiga->flota->cabeza;
-
-        while (actual != NULL)
-        {
-            fitness_total += actual->vehiculo->fitness_vehiculo;
-            actual = actual->siguiente;
-        }
-
-        hormiga->fitness_global = fitness_total;
-        // printf("\nFitness global calculado: %.2f", hormiga->fitness_global);
-    }
 }
 void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
 {
@@ -403,8 +386,13 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
     struct hormiga *hormiga = malloc(sizeof(struct hormiga) * ind->numHormigas);
+    double suma_demanda = 0;
+    for(int i = 0; i < vrp->num_clientes; i++){
+        suma_demanda += vrp->clientes[i].demanda; 
+    }
+    int vehiculos_necesarios = (int)ceil( suma_demanda/ vrp->num_capacidad);
 
-    inicializar_hormiga(vrp, ind, hormiga);
+    inicializar_hormiga(vrp, ind, hormiga,vehiculos_necesarios);
 
     for (int i = 0; i < ind->numIteraciones; i++)
     { // Aqui dedemos itererar
@@ -416,8 +404,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
         {
             actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
         }
+        
     }
  
-    imprimir_hormigas(hormiga, vrp, ind->numHormigas);
+    //imprimir_hormigas(hormiga, vrp, ind->numHormigas);
 
 }

@@ -31,7 +31,7 @@ typedef struct hormiga
     int tabu_contador;
     double suma_probabilidades;
     double *probabilidades;
-    int vehiculos_contados;
+    int vehiculos_necesarios;
     int vehiculos_maximos;
     double fitness_global;
     lista_vehiculos *flota;
