@@ -207,7 +207,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
         hormiga[i].vehiculos_maximos = vrp->num_vehiculos;                             // Inicializamos el nuemro de vehiculos maximos con vrp->num_vehiculos
         hormiga[i].flota = asignar_memoria_lista_vehiculos();
 
-       for (int j = 0; j < hormiga->vehiculos_necesarios; j++)
+        for (int j = 0; j < hormiga->vehiculos_necesarios; j++)
             inserta_vehiculo_flota(&hormiga[i], vrp, j + 1); // Insertamos el vehiculo y sus datos
     }
 }
@@ -243,10 +243,11 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
             // Verificación de ventanas de tiempo y restricciones
             if (vehiculo->tiempo_consumido + tiempo_viaje >= vrp->clientes[destino].tiempo_inicial &&
                 vehiculo->tiempo_consumido + tiempo_viaje <= vrp->clientes[destino].tiempo_final &&
-                vehiculo->capacidad_restante >= vrp->clientes[destino].demanda &&
+                vehiculo->capacidad_restante >= vrp->clientes[destino].demanda && // Corrección aquí
                 vehiculo->tiempo_consumido + tiempo_viaje + vrp->clientes[i].servicio + tiempo_viaje_deposito <= vehiculo->tiempo_maximo)
             {
                 double valuacion_tiempo;
+
                 if (vrp->clientes[destino].tiempo_final > 0)
                     valuacion_tiempo = 1.0 / vrp->clientes[destino].tiempo_final;
                 else
@@ -342,8 +343,8 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
             if (intentos == max_intentos)
             {
-                //Aqui no se puedo agregar mas clientes
-                break;
+                // Aqui no se puedo agregar mas clientes
+               // break;
             }
         }
     }
