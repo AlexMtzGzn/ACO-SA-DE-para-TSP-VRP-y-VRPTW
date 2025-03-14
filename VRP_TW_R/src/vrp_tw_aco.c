@@ -241,21 +241,20 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
             double tiempo_viaje_deposito = calcular_tiempo_viaje(distancia_viaje_deposito);
 
             // Verificación de ventanas de tiempo y restricciones
-            if (vehiculo->tiempo_consumido + tiempo_viaje >= vrp->clientes[i].tiempo_inicial &&
-                vehiculo->tiempo_consumido + tiempo_viaje <= vrp->clientes[i].tiempo_final &&
-                vehiculo->capacidad_restante >= vrp->clientes[i].demanda &&
+            if (vehiculo->tiempo_consumido + tiempo_viaje >= vrp->clientes[destino].tiempo_inicial &&
+                vehiculo->tiempo_consumido + tiempo_viaje <= vrp->clientes[destino].tiempo_final &&
+                vehiculo->capacidad_restante >= vrp->clientes[destino].demanda &&
                 vehiculo->tiempo_consumido + tiempo_viaje + vrp->clientes[i].servicio + tiempo_viaje_deposito <= vehiculo->tiempo_maximo)
             {
                 double valuacion_tiempo;
-                if (vehiculo->tiempo_maximo > 0)
-                    valuacion_tiempo = 1.0 / vehiculo->tiempo_maximo;
+                if (vrp->clientes[destino].tiempo_final > 0)
+                    valuacion_tiempo = 1.0 / vrp->clientes[destino].tiempo_final;
                 else
                     valuacion_tiempo = 0.0;
 
                 hormiga->probabilidades[i] = pow(instancia_feromona[origen][destino], ind->alpha) *
                                              pow(instancia_visiblidad[origen][destino], ind->beta) *
-                                             pow(valuacion_tiempo, ind->gamma) *
-                                             (vehiculo->capacidad_restante / vrp->clientes[i].demanda);
+                                             pow(valuacion_tiempo, ind->gamma);
 
                 hormiga->suma_probabilidades += hormiga->probabilidades[i];
             }
@@ -392,7 +391,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
     inicializar_hormiga(vrp, ind, hormiga, vehiculos_necesarios);
 
-    /*for (int i = 0; i < ind->numIteraciones; i++)
+    for (int i = 0; i < ind->numIteraciones; i++)
     { // Aqui dedemos itererar
         for (int j = 0; j < ind->numHormigas; j++)
         {
@@ -404,5 +403,5 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
         }
     }
 
-    imprimir_hormigas(hormiga, vrp, ind->numHormigas);*/
+    imprimir_hormigas(hormiga, vrp, ind->numHormigas);
 }
