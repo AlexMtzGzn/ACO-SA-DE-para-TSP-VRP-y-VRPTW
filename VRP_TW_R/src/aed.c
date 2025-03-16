@@ -48,7 +48,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
       for (int j = 0; j < vrp->num_clientes; j++)
       {
          if (i != j)
-            instancia_feromona[i][j] = ind->alpha;
+            instancia_feromona[i][j] = 1.0/vrp->clientes[j].tiempo_final;//Hay que pregunatra si es con 1.0 / vrp->clientes solo o elevando con ind->alpha , por el momento sera sin elevar al ind->alpha
          else
             instancia_feromona[i][j] = 0.0;
       }
