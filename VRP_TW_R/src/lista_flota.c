@@ -13,7 +13,7 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     vehiculo_nuevo->vehiculo = malloc(sizeof(struct vehiculo));
     vehiculo_nuevo->vehiculo->id_vehiculo = id;                                 // Inicializamos el id_vehiculo con un id
     vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad;            // Inicializamos capacidad maxima con lo que soporta la unidad
-    vehiculo_nuevo->vehiculo->capacidad_restante = vrp->num_capacidad;          // iniciamos la capacidad maxima
+    vehiculo_nuevo->vehiculo->capacidad_restante = vrp->num_capacidad;          // inicializamos con capacidad máxima          // iniciamos la capacidad maxima
     vehiculo_nuevo->vehiculo->tiempo_consumido = 0.0;                           // Inicializamos tiempo consumido en 0.0
     vehiculo_nuevo->vehiculo->tiempo_maximo = vrp->clientes[0].tiempo_final;    // inicializamos el tiempo maximo del vehiculo
     vehiculo_nuevo->vehiculo->timepo_inicial = vrp->clientes[0].tiempo_inicial; // Inicializamos el tiempo inicial
