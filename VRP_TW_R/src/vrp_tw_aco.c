@@ -218,7 +218,7 @@ double calcular_tiempo_viaje(double distancia)
     return (double)distancia / velocidad;
 }
 
-int seleccinar_cliente(struct vrp_configuracion *vrp,struct hormiga *hormiga)
+int seleccinar_cliente(struct vrp_configuracion *vrp, struct hormiga *hormiga)
 {
 
     double aleatorio = ((double)rand() / RAND_MAX);
@@ -226,7 +226,7 @@ int seleccinar_cliente(struct vrp_configuracion *vrp,struct hormiga *hormiga)
     for (int i = 0; i < vrp->num_clientes; i++)
     {
         acumulador += hormiga->probabilidades[i];
-        if(aleatorio <= acumulador && hormiga->tabu[i] != 0)
+        if (aleatorio <= acumulador && hormiga->tabu[i] == 0)
             return i;
     }
 
@@ -235,13 +235,13 @@ int seleccinar_cliente(struct vrp_configuracion *vrp,struct hormiga *hormiga)
 
 double calcular_probabilidad(int origen, int destino, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias)
 {
-    double numerador = pow(instancia_feromona[origen][destino], ind->alpha) * pow(instancia_visibilidad[origen][destino], ind->beta) * pow(1.0 / vrp->clientes[destino].tiempo_final, ind->gamma);
+    double numerador = pow(instancia_feromona[origen][destino], ind->alpha) * pow(instancia_visibilidad[origen][destino], ind->beta) * pow((1.0 / vrp->clientes[destino].tiempo_final), ind->gamma);
     hormiga->suma_probabilidades = 0.0;
 
     for (int i = 0; i < vrp->num_clientes; i++)
     {
 
-        if (hormiga->tabu[i] != origen && hormiga->tabu[i] == 0)
+        if (i != origen && hormiga->tabu[i] == 0)
         {
 
             double distancia_viaje = instancia_distancias[origen][destino];
@@ -263,7 +263,6 @@ double calcular_probabilidad(int origen, int destino, struct vehiculo *vehiculo,
                         hormiga->suma_probabilidades += pow(instancia_feromona[origen][destino], ind->alpha) *
                                                         pow(instancia_visibilidad[origen][destino], ind->beta) *
                                                         pow(valuacion_tiempo, ind->gamma);
-                        ;
                     }
                 }
             }
@@ -286,11 +285,17 @@ bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct 
     for (int i = 0; i < vrp->num_clientes; i++)
     {
         if (hormiga->tabu[i] == 0)
-            hormiga->probabilidades[i] = calcular_probabilidad(origen,i,vehiculo,ind,vrp,hormiga,instancia_feromona,instancia_visiblidad,instancias_distancias);
+            hormiga->probabilidades[i] = calcular_probabilidad(origen, i, vehiculo, ind, vrp, hormiga, instancia_feromona, instancia_visiblidad, instancias_distancias);
     }
-    int nuevo_cliente = seleccinar_cliente(vrp,hormiga);
-    if(nuevo_cliente != -1){
-        insertar_cliente_ruta(hormiga,vehiculo,&(vrp->clientes[nuevo_cliente]));
+
+    int nuevo_cliente = seleccinar_cliente(vrp, hormiga);
+    if (nuevo_cliente != -1)
+    {
+        insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[nuevo_cliente]));
+
+        double tiempo_viaje = calcular_tiempo_viaje(instancias_distancias[origen][nuevo_cliente]);
+        vehiculo->tiempo_consumido += tiempo_viaje + vrp->clientes[nuevo_cliente].servicio;
+        vehiculo->capacidad_restante -= vrp->clientes[nuevo_cliente].demanda;
         cliente_agregado = true;
     }
 
@@ -321,8 +326,8 @@ nodo_vehiculo *seleccion_vehiculo_aleatorio(struct hormiga *hormiga, int vehicul
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias)
 {
     int max_intentos = 100; // Número máximo de intentos para agregar un cliente
-    int intentos = 0;         // Contador de intentos
-    bool cliente_agregado;    // Bandera para saber si se agrego el cliente correctamente
+    int intentos = 0;       // Contador de intentos
+    bool cliente_agregado;  // Bandera para saber si se agrego el cliente correctamente
 
     while (hormiga->tabu_contador < vrp->num_clientes)
     {
@@ -391,24 +396,19 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     double suma_demanda = 0;
 
     for (int i = 0; i < vrp->num_clientes; i++)
-    {
         suma_demanda += vrp->clientes[i].demanda;
-    }
     int vehiculos_necesarios = (int)ceil(suma_demanda / vrp->num_capacidad);
+
     inicializar_hormiga(vrp, ind, hormiga, vehiculos_necesarios);
 
     // imprimir_hormigas(hormiga, vrp, ind->numHormigas);
     for (int i = 0; i < 1 /*ind->numIteraciones*/; i++)
     { // Aqui dedemos itererar
         for (int j = 0; j < ind->numHormigas; j++)
-        {
-
             aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias);
-        }
         /*for (int j = 0; j < ind->numHormigas; j++)
-        {
             actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
-        }*/
+        */
     }
     imprimir_hormigas(hormiga, vrp, ind->numHormigas);
     liberar_memoria_hormiga(hormiga, ind);

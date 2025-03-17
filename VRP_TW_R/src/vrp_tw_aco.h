@@ -46,6 +46,8 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
 void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, int vehiculos_necesarios);
 double calcular_tiempo_viaje(double distancia);
+int seleccinar_cliente(struct vrp_configuracion *vrp,struct hormiga *hormiga);
+double calcular_probabilidad(int origen, int destino, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias);
 bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
 nodo_vehiculo *seleccion_vehiculo_aleatorio(struct hormiga *hormiga, int vehiculo_aleatorio);
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias);
