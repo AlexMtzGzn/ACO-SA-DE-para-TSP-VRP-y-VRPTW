@@ -195,7 +195,7 @@ void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
     }
 }
 
-void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, int vehiculos_necesarios)
+void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga)
 {
     for (int i = 0; i < ind->numHormigas; i++)
     {
@@ -203,7 +203,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
         hormiga[i].tabu = asignar_memoria_arreglo_int(vrp->num_clientes); // Generamos memoria para el tabu que es el numero de clientes que tenemos
         hormiga[i].tabu_contador = 0;
         hormiga[i].probabilidades = asignar_memoria_arreglo_double(vrp->num_clientes); // Asignamos memoria para las probablidadades el cual es el numero de clientes que hay
-        hormiga[i].vehiculos_necesarios = vehiculos_necesarios;                        // Inicializamos el numero de vehiculos contados en 0
+        hormiga[i].vehiculos_necesarios = 0;                        // Inicializamos el numero de vehiculos contados en 0
         hormiga[i].vehiculos_maximos = vrp->num_vehiculos;                             // Inicializamos el nuemro de vehiculos maximos con vrp->num_vehiculos
         hormiga[i].flota = asignar_memoria_lista_vehiculos();
 
@@ -393,13 +393,8 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
     struct hormiga *hormiga = malloc(sizeof(struct hormiga) * ind->numHormigas);
-    double suma_demanda = 0;
 
-    for (int i = 0; i < vrp->num_clientes; i++)
-        suma_demanda += vrp->clientes[i].demanda;
-    int vehiculos_necesarios = (int)ceil(suma_demanda / vrp->num_capacidad);
-
-    inicializar_hormiga(vrp, ind, hormiga, vehiculos_necesarios);
+    inicializar_hormiga(vrp, ind, hormiga);
 
     // imprimir_hormigas(hormiga, vrp, ind->numHormigas);
     for (int i = 0; i < 1 /*ind->numIteraciones*/; i++)

@@ -44,7 +44,7 @@ void imprimir_tabu(int *tabu, int num_clientes);
 void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas);
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona);
 void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias);
-void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, int vehiculos_necesarios);
+void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga);
 double calcular_tiempo_viaje(double distancia);
 int seleccinar_cliente(struct vrp_configuracion *vrp,struct hormiga *hormiga);
 double calcular_probabilidad(int origen, int destino, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias);

@@ -104,6 +104,7 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
 
       if (ruidoso[i].gamma > 3.0)
          ruidoso[i].gamma = 3.0; // Aumenté el límite superior
+         
       if (ruidoso[i].gamma < 1.5)
          ruidoso[i].gamma = 1.5; // Aumenté el límite inferior para darle más peso
 
