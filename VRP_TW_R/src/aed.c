@@ -49,7 +49,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
       for (int j = 0; j < vrp->num_clientes; j++)
       {
          if (i != j)
-            instancia_feromona[i][j] = 1.0 / vrp->clientes[j].tiempo_final;
+            instancia_feromona[i][j] = 1.0; //Vamos a caclcular solo con 1.0, si es la inversa de tiempo final del cliente j
          else
             instancia_feromona[i][j] = 0.0;
       }
