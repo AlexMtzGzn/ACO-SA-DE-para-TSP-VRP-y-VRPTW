@@ -15,8 +15,8 @@ typedef struct vehiculo
     int id_vehiculo;
     double capacidad_maxima;
     double capacidad_restante;
-    double tiempo_consumido;
-    double tiempo_maximo;
+    double tiempo_consumido; //Timepo Actual, ajustar despues
+    double tiempo_maximo; //Tiemo final de la venta
     double timepo_inicial;
     int clientes_contados;
     lista_ruta *ruta;
@@ -29,7 +29,9 @@ typedef struct hormiga
     int id_hormiga;
     int *tabu;
     int tabu_contador;
+    int posibles_cliente_contador;
     double suma_probabilidades;
+    int *posibles_clientes;
     double *probabilidades;
     int vehiculos_necesarios;
     int vehiculos_maximos;
@@ -47,6 +49,7 @@ void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga);
 double calcular_tiempo_viaje(double distancia);
 int seleccinar_cliente(struct vrp_configuracion *vrp,struct hormiga *hormiga);
+void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga * hormiga,double **instancia_distancias);
 double calcular_probabilidad(int origen, int destino, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias);
 bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
 nodo_vehiculo *seleccion_vehiculo_aleatorio(struct hormiga *hormiga, int vehiculo_aleatorio);
