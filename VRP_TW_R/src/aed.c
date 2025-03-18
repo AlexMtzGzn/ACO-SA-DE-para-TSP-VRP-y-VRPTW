@@ -193,6 +193,10 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    liberar_instancia(instancia_feromonas, vrp->num_clientes);
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);
    liberar_instancia(instancia_distancias,vrp->num_clientes);
+   /* Vamos a regresar a liberar la memoria de este
+   free(objetivo);
+   free(ruidoso);
+   free(prueba);*/
    liberar_memoria_vrp_configuracion(vrp);
 
    return 0;

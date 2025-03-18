@@ -29,10 +29,11 @@ typedef struct hormiga
     int id_hormiga;
     int *tabu;
     int tabu_contador;
-    int posibles_cliente_contador;
-    double suma_probabilidades;
     int *posibles_clientes;
+    int posibles_cliente_contador;
     double *probabilidades;
+    double suma_probabilidades;
+    double umbral;
     int vehiculos_necesarios;
     int vehiculos_maximos;
     double fitness_global;
@@ -47,12 +48,8 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona);
 void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga);
-double calcular_tiempo_viaje(double distancia);
-int seleccinar_cliente(struct vrp_configuracion *vrp,struct hormiga *hormiga);
 void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga * hormiga,double **instancia_distancias);
 double calcular_probabilidad(int origen, int destino, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias);
-bool calcular_ruta(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, struct vehiculo *vehiculo, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
-nodo_vehiculo *seleccion_vehiculo_aleatorio(struct hormiga *hormiga, int vehiculo_aleatorio);
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias);
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
 #endif // VRP_TW_ACO_H
