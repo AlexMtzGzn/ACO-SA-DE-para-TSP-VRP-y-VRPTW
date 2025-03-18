@@ -214,7 +214,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
 
 double calcular_tiempo_viaje(double distancia)
 {
-    double velocidad = 1.0;
+    double velocidad = 10.0;
     return (double)distancia / velocidad;
 }
 
