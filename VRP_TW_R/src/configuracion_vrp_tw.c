@@ -51,10 +51,10 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
             vrp->clientes[cliente_index].id_cliente = id;
             vrp->clientes[cliente_index].cordenada_x = x;
             vrp->clientes[cliente_index].cordenada_y = y;
-            vrp->clientes[cliente_index].demanda = demanda;
-            vrp->clientes[cliente_index].tiempo_inicial = inicio;
-            vrp->clientes[cliente_index].tiempo_final = fin;
-            vrp->clientes[cliente_index].servicio = servicio;
+            vrp->clientes[cliente_index].demanda_capacidad = demanda;
+            vrp->clientes[cliente_index].vt_inicial = inicio;
+            vrp->clientes[cliente_index].vt_final = fin;
+            vrp->clientes[cliente_index].tiempo_servicio = servicio;
 
             cliente_index++;
         }
@@ -88,10 +88,10 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
                 vrp->clientes[i].id_cliente,
                 vrp->clientes[i].cordenada_x,
                 vrp->clientes[i].cordenada_y,
-                vrp->clientes[i].demanda,
-                vrp->clientes[i].tiempo_inicial,
-                vrp->clientes[i].tiempo_final,
-                vrp->clientes[i].servicio);
+                vrp->clientes[i].demanda_capacidad,
+                vrp->clientes[i].vt_inicial,
+                vrp->clientes[i].vt_final,
+                vrp->clientes[i].tiempo_servicio);
     }
 
     fclose(archivo);
@@ -167,10 +167,10 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
             vrp->clientes[cliente_index].id_cliente = id;
             vrp->clientes[cliente_index].cordenada_x = x;
             vrp->clientes[cliente_index].cordenada_y = y;
-            vrp->clientes[cliente_index].demanda = demanda;
-            vrp->clientes[cliente_index].tiempo_inicial = inicio;
-            vrp->clientes[cliente_index].tiempo_final = fin;
-            vrp->clientes[cliente_index].servicio = servicio;
+            vrp->clientes[cliente_index].demanda_capacidad = demanda;
+            vrp->clientes[cliente_index].vt_inicial = inicio;
+            vrp->clientes[cliente_index].vt_final = fin;
+            vrp->clientes[cliente_index].tiempo_servicio = servicio;
 
             cliente_index++;
         }

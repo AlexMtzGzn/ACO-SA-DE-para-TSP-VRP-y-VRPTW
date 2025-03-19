@@ -6,10 +6,10 @@ typedef struct cliente {
     int id_cliente;
     double cordenada_x;
     double cordenada_y;
-    double demanda;
-    double tiempo_inicial;  
-    double tiempo_final;
-    double servicio;
+    double demanda_capacidad;
+    double vt_inicial;  
+    double vt_final;
+    double tiempo_servicio;
 } cliente;
 
 // Estructura Vrp_configuracion

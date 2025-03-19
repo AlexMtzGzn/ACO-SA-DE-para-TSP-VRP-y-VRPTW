@@ -13,12 +13,13 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     vehiculo_nuevo->vehiculo = malloc(sizeof(struct vehiculo));
     vehiculo_nuevo->vehiculo->id_vehiculo = id;                                 // Inicializamos el id_vehiculo con un id
     vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad;            // Inicializamos capacidad maxima con lo que soporta la unidad
-    vehiculo_nuevo->vehiculo->capacidad_restante = vrp->num_capacidad;          // inicializamos con capacidad máxima          // iniciamos la capacidad maxima
-    vehiculo_nuevo->vehiculo->tiempo_consumido = 0.0;                           // Inicializamos tiempo consumido en 0.0
-    vehiculo_nuevo->vehiculo->tiempo_maximo = vrp->clientes[0].tiempo_final;    // inicializamos el tiempo maximo del vehiculo
-    vehiculo_nuevo->vehiculo->timepo_inicial = vrp->clientes[0].tiempo_inicial; // Inicializamos el tiempo inicial
+    vehiculo_nuevo->vehiculo->capacidad_acumulada = 0.0;          // inicializamos con capacidad máxima          // iniciamos la capacidad maxima
+    vehiculo_nuevo->vehiculo->vt_actual = 0.0;                           // Inicializamos tiempo consumido en 0.0
+    vehiculo_nuevo->vehiculo->vt_final = vrp->clientes[0].vt_final;    // inicializamos el tiempo maximo del vehiculo
+    vehiculo_nuevo->vehiculo->vt_inicial = vrp->clientes[0].vt_inicial; // Inicializamos el tiempo inicial
     vehiculo_nuevo->vehiculo->clientes_contados = 0;                            // Inicializamos clientes contado en 0
     vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0;
+    vehiculo_nuevo->vehiculo->velocidad = 10;
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();                 // Asiganamos memoria para la lista ruta
     vehiculo_nuevo->siguiente = NULL;                                              // EL nodo siguiente en NULL
     insertar_cliente_ruta(hormiga, vehiculo_nuevo->vehiculo, &(vrp->clientes[0])); // Insertamos el cliente a la ruta
@@ -37,9 +38,9 @@ void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *v
     if (vehiculo_nuevo != NULL)
     {
         if (es_Vacia_Lista(hormiga->flota))
-
+        {
             hormiga->flota->cabeza = hormiga->flota->cola = vehiculo_nuevo;
-
+        }
         else
         {
             hormiga->flota->cola->siguiente = vehiculo_nuevo;

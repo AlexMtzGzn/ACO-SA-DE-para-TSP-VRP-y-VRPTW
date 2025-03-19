@@ -14,10 +14,11 @@ typedef struct vehiculo
 {
     int id_vehiculo;
     double capacidad_maxima;
-    double capacidad_restante;
-    double tiempo_consumido; //Timepo Actual, ajustar despues
-    double tiempo_maximo; //Tiemo final de la venta
-    double timepo_inicial;
+    double capacidad_acumulada;
+    double vt_actual; // Timepo Actual, ajustar despues
+    double vt_final;    // Tiemo final de la venta
+    double vt_inicial;
+    double velocidad;
     int clientes_contados;
     lista_ruta *ruta;
     double fitness_vehiculo;
@@ -30,7 +31,7 @@ typedef struct hormiga
     int *tabu;
     int tabu_contador;
     int *posibles_clientes;
-    int posibles_cliente_contador;
+    int posibles_clientes_contador;
     double *probabilidades;
     double suma_probabilidades;
     double umbral;
@@ -48,8 +49,8 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona);
 void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga);
-void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga * hormiga,double **instancia_distancias);
-double calcular_probabilidad(int origen, int destino, struct vehiculo *vehiculo, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias);
-void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias);
-void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
+void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_distancias);
+double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad,double **instancia_ventanas_tiempo);
+void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias,double **instancia_ventanas_tiempo);
+void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona,double **instancia_ventanas_tiempo);
 #endif // VRP_TW_ACO_H
