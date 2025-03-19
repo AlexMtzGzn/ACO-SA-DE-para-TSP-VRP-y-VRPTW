@@ -395,28 +395,24 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)
 {
-    printf("\n\n %lf\n %lf\n %lf\n %d\n %d\n",ind->alpha,ind->beta,ind->gamma,ind->numHormigas,ind->numIteraciones,ind->rho);
     struct hormiga *hormiga = malloc(sizeof(struct hormiga) * ind->numHormigas); // Asiganamos memoria para las hormigas
 
+    inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas con los datos que requiere
 
-    //inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas con los datos que requiere
-                                            // imprimir_hormigas(hormiga, vrp, ind->numHormigas);
-
-    /*// EL numero de iteracines
-   // for (int i = 0; i < 1 /*ind->numIteraciones*/
-    ; // i++)
-    //{ // El numero de hormigas
-    //  for (int j = 0; j < ind->numHormigas; j++)
-    //{
-    // aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias, instancia_ventanas_tiempo);
+    // EL numero de iteracines
+    for (int i = 0; i < 1 /*ind->numIteraciones*/; i++)
+        //{ // El numero de hormigas
+        for (int j = 0; j < ind->numHormigas; j++)
+            //{
+            aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias, instancia_ventanas_tiempo);
     // calcular_fitness(&hormiga[j], instancia_distancias);
     // hormiga[j].umbral *= 0.95;
     //}
 
-    /*for (int j = 0; j < ind->numHormigas; j++)
-        actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
-    */
+    // for (int j = 0; j < ind->numHormigas; j++)
+    //   actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
+
     //}
-    //imprimir_hormigas(hormiga, vrp, ind->numHormigas);
+    imprimir_hormigas(hormiga, vrp, ind->numHormigas);
     //   liberar_memoria_hormiga(hormiga, ind);*/
 }

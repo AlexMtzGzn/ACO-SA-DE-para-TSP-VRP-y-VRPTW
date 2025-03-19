@@ -8,23 +8,48 @@
 
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)
 {
-    struct nodo_vehiculo *vehiculo_nuevo;
-    vehiculo_nuevo = malloc(sizeof(struct nodo_vehiculo));
+    if (!vrp || !vrp->clientes) {
+        fprintf(stderr, "Error: Configuración VRP inválida\n");
+        return NULL;
+    }
+
+    struct nodo_vehiculo *vehiculo_nuevo = malloc(sizeof(struct nodo_vehiculo));
+    if (!vehiculo_nuevo) {
+        fprintf(stderr, "Error: No se pudo asignar memoria para nodo_vehiculo\n");
+        return NULL;
+    }
+
     vehiculo_nuevo->vehiculo = malloc(sizeof(struct vehiculo));
-    vehiculo_nuevo->vehiculo->id_vehiculo = id;                                 // Inicializamos el id_vehiculo con un id
-    vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad;            // Inicializamos capacidad maxima con lo que soporta la unidad
-    vehiculo_nuevo->vehiculo->capacidad_acumulada = 0.0;          // inicializamos con capacidad máxima          // iniciamos la capacidad maxima
-    vehiculo_nuevo->vehiculo->vt_actual = 0.0;                           // Inicializamos tiempo consumido en 0.0
-    vehiculo_nuevo->vehiculo->vt_final = vrp->clientes[0].vt_final;    // inicializamos el tiempo maximo del vehiculo
-    vehiculo_nuevo->vehiculo->vt_inicial = vrp->clientes[0].vt_inicial; // Inicializamos el tiempo inicial
-    vehiculo_nuevo->vehiculo->clientes_contados = 0;                            // Inicializamos clientes contado en 0
+    if (!vehiculo_nuevo->vehiculo) {
+        fprintf(stderr, "Error: No se pudo asignar memoria para vehiculo\n");
+        free(vehiculo_nuevo);
+        return NULL;
+    }
+
+    vehiculo_nuevo->vehiculo->id_vehiculo = id;
+    vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad;
+    vehiculo_nuevo->vehiculo->capacidad_acumulada = 0.0;
+    vehiculo_nuevo->vehiculo->vt_actual = 0.0;
+    vehiculo_nuevo->vehiculo->vt_final = vrp->clientes[0].vt_final;
+    vehiculo_nuevo->vehiculo->vt_inicial = vrp->clientes[0].vt_inicial;
+    vehiculo_nuevo->vehiculo->clientes_contados = 0;
     vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0;
     vehiculo_nuevo->vehiculo->velocidad = 10;
-    vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();                 // Asiganamos memoria para la lista ruta
-    vehiculo_nuevo->siguiente = NULL;                                              // EL nodo siguiente en NULL
-    insertar_cliente_ruta(hormiga, vehiculo_nuevo->vehiculo, &(vrp->clientes[0])); // Insertamos el cliente a la ruta
+
+    vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();
+    if (!vehiculo_nuevo->vehiculo->ruta) {
+        fprintf(stderr, "Error: No se pudo asignar memoria para la lista ruta\n");
+        free(vehiculo_nuevo->vehiculo);
+        free(vehiculo_nuevo);
+        return NULL;
+    }
+
+    vehiculo_nuevo->siguiente = NULL;
+    insertar_cliente_ruta(hormiga, vehiculo_nuevo->vehiculo, &(vrp->clientes[0]));
+
     return vehiculo_nuevo;
 }
+
 
 bool es_Vacia_Lista(struct lista_vehiculos *flota)
 {

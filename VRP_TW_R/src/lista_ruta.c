@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "vrp_tw_aco.h"
 #include "configuracion_vrp_tw.h"
 #include "control_memoria.h"
@@ -7,7 +8,16 @@
 
 struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *cliente)
 {
+    if (!hormiga || !cliente) {
+        fprintf(stderr, "Error: hormiga o cliente es NULL en crear_nodo_ruta\n");
+        return NULL;
+    }
+
     struct nodo_ruta *nodo_nuevo = malloc(sizeof(struct nodo_ruta));
+    if (!nodo_nuevo) {
+        fprintf(stderr, "Error: No se pudo asignar memoria para nodo_ruta\n");
+        return NULL;
+    }
 
     nodo_nuevo->cliente = cliente->id_cliente;
     nodo_nuevo->siguiente = NULL;
@@ -23,29 +33,32 @@ struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *clien
 
 bool es_vacia_lista_ruta(struct lista_ruta *ruta)
 {
-    return ruta->cabeza == NULL;
+    return ruta == NULL || ruta->cabeza == NULL;
 }
 
 void insertar_cliente_ruta(struct hormiga *hormiga, struct vehiculo *vehiculo, struct cliente *cliente)
 {
-    struct nodo_ruta *nodo_nuevo = crear_nodo_ruta(hormiga, cliente);
+    if (!vehiculo || !vehiculo->ruta) {
+        fprintf(stderr, "Error: vehiculo o ruta es NULL en insertar_cliente_ruta\n");
+        return;
+    }
 
-    if (nodo_nuevo != NULL)
+    struct nodo_ruta *nodo_nuevo = crear_nodo_ruta(hormiga, cliente);
+    if (!nodo_nuevo) {
+        fprintf(stderr, "Error: No se pudo crear el nodo de la ruta\n");
+        return;
+    }
+
+    if (es_vacia_lista_ruta(vehiculo->ruta))
     {
-        if (es_vacia_lista_ruta(vehiculo->ruta))
-        {
-            vehiculo->ruta->cabeza = vehiculo->ruta->cola = nodo_nuevo;
-        }
-        else
-        {
-            vehiculo->ruta->cola->siguiente = nodo_nuevo;
-            vehiculo->ruta->cola = nodo_nuevo;
-        }
-        if(cliente->id_cliente != 0)
-            vehiculo->clientes_contados++;
+        vehiculo->ruta->cabeza = vehiculo->ruta->cola = nodo_nuevo;
     }
     else
     {
-        printf("\nError al asignar memoria al nodo de la ruta.");
+        vehiculo->ruta->cola->siguiente = nodo_nuevo;
+        vehiculo->ruta->cola = nodo_nuevo;
     }
+
+    if (cliente->id_cliente != 0)
+        vehiculo->clientes_contados++;
 }
