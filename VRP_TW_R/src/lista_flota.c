@@ -34,7 +34,7 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     vehiculo_nuevo->vehiculo->vt_inicial = vrp->clientes[0].vt_inicial;
     vehiculo_nuevo->vehiculo->clientes_contados = 0;
     vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0;
-    vehiculo_nuevo->vehiculo->velocidad = 10;
+    vehiculo_nuevo->vehiculo->velocidad = 50.0;
 
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();
     if (!vehiculo_nuevo->vehiculo->ruta) {
