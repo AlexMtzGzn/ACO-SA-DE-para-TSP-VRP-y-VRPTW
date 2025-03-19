@@ -54,12 +54,9 @@ struct individuo *asignar_memoria_individuos(int poblacion)
     return (struct individuo *)malloc(sizeof(struct individuo) * poblacion);
 }
 
-void liberar_individuos(struct individuo *ind, bool bandera)
+void liberar_individuos(struct individuo *ind)
 {
     free(ind);
-    /*(bandera == true){
-        liberar_memoria_arreglo_int(ind->ruta);
-    }*/
 }
 
 /*Para la estructura vrp_configuracion*/
@@ -83,13 +80,13 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return
 struct hormiga *asignar_memoria_hormigas(struct individuo *ind)
 {
     struct hormiga *hormiga = malloc(sizeof(struct hormiga) * ind->numHormigas);
-    if (hormiga == NULL) {
+    if (hormiga == NULL)
+    {
         printf("Error: No se pudo asignar memoria para hormigas.\n");
-        exit(EXIT_FAILURE); 
+        exit(EXIT_FAILURE);
     }
     return hormiga;
 }
-
 
 /*Para estructura de lista_ruta*/
 struct lista_ruta *asignar_memoria_lista_ruta()
@@ -103,9 +100,11 @@ struct lista_ruta *asignar_memoria_lista_ruta()
 }
 
 /*Para estructura de lista_vehiculos*/
-lista_vehiculos* asignar_memoria_lista_vehiculos() {
-    lista_vehiculos* nueva_lista = (lista_vehiculos*)malloc(sizeof(lista_vehiculos));
-    if (nueva_lista != NULL) {
+lista_vehiculos *asignar_memoria_lista_vehiculos()
+{
+    lista_vehiculos *nueva_lista = (lista_vehiculos *)malloc(sizeof(lista_vehiculos));
+    if (nueva_lista != NULL)
+    {
         nueva_lista->cabeza = NULL;
         nueva_lista->cola = NULL;
     }

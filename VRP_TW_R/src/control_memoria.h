@@ -18,7 +18,7 @@ void liberar_instancia(double **instancia, int tamanio_instancia);
 
 /*Para estructura del individuo*/
 struct individuo *asignar_memoria_individuos(int poblacion);
-void liberar_individuos(struct individuo *ind, bool bandera);
+void liberar_individuos(struct individuo *ind);
 
 /*Para la estructura vrp_configuracion*/
 struct vrp_configuracion *asignar_memoria_vrp_configuracion();

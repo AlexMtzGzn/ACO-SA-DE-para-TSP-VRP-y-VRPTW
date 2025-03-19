@@ -10,7 +10,7 @@
 #include "lista_flota.h"
 #include "lista_ruta.h"
 
-/*// Función para imprimir la información de una ruta (lista de clientes)
+// Función para imprimir la información de una ruta (lista de clientes)
 void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id)
 {
     if (es_vacia_lista_ruta(ruta))
@@ -42,9 +42,9 @@ void imprimir_vehiculo(struct vehiculo *vehiculo)
 {
     printf("  + Vehículo ID: %d\n", vehiculo->id_vehiculo);
     printf("    - Capacidad máxima: %.2f\n", vehiculo->capacidad_maxima);
-    printf("    - Capacidad restante: %.2f\n", vehiculo->capacidad_restante);
-    printf("    - Tiempo consumido: %.2f\n", vehiculo->tiempo_consumido);
-    printf("    - Tiempo máximo: %.2f\n", vehiculo->tiempo_maximo);
+    printf("    - Capacidad restante: %.2f\n", vehiculo->capacidad_acumulada);
+    printf("    - Tiempo consumido: %.2f\n", vehiculo->vt_actual);
+    printf("    - Tiempo máximo: %.2f\n", vehiculo->vt_final);
     printf("    - Número de clientes: %d\n", vehiculo->clientes_contados);
     printf("    - Fitness del vehículo: %.2f\n", vehiculo->fitness_vehiculo);
 
@@ -103,11 +103,11 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
         // printf("  Vehículos contados: %d/%d\n", hormigas[i].vehiculos_contados, hormigas[i].vehiculos_maximos);
         printf("  Fitness global: %.2f\n", hormigas[i].fitness_global);
 
-                // Imprimir tabu
-                imprimir_tabu(hormigas[i].tabu, vrp->num_clientes);
+        // Imprimir tabu
+        imprimir_tabu(hormigas[i].tabu, vrp->num_clientes);
 
-                // Imprimir flota de vehículos
-                imprimir_flota(hormigas[i].flota);
+        // Imprimir flota de vehículos
+        imprimir_flota(hormigas[i].flota);
 
         printf("-------------------------------------------------\n");
     }
@@ -193,7 +193,7 @@ void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
         // Pasamos al siguiente vehículo en la flota
         vehiculo_actual = vehiculo_actual->siguiente;
     }
-}*/
+}
 
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga)
 {
@@ -210,7 +210,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
         hormiga[i].vehiculos_maximos = vrp->num_vehiculos;                             // Inicializamos el numero de vehiculos maximos con vrp->num_vehiculos
         hormiga[i].flota = asignar_memoria_lista_vehiculos();                          // Asiganamos memoria para la flota de la homriga
         inserta_vehiculo_flota(&hormiga[i], vrp, hormiga->vehiculos_necesarios + 1);   // insertamos el primer vehiuculo de la hormiga
-        hormiga[i].id_hormiga++;                                                       // Incrementamos el numero de vehiculos necesarios una vez que se agrego el vehiculo
+        hormiga[i].vehiculos_necesarios++;                                             // Incrementamos el numero de vehiculos necesarios una vez que se agrego el vehiculo
     }
 }
 
@@ -395,24 +395,28 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)
 {
+    printf("\n\n %lf\n %lf\n %lf\n %d\n %d\n",ind->alpha,ind->beta,ind->gamma,ind->numHormigas,ind->numIteraciones,ind->rho);
     struct hormiga *hormiga = malloc(sizeof(struct hormiga) * ind->numHormigas); // Asiganamos memoria para las hormigas
 
-    inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas con los datos que requiere
 
-    // EL numero de iteracines
-    for (int i = 0; i < 1 /*ind->numIteraciones*/; i++)
-    { // El numero de hormigas
-        for (int j = 0; j < ind->numHormigas; j++)
-        {
-            aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias, instancia_ventanas_tiempo);
-            // calcular_fitness(&hormiga[j], instancia_distancias);
-            // hormiga[j].umbral *= 0.95;
-        }
+    //inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas con los datos que requiere
+                                            // imprimir_hormigas(hormiga, vrp, ind->numHormigas);
 
-        /*for (int j = 0; j < ind->numHormigas; j++)
-            actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
-        */
-    }
-    // imprimir_hormigas(hormiga, vrp, ind->numHormigas);
-    //   liberar_memoria_hormiga(hormiga, ind);
+    /*// EL numero de iteracines
+   // for (int i = 0; i < 1 /*ind->numIteraciones*/
+    ; // i++)
+    //{ // El numero de hormigas
+    //  for (int j = 0; j < ind->numHormigas; j++)
+    //{
+    // aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias, instancia_ventanas_tiempo);
+    // calcular_fitness(&hormiga[j], instancia_distancias);
+    // hormiga[j].umbral *= 0.95;
+    //}
+
+    /*for (int j = 0; j < ind->numHormigas; j++)
+        actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
+    */
+    //}
+    //imprimir_hormigas(hormiga, vrp, ind->numHormigas);
+    //   liberar_memoria_hormiga(hormiga, ind);*/
 }

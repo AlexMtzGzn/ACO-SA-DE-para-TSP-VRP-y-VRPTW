@@ -70,7 +70,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
    }
 }
 
-void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias,double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp)
+void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp)
 {
    inicializar_Feromona(vrp, instancia_feromona);
    vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona,instancia_ventanas_tiempo);
@@ -189,7 +189,11 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
    inicializar_Distancias(instancia_distancias, vrp);
    inicializar_Visibilidad(instancia_visibilidad, vrp);
-   inicializar_Ventana_Tiempo(instancia_ventanas_tiempo,vrp);
+   inicializar_Ventana_Tiempo(instancia_ventanas_tiempo, vrp);
+
+   inicializaPoblacion(objetivo, num_poblacion);
+   for (int j = 0; j < num_poblacion; ++j)
+      evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
 
    for (int i = 0; i < num_generaciones; i++)
    {
@@ -198,8 +202,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
       for (int j = 0; j < num_poblacion; ++j)
       {
-         evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_visibilidad, instancia_distancias,instancia_ventanas_tiempo, vrp);
-         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias,instancia_ventanas_tiempo, vrp);
+         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
       }
 
       seleccion(objetivo, prueba, num_poblacion);
@@ -208,10 +211,10 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    liberar_instancia(instancia_feromonas, vrp->num_clientes);
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);
    liberar_instancia(instancia_distancias, vrp->num_clientes);
-   /* Vamos a regresar a liberar la memoria de este
-   free(objetivo);
-   free(ruidoso);
-   free(prueba);*/
+   liberar_instancia(instancia_ventanas_tiempo, vrp->num_clientes);
+   liberar_individuos(objetivo);
+   liberar_individuos(prueba);
+   liberar_individuos(ruidoso);
    liberar_memoria_vrp_configuracion(vrp);
 
    return 0;
