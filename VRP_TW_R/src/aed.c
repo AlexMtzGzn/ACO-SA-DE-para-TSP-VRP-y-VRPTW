@@ -107,34 +107,34 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].alpha > 2.0)
          ruidoso[i].alpha = 2.0;
 
-      if (ruidoso[i].alpha < 0.5)
-         ruidoso[i].alpha = 0.5;
+      if (ruidoso[i].alpha < 0.1)
+         ruidoso[i].alpha = 0.1;
 
-      if (ruidoso[i].beta > 2.0)
-         ruidoso[i].beta = 2.0;
+      if (ruidoso[i].beta > 2.5)
+         ruidoso[i].beta = 2.5;
 
       if (ruidoso[i].beta < 1.5)
          ruidoso[i].beta = 1.5;
 
-      if (ruidoso[i].gamma > 3.0)
-         ruidoso[i].gamma = 3.0; // Aumenté el límite superior
+      if (ruidoso[i].gamma > 1.5)
+         ruidoso[i].gamma = 1.5; 
 
-      if (ruidoso[i].gamma < 1.5)
-         ruidoso[i].gamma = 1.5; // Aumenté el límite inferior para darle más peso
+      if (ruidoso[i].gamma < 0.0)
+         ruidoso[i].gamma = 0.0; 
 
-      if (ruidoso[i].rho > 0.9) // Ajusté rho para que haya evaporación
-         ruidoso[i].rho = 0.9;
+      if (ruidoso[i].rho > 1.0) 
+         ruidoso[i].rho = 1.0;
 
-      if (ruidoso[i].rho < 0.7)
-         ruidoso[i].rho = 0.7; // Evaporación más moderada
+      if (ruidoso[i].rho < 0.0)
+         ruidoso[i].rho = 0.0;
 
-      if (ruidoso[i].numHormigas > 30) // Aumenté el número máximo de hormigas
+      if (ruidoso[i].numHormigas > 30) 
          ruidoso[i].numHormigas = 30;
 
       if (ruidoso[i].numHormigas < 10)
          ruidoso[i].numHormigas = 10;
 
-      if (ruidoso[i].numIteraciones > 80) // Amplié el número de iteraciones
+      if (ruidoso[i].numIteraciones > 80)
          ruidoso[i].numIteraciones = 80;
 
       if (ruidoso[i].numIteraciones < 30)
@@ -166,10 +166,10 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    for (int i = 0; i < poblacion; ++i)
    {
       // Asignamos valores aleatorios dentro de los nuevos rangos
-      objetivo[i].alpha = generaAleatorio(0.5, 2.0);             // alpha: entre 0.5 y 2.0
-      objetivo[i].beta = generaAleatorio(1.5, 2.0);              // beta: entre 1.5 y 2.0
-      objetivo[i].gamma = generaAleatorio(1.5, 3.0);             // gamma: entre 1.5 y 3.0
-      objetivo[i].rho = generaAleatorio(0.7, 0.9);               // rho: entre 0.7 y 0.9 (evaporación moderada)
+      objetivo[i].alpha = generaAleatorio(0.1, 2.0);             // alpha: entre 0.1 y 2.0
+      objetivo[i].beta = generaAleatorio(1.5, 2.5);              // beta: entre 1.5 y 2.5
+      objetivo[i].gamma = generaAleatorio(0.0, 1.5);             // gamma: entre 1.5 y 3.0
+      objetivo[i].rho = generaAleatorio(0.0, 1.0);               // rho: entre 0.7 y 0.9 (evaporación moderada)
       objetivo[i].numHormigas = (int)generaAleatorio(10, 30);    // numHormigas: entre 10 y 30
       objetivo[i].numIteraciones = (int)generaAleatorio(30, 80); // numIteraciones: entre 30 y 80
    }
@@ -190,10 +190,10 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    inicializar_Distancias(instancia_distancias, vrp);
    inicializar_Visibilidad(instancia_visibilidad, vrp);
    inicializar_Ventana_Tiempo(instancia_ventanas_tiempo, vrp);
-
    inicializaPoblacion(objetivo, num_poblacion);
-   for (int j = 0; j < num_poblacion; ++j)
-      evaluaFO_AED(&objetivo[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
+
+   for (int i = 0; i < num_poblacion; ++i)
+      evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
 
    for (int i = 0; i < num_generaciones; i++)
    {
@@ -201,9 +201,8 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
       construyePrueba(objetivo, ruidoso, prueba, num_poblacion);
 
       for (int j = 0; j < num_poblacion; ++j)
-      {
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
-      }
+
 
       seleccion(objetivo, prueba, num_poblacion);
    }
