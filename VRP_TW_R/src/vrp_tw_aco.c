@@ -114,48 +114,45 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 
     printf("=================================================\n");
 }
-void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona)
+void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta)
 {
-    // Primero, aplicamos la evaporación de la feromona en cada ruta.
-    for (int i = 0; i < vrp->num_clientes; i++)
+    if (hormiga->id_hormiga == 1)
     {
-        for (int j = 0; j < vrp->num_clientes; j++)
-        {
-            // Evaporación: Reducimos la feromona en cada ruta por un factor de rho.
-            if (i != j)
-                instancia_feromona[i][j] *= (1 - ind->rho);
-        }
+        for (int i = 0; i < vrp->num_clientes; i++)
+            for (int j = 0; j < vrp->num_clientes; j++)
+                if (i != j)
+                    instancia_feromona[i][j] *= ind->rho;
     }
 
-    // Luego, incrementamos la feromona en las rutas recorridas por las hormigas.
     struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
 
     while (vehiculo_actual != NULL)
     {
-        // Accedemos a la ruta del vehículo actual
         lista_ruta *ruta = vehiculo_actual->vehiculo->ruta;
         nodo_ruta *nodo_actual = ruta->cabeza;
 
-        // Recorremos la ruta y actualizamos la feromona de las rutas entre clientes consecutivos
         while (nodo_actual != NULL && nodo_actual->siguiente != NULL)
         {
             int cliente_actual = nodo_actual->cliente;
             int cliente_siguiente = nodo_actual->siguiente->cliente;
 
-            // Aumentamos la feromona en la ruta entre cliente_actual y cliente_siguiente.
-            // Usamos el fitness del vehículo (menor fitness = mayor cantidad de feromona).
-            double incremento_feromona = 1.0 / vehiculo_actual->vehiculo->fitness_vehiculo;
-            instancia_feromona[cliente_actual][cliente_siguiente] += incremento_feromona;
+            if (cliente_actual != cliente_siguiente)
+            {
+                instancia_feromona[cliente_actual][cliente_siguiente] += delta;
+                instancia_feromona[cliente_siguiente][cliente_actual] += delta;
+            }
 
-            // Avanzamos al siguiente nodo de la ruta
+            else
+            {
+                instancia_feromona[cliente_actual][cliente_siguiente] = 0.0;
+            }
+
             nodo_actual = nodo_actual->siguiente;
         }
 
-        // Pasamos al siguiente vehículo en la flota
         vehiculo_actual = vehiculo_actual->siguiente;
     }
 }
-
 void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
 {
     hormiga->fitness_global = 0.0;
@@ -205,7 +202,6 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
         hormiga[i].posibles_clientes = asignar_memoria_arreglo_int(vrp->num_clientes); // Genemaors la mamoria para el arreglo deposibles clientes
         hormiga[i].posibles_clientes_contador = 0;                                     // Inicializamos en 0 los posibles clientes contador
         hormiga[i].probabilidades = asignar_memoria_arreglo_double(vrp->num_clientes); // Asignamos memoria para las probablidadades que se tiene al elegir el cliente
-        hormiga[i].umbral = 0.5;                                                       // Definimos el umbral en 0.5
         hormiga[i].vehiculos_necesarios = 0;                                           // Inicializamos el numero de vehiculos contados en 0
         hormiga[i].vehiculos_maximos = vrp->num_vehiculos;                             // Inicializamos el numero de vehiculos maximos con vrp->num_vehiculos
         hormiga[i].flota = asignar_memoria_lista_vehiculos();                          // Asiganamos memoria para la flota de la homriga
@@ -352,7 +348,8 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
     if (ruta->cola->cliente != 0)
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0]));
 }
-/*void liberar_memoria_hormiga(struct hormiga * hormiga, struct individuo * ind)
+
+void liberar_memoria_hormiga(struct hormiga * hormiga, struct individuo * ind)
 {
     // Liberar las estructuras dinámicas dentro de cada hormiga
     for (int i = 0; i < ind->numHormigas; i++)
@@ -362,6 +359,8 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
         // Liberar las probabilidades si están asignadas dinámicamente
         free(hormiga[i].probabilidades);
 
+        free(hormiga[i].posibles_clientes);
+        
         // Liberar la flota (si está asignada dinámicamente)
         struct nodo_vehiculo *vehiculo_actual = hormiga[i].flota->cabeza;
         while (vehiculo_actual != NULL)
@@ -381,28 +380,93 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
     }
     // Finalmente, liberar la memoria de las hormigas
     free(hormiga);
-}*/
+}
+
+void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
+{
+    // Reset ant's data
+    for (int i = 0; i < vrp->num_clientes; i++)
+    {
+        hormiga->tabu[i] = 0;
+        hormiga->posibles_clientes[i] = 0;
+        hormiga->probabilidades[i] = 0.0;
+    }
+
+    hormiga->tabu_contador = 0;
+    hormiga->posibles_clientes_contador = 0;
+    hormiga->suma_probabilidades = 0.0;
+    hormiga->fitness_global = 0.0;
+    hormiga->umbral = 0.5;
+
+    // Clear the vehicle fleet but preserve the fleet structure itself
+    if (hormiga->flota)
+    {
+        struct nodo_vehiculo *nodo_actual = hormiga->flota->cabeza;
+        while (nodo_actual)
+        {
+            struct nodo_vehiculo *temp = nodo_actual;
+            nodo_actual = nodo_actual->siguiente;
+
+            // Free the vehicle's route
+            if (temp->vehiculo && temp->vehiculo->ruta)
+            {
+                struct nodo_ruta *nodo_ruta = temp->vehiculo->ruta->cabeza;
+                while (nodo_ruta)
+                {
+                    struct nodo_ruta *temp_ruta = nodo_ruta;
+                    nodo_ruta = nodo_ruta->siguiente;
+                    free(temp_ruta);
+                }
+
+                // Free the route structure
+                free(temp->vehiculo->ruta);
+            }
+
+            // Free the vehicle
+            free(temp->vehiculo);
+            free(temp);
+        }
+
+        // Reset the fleet pointers
+        hormiga->flota->cabeza = NULL;
+        hormiga->flota->cola = NULL;
+    }
+
+    // Reset vehicle count
+    hormiga->vehiculos_necesarios = 0;
+
+    // Reinitialize the fleet with a first vehicle
+    inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1);
+    hormiga->vehiculos_necesarios++;
+}
 
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)
 {
     struct hormiga *hormiga = malloc(sizeof(struct hormiga) * ind->numHormigas); // Asiganamos memoria para las hormigas
+    double delta;
+    inicializar_hormiga(vrp, ind, hormiga);
 
-    inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas con los datos que requiere
-
-    // EL numero de iteracines
     for (int i = 0; i < ind->numIteraciones; i++)
-        //{ // El numero de hormigas
+    {
         for (int j = 0; j < ind->numHormigas; j++)
         {
             aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias, instancia_ventanas_tiempo);
             calcular_fitness(&hormiga[j], instancia_distancias);
-            // hormiga[j].umbral *= 0.95;
+            hormiga[j].umbral *= 0.95;
         }
+        delta = INFINITY;
+        for (int j = 0; j < ind->numHormigas; j++)
+            if (hormiga[j].fitness_global < delta)
+                delta = hormiga[j].fitness_global;
 
-    for (int j = 0; j < ind->numHormigas; j++)
-        actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona);
+        for (int j = 0; j < ind->numHormigas; j++)
+            actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona, delta);
 
-    //}
+        if (i < ind->numIteraciones - 1)
+            for (int j = 0; j < ind->numHormigas; j++)
+                reiniciar_hormiga(&hormiga[j], vrp);
+    }
+
     imprimir_hormigas(hormiga, vrp, ind->numHormigas);
-    //   liberar_memoria_hormiga(hormiga, ind);*/
+    liberar_memoria_hormiga(hormiga, ind);
 }
