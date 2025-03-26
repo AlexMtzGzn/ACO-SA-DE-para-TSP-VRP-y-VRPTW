@@ -135,7 +135,6 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
     hormiga->posibles_clientes_contador = 0;
     hormiga->suma_probabilidades = 0.0;
     hormiga->fitness_global = 0.0;
-    hormiga->umbral = 0.5;
 
     // Clear the vehicle fleet but preserve the fleet structure itself
     if (hormiga->flota)

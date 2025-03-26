@@ -58,7 +58,7 @@ bool es_Vacia_Lista(struct lista_vehiculos *flota)
 
 void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)
 {
-    struct nodo_vehiculo *vehiculo_nuevo = crearNodo(hormiga, vrp, id);
+    struct nodo_vehiculo *vehiculo_nuevo = crearNodo(hormiga, vrp, id); 
 
     if (vehiculo_nuevo != NULL)
     {

@@ -63,7 +63,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
       for (int j = 0; j < vrp->num_clientes; j++)
       {
          if (i != j)
-            instancia_feromona[i][j] = 1.0 / vrp->clientes[j].vt_final;
+            instancia_feromona[i][j] = 1.0/vrp->clientes[j].vt_final;
          else
             instancia_feromona[i][j] = 0.0;
       }
@@ -73,7 +73,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
 void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp)
 {
    inicializar_Feromona(vrp, instancia_feromona);
-   vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona,instancia_ventanas_tiempo);
+   vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona, instancia_ventanas_tiempo);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -117,18 +117,18 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
          ruidoso[i].beta = 1.5;
 
       if (ruidoso[i].gamma > 1.5)
-         ruidoso[i].gamma = 1.5; 
+         ruidoso[i].gamma = 1.5;
 
       if (ruidoso[i].gamma < 0.0)
-         ruidoso[i].gamma = 0.0; 
+         ruidoso[i].gamma = 0.0;
 
-      if (ruidoso[i].rho > 1.0) 
+      if (ruidoso[i].rho > 1.0)
          ruidoso[i].rho = 1.0;
 
       if (ruidoso[i].rho < 0.0)
          ruidoso[i].rho = 0.0;
 
-      if (ruidoso[i].numHormigas > 30) 
+      if (ruidoso[i].numHormigas > 30)
          ruidoso[i].numHormigas = 30;
 
       if (ruidoso[i].numHormigas < 10)
@@ -169,7 +169,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
       objetivo[i].alpha = generaAleatorio(0.1, 2.0);             // alpha: entre 0.1 y 2.0
       objetivo[i].beta = generaAleatorio(1.5, 2.5);              // beta: entre 1.5 y 2.5
       objetivo[i].gamma = generaAleatorio(0.0, 1.5);             // gamma: entre 1.5 y 3.0
-      objetivo[i].rho = generaAleatorio(0.0, 1.0);               // rho: entre 0.7 y 0.9 (evaporación moderada)
+      objetivo[i].rho = generaAleatorio(0.0, 1.0);               // rho: entre 0.7 y 0.9 
       objetivo[i].numHormigas = (int)generaAleatorio(10, 30);    // numHormigas: entre 10 y 30
       objetivo[i].numIteraciones = (int)generaAleatorio(30, 80); // numIteraciones: entre 30 y 80
    }
@@ -177,6 +177,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
 
 int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
+
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);   // Asiganamos memoria para el arreglo prueba
@@ -190,19 +191,21 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    inicializar_Distancias(instancia_distancias, vrp);
    inicializar_Visibilidad(instancia_visibilidad, vrp);
    inicializar_Ventana_Tiempo(instancia_ventanas_tiempo, vrp);
+   inicializar_Feromona(vrp,instancia_feromonas);
    inicializaPoblacion(objetivo, num_poblacion);
 
    for (int i = 0; i < num_poblacion; ++i)
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
-
+      
    for (int i = 0; i < num_generaciones; i++)
    {
       construyeRuidosos(objetivo, ruidoso, num_poblacion);
       construyePrueba(objetivo, ruidoso, prueba, num_poblacion);
 
+      printf("\n\nSi mande la prueba");
       for (int j = 0; j < num_poblacion; ++j)
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
-
+;
 
       seleccion(objetivo, prueba, num_poblacion);
    }
