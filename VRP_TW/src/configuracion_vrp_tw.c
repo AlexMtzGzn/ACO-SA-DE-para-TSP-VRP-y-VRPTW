@@ -13,7 +13,6 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
     FILE *archivo = fopen(ruta, "r");
     if (archivo == NULL)
     {
-        printf("Ruta generada: %s\n", ruta);
         printf("Error al abrir el archivo CSV para lectura.\n");
         return;
     }
