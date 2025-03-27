@@ -1,9 +1,6 @@
 #ifndef ESTRUCTURAS_H
 #define ESTRUCTURAS_H
 
-// Declaraciones adelantadas para evitar problemas de dependencias
-struct vehiculo;
-
 // --------------------- NODO Y LISTA DE RUTA ---------------------
 typedef struct nodo_ruta
 {
@@ -18,18 +15,6 @@ typedef struct lista_ruta
 } lista_ruta;
 
 // --------------------- VEHÍCULOS ---------------------
-typedef struct nodo_vehiculo
-{
-    struct vehiculo *vehiculo;
-    struct nodo_vehiculo *siguiente;
-} nodo_vehiculo;
-
-typedef struct lista_vehiculos
-{
-    nodo_vehiculo *cabeza;
-    nodo_vehiculo *cola;
-} lista_vehiculos;
-
 typedef struct vehiculo
 {
     int id_vehiculo;
@@ -43,6 +28,19 @@ typedef struct vehiculo
     lista_ruta *ruta;
     double fitness_vehiculo;
 } vehiculo;
+
+typedef struct nodo_vehiculo
+{
+    vehiculo *vehiculo;
+    struct nodo_vehiculo *siguiente;
+} nodo_vehiculo;
+
+typedef struct lista_vehiculos
+{
+    nodo_vehiculo *cabeza;
+    nodo_vehiculo *cola;
+} lista_vehiculos;
+
 
 // --------------------- HORMIGA ---------------------
 typedef struct hormiga
