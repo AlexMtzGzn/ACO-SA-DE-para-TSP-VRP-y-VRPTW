@@ -115,41 +115,42 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 }
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta)
 {
-    if (hormiga->id_hormiga == 1)
+
+    for (int i = 0; i < vrp->num_clientes; i++)
+        for (int j = 0; j < vrp->num_clientes; j++)
+            if (i != j)
+                instancia_feromona[i][j] *= (1 - ind->rho);
+
+    for (int i = 0; i < ind->numHormigas; i++)
     {
-        for (int i = 0; i < vrp->num_clientes; i++)
-            for (int j = 0; j < vrp->num_clientes; j++)
-                if (i != j)
-                    instancia_feromona[i][j] *= (1 - ind->rho);
-    }
+        struct nodo_vehiculo *vehiculo_actual = hormiga[i].flota->cabeza;
 
-    struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
-
-    while (vehiculo_actual != NULL)
-    {
-        lista_ruta *ruta = vehiculo_actual->vehiculo->ruta;
-        nodo_ruta *nodo_actual = ruta->cabeza;
-
-        while (nodo_actual != NULL && nodo_actual->siguiente != NULL)
+        while (vehiculo_actual != NULL)
         {
-            int cliente_actual = nodo_actual->cliente;
-            int cliente_siguiente = nodo_actual->siguiente->cliente;
+            lista_ruta *ruta = vehiculo_actual->vehiculo->ruta;
+            nodo_ruta *nodo_actual = ruta->cabeza;
 
-            if (cliente_actual != cliente_siguiente)
+            while (nodo_actual != NULL && nodo_actual->siguiente != NULL)
             {
-                instancia_feromona[cliente_actual][cliente_siguiente] += delta;
-                instancia_feromona[cliente_siguiente][cliente_actual] += delta;
+                int cliente_actual = nodo_actual->cliente;
+                int cliente_siguiente = nodo_actual->siguiente->cliente;
+
+                if (cliente_actual != cliente_siguiente)
+                {
+                    instancia_feromona[cliente_actual][cliente_siguiente] += delta;
+                    instancia_feromona[cliente_siguiente][cliente_actual] += delta;
+                }
+
+                else
+                {
+                    instancia_feromona[cliente_actual][cliente_siguiente] = 0.0;
+                }
+
+                nodo_actual = nodo_actual->siguiente;
             }
 
-            else
-            {
-                instancia_feromona[cliente_actual][cliente_siguiente] = 0.0;
-            }
-
-            nodo_actual = nodo_actual->siguiente;
+            vehiculo_actual = vehiculo_actual->siguiente;
         }
-
-        vehiculo_actual = vehiculo_actual->siguiente;
     }
 }
 void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
@@ -272,13 +273,12 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
     return numerador / hormiga->suma_probabilidades;
 }
 
-
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo)
 {
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza; // Seleccionamos la flota de la hormiga
     struct vehiculo *vehiculo = flota_vehiculo->vehiculo;          // Seleccionamos la cabeza de la flota de la hormiga
-    struct lista_ruta *ruta = vehiculo->ruta;                       // Declaramos el apuntador ruta
-    struct nodo_ruta *ultimo_cliente_ruta;                           // Apuntador del último cliente en la ruta
+    struct lista_ruta *ruta = vehiculo->ruta;                      // Declaramos el apuntador ruta
+    struct nodo_ruta *ultimo_cliente_ruta;                         // Apuntador del último cliente en la ruta
     int origen;                                                    // Origen para asignar el último cliente de la ruta
 
     // Bucle principal: continua hasta que la hormiga haya recorrido todos los clientes
@@ -292,14 +292,14 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
         // Mientras no haya posibles clientes y el vehículo esté dentro de su ventana de tiempo
         while (hormiga->posibles_clientes_contador == 0 && vehiculo->vt_actual <= vehiculo->vt_final)
         {
-            ruta = vehiculo->ruta;                    // Asignamos la ruta del vehículo
-            ultimo_cliente_ruta = ruta->cola;         // Asignamos el último cliente en la ruta
-            origen = ultimo_cliente_ruta->cliente;    // Asignamos el cliente origen
+            ruta = vehiculo->ruta;                 // Asignamos la ruta del vehículo
+            ultimo_cliente_ruta = ruta->cola;      // Asignamos el último cliente en la ruta
+            origen = ultimo_cliente_ruta->cliente; // Asignamos el cliente origen
 
             // Calculamos los posibles clientes que pueden ser visitados
             calcular_posibles_clientes(origen, vehiculo, vrp, hormiga, instancia_distancias);
             if (hormiga->posibles_clientes_contador == 0) // Si no hay clientes posibles
-                vehiculo->vt_actual += 1; // Aumentamos el tiempo del vehículo en un minuto
+                vehiculo->vt_actual += 1;                 // Aumentamos el tiempo del vehículo en un minuto
         }
 
         if (hormiga->posibles_clientes_contador == 0)
@@ -307,16 +307,16 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             // Si no hay clientes posibles, verificamos si podemos agregar un vehículo a la flota
             if (hormiga->vehiculos_necesarios + 1 <= hormiga->vehiculos_maximos)
             {
-                if (ruta->cola->cliente != 0) // Verificamos si el vehículo actual ya ha regresado al depósito
+                if (ruta->cola->cliente != 0)                                      // Verificamos si el vehículo actual ya ha regresado al depósito
                     insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el depósito
 
                 // Si aún no hemos alcanzado el número de vehículos necesarios, agregamos uno más
                 if (hormiga->tabu_contador < vrp->num_clientes)
                 {
                     inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1); // Añadimos un nuevo vehículo a la flota
-                    hormiga->vehiculos_necesarios++; // Incrementamos el número de vehículos necesarios
-                    flota_vehiculo = hormiga->flota->cola; // Actualizamos la flota de vehículos
-                    vehiculo = flota_vehiculo->vehiculo;  // Asignamos el nuevo vehículo
+                    hormiga->vehiculos_necesarios++;                                         // Incrementamos el número de vehículos necesarios
+                    flota_vehiculo = hormiga->flota->cola;                                   // Actualizamos la flota de vehículos
+                    vehiculo = flota_vehiculo->vehiculo;                                     // Asignamos el nuevo vehículo
                 }
                 else
                 {
@@ -362,9 +362,9 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             // Si se seleccionó un cliente válido, lo agregamos a la ruta
             if (proximo_cliente != -1)
             {
-                insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[proximo_cliente])); // Insertamos el cliente
+                insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[proximo_cliente]));                                                                   // Insertamos el cliente
                 vehiculo->vt_actual += (instancia_distancias[origen][proximo_cliente] / vehiculo->velocidad) + vrp->clientes[proximo_cliente].tiempo_servicio; // Actualizamos el tiempo del vehículo
-                vehiculo->capacidad_acumulada += vrp->clientes[proximo_cliente].demanda_capacidad; // Actualizamos la capacidad acumulada
+                vehiculo->capacidad_acumulada += vrp->clientes[proximo_cliente].demanda_capacidad;                                                             // Actualizamos la capacidad acumulada
             }
         }
     }
@@ -373,7 +373,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
     if (ruta->cola->cliente != 0)
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Insertamos el depósito al final
 }
-
 
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)
 {
@@ -395,8 +394,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             if (hormiga[j].fitness_global < delta)
                 delta = hormiga[j].fitness_global;
 
-        for (int j = 0; j < ind->numHormigas; j++)
-            actualizar_feromona(ind, &hormiga[j], vrp, instancia_feromona, delta);
+        actualizar_feromona(ind,hormiga, vrp, instancia_feromona, delta);
 
         if (i < ind->numIteraciones - 1)
             for (int j = 0; j < ind->numHormigas; j++)
