@@ -67,7 +67,7 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
 void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
 {
     char ruta[100];
-    snprintf(ruta, sizeof(ruta), "../Instancias/%s.csv", archivo_instancia);
+    snprintf(ruta, sizeof(ruta), "Instancias/%s.csv", archivo_instancia);
 
     FILE *archivo = fopen(ruta, "w");
 
