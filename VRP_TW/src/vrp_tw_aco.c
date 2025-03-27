@@ -114,51 +114,51 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
     printf("=================================================\n");
 }
 
-void actualizar_feromona2(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta){
-    
-}
-
 
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta)
 {
-
+    // Primero, reducimos la cantidad de feromona en todas las aristas de la matriz de feromona
     for (int i = 0; i < vrp->num_clientes; i++)
         for (int j = 0; j < vrp->num_clientes; j++)
-            if (i != j)
-                instancia_feromona[i][j] *= (1 - ind->rho);
+            if (i != j) // Evitamos la diagonal (i == j) que representaría un cliente consigo mismo
+                instancia_feromona[i][j] *= (1 - ind->rho); // Reducimos la feromona por el factor rho
 
+    // Iteramos sobre todas las hormigas para actualizar las feromonas de acuerdo a sus rutas
     for (int i = 0; i < ind->numHormigas; i++)
     {
         struct nodo_vehiculo *vehiculo_actual = hormiga[i].flota->cabeza;
 
+        // Recorremos cada vehículo de la flota de la hormiga
         while (vehiculo_actual != NULL)
         {
-            lista_ruta *ruta = vehiculo_actual->vehiculo->ruta;
+            lista_ruta *ruta = vehiculo_actual->vehiculo->ruta; // Obtenemos la ruta del vehículo
             nodo_ruta *nodo_actual = ruta->cabeza;
 
+            // Recorremos la ruta del vehículo
             while (nodo_actual != NULL && nodo_actual->siguiente != NULL)
             {
-                int cliente_actual = nodo_actual->cliente;
-                int cliente_siguiente = nodo_actual->siguiente->cliente;
+                int cliente_actual = nodo_actual->cliente; // Cliente actual en la ruta
+                int cliente_siguiente = nodo_actual->siguiente->cliente; // Cliente siguiente en la ruta
 
+                // Si el cliente actual no es el mismo que el siguiente, actualizamos la feromona
                 if (cliente_actual != cliente_siguiente)
                 {
-                    instancia_feromona[cliente_actual][cliente_siguiente] += delta;
-                    instancia_feromona[cliente_siguiente][cliente_actual] += delta;
+                    instancia_feromona[cliente_actual][cliente_siguiente] += delta; // Aumentamos la feromona en esta arista
+                    instancia_feromona[cliente_siguiente][cliente_actual] += delta; // Aumentamos la feromona en la arista inversa
                 }
-
-                else
+                else // Si son el mismo cliente, no debe haber feromona (se debe eliminar la feromona)
                 {
-                    instancia_feromona[cliente_actual][cliente_siguiente] = 0.0;
+                    instancia_feromona[cliente_actual][cliente_siguiente] = 0.0; // Se elimina la feromona
                 }
 
-                nodo_actual = nodo_actual->siguiente;
+                nodo_actual = nodo_actual->siguiente; // Avanzamos al siguiente nodo de la ruta
             }
 
-            vehiculo_actual = vehiculo_actual->siguiente;
+            vehiculo_actual = vehiculo_actual->siguiente; // Avanzamos al siguiente vehículo en la flota de la hormiga
         }
     }
 }
+
 void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
 {
     hormiga->fitness_global = 0.0;
@@ -408,7 +408,6 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     }
 
     // Aqui debemos recuperar la mejor hormiga
-
     imprimir_hormigas(hormiga, vrp, ind->numHormigas);
     liberar_memoria_hormiga(hormiga, ind);
 }
