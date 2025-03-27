@@ -5,8 +5,9 @@
 #include <time.h>
 #include "../includes/estructuras.h"
 #include "../includes/vrp_tw_aco.h"
+#include "../includes/lista_flota.h"
+#include "../includes/lista_ruta.h"
 #include "../includes/control_memoria.h"
-
 
 // Función para imprimir la información de una ruta (lista de clientes)
 void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id)
@@ -40,7 +41,7 @@ void imprimir_vehiculo(struct vehiculo *vehiculo)
 {
     printf("  + Vehículo ID: %d\n", vehiculo->id_vehiculo);
     printf("    - Capacidad máxima: %.2f\n", vehiculo->capacidad_maxima);
-    printf("    - Capacidad restante: %.2f\n", vehiculo->capacidad_acumulada);
+    printf("    - Capacidad acumulada: %.2f\n", vehiculo->capacidad_acumulada);
     printf("    - Tiempo consumido: %.2f\n", vehiculo->vt_actual);
     printf("    - Tiempo máximo: %.2f\n", vehiculo->vt_final);
     printf("    - Número de clientes: %d\n", vehiculo->clientes_contados);
@@ -194,24 +195,24 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
 {
     for (int i = 0; i < ind->numHormigas; i++)
     {
-        hormiga[i].id_hormiga = i + 1;                                                 // Le asiganamos el id de la hormiga que es i + 1
-        hormiga[i].tabu = asignar_memoria_arreglo_int(vrp->num_clientes);              // Generamos memoria para el tabu que es el numero de clientes que tenemos
-        hormiga[i].tabu_contador = 0;                                                  // Inicializmos en 0 el contador de tabu
-        hormiga[i].posibles_clientes = asignar_memoria_arreglo_int(vrp->num_clientes); // Generamos la memoria para el arreglo de posibles clientes
-        hormiga[i].posibles_clientes_contador = 0;                                     // Inicializamos en 0 los posibles clientes contador
-        hormiga[i].probabilidades = asignar_memoria_arreglo_double(vrp->num_clientes); // Asignamos memoria para las probablidadades que se tiene al elegir el cliente
-        hormiga[i].vehiculos_necesarios = 0;                                           // Inicializamos el numero de vehiculos contados en 0
-        hormiga[i].vehiculos_maximos = vrp->num_vehiculos;                             // Inicializamos el numero de vehiculos maximos con vrp->num_vehiculos
-        hormiga[i].flota = asignar_memoria_lista_vehiculos();                          // Asiganamos memoria para la flota de la homriga
-        inserta_vehiculo_flota(&hormiga[i], vrp, hormiga->vehiculos_necesarios + 1);   // insertamos el primer vehiuculo de la hormiga
-        hormiga[i].vehiculos_necesarios++;                                             // Incrementamos el numero de vehiculos necesarios una vez que se agrego el vehiculo
+        hormiga[i].id_hormiga = i + 1;                                                 // Asignamos el ID a la hormiga, que es i + 1
+        hormiga[i].tabu = asignar_memoria_arreglo_int(vrp->num_clientes);              // Asignamos memoria para el arreglo tabu con el tamaño de clientes
+        hormiga[i].tabu_contador = 0;                                                  // Inicializamos el contador de tabu en 0
+        hormiga[i].posibles_clientes = asignar_memoria_arreglo_int(vrp->num_clientes); // Asignamos memoria para los posibles clientes
+        hormiga[i].posibles_clientes_contador = 0;                                     // Inicializamos el contador de posibles clientes en 0
+        hormiga[i].probabilidades = asignar_memoria_arreglo_double(vrp->num_clientes); // Asignamos memoria para las probabilidades de los clientes
+        hormiga[i].vehiculos_necesarios = 0;                                           // Inicializamos el número de vehículos necesarios en 0
+        hormiga[i].vehiculos_maximos = vrp->num_vehiculos;                             // Asignamos el número máximo de vehículos
+        hormiga[i].flota = asignar_memoria_lista_vehiculos();                          // Asignamos memoria para la flota de vehículos
+        inserta_vehiculo_flota(&hormiga[i], vrp, hormiga->vehiculos_necesarios + 1);   // Insertamos el primer vehículo de la hormiga
+        hormiga[i].vehiculos_necesarios++;                                             // Incrementamos el número de vehículos necesarios tras agregar el primer vehículo
     }
 }
 
 void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_distancias)
 {
     // Iteramos sobre todos los clientes para verificar si pueden ser visitados
-    for (int i = 1; i < vrp->num_clientes; i++) // Comenzamos en 1 porque el índice 0 es el deposito y ya esta agregado
+    for (int i = 1; i < vrp->num_clientes; i++) // Comenzamos en 1 porque el índice 0 es el depósito, que ya está agregado
     {
         if (hormiga->tabu[i] == 0) // Verificamos si el cliente aún no ha sido visitado
         {
@@ -234,8 +235,8 @@ void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vr
                     if (vehiculo->vt_actual + tiempo_viaje + vrp->clientes[i].tiempo_servicio + tiempo_viaje_deposito <= vehiculo->vt_final)
                     {
                         // Si todas las condiciones se cumplen, marcamos al cliente como posible
-                        hormiga->posibles_clientes[i] = 1;     // Se marca como posible cliente
-                        hormiga->posibles_clientes_contador++; // Se incrementa el contador de posibles clientes
+                        hormiga->posibles_clientes[i] = 1;     // Marcamos al cliente como posible
+                        hormiga->posibles_clientes_contador++; // Incrementamos el contador de posibles clientes
                     }
                 }
             }
@@ -246,7 +247,7 @@ void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vr
 double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_ventanas_tiempo)
 {
     // Calculamos el numerador de la fórmula de probabilidad
-    // Se usa la feromona elevada a alpha, la visibilidad elevada a beta y las ventanas de tiempo elevadas a gamma
+    // Utilizamos la feromona elevada a alpha, la visibilidad elevada a beta y las ventanas de tiempo elevadas a gamma
     double numerador = pow(instancia_feromona[origen][destino], ind->alpha) *
                        pow(instancia_visibilidad[origen][destino], ind->beta) *
                        pow(instancia_ventanas_tiempo[origen][destino], ind->gamma);
@@ -271,101 +272,108 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
     return numerador / hormiga->suma_probabilidades;
 }
 
-void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo)
-{
 
+void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo)
+{
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza; // Seleccionamos la flota de la hormiga
     struct vehiculo *vehiculo = flota_vehiculo->vehiculo;          // Seleccionamos la cabeza de la flota de la hormiga
-    struct lista_ruta *ruta;                                       // Declaramos el apuntador ruta
-    struct nodo_ruta *ultimo_cliente_ruta;                         // Declaramos el apuntador del el cliente origen o eltimo cliente de la ruta
-    int origen;                                                    // Declarmos al origen para asignarle el ultimo cliente de la ruta
-    while (hormiga->tabu_contador <= vrp->num_clientes)            // Revisamos si el contador del tabu es menor o igual al numero del clientes, verificamos si ya se lleno por completo el tabu
+    struct lista_ruta *ruta = vehiculo->ruta;                       // Declaramos el apuntador ruta
+    struct nodo_ruta *ultimo_cliente_ruta;                           // Apuntador del último cliente en la ruta
+    int origen;                                                    // Origen para asignar el último cliente de la ruta
+
+    // Bucle principal: continua hasta que la hormiga haya recorrido todos los clientes
+    while (hormiga->tabu_contador <= vrp->num_clientes)
     {
-        for (int i = 0; i < vrp->num_clientes; i++) // Reseteamos el arreglo posibles clientes en 0 cada posicion
+        // Reseteamos las probabilidades de los clientes
+        for (int i = 0; i < vrp->num_clientes; i++)
             hormiga->posibles_clientes[i] = 0;
-        hormiga->posibles_clientes_contador = 0; // Resetamos en 0 el contador de posibles clientes
+        hormiga->posibles_clientes_contador = 0; // Resetamos el contador de posibles clientes
 
-        while (hormiga->posibles_clientes_contador == 0 && vehiculo->vt_actual <= vehiculo->vt_final) // Este bucle es para verificar que posibles clientes no sea 0 y el timepo de vehiculo no haya excedido el tiempo
+        // Mientras no haya posibles clientes y el vehículo esté dentro de su ventana de tiempo
+        while (hormiga->posibles_clientes_contador == 0 && vehiculo->vt_actual <= vehiculo->vt_final)
         {
-            ruta = vehiculo->ruta;                 // Asiganamos a ruta el apuntador de la ruta del vehiculo
-            ultimo_cliente_ruta = ruta->cola;      // Asignamos el apuntador de la ruta
-            origen = ultimo_cliente_ruta->cliente; // Seleccionamos el último elemento de la ruta del vehiculo y lo asignamos como origen
+            ruta = vehiculo->ruta;                    // Asignamos la ruta del vehículo
+            ultimo_cliente_ruta = ruta->cola;         // Asignamos el último cliente en la ruta
+            origen = ultimo_cliente_ruta->cliente;    // Asignamos el cliente origen
 
-            // Calculamos los posibles clientes
+            // Calculamos los posibles clientes que pueden ser visitados
             calcular_posibles_clientes(origen, vehiculo, vrp, hormiga, instancia_distancias);
-            if (hormiga->posibles_clientes_contador == 0) // Verificamos si el contador de posibles clientes es igual a 0
-                vehiculo->vt_actual += 1;                 // Si es asi entonces al tiempo del vehiuculo le sumamos 1 minutos a la ventana de de tiempo actual del vehiculo
+            if (hormiga->posibles_clientes_contador == 0) // Si no hay clientes posibles
+                vehiculo->vt_actual += 1; // Aumentamos el tiempo del vehículo en un minuto
         }
 
-        if (hormiga->posibles_clientes_contador == 0) // Verificamos si contador de posibles clientes sea igual a 0
+        if (hormiga->posibles_clientes_contador == 0)
         {
-            if (hormiga->vehiculos_necesarios + 1 <= hormiga->vehiculos_maximos) // Verificamos si al agregran un vehiuclo mas no violentamos el numero de vehiculos
+            // Si no hay clientes posibles, verificamos si podemos agregar un vehículo a la flota
+            if (hormiga->vehiculos_necesarios + 1 <= hormiga->vehiculos_maximos)
             {
-                if (ruta->cola->cliente != 0)                                      // Verificamos que el vehiculo que vamos a deja ya tenga el regreso al deposito
-                    insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el deposito
+                if (ruta->cola->cliente != 0) // Verificamos si el vehículo actual ya ha regresado al depósito
+                    insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el depósito
 
-                if (hormiga->tabu_contador < vrp->num_clientes) // Verificamos que el contador del tabu es menor al numero de clientes
+                // Si aún no hemos alcanzado el número de vehículos necesarios, agregamos uno más
+                if (hormiga->tabu_contador < vrp->num_clientes)
                 {
-                    inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1); // Agremos un nuevo vehiuclo a la flota
-                    hormiga->vehiculos_necesarios++;                                         // Incremetamos en 1 al numero de vehiculos
-                    flota_vehiculo = hormiga->flota->cola;
-                    vehiculo = flota_vehiculo->vehiculo; // Actualizmos el vehiculo al nuevo que agregamos
+                    inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1); // Añadimos un nuevo vehículo a la flota
+                    hormiga->vehiculos_necesarios++; // Incrementamos el número de vehículos necesarios
+                    flota_vehiculo = hormiga->flota->cola; // Actualizamos la flota de vehículos
+                    vehiculo = flota_vehiculo->vehiculo;  // Asignamos el nuevo vehículo
                 }
                 else
-                { // Si no rompemos el bucle
-                    break;
+                {
+                    break; // Si no se puede agregar un vehículo, rompemos el ciclo
                 }
             }
-
             else
             {
-                reiniciar_hormiga(hormiga, vrp); // Reiniciamos la hormiga si no se puedo generar una ruta
+                reiniciar_hormiga(hormiga, vrp); // Reiniciamos la hormiga si no se pudo generar una ruta válida
             }
         }
         else
         {
+            int proximo_cliente = -1; // Inicializamos el cliente como no seleccionado
 
-            int proximo_cliente = -1; // Definimos proximo cliente y le asiganmos -1 asegunaod que no hay cliente aun asiganad
-
-            for (int i = 0; i < vrp->num_clientes; i++) // Reseteamos las probabilidades en 0.0 cada posicion de arreglo
+            // Reseteamos las probabilidades de los clientes
+            for (int i = 0; i < vrp->num_clientes; i++)
                 hormiga->probabilidades[i] = 0.0;
 
-            for (int i = 0; i < vrp->num_clientes; i++) // Recorremos los posibles clientes
-                if (hormiga->posibles_clientes[i] == 1) // Si encontramos un posible cliente lo mandamos a calculara la probabilidad de ser elegido
-                    hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, vrp, hormiga, instancia_feromona, instancia_visiblidad, instancia_ventanas_tiempo);
+            // Calculamos las probabilidades de cada cliente posible
+            for (int i = 0; i < vrp->num_clientes; i++)
+                if (hormiga->posibles_clientes[i] == 1)
+                    hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, vrp, hormiga, instancia_feromona, instancia_visibilidad, instancia_ventanas_tiempo);
 
             double aleatorio_seleccion = ((double)rand() / RAND_MAX); // Número aleatorio entre 0 y 1
-            double acumulador = 0.0;                                  // Acumulador para las probabilidades
+            double acumulador = 0.0;                                  // Acumulador de probabilidades
 
-            for (int i = 0; i < vrp->num_clientes; i++) // Recorremos todos los clientes
+            // Seleccionamos el próximo cliente basado en las probabilidades acumuladas
+            for (int i = 0; i < vrp->num_clientes; i++)
             {
-                if (hormiga->posibles_clientes[i] == 1) // Verificamos si el cliente está disponible
+                if (hormiga->posibles_clientes[i] == 1) // Si el cliente está disponible
                 {
-                    // Acumulamos la probabilidad para el cliente actual
-                    acumulador += hormiga->probabilidades[i];
+                    acumulador += hormiga->probabilidades[i]; // Acumulamos la probabilidad
 
-                    // Verificamos si el número aleatorio cae dentro de las probabilidades acumuladas
-                    if (aleatorio_seleccion <= acumulador)
+                    if (aleatorio_seleccion <= acumulador) // Si el número aleatorio está dentro de la probabilidad acumulada
                     {
-                        proximo_cliente = i; // Seleccionamos este cliente
-                        break;               // Terminamos el ciclo, ya que hemos seleccionado al cliente
+                        proximo_cliente = i; // Seleccionamos al cliente
+                        break;
                     }
                 }
             }
 
+            // Si se seleccionó un cliente válido, lo agregamos a la ruta
             if (proximo_cliente != -1)
             {
-                insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[proximo_cliente]));                                                                   // Insertamos el cliente en la ruta del vehiculo
-                vehiculo->vt_actual += (instancia_distancias[origen][proximo_cliente] / vehiculo->velocidad) + vrp->clientes[proximo_cliente].tiempo_servicio; // Sumamos el tiempo de consumo al vehiculo
-                vehiculo->capacidad_acumulada += vrp->clientes[proximo_cliente].demanda_capacidad;
+                insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[proximo_cliente])); // Insertamos el cliente
+                vehiculo->vt_actual += (instancia_distancias[origen][proximo_cliente] / vehiculo->velocidad) + vrp->clientes[proximo_cliente].tiempo_servicio; // Actualizamos el tiempo del vehículo
+                vehiculo->capacidad_acumulada += vrp->clientes[proximo_cliente].demanda_capacidad; // Actualizamos la capacidad acumulada
             }
         }
     }
 
-    // Verificamos si ya se agrego el deposito al final de la ruta
+    // Verificamos si el depósito fue agregado al final de la ruta
     if (ruta->cola->cliente != 0)
-        insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0]));
+        insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Insertamos el depósito al final
 }
+
 
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)
 {
