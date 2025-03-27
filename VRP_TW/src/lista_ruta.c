@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "vrp_tw_aco.h"
-#include "configuracion_vrp_tw.h"
-#include "control_memoria.h"
-#include "lista_ruta.h"
+#include "../includes/estructuras.h"
+#include "../includes/control_memoria.h"
+#include "../includes/lista_ruta.h"
 
 struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *cliente)
 {
