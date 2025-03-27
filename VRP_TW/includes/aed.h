@@ -3,8 +3,7 @@
 
 #include "../includes/estructuras.h"
 
-
-// Prototipos de funciones con las correcciones
+// Prototipos de funciones
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino);
 void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configuracion *vrp);
 void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp);
