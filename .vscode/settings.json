@@ -9,6 +9,7 @@
         "configuracion_vrp_tw.h": "c",
         "aed.h": "c",
         "stdbool.h": "c",
-        "lista_ruta.h": "c"
+        "lista_ruta.h": "c",
+        "estructuras.h": "c"
     }
 }
