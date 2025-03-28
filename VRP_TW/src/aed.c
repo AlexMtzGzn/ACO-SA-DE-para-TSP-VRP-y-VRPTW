@@ -71,7 +71,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
       {
          // Si i y j son diferentes (es decir, no es la misma ciudad), se asigna un valor de feromona de 1.0
          if (i != j)
-            instancia_feromona[i][j] = 1.0;
+            instancia_feromona[i][j] = 1.0; //Hay que revisr si lo hacemo entre la ventana del tiempo final
          // Si i y j son iguales (es decir, es la misma ciudad), la feromona se establece en 0.0
          else
             instancia_feromona[i][j] = 0.0;

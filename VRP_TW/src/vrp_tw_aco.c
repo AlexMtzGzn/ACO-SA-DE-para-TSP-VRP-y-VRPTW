@@ -114,13 +114,12 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
     printf("=================================================\n");
 }
 
-
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta)
 {
     // Primero, reducimos la cantidad de feromona en todas las aristas de la matriz de feromona
     for (int i = 0; i < vrp->num_clientes; i++)
         for (int j = 0; j < vrp->num_clientes; j++)
-            if (i != j) // Evitamos la diagonal (i == j) que representaría un cliente consigo mismo
+            if (i != j)                                     // Evitamos la diagonal (i == j) que representaría un cliente consigo mismo
                 instancia_feromona[i][j] *= (1 - ind->rho); // Reducimos la feromona por el factor rho
 
     // Iteramos sobre todas las hormigas para actualizar las feromonas de acuerdo a sus rutas
@@ -137,7 +136,7 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
             // Recorremos la ruta del vehículo
             while (nodo_actual != NULL && nodo_actual->siguiente != NULL)
             {
-                int cliente_actual = nodo_actual->cliente; // Cliente actual en la ruta
+                int cliente_actual = nodo_actual->cliente;               // Cliente actual en la ruta
                 int cliente_siguiente = nodo_actual->siguiente->cliente; // Cliente siguiente en la ruta
 
                 // Si el cliente actual no es el mismo que el siguiente, actualizamos la feromona
@@ -384,7 +383,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 {
 
     struct hormiga *hormiga = asignar_memoria_hormigas(ind); // Agregamos memoria para el numero de hormigas
+    // double delta; Vamos hacer la seunda version de la feromona y ver cual es mejor
     double delta;
+
     inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas
 
     for (int i = 0; i < ind->numIteraciones; i++)
