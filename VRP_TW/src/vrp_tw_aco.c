@@ -314,6 +314,7 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
 
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo)
 {
+    int contador_escape = 0;
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza; // Seleccionamos la flota de la hormiga
     struct vehiculo *vehiculo = flota_vehiculo->vehiculo;          // Seleccionamos la cabeza de la flota de la hormiga
     struct lista_ruta *ruta = vehiculo->ruta;                      // Declaramos el apuntador ruta
@@ -364,7 +365,15 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             }
             else
             {
-                reiniciar_hormiga(hormiga, vrp); // Reiniciamos la hormiga si no se pudo generar una ruta válida
+                if(contador_escape < 1000){
+                    reiniciar_hormiga(hormiga, vrp); // Reiniciamos la hormiga si no se pudo generar una ruta válida
+                    contador_escape++;
+                }
+                else{
+                    hormiga->fitness_global = INFINITY;
+                    printf("\nSi hubo");
+                    break;
+                }
             }
         }
         else
@@ -448,6 +457,6 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     }
 
     // Aqui debemos recuperar la mejor hormiga
-    imprimir_hormigas(hormiga, vrp, ind->numHormigas);
+    //imprimir_hormigas(hormiga, vrp, ind->numHormigas);
     liberar_memoria_hormiga(hormiga, ind);
 }
