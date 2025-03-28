@@ -114,6 +114,40 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
     printf("=================================================\n");
 }
 
+void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
+{
+    struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
+
+    // Recorremos cada vehículo de la flota de la hormiga
+    while (vehiculo_actual != NULL)
+    {
+        lista_ruta *ruta = vehiculo_actual->vehiculo->ruta; // Obtenemos la ruta del vehículo
+        nodo_ruta *nodo_actual = ruta->cabeza;
+
+        // Recorremos la ruta del vehículo
+        while (nodo_actual != NULL && nodo_actual->siguiente != NULL)
+        {
+            int cliente_actual = nodo_actual->cliente;               // Cliente actual en la ruta
+            int cliente_siguiente = nodo_actual->siguiente->cliente; // Cliente siguiente en la ruta
+
+            // Si el cliente actual no es el mismo que el siguiente, actualizamos la feromona
+            if (cliente_actual != cliente_siguiente)
+            {
+                instancia_feromona[cliente_actual][cliente_siguiente] += delta; // Aumentamos la feromona en esta arista
+                instancia_feromona[cliente_siguiente][cliente_actual] += delta; // Aumentamos la feromona en la arista inversa
+            }
+            else // Si son el mismo cliente, no debe haber feromona (se debe eliminar la feromona)
+            {
+                instancia_feromona[cliente_actual][cliente_siguiente] = 0.0; // Se elimina la feromona
+            }
+
+            nodo_actual = nodo_actual->siguiente; // Avanzamos al siguiente nodo de la ruta
+        }
+
+        vehiculo_actual = vehiculo_actual->siguiente; // Avanzamos al siguiente vehículo en la flota de la hormiga
+    }
+}
+
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta)
 {
     // Primero, reducimos la cantidad de feromona en todas las aristas de la matriz de feromona
@@ -385,6 +419,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     struct hormiga *hormiga = asignar_memoria_hormigas(ind); // Agregamos memoria para el numero de hormigas
     // double delta; Vamos hacer la seunda version de la feromona y ver cual es mejor
     double delta;
+    int indice = -1;
 
     inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas
 
@@ -398,10 +433,14 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
         delta = INFINITY;
         for (int j = 0; j < ind->numHormigas; j++)
-            if (hormiga[j].fitness_global < delta)
+            if (hormiga[j].fitness_global < delta){
                 delta = hormiga[j].fitness_global;
+                indice = j;
+            }
+                
 
-        actualizar_feromona(ind,hormiga, vrp, instancia_feromona, delta);
+        actualizar_feromona(ind, hormiga, vrp, instancia_feromona, delta);
+        refuerzo_feromona_mejor_ruta(&hormiga[indice],instancia_feromona,delta);
 
         if (i < ind->numIteraciones - 1)
             for (int j = 0; j < ind->numHormigas; j++)
