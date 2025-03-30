@@ -141,3 +141,24 @@ void liberar_vehiculo(struct vehiculo *vehiculo)
     // Liberar el vehículo
     free(vehiculo);
 }
+
+void liberar_lista_vehiculos(struct lista_vehiculos *lista)
+{
+    if (lista == NULL)
+        return;
+        
+    struct nodo_vehiculo *actual = lista->cabeza;
+    while (actual != NULL)
+    {
+        struct nodo_vehiculo *temp = actual;
+        actual = actual->siguiente;
+
+        // Liberar el vehículo usando la función dedicada
+        liberar_vehiculo(temp->vehiculo);
+
+        // Liberar el nodo de vehículo
+        free(temp);
+    }
+
+    free(lista);
+}
