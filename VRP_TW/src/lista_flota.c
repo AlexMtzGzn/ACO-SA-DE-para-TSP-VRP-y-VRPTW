@@ -74,3 +74,70 @@ void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *v
     else
         printf("\nError al asignar memoria al nodo del vehiculo.");
 }
+
+struct vehiculo* copiar_vehiculo(struct vehiculo *original)
+{
+    struct vehiculo *nuevo_vehiculo = malloc(sizeof(struct vehiculo));
+    
+    // Copiar todos los campos básicos
+    nuevo_vehiculo->id_vehiculo = original->id_vehiculo;
+    nuevo_vehiculo->capacidad_maxima = original->capacidad_maxima;
+    nuevo_vehiculo->capacidad_acumulada = original->capacidad_acumulada;
+    nuevo_vehiculo->vt_actual = original->vt_actual;
+    nuevo_vehiculo->vt_final = original->vt_final;
+    nuevo_vehiculo->vt_inicial = original->vt_inicial;
+    nuevo_vehiculo->velocidad = original->velocidad;
+    nuevo_vehiculo->clientes_contados = original->clientes_contados;
+    nuevo_vehiculo->fitness_vehiculo = original->fitness_vehiculo;
+    
+    // Usar la función copiar_ruta para la ruta
+    nuevo_vehiculo->ruta = copiar_ruta(original);
+    
+    return nuevo_vehiculo;
+}
+
+
+struct lista_vehiculos* copiar_lista_vehiculos(struct lista_vehiculos *original)
+{
+    if (original == NULL)
+        return NULL;
+        
+    struct lista_vehiculos *nueva_lista = malloc(sizeof(struct lista_vehiculos));
+    nueva_lista->cabeza = NULL;
+    nueva_lista->cola = NULL;
+
+    struct nodo_vehiculo *actual = original->cabeza;
+    while (actual != NULL)
+    {
+        struct nodo_vehiculo *nuevo_nodo = malloc(sizeof(struct nodo_vehiculo));
+        nuevo_nodo->vehiculo = copiar_vehiculo(actual->vehiculo);
+        nuevo_nodo->siguiente = NULL;
+
+        if (nueva_lista->cabeza == NULL)
+        {
+            nueva_lista->cabeza = nuevo_nodo;
+            nueva_lista->cola = nuevo_nodo;
+        }
+        else
+        {
+            nueva_lista->cola->siguiente = nuevo_nodo;
+            nueva_lista->cola = nuevo_nodo;
+        }
+
+        actual = actual->siguiente;
+    }
+
+    return nueva_lista;
+}
+
+void liberar_vehiculo(struct vehiculo *vehiculo)
+{
+    if (vehiculo == NULL)
+        return;
+        
+    // Liberar la ruta
+    liberar_ruta(vehiculo->ruta);
+    
+    // Liberar el vehículo
+    free(vehiculo);
+}
