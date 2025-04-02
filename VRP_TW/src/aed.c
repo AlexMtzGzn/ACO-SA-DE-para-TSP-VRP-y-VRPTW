@@ -7,6 +7,7 @@
 #include "../includes/vrp_tw_aco.h"
 #include "../includes/configuracion_vrp_tw.h"
 #include "../includes/control_memoria.h"
+#include "../includes/salida_datos.h"
 
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
@@ -246,6 +247,13 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    inicializar_Ventana_Tiempo(instancia_ventanas_tiempo, vrp); // Inicializmos las ventanas de tiempo
    inicializar_Feromona(vrp, instancia_feromonas);             // Inicializamos la feromona
    inicializaPoblacion(objetivo, num_poblacion);               // Inicializamos la poblacion
+
+   // Aqui podemos imprimir las instancias
+   // imprimir_instancia(instancia_distancias,vrp,"INSTANCIA DISTANCIAS");
+   // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
+   // imprimir_instancia(instancia_ventanas_tiempo,vrp,"INSTANCIA VENTANAS DE TIEMPO");
+   // imprimir_instancia(instancia_visibilidad,vrp,"INSTANCIA VISIBILIDAD");
+   
 
    resultado->fitness = INFINITY;
    resultado->hormiga = malloc(sizeof(struct hormiga) * 1);

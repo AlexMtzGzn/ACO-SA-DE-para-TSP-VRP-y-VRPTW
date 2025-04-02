@@ -11,6 +11,7 @@
         "stdbool.h": "c",
         "lista_ruta.h": "c",
         "estructuras.h": "c",
-        "vrp_tw_aco.h": "c"
+        "vrp_tw_aco.h": "c",
+        "salida_datos.h": "c"
     }
 }

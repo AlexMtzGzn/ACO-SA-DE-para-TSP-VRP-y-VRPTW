@@ -4,12 +4,7 @@
 #include <stdbool.h>
 #include "../includes/estructuras.h"
 
-void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id);
-void imprimir_vehiculo(struct vehiculo *vehiculo);
-void imprimir_flota(struct lista_vehiculos *flota);
-void imprimir_tabu(int *tabu, int num_clientes);
-void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas);
-void recuperamos_mejor_hormiga(struct individuo * ind, struct hormiga * hormiga);
+void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga);
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta);
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta);
 void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias);
