@@ -103,7 +103,7 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
         printf("  Fitness global: %.2f\n", hormigas[i].fitness_global);
 
         // Imprimir tabu
-        imprimir_tabu(hormigas[i].tabu, vrp->num_clientes);
+        //imprimir_tabu(hormigas[i].tabu, vrp->num_clientes);
 
         // Imprimir flota de vehículos
         imprimir_flota(hormigas[i].flota);
@@ -442,8 +442,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     int indice = -1;                                         // Definimos el indice y inicializamos en -1;
 
     inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas
-    printf("Parámetros actuales: alpha=%.2lf, beta=%.2lf, gamma=%.2lf rho=%.2lf\n",
-           ind->alpha, ind->beta, ind->gamma, ind->rho);
+
     for (int i = 0; i < ind->numIteraciones; i++)
     {
         for (int j = 0; j < ind->numHormigas; j++)
@@ -467,8 +466,6 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             for (int j = 0; j < ind->numHormigas; j++)
                 reiniciar_hormiga(&hormiga[j], vrp);
     }
-
-    // Aqui debemos inicializar el individuo
 
     if (ind->hormiga == NULL)
         ind->hormiga = malloc(sizeof(struct hormiga) * 1);

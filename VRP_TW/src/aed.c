@@ -19,29 +19,44 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
    // Recorre todos los clientes y calcula la visibilidad entre ellos
    for (int i = 0; i < vrp->num_clientes; i++)
    {
-      for (int j = 0; j < vrp->num_clientes; j++)
+      for (int j = i + 1; j < vrp->num_clientes; j++)
       {
-         // Si i y j son diferentes, calcula la visibilidad (inversa de la distancia)
-         if (i != j && calcular_Distancia(vrp, i, j) > 0)
-            instancia_visibilidad[i][j] = 1.0 / calcular_Distancia(vrp, i, j);
+         // Calculamos la distancia entre los clientes i y j una sola vez
+         double distancia = calcular_Distancia(vrp, i, j);
+
+         // Si la distancia es mayor a 0, calculamos la visibilidad
+         if (distancia > 0)
+         {
+            instancia_visibilidad[i][j] = 1.0 / distancia;
+            instancia_visibilidad[j][i] = instancia_visibilidad[i][j]; // Aprovechamos la simetría
+         }
          else
-            instancia_visibilidad[i][j] = 0.0; // Para rutas a sí mismo, la visibilidad es 0.
+         {
+            instancia_visibilidad[i][j] = 0.0;
+            instancia_visibilidad[j][i] = 0.0;
+         }
       }
    }
 }
 
 void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp)
 {
-   // Recorre todos los clientes y calcula la ventana de tiempo inversa entre ellos
+   // Recorre todos los clientes y calcula la ventana de tiempo entre ellos
    for (int i = 0; i < vrp->num_clientes; i++)
    {
-      for (int j = 0; j < vrp->num_clientes; j++)
+      for (int j = i + 1; j < vrp->num_clientes; j++)
       {
          // Si i y j son diferentes, asigna la ventana de tiempo como 1 / tiempo final del cliente j
-         if (i != j && calcular_Distancia(vrp, i, j) > 0)
+         if (calcular_Distancia(vrp, i, j) > 0)
+         {
             instancia_ventanas_tiempo[i][j] = 1.0 / vrp->clientes[j].vt_final;
+            instancia_ventanas_tiempo[j][i] = instancia_ventanas_tiempo[i][j]; // Aprovechamos la simetría
+         }
          else
-            instancia_ventanas_tiempo[i][j] = 0.0; // Para rutas a sí mismo, la ventana de tiempo es 0.
+         {
+            instancia_ventanas_tiempo[i][j] = 0.0;
+            instancia_ventanas_tiempo[j][i] = 0.0;
+         }
       }
    }
 }
@@ -51,13 +66,20 @@ void inicializar_Distancias(double **instancia_distancias, struct vrp_configurac
    // Recorre todos los clientes y calcula las distancias entre ellos
    for (int i = 0; i < vrp->num_clientes; i++)
    {
-      for (int j = 0; j < vrp->num_clientes; j++)
+      for (int j = i + 1; j < vrp->num_clientes; j++)
       {
-         // Si i y j son diferentes, asigna la distancia entre los dos clientes
+         // Calculamos la distancia entre los clientes i y j
+         double distancia = calcular_Distancia(vrp, i, j);
+
          if (i != j)
-            instancia_distancias[i][j] = calcular_Distancia(vrp, i, j);
+         {
+            instancia_distancias[i][j] = distancia;
+            instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
+         }
          else
-            instancia_distancias[i][j] = 0.0; // La distancia a sí mismo es 0.
+         {
+            instancia_distancias[i][j] = 0.0;
+         }
       }
    }
 }
@@ -187,7 +209,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
       objetivo[i].alpha = generaAleatorio(0.1, 2.0);             // alpha: entre 0.1 y 2.0
       objetivo[i].beta = generaAleatorio(1.5, 2.5);              // beta: entre 1.5 y 2.5
       objetivo[i].gamma = generaAleatorio(0.0, 1.5);             // gamma: entre 1.5 y 2.5
-      objetivo[i].rho = generaAleatorio(0.0, 0.9);               // rho: entre 0.0 y 1.0
+      objetivo[i].rho = generaAleatorio(0.0, 0.9);               // rho: entre 0.0 y 0.9
       objetivo[i].numHormigas = (int)generaAleatorio(10, 30);    // numHormigas: entre 10 y 30
       objetivo[i].numIteraciones = (int)generaAleatorio(30, 80); // numIteraciones: entre 30 y 80
    }
@@ -199,6 +221,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);   // Asiganamos memoria para el arreglo prueba
+   struct individuo *resultados = asignar_memoria_individuos(2);           // Asignamos memoria para el arreglo de resultados
    vrp_configuracion *vrp = leer_instancia(archivo_instancia);             // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
 
    if (vrp == NULL) // Retornamos -1 si no se lleno bien el vrp
@@ -215,25 +238,52 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    inicializar_Feromona(vrp, instancia_feromonas);             // Inicializamos la feromona
    inicializaPoblacion(objetivo, num_poblacion);               // Inicializamos la poblacion
 
-   for (int i = 0; i < num_poblacion; ++i){ // Iniciamos la funcion objetivo con el objetivo
+   resultados[0].fitness = INFINITY;
+   resultados[0].hormiga = malloc(sizeof(struct hormiga) * 1);
+
+   for (int i = 0; i < num_poblacion; ++i) // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
-      printf("%lf\n",objetivo[i].fitness);
+
+   for (int i = 0; i < num_poblacion; i++)
+   {
+      if (objetivo[i].fitness < resultados[0].fitness)
+      {
+         resultados[0].alpha = objetivo[i].alpha;
+         resultados[0].beta = objetivo[i].beta;
+         resultados[0].gamma = objetivo[i].gamma;
+         resultados[0].rho = objetivo[i].rho;
+         resultados[0].numHormigas = objetivo[i].numHormigas;
+         resultados[0].numIteraciones = objetivo[i].numIteraciones;
+         recuperamos_mejor_hormiga(&resultados[0], objetivo[i].hormiga);
+      }
    }
+
    // Inicializamos ya las generaciones
    for (int i = 0; i < num_generaciones; i++)
    {
       construyeRuidosos(objetivo, ruidoso, num_poblacion);       // Contruimos Ruidosos
       construyePrueba(objetivo, ruidoso, prueba, num_poblacion); // Contruimos Prueba
 
-      for (int j = 0; j < num_poblacion; ++j){ // Mandamos a evaluar la funcion objetivo de prueba{
+      for (int j = 0; j < num_poblacion; ++j) // Mandamos a evaluar la funcion objetivo de prueba{
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
-         printf("%lf\n",prueba[j].fitness);
-         //imprimir_hormigas(prueba[j].hormiga, vrp, 1);
+
+      for (int i = 0; i < num_poblacion; i++)
+      {
+         if (prueba[i].fitness < resultados[0].fitness)
+         {
+            resultados[0].alpha = prueba[i].alpha;
+            resultados[0].beta = prueba[i].beta;
+            resultados[0].gamma = prueba[i].gamma;
+            resultados[0].rho = prueba[i].rho;
+            resultados[0].numHormigas = prueba[i].numHormigas;
+            resultados[0].numIteraciones = prueba[i].numIteraciones;
+            recuperamos_mejor_hormiga(&resultados[0], prueba[i].hormiga);
+         }
       }
 
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
    }
-
+   imprimir_hormigas(resultados[0].hormiga,vrp,1);
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
