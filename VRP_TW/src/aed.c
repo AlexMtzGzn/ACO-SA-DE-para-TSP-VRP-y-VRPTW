@@ -301,7 +301,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
    }
 
-   imprimir_hormigas(resultado->hormiga, vrp, 1);
+   imprimir_mejor_hormiga(resultado->hormiga);
 
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad

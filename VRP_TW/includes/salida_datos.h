@@ -9,6 +9,6 @@ void imprimir_vehiculo(struct vehiculo *vehiculo);
 void imprimir_flota(struct lista_vehiculos *flota);
 void imprimir_tabu(int *tabu, int num_clientes);
 void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas);
-
+void imprimir_mejor_hormiga(struct hormiga *hormiga);
 
 #endif // SALIDA_DATOS_H
