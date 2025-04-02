@@ -230,7 +230,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);   // Asiganamos memoria para el arreglo prueba
-   struct individuo *resultados = asignar_memoria_individuos(2);           // Asignamos memoria para el arreglo de resultados
+   struct individuo *resultado = asignar_memoria_individuos(1);            // Asignamos memoria para el arreglo de resultados
    vrp_configuracion *vrp = leer_instancia(archivo_instancia);             // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
 
    if (vrp == NULL) // Retornamos -1 si no se lleno bien el vrp
@@ -247,23 +247,23 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    inicializar_Feromona(vrp, instancia_feromonas);             // Inicializamos la feromona
    inicializaPoblacion(objetivo, num_poblacion);               // Inicializamos la poblacion
 
-   resultados[0].fitness = INFINITY;
-   resultados[0].hormiga = malloc(sizeof(struct hormiga) * 1);
+   resultado->fitness = INFINITY;
+   resultado->hormiga = malloc(sizeof(struct hormiga) * 1);
 
    for (int i = 0; i < num_poblacion; ++i) // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
 
    for (int i = 0; i < num_poblacion; i++)
    {
-      if (objetivo[i].fitness < resultados[0].fitness)
+      if (objetivo[i].fitness < resultado->fitness)
       {
-         resultados[0].alpha = objetivo[i].alpha;
-         resultados[0].beta = objetivo[i].beta;
-         resultados[0].gamma = objetivo[i].gamma;
-         resultados[0].rho = objetivo[i].rho;
-         resultados[0].numHormigas = objetivo[i].numHormigas;
-         resultados[0].numIteraciones = objetivo[i].numIteraciones;
-         recuperamos_mejor_hormiga(&resultados[0], objetivo[i].hormiga);
+         resultado->alpha = objetivo[i].alpha;
+         resultado->beta = objetivo[i].beta;
+         resultado->gamma = objetivo[i].gamma;
+         resultado->rho = objetivo[i].rho;
+         resultado->numHormigas = objetivo[i].numHormigas;
+         resultado->numIteraciones = objetivo[i].numIteraciones;
+         recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);
       }
    }
 
@@ -278,21 +278,23 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
       for (int i = 0; i < num_poblacion; i++)
       {
-         if (prueba[i].fitness < resultados[0].fitness)
+         if (prueba[i].fitness < resultado->fitness)
          {
-            resultados[0].alpha = prueba[i].alpha;
-            resultados[0].beta = prueba[i].beta;
-            resultados[0].gamma = prueba[i].gamma;
-            resultados[0].rho = prueba[i].rho;
-            resultados[0].numHormigas = prueba[i].numHormigas;
-            resultados[0].numIteraciones = prueba[i].numIteraciones;
-            recuperamos_mejor_hormiga(&resultados[0], prueba[i].hormiga);
+            resultado->alpha = prueba[i].alpha;
+            resultado->beta = prueba[i].beta;
+            resultado->gamma = prueba[i].gamma;
+            resultado->rho = prueba[i].rho;
+            resultado->numHormigas = prueba[i].numHormigas;
+            resultado->numIteraciones = prueba[i].numIteraciones;
+            recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);
          }
       }
 
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
    }
-   imprimir_hormigas(resultados[0].hormiga, vrp, 1);
+
+   imprimir_hormigas(resultado->hormiga, vrp, 1);
+
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
@@ -300,6 +302,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    liberar_individuos(objetivo, num_poblacion, true);               // Liberemos la memoria del objetivo
    liberar_individuos(prueba, num_poblacion, true);                 // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);               // Liberemos la memoria del ruidoso
+   liberar_individuos(resultado, 1, true);                         // Liberemos los resultado
    liberar_memoria_vrp_configuracion(vrp);                          // Liberemos la memoria del vrp
 
    return 0;
