@@ -29,6 +29,7 @@ typedef struct vehiculo
     double fitness_vehiculo;
 } vehiculo;
 
+// --------------------- NODO Y LISTA DE VEHÍCULOS ---------------------
 typedef struct nodo_vehiculo
 {
     vehiculo *vehiculo;
