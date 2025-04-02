@@ -3,8 +3,13 @@
 #include "../includes/estructuras.h"
 #include "../includes/lista_flota.h"
 #include "../includes/salida_datos.h"
-/*Para arreglos y instancias*/
 
+/*Funciones para asignación y liberación de memoria para arreglos y matrices*/
+
+/**
+ * Asigna memoria para una matriz de doble puntero (instancia) de tamaño [tamanio_instancia x tamanio_instancia].
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 double **asignar_memoria_instancia(int tamanio_instancia)
 {
     double **instancia = (double **)malloc(tamanio_instancia * sizeof(double *));
@@ -20,7 +25,7 @@ double **asignar_memoria_instancia(int tamanio_instancia)
         if (instancia[i] == NULL)
         {
             imprimir_mensaje("No se pudo asignar memoria para la columna");
-            // Liberar la memoria ya asignada antes de salir
+            // Liberar memoria ya asignada antes de salir
             for (int j = 0; j < i; j++)
                 free(instancia[j]);
             free(instancia);
@@ -31,6 +36,10 @@ double **asignar_memoria_instancia(int tamanio_instancia)
     return instancia;
 }
 
+/**
+ * Asigna memoria para un arreglo de enteros de tamaño 'tamanio_arreglo'.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 {
     int *arreglo = (int *)malloc(sizeof(int) * (tamanio_arreglo));
@@ -42,6 +51,10 @@ int *asignar_memoria_arreglo_int(int tamanio_arreglo)
     return arreglo;
 }
 
+/**
+ * Asigna memoria para un arreglo de tipo double de tamaño 'tamanio_arreglo'.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 {
     double *arreglo = (double *)malloc(sizeof(double) * (tamanio_arreglo));
@@ -53,16 +66,25 @@ double *asignar_memoria_arreglo_double(int tamanio_arreglo)
     return arreglo;
 }
 
+/**
+ * Libera la memoria del arreglo de enteros.
+ */
 void liberar_memoria_arreglo_int(int *arreglo)
 {
     free(arreglo);
 }
 
+/**
+ * Libera la memoria del arreglo de tipo double.
+ */
 void liberar_memoria_arreglo_double(double *arreglo)
 {
     free(arreglo);
 }
 
+/**
+ * Libera la memoria de la instancia (matriz) de tamaño 'tamanio_instancia'.
+ */
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia; i++)
@@ -70,8 +92,12 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
-/*Para estructuras del individuo*/
+/*Funciones para la estructura del individuo*/
 
+/**
+ * Asigna memoria para una cantidad de individuos definida por 'poblacion'.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct individuo *asignar_memoria_individuos(int poblacion)
 {
     struct individuo *individuo = (struct individuo *)malloc(sizeof(struct individuo) * poblacion);
@@ -83,9 +109,12 @@ struct individuo *asignar_memoria_individuos(int poblacion)
     return individuo;
 }
 
+/**
+ * Libera la memoria de un arreglo de individuos.
+ * Si 'tipo' es verdadero, también libera la memoria de las flotas de los individuos.
+ */
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
-
     if (tipo)
         for (int i = 0; i < num_poblacion; i++)
             liberar_lista_vehiculos(ind[i].hormiga->flota);
@@ -93,7 +122,12 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
     free(ind);
 }
 
-/*Para la estructura vrp_configuracion*/
+/*Funciones para la estructura de configuración VRP*/
+
+/**
+ * Asigna memoria para la estructura 'vrp_configuracion'.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct vrp_configuracion *asignar_memoria_vrp_configuracion()
 {
     struct vrp_configuracion *vrp = (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion));
@@ -105,6 +139,9 @@ struct vrp_configuracion *asignar_memoria_vrp_configuracion()
     return vrp;
 }
 
+/**
+ * Libera la memoria de la estructura 'vrp_configuracion'.
+ */
 void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
 {
     if (vrp != NULL)
@@ -115,7 +152,12 @@ void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
     }
 }
 
-/*Para la estructura clientes*/
+/*Funciones para la estructura de clientes*/
+
+/**
+ * Asigna memoria para los clientes de acuerdo al número de clientes definido en la configuración VRP.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
 {
     struct cliente *cliente = (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente));
@@ -127,7 +169,12 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
     return cliente;
 }
 
-/*Para estructura de hormiga*/
+/*Funciones para la estructura de hormiga*/
+
+/**
+ * Asigna memoria para un arreglo de hormigas de tamaño 'numHormigas'.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
     struct hormiga *hormiga = (struct hormiga *)malloc(sizeof(struct hormiga) * numHormigas);
@@ -139,24 +186,26 @@ struct hormiga *asignar_memoria_hormigas(int numHormigas)
     return hormiga;
 }
 
+/**
+ * Libera la memoria asociada a las hormigas, incluyendo las estructuras dentro de cada hormiga.
+ */
 void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
 {
-    // Liberar las estructuras dinámicas dentro de cada hormiga
     for (int i = 0; i < ind->numHormigas; i++)
     {
-        // Liberar la memoria de la tabla tabu
         liberar_memoria_arreglo_int(hormiga[i].tabu);
         liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
         liberar_memoria_arreglo_double(hormiga[i].probabilidades);
         liberar_lista_vehiculos(hormiga[i].flota);
     }
-    // Finalmente, liberar la memoria de las hormigas
     free(hormiga);
 }
 
+/**
+ * Reinicia la información de una hormiga, incluyendo sus arreglos internos y flota de vehículos.
+ */
 void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 {
-    // Reiniciamos los datos de los arreglos tabu, posibles_clientes y probabilidades cada uno 0 en s posicion
     for (int i = 0; i < vrp->num_clientes; i++)
     {
         hormiga->tabu[i] = 0;
@@ -174,14 +223,17 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
     hormiga->vehiculos_necesarios++;
 }
 
-/*Para estructura de ruta*/
+/*Funciones para la estructura de ruta*/
+
+/**
+ * Asigna memoria para una nueva lista de rutas.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct lista_ruta *asignar_memoria_lista_ruta()
 {
     struct lista_ruta *nueva_lista = (struct lista_ruta *)malloc(sizeof(struct lista_ruta));
-
     if (nueva_lista == NULL)
     {
-
         imprimir_mensaje("Error: No se pudo asignar memoria para la lista de rutas.");
         exit(EXIT_FAILURE);
     }
@@ -192,9 +244,12 @@ struct lista_ruta *asignar_memoria_lista_ruta()
     return nueva_lista;
 }
 
+/**
+ * Asigna memoria para un nuevo nodo de ruta.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct nodo_ruta *asignar_memoria_nodo_ruta()
 {
-
     struct nodo_ruta *nodo_nuevo = (struct nodo_ruta *)malloc(sizeof(struct nodo_ruta));
     if (!nodo_nuevo)
     {
@@ -204,11 +259,15 @@ struct nodo_ruta *asignar_memoria_nodo_ruta()
     return nodo_nuevo;
 }
 
-/*Para estructura de vehiculos*/
+/*Funciones para la estructura de vehículos*/
+
+/**
+ * Asigna memoria para una lista de vehículos.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 lista_vehiculos *asignar_memoria_lista_vehiculos()
 {
     lista_vehiculos *nueva_lista = (lista_vehiculos *)malloc(sizeof(lista_vehiculos));
-
     if (nueva_lista == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para la lista de vehículos.");
@@ -221,6 +280,10 @@ lista_vehiculos *asignar_memoria_lista_vehiculos()
     return nueva_lista;
 }
 
+/**
+ * Asigna memoria para un nuevo vehículo.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct vehiculo *asignar_memoria_vehiculo()
 {
     struct vehiculo *vehiculo = (struct vehiculo *)malloc(sizeof(struct vehiculo));
@@ -232,6 +295,10 @@ struct vehiculo *asignar_memoria_vehiculo()
     return vehiculo;
 }
 
+/**
+ * Asigna memoria para un nuevo nodo de vehículo.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
 {
     struct nodo_vehiculo *nodo_vehiculo = (struct nodo_vehiculo *)malloc(sizeof(struct nodo_vehiculo));
@@ -242,4 +309,3 @@ struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
     }
     return nodo_vehiculo;
 }
-
