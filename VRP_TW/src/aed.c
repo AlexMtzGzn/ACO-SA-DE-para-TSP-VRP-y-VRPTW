@@ -103,6 +103,7 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
 {
    // Inicializa las feromonas en la instancia
    inicializar_Feromona(vrp, instancia_feromona);
+   // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
    // Ejecuta el algoritmo de optimización con ventanas de tiempo (ACO) en el individuo
    vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona, instancia_ventanas_tiempo);
 }
@@ -303,7 +304,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
       // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
    }
-
+   //Imprimimos la meojor homriga 
    imprimir_mejor_hormiga(resultado->hormiga, resultado);
 
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
