@@ -40,6 +40,6 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
 void inicializaPoblacion(struct individuo *objetivo, int poblacion);
 
 // Función principal del algoritmo Evolutivo Diferencial (AED) para resolver el VRP con ventanas de tiempo (VRPTW), que recibe el número de individuos, generaciones y el archivo de instancia
-int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia);
+void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia);
 
 #endif // AED_H

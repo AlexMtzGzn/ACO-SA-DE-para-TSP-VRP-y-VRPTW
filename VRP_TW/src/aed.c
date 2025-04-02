@@ -225,7 +225,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    }
 }
 
-int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
+void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
 
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Asignamos memoria para el arreglo objetivo
@@ -316,6 +316,4 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    liberar_individuos(ruidoso, num_poblacion, false);               // Liberemos la memoria del ruidoso
    liberar_individuos(resultado, 1, true);                          // Liberemos los resultado
    liberar_memoria_vrp_configuracion(vrp);                          // Liberemos la memoria del vrp
-
-   return 0;
 }
