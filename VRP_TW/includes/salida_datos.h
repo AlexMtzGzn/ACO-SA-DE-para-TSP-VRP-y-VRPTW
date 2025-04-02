@@ -3,6 +3,7 @@
 
 #include "../includes/estructuras.h"
 
+void imprimir_mensaje(char *texto_instancia);
 void imprimir_instancia(double **matriz_instancia, struct vrp_configuracion *vrp, char *texto_instancia);
 void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id);
 void imprimir_vehiculo(struct vehiculo *vehiculo);

@@ -1,33 +1,14 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "../includes/estructuras.h"
 #include "../includes/control_memoria.h"
 #include "../includes/lista_flota.h"
 #include "../includes/lista_ruta.h"
+#include "../includes/salida_datos.h"
 
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)
 {
-    if (!vrp || !vrp->clientes)
-    {
-        fprintf(stderr, "Error: Configuración VRP inválida\n");
-        return NULL;
-    }
-
-    struct nodo_vehiculo *vehiculo_nuevo = malloc(sizeof(struct nodo_vehiculo));
-    if (!vehiculo_nuevo)
-    {
-        fprintf(stderr, "Error: No se pudo asignar memoria para nodo_vehiculo\n");
-        return NULL;
-    }
-
-    vehiculo_nuevo->vehiculo = malloc(sizeof(struct vehiculo));
-    if (!vehiculo_nuevo->vehiculo)
-    {
-        fprintf(stderr, "Error: No se pudo asignar memoria para vehiculo\n");
-        free(vehiculo_nuevo);
-        return NULL;
-    }
-
+    struct nodo_vehiculo *vehiculo_nuevo = asignar_memoria_nodo_vehiculo();
+    vehiculo_nuevo->vehiculo =asignar_memoria_vehiculo();
     vehiculo_nuevo->vehiculo->id_vehiculo = id;
     vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad;
     vehiculo_nuevo->vehiculo->capacidad_acumulada = 0.0;
@@ -37,16 +18,7 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     vehiculo_nuevo->vehiculo->clientes_contados = 0;
     vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0;
     vehiculo_nuevo->vehiculo->velocidad = 1.0;
-
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();
-    if (!vehiculo_nuevo->vehiculo->ruta)
-    {
-        fprintf(stderr, "Error: No se pudo asignar memoria para la lista ruta\n");
-        free(vehiculo_nuevo->vehiculo);
-        free(vehiculo_nuevo);
-        return NULL;
-    }
-
     vehiculo_nuevo->siguiente = NULL;
     insertar_cliente_ruta(hormiga, vehiculo_nuevo->vehiculo, &(vrp->clientes[0]));
 
@@ -75,12 +47,12 @@ void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *v
         }
     }
     else
-        printf("\nError al asignar memoria al nodo del vehiculo.");
+    imprimir_mensaje("Error al asignar memoria al nodo del vehiculo.");
 }
 
 struct vehiculo *copiar_vehiculo(struct vehiculo *original)
 {
-    struct vehiculo *nuevo_vehiculo = malloc(sizeof(struct vehiculo));
+    struct vehiculo *nuevo_vehiculo = asignar_memoria_vehiculo();
 
     // Copiar todos los campos básicos
     nuevo_vehiculo->id_vehiculo = original->id_vehiculo;
@@ -101,14 +73,14 @@ struct vehiculo *copiar_vehiculo(struct vehiculo *original)
 
 struct lista_vehiculos *copiar_lista_vehiculos(struct lista_vehiculos *original)
 {
-    struct lista_vehiculos *nueva_lista = malloc(sizeof(struct lista_vehiculos));
+    struct lista_vehiculos *nueva_lista = asignar_memoria_lista_vehiculos();
     nueva_lista->cabeza = NULL;
     nueva_lista->cola = NULL;
 
     struct nodo_vehiculo *actual = original->cabeza;
     while (actual != NULL)
     {
-        struct nodo_vehiculo *nuevo_nodo = malloc(sizeof(struct nodo_vehiculo));
+        struct nodo_vehiculo *nuevo_nodo = asignar_memoria_nodo_vehiculo();
         nuevo_nodo->vehiculo = copiar_vehiculo(actual->vehiculo);
         nuevo_nodo->siguiente = NULL;
 
