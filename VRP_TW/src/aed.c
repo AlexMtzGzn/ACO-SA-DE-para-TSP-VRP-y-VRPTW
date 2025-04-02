@@ -234,8 +234,11 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    struct individuo *resultado = asignar_memoria_individuos(1);            // Asignamos memoria para el arreglo de resultados
    vrp_configuracion *vrp = leer_instancia(archivo_instancia);             // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
 
-   if (vrp == NULL) // Retornamos -1 si no se lleno bien el vrp
-      return -1;
+   if(!vrp || !vrp->clientes) //Ajustamos salida de emergencia en caso de no tener memeoria para el vrp
+   {
+      fprintf(stderr, "Error: No se pudo asignar memoria para el vrp.\n");
+      exit(EXIT_FAILURE);
+   }
 
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);     // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);       // Generamos memoria para la instancia de la feromona
