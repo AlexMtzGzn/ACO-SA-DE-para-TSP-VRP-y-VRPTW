@@ -8,7 +8,8 @@ void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id);
 void imprimir_vehiculo(struct vehiculo *vehiculo);
 void imprimir_flota(struct lista_vehiculos *flota);
 void imprimir_tabu(int *tabu, int num_clientes);
-void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas);
-void imprimir_mejor_hormiga(struct hormiga *hormiga);
+void imprimir_individuo(individuo *ind);
+void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, struct individuo * ind);
+void imprimir_mejor_hormiga(struct hormiga *hormiga,struct individuo * ind);
 
 #endif // SALIDA_DATOS_H

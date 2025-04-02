@@ -8,6 +8,7 @@
 #include "../includes/lista_flota.h"
 #include "../includes/lista_ruta.h"
 #include "../includes/control_memoria.h"
+#include "../includes/salida_datos.h"
 
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
@@ -363,9 +364,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     }
 
     if (ind->hormiga == NULL)
-        ind->hormiga = malloc(sizeof(struct hormiga) * 1);
+        ind->hormiga =(struct hormiga*)malloc(sizeof(struct hormiga) * 1);
 
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
-    // imprimir_hormigas(hormiga, vrp, ind->numHormigas);
+    //imprimir_hormigas(hormiga, vrp, ind);
     liberar_memoria_hormiga(hormiga, ind);
 }

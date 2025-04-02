@@ -30,7 +30,7 @@ void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id)
 
         actual = actual->siguiente;
     }
-    printf(" -> Depósito\n");
+    printf("Depósito\n");
 }
 
 // Función para imprimir la información de un vehículo
@@ -76,18 +76,23 @@ void imprimir_tabu(int *tabu, int num_clientes)
     printf("]\n");
 }
 
+void imprimir_individuo(individuo *ind)
+{
+
+    printf("Individio: ");
+    printf("Alpha: %.2lf, Beta: %.2lf, Gamma: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d\n\n", ind->alpha, ind->beta, ind->gamma, ind->rho, ind->numHormigas, ind->numIteraciones);
+}
+
 // Función principal para imprimir toda la información de las hormigas
-void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, int num_hormigas)
+void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, struct individuo * ind)
 {
     printf("=================================================\n");
     printf("INFORMACIÓN DE HORMIGAS Y SUS RUTAS\n");
     printf("=================================================\n");
-
-    for (int i = 0; i < num_hormigas; i++)
+    imprimir_individuo(ind);
+    for (int i = 0; i < ind->numHormigas; i++)
     {
         printf("\nHORMIGA (ID: %d)\n", hormigas[i].id_hormiga);
-        printf("  Generacion: %.2f\n", hormigas[i].fitness_global);
-        printf("  Poblacion: %.2f\n", hormigas[i].fitness_global);
         printf("  Vehículos contados: %d/%d\n", hormigas[i].vehiculos_necesarios, hormigas[i].vehiculos_maximos);
         printf("  Fitness global: %.2f\n", hormigas[i].fitness_global);
         imprimir_tabu(hormigas[i].tabu, vrp->num_clientes);
@@ -97,18 +102,14 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
     printf("=================================================\n");
 }
 
-void imprimir_mejor_hormiga(struct hormiga *hormiga)
+void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo *ind)
 {
     printf("=================================================\n");
     printf("INFORMACÍON DE MEJOR HORMIGA Y RUTA\n");
     printf("=================================================\n");
-
-    printf("\nHORMIGA (ID: %d)\n", hormiga->id_hormiga);
-    printf("  Generacion: %.2f\n", hormiga->fitness_global);
-    printf("  Poblacion: %.2f\n", hormiga->fitness_global);
+    imprimir_individuo(ind);
     printf("  Vehículos contados: %d/%d\n", hormiga->vehiculos_necesarios, hormiga->vehiculos_maximos);
     printf("  Fitness global: %.2f\n", hormiga->fitness_global);
     imprimir_flota(hormiga->flota);
-    printf("-------------------------------------------------\n");
     printf("=================================================\n");
 }
