@@ -24,7 +24,7 @@ void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp);
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);
 
 /*Para estructura de hormiga*/
-struct hormiga * asignar_memoria_hormigas(struct individuo * ind);
+struct hormiga *asignar_memoria_hormigas(int numHormigas);
 void liberar_memoria_hormiga(struct hormiga * hormiga, struct individuo * ind);
 void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 /*Para estructura de lista_ruta*/

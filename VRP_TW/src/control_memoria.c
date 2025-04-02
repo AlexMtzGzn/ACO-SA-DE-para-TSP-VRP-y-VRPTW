@@ -77,9 +77,9 @@ void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp) { return (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente)); }
 
 /*Para estructura de hormiga*/
-struct hormiga *asignar_memoria_hormigas(struct individuo *ind)
+struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
-    struct hormiga *hormiga = (struct hormiga *)malloc(sizeof(struct hormiga) * ind->numHormigas);
+    struct hormiga *hormiga = (struct hormiga *)malloc(sizeof(struct hormiga) * numHormigas);
     if (hormiga == NULL)
     {
         printf("Error: No se pudo asignar memoria para hormigas.\n");

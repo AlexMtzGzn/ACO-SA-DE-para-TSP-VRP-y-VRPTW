@@ -333,7 +333,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)
 {
 
-    struct hormiga *hormiga = asignar_memoria_hormigas(ind); // Agregamos memoria para el numero de hormigas
+    struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas); // Agregamos memoria para el numero de hormigas
     double delta;                                            // Definimos el delta
     int indice = -1;                                         // Definimos el indice y inicializamos en -1;
 
@@ -364,7 +364,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     }
 
     if (ind->hormiga == NULL)
-        ind->hormiga =(struct hormiga*)malloc(sizeof(struct hormiga) * 1);
+        ind->hormiga =asignar_memoria_hormigas(1);
 
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
     //imprimir_hormigas(hormiga, vrp, ind);

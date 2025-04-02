@@ -253,14 +253,14 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
    // imprimir_instancia(instancia_ventanas_tiempo,vrp,"INSTANCIA VENTANAS DE TIEMPO");
    // imprimir_instancia(instancia_visibilidad,vrp,"INSTANCIA VISIBILIDAD");
-   
 
+   // Inicializamos la estructura de resultados
    resultado->fitness = INFINITY;
-   resultado->hormiga = malloc(sizeof(struct hormiga) * 1);
-
+   resultado->hormiga = asignar_memoria_hormigas(1);
+   // Evaluamos la función objetivo para cada individuo de la población inicial
    for (int i = 0; i < num_poblacion; ++i) // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
-
+   // Encontramos el mejor individuo de la población inicial
    for (int i = 0; i < num_poblacion; i++)
    {
       if (objetivo[i].fitness < resultado->fitness)
@@ -280,12 +280,13 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    {
       construyeRuidosos(objetivo, ruidoso, num_poblacion);       // Contruimos Ruidosos
       construyePrueba(objetivo, ruidoso, prueba, num_poblacion); // Contruimos Prueba
-
-      for (int j = 0; j < num_poblacion; ++j) // Mandamos a evaluar la funcion objetivo de prueba{
+                                                                 // Evaluamos la función objetivo para cada individuo de prueba
+      for (int j = 0; j < num_poblacion; ++j)                    // Mandamos a evaluar la funcion objetivo de prueba{
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
 
       for (int i = 0; i < num_poblacion; i++)
       {
+         // Actualizamos el mejor resultado si encontramos uno mejor
          if (prueba[i].fitness < resultado->fitness)
          {
             resultado->alpha = prueba[i].alpha;
@@ -297,11 +298,11 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);
          }
       }
-
+      // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
    }
 
-   imprimir_mejor_hormiga(resultado->hormiga,resultado);
+   imprimir_mejor_hormiga(resultado->hormiga, resultado);
 
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
@@ -310,7 +311,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    liberar_individuos(objetivo, num_poblacion, true);               // Liberemos la memoria del objetivo
    liberar_individuos(prueba, num_poblacion, true);                 // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);               // Liberemos la memoria del ruidoso
-   liberar_individuos(resultado, 1, true);                         // Liberemos los resultado
+   liberar_individuos(resultado, 1, true);                          // Liberemos los resultado
    liberar_memoria_vrp_configuracion(vrp);                          // Liberemos la memoria del vrp
 
    return 0;

@@ -32,7 +32,7 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
     vrp->num_capacidad = num_capacidad;
     vrp->num_clientes = num_clientes;
 
-    vrp->clientes = (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente));
+    vrp->clientes = asignar_memoria_clientes(vrp);
     if (vrp->clientes == NULL)
     {
         printf("Error al asignar memoria para los clientes.\n");
@@ -196,21 +196,28 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
     vrp->num_clientes = 0;  // Inicializamos numero de clientes en 0
     vrp->clientes = NULL;   // Inicializamos la estructura vrp_clientes en NULL
 
-    snprintf(ruta, sizeof(ruta), "Instancias/%s.csv", archivo_instancia); // Concatenamos el archivo_instancia con la ruta de la carpeta y la extension de formato
+    snprintf(ruta, sizeof(ruta), "Instancias/%s.csv", archivo_instancia);
     FILE *archivo = fopen(ruta, "r");
 
-    if (archivo) // Verificamos si el archivo existe con el formato csv
+    if (archivo)
     {
-        leemos_csv(vrp, archivo_instancia); // Vamos a
+        leemos_csv(vrp, archivo_instancia);
+        fclose(archivo); 
         return vrp;
     }
-    else
-    {
-        snprintf(ruta, sizeof(ruta), "VRP_Solomon/%s.txt", archivo_instancia); // Cambiomos la concatenacion de la instancia
 
+    // Si no existe el CSV, intentamos con el TXT
+    snprintf(ruta, sizeof(ruta), "VRP_Solomon/%s.txt", archivo_instancia);
+    archivo = fopen(ruta, "r");
+
+    if (archivo)
+    {
         leemos_txt(vrp, ruta);
         creamos_csv(vrp, archivo_instancia);
-
-        return vrp;
+        fclose(archivo); 
     }
+
+
+    return vrp;
+
 }
