@@ -32,8 +32,7 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
          }
          else
          {
-            instancia_visibilidad[i][j] = 0.0;
-            instancia_visibilidad[j][i] = 0.0;
+            instancia_visibilidad[i][j] = 0.0; // Es 0.0
          }
       }
    }
@@ -54,8 +53,7 @@ void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_c
          }
          else
          {
-            instancia_ventanas_tiempo[i][j] = 0.0;
-            instancia_ventanas_tiempo[j][i] = 0.0;
+            instancia_ventanas_tiempo[i][j] = 0.0; // Es 0.0
          }
       }
    }
@@ -78,7 +76,7 @@ void inicializar_Distancias(double **instancia_distancias, struct vrp_configurac
          }
          else
          {
-            instancia_distancias[i][j] = 0.0;
+            instancia_distancias[i][j] = 0.0; // Es 0.0
          }
       }
    }
@@ -142,36 +140,42 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       ruidoso[i].numIteraciones = objetivo[aleatorio1].numIteraciones + (int)(0.5 * (objetivo[aleatorio2].numIteraciones - objetivo[aleatorio3].numIteraciones));
 
       // Limita los valores de los parámetros para que estén dentro de un rango válido
+      // Ajusta los valores de alpha dentro del rango permitido [0.1, 2.0]
       if (ruidoso[i].alpha > 2.0)
          ruidoso[i].alpha = 2.0;
 
       if (ruidoso[i].alpha < 0.1)
          ruidoso[i].alpha = 0.1;
 
+      // Ajusta los valores de beta dentro del rango permitido [1.5, 2.5]
       if (ruidoso[i].beta > 2.5)
          ruidoso[i].beta = 2.5;
 
       if (ruidoso[i].beta < 1.5)
          ruidoso[i].beta = 1.5;
 
+      // Ajusta los valores de gamma dentro del rango permitido [0.0, 1.5]
       if (ruidoso[i].gamma > 1.5)
          ruidoso[i].gamma = 1.5;
 
       if (ruidoso[i].gamma < 0.0)
          ruidoso[i].gamma = 0.0;
 
+      // Ajusta los valores de rho dentro del rango permitido [0.0, 0.9]
       if (ruidoso[i].rho > 0.9)
          ruidoso[i].rho = 0.9;
 
       if (ruidoso[i].rho < 0.0)
          ruidoso[i].rho = 0.0;
 
+      // Ajusta el número de hormigas dentro del rango permitido [10, 30]
       if (ruidoso[i].numHormigas > 30)
          ruidoso[i].numHormigas = 30;
 
       if (ruidoso[i].numHormigas < 10)
          ruidoso[i].numHormigas = 10;
 
+      // Ajusta el número de iteraciones dentro del rango permitido [30, 80]
       if (ruidoso[i].numIteraciones > 80)
          ruidoso[i].numIteraciones = 80;
 
@@ -181,11 +185,16 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
 }
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
+   // Itera sobre todos los individuos en la población.
    for (int i = 0; i < poblacion; ++i)
    {
+      // Genera un número aleatorio en el rango [0,1].
       double aleatorio = (double)rand() / RAND_MAX;
+
+      // Con una probabilidad del 50%, selecciona el individuo de la población objetivo.
       if (aleatorio <= 0.5)
          prueba[i] = objetivo[i];
+      // En caso contrario, selecciona el individuo de la población ruidosa.
       else
          prueba[i] = ruidoso[i];
    }
@@ -208,7 +217,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
       // Asignamos valores aleatorios dentro de los nuevos rangos
       objetivo[i].alpha = generaAleatorio(0.1, 2.0);             // alpha: entre 0.1 y 2.0
       objetivo[i].beta = generaAleatorio(1.5, 2.5);              // beta: entre 1.5 y 2.5
-      objetivo[i].gamma = generaAleatorio(0.0, 1.5);             // gamma: entre 1.5 y 2.5
+      objetivo[i].gamma = generaAleatorio(0.0, 1.5);             // gamma: entre 0.0 y 1.5
       objetivo[i].rho = generaAleatorio(0.0, 0.9);               // rho: entre 0.0 y 0.9
       objetivo[i].numHormigas = (int)generaAleatorio(10, 30);    // numHormigas: entre 10 y 30
       objetivo[i].numIteraciones = (int)generaAleatorio(30, 80); // numIteraciones: entre 30 y 80
@@ -283,7 +292,7 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
    }
-   imprimir_hormigas(resultados[0].hormiga,vrp,1);
+   imprimir_hormigas(resultados[0].hormiga, vrp, 1);
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
