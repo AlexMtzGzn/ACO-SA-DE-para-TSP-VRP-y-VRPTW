@@ -174,7 +174,7 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
     hormiga->vehiculos_necesarios++;
 }
 
-/*Para estructura de lista_ruta*/
+/*Para estructura de ruta*/
 struct lista_ruta *asignar_memoria_lista_ruta()
 {
     struct lista_ruta *nueva_lista = (struct lista_ruta *)malloc(sizeof(struct lista_ruta));
@@ -191,7 +191,20 @@ struct lista_ruta *asignar_memoria_lista_ruta()
 
     return nueva_lista;
 }
-/*Para estructura de lista_vehiculos*/
+
+struct nodo_ruta *asignar_memoria_nodo_ruta()
+{
+
+    struct nodo_ruta *nodo_nuevo = (struct nodo_ruta *)malloc(sizeof(struct nodo_ruta));
+    if (!nodo_nuevo)
+    {
+        imprimir_mensaje("Error: No se pudo asignar memoria para nodo_ruta");
+        exit(EXIT_FAILURE);
+    }
+    return nodo_nuevo;
+}
+
+/*Para estructura de vehiculos*/
 lista_vehiculos *asignar_memoria_lista_vehiculos()
 {
     lista_vehiculos *nueva_lista = (lista_vehiculos *)malloc(sizeof(lista_vehiculos));
@@ -230,14 +243,3 @@ struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
     return nodo_vehiculo;
 }
 
-struct nodo_ruta *asignar_memoria_nodo_ruta()
-{
-
-    struct nodo_ruta *nodo_nuevo = (struct nodo_ruta *)malloc(sizeof(struct nodo_ruta));
-    if (!nodo_nuevo)
-    {
-        imprimir_mensaje("Error: No se pudo asignar memoria para nodo_ruta");
-        exit(EXIT_FAILURE);
-    }
-    return nodo_nuevo;
-}
