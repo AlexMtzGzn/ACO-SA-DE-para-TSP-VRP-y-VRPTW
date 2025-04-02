@@ -11,16 +11,27 @@
 
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
-
+    // Copiamos la ID de la hormiga mejorada al individuo
     ind->hormiga->id_hormiga = hormiga->id_hormiga;
+
+    // Copiamos el fitness global de la hormiga mejorada al individuo
     ind->fitness = hormiga->fitness_global;
     ind->hormiga->fitness_global = hormiga->fitness_global;
+
+    // Copiamos los vehículos máximos que la hormiga puede utilizar
     ind->hormiga->vehiculos_maximos = hormiga->vehiculos_maximos;
+
+    // Copiamos los vehículos necesarios utilizados por la hormiga
     ind->hormiga->vehiculos_necesarios = hormiga->vehiculos_necesarios;
+
+    // Verificamos si la flota de la hormiga es nula (no se ha asignado aún)
     if (hormiga->flota == NULL)
-        liberar_lista_vehiculos(ind->hormiga->flota);
-    ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota);
+        liberar_lista_vehiculos(ind->hormiga->flota);  // Liberamos cualquier memoria previamente asignada a la flota
+
+    // Copiamos la flota de vehículos de la hormiga al individuo
+    ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota);  // Se crea una copia de la flota de la hormiga para el individuo
 }
+
 
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
 {
