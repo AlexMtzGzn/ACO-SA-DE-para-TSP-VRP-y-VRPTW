@@ -79,7 +79,7 @@ void imprimir_tabu(int *tabu, int num_clientes)
 void imprimir_individuo(individuo *ind)
 {
 
-    printf("Individio: ");
+    printf("Individuo: ");
     printf("Alpha: %.2lf, Beta: %.2lf, Gamma: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d\n\n", ind->alpha, ind->beta, ind->gamma, ind->rho, ind->numHormigas, ind->numIteraciones);
 }
 
