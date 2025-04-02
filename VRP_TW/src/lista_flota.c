@@ -7,19 +7,22 @@
 
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)
 {
-    if (!vrp || !vrp->clientes) {
+    if (!vrp || !vrp->clientes)
+    {
         fprintf(stderr, "Error: Configuración VRP inválida\n");
         return NULL;
     }
 
     struct nodo_vehiculo *vehiculo_nuevo = malloc(sizeof(struct nodo_vehiculo));
-    if (!vehiculo_nuevo) {
+    if (!vehiculo_nuevo)
+    {
         fprintf(stderr, "Error: No se pudo asignar memoria para nodo_vehiculo\n");
         return NULL;
     }
 
     vehiculo_nuevo->vehiculo = malloc(sizeof(struct vehiculo));
-    if (!vehiculo_nuevo->vehiculo) {
+    if (!vehiculo_nuevo->vehiculo)
+    {
         fprintf(stderr, "Error: No se pudo asignar memoria para vehiculo\n");
         free(vehiculo_nuevo);
         return NULL;
@@ -36,7 +39,8 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     vehiculo_nuevo->vehiculo->velocidad = 1.0;
 
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();
-    if (!vehiculo_nuevo->vehiculo->ruta) {
+    if (!vehiculo_nuevo->vehiculo->ruta)
+    {
         fprintf(stderr, "Error: No se pudo asignar memoria para la lista ruta\n");
         free(vehiculo_nuevo->vehiculo);
         free(vehiculo_nuevo);
@@ -49,7 +53,6 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     return vehiculo_nuevo;
 }
 
-
 bool es_Vacia_Lista(struct lista_vehiculos *flota)
 {
     return flota->cabeza == NULL;
@@ -57,7 +60,7 @@ bool es_Vacia_Lista(struct lista_vehiculos *flota)
 
 void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)
 {
-    struct nodo_vehiculo *vehiculo_nuevo = crearNodo(hormiga, vrp, id); 
+    struct nodo_vehiculo *vehiculo_nuevo = crearNodo(hormiga, vrp, id);
 
     if (vehiculo_nuevo != NULL)
     {
@@ -75,10 +78,10 @@ void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *v
         printf("\nError al asignar memoria al nodo del vehiculo.");
 }
 
-struct vehiculo* copiar_vehiculo(struct vehiculo *original)
+struct vehiculo *copiar_vehiculo(struct vehiculo *original)
 {
     struct vehiculo *nuevo_vehiculo = malloc(sizeof(struct vehiculo));
-    
+
     // Copiar todos los campos básicos
     nuevo_vehiculo->id_vehiculo = original->id_vehiculo;
     nuevo_vehiculo->capacidad_maxima = original->capacidad_maxima;
@@ -89,19 +92,15 @@ struct vehiculo* copiar_vehiculo(struct vehiculo *original)
     nuevo_vehiculo->velocidad = original->velocidad;
     nuevo_vehiculo->clientes_contados = original->clientes_contados;
     nuevo_vehiculo->fitness_vehiculo = original->fitness_vehiculo;
-    
+
     // Usar la función copiar_ruta para la ruta
     nuevo_vehiculo->ruta = copiar_ruta(original);
-    
+
     return nuevo_vehiculo;
 }
 
-
-struct lista_vehiculos* copiar_lista_vehiculos(struct lista_vehiculos *original)
+struct lista_vehiculos *copiar_lista_vehiculos(struct lista_vehiculos *original)
 {
-    if (original == NULL)
-        return NULL;
-        
     struct lista_vehiculos *nueva_lista = malloc(sizeof(struct lista_vehiculos));
     nueva_lista->cabeza = NULL;
     nueva_lista->cola = NULL;
@@ -132,33 +131,25 @@ struct lista_vehiculos* copiar_lista_vehiculos(struct lista_vehiculos *original)
 
 void liberar_vehiculo(struct vehiculo *vehiculo)
 {
-    if (vehiculo == NULL)
-        return;
-        
-    // Liberar la ruta
     liberar_ruta(vehiculo->ruta);
-    
-    // Liberar el vehículo
     free(vehiculo);
 }
 
-void liberar_lista_vehiculos(struct lista_vehiculos *lista)
+void liberar_lista_vehiculos(struct lista_vehiculos *flota)
 {
-    if (lista == NULL)
-        return;
-        
-    struct nodo_vehiculo *actual = lista->cabeza;
-    while (actual != NULL)
+    struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
+    while (vehiculo_actual)
     {
-        struct nodo_vehiculo *temp = actual;
-        actual = actual->siguiente;
+        struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
+        vehiculo_actual = vehiculo_actual->siguiente;
 
         // Liberar el vehículo usando la función dedicada
-        liberar_vehiculo(temp->vehiculo);
+        liberar_vehiculo(vehiculo_temp->vehiculo);
 
         // Liberar el nodo de vehículo
-        free(temp);
+        free(vehiculo_temp);
     }
 
-    free(lista);
+    flota->cabeza = NULL;
+    flota->cola = NULL;
 }

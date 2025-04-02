@@ -71,7 +71,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
       {
          // Si i y j son diferentes (es decir, no es la misma ciudad), se asigna un valor de feromona de 1.0
          if (i != j)
-            instancia_feromona[i][j] = 1.0; //Hay que revisr si lo hacemo entre la ventana del tiempo final
+            instancia_feromona[i][j] = 1.0 / vrp->clientes[j].vt_final; // Hay que revisr si lo hacemo entre la ventana del tiempo final
          // Si i y j son iguales (es decir, es la misma ciudad), la feromona se establece en 0.0
          else
             instancia_feromona[i][j] = 0.0;
@@ -138,8 +138,8 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].gamma < 0.0)
          ruidoso[i].gamma = 0.0;
 
-      if (ruidoso[i].rho > 1.0)
-         ruidoso[i].rho = 1.0;
+      if (ruidoso[i].rho > 0.9)
+         ruidoso[i].rho = 0.9;
 
       if (ruidoso[i].rho < 0.0)
          ruidoso[i].rho = 0.0;
@@ -187,7 +187,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
       objetivo[i].alpha = generaAleatorio(0.1, 2.0);             // alpha: entre 0.1 y 2.0
       objetivo[i].beta = generaAleatorio(1.5, 2.5);              // beta: entre 1.5 y 2.5
       objetivo[i].gamma = generaAleatorio(0.0, 1.5);             // gamma: entre 1.5 y 2.5
-      objetivo[i].rho = generaAleatorio(0.0, 1.0);               // rho: entre 0.0 y 1.0
+      objetivo[i].rho = generaAleatorio(0.0, 0.9);               // rho: entre 0.0 y 1.0
       objetivo[i].numHormigas = (int)generaAleatorio(10, 30);    // numHormigas: entre 10 y 30
       objetivo[i].numIteraciones = (int)generaAleatorio(30, 80); // numIteraciones: entre 30 y 80
    }
@@ -215,17 +215,21 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    inicializar_Feromona(vrp, instancia_feromonas);             // Inicializamos la feromona
    inicializaPoblacion(objetivo, num_poblacion);               // Inicializamos la poblacion
 
-   for (int i = 0; i < num_poblacion; ++i) // Iniciamos la funcion objetivo con el objetivo
+   for (int i = 0; i < num_poblacion; ++i){ // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
-
+      printf("%lf\n",objetivo[i].fitness);
+   }
    // Inicializamos ya las generaciones
    for (int i = 0; i < num_generaciones; i++)
    {
       construyeRuidosos(objetivo, ruidoso, num_poblacion);       // Contruimos Ruidosos
       construyePrueba(objetivo, ruidoso, prueba, num_poblacion); // Contruimos Prueba
 
-      for (int j = 0; j < num_poblacion; ++j) // Mandamos a evaluar la funcion objetivo de prueba
+      for (int j = 0; j < num_poblacion; ++j){ // Mandamos a evaluar la funcion objetivo de prueba{
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
+         printf("%lf\n",prueba[j].fitness);
+         //imprimir_hormigas(prueba[j].hormiga, vrp, 1);
+      }
 
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
    }
@@ -234,9 +238,9 @@ int aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
    liberar_instancia(instancia_ventanas_tiempo, vrp->num_clientes); // Liberemos la memoria de la instancia ventanas de tiempo
-   liberar_individuos(objetivo);                                    // Liberemos la memoria del objetivo
-   liberar_individuos(prueba);                                      // Liberemos la memoria de la prueba
-   liberar_individuos(ruidoso);                                     // Liberemos la memoria del ruidoso
+   liberar_individuos(objetivo, num_poblacion, true);               // Liberemos la memoria del objetivo
+   liberar_individuos(prueba, num_poblacion, true);                 // Liberemos la memoria de la prueba
+   liberar_individuos(ruidoso, num_poblacion, false);               // Liberemos la memoria del ruidoso
    liberar_memoria_vrp_configuracion(vrp);                          // Liberemos la memoria del vrp
 
    return 0;

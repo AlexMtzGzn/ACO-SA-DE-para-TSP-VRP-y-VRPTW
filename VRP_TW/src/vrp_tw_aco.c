@@ -114,8 +114,6 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
     printf("=================================================\n");
 }
 
-
-
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
 
@@ -124,9 +122,8 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
     ind->hormiga->fitness_global = hormiga->fitness_global;
     ind->hormiga->vehiculos_maximos = hormiga->vehiculos_maximos;
     ind->hormiga->vehiculos_necesarios = hormiga->vehiculos_necesarios;
-
-   //Revisar liberar_lista_vehiculos(ind->hormiga->flota);
-    
+    if (hormiga->flota == NULL)
+        liberar_lista_vehiculos(ind->hormiga->flota);
     ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota);
 }
 
@@ -330,15 +327,16 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
 
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo)
 {
-    int contador_escape = 0;
+
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza; // Seleccionamos la flota de la hormiga
     struct vehiculo *vehiculo = flota_vehiculo->vehiculo;          // Seleccionamos la cabeza de la flota de la hormiga
     struct lista_ruta *ruta = vehiculo->ruta;                      // Declaramos el apuntador ruta
     struct nodo_ruta *ultimo_cliente_ruta;                         // Apuntador del último cliente en la ruta
-    int origen;                                                    // Origen para asignar el último cliente de la ruta
+    int origen;
+    // Origen para asignar el último cliente de la ruta
 
     // Bucle principal: continua hasta que la hormiga haya recorrido todos los clientes
-    while (hormiga->tabu_contador <= vrp->num_clientes)
+    while (hormiga->tabu_contador < vrp->num_clientes)
     {
         // Reseteamos las probabilidades de los clientes
         for (int i = 0; i < vrp->num_clientes; i++)
@@ -346,8 +344,9 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
         hormiga->posibles_clientes_contador = 0; // Resetamos el contador de posibles clientes
 
         // Mientras no haya posibles clientes y el vehículo esté dentro de su ventana de tiempo
-        while (hormiga->posibles_clientes_contador == 0 && vehiculo->vt_actual <= vehiculo->vt_final)
+        while (hormiga->posibles_clientes_contador == 0 && vehiculo->vt_actual <= vrp->clientes[0].vt_final)
         {
+
             ruta = vehiculo->ruta;                 // Asignamos la ruta del vehículo
             ultimo_cliente_ruta = ruta->cola;      // Asignamos el último cliente en la ruta
             origen = ultimo_cliente_ruta->cliente; // Asignamos el cliente origen
@@ -363,8 +362,11 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             // Si no hay clientes posibles, verificamos si podemos agregar un vehículo a la flota
             if (hormiga->vehiculos_necesarios + 1 <= hormiga->vehiculos_maximos)
             {
-                if (ruta->cola->cliente != 0)                                      // Verificamos si el vehículo actual ya ha regresado al depósito
+                if (ruta->cola->cliente != 0)
+                {
+                    // Verificamos si el vehículo actual ya ha regresado al depósito
                     insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el depósito
+                }
 
                 // Si aún no hemos alcanzado el número de vehículos necesarios, agregamos uno más
                 if (hormiga->tabu_contador < vrp->num_clientes)
@@ -376,22 +378,14 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                 }
                 else
                 {
-                    break; // Si no se puede agregar un vehículo, rompemos el ciclo
+
+                    reiniciar_hormiga(hormiga, vrp);
                 }
             }
             else
             {
-                if (contador_escape < 1000)
-                {
-                    reiniciar_hormiga(hormiga, vrp); // Reiniciamos la hormiga si no se pudo generar una ruta válida
-                    contador_escape++;
-                }
-                else
-                {
-                    hormiga->fitness_global = INFINITY;
-                    printf("\nSi hubo");
-                    break;
-                }
+
+                reiniciar_hormiga(hormiga, vrp);
             }
         }
         else
@@ -448,15 +442,16 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     int indice = -1;                                         // Definimos el indice y inicializamos en -1;
 
     inicializar_hormiga(vrp, ind, hormiga); // Inicializamos las hormigas
-
+    printf("Parámetros actuales: alpha=%.2lf, beta=%.2lf, gamma=%.2lf rho=%.2lf\n",
+           ind->alpha, ind->beta, ind->gamma, ind->rho);
     for (int i = 0; i < ind->numIteraciones; i++)
     {
         for (int j = 0; j < ind->numHormigas; j++)
         {
+
             aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias, instancia_ventanas_tiempo);
             calcular_fitness(&hormiga[j], instancia_distancias);
         }
-
         delta = INFINITY;
         for (int j = 0; j < ind->numHormigas; j++)
             if (hormiga[j].fitness_global < delta)
@@ -472,12 +467,13 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             for (int j = 0; j < ind->numHormigas; j++)
                 reiniciar_hormiga(&hormiga[j], vrp);
     }
+
     // Aqui debemos inicializar el individuo
+
     if (ind->hormiga == NULL)
         ind->hormiga = malloc(sizeof(struct hormiga) * 1);
-    // Aqui debemos recuperar la mejor hormiga
 
-    // void recuperamos_mejor_hormiga(ind,&hormiga[indice]);
-    imprimir_hormigas(hormiga, vrp, ind->numHormigas);
+    recuperamos_mejor_hormiga(ind, &hormiga[indice]);
+    // imprimir_hormigas(hormiga, vrp, ind->numHormigas);
     liberar_memoria_hormiga(hormiga, ind);
 }

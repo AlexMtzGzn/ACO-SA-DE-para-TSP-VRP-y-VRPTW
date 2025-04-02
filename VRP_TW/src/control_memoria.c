@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "../includes/estructuras.h"
-
+#include "../includes/lista_flota.h"
 /*Para arreglos y instancias*/
 
 double **asignar_memoria_instancia(int tamanio_instancia)
@@ -50,8 +50,13 @@ struct individuo *asignar_memoria_individuos(int poblacion)
     return (struct individuo *)malloc(sizeof(struct individuo) * poblacion);
 }
 
-void liberar_individuos(struct individuo *ind)
+void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
+
+    if (tipo)
+        for (int i = 0; i < num_poblacion; i++)
+            liberar_lista_vehiculos(ind[i].hormiga->flota);
+
     free(ind);
 }
 
@@ -65,7 +70,6 @@ void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
         free(vrp->clientes);
         vrp->clientes = NULL;
         free(vrp);
-        vrp = NULL;
     }
 }
 
@@ -84,34 +88,16 @@ struct hormiga *asignar_memoria_hormigas(struct individuo *ind)
     return hormiga;
 }
 
-void liberar_memoria_hormiga(struct hormiga * hormiga, struct individuo * ind)
+void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
 {
     // Liberar las estructuras dinámicas dentro de cada hormiga
     for (int i = 0; i < ind->numHormigas; i++)
     {
         // Liberar la memoria de la tabla tabu
-        free(hormiga[i].tabu);
-        // Liberar las probabilidades si están asignadas dinámicamente
-        free(hormiga[i].probabilidades);
-
-        free(hormiga[i].posibles_clientes);
-
-        // Liberar la flota (si está asignada dinámicamente)
-        struct nodo_vehiculo *vehiculo_actual = hormiga[i].flota->cabeza;
-        while (vehiculo_actual != NULL)
-        {
-            // Liberar las rutas de cada vehículo
-            struct nodo_ruta *nodo_actual = vehiculo_actual->vehiculo->ruta->cabeza;
-            while (nodo_actual != NULL)
-            {
-                struct nodo_ruta *temp = nodo_actual;
-                nodo_actual = nodo_actual->siguiente;
-                free(temp);
-            }
-            free(vehiculo_actual->vehiculo->ruta);
-            vehiculo_actual = vehiculo_actual->siguiente;
-        }
-        free(hormiga[i].flota);
+        liberar_memoria_arreglo_int(hormiga[i].tabu);
+        liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
+        liberar_memoria_arreglo_double(hormiga[i].probabilidades);
+        liberar_lista_vehiculos(hormiga[i].flota);
     }
     // Finalmente, liberar la memoria de las hormigas
     free(hormiga);
@@ -119,7 +105,7 @@ void liberar_memoria_hormiga(struct hormiga * hormiga, struct individuo * ind)
 
 void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 {
-    // Reset ant's data
+    // Reiniciamos los datos de los arreglos tabu, posibles_clientes y probabilidades cada uno 0 en s posicion
     for (int i = 0; i < vrp->num_clientes; i++)
     {
         hormiga->tabu[i] = 0;
@@ -131,49 +117,11 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
     hormiga->posibles_clientes_contador = 0;
     hormiga->suma_probabilidades = 0.0;
     hormiga->fitness_global = 0.0;
-
-    // Clear the vehicle fleet but preserve the fleet structure itself
-    if (hormiga->flota)
-    {
-        struct nodo_vehiculo *nodo_actual = hormiga->flota->cabeza;
-        while (nodo_actual)
-        {
-            struct nodo_vehiculo *temp = nodo_actual;
-            nodo_actual = nodo_actual->siguiente;
-
-            // Free the vehicle's route
-            if (temp->vehiculo && temp->vehiculo->ruta)
-            {
-                struct nodo_ruta *nodo_ruta = temp->vehiculo->ruta->cabeza;
-                while (nodo_ruta)
-                {
-                    struct nodo_ruta *temp_ruta = nodo_ruta;
-                    nodo_ruta = nodo_ruta->siguiente;
-                    free(temp_ruta);
-                }
-
-                // Free the route structure
-                free(temp->vehiculo->ruta);
-            }
-
-            // Free the vehicle
-            free(temp->vehiculo);
-            free(temp);
-        }
-
-        // Reset the fleet pointers
-        hormiga->flota->cabeza = NULL;
-        hormiga->flota->cola = NULL;
-    }
-
-    // Reset vehicle count
+    liberar_lista_vehiculos(hormiga->flota);
     hormiga->vehiculos_necesarios = 0;
-
-    // Reinitialize the fleet with a first vehicle
     inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1);
     hormiga->vehiculos_necesarios++;
 }
-
 
 /*Para estructura de lista_ruta*/
 struct lista_ruta *asignar_memoria_lista_ruta()

@@ -98,15 +98,13 @@ struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
 
 void liberar_ruta(struct lista_ruta *ruta)
 {
-    if (ruta == NULL)
-        return;
 
-    struct nodo_ruta *actual = ruta->cabeza;
-    while (actual != NULL)
+    struct nodo_ruta *cliente_actual = ruta->cabeza;
+    while (cliente_actual)
     {
-        struct nodo_ruta *temp = actual;
-        actual = actual->siguiente;
-        free(temp);
+        struct nodo_ruta *cliente_temp = cliente_actual;
+        cliente_actual = cliente_actual->siguiente;
+        free(cliente_temp);
     }
     
     free(ruta);

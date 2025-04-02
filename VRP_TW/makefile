@@ -14,14 +14,14 @@ OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 TARGET = main
 
 # Flags de compilación
-CFLAGS = -Wall -I$(INCLUDE_DIR) -O2
+CFLAGS = -Wall -I$(INCLUDE_DIR) -O2 -g
 
 # Regla principal
 all: $(TARGET)
 
 # Compilar el ejecutable
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@ -lm
+	$(CC) $(CFLAGS) $^ -g -o $@ -lm
 
 # Compilar archivos fuente a objetos
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
@@ -38,3 +38,7 @@ clean:
 # Limpiar todo (incluyendo ejecutable)
 dist-clean: clean
 	rm -f $(TARGET)
+
+# Modo Debug
+debug: CFLAGS += -g -DDEBUG
+debug: clean $(TARGET)
