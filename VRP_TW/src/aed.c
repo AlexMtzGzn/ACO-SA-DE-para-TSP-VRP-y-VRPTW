@@ -306,7 +306,8 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia
    }
    // Imprimimos la meojor homriga
    imprimir_mejor_hormiga(resultado->hormiga, resultado);
-
+   guardar_json_en_archivo(resultado,vrp,archivo_instancia);
+   
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
