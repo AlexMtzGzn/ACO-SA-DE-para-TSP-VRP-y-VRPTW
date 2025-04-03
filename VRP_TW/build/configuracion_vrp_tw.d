@@ -1,10 +1,9 @@
 build/configuracion_vrp_tw.o: src/configuracion_vrp_tw.c \
- src/../includes/control_memoria.h \
- src/../includes/../includes/estructuras.h \
- src/../includes/configuracion_vrp_tw.h src/../includes/estructuras.h \
- src/../includes/salida_datos.h
-src/../includes/control_memoria.h:
-src/../includes/../includes/estructuras.h:
-src/../includes/configuracion_vrp_tw.h:
-src/../includes/estructuras.h:
-src/../includes/salida_datos.h:
+ src/../include/control_memoria.h src/../include/../include/estructuras.h \
+ src/../include/configuracion_vrp_tw.h src/../include/estructuras.h \
+ src/../include/salida_datos.h
+src/../include/control_memoria.h:
+src/../include/../include/estructuras.h:
+src/../include/configuracion_vrp_tw.h:
+src/../include/estructuras.h:
+src/../include/salida_datos.h:
