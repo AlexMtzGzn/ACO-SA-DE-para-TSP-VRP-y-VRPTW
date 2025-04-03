@@ -226,9 +226,6 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
 
 }
 
-
-
-
 // Función para generar un objeto JSON con las coordenadas de la ruta
 cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes) {
     cJSON *json_ruta = cJSON_CreateArray();
