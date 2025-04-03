@@ -228,6 +228,8 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
 
 void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
+   clock_t timepo_inicial, timepo_final;
+   timepo_inicial = clock();
    char respuesta;                                                         // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  // Asignamos memoria para el arreglo ruidoso
@@ -305,9 +307,13 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia
       // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
    }
+
+   timepo_final = clock();
+   double minutos = (((double)(timepo_final - timepo_inicial)) / CLOCKS_PER_SEC) / 60.0;
+
    // Imprimimos la meojor homriga
    imprimir_mejor_hormiga(resultado->hormiga, resultado);
-
+   printf("El tiempo de ejecución es: %.2f minutos\n", minutos);
    printf("¿Quieres imprimir el archivo JSON (s/n)? ");
    scanf(" %c", &respuesta);
 
