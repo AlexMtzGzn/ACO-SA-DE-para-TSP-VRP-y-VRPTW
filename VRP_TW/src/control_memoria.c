@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../includes/estructuras.h"
-#include "../includes/lista_flota.h"
-#include "../includes/salida_datos.h"
+#include "../include/estructuras.h"
+#include "../include/lista_flota.h"
+#include "../include/salida_datos.h"
 
 /*Funciones para asignación y liberación de memoria para arreglos y matrices*/
 

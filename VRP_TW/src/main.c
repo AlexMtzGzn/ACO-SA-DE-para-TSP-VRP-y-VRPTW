@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "../includes/aed.h"
+#include "../include/aed.h"
 
 int main(int argc, char *argv[])
 {

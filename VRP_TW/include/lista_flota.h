@@ -2,7 +2,7 @@
 #define LISTA_FLOTA_H
 
 #include <stdbool.h>
-#include "../includes/estructuras.h"
+#include "../include/estructuras.h"
 
 // Función para crear un nuevo nodo de vehículo en la flota de una hormiga
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id);

@@ -3,7 +3,7 @@
 
 // Incluimos las bibliotecas necesarias
 #include <stdbool.h>
-#include "../includes/estructuras.h"
+#include "../include/estructuras.h"
 
 // Funciones para asignar y liberar memoria para arreglos e instancias
 

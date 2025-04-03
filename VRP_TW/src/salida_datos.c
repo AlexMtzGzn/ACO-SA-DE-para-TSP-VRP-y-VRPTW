@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../includes/estructuras.h"
+#include "../include/estructuras.h"
 
 // Función para imprimir un mensaje de error
 void imprimir_mensaje(char *texto_instancia) {
@@ -59,7 +59,6 @@ void imprimir_flota(struct lista_vehiculos *flota) {
     int contador = 1;
 
     while (actual != NULL) { // Recorre todos los vehículos
-        printf("  Vehículo #%d:\n", contador);
         imprimir_vehiculo(actual->vehiculo); // Imprime los detalles del vehículo
         actual = actual->siguiente; // Avanza al siguiente nodo
         contador++;

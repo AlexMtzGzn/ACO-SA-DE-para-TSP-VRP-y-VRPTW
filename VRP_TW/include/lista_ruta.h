@@ -2,7 +2,7 @@
 #define LISTA_RUTA_H
 
 #include <stdbool.h>
-#include "../includes/estructuras.h"
+#include "../include/estructuras.h"
 
 // Función para crear un nuevo nodo en la ruta de una hormiga con un cliente específico
 struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *cliente);

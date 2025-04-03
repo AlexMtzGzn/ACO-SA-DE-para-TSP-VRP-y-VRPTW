@@ -2,12 +2,12 @@
 #include <math.h>
 #include <stdbool.h>
 #include <time.h>
-#include "../includes/estructuras.h"
-#include "../includes/vrp_tw_aco.h"
-#include "../includes/lista_flota.h"
-#include "../includes/lista_ruta.h"
-#include "../includes/control_memoria.h"
-#include "../includes/salida_datos.h"
+#include "../include/estructuras.h"
+#include "../include/vrp_tw_aco.h"
+#include "../include/lista_flota.h"
+#include "../include/lista_ruta.h"
+#include "../include/control_memoria.h"
+#include "../include/salida_datos.h"
 
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {

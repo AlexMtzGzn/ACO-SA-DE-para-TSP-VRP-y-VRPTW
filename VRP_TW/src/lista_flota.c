@@ -1,9 +1,9 @@
 #include <stdlib.h>
-#include "../includes/estructuras.h"
-#include "../includes/control_memoria.h"
-#include "../includes/lista_flota.h"
-#include "../includes/lista_ruta.h"
-#include "../includes/salida_datos.h"
+#include "../include/estructuras.h"
+#include "../include/control_memoria.h"
+#include "../include/lista_flota.h"
+#include "../include/lista_ruta.h"
+#include "../include/salida_datos.h"
 
 // Función para crear un nuevo nodo de vehículo
 struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)

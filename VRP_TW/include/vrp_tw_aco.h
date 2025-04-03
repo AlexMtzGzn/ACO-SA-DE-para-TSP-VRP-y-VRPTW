@@ -2,7 +2,7 @@
 #define VRP_TW_ACO_H
 
 #include <stdbool.h>
-#include "../includes/estructuras.h"
+#include "../include/estructuras.h"
 
 // Función para recuperar la mejor hormiga y copiar sus datos a un individuo
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga);

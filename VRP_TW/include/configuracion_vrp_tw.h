@@ -3,7 +3,7 @@
 
 // Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del VRP
 #include <cjson/cJSON.h>
-#include "../includes/estructuras.h"
+#include "../include/estructuras.h"
 
 // Declaramos prototipos de funciones que gestionan la configuración de la instancia VRP con ventanas de tiempo (VRPTW)
 

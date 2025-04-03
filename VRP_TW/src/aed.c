@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include "../includes/aed.h"
-#include "../includes/estructuras.h"
-#include "../includes/vrp_tw_aco.h"
-#include "../includes/configuracion_vrp_tw.h"
-#include "../includes/control_memoria.h"
-#include "../includes/salida_datos.h"
+#include "../include/aed.h"
+#include "../include/estructuras.h"
+#include "../include/vrp_tw_aco.h"
+#include "../include/configuracion_vrp_tw.h"
+#include "../include/control_memoria.h"
+#include "../include/salida_datos.h"
 
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {

@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../includes/estructuras.h"
-#include "../includes/control_memoria.h"
-#include "../includes/lista_ruta.h"
+#include "../include/estructuras.h"
+#include "../include/control_memoria.h"
+#include "../include/lista_ruta.h"
 
 // Función para crear un nuevo nodo de ruta con el cliente asignado a una hormiga
 struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *cliente)

@@ -2,7 +2,7 @@
 #define SALIDA_DATOS_H
 
 // Incluimos el archivo de estructuras necesarias
-#include "../includes/estructuras.h"
+#include "../include/estructuras.h"
 
 // Función para imprimir un mensaje de texto que podría contener información sobre la instancia
 void imprimir_mensaje(char *texto_instancia);

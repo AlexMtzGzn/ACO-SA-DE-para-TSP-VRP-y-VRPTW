@@ -3,10 +3,10 @@
 #include <string.h>
 #include <cjson/cJSON.h>
 #include <sys/stat.h>
-#include "../includes/control_memoria.h"
-#include "../includes/configuracion_vrp_tw.h"
-#include "../includes/estructuras.h"
-#include "../includes/salida_datos.h"
+#include "../include/control_memoria.h"
+#include "../include/configuracion_vrp_tw.h"
+#include "../include/estructuras.h"
+#include "../include/salida_datos.h"
 
 // Función para leer un archivo CSV con los datos del VRP
 void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
