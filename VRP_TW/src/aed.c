@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
@@ -170,15 +171,15 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
          ruidoso[i].rho = 0.0;
 
       // Ajusta el número de hormigas dentro del rango permitido [10, 30]
-      if (ruidoso[i].numHormigas > 30)
-         ruidoso[i].numHormigas = 30;
+      if (ruidoso[i].numHormigas > 50)
+         ruidoso[i].numHormigas = 50;
 
       if (ruidoso[i].numHormigas < 10)
          ruidoso[i].numHormigas = 10;
 
       // Ajusta el número de iteraciones dentro del rango permitido [30, 80]
-      if (ruidoso[i].numIteraciones > 80)
-         ruidoso[i].numIteraciones = 80;
+      if (ruidoso[i].numIteraciones > 100)
+         ruidoso[i].numIteraciones = 100;
 
       if (ruidoso[i].numIteraciones < 30)
          ruidoso[i].numIteraciones = 30;
@@ -216,18 +217,18 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    for (int i = 0; i < poblacion; ++i)
    {
       // Asignamos valores aleatorios dentro de los nuevos rangos
-      objetivo[i].alpha = generaAleatorio(0.1, 2.0);             // alpha: entre 0.1 y 2.0
-      objetivo[i].beta = generaAleatorio(1.5, 2.5);              // beta: entre 1.5 y 2.5
-      objetivo[i].gamma = generaAleatorio(0.0, 1.5);             // gamma: entre 0.0 y 1.5
-      objetivo[i].rho = generaAleatorio(0.0, 0.9);               // rho: entre 0.0 y 0.9
-      objetivo[i].numHormigas = (int)generaAleatorio(10, 30);    // numHormigas: entre 10 y 30
-      objetivo[i].numIteraciones = (int)generaAleatorio(30, 80); // numIteraciones: entre 30 y 80
+      objetivo[i].alpha = generaAleatorio(0.1, 2.0);              // alpha: entre 0.1 y 2.0
+      objetivo[i].beta = generaAleatorio(1.5, 2.5);               // beta: entre 1.5 y 2.5
+      objetivo[i].gamma = generaAleatorio(0.0, 1.5);              // gamma: entre 0.0 y 1.5
+      objetivo[i].rho = generaAleatorio(0.0, 0.9);                // rho: entre 0.0 y 0.9
+      objetivo[i].numHormigas = (int)generaAleatorio(10, 50);     // numHormigas: entre 10 y 50
+      objetivo[i].numIteraciones = (int)generaAleatorio(30, 100); // numIteraciones: entre 30 y 100
    }
 }
 
 void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
 {
-
+   char respuesta;                                                         // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);   // Asiganamos memoria para el arreglo prueba
@@ -306,8 +307,17 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia
    }
    // Imprimimos la meojor homriga
    imprimir_mejor_hormiga(resultado->hormiga, resultado);
-   guardar_json_en_archivo(resultado,vrp,archivo_instancia);
-   
+
+   printf("¿Quieres imprimir el archivo JSON (s/n)? ");
+   scanf(" %c", &respuesta);
+
+   if (respuesta == 's' || respuesta == 'S')
+      guardar_json_en_archivo(resultado, vrp, archivo_instancia);
+   else if (respuesta == 'n' || respuesta == 'N')
+      printf("No se imprimirá el archivo JSON.\n");
+   else
+      printf("Respuesta no válida. No se realizará ninguna acción.\n");
+
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
