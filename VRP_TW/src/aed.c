@@ -227,22 +227,16 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    }
 }
 
-void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia)
+void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
    clock_t timepo_inicial, timepo_final;
    timepo_inicial = clock();
-   char respuesta;                                                         // Respuesta
-   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Asignamos memoria para el arreglo objetivo
-   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  // Asignamos memoria para el arreglo ruidoso
-   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);   // Asiganamos memoria para el arreglo prueba
-   struct individuo *resultado = asignar_memoria_individuos(1);            // Asignamos memoria para el arreglo de resultados
-   vrp_configuracion *vrp = leer_instancia(archivo_instancia);             // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
-
-   if (!vrp || !vrp->clientes) // Ajustamos salida de emergencia en caso de no tener memeoria para el vrp
-   {
-      imprimir_mensaje("No se pudo asignar memoria para el vrp.");
-      exit(EXIT_FAILURE);
-   }
+   char respuesta;                                                                // Respuesta
+   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
+   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
+   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
+   struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
+   vrp_configuracion *vrp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
 
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);     // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);       // Generamos memoria para la instancia de la feromona
@@ -311,6 +305,9 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia
 
    timepo_final = clock();
    double minutos = (((double)(timepo_final - timepo_inicial)) / CLOCKS_PER_SEC) / 60.0;
+
+   vrp->tiempo_ejecucion = ceil(minutos);
+   vrp->archivo_instancia = archivo_instancia;
 
    // Imprimimos la meojor homriga
    imprimir_mejor_hormiga(resultado->hormiga, resultado);

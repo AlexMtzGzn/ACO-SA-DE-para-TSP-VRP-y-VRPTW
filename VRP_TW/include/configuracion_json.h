@@ -14,7 +14,7 @@ cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes);
 cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes);
 
 // Función para convertir un individuo en formato JSON
-cJSON *individuo_a_json(individuo *ind, cliente *clientes);
+cJSON *individuo_a_json(individuo *ind,struct vrp_configuracion * vrp, cliente *clientes);
 
 // Función para guardar un archivo JSON con la representación del individuo
 void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia);

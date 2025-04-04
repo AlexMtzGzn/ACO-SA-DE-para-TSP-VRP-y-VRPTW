@@ -12,9 +12,8 @@ cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes)
     while (actual)
     {
         cJSON *punto = cJSON_CreateObject();
-        cJSON_AddNumberToObject(punto, "cliente", actual->cliente);
-        cJSON_AddNumberToObject(punto, "x", clientes[actual->cliente].coordenada_x);
-        cJSON_AddNumberToObject(punto, "y", clientes[actual->cliente].coordenada_y);
+        cJSON_AddNumberToObject(punto, "X", clientes[actual->cliente].coordenada_x);
+        cJSON_AddNumberToObject(punto, "Y", clientes[actual->cliente].coordenada_y);
         cJSON_AddItemToArray(json_ruta, punto);
         actual = actual->siguiente;
     }
@@ -25,13 +24,13 @@ cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes)
 cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
 {
     cJSON *json_vehiculo = cJSON_CreateObject();
-    cJSON_AddNumberToObject(json_vehiculo, "id_vehiculo", v->id_vehiculo);
-    cJSON_AddNumberToObject(json_vehiculo, "capacidad_maxima", v->capacidad_maxima);
-    cJSON_AddNumberToObject(json_vehiculo, "capacidad_acumulada", v->capacidad_acumulada);
-    cJSON_AddNumberToObject(json_vehiculo, "tiempo_consumido", v->vt_actual);
-    cJSON_AddNumberToObject(json_vehiculo, "tiempo_maximo", v->vt_final);
-    cJSON_AddNumberToObject(json_vehiculo, "numero_clientes", v->clientes_contados);
-    cJSON_AddNumberToObject(json_vehiculo, "fitness_vehiculo", v->fitness_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Id_vehiculo", v->id_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Maxima", v->capacidad_maxima);
+    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Mcumulada", v->capacidad_acumulada);
+    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Consumido", v->vt_actual);
+    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Maximo", v->vt_final);
+    cJSON_AddNumberToObject(json_vehiculo, "Numero Clientes", v->clientes_contados);
+    cJSON_AddNumberToObject(json_vehiculo, "Fitness Vehiculo", v->fitness_vehiculo);
 
     cJSON *ruta_clientes = cJSON_CreateArray();
     nodo_ruta *actual = v->ruta->cabeza;
@@ -40,24 +39,26 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
         cJSON_AddItemToArray(ruta_clientes, cJSON_CreateNumber(actual->cliente));
         actual = actual->siguiente;
     }
-    cJSON_AddItemToObject(json_vehiculo, "ruta_clientes", ruta_clientes);
+    cJSON_AddItemToObject(json_vehiculo, "Ruta Clientes", ruta_clientes);
 
-    cJSON_AddItemToObject(json_vehiculo, "ruta_coordenadas", generar_ruta_coordenadas(v->ruta, clientes));
+    cJSON_AddItemToObject(json_vehiculo, "Ruta Coordenadas", generar_ruta_coordenadas(v->ruta, clientes));
 
     return json_vehiculo;
 }
 
 // Función para convertir un individuo en JSON
-cJSON *individuo_a_json(individuo *ind, cliente *clientes)
+cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *clientes)
 {
     cJSON *json_individuo = cJSON_CreateObject();
-    cJSON_AddNumberToObject(json_individuo, "alpha", ind->alpha);
-    cJSON_AddNumberToObject(json_individuo, "beta", ind->beta);
-    cJSON_AddNumberToObject(json_individuo, "gamma", ind->gamma);
-    cJSON_AddNumberToObject(json_individuo, "rho", ind->rho);
-    cJSON_AddNumberToObject(json_individuo, "numHormigas", ind->numHormigas);
-    cJSON_AddNumberToObject(json_individuo, "numIteraciones", ind->numIteraciones);
-    cJSON_AddNumberToObject(json_individuo, "fitness_global", ind->fitness);
+    cJSON_AddStringToObject(json_individuo, "Archivo", vrp->archivo_instancia);
+    cJSON_AddNumberToObject(json_individuo, "Tiempo Ejecucion en Minutos", vrp->tiempo_ejecucion);
+    cJSON_AddNumberToObject(json_individuo, "Alpha", ind->alpha);
+    cJSON_AddNumberToObject(json_individuo, "Beta", ind->beta);
+    cJSON_AddNumberToObject(json_individuo, "Gamma", ind->gamma);
+    cJSON_AddNumberToObject(json_individuo, "Rho", ind->rho);
+    cJSON_AddNumberToObject(json_individuo, "Numero Hormigas", ind->numHormigas);
+    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones", ind->numIteraciones);
+    cJSON_AddNumberToObject(json_individuo, "Fitness Global", ind->fitness);
 
     cJSON *flota_json = cJSON_CreateArray();
     nodo_vehiculo *actual = ind->hormiga->flota->cabeza;
@@ -74,19 +75,19 @@ cJSON *individuo_a_json(individuo *ind, cliente *clientes)
 // Función para guardar el JSON en un archivo
 void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia)
 {
-    cJSON *json_individuo = individuo_a_json(ind, vrp->clientes);
+    cJSON *json_individuo = individuo_a_json(ind, vrp,vrp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
     char ruta[150];
-    snprintf(ruta, sizeof(ruta), "Resultados/%s.json", archivo_instancia);
+    snprintf(ruta, sizeof(ruta), "Resultados/Resultados_%d/%s.json",(vrp->num_clientes-1), archivo_instancia);
 
-    int contador = 1;
-    struct stat buffer;
-    while (stat(ruta, &buffer) == 0)
-    {
-        snprintf(ruta, sizeof(ruta), "Resultados/%s_%d.json", archivo_instancia, contador);
-        contador++;
-    }
+    //int contador = 1;
+    //struct stat buffer;
+    // while (stat(ruta, &buffer) == 0)
+    // {
+    //     snprintf(ruta, sizeof(ruta), "Resultados/%s_%d.json", archivo_instancia, contador);
+    //     contador++;
+    // }
 
     // Crear el archivo con el nombre final
     FILE *archivo = fopen(ruta, "w");

@@ -7,10 +7,10 @@
 #include "../include/salida_datos.h"
 
 // Función para leer un archivo CSV con los datos del VRP
-void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
+void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia,int tamanio_instancia)
 {
     char ruta[100];
-    snprintf(ruta, sizeof(ruta), "Instancias/%s.csv", archivo_instancia);
+    snprintf(ruta, sizeof(ruta), "Instancias/Instancias_%d/%s.csv", tamanio_instancia, archivo_instancia);
 
     // Intentamos abrir el archivo CSV
     FILE *archivo = fopen(ruta, "r");
@@ -71,10 +71,10 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
 }
 
 // Función para crear un archivo CSV con los datos del VRP
-void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia)
+void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tamanio_instancia)
 {
     char ruta[100];
-    snprintf(ruta, sizeof(ruta), "Instancias/%s.csv", archivo_instancia);
+    snprintf(ruta, sizeof(ruta), "Instancias/Instancias_%d/%s.csv", tamanio_instancia, archivo_instancia);
 
     // Abrimos el archivo en modo escritura
     FILE *archivo = fopen(ruta, "w");
@@ -197,7 +197,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
 }
 
 // Función para leer una instancia desde archivo CSV o TXT
-struct vrp_configuracion *leer_instancia(char *archivo_instancia)
+struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_instancia)
 {
     char ruta[100];
     struct vrp_configuracion *vrp = asignar_memoria_vrp_configuracion(); // Asiganamos memoria para la estructura vrp_configuracion
@@ -208,25 +208,25 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia)
     vrp->clientes = NULL;   // Inicializamos la estructura vrp_clientes en NULL
 
     // Intentamos leer el archivo CSV
-    snprintf(ruta, sizeof(ruta), "Instancias/%s.csv", archivo_instancia);
-
+    snprintf(ruta, sizeof(ruta), "Instancias/Instancias_%d/%s.csv", tamanio_instancia, archivo_instancia);
     FILE *archivo = fopen(ruta, "r");
 
     if (archivo)
     {
-        leemos_csv(vrp, archivo_instancia);
+        leemos_csv(vrp, archivo_instancia,tamanio_instancia);
         fclose(archivo);
         return vrp;
     }
 
     // Si no existe el CSV, intentamos con el TXT
-    snprintf(ruta, sizeof(ruta), "VRP_Solomon/%s.txt", archivo_instancia);
+    snprintf(ruta, sizeof(ruta), "VRP_Solomon/VRP_Solomon_%d/%s.txt", tamanio_instancia, archivo_instancia);
     archivo = fopen(ruta, "r");
 
     if (archivo)
     {
+        printf("Sie");
         leemos_txt(vrp, ruta);
-        creamos_csv(vrp, archivo_instancia);
+        creamos_csv(vrp, archivo_instancia, tamanio_instancia);
         fclose(archivo);
     }
 
