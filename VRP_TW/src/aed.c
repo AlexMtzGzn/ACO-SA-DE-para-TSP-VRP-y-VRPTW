@@ -8,6 +8,7 @@
 #include "../include/configuracion_vrp_tw.h"
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
+#include "../include/configuracion_json.h"
 
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
@@ -320,10 +321,6 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia
 
    if (respuesta == 's' || respuesta == 'S')
       guardar_json_en_archivo(resultado, vrp, archivo_instancia);
-   else if (respuesta == 'n' || respuesta == 'N')
-      printf("No se imprimirá el archivo JSON.\n");
-   else
-      printf("Respuesta no válida. No se realizará ninguna acción.\n");
 
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
