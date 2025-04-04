@@ -313,8 +313,9 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, char *archivo_instancia
 
    // Imprimimos la meojor homriga
    imprimir_mejor_hormiga(resultado->hormiga, resultado);
-   printf("El tiempo de ejecución es: %.2f minutos\n", minutos);
-   printf("¿Quieres imprimir el archivo JSON (s/n)? ");
+   printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos);
+
+   printf("\n¿Quieres imprimir el archivo JSON (s/n)? ");
    scanf(" %c", &respuesta);
 
    if (respuesta == 's' || respuesta == 'S')
