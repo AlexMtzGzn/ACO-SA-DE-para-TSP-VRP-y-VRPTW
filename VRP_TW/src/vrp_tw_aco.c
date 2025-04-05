@@ -78,8 +78,8 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
     // Iteramos sobre todas las posibles combinaciones de clientes en la matriz de feromona
     for (int i = 0; i < vrp->num_clientes; i++)
         for (int j = 0; j < vrp->num_clientes; j++)
-            if (i != j)                                     // Evitamos la diagonal (i == j) que representaría un cliente consigo mismo
-                instancia_feromona[i][j] *= (1 - ind->rho); // Reducimos la feromona por el factor rho
+            if (i != j)                                       // Evitamos la diagonal (i == j) que representaría un cliente consigo mismo
+                instancia_feromona[i][j] *= (1.0 - ind->rho); // Reducimos la feromona por el factor rho
 
     // Iteramos sobre todas las hormigas para actualizar las feromonas de acuerdo a sus rutas
     for (int i = 0; i < ind->numHormigas; i++)
@@ -428,7 +428,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
         {
             if (hormiga[j].fitness_global < delta)
             {
-                delta = hormiga[j].fitness_global;
+                delta = 1.0 / hormiga[j].fitness_global;
                 indice = j; // Guardamos el índice de la mejor hormiga
             }
         }
@@ -448,7 +448,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             }
         }
     }
-    
+
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
     // Liberamos la memoria utilizada por las hormigas al final del proceso

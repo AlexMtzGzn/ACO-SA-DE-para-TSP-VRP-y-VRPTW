@@ -50,7 +50,7 @@ void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_c
          // Si i y j son diferentes, asigna la ventana de tiempo como 1 / tiempo final del cliente j
          if (calcular_Distancia(vrp, i, j) > 0)
          {
-            instancia_ventanas_tiempo[i][j] = 1.0 / vrp->clientes[j].vt_final;
+            instancia_ventanas_tiempo[i][j] = 1.0;
             instancia_ventanas_tiempo[j][i] = instancia_ventanas_tiempo[i][j]; // Aprovechamos la simetría
          }
          else
@@ -137,7 +137,6 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       // Genera un individuo ruidoso como una combinación de tres individuos aleatorios
       ruidoso[i].alpha = objetivo[aleatorio1].alpha + 0.5 * (objetivo[aleatorio2].alpha - objetivo[aleatorio3].alpha);
       ruidoso[i].beta = objetivo[aleatorio1].beta + 0.5 * (objetivo[aleatorio2].beta - objetivo[aleatorio3].beta);
-      ruidoso[i].gamma = objetivo[aleatorio1].gamma + 0.5 * (objetivo[aleatorio2].gamma - objetivo[aleatorio3].gamma);
       ruidoso[i].rho = objetivo[aleatorio1].rho + 0.5 * (objetivo[aleatorio2].rho - objetivo[aleatorio3].rho);
       ruidoso[i].numHormigas = objetivo[aleatorio1].numHormigas + (int)(0.5 * (objetivo[aleatorio2].numHormigas - objetivo[aleatorio3].numHormigas));
       ruidoso[i].numIteraciones = objetivo[aleatorio1].numIteraciones + (int)(0.5 * (objetivo[aleatorio2].numIteraciones - objetivo[aleatorio3].numIteraciones));
@@ -156,13 +155,6 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
 
       if (ruidoso[i].beta < 1.5)
          ruidoso[i].beta = 1.5;
-
-      // Ajusta los valores de gamma dentro del rango permitido [0.1, 1.5]
-      if (ruidoso[i].gamma > 1.5)
-         ruidoso[i].gamma = 1.5;
-
-      if (ruidoso[i].gamma < 0.0)
-         ruidoso[i].gamma = 0.0;
 
       // Ajusta los valores de rho dentro del rango permitido [0.1, 0.9]
       if (ruidoso[i].rho > 0.8)
@@ -221,7 +213,6 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
       // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
       objetivo[i].alpha = generaAleatorio(1.0, 2.0);               // alpha: entre 1.0 y 2.5
       objetivo[i].beta = generaAleatorio(1.5, 2.5);                // beta: entre 1.0 y 2.5
-      objetivo[i].gamma = generaAleatorio(0.0, 1.5);               // gamma: entre 0.1 y 1.5
       objetivo[i].rho = generaAleatorio(0.1, 0.8);                 // rho: entre 0.1 y 0.9
       objetivo[i].numHormigas = (int)generaAleatorio(50, 100);     // numHormigas: entre 50 y 100
       objetivo[i].numIteraciones = (int)generaAleatorio(100, 200); // numIteraciones: entre 100 y 200
@@ -269,7 +260,6 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
       {
          resultado->alpha = objetivo[i].alpha;
          resultado->beta = objetivo[i].beta;
-         resultado->gamma = objetivo[i].gamma;
          resultado->rho = objetivo[i].rho;
          resultado->numHormigas = objetivo[i].numHormigas;
          resultado->numIteraciones = objetivo[i].numIteraciones;
@@ -293,7 +283,6 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
          {
             resultado->alpha = prueba[i].alpha;
             resultado->beta = prueba[i].beta;
-            resultado->gamma = prueba[i].gamma;
             resultado->rho = prueba[i].rho;
             resultado->numHormigas = prueba[i].numHormigas;
             resultado->numIteraciones = prueba[i].numIteraciones;
