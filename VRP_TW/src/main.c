@@ -6,6 +6,12 @@
 
 int main(int argc, char *argv[])
 {
+    /*Verificamos que los parametros esten compeltos */
+    if (argc != 5)
+    {
+        fprintf(stderr, "Uso: <num_poblacion> <num_generaciones> <archivo_instancia> <tamanio_instancia> \n");
+        exit(EXIT_FAILURE);
+    }
     srand(time(NULL)); // Inicializamos la semilla
     (void)argc;
     int num_poblacion = atoi(argv[1]);     // Ingresa el tamaño de la poblacion
@@ -21,7 +27,18 @@ int main(int argc, char *argv[])
 
         } while (num_poblacion < 3);
     }
+    /*Aqui verificamos que el numero de la generacion no sea menor a 1*/
+    if (num_generaciones < 1)
+    {
+        do
+        {
+            printf("\nLa Generacion debe ser mayor a 0 !!!\nIngresa de nuevo el valor de la generacion: ");
+            scanf("%d", &num_generaciones);
 
+        } while (num_poblacion < 1);
+    }
+
+    /*Verificamos que el parametro de del tamanio instancia sea 25,50 o 100*/
     if (tamanio_instancia != 25 && tamanio_instancia != 50 && tamanio_instancia != 100)
     {
         do
@@ -31,9 +48,9 @@ int main(int argc, char *argv[])
 
         } while (tamanio_instancia != 25 && tamanio_instancia != 50 && tamanio_instancia != 100);
     }
-    
-    char archivo_instancia[100];                                           // Declaramos nombre de la instacia a leer
-    snprintf(archivo_instancia, sizeof(archivo_instancia), "%s_(%s)", argv[3],argv[4]); // Copiamos el nombre de la instacia a leer a del parametro argv[3] y argv[4];
-    aed_vrp_tw(num_poblacion, num_generaciones,tamanio_instancia, archivo_instancia);        // Enviamos al como parametro el numero de la poblacion , numero de generaciones , y el archivo de la instancia
+
+    char archivo_instancia[100];                                                         // Declaramos nombre de la instacia a leer
+    snprintf(archivo_instancia, sizeof(archivo_instancia), "%s_(%s)", argv[3], argv[4]); // Copiamos el nombre de la instacia a leer a del parametro argv[3] y argv[4];
+    aed_vrp_tw(num_poblacion, num_generaciones, tamanio_instancia, archivo_instancia);   // Enviamos al como parametro el numero de la poblacion , numero de generaciones , y el archivo de la instancia
     return 0;
 }

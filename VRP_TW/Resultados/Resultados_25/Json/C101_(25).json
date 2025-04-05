@@ -1,12 +1,12 @@
 {
 	"Archivo":	"C101_(25)",
 	"Tiempo Ejecucion en Minutos":	1,
-	"Alpha":	0.69916245005985833,
-	"Beta":	1.9862588012992677,
-	"Gamma":	0.48842443921064227,
-	"Rho":	0.45928933618557138,
-	"Numero Hormigas":	29,
-	"Numero Iteraciones":	39,
+	"Alpha":	1.0845743173661522,
+	"Beta":	2.4197322018070762,
+	"Gamma":	1.2057148980469046,
+	"Rho":	0.77778542951111929,
+	"Numero Hormigas":	61,
+	"Numero Iteraciones":	135,
 	"Fitness Global":	191.8136197786562,
 	"flota":	[{
 			"Id_vehiculo":	1,

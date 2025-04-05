@@ -144,8 +144,8 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
 
       // Limita los valores de los parámetros para que estén dentro de un rango válido
       // Ajusta los valores de alpha dentro del rango permitido [1.0, 2.5]
-      if (ruidoso[i].alpha > 2.5)
-         ruidoso[i].alpha = 2.5;
+      if (ruidoso[i].alpha > 2.0)
+         ruidoso[i].alpha = 2.0;
 
       if (ruidoso[i].alpha < 1.0)
          ruidoso[i].alpha = 1.0;
@@ -154,22 +154,22 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].beta > 2.5)
          ruidoso[i].beta = 2.5;
 
-      if (ruidoso[i].beta < 1.0)
-         ruidoso[i].beta = 1.0;
+      if (ruidoso[i].beta < 1.5)
+         ruidoso[i].beta = 1.5;
 
       // Ajusta los valores de gamma dentro del rango permitido [0.1, 1.5]
       if (ruidoso[i].gamma > 1.5)
          ruidoso[i].gamma = 1.5;
 
-      if (ruidoso[i].gamma < 0.1)
-         ruidoso[i].gamma = 0.1;
+      if (ruidoso[i].gamma < 0.5)
+         ruidoso[i].gamma = 0.5;
 
-      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.95]
-      if (ruidoso[i].rho > 0.95)
-         ruidoso[i].rho = 0.95;
+      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.9]
+      if (ruidoso[i].rho > 0.8)
+         ruidoso[i].rho = 0.8;
 
-      if (ruidoso[i].rho < 0.1)
-         ruidoso[i].rho = 0.1;
+      if (ruidoso[i].rho < 0.4)
+         ruidoso[i].rho = 0.4;
 
       // Ajusta el número de hormigas dentro del rango permitido [50, 100]
       if (ruidoso[i].numHormigas > 100)
@@ -219,10 +219,10 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    for (int i = 0; i < poblacion; ++i)
    {
       // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
-      objetivo[i].alpha = generaAleatorio(1.0, 2.5);              // alpha: entre 1.0 y 2.5
-      objetivo[i].beta = generaAleatorio(1.0, 2.5);               // beta: entre 1.0 y 2.5
-      objetivo[i].gamma = generaAleatorio(1.0, 1.5);              // gamma: entre 0.1 y 1.5
-      objetivo[i].rho = generaAleatorio(0.1, 0.95);                // rho: entre 0.1 y 0.95
+      objetivo[i].alpha = generaAleatorio(1.0, 2.0);               // alpha: entre 1.0 y 2.5
+      objetivo[i].beta = generaAleatorio(1.5, 2.5);                // beta: entre 1.0 y 2.5
+      objetivo[i].gamma = generaAleatorio(0.5, 1.5);               // gamma: entre 0.1 y 1.5
+      objetivo[i].rho = generaAleatorio(0.4, 0.8);                 // rho: entre 0.1 y 0.9
       objetivo[i].numHormigas = (int)generaAleatorio(50, 100);     // numHormigas: entre 50 y 100
       objetivo[i].numIteraciones = (int)generaAleatorio(100, 200); // numIteraciones: entre 100 y 200
    }
@@ -302,6 +302,11 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
       }
       // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
+
+      float porcentaje = ((float)(i + 1) / num_generaciones) * 100;
+      double tiempo_actual = ((double)(clock() - timepo_inicial)) / CLOCKS_PER_SEC / 60.0;
+      printf("\rProgreso: %.2f  Mejor Fitness: %.2lf  Tiempo: %.2lf min", porcentaje, resultado->fitness, tiempo_actual);
+      fflush(stdout);
    }
 
    timepo_final = clock();

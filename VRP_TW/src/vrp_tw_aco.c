@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
 #include <time.h>
@@ -399,7 +400,6 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 {
     // Asignamos memoria para el número de hormigas
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
-
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
     int indice = -1; // Índice de la mejor hormiga en cada iteración, inicializado en -1
 
@@ -452,7 +452,6 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
-
     // Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);
 }
