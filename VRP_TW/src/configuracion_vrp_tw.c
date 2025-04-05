@@ -7,7 +7,7 @@
 #include "../include/salida_datos.h"
 
 // Función para leer un archivo CSV con los datos del VRP
-void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia,int tamanio_instancia)
+void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tamanio_instancia)
 {
     char ruta[100];
     snprintf(ruta, sizeof(ruta), "Instancias/Instancias_%d/%s.csv", tamanio_instancia, archivo_instancia);
@@ -197,14 +197,17 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
 }
 
 // Función para leer una instancia desde archivo CSV o TXT
+#include <stdlib.h>  // Necesario para la función exit()
+
+// Función para leer una instancia desde archivo CSV o TXT
 struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_instancia)
 {
     char ruta[100];
-    struct vrp_configuracion *vrp = asignar_memoria_vrp_configuracion(); // Asiganamos memoria para la estructura vrp_configuracion
+    struct vrp_configuracion *vrp = asignar_memoria_vrp_configuracion(); // Asignamos memoria para la estructura vrp_configuracion
 
-    vrp->num_vehiculos = 0; // Inicializamos numero de vehiculos en 0
-    vrp->num_capacidad = 0; // Inicializamos la capacidad del vehiculo en 0
-    vrp->num_clientes = 0;  // Inicializamos numero de clientes en 0
+    vrp->num_vehiculos = 0; // Inicializamos número de vehículos en 0
+    vrp->num_capacidad = 0; // Inicializamos la capacidad del vehículo en 0
+    vrp->num_clientes = 0;  // Inicializamos número de clientes en 0
     vrp->clientes = NULL;   // Inicializamos la estructura vrp_clientes en NULL
 
     // Intentamos leer el archivo CSV
@@ -213,9 +216,13 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
 
     if (archivo)
     {
-        leemos_csv(vrp, archivo_instancia,tamanio_instancia);
+        leemos_csv(vrp, archivo_instancia, tamanio_instancia);
         fclose(archivo);
-        return vrp;
+        if (vrp == NULL || vrp->clientes == NULL) {
+            liberar_memoria_vrp_configuracion(vrp); // Liberamos la memoria del vrp
+            exit(EXIT_FAILURE); // Finaliza el programa con un código de error
+        }
+        return vrp; // Retornamos vrp si la lectura fue exitosa
     }
 
     // Si no existe el CSV, intentamos con el TXT
@@ -224,11 +231,16 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
 
     if (archivo)
     {
-        printf("Sie");
+        printf("Leyendo archivo TXT\n");
         leemos_txt(vrp, ruta);
-        creamos_csv(vrp, archivo_instancia, tamanio_instancia);
+        creamos_csv(vrp, archivo_instancia, tamanio_instancia); // Crear el CSV si el TXT fue leído correctamente
         fclose(archivo);
+        if (vrp == NULL || vrp->clientes == NULL) {
+            liberar_memoria_vrp_configuracion(vrp); // Liberamos la memoria del vrp
+            exit(EXIT_FAILURE); // Finaliza el programa con un código de error
+        }
+        return vrp; // Retornamos vrp si la lectura fue exitosa
     }
 
-    return vrp;
+    exit(EXIT_FAILURE); // Finaliza el programa con un código de error
 }
