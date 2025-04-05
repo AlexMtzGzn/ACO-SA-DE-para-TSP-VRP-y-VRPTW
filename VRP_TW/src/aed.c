@@ -93,7 +93,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
       {
          // Si i y j son diferentes (es decir, no es la misma ciudad), se asigna un valor de feromona de 1.0
          if (i != j)
-            instancia_feromona[i][j] = 1.0 / vrp->clientes[j].vt_final; // Hay que revisr si lo hacemo entre la ventana del tiempo final
+            instancia_feromona[i][j] = 1.0; // Hay que revisr si lo hacemo entre la ventana del tiempo final
          // Si i y j son iguales (es decir, es la misma ciudad), la feromona se establece en 0.0
          else
             instancia_feromona[i][j] = 0.0;
@@ -143,49 +143,50 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       ruidoso[i].numIteraciones = objetivo[aleatorio1].numIteraciones + (int)(0.5 * (objetivo[aleatorio2].numIteraciones - objetivo[aleatorio3].numIteraciones));
 
       // Limita los valores de los parámetros para que estén dentro de un rango válido
-      // Ajusta los valores de alpha dentro del rango permitido [0.1, 2.0]
-      if (ruidoso[i].alpha > 2.0)
-         ruidoso[i].alpha = 2.0;
+      // Ajusta los valores de alpha dentro del rango permitido [1.0, 2.5]
+      if (ruidoso[i].alpha > 2.5)
+         ruidoso[i].alpha = 2.5;
 
-      if (ruidoso[i].alpha < 0.1)
-         ruidoso[i].alpha = 0.1;
+      if (ruidoso[i].alpha < 1.0)
+         ruidoso[i].alpha = 1.0;
 
-      // Ajusta los valores de beta dentro del rango permitido [1.5, 2.5]
-      if (ruidoso[i].beta > 2.5)
+      // Ajusta los valores de beta dentro del rango permitido [2.5, 4.5]
+      if (ruidoso[i].beta > 4.5)
+         ruidoso[i].beta = 4.5;
+
+      if (ruidoso[i].beta < 2.5)
          ruidoso[i].beta = 2.5;
 
-      if (ruidoso[i].beta < 1.5)
-         ruidoso[i].beta = 1.5;
-
-      // Ajusta los valores de gamma dentro del rango permitido [0.0, 1.5]
+      // Ajusta los valores de gamma dentro del rango permitido [0.7, 1.5]
       if (ruidoso[i].gamma > 1.5)
          ruidoso[i].gamma = 1.5;
 
-      if (ruidoso[i].gamma < 0.0)
-         ruidoso[i].gamma = 0.0;
+      if (ruidoso[i].gamma < 0.7)
+         ruidoso[i].gamma = 0.7;
 
-      // Ajusta los valores de rho dentro del rango permitido [0.0, 0.9]
-      if (ruidoso[i].rho > 0.9)
-         ruidoso[i].rho = 0.9;
+      // Ajusta los valores de rho dentro del rango permitido [0.5, 0.7]
+      if (ruidoso[i].rho > 0.7)
+         ruidoso[i].rho = 0.7;
 
-      if (ruidoso[i].rho < 0.0)
-         ruidoso[i].rho = 0.0;
+      if (ruidoso[i].rho < 0.5)
+         ruidoso[i].rho = 0.5;
 
-      // Ajusta el número de hormigas dentro del rango permitido [10, 30]
-      if (ruidoso[i].numHormigas > 50)
-         ruidoso[i].numHormigas = 50;
+      // Ajusta el número de hormigas dentro del rango permitido [30, 45]
+      if (ruidoso[i].numHormigas > 45)
+         ruidoso[i].numHormigas = 45;
 
-      if (ruidoso[i].numHormigas < 10)
-         ruidoso[i].numHormigas = 10;
+      if (ruidoso[i].numHormigas < 30)
+         ruidoso[i].numHormigas = 30;
 
-      // Ajusta el número de iteraciones dentro del rango permitido [30, 80]
-      if (ruidoso[i].numIteraciones > 100)
-         ruidoso[i].numIteraciones = 100;
+      // Ajusta el número de iteraciones dentro del rango permitido [150, 300]
+      if (ruidoso[i].numIteraciones > 300)
+         ruidoso[i].numIteraciones = 300;
 
-      if (ruidoso[i].numIteraciones < 30)
-         ruidoso[i].numIteraciones = 30;
+      if (ruidoso[i].numIteraciones < 150)
+         ruidoso[i].numIteraciones = 150;
    }
 }
+
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
    // Itera sobre todos los individuos en la población.
@@ -217,13 +218,13 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
 {
    for (int i = 0; i < poblacion; ++i)
    {
-      // Asignamos valores aleatorios dentro de los nuevos rangos
-      objetivo[i].alpha = generaAleatorio(0.1, 2.0);              // alpha: entre 0.1 y 2.0
-      objetivo[i].beta = generaAleatorio(1.5, 2.5);               // beta: entre 1.5 y 2.5
-      objetivo[i].gamma = generaAleatorio(0.0, 1.5);              // gamma: entre 0.0 y 1.5
-      objetivo[i].rho = generaAleatorio(0.0, 0.9);                // rho: entre 0.0 y 0.9
-      objetivo[i].numHormigas = (int)generaAleatorio(10, 50);     // numHormigas: entre 10 y 50
-      objetivo[i].numIteraciones = (int)generaAleatorio(30, 100); // numIteraciones: entre 30 y 100
+      // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
+      objetivo[i].alpha = generaAleatorio(1.0, 2.5);              // alpha: entre 1.0 y 2.5
+      objetivo[i].beta = generaAleatorio(2.5, 4.5);               // beta: entre 2.5 y 4.5
+      objetivo[i].gamma = generaAleatorio(0.7, 1.5);              // gamma: entre 0.7 y 1.5
+      objetivo[i].rho = generaAleatorio(0.5, 0.7);                // rho: entre 0.5 y 0.7
+      objetivo[i].numHormigas = (int)generaAleatorio(30, 45);     // numHormigas: entre 30 y 45
+      objetivo[i].numIteraciones = (int)generaAleatorio(150, 300); // numIteraciones: entre 150 y 300
    }
 }
 

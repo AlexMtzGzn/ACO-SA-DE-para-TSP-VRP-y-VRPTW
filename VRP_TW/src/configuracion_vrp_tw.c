@@ -231,7 +231,7 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
 
     if (archivo)
     {
-        printf("Leyendo archivo TXT\n");
+
         leemos_txt(vrp, ruta);
         creamos_csv(vrp, archivo_instancia, tamanio_instancia); // Crear el CSV si el TXT fue leído correctamente
         fclose(archivo);
