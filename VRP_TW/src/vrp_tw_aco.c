@@ -12,6 +12,9 @@
 
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
+    if (ind->hormiga == NULL)
+        ind->hormiga = asignar_memoria_hormigas(1);
+
     // Copiamos la ID de la hormiga mejorada al individuo
     ind->hormiga->id_hormiga = hormiga->id_hormiga;
 
@@ -445,11 +448,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             }
         }
     }
-
-    // Si la estructura individuo no tiene una hormiga asignada, reservamos memoria para una
-    if (ind->hormiga == NULL)
-        ind->hormiga = asignar_memoria_hormigas(1);
-
+    
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
     // Liberamos la memoria utilizada por las hormigas al final del proceso

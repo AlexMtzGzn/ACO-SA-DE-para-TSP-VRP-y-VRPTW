@@ -302,11 +302,22 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
       }
       // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
-
-      float porcentaje = ((float)(i + 1) / num_generaciones) * 100;
-      double tiempo_actual = ((double)(clock() - timepo_inicial)) / CLOCKS_PER_SEC / 60.0;
-      printf("\rProgreso: %.2f  Mejor Fitness: %.2lf  Tiempo: %.2lf min", porcentaje, resultado->fitness, tiempo_actual);
+      int barra_ancho = 50; // ancho de la barra de progreso
+      int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho);
+      
+      printf("\r[");
+      for (int j = 0; j < barra_ancho; ++j) {
+          if (j < progreso_barras)
+              printf("#");
+          else
+              printf(" ");
+      }
+      printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos", 
+             ((float)(i + 1) / num_generaciones) * 100, 
+             resultado->fitness, 
+             ((double)(clock() - timepo_inicial)) / CLOCKS_PER_SEC / 60.0);
       fflush(stdout);
+      
    }
 
    timepo_final = clock();
