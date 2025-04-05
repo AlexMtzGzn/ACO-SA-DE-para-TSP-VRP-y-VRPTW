@@ -75,20 +75,11 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
 // Función para guardar el JSON en un archivo
 void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia)
 {
-    cJSON *json_individuo = individuo_a_json(ind, vrp,vrp->clientes);
+    cJSON *json_individuo = individuo_a_json(ind, vrp, vrp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
-    char ruta[150];
-    snprintf(ruta, sizeof(ruta), "Resultados/Resultados_%d/%s.json",(vrp->num_clientes-1), archivo_instancia);
-
-    //int contador = 1;
-    //struct stat buffer;
-    // while (stat(ruta, &buffer) == 0)
-    // {
-    //     snprintf(ruta, sizeof(ruta), "Resultados/%s_%d.json", archivo_instancia, contador);
-    //     contador++;
-    // }
-
+    char ruta[300];
+    snprintf(ruta, sizeof(ruta), "Resultados/Resultados_%d/Json/%s.json", (vrp->num_clientes - 1), archivo_instancia);
     // Crear el archivo con el nombre final
     FILE *archivo = fopen(ruta, "w");
     if (archivo)
@@ -103,4 +94,11 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
 
     free(json_string);
     cJSON_Delete(json_individuo);
+
+    char comando_py[300];
+    snprintf(comando_py, sizeof(comando_py),
+             "python3 src/Simulador_VRP_TW/simulador_vrp_tw.py \"%s.json\" %d",
+             archivo_instancia, vrp->num_clientes - 1);
+
+    system(comando_py);
 }
