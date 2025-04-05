@@ -150,40 +150,40 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].alpha < 1.0)
          ruidoso[i].alpha = 1.0;
 
-      // Ajusta los valores de beta dentro del rango permitido [2.5, 4.5]
-      if (ruidoso[i].beta > 4.5)
-         ruidoso[i].beta = 4.5;
-
-      if (ruidoso[i].beta < 2.5)
+      // Ajusta los valores de beta dentro del rango permitido [1.0, 2.5]
+      if (ruidoso[i].beta > 2.5)
          ruidoso[i].beta = 2.5;
 
-      // Ajusta los valores de gamma dentro del rango permitido [0.7, 1.5]
+      if (ruidoso[i].beta < 1.0)
+         ruidoso[i].beta = 1.0;
+
+      // Ajusta los valores de gamma dentro del rango permitido [0.1, 1.5]
       if (ruidoso[i].gamma > 1.5)
          ruidoso[i].gamma = 1.5;
 
-      if (ruidoso[i].gamma < 0.7)
-         ruidoso[i].gamma = 0.7;
+      if (ruidoso[i].gamma < 0.1)
+         ruidoso[i].gamma = 0.1;
 
-      // Ajusta los valores de rho dentro del rango permitido [0.5, 0.7]
-      if (ruidoso[i].rho > 0.7)
-         ruidoso[i].rho = 0.7;
+      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.95]
+      if (ruidoso[i].rho > 0.95)
+         ruidoso[i].rho = 0.95;
 
-      if (ruidoso[i].rho < 0.5)
-         ruidoso[i].rho = 0.5;
+      if (ruidoso[i].rho < 0.1)
+         ruidoso[i].rho = 0.1;
 
-      // Ajusta el número de hormigas dentro del rango permitido [30, 45]
-      if (ruidoso[i].numHormigas > 45)
-         ruidoso[i].numHormigas = 45;
+      // Ajusta el número de hormigas dentro del rango permitido [50, 100]
+      if (ruidoso[i].numHormigas > 100)
+         ruidoso[i].numHormigas = 100;
 
-      if (ruidoso[i].numHormigas < 30)
-         ruidoso[i].numHormigas = 30;
+      if (ruidoso[i].numHormigas < 50)
+         ruidoso[i].numHormigas = 50;
 
-      // Ajusta el número de iteraciones dentro del rango permitido [150, 300]
-      if (ruidoso[i].numIteraciones > 300)
-         ruidoso[i].numIteraciones = 300;
+      // Ajusta el número de iteraciones dentro del rango permitido [100, 200]
+      if (ruidoso[i].numIteraciones > 200)
+         ruidoso[i].numIteraciones = 200;
 
-      if (ruidoso[i].numIteraciones < 150)
-         ruidoso[i].numIteraciones = 150;
+      if (ruidoso[i].numIteraciones < 100)
+         ruidoso[i].numIteraciones = 100;
    }
 }
 
@@ -220,11 +220,11 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    {
       // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
       objetivo[i].alpha = generaAleatorio(1.0, 2.5);              // alpha: entre 1.0 y 2.5
-      objetivo[i].beta = generaAleatorio(2.5, 4.5);               // beta: entre 2.5 y 4.5
-      objetivo[i].gamma = generaAleatorio(0.7, 1.5);              // gamma: entre 0.7 y 1.5
-      objetivo[i].rho = generaAleatorio(0.5, 0.7);                // rho: entre 0.5 y 0.7
-      objetivo[i].numHormigas = (int)generaAleatorio(30, 45);     // numHormigas: entre 30 y 45
-      objetivo[i].numIteraciones = (int)generaAleatorio(150, 300); // numIteraciones: entre 150 y 300
+      objetivo[i].beta = generaAleatorio(1.0, 2.5);               // beta: entre 1.0 y 2.5
+      objetivo[i].gamma = generaAleatorio(1.0, 1.5);              // gamma: entre 0.1 y 1.5
+      objetivo[i].rho = generaAleatorio(0.1, 0.95);                // rho: entre 0.1 y 0.95
+      objetivo[i].numHormigas = (int)generaAleatorio(50, 100);     // numHormigas: entre 50 y 100
+      objetivo[i].numIteraciones = (int)generaAleatorio(100, 200); // numIteraciones: entre 100 y 200
    }
 }
 
