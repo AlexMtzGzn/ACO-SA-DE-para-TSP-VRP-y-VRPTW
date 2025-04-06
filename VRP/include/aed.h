@@ -12,17 +12,14 @@ double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int
 // Inicializa la matriz de visibilidad, que representa la "facilidad" de mover de un cliente a otro
 void inicializar_Visibilidad(double **instancia_visibilida, struct vrp_configuracion *vrp);
 
-// Inicializa las ventanas de tiempo para cada cliente en la instancia del VRP
-void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp);
-
 // Inicializa la matriz de distancias, que contiene la distancia entre cada par de clientes
 void inicializar_Distancias(double **instancia_distancias, struct vrp_configuracion *vrp);
 
 // Inicializa la matriz de feromonas, que representa la cantidad de feromona en cada arista
 void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona);
 
-// Evalúa la función objetivo (FO) del algoritmo evolutivo diferencial (AED) usando la instancia de feromona, visibilidad, distancias y ventanas de tiempo
-void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp);
+// Evalúa la función objetivo (FO) del algoritmo evolutivo diferencial (AED) usando la instancia de feromona, visibilidad, distancias
+void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, struct vrp_configuracion *vrp);
 
 // Genera un número aleatorio dentro de un rango especificado (mínimo, máximo)
 double generaAleatorio(double minimo, double maximo);
@@ -40,6 +37,6 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
 void inicializaPoblacion(struct individuo *objetivo, int poblacion);
 
 // Función principal del algoritmo Evolutivo Diferencial (AED) para resolver el VRP con ventanas de tiempo (VRPTW), que recibe el número de individuos, generaciones y el archivo de instancia
-void aed_vrp_tw(int num_poblacion, int num_generaciones,int tamanio_instancia, char *archivo_instancia);
+void aed_vrp(int num_poblacion, int num_generaciones,int tamanio_instancia, char *archivo_instancia);
 
 #endif // AED_H

@@ -4,7 +4,7 @@
 #include <time.h>
 #include "../include/aed.h"
 #include "../include/estructuras.h"
-#include "../include/vrp_tw_aco.h"
+#include "../include/vrp_aco.h"
 #include "../include/configuracion_vrp_tw.h"
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
@@ -35,27 +35,6 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
          else
          {
             instancia_visibilidad[i][j] = 0.0; // Es 0.0
-         }
-      }
-   }
-}
-
-void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp)
-{
-   // Recorre todos los clientes y calcula la ventana de tiempo entre ellos
-   for (int i = 0; i < vrp->num_clientes; i++)
-   {
-      for (int j = i + 1; j < vrp->num_clientes; j++)
-      {
-         // Si i y j son diferentes, asigna la ventana de tiempo como 1 / tiempo final del cliente j
-         if (calcular_Distancia(vrp, i, j) > 0)
-         {
-            instancia_ventanas_tiempo[i][j] = 1.0;
-            instancia_ventanas_tiempo[j][i] = instancia_ventanas_tiempo[i][j]; // Aprovechamos la simetría
-         }
-         else
-         {
-            instancia_ventanas_tiempo[i][j] = 0.0; // Es 0.0
          }
       }
    }
@@ -101,13 +80,13 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
    }
 }
 
-void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp)
+void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, struct vrp_configuracion *vrp)
 {
    // Inicializa las feromonas en la instancia
    inicializar_Feromona(vrp, instancia_feromona);
    // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
    // Ejecuta el algoritmo de optimización con ventanas de tiempo (ACO) en el individuo
-   vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona, instancia_ventanas_tiempo);
+   vrp_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -219,7 +198,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    }
 }
 
-void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
+void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
    clock_t timepo_inicial, timepo_final;
    timepo_inicial = clock();
@@ -233,18 +212,15 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);     // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);       // Generamos memoria para la instancia de la feromona
    double **instancia_distancias = asignar_memoria_instancia(vrp->num_clientes);      // Generamos memoria para la instancia de la las distancias
-   double **instancia_ventanas_tiempo = asignar_memoria_instancia(vrp->num_clientes); // Generamos memoria para la instancia de las ventanas de tiempo
 
    inicializar_Distancias(instancia_distancias, vrp);          // Inicializamos las distancias
    inicializar_Visibilidad(instancia_visibilidad, vrp);        // Inicializamos las visibilidad
-   inicializar_Ventana_Tiempo(instancia_ventanas_tiempo, vrp); // Inicializmos las ventanas de tiempo
    inicializar_Feromona(vrp, instancia_feromonas);             // Inicializamos la feromona
    inicializaPoblacion(objetivo, num_poblacion);               // Inicializamos la poblacion
 
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,vrp,"INSTANCIA DISTANCIAS");
    // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
-   // imprimir_instancia(instancia_ventanas_tiempo,vrp,"INSTANCIA VENTANAS DE TIEMPO");
    // imprimir_instancia(instancia_visibilidad,vrp,"INSTANCIA VISIBILIDAD");
 
    // Inicializamos la estructura de resultados
@@ -252,7 +228,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    resultado->hormiga = asignar_memoria_hormigas(1);
    // Evaluamos la función objetivo para cada individuo de la población inicial
    for (int i = 0; i < num_poblacion; ++i) // Iniciamos la funcion objetivo con el objetivo
-      evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
+      evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias,vrp);
    // Encontramos el mejor individuo de la población inicial
    for (int i = 0; i < num_poblacion; i++)
    {
@@ -274,7 +250,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
       construyePrueba(objetivo, ruidoso, prueba, num_poblacion); // Contruimos Prueba
                                                                  // Evaluamos la función objetivo para cada individuo de prueba
       for (int j = 0; j < num_poblacion; ++j)                    // Mandamos a evaluar la funcion objetivo de prueba{
-         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
+         evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias,vrp);
 
       for (int i = 0; i < num_poblacion; i++)
       {
@@ -328,7 +304,6 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
-   liberar_instancia(instancia_ventanas_tiempo, vrp->num_clientes); // Liberemos la memoria de la instancia ventanas de tiempo
    liberar_individuos(objetivo, num_poblacion, true);               // Liberemos la memoria del objetivo
    liberar_individuos(prueba, num_poblacion, true);                 // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);               // Liberemos la memoria del ruidoso

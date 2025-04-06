@@ -1,5 +1,5 @@
-#ifndef VRP_TW_ACO_H
-#define VRP_TW_ACO_H
+#ifndef VRP_ACO_H
+#define VRP_ACO_H
 
 #include <stdbool.h>
 #include "../include/estructuras.h"
@@ -26,9 +26,9 @@ void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vr
 double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_ventanas_tiempo);
 
 // Función principal del algoritmo ACO (Ant Colony Optimization) para resolver el problema VRP-TW
-void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo);
+void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias);
 
 // Función que ejecuta el algoritmo VRP-TW con ACO (Vehicle Routing Problem with Time Windows using Ant Colony Optimization)
-void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo);
+void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
 
-#endif // VRP_TW_ACO_H
+#endif // VRP_ACO_H
