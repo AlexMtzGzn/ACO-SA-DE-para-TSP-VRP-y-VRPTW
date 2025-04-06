@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../include/control_memoria.h"
-#include "../include/configuracion_vrp_tw.h"
+#include "../include/configuracion_vrp.h"
 #include "../include/estructuras.h"
 #include "../include/salida_datos.h"
 

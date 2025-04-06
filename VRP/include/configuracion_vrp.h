@@ -1,5 +1,5 @@
-#ifndef CONFIGURACION_VRP_TW_H
-#define CONFIGURACION_VRP_TW_H
+#ifndef CONFIGURACION_VRP_H
+#define CONFIGURACION_VRP_H
 
 // Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del VRP
 #include <cjson/cJSON.h>
@@ -19,4 +19,4 @@ void leemos_txt(vrp_configuracion *vrp, char *ruta);
 // Función para leer una instancia de VRP desde un archivo de instancia dado, devolviendo un puntero a la configuración VRP
 vrp_configuracion *leer_instancia(char *archivo_instancia,int tamanio_instancia);
 
-#endif // CONFIGURACION_VRP_TW_H
+#endif // CONFIGURACION_VRP_H

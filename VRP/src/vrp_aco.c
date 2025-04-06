@@ -198,7 +198,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
     }
 }
 
-void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_distancias)
+void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vrp_configuracion *vrp, struct hormiga *hormiga)
 {
     // Iteramos sobre todos los clientes para verificar si pueden ser visitados
     for (int i = 1; i < vrp->num_clientes; i++) // Comenzamos en 1 porque el índice 0 es el depósito, que ya está agregado
@@ -249,7 +249,7 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
     return numerador / hormiga->suma_probabilidades;
 }
 
-void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias)
+void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona)
 {
     // Seleccionamos la flota de la hormiga
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza;
@@ -282,9 +282,9 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             origen = ultimo_cliente_ruta->cliente;
 
             // Calculamos qué clientes pueden ser visitados desde el nodo actual
-            calcular_posibles_clientes(origen, vehiculo, vrp, hormiga, instancia_distancias);
+            calcular_posibles_clientes(origen, vehiculo, vrp, hormiga);
 
-            // Si no hay clientes disponibles, avanzamos el tiempo del vehículo
+            // Si no hay clientes disponibles, rompemos para ver si podemos agregra tro carro
             if (hormiga->posibles_clientes_contador == 0)
                break;
         }
@@ -388,7 +388,7 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
         for (int j = 0; j < ind->numHormigas; j++)
         {
             // Generamos la ruta de la hormiga j usando el algoritmo ACO
-            aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias);
+            aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona);
 
             // Calculamos el fitness de la ruta generada por la hormiga j
             calcular_fitness(&hormiga[j], instancia_distancias);

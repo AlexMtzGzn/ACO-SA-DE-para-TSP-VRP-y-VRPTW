@@ -20,13 +20,13 @@ void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias);
 void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga);
 
 // Función para calcular los posibles clientes que una hormiga puede visitar desde un origen en su ruta
-void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_distancias);
+void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vrp_configuracion *vrp, struct hormiga *hormiga);
 
 // Función para calcular la probabilidad de transición de una hormiga entre dos clientes
 double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_ventanas_tiempo);
 
 // Función principal del algoritmo ACO (Ant Colony Optimization) para resolver el problema VRP-TW
-void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias);
+void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);
 
 // Función que ejecuta el algoritmo VRP-TW con ACO (Vehicle Routing Problem with Time Windows using Ant Colony Optimization)
 void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
