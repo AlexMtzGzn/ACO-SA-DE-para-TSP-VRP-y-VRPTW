@@ -23,7 +23,6 @@ typedef struct vehiculo
     int id_vehiculo;            // ID único del vehículo
     double capacidad_maxima;    // Capacidad máxima del vehículo
     double capacidad_acumulada; // Capacidad actual acumulada en el vehículo
-    double velocidad;           // Velocidad del vehículo
     int clientes_contados;      // Contador de clientes atendidos por el vehículo
     lista_ruta *ruta;           // Ruta que sigue el vehículo
     double fitness_vehiculo;    // Medida de rendimiento del vehículo
