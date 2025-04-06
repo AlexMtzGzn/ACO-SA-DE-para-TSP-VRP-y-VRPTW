@@ -197,9 +197,6 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
 }
 
 // Función para leer una instancia desde archivo CSV o TXT
-#include <stdlib.h>  // Necesario para la función exit()
-
-// Función para leer una instancia desde archivo CSV o TXT
 struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_instancia)
 {
     char ruta[100];
