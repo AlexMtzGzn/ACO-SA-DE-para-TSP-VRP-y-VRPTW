@@ -23,7 +23,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
 void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vrp_configuracion *vrp, struct hormiga *hormiga);
 
 // Función para calcular la probabilidad de transición de una hormiga entre dos clientes
-double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_ventanas_tiempo);
+double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad);
 
 // Función principal del algoritmo ACO (Ant Colony Optimization) para resolver el problema VRP-TW
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona);

@@ -18,7 +18,6 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     vehiculo_nuevo->vehiculo->capacidad_acumulada = 0.0;
     vehiculo_nuevo->vehiculo->clientes_contados = 0;
     vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0;
-    vehiculo_nuevo->vehiculo->velocidad = 1.0;
     
     // Asignar memoria para la lista de rutas y añadir el primer cliente
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();
@@ -69,7 +68,6 @@ struct vehiculo *copiar_vehiculo(struct vehiculo *original)
     nuevo_vehiculo->id_vehiculo = original->id_vehiculo;
     nuevo_vehiculo->capacidad_maxima = original->capacidad_maxima;
     nuevo_vehiculo->capacidad_acumulada = original->capacidad_acumulada;
-    nuevo_vehiculo->velocidad = original->velocidad;
     nuevo_vehiculo->clientes_contados = original->clientes_contados;
     nuevo_vehiculo->fitness_vehiculo = original->fitness_vehiculo;
 
