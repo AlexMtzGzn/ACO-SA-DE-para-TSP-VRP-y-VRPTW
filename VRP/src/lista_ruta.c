@@ -99,6 +99,5 @@ void liberar_ruta(struct lista_ruta *ruta)
         cliente_actual = cliente_actual->siguiente;
         free(cliente_temp);
     }
-    
-    free(ruta); // Se libera la estructura de la lista de ruta
+    free(ruta);
 }

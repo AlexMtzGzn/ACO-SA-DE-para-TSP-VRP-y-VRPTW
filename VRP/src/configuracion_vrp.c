@@ -49,7 +49,7 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tama
     while (fgets(buffer, sizeof(buffer), archivo) && cliente_index < vrp->num_clientes)
     {
         int id;
-        double x, y, demanda, inicio, fin, servicio;
+        double x, y, demanda;
 
         // Si encontramos datos válidos, los guardamos en la estructura
         if (sscanf(buffer, "%d, %lf, %lf, %lf",
@@ -170,7 +170,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
     while (fgets(buffer, sizeof(buffer), file) && cliente_index < vrp->num_clientes)
     {
         int id;
-        double x, y, demanda, inicio, fin, servicio;
+        double x, y, demanda;
 
         if (sscanf(buffer, "%d %lf %lf %lf",
                    &id, &x, &y, &demanda) == 4)

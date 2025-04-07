@@ -69,19 +69,17 @@ double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 /**
  * Libera la memoria del arreglo de enteros.
  */
-void liberar_memoria_arreglo_int(int **arreglo)
+void liberar_memoria_arreglo_int(int *arreglo)
 {
-    free(*arreglo);
-    *arreglo = NULL;
+    free(arreglo);
 }
 
 /**
  * Libera la memoria del arreglo de tipo double.
  */
-void liberar_memoria_arreglo_double(double **arreglo)
+void liberar_memoria_arreglo_double(double *arreglo)
 {
-    free(*arreglo);
-    *arreglo = NULL;
+    free(arreglo);
 }
 
 /**
@@ -179,6 +177,7 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
  */
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
+
     struct hormiga *hormiga = (struct hormiga *)malloc(sizeof(struct hormiga) * numHormigas);
     if (hormiga == NULL)
     {
@@ -195,20 +194,19 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
 {
     for (int i = 0; i < ind->numHormigas; i++)
     {
-        liberar_memoria_arreglo_int(&hormiga[i].tabu);
-        liberar_memoria_arreglo_int(&hormiga[i].posibles_clientes);
-        liberar_memoria_arreglo_double(&hormiga[i].probabilidades);
+        liberar_memoria_arreglo_int(hormiga[i].tabu);
+        liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
+        liberar_memoria_arreglo_double(hormiga[i].probabilidades);
         liberar_lista_vehiculos(hormiga[i].flota);
-        hormiga[i].flota = NULL;
     }
     free(hormiga);
 }
-
 /**
  * Reinicia la información de una hormiga, incluyendo sus arreglos internos y flota de vehículos.
  */
 void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 {
+    // Reset array values
     for (int i = 0; i < vrp->num_clientes; i++)
     {
         hormiga->tabu[i] = 0;
@@ -216,16 +214,20 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
         hormiga->probabilidades[i] = 0.0;
     }
 
+    // Reset counters
     hormiga->tabu_contador = 0;
     hormiga->posibles_clientes_contador = 0;
     hormiga->suma_probabilidades = 0.0;
     hormiga->fitness_global = 0.0;
+    
+    // Free old fleet and create a new one
     liberar_lista_vehiculos(hormiga->flota);
     hormiga->vehiculos_necesarios = 0;
+    
+    // Insert the first vehicle
     inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1);
     hormiga->vehiculos_necesarios++;
 }
-
 /*Funciones para la estructura de ruta*/
 
 /**

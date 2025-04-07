@@ -260,10 +260,15 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
                                             pow(instancia_ventanas_tiempo[origen][i], ind->gamma);
         }
     }
+    // Protección contra la división por cero
+    if (hormiga->suma_probabilidades == 0.0)
+        return 0.0; // O alguna otra estrategia para manejar este caso (como devolver 1.0 o el valor predeterminado)
 
     // Retornamos la probabilidad de elegir el cliente destino dado el origen
     // La probabilidad es el valor del numerador dividido por la suma de probabilidades (denominador)
-    return numerador / hormiga->suma_probabilidades;
+    double probabilidad = 0;
+    probabilidad = numerador / hormiga->suma_probabilidades;
+    return probabilidad;
 }
 
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo)
@@ -394,9 +399,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
     // Verificamos si el depósito fue agregado al final de la ruta
     if (ruta->cola->cliente != 0)
-    {
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el depósito al final
-    }
 }
 
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)

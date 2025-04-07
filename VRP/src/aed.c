@@ -13,7 +13,8 @@
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
    // Retornamos la distancia de los puntos
-   return sqrt(pow((vrp->clientes[cliente_destino].coordenada_x - vrp->clientes[cliente_origen].coordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].coordenada_y - vrp->clientes[cliente_origen].coordenada_y), 2.0));
+   double distancia = sqrt(pow((vrp->clientes[cliente_destino].coordenada_x - vrp->clientes[cliente_origen].coordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].coordenada_y - vrp->clientes[cliente_origen].coordenada_y), 2.0));
+   return distancia;
 }
 
 void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
@@ -85,14 +86,15 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
    // Inicializa las feromonas en la instancia
    inicializar_Feromona(vrp, instancia_feromona);
    // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
-   // Ejecuta el algoritmo de optimización con ventanas de tiempo (ACO) en el individuo
+   //  Ejecuta el algoritmo de optimización con ventanas de tiempo (ACO) en el individuo+
    vrp_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona);
 }
 
 double generaAleatorio(double minimo, double maximo)
 {
    // Genera un número aleatorio entre 0 y 1, luego lo escala al rango deseado
-   return minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
+   double aleatorio = minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
+   return aleatorio;
 }
 
 void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, int poblacion)
@@ -225,12 +227,8 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    resultado->fitness = INFINITY;
    resultado->hormiga = asignar_memoria_hormigas(1);
    // Evaluamos la función objetivo para cada individuo de la población inicial
-
    for (int i = 0; i < num_poblacion; ++i)
-      // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);
-
-   // Encontramos el mejor individuo de la población inicial
 
    // Encontramos el mejor individuo de la población inicial
    for (int i = 0; i < num_poblacion; i++)
@@ -281,7 +279,7 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          else
             printf(" ");
       }
-      printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
+      printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos\n\n",
              ((float)(i + 1) / num_generaciones) * 100,
              resultado->fitness,
              ((double)(clock() - timepo_inicial)) / CLOCKS_PER_SEC / 60.0);
@@ -312,4 +310,5 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso
    liberar_individuos(resultado, 1, true);                      // Liberemos los resultado
    liberar_memoria_vrp_configuracion(vrp);                      // Liberemos la memoria del vrp
+   liberar_memoria_hormiga(resultado->hormiga, 1);
 }

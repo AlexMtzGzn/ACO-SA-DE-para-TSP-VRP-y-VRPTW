@@ -222,7 +222,6 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
     // Calculamos el numerador de la fórmula de probabilidad
     // La fórmula se basa en tres componentes: la cantidad de feromona, la visibilidad y las ventanas de tiempo.
     // Cada uno de estos valores se eleva a un exponente, que está definido por los parámetros alpha y beta del individuo.
-    // Feromona^alpha * Visibilidad^beta
     double numerador = pow(instancia_feromona[origen][destino], ind->alpha) *
                        pow(instancia_visibilidad[origen][destino], ind->beta);
 
@@ -232,19 +231,21 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
     // Calculamos la suma de probabilidades (denominador)
     // Sumamos todas las probabilidades de los posibles clientes que no sean el origen y que sean accesibles
     for (int i = 0; i < vrp->num_clientes; i++)
-    {
         // Verificamos que el cliente no sea el origen y que sea un cliente posible
         if (i != origen && hormiga->posibles_clientes[i] == 1)
-        {
             // Acumulamos la probabilidad de cada cliente posible usando los mismos términos que en el numerador
             hormiga->suma_probabilidades += pow(instancia_feromona[origen][i], ind->alpha) *
                                             pow(instancia_visibilidad[origen][i], ind->beta);
-        }
-    }
+
+    // Protección contra la división por cero
+    if (hormiga->suma_probabilidades == 0.0)
+        return 0.0; // O alguna otra estrategia para manejar este caso (como devolver 1.0 o el valor predeterminado)
 
     // Retornamos la probabilidad de elegir el cliente destino dado el origen
     // La probabilidad es el valor del numerador dividido por la suma de probabilidades (denominador)
-    return numerador / hormiga->suma_probabilidades;
+    double probabilidad = 0;
+    probabilidad = numerador / hormiga->suma_probabilidades;
+    return probabilidad;
 }
 
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad)
@@ -296,15 +297,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                     flota_vehiculo = hormiga->flota->cola;                                   // Apuntamos al nuevo vehículo agregado
                     vehiculo = flota_vehiculo->vehiculo;                                     // Lo seleccionamos como vehículo actual
                 }
-                else
-                {
-                    reiniciar_hormiga(hormiga, vrp);
-                }
-            }
-            else
-            {
-                // Si se alcanzó el límite de vehículos permitidos, reiniciamos la hormiga
-                reiniciar_hormiga(hormiga, vrp);
             }
         }
         else
@@ -319,8 +311,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             for (int i = 0; i < vrp->num_clientes; i++)
                 if (hormiga->posibles_clientes[i] == 1)
                     hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, vrp, hormiga, instancia_feromona, instancia_visibilidad);
-                
-            
 
             // Generamos un número aleatorio entre 0 y 1 para la selección probabilística del siguiente cliente
             double aleatorio_seleccion = ((double)rand() / RAND_MAX);
@@ -358,14 +348,15 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
 void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
+
     // Asignamos memoria para el número de hormigas
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
     int indice = -1; // Índice de la mejor hormiga en cada iteración, inicializado en -1
-
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(vrp, ind, hormiga);
 
+    
     // Bucle principal de iteraciones del algoritmo ACO
     for (int i = 0; i < ind->numIteraciones; i++)
     {
@@ -405,7 +396,10 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
-    // Liberamos la memoria utilizada por las hormigas al final del proceso
+
+    // Imprimimos las hormigas
     // imprimir_hormigas(hormiga, vrp, ind);
-    //liberar_memoria_hormiga(hormiga, ind);
+
+    // Liberamos la memoria utilizada por las hormigas al final del proceso
+    liberar_memoria_hormiga(hormiga, ind);
 }

@@ -200,7 +200,6 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
     }
     free(hormiga);
 }
-
 /**
  * Reinicia la información de una hormiga, incluyendo sus arreglos internos y flota de vehículos.
  */
