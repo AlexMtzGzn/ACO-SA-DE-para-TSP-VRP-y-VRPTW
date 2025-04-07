@@ -271,21 +271,13 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             hormiga->posibles_clientes[i] = 0;
         hormiga->posibles_clientes_contador = 0; // Reiniciamos el contador de clientes posibles
 
-        // Mientras no haya clientes posibles y el vehículo aún tenga capacidad
-        while (hormiga->posibles_clientes_contador == 0 && vehiculo->capacidad_acumulada < vrp->num_capacidad)
-        {
-            // Asignamos la ruta del vehículo y obtenemos el último cliente visitado
-            ruta = vehiculo->ruta;
-            ultimo_cliente_ruta = ruta->cola;
-            origen = ultimo_cliente_ruta->cliente;
+        // Asignamos la ruta del vehículo y obtenemos el último cliente visitado
+        ruta = vehiculo->ruta;
+        ultimo_cliente_ruta = ruta->cola;
+        origen = ultimo_cliente_ruta->cliente;
 
-            // Calculamos qué clientes pueden ser visitados desde el nodo actual
-            calcular_posibles_clientes(origen, vehiculo, vrp, hormiga);
-
-            // Si no hay clientes disponibles, avanzamos el tiempo del vehículo
-            if (hormiga->posibles_clientes_contador == 0)
-                break;
-        }
+        // Calculamos qué clientes pueden ser visitados desde el nodo actual
+        calcular_posibles_clientes(origen, vehiculo, vrp, hormiga);
 
         if (hormiga->posibles_clientes_contador == 0)
         {
@@ -306,7 +298,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                 }
                 else
                 {
-                    // Si ya visitamos todos los clientes, reiniciamos la hormiga
                     reiniciar_hormiga(hormiga, vrp);
                 }
             }
@@ -326,12 +317,10 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
             // Calculamos la probabilidad de visitar cada cliente disponible
             for (int i = 0; i < vrp->num_clientes; i++)
-            {
                 if (hormiga->posibles_clientes[i] == 1)
-                {
                     hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, vrp, hormiga, instancia_feromona, instancia_visibilidad);
-                }
-            }
+                
+            
 
             // Generamos un número aleatorio entre 0 y 1 para la selección probabilística del siguiente cliente
             double aleatorio_seleccion = ((double)rand() / RAND_MAX);
@@ -364,9 +353,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
     // Verificamos si el depósito fue agregado al final de la ruta
     if (ruta->cola->cliente != 0)
-    {
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el depósito al final
-    }
 }
 
 void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
@@ -419,8 +406,6 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
     // Liberamos la memoria utilizada por las hormigas al final del proceso
-    //imprimir_hormigas(hormiga, vrp, ind);
-    liberar_memoria_hormiga(hormiga,ind);
-  
-   
+    // imprimir_hormigas(hormiga, vrp, ind);
+    //liberar_memoria_hormiga(hormiga, ind);
 }

@@ -215,12 +215,10 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
 
    inicializar_Distancias(instancia_distancias, vrp);   // Inicializamos las distancias
    inicializar_Visibilidad(instancia_visibilidad, vrp); // Inicializamos las visibilidad
-   inicializar_Feromona(vrp, instancia_feromonas);      // Inicializamos la feromona
    inicializaPoblacion(objetivo, num_poblacion);        // Inicializamos la poblacion
 
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,vrp,"INSTANCIA DISTANCIAS");
-   // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
    // imprimir_instancia(instancia_visibilidad,vrp,"INSTANCIA VISIBILIDAD");
 
    // Inicializamos la estructura de resultados
@@ -229,10 +227,10 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    // Evaluamos la función objetivo para cada individuo de la población inicial
 
    for (int i = 0; i < num_poblacion; ++i)
-   { // Iniciamos la funcion objetivo con el objetivo
+      // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);
-     
-   } // Encontramos el mejor individuo de la población inicial
+
+   // Encontramos el mejor individuo de la población inicial
 
    // Encontramos el mejor individuo de la población inicial
    for (int i = 0; i < num_poblacion; i++)
