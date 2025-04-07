@@ -292,11 +292,19 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                 // Si aún quedan clientes por visitar, agregamos un nuevo vehículo
                 if (hormiga->tabu_contador < vrp->num_clientes)
                 {
+
                     inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1); // Añadimos un nuevo vehículo
                     hormiga->vehiculos_necesarios++;                                         // Incrementamos el número de vehículos en uso
                     flota_vehiculo = hormiga->flota->cola;                                   // Apuntamos al nuevo vehículo agregado
                     vehiculo = flota_vehiculo->vehiculo;                                     // Lo seleccionamos como vehículo actual
+
+                }else{
+                    break;
                 }
+            }
+            else{
+                reiniciar_hormiga(hormiga,vrp);
+                break;
             }
         }
         else
@@ -398,7 +406,7 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
 
     // Imprimimos las hormigas
-    // imprimir_hormigas(hormiga, vrp, ind);
+     //imprimir_hormigas(hormiga, vrp, ind);
 
     // Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);

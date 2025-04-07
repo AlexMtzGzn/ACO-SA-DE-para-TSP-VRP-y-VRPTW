@@ -108,7 +108,7 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 
 // Función para imprimir la información de la mejor hormiga encontrada
 void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo *ind) {
-    printf("=================================================\n");
+    printf("\n\n=================================================\n");
     printf("INFORMACIÓN DE MEJOR HORMIGA Y RUTA\n");
     printf("=================================================\n");
 

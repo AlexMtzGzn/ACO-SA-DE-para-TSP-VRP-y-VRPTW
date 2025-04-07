@@ -279,7 +279,7 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          else
             printf(" ");
       }
-      printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos\n\n",
+      printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
              ((float)(i + 1) / num_generaciones) * 100,
              resultado->fitness,
              ((double)(clock() - timepo_inicial)) / CLOCKS_PER_SEC / 60.0);
@@ -310,5 +310,4 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso
    liberar_individuos(resultado, 1, true);                      // Liberemos los resultado
    liberar_memoria_vrp_configuracion(vrp);                      // Liberemos la memoria del vrp
-   liberar_memoria_hormiga(resultado->hormiga, 1);
 }
