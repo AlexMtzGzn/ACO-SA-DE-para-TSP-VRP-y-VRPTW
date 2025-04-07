@@ -94,7 +94,7 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
 
     char comando_py[300];
     snprintf(comando_py, sizeof(comando_py),
-             "python3 src/Simulador_VRP_TW/simulador_vrp.py \"%s.json\" %d",
+             "python3 src/Simulador_VRP/simulador_vrp.py \"%s.json\" %d",
              archivo_instancia, vrp->num_clientes - 1);
 
     system(comando_py);

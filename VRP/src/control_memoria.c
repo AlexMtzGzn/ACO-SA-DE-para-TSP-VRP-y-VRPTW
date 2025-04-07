@@ -69,17 +69,19 @@ double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 /**
  * Libera la memoria del arreglo de enteros.
  */
-void liberar_memoria_arreglo_int(int *arreglo)
+void liberar_memoria_arreglo_int(int **arreglo)
 {
-    free(arreglo);
+    free(*arreglo);
+    *arreglo = NULL;
 }
 
 /**
  * Libera la memoria del arreglo de tipo double.
  */
-void liberar_memoria_arreglo_double(double *arreglo)
+void liberar_memoria_arreglo_double(double **arreglo)
 {
-    free(arreglo);
+    free(*arreglo);
+    *arreglo = NULL;
 }
 
 /**
@@ -193,10 +195,11 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
 {
     for (int i = 0; i < ind->numHormigas; i++)
     {
-        liberar_memoria_arreglo_int(hormiga[i].tabu);
-        liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
-        liberar_memoria_arreglo_double(hormiga[i].probabilidades);
+        liberar_memoria_arreglo_int(&hormiga[i].tabu);
+        liberar_memoria_arreglo_int(&hormiga[i].posibles_clientes);
+        liberar_memoria_arreglo_double(&hormiga[i].probabilidades);
         liberar_lista_vehiculos(hormiga[i].flota);
+        hormiga[i].flota = NULL;
     }
     free(hormiga);
 }
