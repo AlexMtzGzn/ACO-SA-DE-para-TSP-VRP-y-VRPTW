@@ -26,7 +26,7 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
     cJSON *json_vehiculo = cJSON_CreateObject();
     cJSON_AddNumberToObject(json_vehiculo, "Id_vehiculo", v->id_vehiculo);
     cJSON_AddNumberToObject(json_vehiculo, "Capacidad Maxima", v->capacidad_maxima);
-    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Acumulada", v->capacidad_acumulada);
+    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Mcumulada", v->capacidad_acumulada);
     cJSON_AddNumberToObject(json_vehiculo, "Numero Clientes", v->clientes_contados);
     cJSON_AddNumberToObject(json_vehiculo, "Fitness Vehiculo", v->fitness_vehiculo);
 
@@ -94,7 +94,7 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
 
     char comando_py[300];
     snprintf(comando_py, sizeof(comando_py),
-             "python3 src/Simulador_VRP/simulador_vrp.py \"%s.json\" %d",
+             "python3 src/Simulador_VRP_TW/simulador_vrp.py \"%s.json\" %d",
              archivo_instancia, vrp->num_clientes - 1);
 
     system(comando_py);

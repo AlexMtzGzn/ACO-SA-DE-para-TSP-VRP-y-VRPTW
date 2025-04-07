@@ -78,7 +78,7 @@ void imprimir_tabu(int *tabu, int num_clientes) {
 void imprimir_individuo(individuo *ind) {
     printf("Individuo: ");
     printf("\n  Alpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d\n",
-           ind->alpha, ind->beta, ind->rho, ind->numHormigas, ind->numIteraciones);
+           ind->alpha, ind->beta,ind->rho, ind->numHormigas, ind->numIteraciones);
 }
 
 // Función principal para imprimir toda la información de las hormigas

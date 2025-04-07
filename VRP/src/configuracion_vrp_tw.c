@@ -49,17 +49,16 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tama
     while (fgets(buffer, sizeof(buffer), archivo) && cliente_index < vrp->num_clientes)
     {
         int id;
-        double x, y, demanda;
+        double x, y, demanda, inicio, fin, servicio;
 
         // Si encontramos datos válidos, los guardamos en la estructura
         if (sscanf(buffer, "%d, %lf, %lf, %lf",
-                   &id, &x, &y, &demanda) == 4)
+                   &id, &x, &y, &demanda, &inicio, &fin, &servicio) == 7)
         {
             vrp->clientes[cliente_index].id_cliente = id;
             vrp->clientes[cliente_index].coordenada_x = x;
             vrp->clientes[cliente_index].coordenada_y = y;
             vrp->clientes[cliente_index].demanda_capacidad = demanda;
-
             cliente_index++;
         }
     }
@@ -91,13 +90,11 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tam
 
     // Escribimos los datos de cada cliente
     for (int i = 0; i < vrp->num_clientes; i++)
-    {
         fprintf(archivo, "%d, %.2lf, %.2lf, %.2lf\n",
                 vrp->clientes[i].id_cliente,
                 vrp->clientes[i].coordenada_x,
                 vrp->clientes[i].coordenada_y,
                 vrp->clientes[i].demanda_capacidad);
-    }
 
     fclose(archivo); // Cerramos el archivo
 }
@@ -170,7 +167,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
     while (fgets(buffer, sizeof(buffer), file) && cliente_index < vrp->num_clientes)
     {
         int id;
-        double x, y, demanda;
+        double x, y, demanda, inicio, fin, servicio;
 
         if (sscanf(buffer, "%d %lf %lf %lf",
                    &id, &x, &y, &demanda) == 4)
@@ -179,6 +176,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
             vrp->clientes[cliente_index].coordenada_x = x;
             vrp->clientes[cliente_index].coordenada_y = y;
             vrp->clientes[cliente_index].demanda_capacidad = demanda;
+
 
             cliente_index++;
         }
@@ -206,9 +204,10 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
     {
         leemos_csv(vrp, archivo_instancia, tamanio_instancia);
         fclose(archivo);
-        if (vrp == NULL || vrp->clientes == NULL) {
+        if (vrp == NULL || vrp->clientes == NULL)
+        {
             liberar_memoria_vrp_configuracion(vrp); // Liberamos la memoria del vrp
-            exit(EXIT_FAILURE); // Finaliza el programa con un código de error
+            exit(EXIT_FAILURE);                     // Finaliza el programa con un código de error
         }
         return vrp; // Retornamos vrp si la lectura fue exitosa
     }
@@ -223,9 +222,10 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
         leemos_txt(vrp, ruta);
         creamos_csv(vrp, archivo_instancia, tamanio_instancia); // Crear el CSV si el TXT fue leído correctamente
         fclose(archivo);
-        if (vrp == NULL || vrp->clientes == NULL) {
+        if (vrp == NULL || vrp->clientes == NULL)
+        {
             liberar_memoria_vrp_configuracion(vrp); // Liberamos la memoria del vrp
-            exit(EXIT_FAILURE); // Finaliza el programa con un código de error
+            exit(EXIT_FAILURE);                     // Finaliza el programa con un código de error
         }
         return vrp; // Retornamos vrp si la lectura fue exitosa
     }
