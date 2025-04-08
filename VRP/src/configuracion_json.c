@@ -36,7 +36,6 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
         actual = actual->siguiente;
     }
     cJSON_AddItemToObject(json_vehiculo, "Ruta Clientes", ruta_clientes);
-
     cJSON_AddItemToObject(json_vehiculo, "Ruta Coordenadas", generar_ruta_coordenadas(v->ruta, clientes));
 
     return json_vehiculo;
@@ -53,6 +52,7 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     cJSON_AddNumberToObject(json_individuo, "Rho", ind->rho);
     cJSON_AddNumberToObject(json_individuo, "Numero Hormigas", ind->numHormigas);
     cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones", ind->numIteraciones);
+    cJSON_AddNumberToObject(json_individuo, "Numero de Vehiculos", ind->vehiculos);
     cJSON_AddNumberToObject(json_individuo, "Fitness Global", ind->fitness);
 
     cJSON *flota_json = cJSON_CreateArray();

@@ -201,7 +201,7 @@ class VRPSimulator:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Uso: python simulador_vrp_tw.py <archivo_json> [numero_clientes]")
+        print("Uso: python simulador_vrp.py <archivo_json> [numero_clientes]")
         sys.exit(1)
     
     # Obtener el número de clientes del segundo parámetro (si existe)

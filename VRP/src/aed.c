@@ -87,7 +87,7 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
    inicializar_Feromona(vrp, instancia_feromona);
    // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
    // Ejecuta el algoritmo de optimización con ventanas de tiempo (ACO) en el individuo
-   vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona);
+   vrp_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona);
 }
 
 double generaAleatorio(double minimo, double maximo)
@@ -208,7 +208,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    }
 }
 
-void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
+void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
    clock_t timepo_inicial, timepo_final;
    timepo_inicial = clock();
@@ -218,7 +218,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
    struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
    vrp_configuracion *vrp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
-
+   
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);     // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);       // Generamos memoria para la instancia de la feromona
    double **instancia_distancias = asignar_memoria_instancia(vrp->num_clientes);      // Generamos memoria para la instancia de la las distancias
@@ -227,7 +227,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    inicializar_Visibilidad(instancia_visibilidad, vrp);        // Inicializamos las visibilidad
    inicializar_Feromona(vrp, instancia_feromonas);             // Inicializamos la feromona
    inicializaPoblacion(objetivo, num_poblacion);               // Inicializamos la poblacion
-
+   
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,vrp,"INSTANCIA DISTANCIAS");
    // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
@@ -249,6 +249,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
          resultado->rho = objetivo[i].rho;
          resultado->numHormigas = objetivo[i].numHormigas;
          resultado->numIteraciones = objetivo[i].numIteraciones;
+         resultado->vehiculos = prueba[i].vehiculos;
          recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);
       }
    }
@@ -272,6 +273,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
             resultado->rho = prueba[i].rho;
             resultado->numHormigas = prueba[i].numHormigas;
             resultado->numIteraciones = prueba[i].numIteraciones;
+            resultado->vehiculos = prueba[i].vehiculos;
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);
          }
       }

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"

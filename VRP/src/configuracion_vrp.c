@@ -23,9 +23,9 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tama
     char buffer[256];
     fgets(buffer, sizeof(buffer), archivo); // Leemos la primera línea (encabezado)
 
-    int num_vehiculos, num_capacidad, num_clientes;
+    int num_vehiculos,num_clientes;
     // Leemos los parámetros de configuración del archivo CSV
-    if (fscanf(archivo, "%d, %d, %d\n", &num_vehiculos, &num_capacidad, &num_clientes) != 3)
+    if (fscanf(archivo, "%d, %d\n", &num_vehiculos, &num_clientes) != 2)
     {
         imprimir_mensaje("Error al leer los parámetros de configuración del archivo CSV.");
         fclose(archivo);
@@ -48,7 +48,7 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tama
     while (fgets(buffer, sizeof(buffer), archivo) && cliente_index < vrp->num_clientes)
     {
         int id;
-        double x, y, demanda, inicio, fin, servicio;
+        double x, y;
 
         // Si encontramos datos válidos, los guardamos en la estructura
         if (sscanf(buffer, "%d, %lf, %lf",
@@ -166,7 +166,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
     while (fgets(buffer, sizeof(buffer), file) && cliente_index < vrp->num_clientes)
     {
         int id;
-        double x, y, demanda, inicio, fin, servicio;
+        double x, y;
 
         if (sscanf(buffer, "%d %lf %lf",
                    &id, &x, &y) == 3)
