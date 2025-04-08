@@ -338,7 +338,8 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                 else
                 {
                     // Si ya visitamos todos los clientes, reiniciamos la hormiga
-                    reiniciar_hormiga(hormiga, vrp);
+                    //reiniciar_hormiga(hormiga, vrp);
+                    break;
                 }
             }
             else
