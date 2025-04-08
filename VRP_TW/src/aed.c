@@ -114,7 +114,8 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
 double generaAleatorio(double minimo, double maximo)
 {
    // Genera un número aleatorio entre 0 y 1, luego lo escala al rango deseado
-   return minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
+   double aleatorio = minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
+   return aleatorio;
 }
 
 void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, int poblacion)
@@ -140,6 +141,7 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       ruidoso[i].beta = objetivo[aleatorio1].beta + 0.5 * (objetivo[aleatorio2].beta - objetivo[aleatorio3].beta);
       ruidoso[i].gamma = objetivo[aleatorio1].gamma + 0.5 * (objetivo[aleatorio2].gamma - objetivo[aleatorio3].gamma);
       ruidoso[i].rho = objetivo[aleatorio1].rho + 0.5 * (objetivo[aleatorio2].rho - objetivo[aleatorio3].rho);
+      ruidoso[i].umbral = objetivo[aleatorio1].umbral + 0.5 * (objetivo[aleatorio2].umbral - objetivo[aleatorio3].umbral);
       ruidoso[i].numHormigas = objetivo[aleatorio1].numHormigas + (int)(0.5 * (objetivo[aleatorio2].numHormigas - objetivo[aleatorio3].numHormigas));
       ruidoso[i].numIteraciones = objetivo[aleatorio1].numIteraciones + (int)(0.5 * (objetivo[aleatorio2].numIteraciones - objetivo[aleatorio3].numIteraciones));
 
@@ -165,12 +167,19 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].gamma < 0.0)
          ruidoso[i].gamma = 0.0;
 
-      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.9]
+      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.8]
       if (ruidoso[i].rho > 0.8)
          ruidoso[i].rho = 0.8;
 
       if (ruidoso[i].rho < 0.1)
          ruidoso[i].rho = 0.1;
+      
+      // Ajusta los valores del umbral o dentro del rango permitido [0.0, 1.0]
+      if (ruidoso[i].umbral > 1.0)
+         ruidoso[i].umbral = 1.0;
+
+      if (ruidoso[i].umbral < 0.0)
+         ruidoso[i].rho = 0.0;
 
       // Ajusta el número de hormigas dentro del rango permitido [50, 100]
       if (ruidoso[i].numHormigas > 100)
@@ -224,6 +233,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
       objetivo[i].beta = generaAleatorio(1.5, 2.5);                // beta: entre 1.0 y 2.5
       objetivo[i].gamma = generaAleatorio(0.0, 1.5);               // gamma: entre 0.1 y 1.5
       objetivo[i].rho = generaAleatorio(0.1, 0.8);                 // rho: entre 0.1 y 0.9
+      objetivo[i].umbral = generaAleatorio(0.1, 1.0);                 // umbral: entre 0.0 y 1.0
       objetivo[i].numHormigas = (int)generaAleatorio(50, 100);     // numHormigas: entre 50 y 100
       objetivo[i].numIteraciones = (int)generaAleatorio(100, 200); // numIteraciones: entre 100 y 200
    }

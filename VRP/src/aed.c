@@ -137,7 +137,7 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].beta < 1.5)
          ruidoso[i].beta = 1.5;
 
-      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.9]
+      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.8]
       if (ruidoso[i].rho > 0.8)
          ruidoso[i].rho = 0.8;
 

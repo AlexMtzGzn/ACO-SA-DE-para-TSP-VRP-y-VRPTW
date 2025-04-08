@@ -81,11 +81,11 @@ typedef struct cliente
 // Estructura que contiene la configuración del problema VRP con ventanas de tiempo
 typedef struct vrp_configuracion
 {
-    int num_clientes;            // Número total de clientes en el VRP
-    int num_vehiculos;           // Número total de vehículos disponibles
-    int num_capacidad;           // Capacidad de cada vehículo
-    cliente *clientes;           // Arreglo de clientes en el VRP
-    double tiempo_ejecucion;     // Tiempo de ejecucion del codigo
+    int num_clientes;        // Número total de clientes en el VRP
+    int num_vehiculos;       // Número total de vehículos disponibles
+    int num_capacidad;       // Capacidad de cada vehículo
+    cliente *clientes;       // Arreglo de clientes en el VRP
+    double tiempo_ejecucion; // Tiempo de ejecucion del codigo
     char *archivo_instancia; // Nombre del archivo
 } vrp_configuracion;
 
@@ -97,6 +97,7 @@ typedef struct individuo
     double beta;        // Parámetro beta para el algoritmo ACO
     double gamma;       // Parámetro gamma (usado en el algoritmo)
     double rho;         // Factor de evaporación de feromona
+    double umbral;      // Umbral de seleccion determinista
     int numHormigas;    // Número de hormigas en la población
     int numIteraciones; // Número de iteraciones del algoritmo
     double fitness;     // Medida de rendimiento del individuo
