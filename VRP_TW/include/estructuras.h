@@ -97,7 +97,6 @@ typedef struct individuo
     double beta;        // Parámetro beta para el algoritmo ACO
     double gamma;       // Parámetro gamma (usado en el algoritmo)
     double rho;         // Factor de evaporación de feromona
-    double umbral;      // Umbral de seleccion determinista
     int numHormigas;    // Número de hormigas en la población
     int numIteraciones; // Número de iteraciones del algoritmo
     double fitness;     // Medida de rendimiento del individuo
