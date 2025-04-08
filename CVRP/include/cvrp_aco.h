@@ -29,6 +29,6 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga,double **instancia_feromona, double **instancia_visibilidad);
 
 // Función que ejecuta el algoritmo VRP-TW con ACO (Vehicle Routing Problem with Time Windows using Ant Colony Optimization)
-void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
+void cvrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
 
 #endif // VRP_ACO_H

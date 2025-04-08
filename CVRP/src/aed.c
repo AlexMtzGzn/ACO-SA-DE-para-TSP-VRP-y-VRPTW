@@ -4,7 +4,7 @@
 #include <time.h>
 #include "../include/aed.h"
 #include "../include/estructuras.h"
-#include "../include/vrp_aco.h"
+#include "../include/cvrp_aco.h"
 #include "../include/configuracion_vrp.h"
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
@@ -200,7 +200,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    }
 }
 
-void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
+void aed_cvrp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
    clock_t timepo_inicial, timepo_final;
    timepo_inicial = clock();
