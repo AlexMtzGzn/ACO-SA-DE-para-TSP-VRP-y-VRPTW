@@ -314,5 +314,6 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
     imprimir_hormigas(hormiga, tsp, ind);
     // Liberamos la memoria utilizada por las hormigas al final del proceso
-    liberar_memoria_hormiga(hormiga, ind);
+    if (hormiga->ruta != NULL)
+        liberar_memoria_hormiga(hormiga, ind);
 }
