@@ -209,7 +209,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
    struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
    tsp_configuracion *tsp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura tsp_configuracion
-
+  
    double **instancia_visibilidad = asignar_memoria_instancia(tsp->num_clientes); // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(tsp->num_clientes);   // Generamos memoria para la instancia de la feromona
    double **instancia_distancias = asignar_memoria_instancia(tsp->num_clientes);  // Generamos memoria para la instancia de la las distancias
@@ -227,10 +227,12 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    // Inicializamos la estructura de resultados
    resultado->fitness = INFINITY;
    resultado->hormiga = asignar_memoria_hormigas(1);
+   resultado->hormiga->ruta = asignar_memoria_lista_ruta();
    // Evaluamos la función objetivo para cada individuo de la población inicial
-   for (int i = 0; i < num_poblacion; ++i) // Iniciamos la funcion objetivo con el objetivo
+   for (int i = 0; i < num_poblacion; i++) // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, tsp);
    // Encontramos el mejor individuo de la población inicial
+   
    for (int i = 0; i < num_poblacion; i++)
    {
       if (objetivo[i].fitness < resultado->fitness)

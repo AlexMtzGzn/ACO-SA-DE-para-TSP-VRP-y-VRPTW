@@ -88,12 +88,36 @@ struct lista_ruta *copiar_lista_ruta(struct lista_ruta *ruta_original)
     return ruta_nueva;
 }
 
-// Función para liberar la memoria de una lista de ruta
 void liberar_lista_ruta(struct lista_ruta *ruta)
 {
+    if (ruta == NULL)
+    {
+        return;
+    }
+
     struct nodo_ruta *cliente_actual = ruta->cabeza;
 
-    // Se libera cada nodo de la lista de ruta
+    // Liberamos todos los nodos de la lista
+    while (cliente_actual)
+    {
+        struct nodo_ruta *cliente_temp = cliente_actual;
+        cliente_actual = cliente_actual->siguiente;
+        free(cliente_temp);
+    }
+    free(ruta);
+
+}
+
+void vaciar_lista_ruta(struct lista_ruta *ruta)
+{
+    if (ruta == NULL)
+    {
+        return;
+    }
+
+    struct nodo_ruta *cliente_actual = ruta->cabeza;
+
+    // Liberamos todos los nodos de la lista
     while (cliente_actual)
     {
         struct nodo_ruta *cliente_temp = cliente_actual;
@@ -101,5 +125,7 @@ void liberar_lista_ruta(struct lista_ruta *ruta)
         free(cliente_temp);
     }
 
-    free(ruta); // Se libera la estructura de la lista de ruta
+    // Reiniciamos la lista como vacía pero válida
+    ruta->cabeza = NULL;
+    ruta->cola = NULL;
 }

@@ -25,7 +25,7 @@ void leemos_csv(struct tsp_configuracion *tsp, char *archivo_instancia, int tama
 
     int num_clientes;
     // Leemos los parámetros de configuración del archivo CSV
-    if (fscanf(archivo, "%d\n",&num_clientes) != 2)
+    if (fscanf(archivo, "%d\n", &num_clientes) != 1)
     {
         imprimir_mensaje("Error al leer los parámetros de configuración del archivo CSV.");
         fclose(archivo);
@@ -62,6 +62,11 @@ void leemos_csv(struct tsp_configuracion *tsp, char *archivo_instancia, int tama
     }
 
     fclose(archivo); // Cerramos el archivo
+    
+    // Verificamos si se leyeron todos los clientes
+    if (cliente_index < tsp->num_clientes) {
+        imprimir_mensaje("Advertencia: No se pudieron leer todos los clientes del archivo CSV.");
+    }
 }
 
 // Función para crear un archivo CSV con los datos del tsp
@@ -80,7 +85,7 @@ void creamos_csv(struct tsp_configuracion *tsp, char *archivo_instancia, int tam
     }
 
     // Escribimos la primera línea con los parámetros de configuración
-    fprintf(archivo, "%s\n,%d\n",
+    fprintf(archivo, "%s\n%d\n",
             archivo_instancia,
             tsp->num_clientes);
 
@@ -102,7 +107,7 @@ void leemos_txt(struct tsp_configuracion *tsp, char *ruta)
     FILE *file = fopen(ruta, "r");
     if (!file)
     {
-        perror("Error al abrir el archivo");
+        imprimir_mensaje("Error al abrir el archivo TXT para lectura.");
         return;
     }
 
@@ -118,19 +123,28 @@ void leemos_txt(struct tsp_configuracion *tsp, char *ruta)
         }
     }
 
+    // Guardamos la posición actual para leer los clientes después
+    long posicion_inicial = ftell(file);
+    
     // Contamos los clientes
     int num_clientes = 0;
-    long posicion_inicial = ftell(file);
     while (fgets(buffer, sizeof(buffer), file))
     {
         int id;
-        if (sscanf(buffer, "%d", &id) == 1)
+        double x, y;
+        if (sscanf(buffer, "%d %lf %lf", &id, &x, &y) == 3)
         {
             num_clientes++;
         }
     }
 
     tsp->num_clientes = num_clientes;
+    
+    if (num_clientes == 0) {
+        imprimir_mensaje("Error: No se encontraron clientes en el archivo TXT.");
+        fclose(file);
+        return;
+    }
 
     // Asignamos memoria para los clientes
     tsp->clientes = asignar_memoria_clientes(tsp);
@@ -150,8 +164,7 @@ void leemos_txt(struct tsp_configuracion *tsp, char *ruta)
         int id;
         double x, y;
 
-        if (sscanf(buffer, "%d %lf %lf",
-                   &id, &x, &y) == 3)
+        if (sscanf(buffer, "%d %lf %lf", &id, &x, &y) == 3)
         {
             tsp->clientes[cliente_index].id_cliente = id;
             tsp->clientes[cliente_index].coordenada_x = x;
@@ -161,48 +174,67 @@ void leemos_txt(struct tsp_configuracion *tsp, char *ruta)
     }
 
     fclose(file); // Cerramos el archivo
+    
+    // Verificamos si se leyeron todos los clientes
+    if (cliente_index < tsp->num_clientes) {
+        imprimir_mensaje("Advertencia: No se pudieron leer todos los clientes del archivo TXT.");
+    }
 }
 
 // Función para leer una instancia desde archivo CSV o TXT
 struct tsp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_instancia)
 {
-    char ruta[100];
     struct tsp_configuracion *tsp = asignar_memoria_tsp_configuracion(); // Asignamos memoria para la estructura tsp_configuracion
+
+    if (tsp == NULL) {
+        imprimir_mensaje("Error: No se pudo asignar memoria para la configuración tsp.");
+        exit(EXIT_FAILURE);
+    }
 
     tsp->num_clientes = 0;  // Inicializamos número de clientes en 0
     tsp->clientes = NULL;   // Inicializamos la estructura tsp_clientes en NULL
 
-    // Intentamos leer el archivo CSV
-    snprintf(ruta, sizeof(ruta), "Instancias/Instancias_%d/%s.csv", tamanio_instancia, archivo_instancia);
-    FILE *archivo = fopen(ruta, "r");
+    char ruta_csv[100];
+    char ruta_txt[100];
+    
+    // Construimos las rutas para ambos tipos de archivos
+    snprintf(ruta_csv, sizeof(ruta_csv), "Instancias/Instancias_%d/%s.csv", tamanio_instancia, archivo_instancia);
+    snprintf(ruta_txt, sizeof(ruta_txt), "VRP_Solomon/VRP_Solomon_%d/%s.txt", tamanio_instancia, archivo_instancia);
 
-    if (archivo)
-    {
+    // Intentamos leer el archivo CSV primero
+    FILE *archivo_csv = fopen(ruta_csv, "r");
+    if (archivo_csv) {
+        fclose(archivo_csv);
         leemos_csv(tsp, archivo_instancia, tamanio_instancia);
-        fclose(archivo);
-        if (tsp == NULL || tsp->clientes == NULL) {
-            liberar_memoria_tsp_configuracion(tsp); // Liberamos la memoria del tsp
-            exit(EXIT_FAILURE); // Finaliza el programa con un código de error
+        
+        if (tsp->num_clientes == 0 || tsp->clientes == NULL) {
+            imprimir_mensaje("Error: Falló la lectura del archivo CSV.");
+            liberar_memoria_tsp_configuracion(tsp);
+            exit(EXIT_FAILURE);
         }
-        return tsp; // Retornamos tsp si la lectura fue exitosa
+        
+        return tsp;
     }
 
     // Si no existe el CSV, intentamos con el TXT
-    snprintf(ruta, sizeof(ruta), "tsp_Solomon/tsp_Solomon_%d/%s.txt", tamanio_instancia, archivo_instancia);
-    archivo = fopen(ruta, "r");
-
-    if (archivo)
-    {
-
-        leemos_txt(tsp, ruta);
-        creamos_csv(tsp, archivo_instancia, tamanio_instancia); // Crear el CSV si el TXT fue leído correctamente
-        fclose(archivo);
-        if (tsp == NULL || tsp->clientes == NULL) {
-            liberar_memoria_tsp_configuracion(tsp); // Liberamos la memoria del tsp
-            exit(EXIT_FAILURE); // Finaliza el programa con un código de error
+    FILE *archivo_txt = fopen(ruta_txt, "r");
+    if (archivo_txt) {
+        fclose(archivo_txt);
+        leemos_txt(tsp, ruta_txt);
+        
+        if (tsp->num_clientes == 0 || tsp->clientes == NULL) {
+            imprimir_mensaje("Error: Falló la lectura del archivo TXT.");
+            liberar_memoria_tsp_configuracion(tsp);
+            exit(EXIT_FAILURE);
         }
-        return tsp; // Retornamos tsp si la lectura fue exitosa
+        
+        // Crear el CSV si el TXT fue leído correctamente
+        creamos_csv(tsp, archivo_instancia, tamanio_instancia);
+        return tsp;
     }
 
-    exit(EXIT_FAILURE); // Finaliza el programa con un código de error
+    // Si no encontramos ningún archivo
+    imprimir_mensaje("Error: No se encontró ningún archivo de instancia válido.");
+    liberar_memoria_tsp_configuracion(tsp);
+    exit(EXIT_FAILURE);
 }

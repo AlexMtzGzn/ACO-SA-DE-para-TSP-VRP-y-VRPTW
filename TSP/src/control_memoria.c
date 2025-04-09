@@ -196,27 +196,9 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
         liberar_memoria_arreglo_int(hormiga[i].tabu);
         liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
         liberar_memoria_arreglo_double(hormiga[i].probabilidades);
-        liberar_lista_ruta(hormiga->ruta);
+        //liberar_lista_ruta(hormiga->ruta);
     }
     free(hormiga);
-}
-/**
- * Reinicia la información de una hormiga, incluyendo sus arreglos internos y flota de vehículos.
- */
-void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct tsp_configuracion *tsp)
-{
-    for (int i = 0; i < tsp->num_clientes; i++)
-    {
-        hormiga->tabu[i] = 0;
-        hormiga->posibles_clientes[i] = 0;
-        hormiga->probabilidades[i] = 0.0;
-    }
-
-    hormiga->tabu_contador = 0;
-    hormiga->posibles_clientes_contador = 0;
-    hormiga->suma_probabilidades = 0.0;
-    hormiga->fitness_global = 0.0;
-    liberar_lista_ruta(hormiga->ruta);
 }
 
 /*Funciones para la estructura de ruta*/
@@ -253,4 +235,27 @@ struct nodo_ruta *asignar_memoria_nodo_ruta()
         exit(EXIT_FAILURE);
     }
     return nodo_nuevo;
+}
+
+/**
+ * Reinicia la información de una hormiga, incluyendo sus arreglos internos y flota de vehículos.
+ */
+void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct tsp_configuracion *tsp)
+{
+    // Reiniciar arrays
+    for (int i = 0; i < tsp->num_clientes; i++)
+    {
+        hormiga->tabu[i] = 0;
+        hormiga->posibles_clientes[i] = 0;
+        hormiga->probabilidades[i] = 0.0;
+    }
+
+    // Reiniciar contadores y valores
+    hormiga->tabu_contador = 0;
+    hormiga->posibles_clientes_contador = 0;
+    hormiga->suma_probabilidades = 0.0;
+    hormiga->fitness_global = 0.0;
+
+    vaciar_lista_ruta(hormiga->ruta);
+    insertar_cliente_ruta(hormiga, &tsp->clientes[0]);
 }

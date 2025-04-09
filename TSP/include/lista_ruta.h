@@ -19,4 +19,6 @@ struct lista_ruta *copiar_lista_ruta(struct lista_ruta *ruta_original);
 // Función para liberar la memoria ocupada por una lista de ruta
 void liberar_lista_ruta(struct lista_ruta *ruta);
 
+void vaciar_lista_ruta(struct lista_ruta *ruta);
+
 #endif /*lista_ruta.h*/

@@ -34,4 +34,6 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
 // Función que ejecuta el algoritmo tsp-TW con ACO (Vehicle Routing Problem with Time Windows using Ant Colony Optimization)
 void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
 
+
+
 #endif // TSP_ACO_H
