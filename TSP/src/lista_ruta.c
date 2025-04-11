@@ -55,7 +55,7 @@ struct lista_ruta *copiar_lista_ruta(struct lista_ruta *ruta_original)
 {
 
     // Se asigna memoria para la nueva lista de ruta
-    struct lista_ruta *ruta_nueva = malloc(sizeof(struct lista_ruta));
+    struct lista_ruta *ruta_nueva = (struct lista_ruta*)malloc(sizeof(struct lista_ruta));
     if (ruta_nueva == NULL)
         return NULL;
 
@@ -90,6 +90,7 @@ struct lista_ruta *copiar_lista_ruta(struct lista_ruta *ruta_original)
 
 void liberar_lista_ruta(struct lista_ruta *ruta)
 {
+
     if (ruta == NULL)
     {
         return;

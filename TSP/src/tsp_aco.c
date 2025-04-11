@@ -12,28 +12,18 @@
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
     // Verificamos que la hormiga del individuo esté inicializada
-    if (ind->hormiga == NULL) {
+    if (ind->hormiga == NULL)
         ind->hormiga = asignar_memoria_hormigas(1); // Asegúrate de inicializar su ruta como NULL
-    }
 
     // Copiamos los datos simples
     ind->hormiga->id_hormiga = hormiga->id_hormiga;
     ind->fitness = hormiga->fitness_global;
     ind->hormiga->fitness_global = hormiga->fitness_global;
-
+    if (ind->hormiga->ruta == NULL)
+        liberar_lista_ruta(ind->hormiga->ruta); // Libera completamente la ruta anterior
     // Copiamos la ruta
-    struct lista_ruta *copia = copiar_lista_ruta(hormiga->ruta);
-    if (copia != NULL) {
-        if (ind->hormiga->ruta != NULL) {
-            liberar_lista_ruta(ind->hormiga->ruta); // Libera completamente la ruta anterior
-        }
-        ind->hormiga->ruta = copia;
-    } else {
-        fprintf(stderr, "Error: no se pudo copiar la ruta de la hormiga\n");
-    }
+    ind->hormiga->ruta = copiar_lista_ruta(hormiga->ruta);
 }
-
-
 
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
 {
@@ -206,7 +196,7 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
     struct nodo_ruta *ultimo_cliente_ruta = NULL;
     int origen = 0; // Empezamos siempre en el depósito
 
-    while (hormiga->tabu_contador <= tsp->num_clientes)
+    while (hormiga->tabu_contador < tsp->num_clientes)
     {
         // Reiniciar los posibles clientes
         for (int i = 0; i < tsp->num_clientes; i++)
@@ -303,17 +293,16 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
 
         // Si no es la última iteración, reiniciamos las hormigas para la siguiente generación
         if (i < ind->numIteraciones - 1)
-             for (int j = 0; j < ind->numHormigas; j++){
+            for (int j = 0; j < ind->numHormigas; j++)
+            {
                 reiniciar_hormiga(&hormiga[j], ind, tsp);
-               
-             }
-                
+            }
     }
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
-    imprimir_hormigas(hormiga, tsp, ind);
-    // Liberamos la memoria utilizada por las hormigas al final del proceso
-    if (hormiga->ruta != NULL)
-        liberar_memoria_hormiga(hormiga, ind);
+    // imprimir_hormigas(hormiga, tsp, ind);
+    //  Liberamos la memoria utilizada por las hormigas al final del proceso
+    for (int i = 0; i < ind->numHormigas; i++)
+        liberar_memoria_hormiga(&hormiga[i]);
 }

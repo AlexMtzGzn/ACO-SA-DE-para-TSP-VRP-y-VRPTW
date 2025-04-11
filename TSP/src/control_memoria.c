@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include "../include/estructuras.h"
 #include "../include/salida_datos.h"
 #include "../include/lista_ruta.h"
@@ -189,16 +190,13 @@ struct hormiga *asignar_memoria_hormigas(int numHormigas)
 /**
  * Libera la memoria asociada a las hormigas, incluyendo las estructuras dentro de cada hormiga.
  */
-void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
+void liberar_memoria_hormiga(struct hormiga *hormiga)
 {
-    for (int i = 0; i < ind->numHormigas; i++)
-    {
-        liberar_memoria_arreglo_int(hormiga[i].tabu);
-        liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
-        liberar_memoria_arreglo_double(hormiga[i].probabilidades);
-        //liberar_lista_ruta(hormiga->ruta);
-    }
-    free(hormiga);
+    liberar_memoria_arreglo_int(hormiga->tabu);
+    liberar_memoria_arreglo_int(hormiga->posibles_clientes);
+    liberar_memoria_arreglo_double(hormiga->probabilidades);
+    liberar_lista_ruta(hormiga->ruta);
+    //free(hormiga);
 }
 
 /*Funciones para la estructura de ruta*/
