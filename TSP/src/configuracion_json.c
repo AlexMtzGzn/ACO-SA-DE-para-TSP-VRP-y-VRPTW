@@ -75,7 +75,7 @@ void guardar_json_en_archivo(individuo *ind, tsp_configuracion *tsp, char *archi
     // Ejecutar el simulador
     char comando_py[300];
     snprintf(comando_py, sizeof(comando_py),
-             "python3 src/Simulador_tsp/simulador_tsp.py \"%s.json\" %d",
+             "python3 src/Simulador_TSP/simulador_tsp.py \"%s.json\" %d",
              archivo_instancia, tsp->num_clientes - 1);
 
     system(comando_py);

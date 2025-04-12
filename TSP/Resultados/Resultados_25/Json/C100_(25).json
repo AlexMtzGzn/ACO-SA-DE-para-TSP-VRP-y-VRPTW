@@ -1,11 +1,11 @@
 {
 	"Archivo":	"C100_(25)",
 	"Tiempo Ejecucion en Minutos":	1,
-	"Alpha":	1.9735589220531093,
-	"Beta":	2.15257434111674,
-	"Rho":	0.283048222997714,
-	"Numero Hormigas":	41,
-	"Numero Iteraciones":	70,
+	"Alpha":	2.4202981011105225,
+	"Beta":	2.4411673866869732,
+	"Rho":	0.72864673693135718,
+	"Numero Hormigas":	55,
+	"Numero Iteraciones":	175,
 	"Fitness Global":	150.17209295253346,
 	"Ruta Clientes":	[0, 20, 21, 22, 23, 25, 24, 10, 11, 9, 8, 6, 4, 3, 5, 7, 1, 2, 12, 14, 16, 15, 19, 18, 17, 13, 0],
 	"Ruta Coordenadas":	[{

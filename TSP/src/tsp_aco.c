@@ -195,6 +195,7 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
     struct lista_ruta *ruta = NULL;
     struct nodo_ruta *ultimo_cliente_ruta = NULL;
     int origen = 0; // Empezamos siempre en el depósito
+    int contador_escape = 0;
 
     while (hormiga->tabu_contador < tsp->num_clientes)
     {
@@ -207,7 +208,16 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
         calcular_posibles_clientes(tsp, hormiga);
 
         if (hormiga->posibles_clientes_contador == 0)
+        {
             break;
+        }
+        if (contador_escape > 0)
+        {
+            reiniciar_hormiga(hormiga, ind, tsp);
+            contador_escape = 0;
+            printf("Reiniciando hormiga %d\n", hormiga->id_hormiga);
+           exit(EXIT_FAILURE);
+        }
 
         ruta = hormiga->ruta;
         ultimo_cliente_ruta = ruta->cola;
@@ -246,7 +256,15 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
         }
         // Insertamos el cliente en la ruta del vehículo seleccionado
         if (proximo_cliente != -1)
+        {
             insertar_cliente_ruta(hormiga, &tsp->clientes[proximo_cliente]);
+            contador_escape = 0;
+        }
+
+        else
+        {
+            contador_escape++;
+        }
     }
 
     insertar_cliente_ruta(hormiga, &tsp->clientes[0]);
@@ -258,7 +276,7 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
     int indice = -1; // Índice de la mejor hormiga en cada iteración, inicializado en -1
-
+    imprimir_individuo(ind);
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(tsp, ind, hormiga);
 
@@ -302,6 +320,8 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
     // imprimir_hormigas(hormiga, tsp, ind);
+
+    printf("Mejor fitness: %.2lf\n", ind->fitness);
     //  Liberamos la memoria utilizada por las hormigas al final del proceso
     for (int i = 0; i < ind->numHormigas; i++)
         liberar_memoria_hormiga(&hormiga[i]);

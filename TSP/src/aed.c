@@ -137,8 +137,8 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
          ruidoso[i].beta = 1.5;
 
       // Ajusta los valores de rho dentro del rango permitido [0.2, 0.9]
-      if (ruidoso[i].rho > 0.9)
-         ruidoso[i].rho = 0.9;
+      if (ruidoso[i].rho > 0.8)
+         ruidoso[i].rho = 0.8;
 
       if (ruidoso[i].rho < 0.2)
          ruidoso[i].rho = 0.2;
@@ -193,7 +193,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
       // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
       objetivo[i].alpha = generaAleatorio(1.0, 2.5);              // alpha: entre 1.0 y 2.5
       objetivo[i].beta = generaAleatorio(1.5, 2.5);               // beta: entre 1.0 y 2.5
-      objetivo[i].rho = generaAleatorio(0.2, 0.9);                // rho: entre 0.2 y 0.9
+      objetivo[i].rho = generaAleatorio(0.2, 0.8);                // rho: entre 0.2 y 0.9
       objetivo[i].numHormigas = (int)generaAleatorio(20, 100);    // numHormigas: entre 20 y 100
       objetivo[i].numIteraciones = (int)generaAleatorio(50, 200); // numIteraciones: entre 50 y 200
    }
@@ -308,7 +308,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_instancia(instancia_visibilidad, tsp->num_clientes); // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, tsp->num_clientes);  // Liberemos la memoria de la instancia distancias
    liberar_individuos(objetivo, num_poblacion, true);           // Liberemos la memoria del objetivo
-   liberar_individuos(prueba, num_poblacion, true);             // Liberemos la memoria de la prueba
+   liberar_individuos(prueba, num_poblacion, false);             // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso
    liberar_individuos(resultado, 1, true);                      // Liberemos los resultado
    liberar_memoria_tsp_configuracion(tsp);                      // Liberemos la memoria del tsp
