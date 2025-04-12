@@ -308,7 +308,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_instancia(instancia_visibilidad, tsp->num_clientes); // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, tsp->num_clientes);  // Liberemos la memoria de la instancia distancias
    liberar_individuos(objetivo, num_poblacion, true);           // Liberemos la memoria del objetivo
-   //liberar_individuos(prueba, num_poblacion, true);             // Liberemos la memoria de la prueba
+   liberar_individuos(prueba, num_poblacion, true);             // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso
    liberar_individuos(resultado, 1, true);                      // Liberemos los resultado
    liberar_memoria_tsp_configuracion(tsp);                      // Liberemos la memoria del tsp
