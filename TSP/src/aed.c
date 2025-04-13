@@ -69,7 +69,7 @@ void inicializar_Feromona(struct tsp_configuracion *tsp, double **instancia_fero
    // Recorre todos los clientes en la matriz de feromonas (fila i, columna j)
    for (int i = 0; i < tsp->num_clientes; i++)
    {
-      for (int j = 0; j < tsp->num_clientes; j++)
+      for (int j = i + 1; j < tsp->num_clientes; j++)
       {
          // Si i y j son diferentes (es decir, no es la misma ciudad), se asigna un valor de feromona de 1.0
          if (i != j)
@@ -137,11 +137,11 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
          ruidoso[i].beta = 1.5;
 
       // Ajusta los valores de rho dentro del rango permitido [0.2, 0.9]
-      if (ruidoso[i].rho > 0.8)
-         ruidoso[i].rho = 0.8;
+      if (ruidoso[i].rho > 0.9)
+         ruidoso[i].rho = 0.9;
 
-      if (ruidoso[i].rho < 0.2)
-         ruidoso[i].rho = 0.2;
+      if (ruidoso[i].rho < 0.1)
+         ruidoso[i].rho = 0.1;
 
       // Ajusta el número de hormigas dentro del rango permitido [20, 100]
       if (ruidoso[i].numHormigas > 100)
@@ -193,7 +193,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
       // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
       objetivo[i].alpha = generaAleatorio(1.0, 2.5);              // alpha: entre 1.0 y 2.5
       objetivo[i].beta = generaAleatorio(1.5, 2.5);               // beta: entre 1.0 y 2.5
-      objetivo[i].rho = generaAleatorio(0.2, 0.8);                // rho: entre 0.2 y 0.9
+      objetivo[i].rho = generaAleatorio(0.1, 0.9);                // rho: entre 0.1 y 0.9
       objetivo[i].numHormigas = (int)generaAleatorio(20, 100);    // numHormigas: entre 20 y 100
       objetivo[i].numIteraciones = (int)generaAleatorio(50, 200); // numIteraciones: entre 50 y 200
    }
@@ -201,15 +201,15 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
 
 void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t timepo_inicial, timepo_final;
-   timepo_inicial = clock();
+   clock_t tiempo_inicial, timepo_final;
+   tiempo_inicial = clock();
    char respuesta;                                                                // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
    struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
    tsp_configuracion *tsp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura tsp_configuracion
-  
+
    double **instancia_visibilidad = asignar_memoria_instancia(tsp->num_clientes); // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(tsp->num_clientes);   // Generamos memoria para la instancia de la feromona
    double **instancia_distancias = asignar_memoria_instancia(tsp->num_clientes);  // Generamos memoria para la instancia de la las distancias
@@ -232,7 +232,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    for (int i = 0; i < num_poblacion; i++) // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, tsp);
    // Encontramos el mejor individuo de la población inicial
-   
+
    for (int i = 0; i < num_poblacion; i++)
    {
       if (objetivo[i].fitness < resultado->fitness)
@@ -284,12 +284,12 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
       printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
              ((float)(i + 1) / num_generaciones) * 100,
              resultado->fitness,
-             ((double)(clock() - timepo_inicial)) / CLOCKS_PER_SEC / 60.0);
+             ((double)(clock() - tiempo_inicial)) / CLOCKS_PER_SEC / 60.0);
       fflush(stdout);
    }
 
    timepo_final = clock();
-   double minutos = (((double)(timepo_final - timepo_inicial)) / CLOCKS_PER_SEC) / 60.0;
+   double minutos = (((double)(timepo_final - tiempo_inicial)) / CLOCKS_PER_SEC) / 60.0;
 
    tsp->tiempo_ejecucion = ceil(minutos);
    tsp->archivo_instancia = archivo_instancia;
@@ -308,7 +308,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_instancia(instancia_visibilidad, tsp->num_clientes); // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, tsp->num_clientes);  // Liberemos la memoria de la instancia distancias
    liberar_individuos(objetivo, num_poblacion, true);           // Liberemos la memoria del objetivo
-   liberar_individuos(prueba, num_poblacion, false);             // Liberemos la memoria de la prueba
+   liberar_individuos(prueba, num_poblacion, false);            // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso
    liberar_individuos(resultado, 1, true);                      // Liberemos los resultado
    liberar_memoria_tsp_configuracion(tsp);                      // Liberemos la memoria del tsp

@@ -196,7 +196,6 @@ void liberar_memoria_hormiga(struct hormiga *hormiga)
     liberar_memoria_arreglo_int(hormiga->posibles_clientes);
     liberar_memoria_arreglo_double(hormiga->probabilidades);
     liberar_lista_ruta(hormiga->ruta);
-    //free(hormiga);
 }
 
 /*Funciones para la estructura de ruta*/

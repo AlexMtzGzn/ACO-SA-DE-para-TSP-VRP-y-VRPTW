@@ -56,15 +56,10 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormigas, struct
 {
     // Evaporación de feromonas
     for (int i = 0; i < tsp->num_clientes; i++)
-    {
         for (int j = 0; j < tsp->num_clientes; j++)
-        {
             if (i != j)
-            {
                 instancia_feromona[i][j] *= (1.0 - ind->rho);
-            }
-        }
-    }
+
 
     // Reforzamiento de feromonas por cada hormiga
     for (int i = 0; i < ind->numHormigas; i++)
@@ -132,8 +127,10 @@ void inicializar_hormiga(struct tsp_configuracion *tsp, struct individuo *ind, s
         // Asignamos memoria para el arreglo "probabilidades", que contendrá las probabilidades de cada cliente
         hormiga[i].probabilidades = asignar_memoria_arreglo_double(tsp->num_clientes);
 
+        //Asiganmos memoria para la ruta de la hormiga
         hormiga[i].ruta = asignar_memoria_lista_ruta();
 
+        //Insertamos el primer cliente (depósito) en la ruta de la hormiga
         insertar_cliente_ruta(&hormiga[i], &tsp->clientes[0]);
     }
 }
@@ -191,14 +188,18 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
 
 void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias)
 {
-
     struct lista_ruta *ruta = NULL;
     struct nodo_ruta *ultimo_cliente_ruta = NULL;
     int origen = 0; // Empezamos siempre en el depósito
-    int contador_escape = 0;
 
-    while (hormiga->tabu_contador < tsp->num_clientes)
+    // Añadir un contador de intentos para evitar bucle infinito
+    int max_intentos = tsp->num_clientes * 2;
+    int intentos = 0;
+
+    while (hormiga->tabu_contador < tsp->num_clientes && intentos < max_intentos)
     {
+        intentos++;
+
         // Reiniciar los posibles clientes
         for (int i = 0; i < tsp->num_clientes; i++)
             hormiga->posibles_clientes[i] = 0;
@@ -208,16 +209,7 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
         calcular_posibles_clientes(tsp, hormiga);
 
         if (hormiga->posibles_clientes_contador == 0)
-        {
             break;
-        }
-        if (contador_escape > 0)
-        {
-            reiniciar_hormiga(hormiga, ind, tsp);
-            contador_escape = 0;
-            printf("Reiniciando hormiga %d\n", hormiga->id_hormiga);
-           exit(EXIT_FAILURE);
-        }
 
         ruta = hormiga->ruta;
         ultimo_cliente_ruta = ruta->cola;
@@ -232,7 +224,7 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
             for (int i = 0; i < tsp->num_clientes; i++)
                 hormiga->probabilidades[i] = 0.0;
 
-            // // Calculamos las probabilidades de cada cliente posible
+            // Calculamos las probabilidades de cada cliente posible
             for (int i = 0; i < tsp->num_clientes; i++)
                 if (hormiga->posibles_clientes[i] == 1)
                     hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, tsp, hormiga, instancia_feromona, instancia_visibilidad);
@@ -253,33 +245,58 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
                     }
                 }
             }
+
+            // Si no se seleccionó ningún cliente con la ruleta, elegir uno de los posibles al azar
+            if (proximo_cliente == -1)
+            {
+                int posibles[tsp->num_clientes];
+                int num_posibles = 0;
+
+                for (int i = 0; i < tsp->num_clientes; i++)
+                {
+                    if (hormiga->posibles_clientes[i] == 1)
+                    {
+                        posibles[num_posibles++] = i;
+                    }
+                }
+
+                if (num_posibles > 0)
+                {
+                    int indice_aleatorio = rand() % num_posibles;
+                    proximo_cliente = posibles[indice_aleatorio];
+                }
+            }
         }
+
         // Insertamos el cliente en la ruta del vehículo seleccionado
         if (proximo_cliente != -1)
         {
             insertar_cliente_ruta(hormiga, &tsp->clientes[proximo_cliente]);
-            contador_escape = 0;
+            intentos = 0; // Reiniciar contador de intentos cuando hay éxito
         }
-
         else
         {
-            contador_escape++;
+            // Si no se pudo encontrar un próximo cliente, reiniciar la hormiga
+            if (intentos >= max_intentos)
+            {
+                // Código para reiniciar la hormiga
+                reiniciar_hormiga(hormiga, ind, tsp);
+                intentos = 0;
+                origen = 0;
+            }
         }
     }
 
-    insertar_cliente_ruta(hormiga, &tsp->clientes[0]);
+    insertar_cliente_ruta(hormiga, &tsp->clientes[0]); //Insertamos el cliente 0 al final de la ruta
 }
-
 void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
     // Asignamos memoria para el número de hormigas
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
     int indice = -1; // Índice de la mejor hormiga en cada iteración, inicializado en -1
-    imprimir_individuo(ind);
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(tsp, ind, hormiga);
-
     // Bucle principal de iteraciones del algoritmo ACO
     for (int i = 0; i < ind->numIteraciones; i++)
     {
@@ -293,12 +310,12 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
         }
 
         // Buscamos la hormiga con el mejor fitness en esta iteración
-        delta = INFINITY;
+        delta = INFINITY; //Definimos el delta como infinito
         for (int j = 0; j < ind->numHormigas; j++)
         {
             if (hormiga[j].fitness_global < delta)
             {
-                delta = 1.0 / hormiga[j].fitness_global;
+                delta = 1.0 / hormiga[j].fitness_global; //calculamos el delta
                 indice = j; // Guardamos el índice de la mejor hormiga
             }
         }
@@ -312,17 +329,15 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
         // Si no es la última iteración, reiniciamos las hormigas para la siguiente generación
         if (i < ind->numIteraciones - 1)
             for (int j = 0; j < ind->numHormigas; j++)
-            {
-                reiniciar_hormiga(&hormiga[j], ind, tsp);
-            }
+                reiniciar_hormiga(&hormiga[j], ind, tsp); //Reiniciamos la hormiga i
+
     }
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
     // imprimir_hormigas(hormiga, tsp, ind);
-
-    printf("Mejor fitness: %.2lf\n", ind->fitness);
     //  Liberamos la memoria utilizada por las hormigas al final del proceso
-    for (int i = 0; i < ind->numHormigas; i++)
+    for (int i = 0; i < ind->numHormigas; i++) //Liberamos cada hormiga
         liberar_memoria_hormiga(&hormiga[i]);
+    free(hormiga); // Liberamos la memoria del arreglo de hormigas
 }
