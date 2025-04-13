@@ -21,6 +21,7 @@ void imprimir_instancia(double **matriz_instancia, struct tsp_configuracion *tsp
 // Función para imprimir una ruta de un vehículo (lista enlazada de clientes)
 void imprimir_ruta(struct lista_ruta *ruta) {
 
+    printf("  Ruta: ");
     struct nodo_ruta *actual = ruta->cabeza; // Apunta al primer nodo de la lista
 
     printf("Depósito -> "); // Se asume que la ruta comienza en el depósito
@@ -33,7 +34,7 @@ void imprimir_ruta(struct lista_ruta *ruta) {
 
         actual = actual->siguiente; // Avanza al siguiente nodo
     }
-    printf(" ->Depósito\n"); // Se asume que la ruta regresa al depósito
+    printf("Depósito\n"); // Se asume que la ruta regresa al depósito
 }
 
 // Función para imprimir la información de la lista tabú
@@ -71,8 +72,6 @@ void imprimir_hormigas(struct hormiga *hormigas, struct tsp_configuracion *tsp, 
         struct lista_ruta * ruta = hormigas[i].ruta;
         // Imprime la flota de vehículos de la hormiga
         imprimir_ruta(ruta);
-
-
         printf("-------------------------------------------------\n");
     }
     printf("=================================================\n");
@@ -87,8 +86,6 @@ void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo *ind) {
     // Imprime los parámetros del individuo asociado a la hormiga
     imprimir_individuo(ind);
     printf("  Fitness global: %.2f\n", hormiga->fitness_global);
-
     imprimir_ruta(hormiga->ruta);
-
     printf("=================================================\n");
 }

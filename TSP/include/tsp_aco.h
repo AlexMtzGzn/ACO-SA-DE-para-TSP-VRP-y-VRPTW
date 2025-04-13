@@ -28,10 +28,10 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
 // Funcion para seleccionar un vehiculo aleatoriamente
 struct vehiculo *seleccionamos_vehiculo_aleatoriamente(struct hormiga *hormiga);
 
-// Función principal del algoritmo ACO (Ant Colony Optimization) para resolver el problema tsp-TW
+// Función principal del algoritmo ACO (Ant Colony Optimization) para resolver el problema tsp
 void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visiblidad, double **instancia_feromona, double **instancia_distancias);
 
-// Función que ejecuta el algoritmo tsp-TW con ACO (Vehicle Routing Problem with Time Windows using Ant Colony Optimization)
+// Función que ejecuta el algoritmo tsp con ACO
 void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
 
 

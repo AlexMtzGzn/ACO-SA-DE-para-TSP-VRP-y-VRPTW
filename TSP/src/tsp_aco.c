@@ -153,9 +153,9 @@ void calcular_posibles_clientes(struct tsp_configuracion *tsp, struct hormiga *h
 double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct tsp_configuracion *tsp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad)
 {
     // Calculamos el numerador de la fórmula de probabilidad
-    // La fórmula se basa en tres componentes: la cantidad de feromona, la visibilidad y las ventanas de tiempo.
+    // La fórmula se basa en tres componentes: la cantidad de feromona y la visibilidad .
     // Cada uno de estos valores se eleva a un exponente, que está definido por los parámetros alpha, beta y gamma del individuo.
-    // Feromona^alpha * Visibilidad^beta * Ventanas de tiempo^gamma
+    // Feromona^alpha * Visibilidad^beta
 
     double numerador = pow(instancia_feromona[origen][destino], ind->alpha) *
                        pow(instancia_visibilidad[origen][destino], ind->beta);
@@ -253,12 +253,9 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
                 int num_posibles = 0;
 
                 for (int i = 0; i < tsp->num_clientes; i++)
-                {
                     if (hormiga->posibles_clientes[i] == 1)
-                    {
                         posibles[num_posibles++] = i;
-                    }
-                }
+    
 
                 if (num_posibles > 0)
                 {

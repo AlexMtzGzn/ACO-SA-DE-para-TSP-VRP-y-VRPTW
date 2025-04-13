@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <dirent.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <cjson/cJSON.h>
 #include "../include/configuracion_json.h"
 
@@ -50,33 +53,67 @@ cJSON *individuo_a_json(individuo *ind, struct tsp_configuracion *tsp, cliente *
 }
 
 // Función para guardar el JSON en un archivo
-void guardar_json_en_archivo(individuo *ind, tsp_configuracion *tsp, char *archivo_instancia)
-{
+int contar_archivos_json(const char *directorio, const char *prefijo) {
+    int contador = 0;
+    DIR *dir = opendir(directorio);
+    if (dir == NULL) return 0;
+
+    struct dirent *entrada;
+    while ((entrada = readdir(dir)) != NULL) {
+        if (strstr(entrada->d_name, prefijo) && strstr(entrada->d_name, ".json")) {
+            contador++;
+        }
+    }
+    closedir(dir);
+    return contador;
+}
+
+void crear_directorio_si_no_existe(const char *ruta) {
+    if (access(ruta, F_OK) != 0) {
+        mkdir(ruta, 0777);
+    }
+}
+
+void guardar_json_en_archivo(individuo *ind, tsp_configuracion *tsp, char *archivo_instancia) {
     cJSON *json_individuo = individuo_a_json(ind, tsp, tsp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
-    char ruta[300];
-    snprintf(ruta, sizeof(ruta), "Resultados/Resultados_%d/Json/%s.json", (tsp->num_clientes - 1), archivo_instancia);
-    
+    char directorio[512];
+    snprintf(directorio, sizeof(directorio), "Resultados/Resultados_%d/Json/%s", 
+             tsp->num_clientes - 1, archivo_instancia);
+
+    // Crear directorios si no existen
+    char subdir1[256], subdir2[256];
+    snprintf(subdir1, sizeof(subdir1), "Resultados/Resultados_%d/Json", tsp->num_clientes - 1);
+    crear_directorio_si_no_existe("Resultados");
+    snprintf(subdir2, sizeof(subdir2), "Resultados/Resultados_%d", tsp->num_clientes - 1);
+    crear_directorio_si_no_existe(subdir2);
+    crear_directorio_si_no_existe(subdir1);
+    crear_directorio_si_no_existe(directorio);
+
+    // Contar archivos previos
+    int numero = contar_archivos_json(directorio, archivo_instancia);
+
+    // Generar nombre del archivo JSON
+    char ruta[1024];
+    snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", directorio, archivo_instancia, numero);
+
     FILE *archivo = fopen(ruta, "w");
-    if (archivo)
-    {
+    if (archivo) {
         fprintf(archivo, "%s", json_string);
         fclose(archivo);
-    }
-    else
-    {
+    } else {
         printf("Error al abrir el archivo para escritura: %s\n", ruta);
     }
 
     free(json_string);
     cJSON_Delete(json_individuo);
 
-    // Ejecutar el simulador
-    char comando_py[300];
+    
+    char comando_py[1200]; 
     snprintf(comando_py, sizeof(comando_py),
-             "python3 src/Simulador_TSP/simulador_tsp.py \"%s.json\" %d",
-             archivo_instancia, tsp->num_clientes - 1);
+             "python3 src/Simulador_TSP/simulador_tsp.py \"%s\" %d",
+             ruta, tsp->num_clientes - 1);
 
     system(comando_py);
 }

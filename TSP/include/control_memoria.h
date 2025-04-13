@@ -37,7 +37,7 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo);
 
 // Funciones para asignar y liberar memoria para la estructura `tsp_configuracion`
 
-// Asigna memoria para la configuración del tsp (Problema de Ruteo de Vehículos)
+// Asigna memoria para la configuración del tsp 
 struct tsp_configuracion *asignar_memoria_tsp_configuracion();
 
 // Libera la memoria utilizada por la configuración del tsp
