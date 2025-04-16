@@ -193,7 +193,7 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
     int origen = 0; // Empezamos siempre en el depósito
 
     // Añadir un contador de intentos para evitar bucle infinito
-    int max_intentos = tsp->num_clientes * 2;
+    int max_intentos = 1;
     int intentos = 0;
 
     while (hormiga->tabu_contador < tsp->num_clientes && intentos < max_intentos)
@@ -332,7 +332,7 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
-    // imprimir_hormigas(hormiga, tsp, ind);
+    imprimir_hormigas(hormiga, tsp, ind);
     //  Liberamos la memoria utilizada por las hormigas al final del proceso
     for (int i = 0; i < ind->numHormigas; i++) //Liberamos cada hormiga
         liberar_memoria_hormiga(&hormiga[i]);

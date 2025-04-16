@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.embeddedhtml": "html",
         "stdio.h": "c",
         "stdlib.h": "c",
         "entrada_salida_datos.h": "c",
@@ -12,6 +13,8 @@
         "lista_ruta.h": "c",
         "estructuras.h": "c",
         "vrp_tw_aco.h": "c",
-        "salida_datos.h": "c"
+        "salida_datos.h": "c",
+        "cjson.h": "c",
+        "stat.h": "c"
     }
 }
