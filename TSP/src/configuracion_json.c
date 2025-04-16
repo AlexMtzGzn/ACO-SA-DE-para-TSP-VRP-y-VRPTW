@@ -78,33 +78,40 @@ void guardar_json_en_archivo(individuo *ind, tsp_configuracion *tsp, char *archi
     cJSON *json_individuo = individuo_a_json(ind, tsp, tsp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
-    char directorio[512];
-    snprintf(directorio, sizeof(directorio), "Resultados/Resultados_%d/Json/%s", 
-             tsp->num_clientes - 1, archivo_instancia);
+   // Extraer nombre de carpeta desde archivo_instancia (ej. "C101" de "C101_(100)")
+   char nombre_instancia[512];
+   sscanf(archivo_instancia, "%[^_]_", nombre_instancia);
 
-    // Crear directorios si no existen
-    char subdir1[256], subdir2[256];
-    snprintf(subdir1, sizeof(subdir1), "Resultados/Resultados_%d/Json", tsp->num_clientes - 1);
-    crear_directorio_si_no_existe("Resultados");
-    snprintf(subdir2, sizeof(subdir2), "Resultados/Resultados_%d", tsp->num_clientes - 1);
-    crear_directorio_si_no_existe(subdir2);
-    crear_directorio_si_no_existe(subdir1);
-    crear_directorio_si_no_existe(directorio);
+   // Crear los directorios necesarios
+   char dir_base[256], dir_instancia[1024];
+   snprintf(dir_base, sizeof(dir_base), "Resultados/Resultados_%d/Json", (tsp->num_clientes - 1));
+   snprintf(dir_instancia, sizeof(dir_instancia), "%s/%s", dir_base, nombre_instancia);
 
-    // Contar archivos previos
-    int numero = contar_archivos_json(directorio, archivo_instancia);
+   crear_directorio_si_no_existe("Resultados");
 
-    // Generar nombre del archivo JSON
-    char ruta[1024];
-    snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", directorio, archivo_instancia, numero);
+   char dir_res[256];
+   snprintf(dir_res, sizeof(dir_res), "Resultados/Resultados_%d", (tsp->num_clientes - 1));
+   crear_directorio_si_no_existe(dir_res);
+   crear_directorio_si_no_existe(dir_base);
+   crear_directorio_si_no_existe(dir_instancia);
 
-    FILE *archivo = fopen(ruta, "w");
-    if (archivo) {
-        fprintf(archivo, "%s", json_string);
-        fclose(archivo);
-    } else {
-        printf("Error al abrir el archivo para escritura: %s\n", ruta);
-    }
+   // Contar cuántos archivos existen ya con ese prefijo
+   int numero = contar_archivos_json(dir_instancia, archivo_instancia);
+
+   // Ruta final del archivo JSON
+   char ruta[1024];
+   snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero);
+
+   FILE *archivo = fopen(ruta, "w");
+   if (archivo)
+   {
+       fprintf(archivo, "%s", json_string);
+       fclose(archivo);
+   }
+   else
+   {
+       printf("Error al abrir el archivo para escritura: %s\n", ruta);
+   }
 
     free(json_string);
     cJSON_Delete(json_individuo);

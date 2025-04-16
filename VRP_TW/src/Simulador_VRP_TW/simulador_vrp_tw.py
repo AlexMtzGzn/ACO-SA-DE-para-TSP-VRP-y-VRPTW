@@ -16,7 +16,8 @@ class VRPSimulator:
         
         # Guardar el nombre del archivo para usarlo en los títulos
         self.filename = os.path.basename(archivo_json).split('.')[0]
-        
+        self.directory = os.path.basename(os.path.dirname(archivo_json))  
+
         # Guardar el número de clientes
         self.numero_clientes = numero_clientes
         
@@ -65,7 +66,8 @@ class VRPSimulator:
         ax.grid(True)
         
         plt.tight_layout()
-        plt.savefig(f'Resultados/Resultados_{self.numero_clientes}/Imagenes/{self.filename}.png')        
+        os.makedirs(f'Resultados/Resultados_{self.numero_clientes}/Imagenes/{self.directory}', exist_ok=True)
+        plt.savefig(f'Resultados/Resultados_{self.numero_clientes}/Imagenes/{self.directory}/{self.filename}.png')        
     
     def animate_routes(self):
         """Anima la simulación de rutas"""
@@ -195,22 +197,34 @@ class VRPSimulator:
         
         plt.tight_layout()
         
-        
+        os.makedirs(f'Resultados/Resultados_{self.numero_clientes}/Gifs/{self.directory}', exist_ok=True)
         # Guardar la animación como GIF con el nombre del archivo
-        ani.save(f'Resultados/Resultados_{self.numero_clientes}/Gifs/{self.filename}.gif', writer='pillow', fps=5)        
+        ani.save(f'Resultados/Resultados_{self.numero_clientes}/Gifs/{self.directory}/{self.filename}.gif', writer='pillow', fps=5)        
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Uso: python simulador_vrp_tw.py <archivo_json> [numero_clientes]")
         sys.exit(1)
     
-    # Obtener el número de clientes del segundo parámetro (si existe)
-    if len(sys.argv) > 2:
-        numero_clientes = sys.argv[2]
+       # Obtener el número de clientes del segundo parámetro (si existe)
+    numero_clientes = sys.argv[2] if len(sys.argv) > 2 else "unknown"
     
-    # Obtener la ruta del archivo JSON
-    ruta_archivo = "Resultados/Resultados_" + str(numero_clientes) + "/Json/" + sys.argv[1]
-
+    # Construir la ruta del archivo correctamente
+    archivo_json = sys.argv[1]
+    
+    # Si el usuario proporciona la ruta completa, usarla directamente
+    if os.path.exists(archivo_json):
+        ruta_archivo = archivo_json
+    else:
+        # Si proporciona solo el nombre o una ruta relativa
+        if '/' in archivo_json:
+            # Si es algo como "C100_(25)/C100_(25)_0.json"
+            ruta_archivo = f"Resultados/Resultados_{numero_clientes}/Json/{archivo_json}"
+        else:
+            # Si es solo un nombre de archivo
+            directorio = archivo_json.split('_')[0] + "_(" + str(numero_clientes) + ")"
+            ruta_archivo = f"Resultados/Resultados_{numero_clientes}/Json/{directorio}/{archivo_json}"
+    
     # Uso del simulador
     simulator = VRPSimulator(ruta_archivo, numero_clientes)
     

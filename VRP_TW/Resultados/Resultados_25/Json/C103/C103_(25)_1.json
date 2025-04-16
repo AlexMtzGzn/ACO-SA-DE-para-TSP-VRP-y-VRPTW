@@ -1,0 +1,135 @@
+{
+	"Archivo":	"C103_(25)",
+	"Tiempo Ejecucion en Minutos":	1,
+	"Alpha":	1.7455665053546272,
+	"Beta":	2.4034937689562765,
+	"Gamma":	1.2836288948467136,
+	"Rho":	0.48312157820124257,
+	"Numero Hormigas":	98,
+	"Numero Iteraciones":	129,
+	"Fitness Global":	229.00320391294863,
+	"flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Mcumulada":	200,
+			"Tiempo Consumido":	1236,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	9,
+			"Fitness Vehiculo":	101.81062147319425,
+			"Ruta Clientes":	[0, 13, 17, 18, 19, 15, 14, 16, 12, 3, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	22,
+					"Y":	75
+				}, {
+					"X":	18,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	80
+				}, {
+					"X":	22,
+					"Y":	85
+				}, {
+					"X":	20,
+					"Y":	85
+				}, {
+					"X":	25,
+					"Y":	85
+				}, {
+					"X":	42,
+					"Y":	66
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}, {
+			"Id_vehiculo":	2,
+			"Capacidad Maxima":	200,
+			"Capacidad Mcumulada":	200,
+			"Tiempo Consumido":	1236,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	12,
+			"Fitness Vehiculo":	75.493091961879657,
+			"Ruta Clientes":	[0, 20, 21, 25, 24, 10, 11, 9, 6, 4, 2, 1, 7, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	30,
+					"Y":	50
+				}, {
+					"X":	30,
+					"Y":	52
+				}, {
+					"X":	25,
+					"Y":	52
+				}, {
+					"X":	25,
+					"Y":	50
+				}, {
+					"X":	35,
+					"Y":	66
+				}, {
+					"X":	35,
+					"Y":	69
+				}, {
+					"X":	38,
+					"Y":	70
+				}, {
+					"X":	40,
+					"Y":	69
+				}, {
+					"X":	42,
+					"Y":	68
+				}, {
+					"X":	45,
+					"Y":	70
+				}, {
+					"X":	45,
+					"Y":	68
+				}, {
+					"X":	40,
+					"Y":	66
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}, {
+			"Id_vehiculo":	3,
+			"Capacidad Maxima":	200,
+			"Capacidad Mcumulada":	60,
+			"Tiempo Consumido":	915.5339654172783,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	4,
+			"Fitness Vehiculo":	51.699490477874718,
+			"Ruta Clientes":	[0, 5, 8, 23, 22, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	42,
+					"Y":	65
+				}, {
+					"X":	38,
+					"Y":	68
+				}, {
+					"X":	28,
+					"Y":	55
+				}, {
+					"X":	28,
+					"Y":	52
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}]
+}
