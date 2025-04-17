@@ -61,7 +61,6 @@ void liberar_memoria_hormiga(struct hormiga *hormiga);
 // Reinicia los valores de las hormigas para una nueva iteración
 void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct tsp_configuracion *tsp);
 
-
 // Funciones para asignar memoria para las estructuras de rutas
 
 // Asigna memoria para una lista de rutas

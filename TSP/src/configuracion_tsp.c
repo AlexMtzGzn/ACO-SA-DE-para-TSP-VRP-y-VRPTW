@@ -64,9 +64,8 @@ void leemos_csv(struct tsp_configuracion *tsp, char *archivo_instancia, int tama
     fclose(archivo); // Cerramos el archivo
     
     // Verificamos si se leyeron todos los clientes
-    if (cliente_index < tsp->num_clientes) {
+    if (cliente_index < tsp->num_clientes) 
         imprimir_mensaje("Advertencia: No se pudieron leer todos los clientes del archivo CSV.");
-    }
 }
 
 // Función para crear un archivo CSV con los datos del tsp
@@ -133,9 +132,8 @@ void leemos_txt(struct tsp_configuracion *tsp, char *ruta)
         int id;
         double x, y;
         if (sscanf(buffer, "%d %lf %lf", &id, &x, &y) == 3)
-        {
             num_clientes++;
-        }
+        
     }
 
     tsp->num_clientes = num_clientes;
@@ -176,9 +174,9 @@ void leemos_txt(struct tsp_configuracion *tsp, char *ruta)
     fclose(file); // Cerramos el archivo
     
     // Verificamos si se leyeron todos los clientes
-    if (cliente_index < tsp->num_clientes) {
+    if (cliente_index < tsp->num_clientes) 
         imprimir_mensaje("Advertencia: No se pudieron leer todos los clientes del archivo TXT.");
-    }
+    
 }
 
 // Función para leer una instancia desde archivo CSV o TXT

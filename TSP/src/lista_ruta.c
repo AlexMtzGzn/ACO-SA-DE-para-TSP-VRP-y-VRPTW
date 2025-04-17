@@ -92,9 +92,7 @@ void liberar_lista_ruta(struct lista_ruta *ruta)
 {
 
     if (ruta == NULL)
-    {
         return;
-    }
 
     struct nodo_ruta *cliente_actual = ruta->cabeza;
 
@@ -112,9 +110,7 @@ void liberar_lista_ruta(struct lista_ruta *ruta)
 void vaciar_lista_ruta(struct lista_ruta *ruta)
 {
     if (ruta == NULL)
-    {
         return;
-    }
 
     struct nodo_ruta *cliente_actual = ruta->cabeza;
 

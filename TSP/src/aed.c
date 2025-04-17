@@ -226,8 +226,8 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    // imprimir_instancia(instancia_visibilidad,tsp,"INSTANCIA VISIBILIDAD");
 
    // Inicializamos la estructura de resultados
-   resultado->fitness = INFINITY; //Inicializamos el fitness como infinito
-   resultado->hormiga = asignar_memoria_hormigas(1); //Asiganamos memoria para la mejor hormiga
+   resultado->fitness = INFINITY;                           // Inicializamos el fitness como infinito
+   resultado->hormiga = asignar_memoria_hormigas(1);        // Asiganamos memoria para la mejor hormiga
    resultado->hormiga->ruta = asignar_memoria_lista_ruta(); // Asignamos memoria para la ruta de la mejor hormiga
    // Evaluamos la función objetivo para cada individuo de la población inicial
    for (int i = 0; i < num_poblacion; i++) // Iniciamos la funcion objetivo con el objetivo
@@ -235,17 +235,15 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    // Encontramos el mejor individuo de la población inicial
 
    for (int i = 0; i < num_poblacion; i++)
-   {
       if (objetivo[i].fitness < resultado->fitness)
       {
-         resultado->alpha = objetivo[i].alpha; //Copiamos alpha a la mejor hormiga
-         resultado->beta = objetivo[i].beta;//Copiamos beta a la mejor hormiga
-         resultado->rho = objetivo[i].rho; //Copiamos rho a la mejor hormiga
-         resultado->numHormigas = objetivo[i].numHormigas; //Copiamos numHormigas a la mejor hormiga
-         resultado->numIteraciones = objetivo[i].numIteraciones; // Copiamos numIteraciones a la mejor hormiga
-         recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga); //Recuperamos la mejor hormiga
+         resultado->alpha = objetivo[i].alpha;                      // Copiamos alpha a la mejor hormiga
+         resultado->beta = objetivo[i].beta;                        // Copiamos beta a la mejor hormiga
+         resultado->rho = objetivo[i].rho;                          // Copiamos rho a la mejor hormiga
+         resultado->numHormigas = objetivo[i].numHormigas;          // Copiamos numHormigas a la mejor hormiga
+         resultado->numIteraciones = objetivo[i].numIteraciones;    // Copiamos numIteraciones a la mejor hormiga
+         recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga); // Recuperamos la mejor hormiga
       }
-   }
 
    // Inicializamos ya las generaciones
    for (int i = 0; i < num_generaciones; i++)
@@ -257,24 +255,22 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, tsp);
 
       for (int i = 0; i < num_poblacion; i++)
-      {
          // Actualizamos el mejor resultado si encontramos uno mejor
          if (prueba[i].fitness < resultado->fitness)
          {
-            resultado->alpha = prueba[i].alpha; //Copiamos alpha a la mejor hormiga
-            resultado->beta = prueba[i].beta; //Copiamos beta a la mejor hormiga
-            resultado->rho = prueba[i].rho; //Copiamos rho a la mejor hormiga
-            resultado->numHormigas = prueba[i].numHormigas; //Copiamos numHormigas a la mejor hormiga
-            resultado->numIteraciones = prueba[i].numIteraciones; // Copiamos numIteraciones a la mejor hormiga
-            recuperamos_mejor_hormiga(resultado, prueba[i].hormiga); //Recuperamos la mejor hormiga
+            resultado->alpha = prueba[i].alpha;                      // Copiamos alpha a la mejor hormiga
+            resultado->beta = prueba[i].beta;                        // Copiamos beta a la mejor hormiga
+            resultado->rho = prueba[i].rho;                          // Copiamos rho a la mejor hormiga
+            resultado->numHormigas = prueba[i].numHormigas;          // Copiamos numHormigas a la mejor hormiga
+            resultado->numIteraciones = prueba[i].numIteraciones;    // Copiamos numIteraciones a la mejor hormiga
+            recuperamos_mejor_hormiga(resultado, prueba[i].hormiga); // Recuperamos la mejor hormiga
          }
-      }
       // Realizamos la selección de la siguiente generación
-      seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
-      int barra_ancho = 50;                       // Ancho de la barra de progreso
-      int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho); //Calculamos el progreso de la barra
+      seleccion(objetivo, prueba, num_poblacion);                                   // Hacemos la seleccion
+      int barra_ancho = 50;                                                         // Ancho de la barra de progreso
+      int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho); // Calculamos el progreso de la barra
 
-      //Imrpimimos la barra de progreso
+      // Imrpimimos la barra de progreso
       printf("\r[");
       for (int j = 0; j < barra_ancho; ++j)
       {
@@ -290,22 +286,22 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
       fflush(stdout);
    }
 
-   tiempo_final = clock(); //Finalizamos el tiempo
+   tiempo_final = clock(); // Finalizamos el tiempo
    // Calculamos el tiempo de ejecución en minutos
    double minutos = (((double)(tiempo_final - tiempo_inicial)) / CLOCKS_PER_SEC) / 60.0;
 
-   tsp->tiempo_ejecucion = ceil(minutos); //Redondiamos minutos
-   tsp->archivo_instancia = archivo_instancia; //Copiamos el archivo de instancia
+   tsp->tiempo_ejecucion = ceil(minutos);      // Redondiamos minutos
+   tsp->archivo_instancia = archivo_instancia; // Copiamos el archivo de instancia
 
    // Imprimimos la meojor homriga
-   imprimir_mejor_hormiga(resultado->hormiga, resultado); //Imprimimos la mejor hormiga
-   printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos); //Imprimimos el tiempo de ejecución
+   imprimir_mejor_hormiga(resultado->hormiga, resultado);          // Imprimimos la mejor hormiga
+   printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos); // Imprimimos el tiempo de ejecución
 
-   printf("\n¿Quieres imprimir el archivo JSON (s/n)? "); //Preguntamos si quiere imprimir el archivo JSON
-   scanf(" %c", &respuesta); //Recibimos la respuesta
+   printf("\n¿Quieres imprimir el archivo JSON (s/n)? "); // Preguntamos si quiere imprimir el archivo JSON
+   scanf(" %c", &respuesta);                              // Recibimos la respuesta
 
-   if (respuesta == 's' || respuesta == 'S') //Comparamos la Respuesta
-      guardar_json_en_archivo(resultado, tsp, archivo_instancia); //Guradamos el archivo JSON
+   if (respuesta == 's' || respuesta == 'S')                      // Comparamos la Respuesta
+      guardar_json_en_archivo(resultado, tsp, archivo_instancia); // Guradamos el archivo JSON
 
    liberar_instancia(instancia_feromonas, tsp->num_clientes);   // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, tsp->num_clientes); // Liberemos la memoria de la instancia visibilidad

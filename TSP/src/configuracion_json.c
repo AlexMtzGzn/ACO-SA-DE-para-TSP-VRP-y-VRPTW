@@ -59,19 +59,18 @@ int contar_archivos_json(const char *directorio, const char *prefijo) {
     if (dir == NULL) return 0;
 
     struct dirent *entrada;
-    while ((entrada = readdir(dir)) != NULL) {
-        if (strstr(entrada->d_name, prefijo) && strstr(entrada->d_name, ".json")) {
+    while ((entrada = readdir(dir)) != NULL) 
+        if (strstr(entrada->d_name, prefijo) && strstr(entrada->d_name, ".json")) 
             contador++;
-        }
-    }
+        
     closedir(dir);
     return contador;
 }
 
 void crear_directorio_si_no_existe(const char *ruta) {
-    if (access(ruta, F_OK) != 0) {
+    if (access(ruta, F_OK) != 0) 
         mkdir(ruta, 0777);
-    }
+    
 }
 
 void guardar_json_en_archivo(individuo *ind, tsp_configuracion *tsp, char *archivo_instancia) {
