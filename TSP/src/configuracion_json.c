@@ -95,7 +95,8 @@ void guardar_json_en_archivo(individuo *ind, tsp_configuracion *tsp, char *archi
 
    // Contar cuántos archivos existen ya con ese prefijo
    int numero = contar_archivos_json(dir_instancia, archivo_instancia);
-
+   numero++;
+   
    // Ruta final del archivo JSON
    char ruta[1024];
    snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero);

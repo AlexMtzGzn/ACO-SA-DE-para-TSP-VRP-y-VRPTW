@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <dirent.h>
 #include <sys/stat.h>
+#include <unistd.h>
+#include <string.h>
 #include <cjson/cJSON.h>
 #include "../include/configuracion_json.h"
 
@@ -69,15 +72,56 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     return json_individuo;
 }
 
+int contar_archivos_json(const char *directorio, const char *prefijo) {
+    int contador = 0;
+    DIR *dir = opendir(directorio);
+    if (dir == NULL) return 0;
+
+    struct dirent *entrada;
+    while ((entrada = readdir(dir)) != NULL) 
+        if (strstr(entrada->d_name, prefijo) && strstr(entrada->d_name, ".json"))
+            contador++;
+    closedir(dir);
+    return contador;
+}
+
+void crear_directorio_si_no_existe(const char *ruta) {
+    if (access(ruta, F_OK) != 0) 
+        mkdir(ruta, 0777);
+    
+}
+
 // Función para guardar el JSON en un archivo
 void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia)
 {
     cJSON *json_individuo = individuo_a_json(ind, vrp, vrp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
-    char ruta[300];
-    snprintf(ruta, sizeof(ruta), "Resultados/Resultados_%d/Json/%s.json", (vrp->num_clientes - 1), archivo_instancia);
-    // Crear el archivo con el nombre final
+    // Extraer nombre de carpeta desde archivo_instancia (ej. "C101" de "C101_(100)")
+    char nombre_instancia[512];
+    sscanf(archivo_instancia, "%[^_]_", nombre_instancia);
+
+    // Crear los directorios necesarios
+    char dir_base[256], dir_instancia[1024];
+    snprintf(dir_base, sizeof(dir_base), "Resultados/Resultados_%d/Json", (vrp->num_clientes - 1));
+    snprintf(dir_instancia, sizeof(dir_instancia), "%s/%s", dir_base, nombre_instancia);
+
+    crear_directorio_si_no_existe("Resultados");
+
+    char dir_res[256];
+    snprintf(dir_res, sizeof(dir_res), "Resultados/Resultados_%d", (vrp->num_clientes - 1));
+    crear_directorio_si_no_existe(dir_res);
+    crear_directorio_si_no_existe(dir_base);
+    crear_directorio_si_no_existe(dir_instancia);
+
+    // Contar cuántos archivos existen ya con ese prefijo
+    int numero = contar_archivos_json(dir_instancia, archivo_instancia);
+    numero++;
+    
+    // Ruta final del archivo JSON
+    char ruta[1024];
+    snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero);
+
     FILE *archivo = fopen(ruta, "w");
     if (archivo)
     {
@@ -92,10 +136,10 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
     free(json_string);
     cJSON_Delete(json_individuo);
 
-    char comando_py[300];
+    char comando_py[1024];
     snprintf(comando_py, sizeof(comando_py),
-             "python3 src/Simulador_VRP/simulador_vrp.py \"%s.json\" %d",
-             archivo_instancia, vrp->num_clientes - 1);
+             "python3 src/Simulador_VRP/simulador_vrp.py \"%s\" %d",
+             ruta, vrp->num_clientes - 1);
 
     system(comando_py);
 }

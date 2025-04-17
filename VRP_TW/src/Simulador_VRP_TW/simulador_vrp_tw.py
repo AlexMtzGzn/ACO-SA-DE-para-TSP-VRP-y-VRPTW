@@ -206,7 +206,7 @@ if __name__ == "__main__":
         print("Uso: python simulador_vrp_tw.py <archivo_json> [numero_clientes]")
         sys.exit(1)
     
-       # Obtener el número de clientes del segundo parámetro (si existe)
+    # Obtener el número de clientes del segundo parámetro (si existe)
     numero_clientes = sys.argv[2] if len(sys.argv) > 2 else "unknown"
     
     # Construir la ruta del archivo correctamente
