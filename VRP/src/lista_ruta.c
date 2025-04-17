@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"
@@ -100,6 +99,5 @@ void liberar_ruta(struct lista_ruta *ruta)
         cliente_actual = cliente_actual->siguiente;
         free(cliente_temp);
     }
-    
-    free(ruta); // Se libera la estructura de la lista de ruta
+    free(ruta);
 }

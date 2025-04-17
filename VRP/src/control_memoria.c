@@ -177,6 +177,7 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
  */
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
+
     struct hormiga *hormiga = (struct hormiga *)malloc(sizeof(struct hormiga) * numHormigas);
     if (hormiga == NULL)
     {
@@ -203,8 +204,9 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
 /**
  * Reinicia la información de una hormiga, incluyendo sus arreglos internos y flota de vehículos.
  */
-void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct vrp_configuracion *vrp)
+void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 {
+    // Reset array values
     for (int i = 0; i < vrp->num_clientes; i++)
     {
         hormiga->tabu[i] = 0;
@@ -212,16 +214,20 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct vr
         hormiga->probabilidades[i] = 0.0;
     }
 
+    // Reset counters
     hormiga->tabu_contador = 0;
     hormiga->posibles_clientes_contador = 0;
     hormiga->suma_probabilidades = 0.0;
     hormiga->fitness_global = 0.0;
+    
+    // Free old fleet and create a new one
     liberar_lista_vehiculos(hormiga->flota);
-    hormiga->vehiculos_necesarios = ind->vehiculos;
-    for (int i = 0; i < ind->vehiculos; i++)
-        inserta_vehiculo_flota(hormiga, vrp, i + 1);
+    hormiga->vehiculos_necesarios = 0;
+    
+    // Insert the first vehicle
+    inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1);
+    hormiga->vehiculos_necesarios++;
 }
-
 /*Funciones para la estructura de ruta*/
 
 /**

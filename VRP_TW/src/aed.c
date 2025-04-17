@@ -162,8 +162,8 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].beta > 2.5)
          ruidoso[i].beta = 2.5;
 
-      if (ruidoso[i].beta < 1.5)
-         ruidoso[i].beta = 1.5;
+      if (ruidoso[i].beta < 1.0)
+         ruidoso[i].beta = 1.0;
 
       // Ajusta los valores de gamma dentro del rango permitido [0.1, 1.5]
       if (ruidoso[i].gamma > 1.5)
@@ -228,7 +228,7 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    {
       // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
       objetivo[i].alpha = generaAleatorio(1.0, 2.5);               // alpha: entre 1.0 y 2.5
-      objetivo[i].beta = generaAleatorio(1.5, 2.5);                // beta: entre 1.0 y 2.5
+      objetivo[i].beta = generaAleatorio(1.0, 2.5);                // beta: entre 1.0 y 2.5
       objetivo[i].gamma = generaAleatorio(0.1, 1.5);               // gamma: entre 0.1 y 1.5
       objetivo[i].rho = generaAleatorio(0.1, 0.9);                 // rho: entre 0.1 y 0.9
       objetivo[i].numHormigas = (int)generaAleatorio(20, 100);     // numHormigas: entre 20 y 100

@@ -25,6 +25,8 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
 {
     cJSON *json_vehiculo = cJSON_CreateObject();
     cJSON_AddNumberToObject(json_vehiculo, "Id_vehiculo", v->id_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Maxima", v->capacidad_maxima);
+    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Mcumulada", v->capacidad_acumulada);
     cJSON_AddNumberToObject(json_vehiculo, "Numero Clientes", v->clientes_contados);
     cJSON_AddNumberToObject(json_vehiculo, "Fitness Vehiculo", v->fitness_vehiculo);
 
@@ -36,6 +38,7 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
         actual = actual->siguiente;
     }
     cJSON_AddItemToObject(json_vehiculo, "Ruta Clientes", ruta_clientes);
+
     cJSON_AddItemToObject(json_vehiculo, "Ruta Coordenadas", generar_ruta_coordenadas(v->ruta, clientes));
 
     return json_vehiculo;
@@ -52,7 +55,6 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     cJSON_AddNumberToObject(json_individuo, "Rho", ind->rho);
     cJSON_AddNumberToObject(json_individuo, "Numero Hormigas", ind->numHormigas);
     cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones", ind->numIteraciones);
-    cJSON_AddNumberToObject(json_individuo, "Numero de Vehiculos", ind->vehiculos);
     cJSON_AddNumberToObject(json_individuo, "Fitness Global", ind->fitness);
 
     cJSON *flota_json = cJSON_CreateArray();

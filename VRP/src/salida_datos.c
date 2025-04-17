@@ -40,6 +40,8 @@ void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id) {
 // Función para imprimir la información de un vehículo
 void imprimir_vehiculo(struct vehiculo *vehiculo) {
     printf("  + Vehículo ID: %d\n", vehiculo->id_vehiculo);
+    printf("    - Capacidad máxima: %.2f\n", vehiculo->capacidad_maxima);
+    printf("    - Capacidad acumulada: %.2f\n", vehiculo->capacidad_acumulada);
     printf("    - Número de clientes: %d\n", vehiculo->clientes_contados);
     printf("    - Fitness del vehículo: %.2f\n", vehiculo->fitness_vehiculo);
 
@@ -75,7 +77,7 @@ void imprimir_tabu(int *tabu, int num_clientes) {
 // Función para imprimir los parámetros de un individuo
 void imprimir_individuo(individuo *ind) {
     printf("Individuo: ");
-    printf("\n  Alpha: %.2lf, Beta: %.2lf, Gamma: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d\n",
+    printf("\n  Alpha: %.2lf, Beta: %.2lf, Rho: %.2lf, Hormigas: %d, Iteraciones: %d\n",
            ind->alpha, ind->beta,ind->rho, ind->numHormigas, ind->numIteraciones);
 }
 
@@ -106,7 +108,7 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 
 // Función para imprimir la información de la mejor hormiga encontrada
 void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo *ind) {
-    printf("=================================================\n");
+    printf("\n\n=================================================\n");
     printf("INFORMACIÓN DE MEJOR HORMIGA Y RUTA\n");
     printf("=================================================\n");
 

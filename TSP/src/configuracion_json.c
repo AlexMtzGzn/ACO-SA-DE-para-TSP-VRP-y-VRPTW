@@ -77,7 +77,6 @@ void guardar_json_en_archivo(individuo *ind, tsp_configuracion *tsp, char *archi
     cJSON *json_individuo = individuo_a_json(ind, tsp, tsp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
-   // Extraer nombre de carpeta desde archivo_instancia (ej. "C101" de "C101_(100)")
    char nombre_instancia[512];
    sscanf(archivo_instancia, "%[^_]_", nombre_instancia);
 

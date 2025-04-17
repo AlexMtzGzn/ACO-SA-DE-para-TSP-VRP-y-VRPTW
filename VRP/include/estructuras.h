@@ -20,10 +20,12 @@ typedef struct lista_ruta
 // Estructura que representa un vehículo en la flota
 typedef struct vehiculo
 {
-    int id_vehiculo;         // ID único del vehículo
-    int clientes_contados;   // Contador de clientes atendidos por el vehículo
-    lista_ruta *ruta;        // Ruta que sigue el vehículo
-    double fitness_vehiculo; // Medida de rendimiento del vehículo
+    int id_vehiculo;            // ID único del vehículo
+    double capacidad_maxima;    // Capacidad máxima del vehículo
+    double capacidad_acumulada; // Capacidad actual acumulada en el vehículo
+    int clientes_contados;      // Contador de clientes atendidos por el vehículo
+    lista_ruta *ruta;           // Ruta que sigue el vehículo
+    double fitness_vehiculo;    // Medida de rendimiento del vehículo
 } vehiculo;
 
 // --------------------- NODO Y LISTA DE VEHÍCULOS ---------------------
@@ -62,19 +64,21 @@ typedef struct hormiga
 // Estructura que representa un cliente en el VRP
 typedef struct cliente
 {
-    int id_cliente;      // ID único del cliente
-    double coordenada_x; // Coordenada X del cliente
-    double coordenada_y; // Coordenada Y del cliente
+    int id_cliente;           // ID único del cliente
+    double coordenada_x;      // Coordenada X del cliente
+    double coordenada_y;      // Coordenada Y del cliente
+    double demanda_capacidad; // Demanda de capacidad del cliente
 } cliente;
 
 // --------------------- CONFIGURACIÓN VRP ---------------------
 // Estructura que contiene la configuración del problema VRP con ventanas de tiempo
 typedef struct vrp_configuracion
 {
-    int num_clientes;        // Número total de clientes en el VRP
-    int num_vehiculos;       // Número total de vehículos disponibles
-    cliente *clientes;       // Arreglo de clientes en el VRP
-    double tiempo_ejecucion; // Tiempo de ejecucion del codigo
+    int num_clientes;            // Número total de clientes en el VRP
+    int num_vehiculos;           // Número total de vehículos disponibles
+    int num_capacidad;           // Capacidad de cada vehículo
+    cliente *clientes;           // Arreglo de clientes en el VRP
+    double tiempo_ejecucion;     // Tiempo de ejecucion del codigo
     char *archivo_instancia; // Nombre del archivo
 } vrp_configuracion;
 
@@ -87,7 +91,6 @@ typedef struct individuo
     double rho;         // Factor de evaporación de feromona
     int numHormigas;    // Número de hormigas en la población
     int numIteraciones; // Número de iteraciones del algoritmo
-    int vehiculos;      // Numero de vehiculos al azar
     double fitness;     // Medida de rendimiento del individuo
     hormiga *hormiga;   // Puntero a la hormiga asociada al individuo
 } individuo;

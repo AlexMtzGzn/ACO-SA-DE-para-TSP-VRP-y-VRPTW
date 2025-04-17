@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"
 #include "../include/lista_flota.h"
@@ -15,13 +14,14 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
     // Asignar memoria para el vehículo y configurar sus parámetros
     vehiculo_nuevo->vehiculo = asignar_memoria_vehiculo();
     vehiculo_nuevo->vehiculo->id_vehiculo = id;
+    vehiculo_nuevo->vehiculo->capacidad_maxima = vrp->num_capacidad;
+    vehiculo_nuevo->vehiculo->capacidad_acumulada = 0.0;
     vehiculo_nuevo->vehiculo->clientes_contados = 0;
     vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0;
     
     // Asignar memoria para la lista de rutas y añadir el primer cliente
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();
     vehiculo_nuevo->siguiente = NULL;
-
     insertar_cliente_ruta(hormiga, vehiculo_nuevo->vehiculo, &(vrp->clientes[0]));
 
     return vehiculo_nuevo;
@@ -66,6 +66,8 @@ struct vehiculo *copiar_vehiculo(struct vehiculo *original)
 
     // Copiar los atributos del vehículo original
     nuevo_vehiculo->id_vehiculo = original->id_vehiculo;
+    nuevo_vehiculo->capacidad_maxima = original->capacidad_maxima;
+    nuevo_vehiculo->capacidad_acumulada = original->capacidad_acumulada;
     nuevo_vehiculo->clientes_contados = original->clientes_contados;
     nuevo_vehiculo->fitness_vehiculo = original->fitness_vehiculo;
 

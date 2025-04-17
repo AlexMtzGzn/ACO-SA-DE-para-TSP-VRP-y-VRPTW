@@ -23,9 +23,9 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tama
     char buffer[256];
     fgets(buffer, sizeof(buffer), archivo); // Leemos la primera línea (encabezado)
 
-    int num_vehiculos,num_clientes;
+    int num_vehiculos, num_capacidad, num_clientes;
     // Leemos los parámetros de configuración del archivo CSV
-    if (fscanf(archivo, "%d, %d\n", &num_vehiculos, &num_clientes) != 2)
+    if (fscanf(archivo, "%d, %d, %d\n", &num_vehiculos, &num_capacidad, &num_clientes) != 3)
     {
         imprimir_mensaje("Error al leer los parámetros de configuración del archivo CSV.");
         fclose(archivo);
@@ -33,6 +33,7 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tama
     }
 
     vrp->num_vehiculos = num_vehiculos;
+    vrp->num_capacidad = num_capacidad;
     vrp->num_clientes = num_clientes;
 
     // Asignamos memoria para los clientes
@@ -48,15 +49,16 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tama
     while (fgets(buffer, sizeof(buffer), archivo) && cliente_index < vrp->num_clientes)
     {
         int id;
-        double x, y;
+        double x, y, demanda;
 
         // Si encontramos datos válidos, los guardamos en la estructura
-        if (sscanf(buffer, "%d, %lf, %lf",
-                   &id, &x, &y) == 3)
+        if (sscanf(buffer, "%d, %lf, %lf, %lf",
+                   &id, &x, &y, &demanda) == 4)
         {
             vrp->clientes[cliente_index].id_cliente = id;
             vrp->clientes[cliente_index].coordenada_x = x;
             vrp->clientes[cliente_index].coordenada_y = y;
+            vrp->clientes[cliente_index].demanda_capacidad = demanda;
 
             cliente_index++;
         }
@@ -81,18 +83,20 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tam
     }
 
     // Escribimos la primera línea con los parámetros de configuración
-    fprintf(archivo, "%s\n%d,%d\n",
+    fprintf(archivo, "%s\n%d, %d, %d\n",
             archivo_instancia,
             vrp->num_vehiculos,
+            vrp->num_capacidad,
             vrp->num_clientes);
 
     // Escribimos los datos de cada cliente
     for (int i = 0; i < vrp->num_clientes; i++)
     {
-        fprintf(archivo, "%d, %.2lf, %.2lf\n",
+        fprintf(archivo, "%d, %.2lf, %.2lf, %.2lf\n",
                 vrp->clientes[i].id_cliente,
                 vrp->clientes[i].coordenada_x,
-                vrp->clientes[i].coordenada_y);
+                vrp->clientes[i].coordenada_y,
+                vrp->clientes[i].demanda_capacidad);
     }
 
     fclose(archivo); // Cerramos el archivo
@@ -113,14 +117,14 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
     // Leemos la configuración de vehículos y capacidad
     while (fgets(buffer, sizeof(buffer), file))
     {
-        if (strstr(buffer, "NUMBER"))
+        if (strstr(buffer, "NUMBER") && strstr(buffer, "CAPACITY"))
         {
             if (fgets(buffer, sizeof(buffer), file))
             {
                 char *ptr = buffer;
                 while (*ptr == ' ' && *ptr != '\0')
                     ptr++;
-                sscanf(ptr, "%d", &vrp->num_vehiculos);
+                sscanf(ptr, "%d %d", &vrp->num_vehiculos, &vrp->num_capacidad);
                 break;
             }
         }
@@ -166,14 +170,16 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
     while (fgets(buffer, sizeof(buffer), file) && cliente_index < vrp->num_clientes)
     {
         int id;
-        double x, y;
+        double x, y, demanda;
 
-        if (sscanf(buffer, "%d %lf %lf",
-                   &id, &x, &y) == 3)
+        if (sscanf(buffer, "%d %lf %lf %lf",
+                   &id, &x, &y, &demanda) == 4)
         {
             vrp->clientes[cliente_index].id_cliente = id;
             vrp->clientes[cliente_index].coordenada_x = x;
             vrp->clientes[cliente_index].coordenada_y = y;
+            vrp->clientes[cliente_index].demanda_capacidad = demanda;
+
             cliente_index++;
         }
     }
@@ -188,6 +194,7 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
     struct vrp_configuracion *vrp = asignar_memoria_vrp_configuracion(); // Asignamos memoria para la estructura vrp_configuracion
 
     vrp->num_vehiculos = 0; // Inicializamos número de vehículos en 0
+    vrp->num_capacidad = 0; // Inicializamos la capacidad del vehículo en 0
     vrp->num_clientes = 0;  // Inicializamos número de clientes en 0
     vrp->clientes = NULL;   // Inicializamos la estructura vrp_clientes en NULL
 
