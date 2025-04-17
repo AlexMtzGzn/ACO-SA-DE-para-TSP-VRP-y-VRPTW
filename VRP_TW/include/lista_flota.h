@@ -19,7 +19,10 @@ struct lista_vehiculos* copiar_lista_vehiculos(struct lista_vehiculos *original)
 // Función para liberar la memoria de un vehículo
 void liberar_vehiculo(struct vehiculo *vehiculo);
 
+// Función para vaciar la memoria de la lista de vehículos
+void vaciar_lista_vehiculos(struct lista_vehiculos *flota);
+
 // Función para liberar la memoria de una lista de vehículos
-void liberar_lista_vehiculos(struct lista_vehiculos *lista);
+void liberar_lista_vehiculos(struct lista_vehiculos *flota);
 
 #endif /*lista_flota.h*/

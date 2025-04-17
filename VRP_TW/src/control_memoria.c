@@ -117,7 +117,7 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
     if (tipo)
         for (int i = 0; i < num_poblacion; i++)
-            liberar_lista_vehiculos(ind[i].hormiga->flota);
+            vaciar_lista_vehiculos(ind[i].hormiga->flota);
 
     free(ind);
 }
@@ -216,7 +216,7 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
     hormiga->posibles_clientes_contador = 0;
     hormiga->suma_probabilidades = 0.0;
     hormiga->fitness_global = 0.0;
-    liberar_lista_vehiculos(hormiga->flota);
+    vaciar_lista_vehiculos(hormiga->flota);
     hormiga->vehiculos_necesarios = 0;
     inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1);
     hormiga->vehiculos_necesarios++;

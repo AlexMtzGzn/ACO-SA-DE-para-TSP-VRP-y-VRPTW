@@ -90,14 +90,20 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
    // Recorre todos los clientes en la matriz de feromonas (fila i, columna j)
    for (int i = 0; i < vrp->num_clientes; i++)
    {
-      for (int j = 0; j < vrp->num_clientes; j++)
+      for (int j = i + 1; j < vrp->num_clientes; j++)
       {
          // Si i y j son diferentes (es decir, no es la misma ciudad), se asigna un valor de feromona de 1.0
          if (i != j)
-            instancia_feromona[i][j] = 1.0; // Hay que revisr si lo hacemo entre la ventana del tiempo final
-         // Si i y j son iguales (es decir, es la misma ciudad), la feromona se establece en 0.0
+         {
+            instancia_feromona[i][j] = 1.0;
+            instancia_feromona[j][i] = instancia_feromona[i][j]; // Aprovechamos la simetría
+         }
+
          else
+         {
+            // Si i y j son iguales, se asigna 0.0
             instancia_feromona[i][j] = 0.0;
+         }
       }
    }
 }
@@ -146,8 +152,8 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
 
       // Limita los valores de los parámetros para que estén dentro de un rango válido
       // Ajusta los valores de alpha dentro del rango permitido [1.0, 2.5]
-      if (ruidoso[i].alpha > 2.0)
-         ruidoso[i].alpha = 2.0;
+      if (ruidoso[i].alpha > 2.5)
+         ruidoso[i].alpha = 2.5;
 
       if (ruidoso[i].alpha < 1.0)
          ruidoso[i].alpha = 1.0;
@@ -163,29 +169,29 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       if (ruidoso[i].gamma > 1.5)
          ruidoso[i].gamma = 1.5;
 
-      if (ruidoso[i].gamma < 0.0)
-         ruidoso[i].gamma = 0.0;
+      if (ruidoso[i].gamma < 0.1)
+         ruidoso[i].gamma = 0.1;
 
-      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.8]
-      if (ruidoso[i].rho > 0.8)
-         ruidoso[i].rho = 0.8;
+      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.9]
+      if (ruidoso[i].rho > 0.9)
+         ruidoso[i].rho = 0.9;
 
       if (ruidoso[i].rho < 0.1)
          ruidoso[i].rho = 0.1;
 
-      // Ajusta el número de hormigas dentro del rango permitido [50, 100]
+      // Ajusta el número de hormigas dentro del rango permitido [20, 100]
       if (ruidoso[i].numHormigas > 100)
          ruidoso[i].numHormigas = 100;
 
-      if (ruidoso[i].numHormigas < 50)
-         ruidoso[i].numHormigas = 50;
+      if (ruidoso[i].numHormigas < 20)
+         ruidoso[i].numHormigas = 20;
 
-      // Ajusta el número de iteraciones dentro del rango permitido [100, 200]
+      // Ajusta el número de iteraciones dentro del rango permitido [50, 200]
       if (ruidoso[i].numIteraciones > 200)
          ruidoso[i].numIteraciones = 200;
 
-      if (ruidoso[i].numIteraciones < 100)
-         ruidoso[i].numIteraciones = 100;
+      if (ruidoso[i].numIteraciones < 50)
+         ruidoso[i].numIteraciones = 50;
    }
 }
 
@@ -221,12 +227,12 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    for (int i = 0; i < poblacion; ++i)
    {
       // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
-      objetivo[i].alpha = generaAleatorio(1.0, 2.0);               // alpha: entre 1.0 y 2.5
+      objetivo[i].alpha = generaAleatorio(1.0, 2.5);               // alpha: entre 1.0 y 2.5
       objetivo[i].beta = generaAleatorio(1.5, 2.5);                // beta: entre 1.0 y 2.5
-      objetivo[i].gamma = generaAleatorio(0.0, 1.5);               // gamma: entre 0.1 y 1.5
-      objetivo[i].rho = generaAleatorio(0.1, 0.8);                 // rho: entre 0.1 y 0.9
-      objetivo[i].numHormigas = (int)generaAleatorio(50, 100);     // numHormigas: entre 50 y 100
-      objetivo[i].numIteraciones = (int)generaAleatorio(100, 200); // numIteraciones: entre 100 y 200
+      objetivo[i].gamma = generaAleatorio(0.1, 1.5);               // gamma: entre 0.1 y 1.5
+      objetivo[i].rho = generaAleatorio(0.1, 0.9);                 // rho: entre 0.1 y 0.9
+      objetivo[i].numHormigas = (int)generaAleatorio(20, 100);     // numHormigas: entre 20 y 100
+      objetivo[i].numIteraciones = (int)generaAleatorio(50, 200); // numIteraciones: entre 50 y 200
    }
 }
 
@@ -266,7 +272,6 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
    // Encontramos el mejor individuo de la población inicial
    for (int i = 0; i < num_poblacion; i++)
-   {
       if (objetivo[i].fitness < resultado->fitness)
       {
          resultado->alpha = objetivo[i].alpha;
@@ -277,7 +282,6 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
          resultado->numIteraciones = objetivo[i].numIteraciones;
          recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);
       }
-   }
 
    // Inicializamos ya las generaciones
    for (int i = 0; i < num_generaciones; i++)
@@ -289,7 +293,6 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
 
       for (int i = 0; i < num_poblacion; i++)
-      {
          // Actualizamos el mejor resultado si encontramos uno mejor
          if (prueba[i].fitness < resultado->fitness)
          {
@@ -301,25 +304,24 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
             resultado->numIteraciones = prueba[i].numIteraciones;
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);
          }
-      }
       // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
-      int barra_ancho = 50; // ancho de la barra de progreso
+      int barra_ancho = 50;                       // ancho de la barra de progreso
       int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho);
-      
+
       printf("\r[");
-      for (int j = 0; j < barra_ancho; ++j) {
-          if (j < progreso_barras)
-              printf("#");
-          else
-              printf(" ");
+      for (int j = 0; j < barra_ancho; ++j)
+      {
+         if (j < progreso_barras)
+            printf("#");
+         else
+            printf(" ");
       }
-      printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos", 
-             ((float)(i + 1) / num_generaciones) * 100, 
-             resultado->fitness, 
+      printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
+             ((float)(i + 1) / num_generaciones) * 100,
+             resultado->fitness,
              ((double)(clock() - timepo_inicial)) / CLOCKS_PER_SEC / 60.0);
       fflush(stdout);
-      
    }
 
    timepo_final = clock();

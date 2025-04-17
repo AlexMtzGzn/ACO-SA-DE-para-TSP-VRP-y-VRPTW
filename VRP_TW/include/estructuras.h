@@ -95,7 +95,7 @@ typedef struct individuo
 {
     double alpha;       // Parámetro alpha para el algoritmo ACO
     double beta;        // Parámetro beta para el algoritmo ACO
-    double gamma;       // Parámetro gamma (usado en el algoritmo)
+    double gamma;       // Parámetro gamma para el algortimo ACO
     double rho;         // Factor de evaporación de feromona
     int numHormigas;    // Número de hormigas en la población
     int numIteraciones; // Número de iteraciones del algoritmo

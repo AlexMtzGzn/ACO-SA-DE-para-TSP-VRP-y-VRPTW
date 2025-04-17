@@ -153,9 +153,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
     {
         int id;
         if (sscanf(buffer, "%d", &id) == 1)
-        {
             num_clientes++;
-        }
     }
 
     vrp->num_clientes = num_clientes;
