@@ -149,7 +149,7 @@ class TSPSimulator:
                 
                 if 'Fitness Global' in self.data:
                     frame_info += f"Distancia total óptima: {self.data['Fitness Global']:.2f}"
-            else:
+            else: 
                 # En el último paso
                 distancia_total = 0
                 for i in range(len(x)-1):
