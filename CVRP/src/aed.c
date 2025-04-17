@@ -87,7 +87,7 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
    inicializar_Feromona(vrp, instancia_feromona);
    // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
    //  Ejecuta el algoritmo de optimización con ventanas de tiempo (ACO) en el individuo+
-   vrp_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona);
+   cvrp_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona);
 }
 
 double generaAleatorio(double minimo, double maximo)

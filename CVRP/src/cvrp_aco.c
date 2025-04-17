@@ -354,7 +354,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el depósito al final
 }
 
-void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
+void cvrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
 
     // Asignamos memoria para el número de hormigas
