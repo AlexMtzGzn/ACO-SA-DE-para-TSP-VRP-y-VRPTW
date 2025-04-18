@@ -358,12 +358,10 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
             // Calculamos la probabilidad de visitar cada cliente disponible
             for (int i = 0; i < vrp->num_clientes; i++)
-            {
                 if (hormiga->posibles_clientes[i] == 1)
-                {
                     hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, vrp, hormiga, instancia_feromona, instancia_visibilidad, instancia_ventanas_tiempo);
-                }
-            }
+            
+
 
             // Generamos un número aleatorio entre 0 y 1 para la selección probabilística del siguiente cliente
             double aleatorio_seleccion = ((double)rand() / RAND_MAX);

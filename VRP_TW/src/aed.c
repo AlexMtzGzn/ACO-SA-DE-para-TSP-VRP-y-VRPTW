@@ -19,17 +19,17 @@ double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int
 
 void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
+   double distancia; // Declaramos la variable distancia
    // Recorre todos los clientes y calcula la visibilidad entre ellos
    for (int i = 0; i < vrp->num_clientes; i++)
    {
       for (int j = i + 1; j < vrp->num_clientes; j++)
       {
-         // Calculamos la distancia entre los clientes i y j una sola vez
-         double distancia = calcular_Distancia(vrp, i, j);
 
-         // Si la distancia es mayor a 0, calculamos la visibilidad
-         if (distancia > 0)
+         if (i != j)
          {
+            distancia = calcular_Distancia(vrp, i, j);
+            // La visibilidad es inversamente proporcional a la distancia
             instancia_visibilidad[i][j] = 1.0 / distancia;
             instancia_visibilidad[j][i] = instancia_visibilidad[i][j]; // Aprovechamos la simetría
          }
@@ -48,8 +48,7 @@ void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_c
    {
       for (int j = i + 1; j < vrp->num_clientes; j++)
       {
-         // Si i y j son diferentes, asigna la ventana de tiempo como 1 / tiempo final del cliente j
-         if (calcular_Distancia(vrp, i, j) > 0)
+         if (i != j)
          {
             instancia_ventanas_tiempo[i][j] = 1.0 / vrp->clientes[j].vt_final;
             instancia_ventanas_tiempo[j][i] = instancia_ventanas_tiempo[i][j]; // Aprovechamos la simetría
@@ -64,16 +63,15 @@ void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_c
 
 void inicializar_Distancias(double **instancia_distancias, struct vrp_configuracion *vrp)
 {
+   double distancia;
    // Recorre todos los clientes y calcula las distancias entre ellos
    for (int i = 0; i < vrp->num_clientes; i++)
    {
       for (int j = i + 1; j < vrp->num_clientes; j++)
       {
-         // Calculamos la distancia entre los clientes i y j
-         double distancia = calcular_Distancia(vrp, i, j);
-
          if (i != j)
          {
+            distancia = calcular_Distancia(vrp, i, j);
             instancia_distancias[i][j] = distancia;
             instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
          }
@@ -227,11 +225,11 @@ void inicializaPoblacion(struct individuo *objetivo, int poblacion)
    for (int i = 0; i < poblacion; ++i)
    {
       // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
-      objetivo[i].alpha = generaAleatorio(1.0, 2.5);               // alpha: entre 1.0 y 2.5
-      objetivo[i].beta = generaAleatorio(1.0, 2.5);                // beta: entre 1.0 y 2.5
-      objetivo[i].gamma = generaAleatorio(0.1, 1.5);               // gamma: entre 0.1 y 1.5
-      objetivo[i].rho = generaAleatorio(0.1, 0.9);                 // rho: entre 0.1 y 0.9
-      objetivo[i].numHormigas = (int)generaAleatorio(20, 100);     // numHormigas: entre 20 y 100
+      objetivo[i].alpha = generaAleatorio(1.0, 2.5);              // alpha: entre 1.0 y 2.5
+      objetivo[i].beta = generaAleatorio(1.0, 2.5);               // beta: entre 1.0 y 2.5
+      objetivo[i].gamma = generaAleatorio(0.1, 1.5);              // gamma: entre 0.1 y 1.5
+      objetivo[i].rho = generaAleatorio(0.1, 0.9);                // rho: entre 0.1 y 0.9
+      objetivo[i].numHormigas = (int)generaAleatorio(20, 100);    // numHormigas: entre 20 y 100
       objetivo[i].numIteraciones = (int)generaAleatorio(50, 200); // numIteraciones: entre 50 y 200
    }
 }
