@@ -40,8 +40,8 @@ typedef struct cliente
     double coordenada_y; // Coordenada Y del cliente
 } cliente;
 
-// --------------------- CONFIGURACIÓN tsp ---------------------
-// Estructura que contiene la configuración del problema tsp con ventanas de tiempo
+// --------------------- CONFIGURACIÓN TSP ---------------------
+// Estructura que contiene la configuración del problema tsp
 typedef struct tsp_configuracion
 {
     int num_clientes;        // Número total de clientes en el tsp

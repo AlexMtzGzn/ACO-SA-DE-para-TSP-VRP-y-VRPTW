@@ -24,12 +24,12 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct tsp_configur
    {
       for (int j = i + 1; j < tsp->num_clientes; j++)
       {
+         double distancia;
 
          if (i != j)
          {
             // Calculamos la distancia entre los clientes i y j una sola vez
-            double distancia = calcular_Distancia(tsp, i, j);
-
+            distancia = calcular_Distancia(tsp, i, j);
             instancia_visibilidad[i][j] = 1.0 / distancia;
             instancia_visibilidad[j][i] = instancia_visibilidad[i][j]; // Aprovechamos la simetría
          }
@@ -48,11 +48,13 @@ void inicializar_Distancias(double **instancia_distancias, struct tsp_configurac
    {
       for (int j = i + 1; j < tsp->num_clientes; j++)
       {
-         // Calculamos la distancia entre los clientes i y j
-         double distancia = calcular_Distancia(tsp, i, j);
+
+         double distancia;
 
          if (i != j)
          {
+            // Calculamos la distancia entre los clientes i y j
+            distancia = calcular_Distancia(tsp, i, j);
             instancia_distancias[i][j] = distancia;
             instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
          }
@@ -162,11 +164,12 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
 
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
+   double aleatorio; // Variable para almacenar un número aleatorio
    // Itera sobre todos los individuos en la población.
    for (int i = 0; i < poblacion; ++i)
    {
       // Genera un número aleatorio en el rango [0,1].
-      double aleatorio = (double)rand() / RAND_MAX;
+      aleatorio = (double)rand() / RAND_MAX;
 
       // Con una probabilidad del 50%, selecciona el individuo de la población objetivo.
       if (aleatorio <= 0.5)

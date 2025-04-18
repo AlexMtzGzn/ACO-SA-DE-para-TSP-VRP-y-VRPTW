@@ -5,7 +5,7 @@
 #include <cjson/cJSON.h>
 #include "../include/estructuras.h"
 
-// Declaramos prototipos de funciones que gestionan la configuración de la instancia tsp (tsp)
+// Declaramos prototipos de funciones que gestionan la configuración de la instancia tsp
 
 // Función para leer una instancia de tsp desde un archivo CSV, llenando la estructura tsp_configuracion
 void leemos_csv(tsp_configuracion *tsp, char *archivo_instancia,int tamanio_instancia);
