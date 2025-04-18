@@ -93,21 +93,21 @@ El objetivo principal de este proyecto es encontrar la mejor ruta para el **Prob
      - Número de hormigas
      - Número de iteraciones
      - Valor de fitness de la solución
-     - Ruta generada (lista de ciudades/índices)
+     - Ruta generada (lista de ciudades/clientes)
 
 4. **Imagen simulada**
 
    - Se genera una imagen estática (`.png`) que representa visualmente la **ruta generada** por el algoritmo ACO.
 
    Ejemplo de visualización:
-   ![Imagen Ruta](<C100_(25)_2.png>)
+   ![Imagen Ruta](Recursos_Readme/Ejemplo_png.png)
 
 5. **GIF simulado**
 
    - Se crea un **GIF animado** que simula el proceso de construcción de la ruta, mostrando cómo la mejor hormiga recorre las ciudades o clientes a lo largo del tiempo.
 
    Ejemplo de animación:
-   ![Simulador Ruta](<C100_(25)_2.gif>)
+   ![Simulador Ruta](Recursos_Readme/Ejemplo_gif.gif)
 
 ### 💾 Ejemplo de archivo JSON
 

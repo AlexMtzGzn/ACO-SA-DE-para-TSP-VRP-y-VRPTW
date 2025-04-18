@@ -46,7 +46,7 @@ void liberar_memoria_tsp_configuracion(struct tsp_configuracion *tsp);
 
 // Funciones para asignar memoria para la estructura de clientes
 
-// Asigna memoria para la estructura de clientes según la configuración del tsp
+// Asigna memoria para la estructura de clientes según la configuración del TSP
 struct cliente *asignar_memoria_clientes(struct tsp_configuracion *tsp);
 
 

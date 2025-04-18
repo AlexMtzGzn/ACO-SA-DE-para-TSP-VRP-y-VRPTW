@@ -123,7 +123,7 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
     free(ind);
 }
 
-/*Funciones para la estructura de configuración tsp*/
+/*Funciones para la estructura de configuración TSP*/
 
 /**
  * Asigna memoria para la estructura 'tsp_configuracion'.

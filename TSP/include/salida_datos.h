@@ -7,7 +7,7 @@
 // Función para imprimir un mensaje de texto que podría contener información sobre la instancia
 void imprimir_mensaje(char *texto_instancia);
 
-// Función para imprimir la matriz de distancias de la instancia del problema junto con la configuración del tsp
+// Función para imprimir la matriz de distancias de la instancia del problema junto con la configuración del TSP
 void imprimir_instancia(double **matriz_instancia, struct tsp_configuracion *tsp, char *texto_instancia);
 
 // Función para imprimir la ruta de un vehículo, identificada por su ID

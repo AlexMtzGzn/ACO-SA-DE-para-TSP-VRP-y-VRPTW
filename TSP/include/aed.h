@@ -1,12 +1,12 @@
 #ifndef AED_H
 #define AED_H
 
-// Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del tsp
+// Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del TSP
 #include "../include/estructuras.h"
 
 // Prototipos de funciones
 
-// Calcula la distancia entre dos clientes dados en la configuración del tsp
+// Calcula la distancia entre dos clientes dados en la configuración del TSP
 double calcular_Distancia(struct tsp_configuracion *tsp, int cliente_origen, int cliente_destino);
 
 // Inicializa la matriz de visibilidad, que representa la "facilidad" de mover de un cliente a otro
