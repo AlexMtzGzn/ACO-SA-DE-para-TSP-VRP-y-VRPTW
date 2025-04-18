@@ -30,7 +30,7 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 
     // Verificamos si la flota de la hormiga es nula (no se ha asignado aún)
     if (hormiga->flota == NULL)
-        vaciar_lista_vehiculos(ind->hormiga->flota); // Liberamos cualquier memoria previamente asignada a la flota
+        liberar_lista_vehiculos(ind->hormiga->flota); // Liberamos cualquier memoria previamente asignada a la flota
 
     // Copiamos la flota de vehículos de la hormiga al individuo
     ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota); // Se crea una copia de la flota de la hormiga para el individuo
