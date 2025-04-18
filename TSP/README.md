@@ -137,6 +137,12 @@ Para ejecutar este proyecto, asegúrate de tener lo siguiente:
 
 Es necesario tener un compilador de C instalado (como gcc) para compilar el código fuente.
 
+### Librería `cJSON`:  
+  Este proyecto requiere la librería `cJSON` para trabajar con archivos JSON en C.  
+  Puedes encontrarla y consultar cómo instalarla en su repositorio oficial:
+    
+  👉 [https://github.com/DaveGamble/cJSON](https://github.com/DaveGamble/cJSON)
+
 ### 📦 Python
 
 Asegúrate de tener Python instalado junto con las siguientes bibliotecas:

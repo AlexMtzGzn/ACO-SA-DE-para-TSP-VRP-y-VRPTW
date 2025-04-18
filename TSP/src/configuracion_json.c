@@ -77,49 +77,62 @@ void guardar_json_en_archivo(individuo *ind, tsp_configuracion *tsp, char *archi
     cJSON *json_individuo = individuo_a_json(ind, tsp, tsp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
-   char nombre_instancia[512];
-   sscanf(archivo_instancia, "%[^_]_", nombre_instancia);
+    char nombre_instancia[512];
+    sscanf(archivo_instancia, "%[^_]_", nombre_instancia);
 
-   // Crear los directorios necesarios
-   char dir_base[256], dir_instancia[1024];
-   snprintf(dir_base, sizeof(dir_base), "Resultados/Resultados_%d/Json", (tsp->num_clientes - 1));
-   snprintf(dir_instancia, sizeof(dir_instancia), "%s/%s", dir_base, nombre_instancia);
+    // Crear los directorios necesarios
+    char dir_base[256], dir_instancia[1024];
+    snprintf(dir_base, sizeof(dir_base), "Resultados/Resultados_%d/Json", (tsp->num_clientes - 1));
+    
+    // Verificamos que no se exceda el tamaño del buffer
+    if (snprintf(dir_instancia, sizeof(dir_instancia), "%s/%s", dir_base, nombre_instancia) >= sizeof(dir_instancia)) {
+        fprintf(stderr, "Error: la ruta de la instancia es demasiado larga.\n");
+        free(json_string);
+        cJSON_Delete(json_individuo);
+        return;
+    }
 
-   crear_directorio_si_no_existe("Resultados");
+    crear_directorio_si_no_existe("Resultados");
 
-   char dir_res[256];
-   snprintf(dir_res, sizeof(dir_res), "Resultados/Resultados_%d", (tsp->num_clientes - 1));
-   crear_directorio_si_no_existe(dir_res);
-   crear_directorio_si_no_existe(dir_base);
-   crear_directorio_si_no_existe(dir_instancia);
+    char dir_res[256];
+    snprintf(dir_res, sizeof(dir_res), "Resultados/Resultados_%d", (tsp->num_clientes - 1));
+    crear_directorio_si_no_existe(dir_res);
+    crear_directorio_si_no_existe(dir_base);
+    crear_directorio_si_no_existe(dir_instancia);
 
-   // Contar cuántos archivos existen ya con ese prefijo
-   int numero = contar_archivos_json(dir_instancia, archivo_instancia);
-   numero++;
-   
-   // Ruta final del archivo JSON
-   char ruta[1024];
-   snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero);
+    // Contar cuántos archivos existen ya con ese prefijo
+    int numero = contar_archivos_json(dir_instancia, archivo_instancia);
+    numero++;
 
-   FILE *archivo = fopen(ruta, "w");
-   if (archivo)
-   {
-       fprintf(archivo, "%s", json_string);
-       fclose(archivo);
-   }
-   else
-   {
-       printf("Error al abrir el archivo para escritura: %s\n", ruta);
-   }
+    // Ruta final del archivo JSON
+    char ruta[1024];
+    if (snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero) >= sizeof(ruta)) {
+        fprintf(stderr, "Error: la ruta del archivo JSON es demasiado larga.\n");
+        free(json_string);
+        cJSON_Delete(json_individuo);
+        return;
+    }
+
+    // Abrir el archivo y escribir el JSON
+    FILE *archivo = fopen(ruta, "w");
+    if (archivo) {
+        fprintf(archivo, "%s", json_string);
+        fclose(archivo);
+    } else {
+        printf("Error al abrir el archivo para escritura: %s\n", ruta);
+    }
 
     free(json_string);
     cJSON_Delete(json_individuo);
 
-    
+    // Ejecutar el script de simulación en Python
     char comando_py[1200]; 
-    snprintf(comando_py, sizeof(comando_py),
-             "python3 src/Simulador_TSP/simulador_tsp.py \"%s\" %d",
-             ruta, tsp->num_clientes - 1);
+    if (snprintf(comando_py, sizeof(comando_py),
+                 "python3 src/Simulador_TSP/simulador_tsp.py \"%s\" %d",
+                 ruta, tsp->num_clientes - 1) >= sizeof(comando_py)) {
+        fprintf(stderr, "Error: el comando Python es demasiado largo.\n");
+        return;
+    }
 
     system(comando_py);
 }
