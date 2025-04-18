@@ -11,6 +11,7 @@ Consiste en encontrar las rutas óptimas para una flota de vehículos que deben 
 ## 🕒 Restricciones de Ventanas de Tiempo
 
 Cada cliente debe ser visitado dentro de una ventana de tiempo específica:
+
 - **Tiempo más temprano** (earliest time): El vehículo no puede comenzar el servicio antes de este tiempo.
 - **Tiempo más tardío** (latest time): El vehículo debe comenzar el servicio a más tardar en este tiempo.
 
@@ -57,7 +58,7 @@ El algoritmo Evolutivo Diferencial (DE) se utilizó para calibrar los parámetro
 
 - **α (alpha)**: Influencia de la feromona. Ajustado entre **1.0 y 2.5**.
 - **β (beta)**: Influencia de la visibilidad (heurística). Ajustado entre **1.0 y 2.5**.
-- **γ (gamma)**: Influencia de la factibilidad temporal. Ajustado entre **1.0 y 2.5**.
+- **γ (gamma)**: Influencia de la factibilidad temporal. Ajustado entre **0.1 y 2.5**.
 - **ρ (rho)**: Tasa de evaporación de feromonas. Ajustado entre **0.1 y 0.9**.
 - **Número de hormigas**: Ajustado entre **20 y 100**.
 - **Número de iteraciones**: Ajustado entre **50 y 200**.
@@ -68,7 +69,7 @@ Durante la ejecución de DE, cada parámetro fue generado aleatoriamente dentro 
 
 - **α (alpha)**: Se generó entre **1.0 y 2.5**.
 - **β (beta)**: Se generó entre **1.0 y 2.5**.
-- **γ (gamma)**: Se generó entre **1.0 y 2.5**.
+- **γ (gamma)**: Se generó entre **0.1 y 2.5**.
 - **ρ (rho)**: Se generó entre **0.1 y 0.9**.
 - **Número de hormigas**: Se generó entre **20 y 100**.
 - **Número de iteraciones**: Se generó entre **50 y 200**.
@@ -127,9 +128,15 @@ El objetivo principal de este proyecto es encontrar las mejores rutas para el **
      - Número de hormigas
      - Número de iteraciones
      - Valor de fitness de la solución
-     - Rutas generadas para cada vehículo (listas de clientes)
-     - Capacidad utilizada por cada vehículo
-     - Tiempos de llegada y salida para cada cliente
+     - Flota:
+        - ID_Vehiculo
+        - Capacidad Maxima
+        - Capacidad Acumulada
+        - Tiempo Consumido
+        - Tiempo Maximo
+        - Numero Clientes
+        - Fitness Vehiculo
+        - Rutas generada(listas de clientes)
 
 4. **Imagen simulada**
 
@@ -138,81 +145,58 @@ El objetivo principal de este proyecto es encontrar las mejores rutas para el **
    - Incluye información sobre las ventanas de tiempo de cada cliente.
 
    Ejemplo de visualización:
-   ![Imagen Ruta](Recursos_Readme/Ejemplo_png.png)
+   ![Imagen_VRPTW](Recursos_Readme/Ejemplo_png.png)
 
 5. **GIF simulado**
 
    - Se crea un **GIF animado** que simula el proceso de construcción de las rutas en el tiempo, mostrando cómo los vehículos recorren los clientes respetando las ventanas de tiempo.
 
    Ejemplo de animación:
-   ![Simulador Ruta](Recursos_Readme/Ejemplo_gif.gif)
+   ![Simulacion VRPTW](Recursos_Readme/Ejemplo_gif.gif)
 
 ### 💾 Ejemplo de archivo JSON
 
 El archivo `JSON` generado tendrá la siguiente estructura:
+
 ```json
 {
-  "Archivo": "C101_(25)",
-  "Tiempo Ejecucion en Minutos": 145,
-  "Alpha": 2.15387500407114,
-  "Beta": 2.3205640269399451,
-  "Gamma": 1.85674044189823,
-  "Rho": 0.675674044189823,
-  "Numero Hormigas": 32,
-  "Numero Iteraciones": 124,
-  "Fitness Global": 191.27069377207884,
-  "Numero de Vehiculos": 3,
-  "Rutas Vehiculos": [
-    {
-      "Vehiculo": 1,
-      "Capacidad": 200,
-      "Carga": 192,
-      "Ruta": [0, 5, 3, 7, 8, 10, 11, 0],
-      "Tiempos": [
-        {"Cliente": 0, "Llegada": 0, "Inicio_Servicio": 0, "Fin_Servicio": 0, "Tiempo_Espera": 0},
-        {"Cliente": 5, "Llegada": 15, "Inicio_Servicio": 30, "Fin_Servicio": 40, "Tiempo_Espera": 15},
-        {"Cliente": 3, "Llegada": 52, "Inicio_Servicio": 52, "Fin_Servicio": 62, "Tiempo_Espera": 0},
-        {"Cliente": 7, "Llegada": 79, "Inicio_Servicio": 79, "Fin_Servicio": 89, "Tiempo_Espera": 0},
-        {"Cliente": 8, "Llegada": 104, "Inicio_Servicio": 104, "Fin_Servicio": 114, "Tiempo_Espera": 0},
-        {"Cliente": 10, "Llegada": 132, "Inicio_Servicio": 132, "Fin_Servicio": 142, "Tiempo_Espera": 0},
-        {"Cliente": 11, "Llegada": 157, "Inicio_Servicio": 157, "Fin_Servicio": 167, "Tiempo_Espera": 0},
-        {"Cliente": 0, "Llegada": 189, "Inicio_Servicio": 189, "Fin_Servicio": 189, "Tiempo_Espera": 0}
-      ]
-    },
-    {
-      "Vehiculo": 2,
-      "Capacidad": 200,
-      "Carga": 187,
-      "Ruta": [0, 14, 16, 15, 19, 18, 17, 13, 0],
-      "Tiempos": [
-        {"Cliente": 0, "Llegada": 0, "Inicio_Servicio": 0, "Fin_Servicio": 0, "Tiempo_Espera": 0},
-        {"Cliente": 14, "Llegada": 25, "Inicio_Servicio": 45, "Fin_Servicio": 55, "Tiempo_Espera": 20},
-        {"Cliente": 16, "Llegada": 67, "Inicio_Servicio": 67, "Fin_Servicio": 77, "Tiempo_Espera": 0},
-        {"Cliente": 15, "Llegada": 92, "Inicio_Servicio": 92, "Fin_Servicio": 102, "Tiempo_Espera": 0},
-        {"Cliente": 19, "Llegada": 117, "Inicio_Servicio": 129, "Fin_Servicio": 139, "Tiempo_Espera": 12},
-        {"Cliente": 18, "Llegada": 152, "Inicio_Servicio": 152, "Fin_Servicio": 162, "Tiempo_Espera": 0},
-        {"Cliente": 17, "Llegada": 175, "Inicio_Servicio": 175, "Fin_Servicio": 185, "Tiempo_Espera": 0},
-        {"Cliente": 13, "Llegada": 198, "Inicio_Servicio": 198, "Fin_Servicio": 208, "Tiempo_Espera": 0},
-        {"Cliente": 0, "Llegada": 232, "Inicio_Servicio": 232, "Fin_Servicio": 232, "Tiempo_Espera": 0}
-      ]
-    },
-    {
-      "Vehiculo": 3,
-      "Capacidad": 200,
-      "Carga": 195,
-      "Ruta": [0, 21, 22, 23, 24, 25, 20, 0],
-      "Tiempos": [
-        {"Cliente": 0, "Llegada": 0, "Inicio_Servicio": 0, "Fin_Servicio": 0, "Tiempo_Espera": 0},
-        {"Cliente": 21, "Llegada": 18, "Inicio_Servicio": 35, "Fin_Servicio": 45, "Tiempo_Espera": 17},
-        {"Cliente": 22, "Llegada": 62, "Inicio_Servicio": 62, "Fin_Servicio": 72, "Tiempo_Espera": 0},
-        {"Cliente": 23, "Llegada": 89, "Inicio_Servicio": 89, "Fin_Servicio": 99, "Tiempo_Espera": 0},
-        {"Cliente": 24, "Llegada": 114, "Inicio_Servicio": 114, "Fin_Servicio": 124, "Tiempo_Espera": 0},
-        {"Cliente": 25, "Llegada": 141, "Inicio_Servicio": 141, "Fin_Servicio": 151, "Tiempo_Espera": 0},
-        {"Cliente": 20, "Llegada": 173, "Inicio_Servicio": 173, "Fin_Servicio": 183, "Tiempo_Espera": 0},
-        {"Cliente": 0, "Llegada": 212, "Inicio_Servicio": 212, "Fin_Servicio": 212, "Tiempo_Espera": 0}
-      ]
-    }
-  ]
+	"Archivo":	"C101_(25)",
+	"Tiempo Ejecucion en Minutos":	1,
+	"Alpha":	2.01145185926531,
+	"Beta":	1.1645681097472869,
+	"Gamma":	1.1346780471665217,
+	"Rho":	0.14182290064255842,
+	"Numero Hormigas":	62,
+	"Numero Iteraciones":	175,
+	"Fitness Global":	191.8136197786562,
+	"flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	160,
+			"Tiempo Consumido":	1236,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	11,
+			"Fitness Vehiculo":	59.488230933533082,
+			"Ruta Clientes":	[0, 5, 3, 7, 8, 10, 11, 9, 6, 4, 2, 1, 0]
+		}, {
+			"Id_vehiculo":	2,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	190,
+			"Tiempo Consumido":	1236,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	8,
+			"Fitness Vehiculo":	95.884709130818266,
+			"Ruta Clientes":	[0, 13, 17, 18, 19, 15, 16, 14, 12, 0]
+		}, {
+			"Id_vehiculo":	3,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	110,
+			"Tiempo Consumido":	1007.2426406871193,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	6,
+			"Fitness Vehiculo":	36.440679714304849,
+			"Ruta Clientes":	[0, 20, 24, 25, 23, 22, 21, 0]
+		}]
 }
 ```
 
@@ -224,11 +208,12 @@ Para ejecutar este proyecto, asegúrate de tener lo siguiente:
 
 Es necesario tener un compilador de C instalado (como gcc) para compilar el código fuente.
 
-### Librería `cJSON`:  
-  Este proyecto requiere la librería `cJSON` para trabajar con archivos JSON en C.  
-  Puedes encontrarla y consultar cómo instalarla en su repositorio oficial:
-    
-  👉 [https://github.com/DaveGamble/cJSON](https://github.com/DaveGamble/cJSON)
+### Librería `cJSON`:
+
+Este proyecto requiere la librería `cJSON` para trabajar con archivos JSON en C.  
+ Puedes encontrarla y consultar cómo instalarla en su repositorio oficial:
+
+👉 [https://github.com/DaveGamble/cJSON](https://github.com/DaveGamble/cJSON)
 
 ### 📦 Python
 
@@ -261,19 +246,19 @@ make debug
 Una vez compilado el proyecto, puedes ejecutar el ejecutable generado (llamado main) con los siguientes parámetros:
 
 ```bash
-./main <poblacion> <generaciones> <archivo> <numero_de_clientes> <capacidad_vehiculo>
+./main <poblacion> <generaciones> <archivo> <numero_de_clientes>
 ```
 
 Ejemplo:
+
 ```bash
-./main 50 100 C101 25 200
+./main 50 100 C101 25
 ```
 
 - poblacion: el tamaño de la población para el algoritmo.
 - generaciones: el número de generaciones que el algoritmo debe ejecutar.
 - archivo: el archivo de entrada.
 - numero_de_clientes: el número de clientes a considerar en el VRPTW.
-- capacidad_vehiculo: la capacidad máxima de cada vehículo.
 
 ### 3. Limpieza
 
@@ -291,15 +276,15 @@ make clean
 ├── include/                  # Archivos de cabecera (.h)
 │   ├── aed.h
 │   ├── configuracion_json.h
-│   ├── configuracion_vrptw.h  # Modificado para VRPTW
+│   ├── configuracion_vrp_tw.h  # Modificado para VRPTW
 │   ├── control_memoria.h
 │   ├── estructuras.h
 │   ├── lista_flota.h
 │   ├── lista_ruta.h
 │   ├── salida_datos.h
-│   └── vrptw_aco.h            # Modificado para VRPTW
+│   └── vrp_tw_aco.h            # Modificado para VRPTW
 ├── Instancias/               # Instancias CSV utilizadas en la ejecución
-│   ├── Instancias_25/        
+│   ├── Instancias_25/
 │   ├── Instancias_50/
 │   └── Instancias_100/
 ├── main                      # Ejecutable generado tras compilar
@@ -321,15 +306,15 @@ make clean
 ├── src/                      # Código fuente del proyecto en C y Python
 │   ├── aed.c
 │   ├── configuracion_json.c
-│   ├── configuracion_vrptw.c  # Modificado para VRPTW
+│   ├── configuracion_vrp_tw.c  # Modificado para VRPTW
 │   ├── control_memoria.c
 │   ├── lista_flota.c
 │   ├── lista_ruta.c
 │   ├── main.c
 │   ├── salida_datos.c
-│   ├── vrptw_aco.c           # Modificado para VRPTW
-│   └── Simulador_VRPTW/      # Modificado para VRPTW
-│       └── simulador_vrptw.py
+│   ├── vrp_tw_aco.c           # Modificado para VRPTW
+│   └── Simulador_VRP_TW/      # Modificado para VRPTW
+│       └── simulador_vrp_tw.py
 └── VRP_Solomon/              # Instancias del benchmark Solomon para VRPTW
     ├── VRP_Solomon_25/
     │   ├── C101_(25).txt
