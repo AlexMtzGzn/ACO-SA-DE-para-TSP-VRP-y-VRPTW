@@ -16,8 +16,10 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes);
 // Función para convertir un individuo en formato JSON
 cJSON *individuo_a_json(individuo *ind,struct vrp_configuracion * vrp, cliente *clientes);
 
+// Función para contar el número de archivos JSON en un directorio específico
 int contar_archivos_json(const char *directorio, const char *prefijo);
 
+//Función para crear un directorio si no existe
 void crear_directorio_si_no_existe(const char *ruta);
 
 // Función para guardar un archivo JSON con la representación del individuo

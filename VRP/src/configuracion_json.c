@@ -72,39 +72,46 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     return json_individuo;
 }
 
-int contar_archivos_json(const char *directorio, const char *prefijo) {
+int contar_archivos_json(const char *directorio, const char *prefijo)
+{
     int contador = 0;
     DIR *dir = opendir(directorio);
-    if (dir == NULL) return 0;
+    if (dir == NULL)
+        return 0;
 
     struct dirent *entrada;
-    while ((entrada = readdir(dir)) != NULL) 
+    while ((entrada = readdir(dir)) != NULL)
         if (strstr(entrada->d_name, prefijo) && strstr(entrada->d_name, ".json"))
             contador++;
     closedir(dir);
     return contador;
 }
 
-void crear_directorio_si_no_existe(const char *ruta) {
-    if (access(ruta, F_OK) != 0) 
+void crear_directorio_si_no_existe(const char *ruta)
+{
+    if (access(ruta, F_OK) != 0)
         mkdir(ruta, 0777);
-    
 }
 
-// Función para guardar el JSON en un archivo
-void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia)
-{
+// Función para leer una instancia desde archivo CSV o TXT
+void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia) {
     cJSON *json_individuo = individuo_a_json(ind, vrp, vrp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
-    // Extraer nombre de carpeta desde archivo_instancia (ej. "C101" de "C101_(100)")
     char nombre_instancia[512];
     sscanf(archivo_instancia, "%[^_]_", nombre_instancia);
 
     // Crear los directorios necesarios
     char dir_base[256], dir_instancia[1024];
     snprintf(dir_base, sizeof(dir_base), "Resultados/Resultados_%d/Json", (vrp->num_clientes - 1));
-    snprintf(dir_instancia, sizeof(dir_instancia), "%s/%s", dir_base, nombre_instancia);
+    
+    // Verificamos que no se exceda el tamaño del buffer
+    if (snprintf(dir_instancia, sizeof(dir_instancia), "%s/%s", dir_base, nombre_instancia) >= sizeof(dir_instancia)) {
+        fprintf(stderr, "Error: la ruta de la instancia es demasiado larga.\n");
+        free(json_string);
+        cJSON_Delete(json_individuo);
+        return;
+    }
 
     crear_directorio_si_no_existe("Resultados");
 
@@ -117,29 +124,36 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
     // Contar cuántos archivos existen ya con ese prefijo
     int numero = contar_archivos_json(dir_instancia, archivo_instancia);
     numero++;
-    
+
     // Ruta final del archivo JSON
     char ruta[1024];
-    snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero);
+    if (snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero) >= sizeof(ruta)) {
+        fprintf(stderr, "Error: la ruta del archivo JSON es demasiado larga.\n");
+        free(json_string);
+        cJSON_Delete(json_individuo);
+        return;
+    }
 
+    // Abrir el archivo y escribir el JSON
     FILE *archivo = fopen(ruta, "w");
-    if (archivo)
-    {
+    if (archivo) {
         fprintf(archivo, "%s", json_string);
         fclose(archivo);
-    }
-    else
-    {
+    } else {
         printf("Error al abrir el archivo para escritura: %s\n", ruta);
     }
 
     free(json_string);
     cJSON_Delete(json_individuo);
 
-    char comando_py[1024];
-    snprintf(comando_py, sizeof(comando_py),
-             "python3 src/Simulador_VRP/simulador_vrp.py \"%s\" %d",
-             ruta, vrp->num_clientes - 1);
+    // Ejecutar el script de simulación en Python
+    char comando_py[1200]; 
+    if (snprintf(comando_py, sizeof(comando_py),
+                 "python3 src/Simulador_VRP/simulador_vrp.py \"%s\" %d",
+                 ruta, vrp->num_clientes - 1) >= sizeof(comando_py)) {
+        fprintf(stderr, "Error: el comando Python es demasiado largo.\n");
+        return;
+    }
 
     system(comando_py);
 }

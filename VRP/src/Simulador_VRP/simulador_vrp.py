@@ -121,9 +121,9 @@ class VRPSimulator:
                 clientes_x.append(punto['X'])
                 clientes_y.append(punto['Y'])
                 # Aquí asumimos que necesitamos asignar IDs a los clientes
-                # Usamos el valor de Ruta_Clientes o un contador si no está disponible
-                if 'Ruta_Clientes' in vehiculo and j < len(vehiculo['Ruta_Clientes']) - 2:
-                    clientes_id.append(vehiculo['Ruta_Clientes'][j+1])  # +1 porque el depósito es el índice 0
+                # Usamos el valor de Ruta Clientes o un contador si no está disponible
+                if 'Ruta Clientes' in vehiculo and j < len(vehiculo['Ruta Clientes']) - 2:
+                    clientes_id.append(vehiculo['Ruta Clientes'][j+1])  # +1 porque el depósito es el índice 0
                 else:
                     clientes_id.append(cliente_counter)
                     cliente_counter += 1
@@ -177,11 +177,11 @@ class VRPSimulator:
                     vehiculo = self.data['flota'][i]
                     if frame < len(x) - 1:
                         # Intentar obtener información del cliente actual y siguiente
-                        if 'Ruta_Clientes' in vehiculo and frame < len(vehiculo['Ruta_Clientes']):
-                            cliente_actual = vehiculo['Ruta_Clientes'][frame]
-                            cliente_siguiente = vehiculo['Ruta_Clientes'][min(frame+1, len(vehiculo['Ruta_Clientes'])-1)]
+                        if 'Ruta Clientes' in vehiculo and frame < len(vehiculo['Ruta Clientes']):
+                            cliente_actual = vehiculo['Ruta Clientes'][frame]
+                            cliente_siguiente = vehiculo['Ruta Clientes'][min(frame+1, len(vehiculo['Ruta Clientes'])-1)]
                         else:
-                            # Si no tenemos Ruta_Clientes, usamos índices
+                            # Si no tenemos Ruta Clientes, usamos índices
                             cliente_actual = frame
                             cliente_siguiente = min(frame+1, len(x)-1)
                         

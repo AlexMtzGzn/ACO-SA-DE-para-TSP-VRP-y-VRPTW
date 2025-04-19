@@ -121,55 +121,18 @@ El objetivo principal de este proyecto es encontrar las mejores rutas para el **
    - Las rutas de diferentes vehículos se representan con colores distintos.
 
    Ejemplo de visualización:
-   ![Imagen Ruta](Recursos_Readme/Ejemplo_png.png)
 
 5. **GIF simulado**
 
    - Se crea un **GIF animado** que simula el proceso de construcción de las rutas, mostrando cómo los vehículos recorren los clientes a lo largo del tiempo.
 
    Ejemplo de animación:
-   ![Simulador Ruta](Recursos_Readme/Ejemplo_gif.gif)
 
 ### 💾 Ejemplo de archivo JSON
 
 El archivo `JSON` generado tendrá la siguiente estructura:
 ```json
-{
-  "Archivo": "C100_(25)",
-  "Tiempo Ejecucion en Minutos": 132,
-  "Alpha": 2.29598500407114,
-  "Beta": 2.2105640269399451,
-  "Rho": 0.575674044189823,
-  "Numero Hormigas": 29,
-  "Numero Iteraciones": 116,
-  "Fitness Global": 142.35069377207884,
-  "Rutas Vehiculos": [
-    {
-      "Vehiculo": 1,
-      "Capacidad": 200,
-      "Carga": 192,
-      "Ruta": [0, 5, 3, 7, 8, 10, 11, 0]
-    },
-    {
-      "Vehiculo": 2,
-      "Capacidad": 200,
-      "Carga": 187,
-      "Ruta": [0, 14, 16, 15, 19, 18, 17, 13, 0]
-    },
-    {
-      "Vehiculo": 3,
-      "Capacidad": 200,
-      "Carga": 195,
-      "Ruta": [0, 21, 22, 23, 24, 25, 20, 0]
-    },
-    {
-      "Vehiculo": 4,
-      "Capacidad": 200,
-      "Carga": 176,
-      "Ruta": [0, 1, 2, 12, 4, 6, 9, 0]
-    }
-  ]
-}
+
 ```
 
 ## Requisitos
@@ -217,19 +180,18 @@ make debug
 Una vez compilado el proyecto, puedes ejecutar el ejecutable generado (llamado main) con los siguientes parámetros:
 
 ```bash
-./main <poblacion> <generaciones> <archivo> <numero_de_clientes> <capacidad_vehiculo>
+./main <poblacion> <generaciones> <archivo> <numero_de_clientes>
 ```
 
 Ejemplo:
 ```bash
-./main 50 100 C100 25 200
+./main 50 100 C100 25
 ```
 
 - poblacion: el tamaño de la población para el algoritmo.
 - generaciones: el número de generaciones que el algoritmo debe ejecutar.
 - archivo: el archivo de entrada.
 - numero_de_clientes: el número de clientes a considerar en el VRP.
-- capacidad_vehiculo: la capacidad máxima de cada vehículo.
 
 ### 3. Limpieza
 
