@@ -29,7 +29,7 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
     cJSON *json_vehiculo = cJSON_CreateObject();
     cJSON_AddNumberToObject(json_vehiculo, "Id_vehiculo", v->id_vehiculo);
     cJSON_AddNumberToObject(json_vehiculo, "Capacidad Maxima", v->capacidad_maxima);
-    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Mcumulada", v->capacidad_acumulada);
+    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Acumulada", v->capacidad_acumulada);
     cJSON_AddNumberToObject(json_vehiculo, "Numero Clientes", v->clientes_contados);
     cJSON_AddNumberToObject(json_vehiculo, "Fitness Vehiculo", v->fitness_vehiculo);
 
