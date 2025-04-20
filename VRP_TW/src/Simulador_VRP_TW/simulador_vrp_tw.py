@@ -139,7 +139,7 @@ class VRPSimulator:
         # Configuración del gráfico con el nombre del archivo en el título
         ax.set_xlabel('Coordenada X')
         ax.set_ylabel('Coordenada Y')
-        ax.set_title(f'Simulación de Rutas de Vehículos - {self.filename} ({self.numero_clientes} clientes)')
+        ax.set_title(f'Simulación de Rutas de Vehículos TW - {self.filename} ({self.numero_clientes} clientes)')
         
         # Determinar los límites del gráfico
         x_min = min(min(clientes_x), depot_x) - 5 if clientes_x else depot_x - 5
