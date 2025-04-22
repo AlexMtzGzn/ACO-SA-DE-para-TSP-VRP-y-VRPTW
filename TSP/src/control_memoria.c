@@ -93,6 +93,23 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
+/*Funciones para la estruturas rangos*/
+struct rangos *asignar_memoria_rangos()
+{
+    struct rangos *rango = (struct rangos *)malloc(sizeof(struct rangos));
+    if (rango == NULL)
+    {
+        imprimir_mensaje("Error: No se pudo asignar memoria para los rangos");
+        exit(EXIT_FAILURE);
+    }
+    return rango;
+}
+
+void liberar_rangos(struct rangos *rango)
+{
+    free(rango);
+}
+
 /*Funciones para la estructura del individuo*/
 
 /**
@@ -219,6 +236,30 @@ void liberar_memoria_hormiga(struct hormiga *hormiga)
     liberar_memoria_arreglo_int(hormiga->posibles_clientes);
     liberar_memoria_arreglo_double(hormiga->probabilidades);
     liberar_lista_ruta(hormiga->ruta);
+}
+
+struct metal * asignar_memoria_metal(){
+    struct metal *metal = (struct metal *)malloc(sizeof(struct metal));
+    if (metal == NULL)
+    {
+        imprimir_mensaje("No se pudo asignar memoria para la estructura metal");
+        exit(EXIT_FAILURE);
+    }
+    return metal;
+}
+
+void liberar_memoria_metal(struct individuo * ind){
+    if (ind->metal->solucion_inicial)
+        liberar_lista_ruta(ind->metal->solucion_inicial);
+    
+    if (ind->metal->solucion_vecina) 
+        liberar_lista_ruta(ind->metal->solucion_vecina);
+
+    
+    if (ind->metal->mejor_solucion) 
+        liberar_lista_ruta(ind->metal->mejor_solucion);
+ 
+    free(ind->metal); // Liberamos la estructura metal
 }
 
 /*Funciones para la estructura de ruta*/

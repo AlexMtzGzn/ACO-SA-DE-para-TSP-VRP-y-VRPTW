@@ -29,11 +29,17 @@ cJSON *individuo_a_json(individuo *ind, struct tsp_configuracion *tsp, cliente *
     cJSON *json_individuo = cJSON_CreateObject();
     cJSON_AddStringToObject(json_individuo, "Archivo", tsp->archivo_instancia);
     cJSON_AddNumberToObject(json_individuo, "Tiempo Ejecucion en Minutos", tsp->tiempo_ejecucion);
+    cJSON_AddNumberToObject(json_individuo, "Poblacion: ", tsp->poblacion);
+    cJSON_AddNumberToObject(json_individuo, "Generaciones: ", tsp->generaciones);
     cJSON_AddNumberToObject(json_individuo, "Alpha", ind->alpha);
     cJSON_AddNumberToObject(json_individuo, "Beta", ind->beta);
     cJSON_AddNumberToObject(json_individuo, "Rho", ind->rho);
     cJSON_AddNumberToObject(json_individuo, "Numero Hormigas", ind->numHormigas);
-    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones", ind->numIteraciones);
+    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones ACO", ind->numIteracionesACO);
+    cJSON_AddNumberToObject(json_individuo, "Temperatura Inicial: ", ind->temperatura_inicial);
+    cJSON_AddNumberToObject(json_individuo, "Temperatura Final: ", ind->temperatura_final);
+    cJSON_AddNumberToObject(json_individuo, "Factor de Enfriamiento: ", ind->factor_enfriamiento);
+    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones SA: ", ind->numIteracionesSA);
     cJSON_AddNumberToObject(json_individuo, "Fitness Global", ind->fitness);
 
     // Ruta como lista de índices de clientes

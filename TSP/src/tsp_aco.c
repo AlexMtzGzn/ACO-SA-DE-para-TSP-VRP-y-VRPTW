@@ -5,6 +5,7 @@
 #include <time.h>
 #include "../include/estructuras.h"
 #include "../include/tsp_aco.h"
+#include "../include/tsp_sa.h"
 #include "../include/lista_ruta.h"
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
@@ -60,7 +61,6 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormigas, struct
             if (i != j)
                 instancia_feromona[i][j] *= (1.0 - ind->rho);
 
-
     // Reforzamiento de feromonas por cada hormiga
     for (int i = 0; i < ind->numHormigas; i++)
     {
@@ -82,7 +82,7 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormigas, struct
     }
 }
 
-void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
+void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias)
 {
     hormiga->fitness_global = 0.0;
 
@@ -127,10 +127,10 @@ void inicializar_hormiga(struct tsp_configuracion *tsp, struct individuo *ind, s
         // Asignamos memoria para el arreglo "probabilidades", que contendrá las probabilidades de cada cliente
         hormiga[i].probabilidades = asignar_memoria_arreglo_double(tsp->num_clientes);
 
-        //Asiganmos memoria para la ruta de la hormiga
+        // Asiganmos memoria para la ruta de la hormiga
         hormiga[i].ruta = asignar_memoria_lista_ruta();
 
-        //Insertamos el primer cliente (depósito) en la ruta de la hormiga
+        // Insertamos el primer cliente (depósito) en la ruta de la hormiga
         insertar_cliente_ruta(&hormiga[i], &tsp->clientes[0]);
     }
 }
@@ -255,7 +255,6 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
                 for (int i = 0; i < tsp->num_clientes; i++)
                     if (hormiga->posibles_clientes[i] == 1)
                         posibles[num_posibles++] = i;
-    
 
                 if (num_posibles > 0)
                 {
@@ -284,7 +283,7 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
         }
     }
 
-    insertar_cliente_ruta(hormiga, &tsp->clientes[0]); //Insertamos el cliente 0 al final de la ruta
+    insertar_cliente_ruta(hormiga, &tsp->clientes[0]); // Insertamos el cliente 0 al final de la ruta
 }
 void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
@@ -295,7 +294,7 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(tsp, ind, hormiga);
     // Bucle principal de iteraciones del algoritmo ACO
-    for (int i = 0; i < ind->numIteraciones; i++)
+    for (int i = 0; i < ind->numIteracionesACO; i++)
     {
         // Recorremos todas las hormigas para construir sus soluciones
         for (int j = 0; j < ind->numHormigas; j++)
@@ -303,17 +302,17 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
             // Generamos la ruta de la hormiga j usando el algoritmo ACO
             aco(tsp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias);
             // Calculamos el fitness de la ruta generada por la hormiga j
-            calcular_fitness(&hormiga[j], instancia_distancias);
+            evaluaFO_ACO(&hormiga[j], instancia_distancias);
         }
 
         // Buscamos la hormiga con el mejor fitness en esta iteración
-        delta = INFINITY; //Definimos el delta como infinito
+        delta = INFINITY; // Definimos el delta como infinito
         for (int j = 0; j < ind->numHormigas; j++)
         {
             if (hormiga[j].fitness_global < delta)
             {
-                delta = 1.0 / hormiga[j].fitness_global; //calculamos el delta
-                indice = j; // Guardamos el índice de la mejor hormiga
+                delta = 1.0 / hormiga[j].fitness_global; // calculamos el delta
+                indice = j;                              // Guardamos el índice de la mejor hormiga
             }
         }
 
@@ -324,17 +323,19 @@ void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **inst
         refuerzo_feromona_mejor_ruta(&hormiga[indice], instancia_feromona, delta);
 
         // Si no es la última iteración, reiniciamos las hormigas para la siguiente generación
-        if (i < ind->numIteraciones - 1)
+        if (i < ind->numIteracionesACO - 1)
             for (int j = 0; j < ind->numHormigas; j++)
-                reiniciar_hormiga(&hormiga[j], ind, tsp); //Reiniciamos la hormiga i
-
+                reiniciar_hormiga(&hormiga[j], ind, tsp); // Reiniciamos la hormiga i
     }
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
-    //imprimir_hormigas(hormiga, tsp, ind);
-    //  Liberamos la memoria utilizada por las hormigas al final del proceso
-    for (int i = 0; i < ind->numHormigas; i++) //Liberamos cada hormiga
+
+    // Aqui debemos mandar al recocido simulado
+    tsp_sa(tsp, ind, instancia_distancias);
+    // imprimir_hormigas(hormiga, tsp, ind);
+    //   Liberamos la memoria utilizada por las hormigas al final del proceso
+    for (int i = 0; i < ind->numHormigas; i++) // Liberamos cada hormiga
         liberar_memoria_hormiga(&hormiga[i]);
     free(hormiga); // Liberamos la memoria del arreglo de hormigas
 }

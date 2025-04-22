@@ -11,7 +11,7 @@ void imprimir_mensaje(char *texto_instancia);
 void imprimir_instancia(double **matriz_instancia, struct tsp_configuracion *tsp, char *texto_instancia);
 
 // Función para imprimir la ruta de un vehículo, identificada por su ID
-void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id);
+void imprimir_ruta(struct lista_ruta *ruta);
 
 // Función para imprimir el arreglo `tabu`, que indica los clientes que han sido visitados por la hormiga
 void imprimir_tabu(int *tabu, int num_clientes);

@@ -1,6 +1,6 @@
-# 🚚 Resolución del TSP con ACO optimizado por DE
+# 🚚 Optimización Híbrida para el TSP: ACO con Refinamiento SA y Calibración Automática mediante DE"
 
-Este proyecto implementa una solución híbrida para el Problema del Viajante (TSP), utilizando el algoritmo Ant Colony Optimization (ACO) optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (DE).
+Este proyecto implementa una solución híbrida para el Problema del Viajante (TSP), utilizando el algoritmo Ant Colony Optimization (ACO) para generar rutas iniciales, el Recocido Simulado (SA) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (DE).
 
 ## 🧩 ¿Qué es el TSP?
 
@@ -22,6 +22,17 @@ En el TSP, simulamos este comportamiento:
   - **Visibilidad** (inverso de la distancia)
 - Después de cada iteración, se actualizan las feromonas, favoreciendo los caminos más cortos.
 
+## 🔥 ¿Qué es el Recocido Simulado (SA)?
+
+El Recocido Simulado (Simulated Annealing, SA) es una metaheurística inspirada en el proceso metalúrgico de recocido, donde un metal se calienta y luego se enfría controladamente para modificar sus propiedades físicas.
+En optimización:
+
+Inicialmente acepta soluciones peores con alta probabilidad (temperatura alta)
+Gradualmente se vuelve más selectivo (enfriamiento)
+Este enfoque permite escapar de óptimos locales y explorar más ampliamente el espacio de soluciones
+
+En nuestro sistema, SA toma las rutas generadas por ACO y las refina mediante pequeñas modificaciones, aceptando algunas soluciones subóptimas temporalmente para potencialmente encontrar mejores soluciones globales.
+
 ## 🧬 ¿Qué es el Algoritmo Evolutivo Diferencial (DE)?
 
 DE es una técnica de optimización basada en poblaciones. Ideal para problemas continuos y para ajustar parámetros automáticamente.
@@ -36,64 +47,126 @@ Selección – Se elige el más apto entre ambos.
 
 ## 🧠 ¿Cómo se resolvió el TSP?
 
-El enfoque fue **híbrido**:
+El enfoque fue **híbrido** con tres algortimos:
 
 - **ACO** resuelve el TSP directamente.
-- **DE** encuentra los mejores parámetros para ACO.
+- **SA** refina las rutas generadas por ACO.
+- **DE** encuentra los mejores parámetros para ambos algoritmos.
 
-🎯 **Parámetros optimizados por DE**:
-El algoritmo Evolutivo Diferencial (DE) se utilizó para calibrar los parámetros del algoritmo ACO. Los siguientes rangos fueron considerados para cada parámetro:
+## ⚙️ Rango de Parámetros Adaptativos según el Tamaño del Problema
 
-- **α (alpha)**: Influencia de la feromona. Ajustado entre **1.0 y 2.5**.
-- **β (beta)**: Influencia de la visibilidad (heurística). Ajustado entre **1.0 y 2.5**.
-- **ρ (rho)**: Tasa de evaporación de feromonas. Ajustado entre **0.1 y 0.9**.
-- **Número de hormigas**: Ajustado entre **20 y 100**.
-- **Número de iteraciones**: Ajustado entre **50 y 200**.
+Para lograr una **mejor calibración** de los algoritmos ACO (Ant Colony Optimization) y SA (Simulated Annealing), se definieron **rangos de parámetros adaptativos** en función del número de clientes en la instancia del TSP.
 
-### 📊 ¿Cómo se generaron los parámetros?
+Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la complejidad del problema (tamaño de la instancia).
 
-Durante la ejecución de DE, cada parámetro fue generado aleatoriamente dentro de los siguientes intervalos:
+---
 
-- **α (alpha)**: Se generó entre **1.0 y 2.5**.
-- **β (beta)**: Se generó entre **1.0 y 2.5**.
-- **ρ (rho)**: Se generó entre **0.1 y 0.9**.
-- **Número de hormigas**: Se generó entre **20 y 100**.
-- **Número de iteraciones**: Se generó entre **50 y 200**.
+### 🔢 Tamaños de instancia considerados
 
-Esto permitió ajustar de manera eficiente los parámetros para obtener la mejor solución en el TSP sin necesidad de hacerlo manualmente.
+| Tamaño del problema | Número de clientes (`tsp->num_clientes`) |
+|---------------------|-------------------------------------------|
+| **Pequeña**         | `≤ 25`                                    |
+| **Mediana**         | `> 25 y ≤ 51`                              |
+| **Grande**          | `> 51 y ≤ 101`                             |
 
-🔁 **Proceso combinado**:
+---
 
-1. DE genera una población de parámetros.
-2. Cada conjunto se evalúa ejecutando ACO.
-3. Se obtiene la distancia de la mejor ruta.
-4. DE evoluciona los parámetros para minimizar la distancia.
+### 📐 Rangos de Parámetros por Tamaño
 
-📈 Así se optimiza el rendimiento de ACO **sin ajustar nada manualmente**.
+#### 🔸 Instancia Pequeña (`≤ 25 clientes`)
+
+| Parámetro                 | Mínimo | Máximo |
+|---------------------------|--------|--------|
+| `alpha`                   | 0.8    | 2.5    |
+| `beta`                    | 2.5    | 6.0    |
+| `rho`                     | 0.1    | 0.5    |
+| `número de hormigas`      | 10     | 25     |
+| `iteraciones ACO`         | 100    | 150    |
+| `temperatura inicial`     | 200.0  | 400.0  |
+| `temperatura final`       | 0.01   | 0.1    |
+| `factor de enfriamiento`  | 0.95   | 0.98   |
+| `iteraciones SA`          | 30     | 50     |
+
+---
+
+#### 🔸 Instancia Mediana (`26 - 51 clientes`)
+
+| Parámetro                 | Mínimo | Máximo |
+|---------------------------|--------|--------|
+| `alpha`                   | 0.8    | 2.5    |
+| `beta`                    | 2.5    | 6.0    |
+| `rho`                     | 0.1    | 0.5    |
+| `número de hormigas`      | 20     | 40     |
+| `iteraciones ACO`         | 150    | 200    |
+| `temperatura inicial`     | 400.0  | 600.0  |
+| `temperatura final`       | 0.01   | 0.1    |
+| `factor de enfriamiento`  | 0.95   | 0.98   |
+| `iteraciones SA`          | 50     | 80     |
+
+---
+
+#### 🔸 Instancia Grande (`52 - 101 clientes`)
+
+| Parámetro                 | Mínimo | Máximo |
+|---------------------------|--------|--------|
+| `alpha`                   | 0.8    | 2.0    |
+| `beta`                    | 3.0    | 6.0    |
+| `rho`                     | 0.1    | 0.3    |
+| `número de hormigas`      | 60     | 120    |
+| `iteraciones ACO`         | 500    | 500    |
+| `temperatura inicial`     | 600.0  | 1000.0 |
+| `temperatura final`       | 0.01   | 0.1    |
+| `factor de enfriamiento`  | 0.98   | 0.995  |
+| `iteraciones SA`          | 100    | 150    |
+
+---
+
+### 🧠 ¿Por qué definir rangos diferentes?
+
+Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño del problema**, evitando usar configuraciones demasiado pequeñas para instancias grandes, o demasiado costosas para instancias pequeñas. De esta manera se logra un **balance entre calidad de la solución y tiempo de cómputo.**
+
+---
+
+## 🔁 Proceso combinado DE + ACO + SA
+
+1. **DE** genera aleatoriamente una población de conjuntos de parámetros (α, β, ρ, etc.).
+2. Cada conjunto se **evalúa** ejecutando **ACO** (con SA en algunos casos como optimizador local).
+3. Se obtiene la **distancia total de la mejor ruta** generada por ACO.
+4. DE **evoluciona** la población para **minimizar la distancia** encontrada.
+5. El proceso se repite hasta alcanzar un número máximo de generaciones o una mejora mínima.
+
+---
+
+Este proceso permite **optimizar automáticamente** el rendimiento del algoritmo ACO (y SA), **evitando el ajuste manual** de parámetros y encontrando de manera más eficiente soluciones de alta calidad para el **Problema del Viajante (TSP)** o el **Problema de Ruteo de Vehículos (VRP)**.
 
 ## 🎯 Resultados Esperados
 
-El objetivo principal de este proyecto es encontrar la mejor ruta para el **Problema del Viajante de Comercio (TSP)** mediante el uso combinado del algoritmo **ACO** y el algoritmo **DE** para optimizar los parámetros.
+El objetivo principal de este proyecto es encontrar la mejor ruta para el **Problema del Viajante de Comercio (TSP)** mediante el uso combinado del algoritmo **ACO** y el algoritmo **DE**, el cual optimiza automáticamente los parámetros del ACO y del Recocido Simulado (SA).
+
+---
 
 ### 🔍 ¿Qué se espera como salida?
 
-1. **La mejor ruta encontrada**: La ruta óptima, que minimiza la distancia total recorrida.
-2. **Tiempo de ejecución total**: El tiempo total que tomó ejecutar el proceso de optimización y encontrar la mejor ruta.
+1. **La mejor ruta encontrada**  
+   La ruta óptima, que minimiza la distancia total recorrida.
+
+2. **Tiempo de ejecución total**  
+   El tiempo total que tomó ejecutar el proceso de optimización y encontrar la mejor ruta.
+
+---
 
 ### 📦 Resultados Generados
 
 3. **Archivo JSON**
 
-   - Se genera un archivo `.json` que contiene todos los parámetros utilizados en la ejecución, tales como:
+   - Se genera un archivo `.json` que contiene todos los **parámetros optimizados automáticamente** durante la ejecución, tales como:
      - Nombre del archivo de entrada
      - Tiempo de ejecución en minutos
-     - α (alpha)
-     - β (beta)
-     - ρ (rho)
-     - Número de hormigas
-     - Número de iteraciones
+     - Población y generaciones del DE
+     - Parámetros de ACO (`α`, `β`, `ρ`, número de hormigas, iteraciones ACO)
+     - Parámetros de SA (temperatura inicial, final, factor de enfriamiento, iteraciones SA)
      - Valor de fitness de la solución
-     - Ruta generada (lista de ciudades/clientes)
+     - Ruta generada (lista de ciudades o clientes visitados)
 
 4. **Imagen simulada**
 
@@ -109,22 +182,31 @@ El objetivo principal de este proyecto es encontrar la mejor ruta para el **Prob
    Ejemplo de animación:
    ![Simulador Ruta](Recursos_Readme/Ejemplo_gif.gif)
 
+---
+
 ### 💾 Ejemplo de archivo JSON
 
-El archivo `JSON` generado tendrá la siguiente estructura:
+El archivo `JSON` generado tendrá una estructura como la siguiente:
+
 ```json
 {
-  "Archivo": "C100_(25)",
-  "Tiempo Ejecucion en Minutos": 132,
-  "Alpha": 2.29598500407114,
-  "Beta": 2.2105640269399451,
-  "Rho": 0.575674044189823,
-  "Numero Hormigas": 29,
-  "Numero Iteraciones": 116,
-  "Fitness Global": 142.35069377207884,
+  "Archivo": "C101",
+  "Tiempo Ejecucion en Minutos": 2,
+  "Poblacion": 10,
+  "Generaciones": 10,
+  "Alpha": 2.3476589154906842,
+  "Beta": 2.3577138539323181,
+  "Rho": 0.2498495201812356,
+  "Numero Hormigas": 35,
+  "Numero Iteraciones ACO": 100,
+  "Temperatura Inicial": 748.30022249291665,
+  "Temperatura Final": 0.1,
+  "Factor de Enfriamiento": 0.99,
+  "Numero Iteraciones SA": 99,
+  "Fitness Global": 132.12162500340892,
   "Ruta Clientes": [
-    0, 20, 21, 22, 23, 24, 25, 13, 17, 18, 19, 15, 16, 14, 12, 2, 1, 6, 4, 3, 5,
-    7, 8, 9, 11, 10, 0
+    0, 20, 21, 22, 24, 25, 23, 13, 17, 18, 19, 15, 16, 14, 12, 11, 10, 8, 9, 6,
+    4, 2, 1, 3, 5, 7, 0
   ]
 }
 ```
@@ -137,11 +219,12 @@ Para ejecutar este proyecto, asegúrate de tener lo siguiente:
 
 Es necesario tener un compilador de C instalado (como gcc) para compilar el código fuente.
 
-### Librería `cJSON`:  
-  Este proyecto requiere la librería `cJSON` para trabajar con archivos JSON en C.  
-  Puedes encontrarla y consultar cómo instalarla en su repositorio oficial:
-    
-  👉 [https://github.com/DaveGamble/cJSON](https://github.com/DaveGamble/cJSON)
+### Librería `cJSON`:
+
+Este proyecto requiere la librería `cJSON` para trabajar con archivos JSON en C.  
+ Puedes encontrarla y consultar cómo instalarla en su repositorio oficial:
+
+👉 [https://github.com/DaveGamble/cJSON](https://github.com/DaveGamble/cJSON)
 
 ### 📦 Python
 
@@ -178,6 +261,7 @@ Una vez compilado el proyecto, puedes ejecutar el ejecutable generado (llamado m
 ```
 
 Ejemplo:
+
 ```bash
 ./main 50 100 C100 25
 ```
@@ -212,9 +296,10 @@ make clean
 │   ├── lista_flota.h
 │   ├── lista_ruta.h
 │   ├── salida_datos.h
+│   ├── tsp_sa.h
 │   └── vrp_aco.h
 ├── Instancias/               # Instancias CSV utilizadas en la ejecución
-│   ├── Instancias_25/        
+│   ├── Instancias_25/
 │   ├── Instancias_50/
 │   └── Instancias_100/
 ├── main                      # Ejecutable generado tras compilar
@@ -242,6 +327,7 @@ make clean
 │   ├── lista_ruta.c
 │   ├── main.c
 │   ├── salida_datos.c
+│   ├── tsp_sa.c
 │   ├── vrp_aco.c
 │   └── Simulador_TSP/
 │       └── simulador_tsp.py
@@ -266,12 +352,11 @@ make clean
         ├── R100_(100).txt
         ├── R200_(100).txt
         └── RC100_(100).txt
-
 ```
+
 ### ✅ Consideraciones finales
 
 Este trabajo busca contribuir al estudio y solución del problema TSP mediante la implementación de algoritmos bioinspirados. Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
-
 
 ## 👥 Contribuciones
 

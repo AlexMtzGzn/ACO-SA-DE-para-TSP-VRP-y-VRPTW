@@ -14,7 +14,7 @@ void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_fe
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct tsp_configuracion *tsp, double **instancia_feromona, double delta);
 
 // Función para calcular el fitness de una hormiga basado en las distancias
-void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias);
+void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias);
 
 // Función para inicializar una hormiga con una configuración dada
 void inicializar_hormiga(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *hormiga);

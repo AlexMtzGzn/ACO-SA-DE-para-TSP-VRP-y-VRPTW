@@ -25,12 +25,15 @@ void liberar_memoria_arreglo_double(double *arreglo);
 // Libera la memoria de la instancia (matriz de distancias)
 void liberar_instancia(double **instancia, int tamanio_instancia);
 
+// Funciones para asignar y liberar memoria para la estructura de rangos
+// Asigna memoria para los rangos
+struct rangos *asignar_memoria_rangos();
+// Libera la memoria de los rangos
+void liberar_rangos(struct rangos *rango);
 
 // Funciones para asignar y liberar memoria para la estructura de individuos
-
-// Asigna memoria para una población de individuos
+//Asiganamos la memoria a los individuos 
 struct individuo *asignar_memoria_individuos(int poblacion);
-
 // Libera la memoria de los individuos en la población
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo);
 
@@ -60,6 +63,12 @@ void liberar_memoria_hormiga(struct hormiga *hormiga);
 
 // Reinicia los valores de las hormigas para una nueva iteración
 void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct tsp_configuracion *tsp);
+
+// Asigna la memoria del metal
+struct metal * asignar_memoria_metal();
+
+//Libera la memoria del metal
+void liberar_memoria_metal(struct individuo * ind);
 
 // Funciones para asignar memoria para las estructuras de rutas
 

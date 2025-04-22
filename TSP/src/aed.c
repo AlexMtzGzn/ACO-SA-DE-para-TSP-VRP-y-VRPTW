@@ -19,12 +19,12 @@ double calcular_Distancia(struct tsp_configuracion *tsp, int cliente_origen, int
 
 void inicializar_Visibilidad(double **instancia_visibilidad, struct tsp_configuracion *tsp)
 {
+   double distancia;
    // Recorre todos los clientes y calcula la visibilidad entre ellos
    for (int i = 0; i < tsp->num_clientes; i++)
    {
       for (int j = i + 1; j < tsp->num_clientes; j++)
       {
-         double distancia;
 
          if (i != j)
          {
@@ -43,14 +43,12 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct tsp_configur
 
 void inicializar_Distancias(double **instancia_distancias, struct tsp_configuracion *tsp)
 {
+   double distancia;
    // Recorre todos los clientes y calcula las distancias entre ellos
    for (int i = 0; i < tsp->num_clientes; i++)
    {
       for (int j = i + 1; j < tsp->num_clientes; j++)
       {
-
-         double distancia;
-
          if (i != j)
          {
             // Calculamos la distancia entre los clientes i y j
@@ -99,17 +97,17 @@ double generaAleatorio(double minimo, double maximo)
    return aleatorio;
 }
 
-void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, int poblacion)
+void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, struct rangos *rango, int poblacion)
 {
    // Recorre cada individuo de la población ruidosa
    for (int i = 0; i < poblacion; ++i)
    {
-      // Selecciona tres índices aleatorios diferentes de la población
+      // Selecciona tres índices aleatorios diferentes de la población objetivo
       int aleatorio1 = rand() % poblacion;
       int aleatorio2 = rand() % poblacion;
       int aleatorio3 = rand() % poblacion;
 
-      // Asegura que los índices sean distintos entre sí
+      // Asegura que los índices seleccionados sean distintos entre sí
       while (aleatorio1 == aleatorio2 || aleatorio2 == aleatorio3 || aleatorio1 == aleatorio3)
       {
          aleatorio1 = rand() % poblacion;
@@ -122,45 +120,79 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       ruidoso[i].beta = objetivo[aleatorio1].beta + 0.5 * (objetivo[aleatorio2].beta - objetivo[aleatorio3].beta);
       ruidoso[i].rho = objetivo[aleatorio1].rho + 0.5 * (objetivo[aleatorio2].rho - objetivo[aleatorio3].rho);
       ruidoso[i].numHormigas = objetivo[aleatorio1].numHormigas + (int)(0.5 * (objetivo[aleatorio2].numHormigas - objetivo[aleatorio3].numHormigas));
-      ruidoso[i].numIteraciones = objetivo[aleatorio1].numIteraciones + (int)(0.5 * (objetivo[aleatorio2].numIteraciones - objetivo[aleatorio3].numIteraciones));
+      ruidoso[i].numIteracionesACO = objetivo[aleatorio1].numIteracionesACO + (int)(0.5 * (objetivo[aleatorio2].numIteracionesACO - objetivo[aleatorio3].numIteracionesACO));
+      ruidoso[i].temperatura_inicial = objetivo[aleatorio1].temperatura_inicial + 0.5 * (objetivo[aleatorio2].temperatura_inicial - objetivo[aleatorio3].temperatura_inicial);
+      ruidoso[i].temperatura_final = objetivo[aleatorio1].temperatura_final + 0.5 * (objetivo[aleatorio2].temperatura_final - objetivo[aleatorio3].temperatura_final);
+      ruidoso[i].factor_enfriamiento = objetivo[aleatorio1].factor_enfriamiento + 0.5 * (objetivo[aleatorio2].factor_enfriamiento - objetivo[aleatorio3].factor_enfriamiento);
+      ruidoso[i].numIteracionesSA = objetivo[aleatorio1].numIteracionesSA + (int)(0.5 * (objetivo[aleatorio2].numIteracionesSA - objetivo[aleatorio3].numIteracionesSA));
 
-      // Limita los valores de los parámetros para que estén dentro de un rango válido
-      // Ajusta los valores de alpha dentro del rango permitido [1.0, 2.5]
-      if (ruidoso[i].alpha > 2.5)
-         ruidoso[i].alpha = 2.5;
+      // Limita los valores de los parámetros para asegurarse de que estén dentro de un rango válido
 
-      if (ruidoso[i].alpha < 1.0)
-         ruidoso[i].alpha = 1.0;
+      // Limita 'alpha' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].alpha > rango->maxAlpha)
+         ruidoso[i].alpha = rango->maxAlpha;
 
-      // Ajusta los valores de beta dentro del rango permitido [1.0, 2.5]
-      if (ruidoso[i].beta > 2.5)
-         ruidoso[i].beta = 2.5;
+      if (ruidoso[i].alpha < rango->minAlpha)
+         ruidoso[i].alpha = rango->minAlpha;
 
-      if (ruidoso[i].beta < 1.0)
-         ruidoso[i].beta = 1.0;
+      // Limita 'beta' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].beta > rango->maxBeta)
+         ruidoso[i].beta = rango->maxBeta;
 
-      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.9]
-      if (ruidoso[i].rho > 0.9)
-         ruidoso[i].rho = 0.9;
+      if (ruidoso[i].beta < rango->minBeta)
+         ruidoso[i].beta = rango->minBeta;
 
-      if (ruidoso[i].rho < 0.1)
-         ruidoso[i].rho = 0.1;
+      // Limita 'rho' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].rho > rango->maxRho)
+         ruidoso[i].rho = rango->maxRho;
 
-      // Ajusta el número de hormigas dentro del rango permitido [20, 100]
-      if (ruidoso[i].numHormigas > 100)
-         ruidoso[i].numHormigas = 100;
+      if (ruidoso[i].rho < rango->minRho)
+         ruidoso[i].rho = rango->minRho;
 
-      if (ruidoso[i].numHormigas < 20)
-         ruidoso[i].numHormigas = 20;
+      // Limita 'numHormigas' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].numHormigas > rango->maxNumHormigas)
+         ruidoso[i].numHormigas = rango->maxNumHormigas;
 
-      // Ajusta el número de iteraciones dentro del rango permitido [50, 200]
-      if (ruidoso[i].numIteraciones > 200)
-         ruidoso[i].numIteraciones = 200;
+      if (ruidoso[i].numHormigas < rango->minNumHormigas)
+         ruidoso[i].numHormigas = rango->minNumHormigas;
 
-      if (ruidoso[i].numIteraciones < 50)
-         ruidoso[i].numIteraciones = 50;
+      // Limita 'numIteracionesACO' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].numIteracionesACO > rango->maxNumIteracionesACO)
+         ruidoso[i].numIteracionesACO = rango->maxNumIteracionesACO;
+
+      if (ruidoso[i].numIteracionesACO < rango->minNumIteracionesACO)
+         ruidoso[i].numIteracionesACO = rango->minNumIteracionesACO;
+
+      // Limita 'temperatura_inicial' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].temperatura_inicial > rango->maxTemperatura_inicial)
+         ruidoso[i].temperatura_inicial = rango->maxTemperatura_inicial;
+
+      if (ruidoso[i].temperatura_inicial < rango->minTemperatura_inicial)
+         ruidoso[i].temperatura_inicial = rango->minTemperatura_inicial;
+
+      // Limita 'temperatura_final' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].temperatura_final > rango->maxTemperatura_final)
+         ruidoso[i].temperatura_final = rango->maxTemperatura_final;
+
+      if (ruidoso[i].temperatura_final < rango->minTemperatura_final)
+         ruidoso[i].temperatura_final = rango->minTemperatura_final;
+
+      // Limita 'factor_enfriamiento' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].factor_enfriamiento > rango->maxFactor_enfriamiento)
+         ruidoso[i].factor_enfriamiento = rango->maxFactor_enfriamiento;
+
+      if (ruidoso[i].factor_enfriamiento < rango->minFactor_enfriamiento)
+         ruidoso[i].factor_enfriamiento = rango->minFactor_enfriamiento;
+
+      // Limita 'numIteracionesSA' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].numIteracionesSA > rango->maxIteracionesSA)
+         ruidoso[i].numIteracionesSA = rango->maxIteracionesSA;
+
+      if (ruidoso[i].numIteracionesSA < rango->minIteracionesSA)
+         ruidoso[i].numIteracionesSA = rango->minIteracionesSA;
    }
 }
+
 
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
@@ -190,18 +222,94 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
          objetivo[i] = prueba[i];
 }
 
-void inicializaPoblacion(struct individuo *objetivo, int poblacion)
+void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *tsp, struct rangos *rango, int poblacion)
 {
+   // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)
    {
-      // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
-      objetivo[i].alpha = generaAleatorio(1.0, 2.5);              // alpha: entre 1.0 y 2.5
-      objetivo[i].beta = generaAleatorio(1.0, 2.5);               // beta: entre 1.0 y 2.5
-      objetivo[i].rho = generaAleatorio(0.1, 0.9);                // rho: entre 0.1 y 0.9
-      objetivo[i].numHormigas = (int)generaAleatorio(20, 100);    // numHormigas: entre 20 y 100
-      objetivo[i].numIteraciones = (int)generaAleatorio(50, 200); // numIteraciones: entre 50 y 200
+
+      // Asigna rangos específicos según el número de clientes en el TSP
+      if (tsp->num_clientes <= 25)
+      {
+         // Define los rangos para los parámetros de ACO y SA para instancias con 25 o menos clientes
+         rango->maxAlpha = 2.5;
+         rango->minAlpha = 0.8;
+         rango->maxBeta = 6.0;
+         rango->minBeta = 2.5;
+         rango->maxRho = 0.5;
+         rango->minRho = 0.1;
+         rango->maxNumHormigas = 30;
+         rango->minNumHormigas = 10;
+         rango->maxNumIteracionesACO = 200;
+         rango->minNumIteracionesACO = 50;
+         rango->maxTemperatura_inicial = 400.0;
+         rango->minTemperatura_inicial = 200.0;
+         rango->maxTemperatura_final = 0.1;
+         rango->minTemperatura_final = 0.01;
+         rango->maxFactor_enfriamiento = 0.98;
+         rango->minFactor_enfriamiento = 0.95;
+         rango->maxIteracionesSA = 50;
+         rango->minIteracionesSA = 30;
+      }
+      // Asigna rangos para instancias con más de 25 y hasta 51 clientes
+      if (tsp->num_clientes > 25 && tsp->num_clientes <= 51)
+      {
+         rango->maxAlpha = 2.5;
+         rango->minAlpha = 0.8;
+         rango->maxBeta = 6.0;
+         rango->minBeta = 2.5;
+         rango->maxRho = 0.5;
+         rango->minRho = 0.1;
+         rango->maxNumHormigas = 40;
+         rango->minNumHormigas = 20;
+         rango->maxNumIteracionesACO = 200;
+         rango->minNumIteracionesACO = 50;
+         rango->maxTemperatura_inicial = 600.0;
+         rango->minTemperatura_inicial = 400.0;
+         rango->maxTemperatura_final = 0.1;
+         rango->minTemperatura_final = 0.01;
+         rango->maxFactor_enfriamiento = 0.98;
+         rango->minFactor_enfriamiento = 0.95;
+         rango->maxIteracionesSA = 80;
+         rango->minIteracionesSA = 50;
+      }
+
+      // Asigna rangos para instancias con más de 51 y hasta 101 clientes
+      if (tsp->num_clientes > 51 && tsp->num_clientes <= 101)
+      {
+         rango->maxAlpha = 2.0;
+         rango->minAlpha = 0.8;
+         rango->maxBeta = 6.0;
+         rango->minBeta = 3.0;
+         rango->maxRho = 0.3;
+         rango->minRho = 0.1;
+         rango->maxNumHormigas = 100;
+         rango->minNumHormigas = 20;
+         rango->maxNumIteracionesACO = 200;
+         rango->minNumIteracionesACO = 50;
+         rango->maxTemperatura_inicial = 1000.0;
+         rango->minTemperatura_inicial = 600.0;
+         rango->maxTemperatura_final = 0.1;
+         rango->minTemperatura_final = 0.01;
+         rango->maxFactor_enfriamiento = 0.995;
+         rango->minFactor_enfriamiento = 0.98;
+         rango->maxIteracionesSA = 100;
+         rango->minIteracionesSA = 80;
+      }
+
+      // Genera valores aleatorios dentro de los rangos definidos para cada individuo
+      objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);
+      objetivo[i].beta = generaAleatorio(rango->minBeta, rango->maxBeta);
+      objetivo[i].rho = generaAleatorio(rango->minRho, rango->maxRho);
+      objetivo[i].numHormigas = (int)generaAleatorio(rango->minNumHormigas, rango->maxNumHormigas);
+      objetivo[i].numIteracionesACO = (int)generaAleatorio(rango->minNumIteracionesACO, rango->maxNumIteracionesACO);
+      objetivo[i].temperatura_inicial = generaAleatorio(rango->minTemperatura_inicial, rango->maxTemperatura_inicial);
+      objetivo[i].temperatura_final = generaAleatorio(rango->minTemperatura_final, rango->maxTemperatura_final);
+      objetivo[i].factor_enfriamiento = generaAleatorio(rango->minFactor_enfriamiento, rango->maxFactor_enfriamiento);
+      objetivo[i].numIteracionesSA = (int)generaAleatorio(rango->minIteracionesSA, rango->maxIteracionesSA);
    }
 }
+
 
 void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
@@ -213,15 +321,19 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
    struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
    tsp_configuracion *tsp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura tsp_configuracion
+   struct rangos *rango = asignar_memoria_rangos();                               // Asignamos memoria para los rangos
+
+   tsp->generaciones = num_generaciones; // Asiganamos el numero de generaciones
+   tsp->poblacion = num_poblacion;       // Asiganamos el numero de generaciones
 
    double **instancia_visibilidad = asignar_memoria_instancia(tsp->num_clientes); // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(tsp->num_clientes);   // Generamos memoria para la instancia de la feromona
    double **instancia_distancias = asignar_memoria_instancia(tsp->num_clientes);  // Generamos memoria para la instancia de la las distancias
 
-   inicializar_Distancias(instancia_distancias, tsp);   // Inicializamos las distancias
-   inicializar_Visibilidad(instancia_visibilidad, tsp); // Inicializamos las visibilidad
-   inicializar_Feromona(tsp, instancia_feromonas);      // Inicializamos la feromona
-   inicializaPoblacion(objetivo, num_poblacion);        // Inicializamos la poblacion
+   inicializar_Distancias(instancia_distancias, tsp);        // Inicializamos las distancias
+   inicializar_Visibilidad(instancia_visibilidad, tsp);      // Inicializamos las visibilidad
+   inicializar_Feromona(tsp, instancia_feromonas);           // Inicializamos la feromona
+   inicializaPoblacion(objetivo, tsp, rango, num_poblacion); // Inicializamos la poblacion
 
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,tsp,"INSTANCIA DISTANCIAS");
@@ -232,7 +344,9 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    resultado->fitness = INFINITY;                           // Inicializamos el fitness como infinito
    resultado->hormiga = asignar_memoria_hormigas(1);        // Asiganamos memoria para la mejor hormiga
    resultado->hormiga->ruta = asignar_memoria_lista_ruta(); // Asignamos memoria para la ruta de la mejor hormiga
-   // Evaluamos la función objetivo para cada individuo de la población inicial
+   // resultado->metal = (struct metal *)malloc(sizeof(struct metal));
+   //  Evaluamos la función objetivo para cada individuo de la población inicial
+
    for (int i = 0; i < num_poblacion; i++) // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, tsp);
    // Encontramos el mejor individuo de la población inicial
@@ -240,33 +354,41 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    for (int i = 0; i < num_poblacion; i++)
       if (objetivo[i].fitness < resultado->fitness)
       {
-         resultado->alpha = objetivo[i].alpha;                      // Copiamos alpha a la mejor hormiga
-         resultado->beta = objetivo[i].beta;                        // Copiamos beta a la mejor hormiga
-         resultado->rho = objetivo[i].rho;                          // Copiamos rho a la mejor hormiga
-         resultado->numHormigas = objetivo[i].numHormigas;          // Copiamos numHormigas a la mejor hormiga
-         resultado->numIteraciones = objetivo[i].numIteraciones;    // Copiamos numIteraciones a la mejor hormiga
-         recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga); // Recuperamos la mejor hormiga
+         resultado->alpha = objetivo[i].alpha;                             // Copiamos alpha a la mejor hormiga
+         resultado->beta = objetivo[i].beta;                               // Copiamos beta a la mejor hormiga
+         resultado->rho = objetivo[i].rho;                                 // Copiamos rho a la mejor hormiga
+         resultado->numHormigas = objetivo[i].numHormigas;                 // Copiamos numHormigas a la mejor hormiga
+         resultado->numIteracionesACO = objetivo[i].numIteracionesACO;     // Copiamos numIteraciones a la mejor hormiga
+         resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
+         resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
+         resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
+         resultado->numIteracionesSA = objetivo[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
+         recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);        // Recuperamos la mejor hormiga
       }
 
    // Inicializamos ya las generaciones
    for (int i = 0; i < num_generaciones; i++)
    {
-      construyeRuidosos(objetivo, ruidoso, num_poblacion);       // Contruimos Ruidosos
-      construyePrueba(objetivo, ruidoso, prueba, num_poblacion); // Contruimos Prueba
-                                                                 // Evaluamos la función objetivo para cada individuo de prueba
-      for (int j = 0; j < num_poblacion; ++j)                    // Mandamos a evaluar la funcion objetivo de prueba{
+      construyeRuidosos(objetivo, ruidoso, rango, num_poblacion); // Contruimos Ruidosos
+      construyePrueba(objetivo, ruidoso, prueba, num_poblacion);  // Contruimos Prueba
+                                                                  // Evaluamos la función objetivo para cada individuo de prueba
+      for (int j = 0; j < num_poblacion; ++j)                     // Mandamos a evaluar la funcion objetivo de prueba{
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, tsp);
 
       for (int i = 0; i < num_poblacion; i++)
          // Actualizamos el mejor resultado si encontramos uno mejor
          if (prueba[i].fitness < resultado->fitness)
          {
-            resultado->alpha = prueba[i].alpha;                      // Copiamos alpha a la mejor hormiga
-            resultado->beta = prueba[i].beta;                        // Copiamos beta a la mejor hormiga
-            resultado->rho = prueba[i].rho;                          // Copiamos rho a la mejor hormiga
-            resultado->numHormigas = prueba[i].numHormigas;          // Copiamos numHormigas a la mejor hormiga
-            resultado->numIteraciones = prueba[i].numIteraciones;    // Copiamos numIteraciones a la mejor hormiga
-            recuperamos_mejor_hormiga(resultado, prueba[i].hormiga); // Recuperamos la mejor hormiga
+            resultado->alpha = prueba[i].alpha;                             // Copiamos alpha a la mejor hormiga
+            resultado->beta = prueba[i].beta;                               // Copiamos beta a la mejor hormiga
+            resultado->rho = prueba[i].rho;                                 // Copiamos rho a la mejor hormiga
+            resultado->numHormigas = prueba[i].numHormigas;                 // Copiamos numHormigas a la mejor hormiga
+            resultado->numIteracionesACO = prueba[i].numIteracionesACO;     // Copiamos numIteraciones a la mejor hormiga
+            resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
+            resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
+            resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
+            resultado->numIteracionesSA = prueba[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
+            recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);        // Recuperamos la mejor hormiga
          }
       // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion);                                   // Hacemos la seleccion
@@ -309,6 +431,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_instancia(instancia_feromonas, tsp->num_clientes);   // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, tsp->num_clientes); // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, tsp->num_clientes);  // Liberemos la memoria de la instancia distancias
+   liberar_rangos(rango);                                       // Liberemos la memoria de los rangos
    liberar_individuos(objetivo, num_poblacion, true);           // Liberemos la memoria del objetivo
    liberar_individuos(prueba, num_poblacion, false);            // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso
