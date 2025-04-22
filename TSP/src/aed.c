@@ -395,7 +395,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
       int barra_ancho = 50;                                                         // Ancho de la barra de progreso
       int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho); // Calculamos el progreso de la barra
 
-      // Imrpimimos la barra de progreso
+      // Imprimimos la barra de progreso
       printf("\r[");
       for (int j = 0; j < barra_ancho; ++j)
       {
@@ -418,7 +418,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    tsp->tiempo_ejecucion = ceil(minutos);      // Redondiamos minutos
    tsp->archivo_instancia = archivo_instancia; // Copiamos el archivo de instancia
 
-   // Imprimimos la meojor homriga
+   // Imprimimos la meojor hormiga
    imprimir_mejor_hormiga(resultado->hormiga, resultado);          // Imprimimos la mejor hormiga
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos); // Imprimimos el tiempo de ejecución
 
