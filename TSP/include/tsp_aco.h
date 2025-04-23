@@ -13,7 +13,7 @@ void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_fe
 // Función para actualizar la feromona en el sistema
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct tsp_configuracion *tsp, double **instancia_feromona, double delta);
 
-// Función para calcular el fitness de una hormiga basado en las distancias
+// Función que calcula el fitness de las hormigas basado en las distancias y recorrido de las mismas
 void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias);
 
 // Función para inicializar una hormiga con una configuración dada
@@ -33,7 +33,5 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
 
 // Función que ejecuta el algoritmo tsp con ACO
 void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona);
-
-
 
 #endif // TSP_ACO_H

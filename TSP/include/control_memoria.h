@@ -1,59 +1,72 @@
 #ifndef CONTROL_MEMORIA_H
 #define CONTROL_MEMORIA_H
 
-// Incluimos las bibliotecas necesarias
+// Bibliotecas necesarias
 #include <stdbool.h>
 #include "../include/estructuras.h"
 
-// Funciones para asignar y liberar memoria para arreglos e instancias
+// ==========================
+// Asignación y liberación de memoria para estructuras básicas
+// ==========================
 
 // Asigna memoria para una instancia (matriz de distancias)
 double **asignar_memoria_instancia(int tamanio_instancia);
 
-// Asigna memoria para un arreglo de enteros de tamaño especificado
-int *asignar_memoria_arreglo_int(int tamanio_arreglo);
+// Libera la memoria de una instancia (matriz de distancias)
+void liberar_instancia(double **instancia, int tamanio_instancia);
 
-// Asigna memoria para un arreglo de números de punto flotante (doble) de tamaño especificado
-double *asignar_memoria_arreglo_double(int tamanio_arreglo);
+// Asigna memoria para un arreglo de enteros
+int *asignar_memoria_arreglo_int(int tamanio_arreglo);
 
 // Libera la memoria de un arreglo de enteros
 void liberar_memoria_arreglo_int(int *arreglo);
 
-// Libera la memoria de un arreglo de números de punto flotante (doble)
+// Asigna memoria para un arreglo de doubles
+double *asignar_memoria_arreglo_double(int tamanio_arreglo);
+
+// Libera la memoria de un arreglo de doubles
 void liberar_memoria_arreglo_double(double *arreglo);
 
-// Libera la memoria de la instancia (matriz de distancias)
-void liberar_instancia(double **instancia, int tamanio_instancia);
+// ==========================
+// Estructura de rangos
+// ==========================
 
-// Funciones para asignar y liberar memoria para la estructura de rangos
-// Asigna memoria para los rangos
+// Asigna memoria para la estructura de rangos
 struct rangos *asignar_memoria_rangos();
-// Libera la memoria de los rangos
+
+// Libera la memoria de la estructura de rangos
 void liberar_rangos(struct rangos *rango);
 
-// Funciones para asignar y liberar memoria para la estructura de individuos
-//Asiganamos la memoria a los individuos 
+// ==========================
+// Estructura de individuos
+// ==========================
+
+// Asigna memoria para una población de individuos
 struct individuo *asignar_memoria_individuos(int poblacion);
-// Libera la memoria de los individuos en la población
+
+// Libera la memoria de los individuos
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo);
 
+// ==========================
+// Estructura de configuración TSP
+// ==========================
 
-// Funciones para asignar y liberar memoria para la estructura `tsp_configuracion`
-
-// Asigna memoria para la configuración del tsp 
+// Asigna memoria para la configuración del TSP
 struct tsp_configuracion *asignar_memoria_tsp_configuracion();
 
-// Libera la memoria utilizada por la configuración del tsp
+// Libera la memoria de la configuración del TSP
 void liberar_memoria_tsp_configuracion(struct tsp_configuracion *tsp);
 
+// ==========================
+// Estructura de clientes
+// ==========================
 
-// Funciones para asignar memoria para la estructura de clientes
-
-// Asigna memoria para la estructura de clientes según la configuración del TSP
+// Asigna memoria para los clientes según la configuración TSP
 struct cliente *asignar_memoria_clientes(struct tsp_configuracion *tsp);
 
-
-// Funciones para asignar y liberar memoria para la estructura de hormigas
+// ==========================
+// Estructura de hormigas
+// ==========================
 
 // Asigna memoria para un conjunto de hormigas
 struct hormiga *asignar_memoria_hormigas(int numHormigas);
@@ -64,19 +77,24 @@ void liberar_memoria_hormiga(struct hormiga *hormiga);
 // Reinicia los valores de las hormigas para una nueva iteración
 void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct tsp_configuracion *tsp);
 
-// Asigna la memoria del metal
-struct metal * asignar_memoria_metal();
+// ==========================
+// Estructura metal (mejor individuo)
+// ==========================
 
-//Libera la memoria del metal
-void liberar_memoria_metal(struct individuo * ind);
+// Asigna memoria para la estructura del mejor individuo (metal)
+struct metal *asignar_memoria_metal();
 
-// Funciones para asignar memoria para las estructuras de rutas
+// Libera la memoria del metal
+void liberar_memoria_metal(struct individuo *ind);
+
+// ==========================
+// Estructura de rutas
+// ==========================
 
 // Asigna memoria para una lista de rutas
 struct lista_ruta *asignar_memoria_lista_ruta();
 
 // Asigna memoria para un nodo de ruta
 struct nodo_ruta *asignar_memoria_nodo_ruta();
-
 
 #endif // CONTROL_MEMORIA_H

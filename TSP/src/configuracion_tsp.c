@@ -197,7 +197,7 @@ struct tsp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
     
     // Construimos las rutas para ambos tipos de archivos
     snprintf(ruta_csv, sizeof(ruta_csv), "Instancias/Instancias_%d/%s.csv", tamanio_instancia, archivo_instancia);
-    snprintf(ruta_txt, sizeof(ruta_txt), "VRP_Solomon/VRP_Solomon_%d/%s.txt", tamanio_instancia, archivo_instancia);
+    snprintf(ruta_txt, sizeof(ruta_txt), "TSP_Solomon/TSP_Solomon_%d/%s.txt", tamanio_instancia, archivo_instancia);
 
     // Intentamos leer el archivo CSV primero
     FILE *archivo_csv = fopen(ruta_csv, "r");

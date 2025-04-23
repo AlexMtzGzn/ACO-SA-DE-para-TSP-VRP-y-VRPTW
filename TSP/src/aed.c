@@ -193,7 +193,6 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
    }
 }
 
-
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
    double aleatorio; // Variable para almacenar un número aleatorio
@@ -229,34 +228,33 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
    {
 
       // Asigna rangos específicos según el número de clientes en el TSP
-   
-         rango->maxAlpha = 6.0;
-         rango->minAlpha = 1.0;
-         
-         rango->maxBeta = 8.0;
-         rango->minBeta = 1.0;
-         
-         rango->maxRho = 0.9;
-         rango->minRho = 0.1;
-         
-         rango->maxNumHormigas = 50;
-         rango->minNumHormigas = 5;
-         
-         rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 30;
-         
-         rango->maxTemperatura_inicial = 2000.0;
-         rango->minTemperatura_inicial = 100.0;
-         
-         rango->maxTemperatura_final = 0.5;
-         rango->minTemperatura_final = 0.001;
-         
-         rango->maxFactor_enfriamiento = 0.999;
-         rango->minFactor_enfriamiento = 0.90;
-         
-         rango->maxIteracionesSA = 300;
-         rango->minIteracionesSA=50;
-    
+
+      rango->maxAlpha = 6.0;
+      rango->minAlpha = 1.0;
+
+      rango->maxBeta = 8.0;
+      rango->minBeta = 1.0;
+
+      rango->maxRho = 0.9;
+      rango->minRho = 0.1;
+
+      rango->maxNumHormigas = 50;
+      rango->minNumHormigas = 5;
+
+      rango->maxNumIteracionesACO = 200;
+      rango->minNumIteracionesACO = 30;
+
+      rango->maxTemperatura_inicial = 2000.0;
+      rango->minTemperatura_inicial = 100.0;
+
+      rango->maxTemperatura_final = 0.5;
+      rango->minTemperatura_final = 0.001;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.90;
+
+      rango->maxIteracionesSA = 300;
+      rango->minIteracionesSA = 50;
 
       // Genera valores aleatorios dentro de los rangos definidos para cada individuo
       objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);
@@ -271,7 +269,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
    }
 }
 
-
 void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
    clock_t tiempo_inicial, tiempo_final;                                          // Decraramos las variables para el tiempo
@@ -285,7 +282,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    struct rangos *rango = asignar_memoria_rangos();                               // Asignamos memoria para los rangos
 
    tsp->generaciones = num_generaciones; // Asiganamos el numero de generaciones
-   tsp->poblacion = num_poblacion;       // Asiganamos el numero de generaciones
+   tsp->poblacion = num_poblacion;       // Asiganamos el numero de poblacion
 
    double **instancia_visibilidad = asignar_memoria_instancia(tsp->num_clientes); // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(tsp->num_clientes);   // Generamos memoria para la instancia de la feromona
@@ -293,19 +290,15 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
 
    inicializar_Distancias(instancia_distancias, tsp);        // Inicializamos las distancias
    inicializar_Visibilidad(instancia_visibilidad, tsp);      // Inicializamos las visibilidad
-   inicializar_Feromona(tsp, instancia_feromonas);           // Inicializamos la feromona
    inicializaPoblacion(objetivo, tsp, rango, num_poblacion); // Inicializamos la poblacion
 
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,tsp,"INSTANCIA DISTANCIAS");
-   // imprimir_instancia(instancia_feromonas,tsp,"INSTANCIA FEROMONAS");
    // imprimir_instancia(instancia_visibilidad,tsp,"INSTANCIA VISIBILIDAD");
 
    // Inicializamos la estructura de resultados
-   resultado->fitness = INFINITY;                           // Inicializamos el fitness como infinito
-   resultado->hormiga = asignar_memoria_hormigas(1);        // Asiganamos memoria para la mejor hormiga
-   resultado->hormiga->ruta = asignar_memoria_lista_ruta(); // Asignamos memoria para la ruta de la mejor hormiga
-   // resultado->metal = (struct metal *)malloc(sizeof(struct metal));
+   resultado->fitness = INFINITY;                    // Inicializamos el fitness como infinito
+   resultado->hormiga = asignar_memoria_hormigas(1); // Asiganamos memoria para la mejor hormiga
    //  Evaluamos la función objetivo para cada individuo de la población inicial
 
    for (int i = 0; i < num_poblacion; i++) // Iniciamos la funcion objetivo con el objetivo
@@ -356,12 +349,12 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
       int barra_ancho = 50;                                                         // Ancho de la barra de progreso
       int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho); // Calculamos el progreso de la barra
 
-      // Imprimimos la barra de progreso
+      // Imrpimimos la barra de progreso
       printf("\r[");
       for (int j = 0; j < barra_ancho; ++j)
       {
          if (j < progreso_barras)
-            printf("=");
+            printf("#");
          else
             printf(" ");
       }
@@ -379,7 +372,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    tsp->tiempo_ejecucion = ceil(minutos);      // Redondiamos minutos
    tsp->archivo_instancia = archivo_instancia; // Copiamos el archivo de instancia
 
-   // Imprimimos la meojor hormiga
+   // Imprimimos la meojor homriga
    imprimir_mejor_hormiga(resultado->hormiga, resultado);          // Imprimimos la mejor hormiga
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos); // Imprimimos el tiempo de ejecución
 
