@@ -24,7 +24,7 @@ class VRPSimulator:
         self.colors = plt.cm.tab10(np.linspace(0, 1, len(self.data['flota'])))
     
     def plot_static_routes(self):
-        """Dibuja todas las rutas de forma estática"""
+        #Dibuja todas las rutas de forma estática
         fig, ax = plt.subplots(figsize=(12, 10))
         
         # Dibujar cada ruta
@@ -69,7 +69,7 @@ class VRPSimulator:
         plt.savefig(f'Resultados/Resultados_{self.numero_clientes}/Imagenes/{self.directory}/{self.filename}.png')       
     
     def animate_routes(self):
-        """Anima la simulación de rutas"""
+        #Anima la simulación de rutas
         fig, ax = plt.subplots(figsize=(12, 10))
         
         # Almacena las líneas y vehículos para la animación

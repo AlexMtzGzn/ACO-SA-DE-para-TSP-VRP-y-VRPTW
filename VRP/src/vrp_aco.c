@@ -5,6 +5,7 @@
 #include <time.h>
 #include "../include/estructuras.h"
 #include "../include/vrp_aco.h"
+#include "../include/vrp_sa.h"
 #include "../include/lista_flota.h"
 #include "../include/lista_ruta.h"
 #include "../include/control_memoria.h"
@@ -117,7 +118,7 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
     }
 }
 
-void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
+void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias)
 {
     // Recorremos cada vehículo en la flota de la hormiga
     struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
@@ -366,7 +367,7 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
 
     
     // Bucle principal de iteraciones del algoritmo ACO
-    for (int i = 0; i < ind->numIteraciones; i++)
+    for (int i = 0; i < ind->numIteracionesACO; i++)
     {
 
         // Recorremos todas las hormigas para construir sus soluciones
@@ -376,7 +377,7 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
             aco(vrp, ind, &hormiga[j], instancia_feromona, instancia_visiblidad);
 
             // Calculamos el fitness de la ruta generada por la hormiga j
-            calcular_fitness(&hormiga[j], instancia_distancias);
+            evaluaFO_ACO(&hormiga[j], instancia_distancias);
         }
 
         // Buscamos la hormiga con el mejor fitness en esta iteración
@@ -397,13 +398,14 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
         refuerzo_feromona_mejor_ruta(&hormiga[indice], instancia_feromona, delta);
 
         // Si no es la última iteración, reiniciamos las hormigas para la siguiente generación
-        if (i < ind->numIteraciones - 1)
+        if (i < ind->numIteracionesACO - 1)
             for (int j = 0; j < ind->numHormigas; j++)
                 reiniciar_hormiga(&hormiga[j], vrp);
     }
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
+    vrp_sa(vrp,ind,instancia_distancias);
 
     // Imprimimos las hormigas
      //imprimir_hormigas(hormiga, vrp, ind);
