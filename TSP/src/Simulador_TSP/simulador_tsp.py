@@ -23,7 +23,7 @@ class TSPSimulator:
         self.color = 'blue'
     
     def plot_static_route(self):
-        """Dibuja la ruta de forma estática"""
+        #Dibuja la ruta de forma estática
         fig, ax = plt.subplots(figsize=(12, 10))
         
         # Extraer coordenadas de la ruta
@@ -64,7 +64,7 @@ class TSPSimulator:
         plt.savefig(f'Resultados/Resultados_{self.numero_clientes}/Imagenes/{self.directory}/{self.filename}.png')        
     
     def animate_route(self):
-        """Anima la simulación de la ruta"""
+        #Anima la simulación de la ruta
         fig, ax = plt.subplots(figsize=(12, 10))
         
         # Extraer coordenadas de la ruta

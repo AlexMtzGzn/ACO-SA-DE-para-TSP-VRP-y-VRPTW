@@ -192,99 +192,87 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
     struct nodo_ruta *ultimo_cliente_ruta = NULL;
     int origen = 0; // Empezamos siempre en el depósito
 
-    // Añadir un contador de intentos para evitar bucle infinito
-    int max_intentos = 1;
-    int intentos = 0;
-
-    while (hormiga->tabu_contador < tsp->num_clientes && intentos < max_intentos)
+    while (hormiga->tabu_contador < tsp->num_clientes)
     {
-        intentos++;
-
         // Reiniciar los posibles clientes
         for (int i = 0; i < tsp->num_clientes; i++)
             hormiga->posibles_clientes[i] = 0;
         hormiga->posibles_clientes_contador = 0;
 
-        // Calculamos los posibles clientes que pueden ser visitados desde el origen actual
+        // Calculamos los posibles clientes desde el origen actual
         calcular_posibles_clientes(tsp, hormiga);
 
+        // Si no hay posibles clientes, reiniciamos la hormiga
         if (hormiga->posibles_clientes_contador == 0)
-            break;
+        {
+            reiniciar_hormiga(hormiga, ind, tsp);
+            origen = 0;
+            continue;
+        }
 
         ruta = hormiga->ruta;
         ultimo_cliente_ruta = ruta->cola;
         origen = ultimo_cliente_ruta->cliente;
 
-        // Inicializamos al próximo cliente
         int proximo_cliente = -1;
 
-        if (hormiga->posibles_clientes_contador != 0)
+        // Reiniciamos probabilidades
+        for (int i = 0; i < tsp->num_clientes; i++)
+            hormiga->probabilidades[i] = 0.0;
+
+        // Calculamos las probabilidades
+        for (int i = 0; i < tsp->num_clientes; i++)
+            if (hormiga->posibles_clientes[i] == 1)
+                hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, tsp, hormiga, instancia_feromona, instancia_visibilidad);
+
+        // Selección por ruleta
+        double aleatorio_seleccion = ((double)rand() / RAND_MAX);
+        double acumulador = 0.0;
+
+        for (int i = 0; i < tsp->num_clientes; i++)
         {
-            // Reiniciamos probabilidades
-            for (int i = 0; i < tsp->num_clientes; i++)
-                hormiga->probabilidades[i] = 0.0;
-
-            // Calculamos las probabilidades de cada cliente posible
-            for (int i = 0; i < tsp->num_clientes; i++)
-                if (hormiga->posibles_clientes[i] == 1)
-                    hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, tsp, hormiga, instancia_feromona, instancia_visibilidad);
-
-            // Selección estocástica basada en ruleta
-            double aleatorio_seleccion = ((double)rand() / RAND_MAX);
-            double acumulador = 0.0;
-
-            for (int i = 0; i < tsp->num_clientes; i++)
+            if (hormiga->posibles_clientes[i] == 1)
             {
-                if (hormiga->posibles_clientes[i] == 1)
+                acumulador += hormiga->probabilidades[i];
+                if (aleatorio_seleccion <= acumulador)
                 {
-                    acumulador += hormiga->probabilidades[i];
-                    if (aleatorio_seleccion <= acumulador)
-                    {
-                        proximo_cliente = i;
-                        break;
-                    }
-                }
-            }
-
-            // Si no se seleccionó ningún cliente con la ruleta, elegir uno de los posibles al azar
-            if (proximo_cliente == -1)
-            {
-                int posibles[tsp->num_clientes];
-                int num_posibles = 0;
-
-                for (int i = 0; i < tsp->num_clientes; i++)
-                    if (hormiga->posibles_clientes[i] == 1)
-                        posibles[num_posibles++] = i;
-
-                if (num_posibles > 0)
-                {
-                    int indice_aleatorio = rand() % num_posibles;
-                    proximo_cliente = posibles[indice_aleatorio];
+                    proximo_cliente = i;
+                    break;
                 }
             }
         }
 
-        // Insertamos el cliente en la ruta del vehículo seleccionado
-        if (proximo_cliente != -1)
+        // Si no se seleccionó con la ruleta, elegir al azar entre los posibles
+        if (proximo_cliente == -1)
         {
-            insertar_cliente_ruta(hormiga, &tsp->clientes[proximo_cliente]);
-            intentos = 0; // Reiniciar contador de intentos cuando hay éxito
-        }
-        else
-        {
-            // Si no se pudo encontrar un próximo cliente, reiniciar la hormiga
-            if (intentos >= max_intentos)
+            int posibles[tsp->num_clientes];
+            int num_posibles = 0;
+
+            for (int i = 0; i < tsp->num_clientes; i++)
+                if (hormiga->posibles_clientes[i] == 1)
+                    posibles[num_posibles++] = i;
+
+            if (num_posibles > 0)
             {
-                // Código para reiniciar la hormiga
+                int indice_aleatorio = rand() % num_posibles;
+                proximo_cliente = posibles[indice_aleatorio];
+            }
+            else
+            {
                 reiniciar_hormiga(hormiga, ind, tsp);
-                intentos = 0;
                 origen = 0;
+                continue;
             }
         }
+
+        // Insertar el cliente en la ruta
+        insertar_cliente_ruta(hormiga, &tsp->clientes[proximo_cliente]);
     }
 
-    insertar_cliente_ruta(hormiga, &tsp->clientes[0]); // Insertamos el cliente 0 al final de la ruta
+    // Insertar el cliente 0 al final de la ruta (regreso al depósito)
+    insertar_cliente_ruta(hormiga, &tsp->clientes[0]);
 }
+
 void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
     // Asignamos memoria para el número de hormigas
