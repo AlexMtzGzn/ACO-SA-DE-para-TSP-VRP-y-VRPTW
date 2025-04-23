@@ -232,46 +232,62 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
       if (tsp->num_clientes <= 25)
       {
          // Define los rangos para los parámetros de ACO y SA para instancias con 25 o menos clientes
-         rango->maxAlpha = 2.5;
-         rango->minAlpha = 0.8;
-         rango->maxBeta = 6.0;
-         rango->minBeta = 2.5;
-         rango->maxRho = 0.5;
+         rango->maxAlpha = 6.0;
+         rango->minAlpha = 1.0;
+         
+         rango->maxBeta = 8.0;
+         rango->minBeta = 1.0;
+         
+         rango->maxRho = 0.9;
          rango->minRho = 0.1;
-         rango->maxNumHormigas = 30;
-         rango->minNumHormigas = 10;
+         
+         rango->maxNumHormigas = 50;
+         rango->minNumHormigas = 5;
+         
          rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 400.0;
-         rango->minTemperatura_inicial = 200.0;
-         rango->maxTemperatura_final = 0.1;
-         rango->minTemperatura_final = 0.01;
-         rango->maxFactor_enfriamiento = 0.98;
-         rango->minFactor_enfriamiento = 0.95;
-         rango->maxIteracionesSA = 50;
-         rango->minIteracionesSA = 30;
+         rango->minNumIteracionesACO = 30;
+         
+         rango->maxTemperatura_inicial = 2000.0;
+         rango->minTemperatura_inicial = 100.0;
+         
+         rango->maxTemperatura_final = 0.5;
+         rango->minTemperatura_final = 0.001;
+         
+         rango->maxFactor_enfriamiento = 0.999;
+         rango->minFactor_enfriamiento = 0.90;
+         
+         rango->maxIteracionesSA = 300;
+         rango->minIteracionesSA=50;
       }
       // Asigna rangos para instancias con más de 25 y hasta 51 clientes
       if (tsp->num_clientes > 25 && tsp->num_clientes <= 51)
       {
-         rango->maxAlpha = 2.5;
-         rango->minAlpha = 0.8;
-         rango->maxBeta = 6.0;
-         rango->minBeta = 2.5;
-         rango->maxRho = 0.5;
+         rango->maxAlpha = 6.0;
+         rango->minAlpha = 1.0;
+         
+         rango->maxBeta = 8.0;
+         rango->minBeta = 1.0;
+         
+         rango->maxRho = 0.9;
          rango->minRho = 0.1;
-         rango->maxNumHormigas = 40;
-         rango->minNumHormigas = 20;
+         
+         rango->maxNumHormigas = 50;
+         rango->minNumHormigas = 5;
+         
          rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 600.0;
-         rango->minTemperatura_inicial = 400.0;
-         rango->maxTemperatura_final = 0.1;
-         rango->minTemperatura_final = 0.01;
-         rango->maxFactor_enfriamiento = 0.98;
-         rango->minFactor_enfriamiento = 0.95;
-         rango->maxIteracionesSA = 80;
-         rango->minIteracionesSA = 50;
+         rango->minNumIteracionesACO = 30;
+         
+         rango->maxTemperatura_inicial = 2000.0;
+         rango->minTemperatura_inicial = 100.0;
+         
+         rango->maxTemperatura_final = 0.5;
+         rango->minTemperatura_final = 0.001;
+         
+         rango->maxFactor_enfriamiento = 0.999;
+         rango->minFactor_enfriamiento = 0.90;
+         
+         rango->maxIteracionesSA = 300;
+         rango->minIteracionesSA=50;
       }
 
       // Asigna rangos para instancias con más de 51 y hasta 101 clientes
