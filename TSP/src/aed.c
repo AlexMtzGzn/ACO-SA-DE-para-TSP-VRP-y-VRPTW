@@ -193,7 +193,6 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
    }
 }
 
-
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
    double aleatorio; // Variable para almacenar un número aleatorio
@@ -229,100 +228,33 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
    {
 
       // Asigna rangos específicos según el número de clientes en el TSP
-      if (tsp->num_clientes <= 25)
-      {
-         // Define los rangos para los parámetros de ACO y SA para instancias con 25 o menos clientes
-         rango->maxAlpha = 4.0;
-         rango->minAlpha = 2.0;
-         rango->maxBeta = 6.0;
-         rango->minBeta = 2.5;
-         rango->maxRho = 0.5;
-         rango->minRho = 0.1;
-         rango->maxNumHormigas = 30;
-         rango->minNumHormigas = 10;
-         rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 400.0;
-         rango->minTemperatura_inicial = 200.0;
-         rango->maxTemperatura_final = 0.1;
-         rango->minTemperatura_final = 0.01;
-         rango->maxFactor_enfriamiento = 0.98;
-         rango->minFactor_enfriamiento = 0.95;
-         rango->maxIteracionesSA = 50;
-         rango->minIteracionesSA = 30;
-      }
-      // Asigna rangos para instancias con más de 25 y hasta 51 clientes
-      if (tsp->num_clientes > 25 && tsp->num_clientes <= 51)
-      {
-         rango->maxAlpha = 6.0;
-         rango->minAlpha = 1.0;
-         
-         rango->maxBeta = 8.0;
-         rango->minBeta = 1.0;
-         
-         rango->maxRho = 0.9;
-         rango->minRho = 0.1;
-         
-         rango->maxNumHormigas = 50;
-         rango->minNumHormigas = 5;
-         
-         rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 30;
-         
-         rango->maxTemperatura_inicial = 2000.0;
-         rango->minTemperatura_inicial = 100.0;
-         
-         rango->maxTemperatura_final = 0.5;
-         rango->minTemperatura_final = 0.001;
-         
-         rango->maxFactor_enfriamiento = 0.999;
-         rango->minFactor_enfriamiento = 0.90;
-         
-         rango->maxIteracionesSA = 300;
-         rango->minIteracionesSA = 50;
-         
-         // rango->maxAlpha = 4.0;
-         // rango->minAlpha = 2.0;
-         // rango->maxBeta = 6.0;
-         // rango->minBeta = 2.5;
-         // rango->maxRho = 0.5;
-         // rango->minRho = 0.1;
-         // rango->maxNumHormigas = 40;
-         // rango->minNumHormigas = 20;
-         // rango->maxNumIteracionesACO = 200;
-         // rango->minNumIteracionesACO = 50;
-         // rango->maxTemperatura_inicial = 800.0;
-         // rango->minTemperatura_inicial = 600.0;
-         // rango->maxTemperatura_final = 0.1;
-         // rango->minTemperatura_final = 0.01;
-         // rango->maxFactor_enfriamiento = 0.99;
-         // rango->minFactor_enfriamiento = 0.95;
-         // rango->maxIteracionesSA = 80;
-         // rango->minIteracionesSA = 50;
-      }
 
-      // Asigna rangos para instancias con más de 51 y hasta 101 clientes
-      if (tsp->num_clientes > 51 && tsp->num_clientes <= 101)
-      {
-         rango->maxAlpha = 4.0;
-         rango->minAlpha = 2.0;
-         rango->maxBeta = 5.0;
-         rango->minBeta = 3.0;
-         rango->maxRho = 0.3;
-         rango->minRho = 0.1;
-         rango->maxNumHormigas = 100;
-         rango->minNumHormigas = 40;
-         rango->maxNumIteracionesACO = 250;
-         rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 1200.0;
-         rango->minTemperatura_inicial = 800.0;
-         rango->maxTemperatura_final = 0.1;
-         rango->minTemperatura_final = 0.01;
-         rango->maxFactor_enfriamiento = 0.995;
-         rango->minFactor_enfriamiento = 0.98;
-         rango->maxIteracionesSA = 150;
-         rango->minIteracionesSA = 80;
-      }
+      rango->maxAlpha = 6.0;
+      rango->minAlpha = 1.0;
+
+      rango->maxBeta = 8.0;
+      rango->minBeta = 1.0;
+
+      rango->maxRho = 0.9;
+      rango->minRho = 0.1;
+
+      rango->maxNumHormigas = 50;
+      rango->minNumHormigas = 5;
+
+      rango->maxNumIteracionesACO = 200;
+      rango->minNumIteracionesACO = 30;
+
+      rango->maxTemperatura_inicial = 2000.0;
+      rango->minTemperatura_inicial = 100.0;
+
+      rango->maxTemperatura_final = 0.5;
+      rango->minTemperatura_final = 0.001;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.90;
+
+      rango->maxIteracionesSA = 300;
+      rango->minIteracionesSA = 50;
 
       // Genera valores aleatorios dentro de los rangos definidos para cada individuo
       objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);
@@ -336,7 +268,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
       objetivo[i].numIteracionesSA = (int)generaAleatorio(rango->minIteracionesSA, rango->maxIteracionesSA);
    }
 }
-
 
 void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
@@ -366,8 +297,8 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    // imprimir_instancia(instancia_visibilidad,tsp,"INSTANCIA VISIBILIDAD");
 
    // Inicializamos la estructura de resultados
-   resultado->fitness = INFINITY;                           // Inicializamos el fitness como infinito
-   resultado->hormiga = asignar_memoria_hormigas(1);        // Asiganamos memoria para la mejor hormiga
+   resultado->fitness = INFINITY;                    // Inicializamos el fitness como infinito
+   resultado->hormiga = asignar_memoria_hormigas(1); // Asiganamos memoria para la mejor hormiga
    //  Evaluamos la función objetivo para cada individuo de la población inicial
 
    for (int i = 0; i < num_poblacion; i++) // Iniciamos la funcion objetivo con el objetivo
