@@ -232,8 +232,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
       if (tsp->num_clientes <= 25)
       {
          // Define los rangos para los parámetros de ACO y SA para instancias con 25 o menos clientes
-         rango->maxAlpha = 2.5;
-         rango->minAlpha = 0.8;
+         rango->maxAlpha = 4.0;
+         rango->minAlpha = 2.0;
          rango->maxBeta = 6.0;
          rango->minBeta = 2.5;
          rango->maxRho = 0.5;
@@ -254,8 +254,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
       // Asigna rangos para instancias con más de 25 y hasta 51 clientes
       if (tsp->num_clientes > 25 && tsp->num_clientes <= 51)
       {
-         rango->maxAlpha = 2.5;
-         rango->minAlpha = 0.8;
+         rango->maxAlpha = 4.0;
+         rango->minAlpha = 2.0;
          rango->maxBeta = 6.0;
          rango->minBeta = 2.5;
          rango->maxRho = 0.5;
@@ -264,11 +264,11 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
          rango->minNumHormigas = 20;
          rango->maxNumIteracionesACO = 200;
          rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 600.0;
-         rango->minTemperatura_inicial = 400.0;
+         rango->maxTemperatura_inicial = 800.0;
+         rango->minTemperatura_inicial = 600.0;
          rango->maxTemperatura_final = 0.1;
          rango->minTemperatura_final = 0.01;
-         rango->maxFactor_enfriamiento = 0.98;
+         rango->maxFactor_enfriamiento = 0.99;
          rango->minFactor_enfriamiento = 0.95;
          rango->maxIteracionesSA = 80;
          rango->minIteracionesSA = 50;
@@ -277,23 +277,23 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
       // Asigna rangos para instancias con más de 51 y hasta 101 clientes
       if (tsp->num_clientes > 51 && tsp->num_clientes <= 101)
       {
-         rango->maxAlpha = 2.0;
-         rango->minAlpha = 0.8;
-         rango->maxBeta = 6.0;
+         rango->maxAlpha = 4.0;
+         rango->minAlpha = 2.0;
+         rango->maxBeta = 5.0;
          rango->minBeta = 3.0;
          rango->maxRho = 0.3;
          rango->minRho = 0.1;
          rango->maxNumHormigas = 100;
-         rango->minNumHormigas = 20;
-         rango->maxNumIteracionesACO = 200;
+         rango->minNumHormigas = 40;
+         rango->maxNumIteracionesACO = 250;
          rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 1000.0;
-         rango->minTemperatura_inicial = 600.0;
+         rango->maxTemperatura_inicial = 1200.0;
+         rango->minTemperatura_inicial = 800.0;
          rango->maxTemperatura_final = 0.1;
          rango->minTemperatura_final = 0.01;
          rango->maxFactor_enfriamiento = 0.995;
          rango->minFactor_enfriamiento = 0.98;
-         rango->maxIteracionesSA = 100;
+         rango->maxIteracionesSA = 150;
          rango->minIteracionesSA = 80;
       }
 
@@ -324,7 +324,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    struct rangos *rango = asignar_memoria_rangos();                               // Asignamos memoria para los rangos
 
    tsp->generaciones = num_generaciones; // Asiganamos el numero de generaciones
-   tsp->poblacion = num_poblacion;       // Asiganamos el numero de generaciones
+   tsp->poblacion = num_poblacion;       // Asiganamos el numero de poblacion
 
    double **instancia_visibilidad = asignar_memoria_instancia(tsp->num_clientes); // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(tsp->num_clientes);   // Generamos memoria para la instancia de la feromona
@@ -332,19 +332,15 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
 
    inicializar_Distancias(instancia_distancias, tsp);        // Inicializamos las distancias
    inicializar_Visibilidad(instancia_visibilidad, tsp);      // Inicializamos las visibilidad
-   inicializar_Feromona(tsp, instancia_feromonas);           // Inicializamos la feromona
    inicializaPoblacion(objetivo, tsp, rango, num_poblacion); // Inicializamos la poblacion
 
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,tsp,"INSTANCIA DISTANCIAS");
-   // imprimir_instancia(instancia_feromonas,tsp,"INSTANCIA FEROMONAS");
    // imprimir_instancia(instancia_visibilidad,tsp,"INSTANCIA VISIBILIDAD");
 
    // Inicializamos la estructura de resultados
    resultado->fitness = INFINITY;                           // Inicializamos el fitness como infinito
    resultado->hormiga = asignar_memoria_hormigas(1);        // Asiganamos memoria para la mejor hormiga
-   resultado->hormiga->ruta = asignar_memoria_lista_ruta(); // Asignamos memoria para la ruta de la mejor hormiga
-   // resultado->metal = (struct metal *)malloc(sizeof(struct metal));
    //  Evaluamos la función objetivo para cada individuo de la población inicial
 
    for (int i = 0; i < num_poblacion; i++) // Iniciamos la funcion objetivo con el objetivo
@@ -400,7 +396,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
       for (int j = 0; j < barra_ancho; ++j)
       {
          if (j < progreso_barras)
-            printf("=");
+            printf("#");
          else
             printf(" ");
       }

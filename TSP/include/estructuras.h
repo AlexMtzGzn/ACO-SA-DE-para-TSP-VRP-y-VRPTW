@@ -21,14 +21,14 @@ typedef struct lista_ruta
 typedef struct metal
 {
 
-    lista_ruta *mejor_solucion;
-    double fitness_mejor_solucion;
-    lista_ruta *solucion_inicial;
-    double fitness_solucion_inicial;
-    lista_ruta *solucion_actual;
-    double fitness_solucion_actual;
-    lista_ruta *solucion_vecina;
-    double fitness_solucion_vecina;
+    lista_ruta *mejor_solucion;      // Mejor solución encontrada
+    double fitness_mejor_solucion;   // Fitness de la mejor solución
+    lista_ruta *solucion_inicial;    // Solución inicial generada
+    double fitness_solucion_inicial; // Fitness de la solución inicial
+    lista_ruta *solucion_actual;     // Solución actual generada
+    double fitness_solucion_actual;  // Fitness de la solución actual
+    lista_ruta *solucion_vecina;     // Solución vecina generada
+    double fitness_solucion_vecina;  // Fitness de la solución vecina
 
 } metal;
 
@@ -72,24 +72,24 @@ typedef struct tsp_configuracion
 // Estructura que contiene los rangos de los parámetros del algoritmo
 typedef struct rangos
 {
-    double maxAlpha;
-    double minAlpha;
-    double maxBeta;
-    double minBeta;
-    double maxRho;
-    double minRho;
-    double maxNumHormigas;
-    double minNumHormigas;
-    int maxNumIteracionesACO;
-    int minNumIteracionesACO;
-    double maxTemperatura_inicial;
-    double minTemperatura_inicial;
-    double maxTemperatura_final;
-    double minTemperatura_final;
-    double maxFactor_enfriamiento;
-    double minFactor_enfriamiento;
-    int maxIteracionesSA;
-    int minIteracionesSA;
+    double maxAlpha;               // Parámetro alpha máximo
+    double minAlpha;               // Parámetro alpha mínimo
+    double maxBeta;                // Parámetro beta máximo
+    double minBeta;                // Parámetro beta mínimo
+    double maxRho;                 // Parámetro rho máximo
+    double minRho;                 // Parámetro rho mínimo
+    double maxNumHormigas;         // Número máximo de hormigas
+    double minNumHormigas;         // Número mínimo de hormigas
+    int maxNumIteracionesACO;      // Número máximo de iteraciones ACO
+    int minNumIteracionesACO;      // Número mínimo de iteraciones ACO
+    double maxTemperatura_inicial; // Temperatura inicial máxima
+    double minTemperatura_inicial; // Temperatura inicial mínima
+    double maxTemperatura_final;   // Temperatura final máxima
+    double minTemperatura_final;   // Temperatura final mínima
+    double maxFactor_enfriamiento; // Factor de enfriamiento máximo
+    double minFactor_enfriamiento; // Factor de enfriamiento mínimo
+    int maxIteracionesSA;          // Número máximo de iteraciones SA
+    int minIteracionesSA;          // Número mínimo de iteraciones SA
 } rangos;
 
 // --------------------- INDIVIDUO ---------------------
