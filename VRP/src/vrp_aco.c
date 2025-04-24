@@ -412,4 +412,5 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
 
     // Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);
+
 }

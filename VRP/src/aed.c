@@ -250,7 +250,7 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->minRho = 0.1;
 
       rango->maxNumHormigas = 50;
-      rango->minNumHormigas = 10;
+      rango->minNumHormigas = 5;
 
       rango->maxNumIteracionesACO = 200;
       rango->minNumIteracionesACO = 30;
@@ -258,7 +258,7 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxTemperatura_inicial = 2000.0;
       rango->minTemperatura_inicial = 100.0;
 
-      rango->maxTemperatura_final = 0.1;
+      rango->maxTemperatura_final = 0.5;
       rango->minTemperatura_final = 0.001;
 
       rango->maxFactor_enfriamiento = 0.999;
@@ -267,7 +267,7 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxFactor_control = 0.9;
       rango->minFactor_control = 0.5;
 
-      rango->maxIteracionesSA = 350;
+      rango->maxIteracionesSA = 300;
       rango->minIteracionesSA = 50;
 
       // Genera valores aleatorios dentro de los rangos definidos para cada individuo
