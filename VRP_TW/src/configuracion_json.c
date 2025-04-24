@@ -60,7 +60,7 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     cJSON_AddNumberToObject(json_individuo, "Gamma", ind->gamma);
     cJSON_AddNumberToObject(json_individuo, "Rho", ind->rho);
     cJSON_AddNumberToObject(json_individuo, "Numero Hormigas", ind->numHormigas);
-    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones", ind->numIteraciones);
+    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones", ind->numIteracionesACO);
     cJSON_AddNumberToObject(json_individuo, "Fitness Global", ind->fitness);
 
     cJSON *flota_json = cJSON_CreateArray();

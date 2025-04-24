@@ -28,7 +28,7 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
 double generaAleatorio(double minimo, double maximo);
 
 // Construye una solución ruidosa a partir de un individuo objetivo y una población
-void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, int poblacion);
+void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, struct rangos *rango, int poblacion);
 
 // Construye una solución de prueba a partir de un individuo objetivo y una población
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion);
@@ -37,7 +37,7 @@ void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, stru
 void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblacion);
 
 // Inicializa una población de individuos para el algoritmo evolutivo
-void inicializaPoblacion(struct individuo *objetivo, int poblacion);
+void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion);
 
 // Función principal del algoritmo Evolutivo Diferencial (AED) para resolver el VRP con ventanas de tiempo (VRPTW), que recibe el número de individuos, generaciones y el archivo de instancia
 void aed_vrp_tw(int num_poblacion, int num_generaciones,int tamanio_instancia, char *archivo_instancia);

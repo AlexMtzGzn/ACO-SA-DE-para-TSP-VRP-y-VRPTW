@@ -15,7 +15,7 @@ DEPS = $(OBJS:.o=.d)
 TARGET = main
 
 # Flags de compilación
-CFLAGS = -Wall -I$(INCLUDE_DIR) -O2
+CFLAGS = -Wall -I$(INCLUDE_DIR)
 DEBUG_FLAGS = -g -DDEBUG
 DEPFLAGS = -MMD -MP
 
