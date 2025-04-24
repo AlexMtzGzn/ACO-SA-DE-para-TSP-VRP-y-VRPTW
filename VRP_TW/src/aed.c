@@ -25,7 +25,6 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
    {
       for (int j = i + 1; j < vrp->num_clientes; j++)
       {
-
          if (i != j)
          {
             distancia = calcular_Distancia(vrp, i, j);
@@ -272,8 +271,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxBeta = 8.0;
       rango->minBeta = 1.0;
 
-      rango->maxGamma = 1.0;
-      rango->maxGamma = 2.0;
+      rango->minGamma = 0.1;
+      rango->maxGamma = 5.0;
 
       rango->maxRho = 0.9;
       rango->minRho = 0.1;
