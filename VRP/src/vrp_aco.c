@@ -285,10 +285,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                     flota_vehiculo = hormiga->flota->cola;
                     vehiculo = flota_vehiculo->vehiculo;
                 }
-                else
-                {
-                    break;
-                }
+
             }
             else
             {

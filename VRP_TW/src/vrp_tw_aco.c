@@ -339,12 +339,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                     vehiculo = flota_vehiculo->vehiculo;                                     // Lo seleccionamos como vehículo actual
                     aux_tiempo = 0.0;
                 }
-                else
-                {
-                    // Si ya visitamos todos los clientes, reiniciamos la hormiga
-                    // reiniciar_hormiga(hormiga, vrp);
-                    break;
-                }
             }
             else
             {
