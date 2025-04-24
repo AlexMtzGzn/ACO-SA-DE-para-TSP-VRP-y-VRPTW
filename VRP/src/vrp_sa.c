@@ -189,6 +189,7 @@ void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp)
 }
 
 // Algoritmo de Recocido Simulado (SA)
+// Algoritmo de Recocido Simulado (SA)
 void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
 {
     double temperatura = ind->temperatura_inicial;
@@ -204,6 +205,13 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
     // Ciclo de enfriamiento
     while (temperatura > ind->temperatura_final)
     {
+        // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
+        printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
+               temperatura,
+               ind->metal->fitness_solucion_actual,
+               ind->metal->fitness_mejor_solucion);
+        // <<<
+
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
             generar_vecino(ind, vrp);
@@ -233,14 +241,12 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
             else if ((double)rand() / RAND_MAX < exp(-delta / temperatura))
                 aceptar = true;
 
-            // Acepta o no el movimiento
             if (aceptar)
             {
                 liberar_lista_vehiculos(ind->metal->solucion_actual);
                 ind->metal->solucion_actual = copiar_lista_vehiculos(ind->metal->solucion_vecina);
                 ind->metal->fitness_solucion_actual = ind->metal->fitness_solucion_vecina;
 
-                // Si es mejor solución encontrada, actualiza la mejor
                 if (ind->metal->fitness_solucion_actual < ind->metal->fitness_mejor_solucion)
                 {
                     liberar_lista_vehiculos(ind->metal->mejor_solucion);
@@ -255,6 +261,7 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
 
     liberar_lista_vehiculos(ind->metal->solucion_actual);
 }
+
 
 // Inicializa la estructura metal de un individuo
 void inicializar_metal(struct individuo *ind)

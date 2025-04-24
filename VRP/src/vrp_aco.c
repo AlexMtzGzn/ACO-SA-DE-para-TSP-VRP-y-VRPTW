@@ -304,6 +304,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                 }
             }
             else{
+                printf("Reinicie\n");
                 reiniciar_hormiga(hormiga,vrp);
                 break;
             }
@@ -357,7 +358,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
 void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
-
     // Asignamos memoria para el número de hormigas
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
@@ -405,10 +405,10 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
-    vrp_sa(vrp,ind,instancia_distancias);
+    //vrp_sa(vrp,ind,instancia_distancias);
 
     // Imprimimos las hormigas
-     //imprimir_hormigas(hormiga, vrp, ind);
+    imprimir_hormigas(hormiga, vrp, ind);
 
     // Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);
