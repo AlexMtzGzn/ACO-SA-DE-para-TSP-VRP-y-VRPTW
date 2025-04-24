@@ -240,80 +240,35 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
    for (int i = 0; i < poblacion; ++i)
    {
 
-      // Asigna rangos vrpecíficos según el número de clientes en el vrp
-      if (vrp->num_clientes <= 25)
-      {
-         // Define los rangos para los parámetros de ACO y SA para instancias con 25 o menos clientes
-         rango->maxAlpha = 2.5;
-         rango->minAlpha = 0.8;
-         rango->maxBeta = 6.0;
-         rango->minBeta = 2.5;
-         rango->maxRho = 0.5;
-         rango->minRho = 0.1;
-         rango->maxNumHormigas = 30;
-         rango->minNumHormigas = 10;
-         rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 400.0;
-         rango->minTemperatura_inicial = 200.0;
-         rango->maxTemperatura_final = 0.1;
-         rango->minTemperatura_final = 0.01;
-         rango->maxFactor_enfriamiento = 0.98;
-         rango->minFactor_enfriamiento = 0.95;
-         rango->maxFactor_control = 0.9;
-         rango->minFactor_control = 0.5;
-         rango->maxIteracionesSA = 50;
-         rango->minIteracionesSA = 30;
-      }
-      // Asigna rangos para instancias con más de 25 y hasta 51 clientes
-      if (vrp->num_clientes > 25 && vrp->num_clientes <= 51)
-      {
-         rango->maxAlpha = 2.5;
-         rango->minAlpha = 0.8;
-         rango->maxBeta = 6.0;
-         rango->minBeta = 2.5;
-         rango->maxRho = 0.5;
-         rango->minRho = 0.1;
-         rango->maxNumHormigas = 40;
-         rango->minNumHormigas = 20;
-         rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 600.0;
-         rango->minTemperatura_inicial = 400.0;
-         rango->maxTemperatura_final = 0.1;
-         rango->minTemperatura_final = 0.01;
-         rango->maxFactor_enfriamiento = 0.99;
-         rango->minFactor_enfriamiento = 0.95;
-         rango->maxFactor_control = 0.9;
-         rango->minFactor_control = 0.5;
-         rango->maxIteracionesSA = 80;
-         rango->minIteracionesSA = 50;
-      }
+      rango->maxAlpha = 6.0;
+      rango->minAlpha = 1.0;
 
-      // Asigna rangos para instancias con más de 51 y hasta 101 clientes
-      if (vrp->num_clientes > 51 && vrp->num_clientes <= 101)
-      {
-         rango->maxAlpha = 2.0;
-         rango->minAlpha = 0.8;
-         rango->maxBeta = 5.0;
-         rango->minBeta = 3.0;
-         rango->maxRho = 0.3;
-         rango->minRho = 0.1;
-         rango->maxNumHormigas = 100;
-         rango->minNumHormigas = 30;
-         rango->maxNumIteracionesACO = 250;
-         rango->minNumIteracionesACO = 50;
-         rango->maxTemperatura_inicial = 1000.0;
-         rango->minTemperatura_inicial = 600.0;
-         rango->maxTemperatura_final = 0.1;
-         rango->minTemperatura_final = 0.01;
-         rango->maxFactor_enfriamiento = 0.995;
-         rango->minFactor_enfriamiento = 0.98;
-         rango->maxFactor_control = 0.9;
-         rango->minFactor_control = 0.5;
-         rango->maxIteracionesSA = 100;
-         rango->minIteracionesSA = 80;
-      }
+      rango->maxBeta = 8.0;
+      rango->minBeta = 1.0;
+
+      rango->maxRho = 0.9;
+      rango->minRho = 0.1;
+
+      rango->maxNumHormigas = 50;
+      rango->minNumHormigas = 10;
+
+      rango->maxNumIteracionesACO = 200;
+      rango->minNumIteracionesACO = 30;
+
+      rango->maxTemperatura_inicial = 2000.0;
+      rango->minTemperatura_inicial = 100.0;
+
+      rango->maxTemperatura_final = 0.1;
+      rango->minTemperatura_final = 0.001;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.90;
+
+      rango->maxFactor_control = 0.9;
+      rango->minFactor_control = 0.5;
+
+      rango->maxIteracionesSA = 350;
+      rango->minIteracionesSA = 50;
 
       // Genera valores aleatorios dentro de los rangos definidos para cada individuo
       objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);
