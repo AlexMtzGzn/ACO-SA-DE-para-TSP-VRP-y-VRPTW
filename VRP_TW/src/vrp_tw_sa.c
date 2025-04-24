@@ -278,7 +278,7 @@ void inicializar_metal(struct individuo *ind)
 }
 
 // Función principal que ejecuta SA sobre un individuo del VRP
-void vrp_sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
+void vrp_tw_sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
 {
 
     inicializar_metal(ind);
