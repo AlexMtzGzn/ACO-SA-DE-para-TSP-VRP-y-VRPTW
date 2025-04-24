@@ -297,7 +297,7 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    struct rangos *rango = asignar_memoria_rangos();
 
    vrp->generaciones = num_generaciones; // Asignamos el numero de generaciones
-   vrp->poblacion = num_generaciones;    // Asiganamos el numero de poblacion
+   vrp->poblacion = num_poblacion;    // Asiganamos el numero de poblacion
 
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes); // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);   // Generamos memoria para la instancia de la feromona

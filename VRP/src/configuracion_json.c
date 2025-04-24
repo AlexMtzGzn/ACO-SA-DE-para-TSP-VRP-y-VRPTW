@@ -53,6 +53,8 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     cJSON *json_individuo = cJSON_CreateObject();
     cJSON_AddStringToObject(json_individuo, "Archivo", vrp->archivo_instancia);
     cJSON_AddNumberToObject(json_individuo, "Tiempo Ejecucion en Minutos", vrp->tiempo_ejecucion);
+    cJSON_AddNumberToObject(json_individuo, "Poblacion: ", vrp->poblacion);
+    cJSON_AddNumberToObject(json_individuo, "Generaciones: ", vrp->generaciones);
     cJSON_AddNumberToObject(json_individuo, "Alpha", ind->alpha);
     cJSON_AddNumberToObject(json_individuo, "Beta", ind->beta);
     cJSON_AddNumberToObject(json_individuo, "Rho", ind->rho);
