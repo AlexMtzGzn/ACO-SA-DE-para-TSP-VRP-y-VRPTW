@@ -434,6 +434,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);     // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
    liberar_instancia(instancia_ventanas_tiempo, vrp->num_clientes); // Liberemos la memoria de la instancia ventanas de tiempo
+   liberar_rangos(rango);                                           // Liberemos la memoria de los rangos
    liberar_individuos(objetivo, num_poblacion, true);               // Liberemos la memoria del objetivo
    liberar_individuos(prueba, num_poblacion, true);                 // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);               // Liberemos la memoria del ruidoso

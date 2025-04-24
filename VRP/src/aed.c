@@ -288,7 +288,7 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
 {
    clock_t tiempo_inicial, tiempo_final;
    tiempo_inicial = clock();
-   char rvrpuesta;                                                                // Rvrpuesta
+   char respuesta;                                                                // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
@@ -396,9 +396,9 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos);
 
    printf("\n¿Quieres imprimir el archivo JSON (s/n)? ");
-   scanf(" %c", &rvrpuesta);
+   scanf(" %c", &respuesta);
 
-   if (rvrpuesta == 's' || rvrpuesta == 'S')
+   if (respuesta == 's' || respuesta == 'S')
       guardar_json_en_archivo(resultado, vrp, archivo_instancia);
 
    liberar_instancia(instancia_feromonas, vrp->num_clientes);   // Liberemos la memoria de la instancia feromona
