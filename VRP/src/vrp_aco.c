@@ -251,8 +251,6 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
 
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad)
 {
-    int reinicios = 0; // 👈 añadido: contador de reinicios
-
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza;
     struct vehiculo *vehiculo = flota_vehiculo->vehiculo;
     struct lista_ruta *ruta = vehiculo->ruta;
@@ -289,8 +287,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             }
             else
             {
-                reinicios++; // 👈 añadido: incremento del contador
-                printf("Reinicio #%d\n", reinicios); // 👈 añadido: impresión del contador
                 reiniciar_hormiga(hormiga, vrp);
                 break;
             }
