@@ -127,7 +127,7 @@ Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño 
 
 ---
 
-## 🔁 🔁 Proceso de Optimización Híbrida (DE + ACO + SA) para TSP
+## 🔁 Proceso de Optimización Híbrida (DE + ACO + SA) para TSP
 
 
 1. **Inicialización con DE**:  

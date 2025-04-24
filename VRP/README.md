@@ -1,4 +1,4 @@
-# 🚚 "Resolución del Problema de Ruteo de Vehículos (VRP) Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
+# 🚚 "Optimización del Problema de Ruteo de Vehículos (VRP) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
 
 
 Este proyecto implementa una solución híbrida para el Problema de Ruteo de Vehículos (VRP), combinando el algoritmo de Optimización por Colonias de Hormigas (**ACO**) con Recocido Simulado (**SA**) como refinador local, y ajustando automáticamente sus parámetros mediante un Algoritmo Evolutivo Diferencial (**DE**).
