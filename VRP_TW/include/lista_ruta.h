@@ -19,4 +19,8 @@ struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original);
 // Función para liberar la memoria ocupada por una lista de ruta
 void liberar_ruta(struct lista_ruta *ruta);
 
+int recalcular_tiempo_ruta(struct lista_ruta *ruta, struct vrp_configuracion *vrp, double **instancia_distancias);
+void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, double **instancia_distancias);
+bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias);
+
 #endif /*lista_ruta.h*/

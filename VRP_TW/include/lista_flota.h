@@ -25,4 +25,9 @@ void vaciar_lista_vehiculos(struct lista_vehiculos *flota);
 // Función para liberar la memoria de una lista de vehículos
 void liberar_lista_vehiculos(struct lista_vehiculos *flota);
 
+
+void eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar);
+struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind);
+
+
 #endif /*lista_flota.h*/

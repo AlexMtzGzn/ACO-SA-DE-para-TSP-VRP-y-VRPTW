@@ -189,7 +189,6 @@ void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp)
 }
 
 // Algoritmo de Recocido Simulado (SA)
-// Algoritmo de Recocido Simulado (SA)
 void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
 {
     double temperatura = ind->temperatura_inicial;

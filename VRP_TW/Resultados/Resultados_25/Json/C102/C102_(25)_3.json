@@ -1,0 +1,129 @@
+{
+	"Archivo":	"C102_(25)",
+	"Tiempo Ejecucion en Minutos":	1,
+	"Alpha":	1.498531505231993,
+	"Beta":	7.9543779161546277,
+	"Gamma":	4.38477677003703,
+	"Rho":	0.397900194813451,
+	"Numero Hormigas":	24,
+	"Numero Iteraciones":	0,
+	"Fitness Global":	202.400372199466,
+	"flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	200,
+			"Tiempo Consumido":	1092,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	10,
+			"Fitness Vehiculo":	105.38653748183953,
+			"Ruta Clientes":	[0, 21, 22, 23, 18, 19, 17, 6, 8, 13, 14, 12],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	30,
+					"Y":	52
+				}, {
+					"X":	28,
+					"Y":	52
+				}, {
+					"X":	28,
+					"Y":	55
+				}, {
+					"X":	15,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	80
+				}, {
+					"X":	18,
+					"Y":	75
+				}, {
+					"X":	40,
+					"Y":	69
+				}, {
+					"X":	38,
+					"Y":	68
+				}, {
+					"X":	22,
+					"Y":	75
+				}, {
+					"X":	22,
+					"Y":	85
+				}, {
+					"X":	25,
+					"Y":	85
+				}]
+		}, {
+			"Id_vehiculo":	2,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	200,
+			"Tiempo Consumido":	1069,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	10,
+			"Fitness Vehiculo":	80.0138347176265,
+			"Ruta Clientes":	[0, 7, 10, 1, 2, 3, 4, 5, 11, 9, 15, 16],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	40,
+					"Y":	66
+				}, {
+					"X":	35,
+					"Y":	66
+				}, {
+					"X":	45,
+					"Y":	68
+				}, {
+					"X":	45,
+					"Y":	70
+				}, {
+					"X":	42,
+					"Y":	66
+				}, {
+					"X":	42,
+					"Y":	68
+				}, {
+					"X":	42,
+					"Y":	65
+				}, {
+					"X":	35,
+					"Y":	69
+				}, {
+					"X":	38,
+					"Y":	70
+				}, {
+					"X":	20,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	85
+				}]
+		}, {
+			"Id_vehiculo":	3,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	60,
+			"Tiempo Consumido":	287,
+			"Tiempo Maximo":	1236,
+			"Numero Clientes":	3,
+			"Fitness Vehiculo":	17,
+			"Ruta Clientes":	[0, 0, 20, 24, 25],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	30,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	52
+				}]
+		}]
+}

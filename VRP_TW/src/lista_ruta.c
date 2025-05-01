@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"
@@ -91,7 +92,7 @@ struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
 void liberar_ruta(struct lista_ruta *ruta)
 {
     struct nodo_ruta *cliente_actual = ruta->cabeza;
-    
+
     // Se libera cada nodo de la lista de ruta
     while (cliente_actual)
     {
@@ -99,6 +100,127 @@ void liberar_ruta(struct lista_ruta *ruta)
         cliente_actual = cliente_actual->siguiente;
         free(cliente_temp);
     }
-    
+
     free(ruta); // Se libera la estructura de la lista de ruta
 }
+
+int recalcular_tiempo_ruta(struct lista_ruta *ruta, struct vrp_configuracion *vrp, double **instancia_distancias)
+{
+    int tiempo_total_ruta = 0;
+
+    struct nodo_ruta *actual = ruta->cabeza->siguiente;
+    int cliente_anterior = 0; // depósito al inicio
+
+    // Si la ruta solo tiene el depósito (ningún cliente), regresamos 0
+    if (actual == NULL)
+        return 0;
+
+    while (actual != NULL)
+    {
+        int cliente_actual = actual->cliente;
+
+        tiempo_total_ruta += instancia_distancias[cliente_anterior][cliente_actual]; // tiempo viaje
+        tiempo_total_ruta += vrp->clientes[cliente_actual].tiempo_servicio;          // tiempo servicio
+
+        cliente_anterior = cliente_actual;
+        actual = actual->siguiente;
+    }
+
+    // Agregamos el tiempo de regreso al depósito
+    tiempo_total_ruta += instancia_distancias[cliente_anterior][0];
+
+    return tiempo_total_ruta;
+}
+
+
+void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, double **instancia_distancias)
+{
+    struct nodo_ruta *anterior = vehiculo->ruta->cabeza;
+    struct nodo_ruta *actual = anterior->siguiente;
+
+    while (actual != NULL)
+    {
+        if (actual->cliente == cliente)
+        {
+            anterior->siguiente = actual->siguiente;
+            free(actual);
+
+            vehiculo->clientes_contados--;
+            vehiculo->capacidad_acumulada -= vrp->clientes[cliente].demanda_capacidad;
+            vehiculo->vt_actual = recalcular_tiempo_ruta(vehiculo->ruta, vrp, instancia_distancias);
+            break;
+        }
+        anterior = actual;
+        actual = actual->siguiente;
+    }
+}
+
+bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias)
+{
+    struct nodo_ruta *nuevo = asignar_memoria_nodo_ruta();
+    if (!nuevo) return false;
+
+    nuevo->cliente = cliente;
+    nuevo->siguiente = NULL;
+
+    // Nos colocamos en la cabeza de la ruta (depósito)
+    struct nodo_ruta *actual = vehiculo->ruta->cabeza;
+    int pos_actual = -1;  // Comenzamos en -1 porque la cabeza es el depósito (cliente 0)
+
+    // Si la posición deseada es 0 (insertar justo después del depósito)
+    if (posicion == 0) {
+        // Insertamos justo después del depósito
+        nuevo->siguiente = actual->siguiente;
+        actual->siguiente = nuevo;
+
+        vehiculo->clientes_contados++;
+        vehiculo->capacidad_acumulada += vrp->clientes[cliente].demanda_capacidad;
+        vehiculo->vt_actual = recalcular_tiempo_ruta(vehiculo->ruta, vrp, instancia_distancias);
+
+        return true;
+    }
+
+    // Recorremos la lista hasta encontrar la posición deseada, excluyendo los depósitos (cliente 0)
+    while (actual->siguiente != NULL) 
+    {
+        // Solo contamos clientes que no sean depósitos (cliente 0)
+        if (actual->siguiente->cliente != 0) {
+            pos_actual++;
+            // Si hemos llegado a la posición deseada, insertamos el cliente
+            if (pos_actual == posicion) {
+                break;
+            }
+        }
+        actual = actual->siguiente;
+    }
+
+    // Si llegamos a la posición correcta, insertamos el cliente
+    if (pos_actual == posicion) {
+        nuevo->siguiente = actual->siguiente;
+        actual->siguiente = nuevo;
+
+        vehiculo->clientes_contados++;
+        vehiculo->capacidad_acumulada += vrp->clientes[cliente].demanda_capacidad;
+        vehiculo->vt_actual = recalcular_tiempo_ruta(vehiculo->ruta, vrp, instancia_distancias);
+
+        return true;
+    }
+
+    // Si la posición deseada es más allá de los clientes contados, insertar antes del depósito
+    if (actual->siguiente != NULL && actual->siguiente->cliente == 0) {
+        // Insertamos antes del depósito
+        nuevo->siguiente = actual->siguiente;
+        actual->siguiente = nuevo;
+
+        vehiculo->clientes_contados++;
+        vehiculo->capacidad_acumulada += vrp->clientes[cliente].demanda_capacidad;
+        vehiculo->vt_actual = recalcular_tiempo_ruta(vehiculo->ruta, vrp, instancia_distancias);
+
+        return true;
+    }
+
+    return false;  // Si no se encontró la posición deseada
+}
+
+
+

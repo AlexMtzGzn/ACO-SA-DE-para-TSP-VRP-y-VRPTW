@@ -15,6 +15,7 @@
         "vrp_tw_aco.h": "c",
         "salida_datos.h": "c",
         "cjson.h": "c",
-        "stat.h": "c"
+        "stat.h": "c",
+        "lista_flota.h": "c"
     }
 }

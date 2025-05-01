@@ -6,7 +6,9 @@
 #include "../include/vrp_tw_sa.h"
 #include "../include/estructuras.h"
 #include "../include/lista_flota.h"
+#include "../include/lista_ruta.h"
 #include "../include/control_memoria.h"
+#include "../include/salida_datos.h"
 
 // Evalúa la función objetivo para la solución vecina
 void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
@@ -43,91 +45,78 @@ void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **
 }
 
 // Mueve un cliente aleatorio de un vehículo a otro (si es válido)
-bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp)
+bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    nodo_vehiculo *vehiculo_origen = NULL;
-    nodo_vehiculo *vehiculo_destino = NULL;
-    int intentos = 10, id_vehiculo_origen, id_vehiculo_destino, pos_cliente, id_cliente;
-    double demanda;
-    nodo_ruta *actual = NULL, *prev = NULL, *penultimo = NULL;
+    int cliente_posicion, cliente;
+    nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
+    nodo_ruta *nodo_ruta_cliente = NULL;
+    bool bandera = false;
 
-    while (intentos--)
+    vehiculo_origen = seleccionar_vehiculo_aleatorio(ind);
+    if (vehiculo_origen == NULL)
+        return false;
+
+    // Seleccionamos aleatoriamente la posicion del cliente del vehiculo ejemplo [0,5,6,8,0] solo selecciona entre 5 y 8 como indice el 0 el 5 y inicde 2 el 8 ejemplod e 3 clientes contados
+    cliente_posicion = (rand() % vehiculo_origen->vehiculo->clientes_contados);
+
+    // Asignamos nodo ruta el sigiente de la cabeza proque la cavbeza ruta seria el 0 el siguiente seria el 5, suponiendo que elige el 8 la seleccion del ejemplo
+    nodo_ruta_cliente = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
+
+    for (int i = 0; i < cliente_posicion; i++)
+        nodo_ruta_cliente = nodo_ruta_cliente->siguiente;
+
+    if (nodo_ruta_cliente == NULL)
+        return false;
+
+    cliente = nodo_ruta_cliente->cliente;
+
+    // printf("🔄 Intentando mover cliente %d desde la ruta origen %d\n", cliente, vehiculo_origen->vehiculo->id_vehiculo);
+
+    eliminar_cliente_ruta(vehiculo_origen->vehiculo, vrp, cliente, instancia_distancias);
+
+    vehiculo_destino = ind->metal->solucion_vecina->cabeza;
+
+    while (vehiculo_destino != NULL)
     {
-        // Selecciona dos vehículos distintos aleatoriamente
-        id_vehiculo_origen = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
-        do
-            id_vehiculo_destino = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
-        while (id_vehiculo_origen == id_vehiculo_destino);
-
-        // Busca el vehículo origen
-        vehiculo_origen = ind->metal->solucion_vecina->cabeza;
-        while (vehiculo_origen->vehiculo->id_vehiculo != id_vehiculo_origen)
-            vehiculo_origen = vehiculo_origen->siguiente;
-
-        // Busca el vehículo destino
-        vehiculo_destino = ind->metal->solucion_vecina->cabeza;
-        while (vehiculo_destino->vehiculo->id_vehiculo != id_vehiculo_destino)
-            vehiculo_destino = vehiculo_destino->siguiente;
-
-        if (vehiculo_origen->vehiculo->clientes_contados == 0)
-            continue;
-
-        // Escoge un cliente aleatorio del vehículo origen (no debe ser el depósito)
-        pos_cliente = rand() % vehiculo_origen->vehiculo->clientes_contados;
-        prev = vehiculo_origen->vehiculo->ruta->cabeza;
-        actual = prev->siguiente;
-
-        for (int i = 0; i < pos_cliente; i++)
+        if (vehiculo_destino == vehiculo_origen)
         {
-            prev = actual;
-            actual = actual->siguiente;
+            vehiculo_destino = vehiculo_destino->siguiente;
+            continue;
         }
 
-        if (actual->cliente == 0) // evita mover el depósito
-            continue;
+        for (int posicion = 0; posicion <= vehiculo_destino->vehiculo->clientes_contados; posicion++)
+        {
+            // Intentamos insertar el cliente en la posición especificada
+            bandera = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, cliente, posicion, instancia_distancias);
 
-        id_cliente = actual->cliente;
+            // Comprobamos si la inserción fue exitosa y si cumple con las restricciones
+            if (bandera &&
+                vehiculo_destino->vehiculo->capacidad_acumulada <= vrp->num_capacidad &&
+                vehiculo_destino->vehiculo->vt_actual <= vehiculo_destino->vehiculo->vt_final)
+            {
+                // Inserción exitosa y dentro de los límites
+                // printf("✅ Cliente %d insertado con éxito en ruta destino %d en posición %d\n",
+                //         cliente, vehiculo_destino->vehiculo->id_vehiculo, posicion);
+                return true; // Salimos de la función si la inserción es exitosa
+            }
 
-        if (id_cliente < 0 || id_cliente >= vrp->num_clientes)
-            continue;
+            // Revertimos si la inserción no es factible (capacidad o ventana de tiempo violada)
+            eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, cliente, instancia_distancias);
 
-        demanda = vrp->clientes[id_cliente].demanda_capacidad;
+            // Información sobre la reversión
+            // printf("❌ Cliente %d no fue factible en ruta %d en posición %d (capacidad o ventana de tiempo violada)\n",
+            //        cliente, vehiculo_destino->vehiculo->id_vehiculo, posicion);
+        }
 
-        // Verifica capacidad del vehículo destino
-        if ((vehiculo_destino->vehiculo->capacidad_acumulada + demanda) > vehiculo_destino->vehiculo->capacidad_maxima)
-            continue;
-
-        // Elimina el cliente de la ruta del vehículo origen
-        if (prev)
-            prev->siguiente = actual->siguiente;
-        else
-            vehiculo_origen->vehiculo->ruta->cabeza = actual->siguiente;
-
-        if (actual == vehiculo_origen->vehiculo->ruta->cola)
-            vehiculo_origen->vehiculo->ruta->cola = prev;
-
-        vehiculo_origen->vehiculo->capacidad_acumulada -= demanda;
-        vehiculo_origen->vehiculo->clientes_contados--;
-
-        // Inserta el cliente antes del depósito del vehículo destino
-        penultimo = vehiculo_destino->vehiculo->ruta->cabeza;
-        while (penultimo->siguiente != vehiculo_destino->vehiculo->ruta->cola)
-            penultimo = penultimo->siguiente;
-
-        actual->siguiente = vehiculo_destino->vehiculo->ruta->cola;
-        penultimo->siguiente = actual;
-
-        vehiculo_destino->vehiculo->capacidad_acumulada += demanda;
-        vehiculo_destino->vehiculo->clientes_contados++;
-
-        return true;
+        vehiculo_destino = vehiculo_destino->siguiente;
     }
 
+    // printf("⚠️  Cliente %d no pudo ser reinsertado en ninguna otra ruta\n", cliente);
     return false;
 }
 
 // Intercambia dos clientes aleatorios dentro de un mismo vehículo
-bool intercambiarClientes(struct individuo *ind, struct vrp_configuracion *vrp)
+bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     int vehiculo_aleatorio, intentos = 10, cliente1_idx, cliente2_idx, temp;
     nodo_vehiculo *vehiculo_actual = NULL;
@@ -151,10 +140,9 @@ bool intercambiarClientes(struct individuo *ind, struct vrp_configuracion *vrp)
         break;
     }
 
-    if (vehiculo_actual->vehiculo->clientes_contados < 2)
+    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 2)
         return false;
 
-    // Selecciona dos índices distintos para intercambiar
     do
     {
         cliente1_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
@@ -164,17 +152,35 @@ bool intercambiarClientes(struct individuo *ind, struct vrp_configuracion *vrp)
     nodo1 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
     nodo2 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
 
+    for (int i = 0; i < cliente1_idx; i++)
+        nodo1 = nodo1->siguiente;
+    for (int i = 0; i < cliente2_idx; i++)
+        nodo2 = nodo2->siguiente;
+
     if (nodo1 == NULL || nodo2 == NULL)
         return false;
-    
 
-    for (int i = 0; i < cliente1_idx; i++) nodo1 = nodo1->siguiente;
-    for (int i = 0; i < cliente2_idx; i++) nodo2 = nodo2->siguiente;
-
-    // Intercambia los clientes
+    // Intercambio tentativo
     temp = nodo1->cliente;
     nodo1->cliente = nodo2->cliente;
     nodo2->cliente = temp;
+
+    // Recalcular tiempo de ruta
+    vehiculo_actual->vehiculo->vt_actual = recalcular_tiempo_ruta(vehiculo_actual->vehiculo->ruta, vrp, instancia_distancias);
+
+    // Verificamos si sigue siendo factible con respecto a la ventana
+    if (vehiculo_actual->vehiculo->vt_actual > vehiculo_actual->vehiculo->vt_final)
+    {
+        // Revertimos el intercambio
+        temp = nodo1->cliente;
+        nodo1->cliente = nodo2->cliente;
+        nodo2->cliente = temp;
+
+        // Restauramos el tiempo original
+        vehiculo_actual->vehiculo->vt_actual = recalcular_tiempo_ruta(vehiculo_actual->vehiculo->ruta, vrp, instancia_distancias);
+
+        return false;
+    }
 
     return true;
 }
@@ -205,11 +211,11 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
     // Ciclo de enfriamiento
     while (temperatura > ind->temperatura_final)
     {
-        // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
-        printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
-               temperatura,
-               ind->metal->fitness_solucion_actual,
-               ind->metal->fitness_mejor_solucion);
+        // // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
+        // printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
+        //        temperatura,
+        //        ind->metal->fitness_solucion_actual,
+        //        ind->metal->fitness_mejor_solucion);
         // <<<
 
         for (int i = 0; i < ind->numIteracionesSA; i++)
@@ -220,13 +226,13 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
             if (ind->hormiga->vehiculos_necesarios > 1)
             {
                 if ((double)rand() / RAND_MAX < ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial)))
-                    aceptado = intercambiarClientes(ind, vrp);
+                    aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
                 else
-                    aceptado = moverClienteVehiculo(ind, vrp);
+                    aceptado = moverClienteVehiculo(ind, vrp, instancia_distancias);
             }
             else
             {
-                aceptado = intercambiarClientes(ind, vrp);
+                aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
             }
 
             if (!aceptado)
@@ -261,7 +267,6 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
 
     liberar_lista_vehiculos(ind->metal->solucion_actual);
 }
-
 
 // Inicializa la estructura metal de un individuo
 void inicializar_metal(struct individuo *ind)

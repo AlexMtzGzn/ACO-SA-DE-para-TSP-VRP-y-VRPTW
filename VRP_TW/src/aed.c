@@ -396,7 +396,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
          }
       // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
-      int barra_ancho = 50;                       // ancho de la barra de progreso
+      int barra_ancho = 50;                       // Ancho de la barra de progreso
       int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho);
 
       printf("\r[");
