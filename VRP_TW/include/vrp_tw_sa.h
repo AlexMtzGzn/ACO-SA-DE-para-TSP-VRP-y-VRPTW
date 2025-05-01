@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "../include/estructuras.h"
 
+void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias);
 void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias);
 bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias);
 bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias);

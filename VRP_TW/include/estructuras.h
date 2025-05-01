@@ -20,16 +20,18 @@ typedef struct lista_ruta
 // Estructura que representa un vehículo en la flota
 typedef struct vehiculo
 {
-    int id_vehiculo;            // ID único del vehículo
-    double capacidad_maxima;    // Capacidad máxima del vehículo
-    double capacidad_acumulada; // Capacidad actual acumulada en el vehículo
-    double vt_actual;           // Ventana de tiempo actual del vehículo
-    double vt_final;            // Ventana de tiempo final
-    double vt_inicial;          // Ventana de tiempo inicial
-    double velocidad;           // Velocidad del vehículo
-    int clientes_contados;      // Contador de clientes atendidos por el vehículo
-    lista_ruta *ruta;           // Ruta que sigue el vehículo
-    double fitness_vehiculo;    // Medida de rendimiento del vehículo
+    int id_vehiculo;                // ID único del vehículo
+    double capacidad_maxima;        // Capacidad máxima del vehículo
+    double capacidad_acumulada;     // Capacidad actual acumulada en el vehículo
+    double vt_actual;               // Ventana de tiempo actual del vehículo
+    double vt_final;                // Ventana de tiempo final
+    double vt_inicial;              // Ventana de tiempo inicial
+    double tiempo_salida_vehiculo;  // Tiempo de salida del vehiculo
+    double tiempo_llegada_vehiculo; // Tiempo de llegada del vehiculo
+    double velocidad;               // Velocidad del vehículo
+    int clientes_contados;          // Contador de clientes atendidos por el vehículo
+    lista_ruta *ruta;               // Ruta que sigue el vehículo
+    double fitness_vehiculo;        // Medida de rendimiento del vehículo
 } vehiculo;
 
 // --------------------- NODO Y LISTA DE VEHÍCULOS ---------------------

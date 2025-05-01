@@ -10,6 +10,67 @@
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
 
+void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias)
+{
+    struct nodo_vehiculo *nodoVehiculo = flota->cabeza;
+    struct vehiculo *vehiculo = NULL;
+    struct nodo_ruta *clienteActual = NULL;
+    struct nodo_ruta *clienteAnterior = NULL;
+
+    double tiempo;
+    double capacidad;
+    double inicio;
+    double fin;
+
+    bool esPrimerCliente;
+
+    while (nodoVehiculo != NULL)
+    {
+        vehiculo = nodoVehiculo->vehiculo;
+        clienteActual = vehiculo->ruta->cabeza;
+        clienteAnterior = NULL;
+
+        tiempo = 0.0;
+        capacidad = 0.0;
+        inicio = 0.0;
+        fin = 0.0;
+
+        esPrimerCliente = true;
+
+        while (clienteActual != NULL)
+        {
+            capacidad += vrp->clientes[clienteActual->cliente].demanda_capacidad;
+
+            if (clienteAnterior != NULL)
+            {
+                tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
+                tiempo += instancia_distancias[clienteAnterior->cliente][clienteActual->cliente] / vehiculo->velocidad;
+            }
+
+            if (tiempo < vrp->clientes[clienteActual->cliente].vt_inicial)
+                tiempo = vrp->clientes[clienteActual->cliente].vt_inicial;
+
+            if (esPrimerCliente)
+            {
+                inicio = tiempo;
+                esPrimerCliente = false;
+            }
+
+            clienteAnterior = clienteActual;
+            clienteActual = clienteActual->siguiente;
+        }
+
+        // Tiempo de llegada al último cliente
+        if (clienteAnterior != NULL)
+            fin = tiempo;
+
+        vehiculo->tiempo_llegada_vehiculo = fin;
+        vehiculo->tiempo_salida_vehiculo = inicio;
+
+        nodoVehiculo = nodoVehiculo->siguiente;
+    }
+}
+
 // Evalúa la función objetivo para la solución vecina
 void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
@@ -70,8 +131,6 @@ bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp, 
 
     cliente = nodo_ruta_cliente->cliente;
 
-    // printf("🔄 Intentando mover cliente %d desde la ruta origen %d\n", cliente, vehiculo_origen->vehiculo->id_vehiculo);
-
     eliminar_cliente_ruta(vehiculo_origen->vehiculo, vrp, cliente, instancia_distancias);
 
     vehiculo_destino = ind->metal->solucion_vecina->cabeza;
@@ -90,28 +149,19 @@ bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp, 
             bandera = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, cliente, posicion, instancia_distancias);
 
             // Comprobamos si la inserción fue exitosa y si cumple con las restricciones
-            if (bandera &&
-                vehiculo_destino->vehiculo->capacidad_acumulada <= vrp->num_capacidad &&
-                vehiculo_destino->vehiculo->vt_actual <= vehiculo_destino->vehiculo->vt_final)
+            if (bandera && verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias))
             {
                 // Inserción exitosa y dentro de los límites
-                // printf("✅ Cliente %d insertado con éxito en ruta destino %d en posición %d\n",
-                //         cliente, vehiculo_destino->vehiculo->id_vehiculo, posicion);
                 return true; // Salimos de la función si la inserción es exitosa
             }
 
             // Revertimos si la inserción no es factible (capacidad o ventana de tiempo violada)
             eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, cliente, instancia_distancias);
-
-            // Información sobre la reversión
-            // printf("❌ Cliente %d no fue factible en ruta %d en posición %d (capacidad o ventana de tiempo violada)\n",
-            //        cliente, vehiculo_destino->vehiculo->id_vehiculo, posicion);
         }
 
         vehiculo_destino = vehiculo_destino->siguiente;
     }
 
-    // printf("⚠️  Cliente %d no pudo ser reinsertado en ninguna otra ruta\n", cliente);
     return false;
 }
 
@@ -165,19 +215,13 @@ bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vr
     nodo1->cliente = nodo2->cliente;
     nodo2->cliente = temp;
 
-    // Recalcular tiempo de ruta
-    vehiculo_actual->vehiculo->vt_actual = recalcular_tiempo_ruta(vehiculo_actual->vehiculo->ruta, vrp, instancia_distancias);
-
-    // Verificamos si sigue siendo factible con respecto a la ventana
-    if (vehiculo_actual->vehiculo->vt_actual > vehiculo_actual->vehiculo->vt_final)
+    // Verificamos si sigue siendo factible con respecto a la ventana del timepo y capacidad
+    if (verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
     {
-        // Revertimos el intercambio
+        // Revertimos el intercambio si viola las restricciones
         temp = nodo1->cliente;
         nodo1->cliente = nodo2->cliente;
         nodo2->cliente = temp;
-
-        // Restauramos el tiempo original
-        vehiculo_actual->vehiculo->vt_actual = recalcular_tiempo_ruta(vehiculo_actual->vehiculo->ruta, vrp, instancia_distancias);
 
         return false;
     }
@@ -195,7 +239,6 @@ void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp)
 }
 
 // Algoritmo de Recocido Simulado (SA)
-// Algoritmo de Recocido Simulado (SA)
 void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
 {
     double temperatura = ind->temperatura_inicial;
@@ -212,10 +255,10 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
     while (temperatura > ind->temperatura_final)
     {
         // // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
-        // printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
-        //        temperatura,
-        //        ind->metal->fitness_solucion_actual,
-        //        ind->metal->fitness_mejor_solucion);
+        printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
+                temperatura,
+                ind->metal->fitness_solucion_actual,
+                ind->metal->fitness_mejor_solucion);
         // <<<
 
         for (int i = 0; i < ind->numIteracionesSA; i++)
@@ -288,7 +331,7 @@ void vrp_tw_sa(struct vrp_configuracion *vrp, struct individuo *ind, double **in
 
     inicializar_metal(ind);
     sa(vrp, ind, instancia_distancias);
-
+    calculamosVentanasCapacidad(ind->metal->mejor_solucion, vrp, instancia_distancias);
     // Si se mejora la solución global, se guarda
     if (ind->metal->fitness_mejor_solucion < ind->hormiga->fitness_global)
     {

@@ -288,7 +288,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
 
     int origen; // Variable para almacenar el nodo de origen en cada iteración
 
-    double aux_tiempo = 0.0;
+    double aux_tiempo_final = 0.0, aux_tiempo_inicial = 0.0;
 
     // Bucle principal: continúa hasta que la hormiga haya visitado todos los clientes
     while (hormiga->tabu_contador < vrp->num_clientes)
@@ -328,7 +328,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                 if (ruta->cola->cliente != 0)
                 {
                     insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Regreso al depósito
-                    vehiculo->vt_actual = aux_tiempo;
+                    vehiculo->vt_actual = aux_tiempo_final;
                 }
 
                 // Si aún quedan clientes por visitar, agregamos un nuevo vehículo
@@ -338,7 +338,8 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                     hormiga->vehiculos_necesarios++;                                         // Incrementamos el número de vehículos en uso
                     flota_vehiculo = hormiga->flota->cola;                                   // Apuntamos al nuevo vehículo agregado
                     vehiculo = flota_vehiculo->vehiculo;                                     // Lo seleccionamos como vehículo actual
-                    aux_tiempo = 0.0;
+                    aux_tiempo_final = 0.0;
+                    aux_tiempo_inicial = 0.0;
                 }
             }
             else
@@ -390,7 +391,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                 // Actualizamos la carga del vehículo con la demanda del cliente visitado
                 vehiculo->capacidad_acumulada += vrp->clientes[proximo_cliente].demanda_capacidad;
 
-                aux_tiempo = vehiculo->vt_actual;
+                aux_tiempo_final = vehiculo->vt_actual;
             }
         }
     }
@@ -398,7 +399,9 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
     // Verificamos si el depósito fue agregado al final de la ruta
     if (ruta->cola->cliente != 0)
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el depósito al final
-    vehiculo->vt_actual = aux_tiempo;
+    vehiculo->vt_actual = aux_tiempo_final;
+    vehiculo->tiempo_llegada_vehiculo = aux_tiempo_final;
+    vehiculo->tiempo_salida_vehiculo = aux_tiempo_inicial;
 }
 
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)
