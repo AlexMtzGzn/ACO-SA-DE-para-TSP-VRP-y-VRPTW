@@ -118,7 +118,7 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
     }
 }
 
-void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
+void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias)
 {
     // Recorremos cada vehículo en la flota de la hormiga
     struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
@@ -345,8 +345,8 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             else
             {
                 printf("\nReinicio");
-                // Si se alcanzó el límite de vehículos permitidos, reiniciamos la hormiga
                 reiniciar_hormiga(hormiga, vrp);
+                printf("\nTermino de Reiniciar");
             }
         }
         else
@@ -411,7 +411,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
     int indice = -1; // Índice de la mejor hormiga en cada iteración, inicializado en -1
-
+    imprimir_individuo(ind);
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(vrp, ind, hormiga);
 
@@ -425,7 +425,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias, instancia_ventanas_tiempo);
 
             // Calculamos el fitness de la ruta generada por la hormiga j
-            calcular_fitness(&hormiga[j], instancia_distancias);
+            evaluaFO_ACO(&hormiga[j], instancia_distancias);
         }
 
         // Buscamos la hormiga con el mejor fitness en esta iteración

@@ -360,6 +360,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
          resultado->gamma = objetivo[i].gamma;
          resultado->rho = objetivo[i].rho;
          resultado->numHormigas = objetivo[i].numHormigas;
+         resultado->numIteracionesACO = prueba[i].numIteracionesACO;
          resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
          resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
          resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
