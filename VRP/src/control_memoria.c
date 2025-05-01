@@ -237,7 +237,7 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
     hormiga->fitness_global = 0.0;
     
     // Free old fleet and create a new one
-    liberar_lista_vehiculos(hormiga->flota);
+    vaciar_lista_vehiculos(hormiga->flota);
     hormiga->vehiculos_necesarios = 0;
     
     // Insert the first vehicle

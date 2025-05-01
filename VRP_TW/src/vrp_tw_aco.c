@@ -344,6 +344,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             }
             else
             {
+                printf("\nReinicio");
                 // Si se alcanzó el límite de vehículos permitidos, reiniciamos la hormiga
                 reiniciar_hormiga(hormiga, vrp);
             }

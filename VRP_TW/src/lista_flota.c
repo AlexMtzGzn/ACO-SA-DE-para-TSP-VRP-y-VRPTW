@@ -168,7 +168,8 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
         // Liberar la memoria del nodo actual
         free(vehiculo_temp);
     }
-
+     // Establecer la cabeza y cola de la flota a NULL
+     
     free(flota); // Liberar la memoria de la lista de vehículos
 }
 
