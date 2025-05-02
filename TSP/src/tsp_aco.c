@@ -13,6 +13,10 @@
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
     // Verificamos que la hormiga del individuo esté inicializada
+    if (ind->hormiga != NULL && ind->hormiga->ruta != NULL)
+        liberar_lista_ruta(ind->hormiga->ruta); // Libera completamente la ruta anterior
+
+    // Si la hormiga no estaba creada aún, asignarla
     if (ind->hormiga == NULL)
         ind->hormiga = asignar_memoria_hormigas(1); // Asegúrate de inicializar su ruta como NULL
 
@@ -20,8 +24,7 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
     ind->hormiga->id_hormiga = hormiga->id_hormiga;
     ind->fitness = hormiga->fitness_global;
     ind->hormiga->fitness_global = hormiga->fitness_global;
-    if (ind->hormiga->ruta == NULL)
-        liberar_lista_ruta(ind->hormiga->ruta); // Libera completamente la ruta anterior
+
     // Copiamos la ruta
     ind->hormiga->ruta = copiar_lista_ruta(hormiga->ruta);
 }
