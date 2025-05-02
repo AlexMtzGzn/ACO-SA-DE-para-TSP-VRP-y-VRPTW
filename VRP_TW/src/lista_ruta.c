@@ -104,40 +104,59 @@ void liberar_ruta(struct lista_ruta *ruta)
     free(ruta); // Se libera la estructura de la lista de ruta
 }
 
-bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias)
-{
+bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias) {
     struct lista_ruta *ruta = vehiculo->ruta;
     struct nodo_ruta *clienteActual = ruta->cabeza;
     struct nodo_ruta *clienteAnterior = NULL;
-    double tiempoLlegada = 0.0;
+
+    double tiempo = 0.0;       // Tiempo acumulado real (con servicio, espera, etc.)
+    double tiempo_llegada = 0.0;
     double capacidad = 0.0;
 
-    while (clienteActual != NULL)
-    {
-        // Acumula la demanda del cliente actual
-        capacidad += vrp->clientes[clienteActual->cliente].demanda_capacidad;
+    if (clienteActual == NULL || clienteActual->siguiente == NULL)
+        return true;
 
-        // Verifica que no se exceda la capacidad máxima
+    while (clienteActual != NULL) {
+        int id = clienteActual->cliente;
+
+        // Acumula demanda
+        capacidad += vrp->clientes[id].demanda_capacidad;
         if (capacidad > vehiculo->capacidad_maxima)
             return false;
 
-        // Calcula el tiempo de llegada
-        if (clienteAnterior != NULL)
-        {
-            tiempoLlegada += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
-            tiempoLlegada += instancia_distancias[clienteAnterior->cliente][clienteActual->cliente] / vehiculo->velocidad;
+        // Calcular tiempo de llegada (sin esperas)
+        if (clienteAnterior != NULL) {
+            int prev_id = clienteAnterior->cliente;
+
+            // Solo sumamos tiempo de servicio si no es depósito
+            if (prev_id != 0)
+                tiempo += vrp->clientes[prev_id].tiempo_servicio;
+
+            tiempo += instancia_distancias[prev_id][id] / vehiculo->velocidad;
         }
 
-        // Ajuste por ventana de tiempo
-        if (tiempoLlegada < vrp->clientes[clienteActual->cliente].vt_inicial)
-            tiempoLlegada = vrp->clientes[clienteActual->cliente].vt_inicial;
+        tiempo_llegada = tiempo;
 
-        if (tiempoLlegada > vrp->clientes[clienteActual->cliente].vt_final)
+        // Si se llega antes, hay espera
+        if (tiempo < vrp->clientes[id].vt_inicial)
+            tiempo = vrp->clientes[id].vt_inicial;
+
+        // Si llegamos demasiado tarde
+        if (tiempo_llegada > vrp->clientes[id].vt_final)
             return false;
 
-        // Avanza al siguiente cliente
         clienteAnterior = clienteActual;
         clienteActual = clienteActual->siguiente;
+    }
+
+    // Verificar retorno al depósito
+    if (clienteAnterior != NULL && clienteAnterior->cliente != 0) {
+        int last_id = clienteAnterior->cliente;
+        tiempo += vrp->clientes[last_id].tiempo_servicio;
+        tiempo += instancia_distancias[last_id][0] / vehiculo->velocidad;
+
+        if (tiempo > vrp->clientes[0].vt_final)
+            return false;
     }
 
     return true;

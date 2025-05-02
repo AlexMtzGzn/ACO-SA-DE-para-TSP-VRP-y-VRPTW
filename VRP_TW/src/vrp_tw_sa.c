@@ -10,62 +10,90 @@
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
 
-void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias)
-{
+void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias) {
     struct nodo_vehiculo *nodoVehiculo = flota->cabeza;
     struct vehiculo *vehiculo = NULL;
     struct nodo_ruta *clienteActual = NULL;
     struct nodo_ruta *clienteAnterior = NULL;
 
-    double tiempo;
-    double capacidad;
-    double inicio;
-    double fin;
+    double tiempo;           // Tiempo actual en la ruta
+    double capacidad;        // Capacidad acumulada del vehículo
+    double inicio;           // Tiempo de salida del vehículo (primer cliente)
+    double fin;              // Tiempo de regreso al depósito (último cliente)
+    double tiempo_llegada;   // Tiempo de llegada al cliente actual
 
-    bool esPrimerCliente;
+    bool esPrimerClienteNoDeposito;  // Para marcar el primer cliente que no es depósito
 
-    while (nodoVehiculo != NULL)
-    {
+    while (nodoVehiculo != NULL) {
         vehiculo = nodoVehiculo->vehiculo;
         clienteActual = vehiculo->ruta->cabeza;
         clienteAnterior = NULL;
 
-        tiempo = 0.0;
-        capacidad = 0.0;
+        tiempo = 0.0;         // Comenzamos en tiempo 0 (depósito)
+        capacidad = 0.0;      // Comenzamos con el vehículo vacío
         inicio = 0.0;
         fin = 0.0;
 
-        esPrimerCliente = true;
+        esPrimerClienteNoDeposito = true;
 
-        while (clienteActual != NULL)
-        {
-            capacidad += vrp->clientes[clienteActual->cliente].demanda_capacidad;
-
-            if (clienteAnterior != NULL)
-            {
-                tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
-                tiempo += instancia_distancias[clienteAnterior->cliente][clienteActual->cliente] / vehiculo->velocidad;
+        while (clienteActual != NULL) {
+            // Saltamos el depósito de inicio en cálculos de capacidad (cliente 0)
+            if (clienteActual->cliente != 0) {
+                capacidad += vrp->clientes[clienteActual->cliente].demanda_capacidad;
+                
+                // Verificamos si se excede la capacidad del vehículo
+                if (capacidad > vehiculo->capacidad_maxima) {
+                    printf("¡Advertencia! Capacidad excedida en vehículo %d: %.2f > %.2f\n", 
+                           vehiculo->id_vehiculo, capacidad, vehiculo->capacidad_maxima);
+                }
             }
 
-            if (tiempo < vrp->clientes[clienteActual->cliente].vt_inicial)
-                tiempo = vrp->clientes[clienteActual->cliente].vt_inicial;
+            // Calculamos el tiempo de llegada al cliente actual
+            if (clienteAnterior != NULL) {
+                // Añadimos tiempo de servicio del cliente anterior
+                tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
+                
+                // Añadimos tiempo de viaje al cliente actual
+                tiempo += instancia_distancias[clienteAnterior->cliente][clienteActual->cliente] / vehiculo->velocidad;
+            }
+            
+            tiempo_llegada = tiempo; // Guardamos el tiempo de llegada antes de esperar
 
-            if (esPrimerCliente)
-            {
+            // Si llegamos antes de la ventana de tiempo, esperamos
+            if (tiempo < vrp->clientes[clienteActual->cliente].vt_inicial) {
+                tiempo = vrp->clientes[clienteActual->cliente].vt_inicial;
+            }
+            
+            // Verificamos si llegamos después de la ventana de tiempo
+            if (tiempo_llegada > vrp->clientes[clienteActual->cliente].vt_final) {
+                printf("¡Advertencia! Ventana de tiempo violada en cliente %d: llegada %.2f > límite %.2f\n", 
+                       clienteActual->cliente, tiempo_llegada, vrp->clientes[clienteActual->cliente].vt_final);
+            }
+
+            // Registramos el tiempo de inicio con el primer cliente no-depósito
+            if (esPrimerClienteNoDeposito && clienteActual->cliente != 0) {
                 inicio = tiempo;
-                esPrimerCliente = false;
+                esPrimerClienteNoDeposito = false;
+            }
+
+            // El tiempo final es el tiempo de llegada al último cliente más su tiempo de servicio
+            if (clienteActual->siguiente == NULL) {
+                fin = tiempo + vrp->clientes[clienteActual->cliente].tiempo_servicio;
             }
 
             clienteAnterior = clienteActual;
             clienteActual = clienteActual->siguiente;
         }
 
-        // Tiempo de llegada al último cliente
-        if (clienteAnterior != NULL)
-            fin = tiempo;
+        // Si la ruta está vacía (solo depósito), ambos tiempos son 0
+        if (vehiculo->clientes_contados == 0) {
+            inicio = 0.0;
+            fin = 0.0;
+        }
 
         vehiculo->tiempo_llegada_vehiculo = fin;
         vehiculo->tiempo_salida_vehiculo = inicio;
+        vehiculo->capacidad_acumulada = capacidad;  // Actualizamos la capacidad acumulada
 
         nodoVehiculo = nodoVehiculo->siguiente;
     }
@@ -216,7 +244,7 @@ bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vr
     nodo2->cliente = temp;
 
     // Verificamos si sigue siendo factible con respecto a la ventana del timepo y capacidad
-    if (verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
+    if (!verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
     {
         // Revertimos el intercambio si viola las restricciones
         temp = nodo1->cliente;
@@ -224,6 +252,79 @@ bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vr
         nodo2->cliente = temp;
 
         return false;
+    }
+
+    return true;
+}
+
+// Invierte el orden de un segmente de la ruta
+bool invertirSegmentoRuta(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+{
+    nodo_vehiculo *vehiculo_actual = NULL;
+    nodo_ruta *inicio = NULL, *fin = NULL;
+    int idx1, idx2, total_clientes;
+    int i;
+
+    // Seleccionamos un vehículo aleatorio que tenga al menos 3 clientes
+    for (int intento = 0; intento < 10; intento++)
+    {
+        vehiculo_actual = seleccionar_vehiculo_aleatorio(ind);
+
+        if (vehiculo_actual && vehiculo_actual->vehiculo->clientes_contados >= 3)
+            break;
+    }
+
+    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 3)
+        return false;
+
+    total_clientes = vehiculo_actual->vehiculo->clientes_contados;
+
+    // Elegimos dos posiciones distintas idx1 < idx2 dentro de la ruta del vehículo
+    idx1 = rand() % total_clientes;
+    idx2 = rand() % total_clientes;
+
+    while (idx1 == idx2)
+        idx2 = rand() % total_clientes;
+
+    if (idx1 > idx2)
+    {
+        int tmp = idx1;
+        idx1 = idx2;
+        idx2 = tmp;
+    }
+
+    // Obtenemos punteros a los nodos en las posiciones idx1 e idx2
+    inicio = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+    for (i = 0; i < idx1; i++)
+        inicio = inicio->siguiente;
+
+    fin = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+    for (i = 0; i < idx2; i++)
+        fin = fin->siguiente;
+
+    if (inicio == NULL || fin == NULL)
+        return false;
+
+    // Invertimos el segmento entre idx1 e idx2
+    while (idx1 < idx2)
+    {
+        int temp = inicio->cliente;
+        inicio->cliente = fin->cliente;
+        fin->cliente = temp;
+
+        inicio = inicio->siguiente;
+        nodo_ruta *prev = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+        for (i = 0; i < --idx2; i++)
+            prev = prev->siguiente;
+        fin = prev;
+        idx1++;
+    }
+
+    // Verificamos que las restricciones sigan válidas
+    if (!verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
+    {
+        // Si no es válido, revertimos
+        return invertirSegmentoRuta(ind, vrp, instancia_distancias); // intentamos otra inversión
     }
 
     return true;
@@ -241,8 +342,7 @@ void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp)
 // Algoritmo de Recocido Simulado (SA)
 void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
 {
-    double temperatura = ind->temperatura_inicial;
-    double delta;
+    double temperatura = ind->temperatura_inicial, delta, prob, factor;
     bool aceptado = false;
 
     // Inicialización de soluciones
@@ -254,28 +354,38 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
     // Ciclo de enfriamiento
     while (temperatura > ind->temperatura_final)
     {
-        // // // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
-        // printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
-        //         temperatura,
-        //         ind->metal->fitness_solucion_actual,
-        //         ind->metal->fitness_mejor_solucion);
-        // // <<<
+        // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
+        printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
+               temperatura,
+               ind->metal->fitness_solucion_actual,
+               ind->metal->fitness_mejor_solucion);
+        // <<<
 
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
             generar_vecino(ind, vrp);
 
-            // Se decide qué movimiento hacer según una probabilidad controlada por temperatura
+            prob = (double)rand() / RAND_MAX;
+            factor = 0.1 + ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial));
+            aceptado = false;
+
             if (ind->hormiga->vehiculos_necesarios > 1)
             {
-                if ((double)rand() / RAND_MAX < ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial)))
+                // Distribuye el factor entre los tres movimientos, puedes ajustar los pesos si lo deseas
+                if (prob < factor / 3.0)
                     aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
-                else
+                else if (prob < 2.0 * factor / 3.0)
                     aceptado = moverClienteVehiculo(ind, vrp, instancia_distancias);
+                else
+                    aceptado = invertirSegmentoRuta(ind, vrp, instancia_distancias);
             }
             else
             {
-                aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
+                // Si solo hay un vehículo, mover cliente no tiene sentido
+                if (prob < factor)
+                    aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
+                else
+                    aceptado = invertirSegmentoRuta(ind, vrp, instancia_distancias);
             }
 
             if (!aceptado)
@@ -332,6 +442,7 @@ void vrp_tw_sa(struct vrp_configuracion *vrp, struct individuo *ind, double **in
     inicializar_metal(ind);
     sa(vrp, ind, instancia_distancias);
     calculamosVentanasCapacidad(ind->metal->mejor_solucion, vrp, instancia_distancias);
+
     // Si se mejora la solución global, se guarda
     if (ind->metal->fitness_mejor_solucion < ind->hormiga->fitness_global)
     {
