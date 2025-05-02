@@ -152,36 +152,37 @@ void calcular_posibles_clientes(struct tsp_configuracion *tsp, struct hormiga *h
 
 double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct tsp_configuracion *tsp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad)
 {
-    // Calculamos el numerador de la fórmula de probabilidad
-    // La fórmula se basa en tres componentes: la cantidad de feromona y la visibilidad .
-    // Cada uno de estos valores se eleva a un exponente, que está definido por los parámetros alpha, beta y gamma del individuo.
-    // Feromona^alpha * Visibilidad^beta
+    // Establecer un valor mínimo para evitar valores extremadamente pequeños
+    double epsilon = 1e-6, feromona, visibilidad, numerador, probabilidad;
 
-    double numerador = pow(instancia_feromona[origen][destino], ind->alpha) *
-                       pow(instancia_visibilidad[origen][destino], ind->beta);
+    // Validar los valores de las matrices en el numerador
+    feromona = fmax(instancia_feromona[origen][destino], epsilon);
+    visibilidad = fmax(instancia_visibilidad[origen][destino], epsilon);
 
-    // Inicializamos la suma de probabilidades a 0 antes de calcular el denominador
+    // Calculamos el numerador: Feromona^alpha * Visibilidad^beta
+    numerador = pow(feromona, ind->alpha) * pow(visibilidad, ind->beta);
+
+    // Inicializamos la suma de probabilidades (denominador)
     hormiga->suma_probabilidades = 0.0;
 
-    // Calculamos la suma de probabilidades (denominador)
-    // Sumamos todas las probabilidades de los posibles clientes que no sean el origen y que sean accesibles
+    // Calculamos la suma de probabilidades
     for (int i = 0; i < tsp->num_clientes; i++)
     {
-        // Verificamos que el cliente no sea el origen y que sea un cliente posible
         if (i != origen && hormiga->posibles_clientes[i] == 1)
         {
-            // Acumulamos la probabilidad de cada cliente posible usando los mismos términos que en el numerador
-            hormiga->suma_probabilidades += pow(instancia_feromona[origen][i], ind->alpha) *
-                                            pow(instancia_visibilidad[origen][i], ind->beta);
+            feromona = fmax(instancia_feromona[origen][i], epsilon);
+            visibilidad = fmax(instancia_visibilidad[origen][i], epsilon);
+
+            hormiga->suma_probabilidades += pow(feromona, ind->alpha) *
+                                            pow(visibilidad, ind->beta);
         }
     }
+
     // Protección contra la división por cero
     if (hormiga->suma_probabilidades == 0.0)
-        return 0.0; // O alguna otra estrategia para manejar este caso (como devolver 1.0 o el valor predeterminado)
+        return 0.0;
 
-    // Retornamos la probabilidad de elegir el cliente destino dado el origen
-    // La probabilidad es el valor del numerador dividido por la suma de probabilidades (denominador)
-    double probabilidad = 0.0;
+    // Retornamos la probabilidad
     probabilidad = numerador / hormiga->suma_probabilidades;
     return probabilidad;
 }
