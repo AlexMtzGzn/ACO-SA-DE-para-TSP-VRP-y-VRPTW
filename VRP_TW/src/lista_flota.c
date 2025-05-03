@@ -72,6 +72,8 @@ struct vehiculo *copiar_vehiculo(struct vehiculo *original)
     nuevo_vehiculo->id_vehiculo = original->id_vehiculo;
     nuevo_vehiculo->capacidad_maxima = original->capacidad_maxima;
     nuevo_vehiculo->capacidad_acumulada = original->capacidad_acumulada;
+    nuevo_vehiculo->tiempo_llegada_vehiculo = original->tiempo_llegada_vehiculo;
+    nuevo_vehiculo->tiempo_salida_vehiculo = original->tiempo_salida_vehiculo;
     nuevo_vehiculo->vt_actual = original->vt_actual;
     nuevo_vehiculo->vt_final = original->vt_final;
     nuevo_vehiculo->vt_inicial = original->vt_inicial;

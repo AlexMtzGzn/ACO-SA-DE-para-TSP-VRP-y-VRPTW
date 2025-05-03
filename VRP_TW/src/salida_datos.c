@@ -48,8 +48,8 @@ void imprimir_vehiculo(struct vehiculo *vehiculo)
     printf("  + Vehículo ID: %d\n", vehiculo->id_vehiculo);
     printf("    - Capacidad máxima: %.2f\n", vehiculo->capacidad_maxima);
     printf("    - Capacidad acumulada: %.2f\n", vehiculo->capacidad_acumulada);
-    printf("    - Tiempo Salida: %.2f\n", vehiculo->tiempo_salida_vehiculo);
-    printf("    - Tiempo Llegada: %.2f\n", vehiculo->tiempo_llegada_vehiculo);
+    printf("    - Tiempo Salida: %.2lf\n", vehiculo->tiempo_salida_vehiculo);
+    printf("    - Tiempo Llegada: %.2lf\n", vehiculo->tiempo_llegada_vehiculo);
     printf("    - Ventana Inicial: %.2f\n", vehiculo->vt_inicial);
     printf("    - Ventana Final: %.2f\n", vehiculo->vt_final);
     printf("    - Número de clientes: %d\n", vehiculo->clientes_contados);
