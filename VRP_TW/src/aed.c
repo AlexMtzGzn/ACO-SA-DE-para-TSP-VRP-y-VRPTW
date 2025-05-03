@@ -347,8 +347,8 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
 
    // Inicializamos la estructura de resultados
    resultado->fitness = INFINITY;
-   //resultado->hormiga = asignar_memoria_hormigas(1);
-   // Evaluamos la función objetivo para cada individuo de la población inicial
+   // resultado->hormiga = asignar_memoria_hormigas(1);
+   //  Evaluamos la función objetivo para cada individuo de la población inicial
    for (int i = 0; i < num_poblacion; ++i) // Iniciamos la funcion objetivo con el objetivo
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);
    // Encontramos el mejor individuo de la población inicial
