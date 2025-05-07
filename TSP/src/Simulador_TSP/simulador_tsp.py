@@ -188,6 +188,8 @@ if __name__ == "__main__":
     
     # Construir la ruta del archivo correctamente
     archivo_json = sys.argv[1]
+
+    print(sys.argv[1])
     
     # Si el usuario proporciona la ruta completa, usarla directamente
     if os.path.exists(archivo_json):
