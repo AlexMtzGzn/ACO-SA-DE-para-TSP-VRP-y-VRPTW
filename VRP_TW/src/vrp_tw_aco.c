@@ -277,10 +277,34 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo)
 {
     // Seleccionamos la flota de la hormiga
+    // Validaciones iniciales
+    if (!vrp || !ind || !hormiga || !instancia_visibilidad || !instancia_feromona || !instancia_distancias || !instancia_ventanas_tiempo)
+    {
+        fprintf(stderr, "Error: Algún puntero de entrada es NULL\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (!hormiga->flota || !hormiga->flota->cabeza)
+    {
+        fprintf(stderr, "Error: Flota de hormiga no inicializada correctamente\n");
+        exit(EXIT_FAILURE);
+    }
+
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza;
 
-    // Seleccionamos el primer vehículo de la flota de la hormiga
+    if (!flota_vehiculo->vehiculo)
+    {
+        fprintf(stderr, "Error: Vehículo de flota no inicializado\n");
+        exit(EXIT_FAILURE);
+    }
+
     struct vehiculo *vehiculo = flota_vehiculo->vehiculo;
+
+    if (!vehiculo->ruta)
+    {
+        fprintf(stderr, "Error: Ruta del vehículo no inicializada\n");
+        exit(EXIT_FAILURE);
+    }
 
     // Apuntador a la lista de rutas del vehículo
     struct lista_ruta *ruta = vehiculo->ruta;
@@ -340,6 +364,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             else
             {
                 reiniciar_hormiga(hormiga, vrp);
+                continue;
             }
         }
         else

@@ -107,7 +107,7 @@ void liberar_ruta(struct lista_ruta *ruta)
 // // Función para verificar restricciones de un vehículo individual
 // bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias) {
 //     bool restricciones_ok = true;
-    
+
 //     struct lista_ruta *ruta = vehiculo->ruta;
 //     struct nodo_ruta *clienteActual = ruta->cabeza;
 //     struct nodo_ruta *clienteAnterior = NULL;
@@ -118,7 +118,7 @@ void liberar_ruta(struct lista_ruta *ruta)
 
 //     // Si la ruta está vacía o solo tiene el depósito, no hay restricciones que violar
 //     if (clienteActual == NULL || (clienteActual->cliente == 0 && clienteActual->siguiente == NULL)) {
-       
+
 //         return true;
 //     }
 
@@ -129,11 +129,11 @@ void liberar_ruta(struct lista_ruta *ruta)
 //         // Acumular demanda si no es depósito (el depósito tiene demanda 0)
 //         if (id != 0) {
 //             capacidad += vrp->clientes[id].demanda_capacidad;
-            
+
 //             // Verificar si se excede la capacidad máxima
 //             if (capacidad > vehiculo->capacidad_maxima) {
 //                 restricciones_ok = false;
-               
+
 //                 break;
 //             }
 //         }
@@ -153,7 +153,7 @@ void liberar_ruta(struct lista_ruta *ruta)
 //             // Primer movimiento desde depósito si el primer nodo no es el depósito
 //             tiempo += instancia_distancias[0][id] / vehiculo->velocidad;
 //         }
-        
+
 //         tiempo_llegada = tiempo; // Guardamos el tiempo de llegada exacto
 
 //         // Verificar ventana temporal (solo para clientes, no para depósito)
@@ -161,10 +161,10 @@ void liberar_ruta(struct lista_ruta *ruta)
 //             // Si llegamos demasiado tarde
 //             if (tiempo_llegada > vrp->clientes[id].vt_final) {
 //                 restricciones_ok = false;
-                
+
 //                 break;
 //             }
-            
+
 //             // Si llegamos antes, actualizamos el tiempo para considerar la espera
 //             if (tiempo < vrp->clientes[id].vt_inicial) {
 //                 tiempo = vrp->clientes[id].vt_inicial;
@@ -178,17 +178,17 @@ void liberar_ruta(struct lista_ruta *ruta)
 //     // Si todas las restricciones se cumplieron hasta ahora, verificar el retorno al depósito
 //     if (restricciones_ok && clienteAnterior != NULL && clienteAnterior->cliente != 0) {
 //         int last_id = clienteAnterior->cliente;
-        
+
 //         // Tiempo de servicio del último cliente
 //         tiempo += vrp->clientes[last_id].tiempo_servicio;
-        
+
 //         // Tiempo de viaje de regreso al depósito
 //         tiempo += instancia_distancias[last_id][0] / vehiculo->velocidad;
 
 //         // Verificar si se llega tarde al depósito
 //         if (tiempo > vrp->clientes[0].vt_final) {
 //             restricciones_ok = false;
-           
+
 //         }
 //     }
 
@@ -196,7 +196,7 @@ void liberar_ruta(struct lista_ruta *ruta)
 //     if (restricciones_ok) {
 //         vehiculo->capacidad_acumulada = capacidad;
 //         vehiculo->tiempo_llegada_vehiculo = tiempo;
-        
+
 //     }
 
 //     return restricciones_ok;
@@ -206,110 +206,99 @@ void liberar_ruta(struct lista_ruta *ruta)
 //     bool flota_cumple_restricciones = true;
 //     int vehiculos_con_violaciones = 0;
 //     int total_vehiculos = 0;
-    
 
-    
 //     struct nodo_vehiculo *nodoVehiculo = flota->cabeza;
-    
+
 //     // Recorremos todos los vehículos de la flota
 //     while (nodoVehiculo != NULL) {
 //         struct vehiculo *vehiculo = nodoVehiculo->vehiculo;
 //         total_vehiculos++;
-        
-       
-        
+
 //         bool vehiculo_ok = verificarRestricciones(vehiculo, vrp, instancia_distancias);
-        
+
 //         if (!vehiculo_ok) {
 //             flota_cumple_restricciones = false;
 //             vehiculos_con_violaciones++;
 //         }
-        
+
 //         nodoVehiculo = nodoVehiculo->siguiente;
 //     }
-    
+
 //     // Resumen final
-    
 
 //     return flota_cumple_restricciones;
 // }
 
+//
+#include <stdbool.h>  // Para usar 'bool', 'true' y 'false'
 
 bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    bool restricciones_ok = true;
-
-    struct lista_ruta *ruta = vehiculo->ruta;
-    struct nodo_ruta *clienteActual = ruta->cabeza;
+    struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
     struct nodo_ruta *clienteAnterior = NULL;
 
-    double tiempo = 0.0;         // Tiempo acumulado real (con servicio, espera, etc.)
-    double tiempo_llegada = 0.0; // Tiempo exacto de llegada antes de esperas
-    double capacidad = 0.0;      // Capacidad acumulada
+    double tiempo = 0.0;
+    double capacidad = 0.0;
+    double inicio = 0.0;
+    double fin = 0.0;
 
-    // Si la ruta está vacía o solo tiene el depósito, no hay restricciones que violar
-    if (clienteActual == NULL || (clienteActual->cliente == 0 && clienteActual->siguiente == NULL))
-    {
-
-        return true;
-    }
-
-    // Recorremos la ruta cliente por cliente
+    // Verificar los clientes de la ruta del vehículo
     while (clienteActual != NULL)
     {
-        int id = clienteActual->cliente;
+        int id_actual = clienteActual->cliente;
 
-        // Acumular demanda si no es depósito (el depósito tiene demanda 0)
-        if (id != 0)
+        // Si es el primer cliente (después del depósito)
+        if (clienteAnterior == NULL)
         {
-            capacidad += vrp->clientes[id].demanda_capacidad;
-
-            // Verificar si se excede la capacidad máxima
-            if (capacidad > vehiculo->capacidad_maxima)
+            if (id_actual != 0)
             {
-                restricciones_ok = false;
+                tiempo += instancia_distancias[0][id_actual] / vehiculo->velocidad;
 
-                break;
+                // Asegurarse de no llegar antes del inicio de la ventana de tiempo
+                if (tiempo < vrp->clientes[id_actual].vt_inicial)
+                {
+                    tiempo = vrp->clientes[id_actual].vt_inicial;
+                }
+
+                // Acumulando la demanda de capacidad
+                capacidad += vrp->clientes[id_actual].demanda_capacidad;
+
+                // Verificar violación de ventana de tiempo
+                if (tiempo > vrp->clientes[id_actual].vt_final)
+                {
+                    //printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
+                           //id_actual, tiempo, vrp->clientes[id_actual].vt_final);
+                    return false; // Violación de ventana de tiempo, retorno falso
+                }
             }
         }
-
-        // Calcular tiempo de llegada
-        if (clienteAnterior != NULL)
+        else
         {
-            int prev_id = clienteAnterior->cliente;
-
-            // Solo sumamos tiempo de servicio si no es depósito
-            if (prev_id != 0)
+            // Para los siguientes clientes, calcular tiempo de viaje y servicio
+            if (clienteAnterior->cliente != 0)
             {
-                tiempo += vrp->clientes[prev_id].tiempo_servicio;
+                tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
             }
 
-            // Tiempo de viaje desde cliente anterior al actual
-            tiempo += instancia_distancias[prev_id][id] / vehiculo->velocidad;
-        }
-        else if (id != 0)
-        {
-            // Primer movimiento desde depósito si el primer nodo no es el depósito
-            tiempo += instancia_distancias[0][id] / vehiculo->velocidad;
-        }
+            tiempo += instancia_distancias[clienteAnterior->cliente][id_actual] / vehiculo->velocidad;
 
-        tiempo_llegada = tiempo; // Guardamos el tiempo de llegada exacto
-
-        // Verificar ventana temporal (solo para clientes, no para depósito)
-        if (id != 0)
-        {
-            // Si llegamos demasiado tarde
-            if (tiempo_llegada > vrp->clientes[id].vt_final)
+            // Asegurarse de no llegar antes del inicio de la ventana de tiempo
+            if (tiempo < vrp->clientes[id_actual].vt_inicial)
             {
-                restricciones_ok = false;
-
-                break;
+                tiempo = vrp->clientes[id_actual].vt_inicial;
             }
 
-            // Si llegamos antes, actualizamos el tiempo para considerar la espera
-            if (tiempo < vrp->clientes[id].vt_inicial)
+            if (id_actual != 0)
             {
-                tiempo = vrp->clientes[id].vt_inicial;
+                capacidad += vrp->clientes[id_actual].demanda_capacidad;
+
+                // Verificar violación de ventana de tiempo
+                if (tiempo > vrp->clientes[id_actual].vt_final)
+                {
+                    //printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
+                          // id_actual, tiempo, vrp->clientes[id_actual].vt_final);
+                    return false; // Violación de ventana de tiempo, retorno falso
+                }
             }
         }
 
@@ -317,26 +306,30 @@ bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion 
         clienteActual = clienteActual->siguiente;
     }
 
-    // Si todas las restricciones se cumplieron hasta ahora, verificar el retorno al depósito
-    if (restricciones_ok && clienteAnterior != NULL && clienteAnterior->cliente != 0)
+    // Después de la última entrega, volver al depósito
+    if (clienteAnterior != NULL && clienteAnterior->cliente != 0)
     {
-        int last_id = clienteAnterior->cliente;
+        tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
+    }
+    tiempo += instancia_distancias[clienteAnterior->cliente][0] / vehiculo->velocidad;
+    fin = tiempo;
 
-        // Tiempo de servicio del último cliente
-        tiempo += vrp->clientes[last_id].tiempo_servicio;
+    // Asignamos el tiempo de salida y llegada del vehículo
+    vehiculo->tiempo_salida_vehiculo = inicio;
+    vehiculo->tiempo_llegada_vehiculo = fin;
+    vehiculo->capacidad_acumulada = capacidad;
 
-        // Tiempo de viaje de regreso al depósito
-        tiempo += instancia_distancias[last_id][0] / vehiculo->velocidad;
-
-        // Verificar si se llega tarde al depósito
-        if (tiempo > vrp->clientes[0].vt_final)
-        {
-            restricciones_ok = false;
-        }
+    // Verificación de capacidad total
+    if (capacidad > vehiculo->capacidad_maxima)
+    {
+        //printf("Violación de capacidad en Vehículo ID %d: %.2f > %.2f\n",
+              // vehiculo->id_vehiculo, capacidad, vehiculo->capacidad_maxima);
+        return false; // Violación de capacidad, retorno falso
     }
 
-    return restricciones_ok;
+    return true; // Si no hubo violaciones, retorno verdadero
 }
+
 
 void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, double **instancia_distancias)
 {
@@ -350,69 +343,50 @@ void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *
             anterior->siguiente = actual->siguiente;
             free(actual);
             vehiculo->clientes_contados--;
-            break;
+            return;
         }
         anterior = actual;
         actual = actual->siguiente;
     }
 }
 
+
+
 bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias)
 {
     struct nodo_ruta *nuevo = asignar_memoria_nodo_ruta();
-    if (!nuevo)
-        return false;
+    if (!nuevo) return false;
 
     nuevo->cliente = cliente;
     nuevo->siguiente = NULL;
 
-    // Nos colocamos en la cabeza de la ruta (depósito)
-    struct nodo_ruta *actual = vehiculo->ruta->cabeza;
-    int pos_actual = -1; // Comenzamos en -1 porque la cabeza es el depósito (cliente 0)
+    struct nodo_ruta *actual = vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *previo = vehiculo->ruta->cabeza;
+    int pos_actual = 0;
 
-    // Si la posición deseada es 0 (insertar justo después del depósito)
-    if (posicion == 0)
+    while (actual != NULL)
     {
-        // Insertamos justo después del depósito
-        nuevo->siguiente = actual->siguiente;
-        actual->siguiente = nuevo;
-        vehiculo->clientes_contados++;
-        return true;
-    }
-
-    // Recorremos la lista hasta encontrar la posición deseada, excluyendo los depósitos (cliente 0)
-    while (actual->siguiente != NULL)
-    {
-        // Solo contamos clientes que no sean depósitos (cliente 0)
-        if (actual->siguiente->cliente != 0)
+        if (pos_actual == posicion)
         {
-            pos_actual++;
-            // Si hemos llegado a la posición deseada, insertamos el cliente
-            if (pos_actual == posicion)
-            {
-                break;
-            }
+            nuevo->siguiente = actual;
+            previo->siguiente = nuevo;
+            vehiculo->clientes_contados++;
+            return true;
         }
+        previo = actual;
         actual = actual->siguiente;
+        pos_actual++;
     }
 
-    // Si llegamos a la posición correcta, insertamos el cliente
-    if (pos_actual == posicion)
+    // Si no se alcanzó la posición deseada, insertar antes del depósito final
+    if (actual != NULL && actual->cliente == 0)
     {
-        nuevo->siguiente = actual->siguiente;
-        actual->siguiente = nuevo;
+        nuevo->siguiente = actual;
+        previo->siguiente = nuevo;
         vehiculo->clientes_contados++;
         return true;
     }
 
-    // Si la posición deseada es más allá de los clientes contados, insertar antes del depósito
-    if (actual->siguiente != NULL && actual->siguiente->cliente == 0)
-    {
-        // Insertamos antes del depósito
-        nuevo->siguiente = actual->siguiente;
-        actual->siguiente = nuevo;
-        vehiculo->clientes_contados++;
-        return true;
-    }
-    return false; // Si no se encontró la posición deseada
+    free(nuevo);
+    return false;
 }

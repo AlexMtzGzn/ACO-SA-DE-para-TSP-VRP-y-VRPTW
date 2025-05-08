@@ -180,122 +180,6 @@ bool intercambiarClientes(struct individuo *ind, struct vrp_configuracion *vrp)
     return true;
 }
 
-// Invierte el orden de un segmento de la ruta
-bool invertirSegmentoRuta(struct individuo *ind, struct vrp_configuracion *vrp)
-{
-    nodo_vehiculo *vehiculo_actual = NULL;
-    nodo_ruta *inicio = NULL, *fin = NULL;
-    int idx1, idx2, total_clientes;
-    int i;
-    int intentos_maximos = 3; // Limitamos el número de intentos para evitar recursión infinita
-
-    // Seleccionamos un vehículo aleatorio que tenga al menos 3 clientes
-    for (int intento = 0; intento < 10; intento++)
-    {
-        vehiculo_actual = seleccionar_vehiculo_aleatorio(ind);
-
-        if (vehiculo_actual && vehiculo_actual->vehiculo->clientes_contados >= 3)
-            break;
-    }
-
-    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 3)
-        return false;
-
-    // Iteramos hasta encontrar una inversión válida o agotar intentos
-    for (int intento = 0; intento < intentos_maximos; intento++)
-    {
-        total_clientes = vehiculo_actual->vehiculo->clientes_contados;
-
-        // Elegimos dos posiciones distintas idx1 < idx2 dentro de la ruta del vehículo
-        idx1 = rand() % total_clientes;
-        idx2 = rand() % total_clientes;
-
-        while (idx1 == idx2)
-            idx2 = rand() % total_clientes;
-
-        if (idx1 > idx2)
-        {
-            int tmp = idx1;
-            idx1 = idx2;
-            idx2 = tmp;
-        }
-
-        // Guardamos el orden original de los clientes para poder revertir si es necesario
-        int *clientes_originales = asignar_memoria_arreglo_int(idx2 - idx1 + 1);
-
-        nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            nodo_temp = nodo_temp->siguiente;
-
-        for (i = 0; i <= idx2 - idx1; i++)
-        {
-            clientes_originales[i] = nodo_temp->cliente;
-            nodo_temp = nodo_temp->siguiente;
-        }
-
-        // Obtenemos punteros a los nodos en las posiciones idx1 e idx2
-        inicio = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            inicio = inicio->siguiente;
-
-        fin = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx2; i++)
-            fin = fin->siguiente;
-
-        if (inicio == NULL || fin == NULL)
-        {
-            free(clientes_originales);
-            return false;
-        }
-
-        // Invertimos el segmento entre idx1 e idx2
-        int left = idx1;
-        int right = idx2;
-
-        while (left < right)
-        {
-            nodo_ruta *nodo_left = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-            for (i = 0; i < left; i++)
-                nodo_left = nodo_left->siguiente;
-
-            nodo_ruta *nodo_right = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-            for (i = 0; i < right; i++)
-                nodo_right = nodo_right->siguiente;
-
-            int temp = nodo_left->cliente;
-            nodo_left->cliente = nodo_right->cliente;
-            nodo_right->cliente = temp;
-
-            left++;
-            right--;
-        }
-
-        // Verificamos que las restricciones sigan válidas
-        if (verificarRestricciones(vehiculo_actual->vehiculo, vrp))
-        {
-            free(clientes_originales);
-            return true; // Inversión exitosa y factible
-        }
-
-        // Si no es válido, revertimos a la configuración original
-        nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            nodo_temp = nodo_temp->siguiente;
-
-        for (i = 0; i <= idx2 - idx1; i++)
-        {
-            nodo_temp->cliente = clientes_originales[i];
-            nodo_temp = nodo_temp->siguiente;
-        }
-
-        free(clientes_originales);
-        // Continuamos al siguiente intento
-    }
-
-    return false; // No se encontró una inversión válida después de varios intentos
-}
-
-
 // Copia la solución actual como base para generar un vecino
 void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp)
 {
@@ -326,33 +210,21 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
         //        ind->metal->fitness_solucion_actual,
         //        ind->metal->fitness_mejor_solucion);
         // <<<
-
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
             generar_vecino(ind, vrp);
 
-            prob = (double)rand() / RAND_MAX;
-            factor = 0.1 + ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial));
-            aceptado = false;
-
             // Se decide qué movimiento hacer según una probabilidad controlada por temperatura
             if (ind->hormiga->vehiculos_necesarios > 1)
             {
-                // Distribuye el factor entre los tres movimientos, puedes ajustar los pesos si lo deseas
-                if (prob < factor / 3.0)
+                if ((double)rand() / RAND_MAX < ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial)))
                     aceptado = intercambiarClientes(ind, vrp);
-                else if (prob < 2.0 * factor / 3.0)
-                    aceptado = moverClienteVehiculo(ind, vrp);
                 else
-                    aceptado = invertirSegmentoRuta(ind, vrp);
+                    aceptado = moverClienteVehiculo(ind, vrp);
             }
             else
             {
-                // Si solo hay un vehículo, mover cliente no tiene sentido
-                if (prob < factor)
-                    aceptado = intercambiarClientes(ind, vrp);
-                else
-                    aceptado = invertirSegmentoRuta(ind, vrp);
+                aceptado = intercambiarClientes(ind, vrp);
             }
 
             if (!aceptado)

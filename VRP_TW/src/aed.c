@@ -264,39 +264,111 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
    // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)
    {
+      if (vrp->num_clientes == 26)
+      {
+         rango->maxAlpha = 6.0;
+         rango->minAlpha = 1.0;
 
-      rango->maxAlpha = 6.0;
-      rango->minAlpha = 1.0;
+         rango->maxBeta = 8.0;
+         rango->minBeta = 1.0;
 
-      rango->maxBeta = 8.0;
-      rango->minBeta = 1.0;
+         rango->minGamma = 0.1;
+         rango->maxGamma = 5.0;
 
-      rango->minGamma = 0.1;
-      rango->maxGamma = 5.0;
+         rango->maxRho = 0.9;
+         rango->minRho = 0.1;
 
-      rango->maxRho = 0.9;
-      rango->minRho = 0.1;
+         rango->maxNumHormigas = 50;
+         rango->minNumHormigas = 5;
 
-      rango->maxNumHormigas = 50;
-      rango->minNumHormigas = 5;
+         rango->maxNumIteracionesACO = 200;
+         rango->minNumIteracionesACO = 30;
 
-      rango->maxNumIteracionesACO = 200;
-      rango->minNumIteracionesACO = 30;
+         rango->maxTemperatura_inicial = 2000.0;
+         rango->minTemperatura_inicial = 100.0;
 
-      rango->maxTemperatura_inicial = 2000.0;
-      rango->minTemperatura_inicial = 100.0;
+         rango->maxTemperatura_final = 0.5;
+         rango->minTemperatura_final = 0.001;
 
-      rango->maxTemperatura_final = 0.5;
-      rango->minTemperatura_final = 0.001;
+         rango->maxFactor_enfriamiento = 0.999;
+         rango->minFactor_enfriamiento = 0.90;
 
-      rango->maxFactor_enfriamiento = 0.999;
-      rango->minFactor_enfriamiento = 0.90;
+         rango->maxFactor_control = 0.8;
+         rango->minFactor_control = 0.2;
 
-      rango->maxFactor_control = 0.9;
-      rango->minFactor_control = 0.5;
+         rango->maxIteracionesSA = 300;
+         rango->minIteracionesSA = 50;
+      }
+      if (vrp->num_clientes == 51)
+      {
+         rango->maxAlpha = 6.0;
+         rango->minAlpha = 1.0;
 
-      rango->maxIteracionesSA = 300;
-      rango->minIteracionesSA = 50;
+         rango->maxBeta = 8.0;
+         rango->minBeta = 1.0;
+
+         rango->minGamma = 0.1;
+         rango->maxGamma = 5.0;
+
+         rango->maxRho = 0.9;
+         rango->minRho = 0.1;
+
+         rango->maxNumHormigas = 50;
+         rango->minNumHormigas = 5;
+
+         rango->maxNumIteracionesACO = 200;
+         rango->minNumIteracionesACO = 30;
+
+         rango->maxTemperatura_inicial = 2000.0;
+         rango->minTemperatura_inicial = 100.0;
+
+         rango->maxTemperatura_final = 0.5;
+         rango->minTemperatura_final = 0.001;
+
+         rango->maxFactor_enfriamiento = 0.999;
+         rango->minFactor_enfriamiento = 0.90;
+
+         rango->maxFactor_control = 0.8;
+         rango->minFactor_control = 0.2;
+
+         rango->maxIteracionesSA = 300;
+         rango->minIteracionesSA = 50;
+      }
+      if (vrp->num_clientes == 101)
+      {
+         rango->maxAlpha = 4.0;
+         rango->minAlpha = 1.0;
+
+         rango->maxBeta = 8.0;
+         rango->minBeta = 2.5;
+
+         rango->maxGamma = 5.0;
+         rango->minGamma = 0.5;
+
+         rango->maxRho = 0.9;
+         rango->minRho = 0.4;
+
+         rango->maxNumHormigas = 50;
+         rango->minNumHormigas = 5;
+
+         rango->maxNumIteracionesACO = 200;
+         rango->minNumIteracionesACO = 30;
+
+         rango->maxTemperatura_inicial = 2500.0;
+         rango->minTemperatura_inicial = 800.0;
+
+         rango->maxTemperatura_final = 0.5;
+         rango->minTemperatura_final = 0.001;
+
+         rango->maxFactor_enfriamiento = 0.999;
+         rango->minFactor_enfriamiento = 0.95;
+
+         rango->maxFactor_control = 0.9;
+         rango->minFactor_control = 0.1;
+
+         rango->maxIteracionesSA = 400;
+         rango->minIteracionesSA = 150;
+      }
 
       // Genera valores aleatorios dentro de los rangos definidos para cada individuo
       objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);

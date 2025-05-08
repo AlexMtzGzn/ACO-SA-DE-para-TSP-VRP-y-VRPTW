@@ -16,22 +16,36 @@ typedef struct lista_ruta
     nodo_ruta *cola;   // Último nodo en la ruta
 } lista_ruta;
 
+// --------------------- TIEMPO CLIENTE ---------------------
+// Estructura que representa los tiempos de cada cliente
+
+typedef struct tiempos_cliente
+{
+    int cliente; //Cliente
+    double tiempo_llegada; // 
+    double tiempo_espera;
+    double inicio_servicio;
+    double duracion_servicio;
+    double tiempo_salida;
+
+} tiempos_cliente;
 // --------------------- VEHÍCULOS ---------------------
 // Estructura que representa un vehículo en la flota
 typedef struct vehiculo
 {
-    int id_vehiculo;                // ID único del vehículo
-    double capacidad_maxima;        // Capacidad máxima del vehículo
-    double capacidad_acumulada;     // Capacidad actual acumulada en el vehículo
-    double vt_actual;               // Ventana de tiempo actual del vehículo
-    double vt_final;                // Ventana de tiempo final
-    double vt_inicial;              // Ventana de tiempo inicial
-    double tiempo_salida_vehiculo;  // Tiempo de salida del vehiculo
-    double tiempo_llegada_vehiculo; // Tiempo de llegada del vehiculo
-    double velocidad;               // Velocidad del vehículo
-    int clientes_contados;          // Contador de clientes atendidos por el vehículo
-    lista_ruta *ruta;               // Ruta que sigue el vehículo
-    double fitness_vehiculo;        // Medida de rendimiento del vehículo
+    int id_vehiculo;                 // ID único del vehículo
+    double capacidad_maxima;         // Capacidad máxima del vehículo
+    double capacidad_acumulada;      // Capacidad actual acumulada en el vehículo
+    double vt_actual;                // Ventana de tiempo actual del vehículo
+    double vt_final;                 // Ventana de tiempo final
+    double vt_inicial;               // Ventana de tiempo inicial
+    double tiempo_salida_vehiculo;   // Tiempo de salida del vehiculo
+    double tiempo_llegada_vehiculo;  // Tiempo de llegada del vehiculo
+    double velocidad;                // Velocidad del vehículo
+    int clientes_contados;           // Contador de clientes atendidos por el vehículo
+    lista_ruta *ruta;                // Ruta que sigue el vehículo
+    double fitness_vehiculo;         // Medida de rendimiento del vehículo
+    tiempos_cliente *tiempos_cliente; // Arreglo que lleva el control de de los timepos de servicio del cliente
 } vehiculo;
 
 // --------------------- NODO Y LISTA DE VEHÍCULOS ---------------------
