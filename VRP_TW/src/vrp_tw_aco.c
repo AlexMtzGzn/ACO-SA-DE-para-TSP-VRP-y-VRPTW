@@ -233,7 +233,7 @@ void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vr
 double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_ventanas_tiempo)
 {
     // Establecer un valor mínimo para evitar valores extremadamente pequeños
-    double epsilon = 1e-6, feromona, visibilidad, ventana_tiempo, numerador, probabilidad;
+    double epsilon = 1e-5, feromona, visibilidad, ventana_tiempo, numerador, probabilidad;
 
     // Validar los valores de las matrices
     feromona = fmax(instancia_feromona[origen][destino], epsilon);
