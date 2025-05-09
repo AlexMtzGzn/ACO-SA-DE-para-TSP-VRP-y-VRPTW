@@ -163,3 +163,33 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
 
     free(flota);
 }
+
+struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind)
+{
+    int intentos = 10, vehiculo_aleatorio = -1;
+    struct nodo_vehiculo *nodo_vehiculo_aleatorio = NULL;
+
+    while (intentos--)
+    {
+        // Seleciionamor el id de un veiculo aleatorio
+        vehiculo_aleatorio = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
+
+        nodo_vehiculo_aleatorio = ind->metal->solucion_vecina->cabeza;
+        while (nodo_vehiculo_aleatorio != NULL)
+        {
+            if (nodo_vehiculo_aleatorio->vehiculo->id_vehiculo == vehiculo_aleatorio)
+                break;
+            nodo_vehiculo_aleatorio = nodo_vehiculo_aleatorio->siguiente;
+        }
+    }
+
+    if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
+    {
+        //eliminar_vehiculo_vacio(ind->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
+        return NULL;
+    }
+    else
+    {
+        return nodo_vehiculo_aleatorio;
+    }
+}

@@ -19,6 +19,8 @@ struct lista_vehiculos* copiar_lista_vehiculos(struct lista_vehiculos *original)
 // Función para liberar la memoria de un vehículo
 void liberar_vehiculo(struct vehiculo *vehiculo);
 
+struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind);
+
 // Función para vaciar la memoria de la lista de vehículos
 void vaciar_lista_vehiculos(struct lista_vehiculos *flota);
 

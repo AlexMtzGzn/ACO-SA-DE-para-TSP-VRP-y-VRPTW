@@ -66,6 +66,8 @@ typedef struct tsp_configuracion
     char *archivo_instancia; // Nombre del archivo
     int poblacion;           // Poblacion Usada
     int generaciones;        // Generaciones Usadas
+    double tiempo_ejecucion; // Tiempo de ejecucion del codigo
+    char *archivo_instancia; // Nombre del archivo
 } tsp_configuracion;
 
 // --------------------- RANGOS ---------------------
@@ -88,6 +90,8 @@ typedef struct rangos
     double minTemperatura_final;   // Temperatura final mínima
     double maxFactor_enfriamiento; // Factor de enfriamiento máximo
     double minFactor_enfriamiento; // Factor de enfriamiento mínimo
+    double maxFactor_control;      // Factor de control máximo
+    double minFactor_control;      // Factor de control mínimo
     int maxIteracionesSA;          // Número máximo de iteraciones SA
     int minIteracionesSA;          // Número mínimo de iteraciones SA
 } rangos;

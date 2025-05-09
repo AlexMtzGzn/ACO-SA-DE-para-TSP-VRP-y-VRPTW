@@ -10,6 +10,8 @@ void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **
 // Intenta mover un cliente de un vehículo a otro para generar un vecino.
 bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp);
 
+bool invertirSegmentoRuta(struct individuo *ind);
+
 // Intenta intercambiar dos clientes entre rutas para generar un vecino.
 bool intercambiarClientes(struct individuo *ind, struct vrp_configuracion *vrp);
 
