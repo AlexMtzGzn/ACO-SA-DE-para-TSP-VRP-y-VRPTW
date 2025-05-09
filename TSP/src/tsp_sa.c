@@ -27,6 +27,67 @@ void evaluaFO_SA(struct individuo *ind, struct tsp_configuracion *tsp, double **
     }
 }
 
+bool invertirSegmentoRuta(struct individuo *ind)
+{
+    struct lista_ruta *ruta = ind->metal->solucion_vecina;
+    if (!ruta || !ruta->cabeza)
+        return false;
+
+    // Contar clientes (ignorando el depósito 0)
+    int total_clientes = 0;
+    nodo_ruta *nodo = ruta->cabeza;
+    while (nodo)
+    {
+        if (nodo->cliente != 0)
+            total_clientes++;
+        nodo = nodo->siguiente;
+    }
+
+    if (total_clientes < 3)
+        return false;
+
+    // Seleccionar dos índices aleatorios distintos
+    int idx1 = rand() % total_clientes;
+    int idx2 = rand() % total_clientes;
+    while (idx1 == idx2)
+        idx2 = rand() % total_clientes;
+
+    if (idx1 > idx2)
+    {
+        int temp = idx1;
+        idx1 = idx2;
+        idx2 = temp;
+    }
+
+    // Recorrer la lista y ubicar los punteros a los nodos a invertir
+    int pos = 0;
+    nodo_ruta *nodo_actual = ruta->cabeza;
+    nodo_ruta *segmento[total_clientes]; // Punteros a los nodos cliente
+
+    while (nodo_actual)
+    {
+        if (nodo_actual->cliente != 0)
+        {
+            segmento[pos] = nodo_actual;
+            pos++;
+        }
+        nodo_actual = nodo_actual->siguiente;
+    }
+
+    // Invertir el segmento entre idx1 y idx2
+    while (idx1 < idx2)
+    {
+        int tmp = segmento[idx1]->cliente;
+        segmento[idx1]->cliente = segmento[idx2]->cliente;
+        segmento[idx2]->cliente = tmp;
+        idx1++;
+        idx2--;
+    }
+
+    return true;
+}
+
+
 // Intercambia dos clientes distintos en la solución vecina
 bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp)
 {
@@ -82,6 +143,73 @@ bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp)
     return false; // No se logró encontrar ambos clientes tras varios intentos
 }
 
+bool moverClienteRuta(struct individuo *ind)
+{
+    if (ind == NULL || ind->metal == NULL || ind->metal->solucion_actual == NULL) 
+        return false; // Si el individuo o su solución actual son NULL, no se puede hacer nada
+
+    lista_ruta *ruta = ind->metal->solucion_actual;
+    
+    // Verificar que haya al menos 2 clientes en la ruta
+    if (ruta->cabeza == NULL || ruta->cabeza->siguiente == NULL)
+        return false;
+
+    // Seleccionar dos posiciones aleatorias dentro de la ruta
+    int total_clientes = 0;
+    nodo_ruta *nodo = ruta->cabeza->siguiente;
+    while (nodo != NULL)
+    {
+        total_clientes++;
+        nodo = nodo->siguiente;
+    }
+
+    if (total_clientes < 2)
+        return false; // Si hay menos de 2 clientes, no podemos hacer el movimiento
+
+    // Elegir dos índices aleatorios diferentes
+    int idx1 = rand() % total_clientes;
+    int idx2 = rand() % total_clientes;
+
+    // Asegurarse de que los índices sean distintos
+    while (idx1 == idx2)
+        idx2 = rand() % total_clientes;
+
+    if (idx1 > idx2)
+    {
+        int tmp = idx1;
+        idx1 = idx2;
+        idx2 = tmp;
+    }
+
+    // Obtener los nodos en las posiciones idx1 e idx2
+    nodo_ruta *nodo_izq = ruta->cabeza->siguiente;
+    nodo_ruta *nodo_der = ruta->cabeza->siguiente;
+
+    for (int i = 0; i < idx1; i++)
+        nodo_izq = nodo_izq->siguiente;
+
+    for (int i = 0; i < idx2; i++)
+        nodo_der = nodo_der->siguiente;
+
+    // Verificar si los nodos seleccionados son válidos
+    if (nodo_izq == NULL || nodo_der == NULL)
+        return false;
+
+    // Desconectar el nodo en idx1
+    nodo_ruta *nodo_a_mover = nodo_izq;
+    nodo_izq = nodo_izq->siguiente;
+    nodo_a_mover->siguiente = NULL;  // Desconectar el nodo temporalmente
+
+    // Conectar el nodo a la nueva posición (después de idx2)
+    nodo_a_mover->siguiente = nodo_der->siguiente;
+    nodo_der->siguiente = nodo_a_mover;
+
+    // Opcional: Verificar que el movimiento sea válido (por ejemplo, capacidad de vehículos si es VRP)
+    // Si tienes restricciones adicionales, puedes agregar validaciones aquí
+
+    return true; // Movimiento exitoso
+}
+
 // Genera una solución vecina a partir de la solución actual
 void generar_vecino(struct individuo *ind)
 {
@@ -119,11 +247,11 @@ void sa(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia
             aceptado = false;
 
             if (prob < factor / 3.0)
-                aceptado = false; // invertirSegmentoRuta(ind);
+                aceptado = invertirSegmentoRuta(ind);
             else if (prob < 2.0 * factor / 3.0)
                 aceptado = intercambiarClientes(ind, tsp);
             else
-                aceptado = false;
+                aceptado = moverClienteRuta(ind);
 
             if (!aceptado)
                 continue;
