@@ -265,7 +265,7 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->minFactor_enfriamiento = 0.90;
 
       rango->maxFactor_control = 0.9;
-      rango->minFactor_control = 0.5;
+      rango->minFactor_control = 0.1;
 
       rango->maxIteracionesSA = 300;
       rango->minIteracionesSA = 50;

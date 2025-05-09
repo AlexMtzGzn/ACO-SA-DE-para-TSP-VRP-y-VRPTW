@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 
 #include "../include/estructuras.h"
 #include "../include/lista_ruta.h"
@@ -27,52 +28,58 @@ void evaluaFO_SA(struct individuo *ind, struct tsp_configuracion *tsp, double **
 }
 
 // Intercambia dos clientes distintos en la solución vecina
-void intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp)
+bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp)
 {
-    int cliente1, cliente2;
+    int intentos = 100;
 
-    // Selección aleatoria de dos clientes distintos (sin incluir el depósito 0)
-    do
+    while (intentos--)
     {
-        cliente1 = (rand() % tsp->num_clientes) + 1; 
-        cliente2 = (rand() % tsp->num_clientes) + 1;
-    } while (cliente1 == cliente2);
+        int cliente1 = (rand() % tsp->num_clientes) + 1; // Clientes 1..n
+        int cliente2 = (rand() % tsp->num_clientes) + 1;
 
-    nodo_ruta *nodo_cliente1 = NULL;
-    nodo_ruta *nodo_cliente2 = NULL;
-
-    // Recorre la lista para encontrar los nodos que contienen a cliente1 y cliente2
-    struct lista_ruta *ruta = ind->metal->solucion_vecina;
-    struct nodo_ruta *actual = ruta->cabeza;
-
-    while (actual != NULL)
-    {
-        // Ignora el depósito (0), no debe ser intercambiado
-        if (actual->cliente == 0)
-        {
-            actual = actual->siguiente;
+        if (cliente1 == cliente2)
             continue;
+
+        nodo_ruta *nodo_cliente1 = NULL;
+        nodo_ruta *nodo_cliente2 = NULL;
+
+        struct lista_ruta *ruta = ind->metal->solucion_vecina;
+        if (!ruta || !ruta->cabeza)
+            return false;
+
+        nodo_ruta *actual = ruta->cabeza;
+
+        // Buscar los nodos correspondientes
+        while (actual != NULL)
+        {
+            if (actual->cliente == 0)
+            {
+                actual = actual->siguiente;
+                continue; // ignorar depósito
+            }
+
+            if (actual->cliente == cliente1)
+                nodo_cliente1 = actual;
+            else if (actual->cliente == cliente2)
+                nodo_cliente2 = actual;
+
+            if (nodo_cliente1 && nodo_cliente2)
+                break;
+
+            actual = actual->siguiente;
         }
 
-        if (actual->cliente == cliente1)
-            nodo_cliente1 = actual;
-        else if (actual->cliente == cliente2)
-            nodo_cliente2 = actual;
-
-        // Sale del ciclo si encontró ambos
+        // Si ambos nodos fueron encontrados, intercambiarlos
         if (nodo_cliente1 && nodo_cliente2)
-            break;
-
-        actual = actual->siguiente;
+        {
+            int temp = nodo_cliente1->cliente;
+            nodo_cliente1->cliente = nodo_cliente2->cliente;
+            nodo_cliente2->cliente = temp;
+            return true;
+        }
     }
 
-    // Intercambia los valores de cliente si ambos fueron encontrados
-    if (nodo_cliente1 && nodo_cliente2)
-    {
-        int temp = nodo_cliente1->cliente;
-        nodo_cliente1->cliente = nodo_cliente2->cliente;
-        nodo_cliente2->cliente = temp;
-    }
+    return false; // No se logró encontrar ambos clientes tras varios intentos
 }
 
 // Genera una solución vecina a partir de la solución actual
@@ -89,8 +96,8 @@ void generar_vecino(struct individuo *ind)
 // Algoritmo de Recocido Simulado para optimización de ruta en TSP
 void sa(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia_distancias)
 {
-    double temperatura = ind->temperatura_inicial;
-    double delta;
+    double temperatura = ind->temperatura_inicial, delta, prob, factor;
+    bool aceptado = false;
 
     // Inicializa la mejor y actual solución con la solución inicial
     ind->metal->mejor_solucion = copiar_lista_ruta(ind->metal->solucion_inicial);
@@ -105,8 +112,22 @@ void sa(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia
         // Por cada temperatura, se generan varias soluciones vecinas
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
-            generar_vecino(ind);               // Genera una nueva solución vecina
-            intercambiarClientes(ind, tsp);    // Intercambia dos clientes en la ruta (sin tocar el depósito)
+            generar_vecino(ind); // Genera una nueva solución vecina
+
+            prob = (double)rand() / RAND_MAX;
+            factor = ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial));
+            aceptado = false;
+
+            if (prob < factor / 3.0)
+                aceptado = false; // invertirSegmentoRuta(ind);
+            else if (prob < 2.0 * factor / 3.0)
+                aceptado = intercambiarClientes(ind, tsp);
+            else
+                aceptado = false;
+
+            if (!aceptado)
+                continue;
+            // Intercambia dos clientes en la ruta (sin tocar el depósito)
             evaluaFO_SA(ind, tsp, instancia_distancias); // Evalúa la calidad (fitness) de la solución vecina
 
             // Calcula la diferencia entre el fitness del vecino y el actual

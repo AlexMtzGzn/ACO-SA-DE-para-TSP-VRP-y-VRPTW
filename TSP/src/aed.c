@@ -124,6 +124,7 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
       ruidoso[i].temperatura_inicial = objetivo[aleatorio1].temperatura_inicial + 0.5 * (objetivo[aleatorio2].temperatura_inicial - objetivo[aleatorio3].temperatura_inicial);
       ruidoso[i].temperatura_final = objetivo[aleatorio1].temperatura_final + 0.5 * (objetivo[aleatorio2].temperatura_final - objetivo[aleatorio3].temperatura_final);
       ruidoso[i].factor_enfriamiento = objetivo[aleatorio1].factor_enfriamiento + 0.5 * (objetivo[aleatorio2].factor_enfriamiento - objetivo[aleatorio3].factor_enfriamiento);
+      ruidoso[i].factor_control = objetivo[aleatorio1].factor_control + 0.5 * (objetivo[aleatorio2].factor_control - objetivo[aleatorio3].factor_control);
       ruidoso[i].numIteracionesSA = objetivo[aleatorio1].numIteracionesSA + (int)(0.5 * (objetivo[aleatorio2].numIteracionesSA - objetivo[aleatorio3].numIteracionesSA));
 
       // Limita los valores de los parámetros para asegurarse de que estén dentro de un rango válido
@@ -183,6 +184,12 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
 
       if (ruidoso[i].factor_enfriamiento < rango->minFactor_enfriamiento)
          ruidoso[i].factor_enfriamiento = rango->minFactor_enfriamiento;
+
+      if (ruidoso[i].factor_control > rango->maxFactor_control)
+         ruidoso[i].factor_control = rango->maxFactor_control;
+
+      if (ruidoso[i].factor_control < rango->minFactor_control)
+         ruidoso[i].factor_control = rango->minFactor_control;
 
       // Limita 'numIteracionesSA' a estar dentro de los valores mínimos y máximos
       if (ruidoso[i].numIteracionesSA > rango->maxIteracionesSA)
@@ -253,6 +260,9 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
       rango->maxFactor_enfriamiento = 0.999;
       rango->minFactor_enfriamiento = 0.90;
 
+      rango->maxFactor_control = 0.9;
+      rango->minFactor_control = 0.1;
+
       rango->maxIteracionesSA = 300;
       rango->minIteracionesSA = 50;
 
@@ -265,6 +275,7 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
       objetivo[i].temperatura_inicial = generaAleatorio(rango->minTemperatura_inicial, rango->maxTemperatura_inicial);
       objetivo[i].temperatura_final = generaAleatorio(rango->minTemperatura_final, rango->maxTemperatura_final);
       objetivo[i].factor_enfriamiento = generaAleatorio(rango->minFactor_enfriamiento, rango->maxFactor_enfriamiento);
+      objetivo[i].factor_control = generaAleatorio(rango->minFactor_control, rango->maxFactor_control);
       objetivo[i].numIteracionesSA = (int)generaAleatorio(rango->minIteracionesSA, rango->maxIteracionesSA);
    }
 }

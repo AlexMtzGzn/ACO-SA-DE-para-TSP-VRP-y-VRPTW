@@ -66,8 +66,6 @@ typedef struct tsp_configuracion
     char *archivo_instancia; // Nombre del archivo
     int poblacion;           // Poblacion Usada
     int generaciones;        // Generaciones Usadas
-    double tiempo_ejecucion; // Tiempo de ejecucion del codigo
-    char *archivo_instancia; // Nombre del archivo
 } tsp_configuracion;
 
 // --------------------- RANGOS ---------------------
@@ -108,6 +106,7 @@ typedef struct individuo
     double temperatura_inicial; // Temperatura inicial para el algoritmo SA
     double temperatura_final;   // Temperatura final para el algoritmo SA
     double factor_enfriamiento; // Factor de enfriamiento para el algoritmo SA
+    double factor_control;      // Factor de control para el algoritmo SA
     int numIteracionesSA;       // Número de iteraciones del algoritmo SA
     double fitness;             // Medida de rendimiento del individuo
     hormiga *hormiga;           // Puntero a la hormiga asociada al individuo
