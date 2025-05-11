@@ -144,6 +144,7 @@ bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp)
 }
 
 bool moverClienteRuta(struct individuo *ind) {
+    
     if (ind == NULL || ind->metal == NULL || ind->metal->solucion_actual == NULL) 
         return false;
 

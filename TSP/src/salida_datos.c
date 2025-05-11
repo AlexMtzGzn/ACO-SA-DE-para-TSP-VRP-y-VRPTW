@@ -59,8 +59,8 @@ void imprimir_tabu(int *tabu, int num_clientes)
 void imprimir_individuo(individuo *ind)
 {
     printf("Individuo: ");
-    printf("\n  Alpha: %.2lf, Beta: %.2lf,Rho: %.2lf, Hormigas: %d, Iteraciones ACO: %d\n  Temperatura Inicial: %.2lf, Temperatura Final: %.2lf, Factor Enfriamiento: %.2lf, Iteraciones SA: %d\n",
-           ind->alpha, ind->beta, ind->rho, ind->numHormigas, ind->numIteracionesACO,ind->temperatura_inicial, ind->temperatura_final, ind->factor_enfriamiento, ind->numIteracionesSA);
+    printf("\n  Alpha: %.2lf, Beta: %.2lf,Rho: %.2lf, Hormigas: %d, Iteraciones ACO: %d\n  Temperatura Inicial: %.2lf, Temperatura Final: %.2lf, Factor Enfriamiento: %.2lf, Factor Control %.2lf, Iteraciones SA: %d\n",
+           ind->alpha, ind->beta, ind->rho, ind->numHormigas, ind->numIteracionesACO, ind->temperatura_inicial, ind->temperatura_final, ind->factor_enfriamiento, ind->factor_control, ind->numIteracionesSA);
 }
 
 // Función principal para imprimir toda la información de las hormigas

@@ -397,6 +397,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
          resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
          resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
+         resultado->factor_control = objetivo[i].factor_control;           // Copiamos el factor de control del mejor metal
          resultado->numIteracionesSA = objetivo[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
          recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);        // Recuperamos la mejor hormiga
       }
@@ -422,6 +423,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
             resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
             resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
             resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
+            resultado->factor_control = prueba[i].factor_control;           // Copiamos el factor de control del mejor metal  
             resultado->numIteracionesSA = prueba[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);        // Recuperamos la mejor hormiga
          }
