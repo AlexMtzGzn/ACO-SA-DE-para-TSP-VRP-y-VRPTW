@@ -86,8 +86,12 @@ struct vehiculo *asignar_memoria_vehiculo();
 // Asigna memoria para un nodo de vehículo
 struct nodo_vehiculo *asignar_memoria_nodo_vehiculo();
 
+// Funciones para asignar memoria para las estructuras de metal
 
+//Asignamos memoria para el metal
 struct metal *asignar_memoria_metal();
+
+//Liberamos memoria para el metal
 void liberar_memoria_metal(struct individuo *ind);
 
 #endif // CONTROL_MEMORIA_H
