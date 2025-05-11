@@ -234,20 +234,32 @@ void sa(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
             generar_vecino(ind); // Genera una nueva solución vecina
-
+            
+            // Se genera un número aleatorio entre 0 y 1 para decidir qué tipo de movimiento se va a hacer
             prob = (double)rand() / RAND_MAX;
+            // Se calcula un factor de control que depende de la temperatura. Este factor ajusta la probabilidad
+            // de realizar ciertos movimientos a medida que la temperatura disminuye durante el enfriamiento.
             factor = ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial));
+
+            // Inicializamos la variable aceptado como falsa (el movimiento aún no ha sido aceptado)
             aceptado = false;
 
+            // Dependiendo del valor de prob, se decide qué movimiento realizar:
+            // Si el valor de prob es menor que 'factor / 3.0', se realiza el movimiento 'invertirSegmentoRuta'
             if (prob < factor / 3.0)
-                aceptado = invertirSegmentoRuta(ind);
-            else if (prob < 2.0 * factor / 3.0)
-                aceptado = intercambiarClientes(ind, tsp);
-            else
-                aceptado = moverClienteRuta(ind);
+                aceptado = invertirSegmentoRuta(ind); // Invertir un segmento de la ruta
 
+            // Si el valor de prob está entre 'factor / 3.0' y '2.0 * factor / 3.0', se realiza el movimiento 'intercambiarClientes'
+            else if (prob < 2.0 * factor / 3.0)
+                aceptado = intercambiarClientes(ind, tsp); // Intercambiar dos clientes dentro de la misma ruta
+
+            // Si el valor de prob es mayor que '2.0 * factor / 3.0', se realiza el movimiento 'moverClienteRuta'
+            else
+                aceptado = moverClienteRuta(ind); // Mover un cliente a otra posición dentro de la misma ruta
+
+            // Si el movimiento no ha sido aceptado, se salta al siguiente ciclo sin hacer nada
             if (!aceptado)
-                continue;
+                continue; // Continúa con la siguiente iteración del ciclo sin hacer nada
             // Intercambia dos clientes en la ruta (sin tocar el depósito)
             evaluaFO_SA(ind, tsp, instancia_distancias); // Evalúa la calidad (fitness) de la solución vecina
 
