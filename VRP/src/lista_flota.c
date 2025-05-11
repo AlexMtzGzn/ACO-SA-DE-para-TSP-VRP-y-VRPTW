@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"
 #include "../include/lista_flota.h"
@@ -147,22 +148,30 @@ void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
 // Función para liberar la memoria de la lista de vehículos
 void liberar_lista_vehiculos(struct lista_vehiculos *flota)
 {
+    if (flota == NULL) {
+        printf("Flota nula, no hay nada que liberar.\n");
+        return;
+    }
+
     struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
     while (vehiculo_actual)
     {
-        // Guardar el siguiente nodo para evitar perderlo
         struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
         vehiculo_actual = vehiculo_actual->siguiente;
 
-        // Liberar la memoria del vehículo asociado a este nodo
-        liberar_vehiculo(vehiculo_temp->vehiculo);
+        if (vehiculo_temp->vehiculo == NULL) {
+            printf("vehiculo es NULL, se omite liberar\n");
+        } else {
+            liberar_vehiculo(vehiculo_temp->vehiculo);
+        }
 
-        // Liberar la memoria del nodo actual
         free(vehiculo_temp);
     }
 
     free(flota);
 }
+
+
 
 struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind)
 {

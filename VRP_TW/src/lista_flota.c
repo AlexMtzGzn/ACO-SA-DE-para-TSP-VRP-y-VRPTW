@@ -240,7 +240,7 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind)
 
     if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
     {
-        //eliminar_vehiculo_vacio(ind->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
+        eliminar_vehiculo_vacio(ind->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
         return NULL;
     }
     else

@@ -286,7 +286,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             else
             {
                 reiniciar_hormiga(hormiga, vrp);
-                break;
+              
             }
         }
         else
