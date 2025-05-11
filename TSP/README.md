@@ -181,11 +181,11 @@ Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño 
 
 ---
 
-Este proceso permite **optimizar automáticamente** el rendimiento del algoritmo **ACO** y **SA**, **evitando el ajuste manual** de parámetros y encontrando de manera más eficiente soluciones de alta calidad para el **Problema del Viajero (TSP)**.
+Este proceso permite **optimizar automáticamente** el rendimiento del algoritmo **ACO** y **SA**, **evitando el ajuste manual** de parámetros y encontrando de manera más eficiente soluciones de alta calidad para el **Problema del Agente Viajero (TSP)**.
 
 ## 🎯 Resultados Esperados
 
-El objetivo principal de este proyecto es encontrar la mejor ruta para el **Problema del Viajero de Viajero (TSP)** mediante el uso combinado del algoritmo **ACO** y el algoritmo **DE**, el cual optimiza automáticamente los parámetros del **ACO** y del **SA**.
+El objetivo principal de este proyecto es encontrar la mejor ruta para el **Problema del Agente Viajero(TSP)** mediante el uso combinado del algoritmo **ACO** y el algoritmo **DE**, el cual optimiza automáticamente los parámetros del **ACO** y del **SA**.
 
 ---
 
@@ -395,7 +395,7 @@ make clean
 
 ## ✅ Conclusión
 
-El desarrollo de una metaheurística híbrida basada en Ant Colony Optimization (ACO) y Recocido Simulado (SA), calibrada automáticamente mediante un Algoritmo Evolutivo Diferencial (DE), demostró ser una estrategia efectiva para resolver el Problema del Viajero (TSP).
+El desarrollo de una metaheurística híbrida basada en Ant Colony Optimization (ACO) y Recocido Simulado (SA), calibrada automáticamente mediante un Algoritmo Evolutivo Diferencial (DE), demostró ser una estrategia efectiva para resolver el Problema del Agente Viajero (TSP).
 
 El uso de ACO permitió generar soluciones iniciales de alta calidad inspiradas en el comportamiento de las hormigas, mientras que SA refinó estas soluciones para escapar de óptimos locales y explorar regiones más prometedoras del espacio de búsqueda. La incorporación del DE automatizó por completo el ajuste de parámetros, adaptando la configuración de los algoritmos en función del tamaño y complejidad del problema.
 
