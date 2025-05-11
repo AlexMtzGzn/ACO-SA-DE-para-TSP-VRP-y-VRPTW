@@ -1,10 +1,10 @@
 # 🚚 "Optimización del Problema del Agente Viajero (TSP) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
 
-Este proyecto implementa una solución híbrida para el Problema del Viajero (TSP), utilizando el algoritmo Ant Colony Optimization (ACO) para generar rutas iniciales, el Recocido Simulado (SA) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (DE).
+Este proyecto implementa una solución híbrida para el Problema del Agente Viajero (TSP), utilizando el algoritmo Ant Colony Optimization (ACO) para generar rutas iniciales, el Recocido Simulado (SA) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (DE).
 
 ## 🧩 ¿Qué es el TSP?
 
-El Problema del Viajero (TSP, por sus siglas en inglés "Traveling Salesman Problem") es uno de los problemas clásicos más conocidos en optimización combinatoria.
+El Problema del Agente Viajero (TSP, por sus siglas en inglés "Traveling Salesman Problem") es uno de los problemas clásicos más conocidos en optimización combinatoria.
 
 Consiste en encontrar la ruta más corta posible que permita a un viajero visitar una serie de ciudades o clientes **exactamente una vez** y regresar al punto de partida.
 
