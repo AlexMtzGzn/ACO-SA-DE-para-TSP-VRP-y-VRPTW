@@ -43,7 +43,7 @@ double **asignar_memoria_instancia(int tamanio_instancia)
  */
 int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 {
-    int *arreglo = (int *)malloc(sizeof(int) * (tamanio_arreglo));
+    int *arreglo = (int *)calloc(tamanio_arreglo, sizeof(int)); // Usamos calloc para inicializar a 0
     if (arreglo == NULL)
     {
         imprimir_mensaje("No se pudo asignar memoria para el arreglo entero");
@@ -58,7 +58,7 @@ int *asignar_memoria_arreglo_int(int tamanio_arreglo)
  */
 double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 {
-    double *arreglo = (double *)malloc(sizeof(double) * (tamanio_arreglo));
+    double *arreglo = (double *)calloc(tamanio_arreglo, sizeof(double)); // Usamos calloc para inicializar a 0
     if (arreglo == NULL)
     {
         imprimir_mensaje("No se pudo asignar memoria para el arreglo double");
@@ -117,7 +117,7 @@ void liberar_rangos(struct rangos *rango)
  */
 struct individuo *asignar_memoria_individuos(int poblacion)
 {
-    struct individuo *individuo = (struct individuo *)malloc(sizeof(struct individuo) * poblacion);
+    struct individuo *individuo = (struct individuo *)calloc(poblacion, sizeof(struct individuo)); // Usamos calloc para inicializar a 0
     if (individuo == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para los individuos");
@@ -194,7 +194,7 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
  */
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
-    struct hormiga *hormiga = (struct hormiga *)malloc(sizeof(struct hormiga) * numHormigas);
+    struct hormiga *hormiga = (struct hormiga *)calloc(numHormigas, sizeof(struct hormiga)); // Usamos calloc para inicializar a 0
     if (hormiga == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para hormigas.");
@@ -217,6 +217,7 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
     }
     free(hormiga);
 }
+
 /**
  * Reinicia la información de una hormiga, incluyendo sus arreglos internos y flota de vehículos.
  */
@@ -328,6 +329,36 @@ struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
     return nodo_vehiculo;
 }
 
+/**
+ * Libera la memoria del nodo del vehículo.
+ */
+void liberar_memoria_nodo_vehiculo(struct nodo_vehiculo *nodo_vehiculo)
+{
+    free(nodo_vehiculo);
+}
+
+/*Funciones para la estructura de rutas*/
+
+void liberar_lista_ruta(struct lista_ruta *lista)
+{
+    struct nodo_ruta *nodo_aux;
+
+    while (lista->cabeza != NULL)
+    {
+        nodo_aux = lista->cabeza;
+        lista->cabeza = lista->cabeza->siguiente;
+        free(nodo_aux);
+    }
+
+    free(lista);
+}
+
+/* Y otras funciones de limpieza similares para vehículos, rutas, etc. */
+
+/**
+ * Asigna memoria para la estructura 'metal' dentro de un individuo.
+ * Si no puede asignarse, termina el programa con un mensaje de error.
+ */
 struct metal *asignar_memoria_metal()
 {
     struct metal *metal = (struct metal *)malloc(sizeof(struct metal));
@@ -336,11 +367,18 @@ struct metal *asignar_memoria_metal()
         imprimir_mensaje("Error: No se pudo asignar memoria para el metal.");
         exit(EXIT_FAILURE);
     }
+
+    // Inicialización de las estructuras internas (si es necesario)
+    metal->solucion_vecina = NULL;
+    metal->solucion_inicial = NULL;
+    metal->mejor_solucion = NULL;
+
     return metal;
 }
 
 /**
- * Libera la memoria del metal.
+ * Libera la memoria de la estructura 'metal' dentro de un individuo.
+ * Esto incluye liberar las listas de vehículos asociadas.
  */
 void liberar_memoria_metal(struct individuo *ind)
 {
@@ -352,6 +390,7 @@ void liberar_memoria_metal(struct individuo *ind)
             liberar_lista_vehiculos(ind->metal->solucion_inicial);
         if (ind->metal->mejor_solucion)
             liberar_lista_vehiculos(ind->metal->mejor_solucion);
-        free(ind->metal);
+        
+        free(ind->metal);  // Liberamos la memoria de la estructura 'metal'
     }
 }
