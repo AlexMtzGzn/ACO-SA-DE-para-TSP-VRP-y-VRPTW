@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"
 #include "../include/lista_flota.h"
@@ -122,8 +123,8 @@ void liberar_vehiculo(struct vehiculo *vehiculo)
     free(vehiculo);
 }
 
-// Función para liberar la memoria de la lista de vehículos
-void liberar_lista_vehiculos(struct lista_vehiculos *flota)
+// Función para vaciar la memoria de la lista de vehículos
+void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
 {
     struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
     while (vehiculo_actual)
@@ -142,4 +143,62 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
     // Establecer la cabeza y cola de la flota a NULL
     flota->cabeza = NULL;
     flota->cola = NULL;
+}
+
+// Función para liberar la memoria de la lista de vehículos
+void liberar_lista_vehiculos(struct lista_vehiculos *flota)
+{
+    if (flota == NULL) {
+        printf("Flota nula, no hay nada que liberar.\n");
+        return;
+    }
+
+    struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
+    while (vehiculo_actual)
+    {
+        struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
+        vehiculo_actual = vehiculo_actual->siguiente;
+
+        if (vehiculo_temp->vehiculo == NULL) {
+            printf("vehiculo es NULL, se omite liberar\n");
+        } else {
+            liberar_vehiculo(vehiculo_temp->vehiculo);
+        }
+
+        free(vehiculo_temp);
+    }
+
+    free(flota);
+}
+
+
+
+struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind)
+{
+    int intentos = 10, vehiculo_aleatorio = -1;
+    struct nodo_vehiculo *nodo_vehiculo_aleatorio = NULL;
+
+    while (intentos--)
+    {
+        // Seleciionamor el id de un veiculo aleatorio
+        vehiculo_aleatorio = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
+
+        nodo_vehiculo_aleatorio = ind->metal->solucion_vecina->cabeza;
+        while (nodo_vehiculo_aleatorio != NULL)
+        {
+            if (nodo_vehiculo_aleatorio->vehiculo->id_vehiculo == vehiculo_aleatorio)
+                break;
+            nodo_vehiculo_aleatorio = nodo_vehiculo_aleatorio->siguiente;
+        }
+    }
+
+    if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
+    {
+        //eliminar_vehiculo_vacio(ind->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
+        return NULL;
+    }
+    else
+    {
+        return nodo_vehiculo_aleatorio;
+    }
 }

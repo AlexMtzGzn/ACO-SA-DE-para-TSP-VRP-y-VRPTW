@@ -88,6 +88,8 @@ typedef struct rangos
     double minTemperatura_final;   // Temperatura final mínima
     double maxFactor_enfriamiento; // Factor de enfriamiento máximo
     double minFactor_enfriamiento; // Factor de enfriamiento mínimo
+    double maxFactor_control;      // Factor de control máximo
+    double minFactor_control;      // Factor de control mínimo
     int maxIteracionesSA;          // Número máximo de iteraciones SA
     int minIteracionesSA;          // Número mínimo de iteraciones SA
 } rangos;
@@ -104,6 +106,7 @@ typedef struct individuo
     double temperatura_inicial; // Temperatura inicial para el algoritmo SA
     double temperatura_final;   // Temperatura final para el algoritmo SA
     double factor_enfriamiento; // Factor de enfriamiento para el algoritmo SA
+    double factor_control;      // Factor de control para el algoritmo SA
     int numIteracionesSA;       // Número de iteraciones del algoritmo SA
     double fitness;             // Medida de rendimiento del individuo
     hormiga *hormiga;           // Puntero a la hormiga asociada al individuo

@@ -19,17 +19,18 @@ double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int
 
 void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
+   double distancia;
    // Recorre todos los clientes y calcula la visibilidad entre ellos
    for (int i = 0; i < vrp->num_clientes; i++)
    {
       for (int j = i + 1; j < vrp->num_clientes; j++)
       {
-         // Calculamos la distancia entre los clientes i y j una sola vez
-         double distancia = calcular_Distancia(vrp, i, j);
 
          // Si la distancia es mayor a 0, calculamos la visibilidad
-         if (distancia > 0)
+         if (i != j)
          {
+            // Calculamos la distancia entre los clientes i y j una sola vez
+            distancia = calcular_Distancia(vrp, i, j);
             instancia_visibilidad[i][j] = 1.0 / distancia;
             instancia_visibilidad[j][i] = instancia_visibilidad[i][j]; // Aprovechamos la simetría
          }
@@ -43,16 +44,16 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
 
 void inicializar_Distancias(double **instancia_distancias, struct vrp_configuracion *vrp)
 {
+   double distancia;
    // Recorre todos los clientes y calcula las distancias entre ellos
    for (int i = 0; i < vrp->num_clientes; i++)
    {
       for (int j = i + 1; j < vrp->num_clientes; j++)
       {
-         // Calculamos la distancia entre los clientes i y j
-         double distancia = calcular_Distancia(vrp, i, j);
 
          if (i != j)
          {
+            distancia = calcular_Distancia(vrp, i, j);
             instancia_distancias[i][j] = distancia;
             instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
          }
@@ -69,14 +70,19 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
    // Recorre todos los clientes en la matriz de feromonas (fila i, columna j)
    for (int i = 0; i < vrp->num_clientes; i++)
    {
-      for (int j = 0; j < vrp->num_clientes; j++)
+      for (int j = i + 1; j < vrp->num_clientes; j++)
       {
          // Si i y j son diferentes (es decir, no es la misma ciudad), se asigna un valor de feromona de 1.0
          if (i != j)
-            instancia_feromona[i][j] = 1.0; // Hay que revisr si lo hacemo entre la ventana del tiempo final
-         // Si i y j son iguales (es decir, es la misma ciudad), la feromona se establece en 0.0
+         {
+            instancia_feromona[i][j] = 1.0;
+            instancia_feromona[j][i] = instancia_feromona[i][j]; // Aprovechamos la simetría
+         }
+
          else
+         {
             instancia_feromona[i][j] = 0.0;
+         }
       }
    }
 }
@@ -97,17 +103,17 @@ double generaAleatorio(double minimo, double maximo)
    return aleatorio;
 }
 
-void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, int poblacion)
+void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, struct rangos *rango, int poblacion)
 {
    // Recorre cada individuo de la población ruidosa
    for (int i = 0; i < poblacion; ++i)
    {
-      // Selecciona tres índices aleatorios diferentes de la población
+      // Selecciona tres índices aleatorios diferentes de la población objetivo
       int aleatorio1 = rand() % poblacion;
       int aleatorio2 = rand() % poblacion;
       int aleatorio3 = rand() % poblacion;
 
-      // Asegura que los índices sean distintos entre sí
+      // Asegura que los índices seleccionados sean distintos entre sí
       while (aleatorio1 == aleatorio2 || aleatorio2 == aleatorio3 || aleatorio1 == aleatorio3)
       {
          aleatorio1 = rand() % poblacion;
@@ -120,53 +126,94 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, in
       ruidoso[i].beta = objetivo[aleatorio1].beta + 0.5 * (objetivo[aleatorio2].beta - objetivo[aleatorio3].beta);
       ruidoso[i].rho = objetivo[aleatorio1].rho + 0.5 * (objetivo[aleatorio2].rho - objetivo[aleatorio3].rho);
       ruidoso[i].numHormigas = objetivo[aleatorio1].numHormigas + (int)(0.5 * (objetivo[aleatorio2].numHormigas - objetivo[aleatorio3].numHormigas));
-      ruidoso[i].numIteraciones = objetivo[aleatorio1].numIteraciones + (int)(0.5 * (objetivo[aleatorio2].numIteraciones - objetivo[aleatorio3].numIteraciones));
+      ruidoso[i].numIteracionesACO = objetivo[aleatorio1].numIteracionesACO + (int)(0.5 * (objetivo[aleatorio2].numIteracionesACO - objetivo[aleatorio3].numIteracionesACO));
+      ruidoso[i].temperatura_inicial = objetivo[aleatorio1].temperatura_inicial + 0.5 * (objetivo[aleatorio2].temperatura_inicial - objetivo[aleatorio3].temperatura_inicial);
+      ruidoso[i].temperatura_final = objetivo[aleatorio1].temperatura_final + 0.5 * (objetivo[aleatorio2].temperatura_final - objetivo[aleatorio3].temperatura_final);
+      ruidoso[i].factor_enfriamiento = objetivo[aleatorio1].factor_enfriamiento + 0.5 * (objetivo[aleatorio2].factor_enfriamiento - objetivo[aleatorio3].factor_enfriamiento);
+      ruidoso[i].factor_control = objetivo[aleatorio1].factor_control + 0.5 * (objetivo[aleatorio2].factor_control - objetivo[aleatorio3].factor_control);
+      ruidoso[i].numIteracionesSA = objetivo[aleatorio1].numIteracionesSA + (int)(0.5 * (objetivo[aleatorio2].numIteracionesSA - objetivo[aleatorio3].numIteracionesSA));
+      // Limita los valores de los parámetros para asegurarse de que estén dentro de un rango válido
 
-      // Limita los valores de los parámetros para que estén dentro de un rango válido
-      // Ajusta los valores de alpha dentro del rango permitido [1.0, 2.5]
-      if (ruidoso[i].alpha > 2.5)
-         ruidoso[i].alpha = 2.5;
+      // Limita 'alpha' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].alpha > rango->maxAlpha)
+         ruidoso[i].alpha = rango->maxAlpha;
 
-      if (ruidoso[i].alpha < 1.0)
-         ruidoso[i].alpha = 1.0;
+      if (ruidoso[i].alpha < rango->minAlpha)
+         ruidoso[i].alpha = rango->minAlpha;
 
-      // Ajusta los valores de beta dentro del rango permitido [1.0, 2.5]
-      if (ruidoso[i].beta > 2.5)
-         ruidoso[i].beta = 2.5;
+      // Limita 'beta' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].beta > rango->maxBeta)
+         ruidoso[i].beta = rango->maxBeta;
 
-      if (ruidoso[i].beta < 1.0)
-         ruidoso[i].beta = 1.0;
+      if (ruidoso[i].beta < rango->minBeta)
+         ruidoso[i].beta = rango->minBeta;
 
-      // Ajusta los valores de rho dentro del rango permitido [0.1, 0.9]
-      if (ruidoso[i].rho > 0.9)
-         ruidoso[i].rho = 0.9;
+      // Limita 'rho' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].rho > rango->maxRho)
+         ruidoso[i].rho = rango->maxRho;
 
-      if (ruidoso[i].rho < 0.1)
-         ruidoso[i].rho = 0.1;
+      if (ruidoso[i].rho < rango->minRho)
+         ruidoso[i].rho = rango->minRho;
 
-      // Ajusta el número de hormigas dentro del rango permitido [20, 100]
-      if (ruidoso[i].numHormigas > 100)
-         ruidoso[i].numHormigas = 100;
+      // Limita 'numHormigas' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].numHormigas > rango->maxNumHormigas)
+         ruidoso[i].numHormigas = rango->maxNumHormigas;
 
-      if (ruidoso[i].numHormigas < 20)
-         ruidoso[i].numHormigas = 20;
+      if (ruidoso[i].numHormigas < rango->minNumHormigas)
+         ruidoso[i].numHormigas = rango->minNumHormigas;
 
-      // Ajusta el número de iteraciones dentro del rango permitido [50, 200]
-      if (ruidoso[i].numIteraciones > 200)
-         ruidoso[i].numIteraciones = 200;
+      // Limita 'numIteracionesACO' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].numIteracionesACO > rango->maxNumIteracionesACO)
+         ruidoso[i].numIteracionesACO = rango->maxNumIteracionesACO;
 
-      if (ruidoso[i].numIteraciones < 50)
-         ruidoso[i].numIteraciones = 50;
+      if (ruidoso[i].numIteracionesACO < rango->minNumIteracionesACO)
+         ruidoso[i].numIteracionesACO = rango->minNumIteracionesACO;
+
+      // Limita 'temperatura_inicial' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].temperatura_inicial > rango->maxTemperatura_inicial)
+         ruidoso[i].temperatura_inicial = rango->maxTemperatura_inicial;
+
+      if (ruidoso[i].temperatura_inicial < rango->minTemperatura_inicial)
+         ruidoso[i].temperatura_inicial = rango->minTemperatura_inicial;
+
+      // Limita 'temperatura_final' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].temperatura_final > rango->maxTemperatura_final)
+         ruidoso[i].temperatura_final = rango->maxTemperatura_final;
+
+      if (ruidoso[i].temperatura_final < rango->minTemperatura_final)
+         ruidoso[i].temperatura_final = rango->minTemperatura_final;
+
+      // Limita 'factor_enfriamiento' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].factor_enfriamiento > rango->maxFactor_enfriamiento)
+         ruidoso[i].factor_enfriamiento = rango->maxFactor_enfriamiento;
+
+      if (ruidoso[i].factor_enfriamiento < rango->minFactor_enfriamiento)
+         ruidoso[i].factor_enfriamiento = rango->minFactor_enfriamiento;
+
+      // Limita 'factor_control' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].factor_control > rango->maxFactor_control)
+         ruidoso[i].factor_control = rango->maxFactor_control;
+
+      if (ruidoso[i].factor_control < rango->minFactor_control)
+         ruidoso[i].factor_control = rango->minFactor_control;
+
+      // Limita 'numIteracionesSA' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].numIteracionesSA > rango->maxIteracionesSA)
+         ruidoso[i].numIteracionesSA = rango->maxIteracionesSA;
+
+      if (ruidoso[i].numIteracionesSA < rango->minIteracionesSA)
+         ruidoso[i].numIteracionesSA = rango->minIteracionesSA;
    }
 }
 
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
+   double aleatorio; // Variable para almacenar un número aleatorio
    // Itera sobre todos los individuos en la población.
    for (int i = 0; i < poblacion; ++i)
    {
       // Genera un número aleatorio en el rango [0,1].
-      double aleatorio = (double)rand() / RAND_MAX;
+      aleatorio = (double)rand() / RAND_MAX;
 
       // Con una probabilidad del 50%, selecciona el individuo de la población objetivo.
       if (aleatorio <= 0.5)
@@ -187,37 +234,147 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
          objetivo[i] = prueba[i];
 }
 
-void inicializaPoblacion(struct individuo *objetivo, int poblacion)
+void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion)
 {
+
+   if (vrp->num_clientes == 26)
+   {
+      // Asigna rangos específicos según el número de clientes en el TSP
+      rango->maxAlpha = 3.0;
+      rango->minAlpha = 1.0;
+
+      rango->maxBeta = 3.0;
+      rango->minBeta = 1.0;
+
+      rango->maxRho = 0.6;
+      rango->minRho = 0.4;
+
+      rango->maxNumHormigas = 25;
+      rango->minNumHormigas = 10;
+
+      rango->maxNumIteracionesACO = 100;
+      rango->minNumIteracionesACO = 50;
+
+      rango->maxTemperatura_inicial = 2000.0;
+      rango->minTemperatura_inicial = 1000.0;
+
+      rango->maxTemperatura_final = 0.3;
+      rango->minTemperatura_final = 0.1;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.95;
+
+      rango->maxFactor_control = 0.7;
+      rango->minFactor_control = 0.5;
+
+      rango->maxIteracionesSA = 150;
+      rango->minIteracionesSA = 100;
+   }
+
+   if (vrp->num_clientes == 51)
+   {
+      rango->maxAlpha = 4.0;
+      rango->minAlpha = 2.0;
+
+      rango->maxBeta = 5.0;
+      rango->minBeta = 3.0;
+
+      rango->maxRho = 0.6;
+      rango->minRho = 0.4;
+
+      rango->maxNumHormigas = 40;
+      rango->minNumHormigas = 25;
+
+      rango->maxNumIteracionesACO = 150;
+      rango->minNumIteracionesACO = 100;
+
+      rango->maxTemperatura_inicial = 2500.0;
+      rango->minTemperatura_inicial = 1500.0;
+
+      rango->maxTemperatura_final = 0.3;
+      rango->minTemperatura_final = 0.1;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.95;
+
+      rango->maxFactor_control = 0.8;
+      rango->minFactor_control = 0.6;
+
+      rango->maxIteracionesSA = 200;
+      rango->minIteracionesSA = 150;
+   }
+
+   if (vrp->num_clientes == 101)
+   {
+      rango->maxAlpha = 5.0;
+      rango->minAlpha = 3.0;
+
+      rango->maxBeta = 5.0;
+      rango->minBeta = 3.0;
+
+      rango->maxRho = 0.5;
+      rango->minRho = 0.3;
+
+      rango->maxNumHormigas = 40;
+      rango->minNumHormigas = 50;
+
+      rango->maxNumIteracionesACO = 200;
+      rango->minNumIteracionesACO = 150;
+
+      rango->maxTemperatura_inicial = 3000.0;
+      rango->minTemperatura_inicial = 2000.0;
+
+      rango->maxTemperatura_final = 0.2;
+      rango->minTemperatura_final = 0.1;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.95;
+
+      rango->maxFactor_control = 0.9;
+      rango->minFactor_control = 0.7;
+
+      rango->maxIteracionesSA = 300;
+      rango->minIteracionesSA = 200;
+   }
+   // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)
    {
-      // Asignamos valores aleatorios dentro de los nuevos rangos recomendados
-      objetivo[i].alpha = generaAleatorio(1.0, 2.5);               // alpha: entre 1.0 y 2.5
-      objetivo[i].beta = generaAleatorio(1.0, 2.5);                // beta: entre 1.0 y 2.5
-      objetivo[i].rho = generaAleatorio(0.1, 0.9);                 // rho: entre 0.1 y 0.9
-      objetivo[i].numHormigas = (int)generaAleatorio(20, 100);     // numHormigas: entre 20 y 100
-      objetivo[i].numIteraciones = (int)generaAleatorio(50, 200); // numIteraciones: entre 50 y 200
+      // Genera valores aleatorios dentro de los rangos definidos para cada individuo
+      objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);
+      objetivo[i].beta = generaAleatorio(rango->minBeta, rango->maxBeta);
+      objetivo[i].rho = generaAleatorio(rango->minRho, rango->maxRho);
+      objetivo[i].numHormigas = (int)generaAleatorio(rango->minNumHormigas, rango->maxNumHormigas);
+      objetivo[i].numIteracionesACO = (int)generaAleatorio(rango->minNumIteracionesACO, rango->maxNumIteracionesACO);
+      objetivo[i].temperatura_inicial = generaAleatorio(rango->minTemperatura_inicial, rango->maxTemperatura_inicial);
+      objetivo[i].temperatura_final = generaAleatorio(rango->minTemperatura_final, rango->maxTemperatura_final);
+      objetivo[i].factor_enfriamiento = generaAleatorio(rango->minFactor_enfriamiento, rango->maxFactor_enfriamiento);
+      objetivo[i].factor_control = generaAleatorio(rango->minFactor_control, rango->maxFactor_control);
+      objetivo[i].numIteracionesSA = (int)generaAleatorio(rango->minIteracionesSA, rango->maxIteracionesSA);
    }
 }
 
 void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t timepo_inicial, timepo_final;
-   timepo_inicial = clock();
+   clock_t tiempo_inicial, tiempo_final;
+   tiempo_inicial = clock();
    char respuesta;                                                                // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
    struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
    vrp_configuracion *vrp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
+   struct rangos *rango = asignar_memoria_rangos();
+
+   vrp->generaciones = num_generaciones; // Asignamos el numero de generaciones
+   vrp->poblacion = num_poblacion;       // Asiganamos el numero de poblacion
 
    double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes); // Generamos memoria para la instancia de la visibilidad
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);   // Generamos memoria para la instancia de la feromona
    double **instancia_distancias = asignar_memoria_instancia(vrp->num_clientes);  // Generamos memoria para la instancia de la las distancias
 
-   inicializar_Distancias(instancia_distancias, vrp);   // Inicializamos las distancias
-   inicializar_Visibilidad(instancia_visibilidad, vrp); // Inicializamos las visibilidad
-   inicializaPoblacion(objetivo, num_poblacion);        // Inicializamos la poblacion
+   inicializar_Distancias(instancia_distancias, vrp);        // Inicializamos las distancias
+   inicializar_Visibilidad(instancia_visibilidad, vrp);      // Inicializamos las visibilidad
+   inicializaPoblacion(objetivo, vrp, rango, num_poblacion); // Inicializamos la poblacion
 
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,vrp,"INSTANCIA DISTANCIAS");
@@ -235,11 +392,16 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    {
       if (objetivo[i].fitness < resultado->fitness)
       {
-         resultado->alpha = objetivo[i].alpha;
-         resultado->beta = objetivo[i].beta;
-         resultado->rho = objetivo[i].rho;
-         resultado->numHormigas = objetivo[i].numHormigas;
-         resultado->numIteraciones = objetivo[i].numIteraciones;
+         resultado->alpha = objetivo[i].alpha;                             // Copiamos el alpha del mejor metal
+         resultado->beta = objetivo[i].beta;                               // Copiamos el beta del mejor metal
+         resultado->rho = objetivo[i].rho;                                 // Copiamos el rho del mejor metal
+         resultado->numHormigas = objetivo[i].numHormigas;                 // Copiamos el numero de hormigas del mejor metal
+         resultado->numIteracionesACO = objetivo[i].numIteracionesACO;     // Copiamos el numero de iteraciones del mejor metal
+         resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
+         resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
+         resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
+         resultado->factor_control = objetivo[i].factor_control;           // Copiamos el factor de control del mejor metal
+         resultado->numIteracionesSA = objetivo[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
          recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);
       }
    }
@@ -247,10 +409,10 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    // Inicializamos ya las generaciones
    for (int i = 0; i < num_generaciones; i++)
    {
-      construyeRuidosos(objetivo, ruidoso, num_poblacion);       // Contruimos Ruidosos
-      construyePrueba(objetivo, ruidoso, prueba, num_poblacion); // Contruimos Prueba
-                                                                 // Evaluamos la función objetivo para cada individuo de prueba
-      for (int j = 0; j < num_poblacion; ++j)                    // Mandamos a evaluar la funcion objetivo de prueba{
+      construyeRuidosos(objetivo, ruidoso, rango, num_poblacion); // Contruimos Ruidosos
+      construyePrueba(objetivo, ruidoso, prueba, num_poblacion);  // Contruimos Prueba
+                                                                  // Evaluamos la función objetivo para cada individuo de prueba
+      for (int j = 0; j < num_poblacion; ++j)                     // Mandamos a evaluar la funcion objetivo de prueba{
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);
 
       for (int i = 0; i < num_poblacion; i++)
@@ -258,11 +420,17 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          // Actualizamos el mejor resultado si encontramos uno mejor
          if (prueba[i].fitness < resultado->fitness)
          {
-            resultado->alpha = prueba[i].alpha;
-            resultado->beta = prueba[i].beta;
-            resultado->rho = prueba[i].rho;
-            resultado->numHormigas = prueba[i].numHormigas;
-            resultado->numIteraciones = prueba[i].numIteraciones;
+            resultado->alpha = prueba[i].alpha;                             // Copiamos el alpha del mejor metal
+            resultado->beta = prueba[i].beta;                               // Copiamos el beta del mejor metal
+            resultado->rho = prueba[i].rho;                                 // Copiamos el rho del mejor metal
+            resultado->numHormigas = prueba[i].numHormigas;                 // Copiamos el numero de hormigas del mejor metal
+            resultado->numIteracionesACO = prueba[i].numIteracionesACO;     // Copiamos el numero de iteraciones del mejor metal
+            resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
+            resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
+            resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
+            resultado->factor_control = prueba[i].factor_control;           // Copiamos el factor de control del mejor metal
+            resultado->numIteracionesSA = prueba[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
+
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);
          }
       }
@@ -282,12 +450,12 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
       printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
              ((float)(i + 1) / num_generaciones) * 100,
              resultado->fitness,
-             ((double)(clock() - timepo_inicial)) / CLOCKS_PER_SEC / 60.0);
+             ((double)(clock() - tiempo_inicial)) / CLOCKS_PER_SEC / 60.0);
       fflush(stdout);
    }
 
-   timepo_final = clock();
-   double minutos = (((double)(timepo_final - timepo_inicial)) / CLOCKS_PER_SEC) / 60.0;
+   tiempo_final = clock();
+   double minutos = (((double)(tiempo_final - tiempo_inicial)) / CLOCKS_PER_SEC) / 60.0;
 
    vrp->tiempo_ejecucion = ceil(minutos);
    vrp->archivo_instancia = archivo_instancia;
@@ -305,6 +473,7 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_instancia(instancia_feromonas, vrp->num_clientes);   // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes); // Liberemos la memoria de la instancia visibilidad
    liberar_instancia(instancia_distancias, vrp->num_clientes);  // Liberemos la memoria de la instancia distancias
+   liberar_rangos(rango);                                       // Liberemos la memoria de los rangos
    liberar_individuos(objetivo, num_poblacion, true);           // Liberemos la memoria del objetivo
    liberar_individuos(prueba, num_poblacion, true);             // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso

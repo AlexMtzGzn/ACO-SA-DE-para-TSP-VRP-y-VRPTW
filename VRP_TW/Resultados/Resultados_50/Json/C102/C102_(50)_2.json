@@ -1,0 +1,259 @@
+{
+	"Archivo":	"C102_(50)",
+	"Tiempo Ejecucion en Minutos":	38,
+	"Poblacion: ":	30,
+	"Generaciones: ":	50,
+	"Alpha":	1,
+	"Beta":	3.2630758361253314,
+	"Gamma":	2.4090162028600539,
+	"Rho":	0.1,
+	"Numero Hormigas":	27,
+	"Numero Iteraciones ACO":	34,
+	"Temperatura Inicial: ":	1973.806063446126,
+	"Temperatura Final: ":	0.0072486187602619559,
+	"Factor de Enfriamiento: ":	0.999,
+	"Factor de Control: ":	0.669072394477703,
+	"Numero Iteraciones SA: ":	300,
+	"Fitness Global":	457.62245562666578,
+	"flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	110,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1110.2093727122985,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	8,
+			"Fitness Vehiculo":	64.6712522350739,
+			"Ruta Clientes":	[0, 20, 42, 41, 40, 44, 46, 45, 49, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	30,
+					"Y":	50
+				}, {
+					"X":	33,
+					"Y":	32
+				}, {
+					"X":	35,
+					"Y":	32
+				}, {
+					"X":	35,
+					"Y":	30
+				}, {
+					"X":	32,
+					"Y":	30
+				}, {
+					"X":	30,
+					"Y":	32
+				}, {
+					"X":	30,
+					"Y":	30
+				}, {
+					"X":	28,
+					"Y":	35
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}, {
+			"Id_vehiculo":	2,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	170,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1059.3565356598965,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	11,
+			"Fitness Vehiculo":	69.3565356598964,
+			"Ruta Clientes":	[0, 43, 24, 25, 27, 29, 30, 28, 26, 23, 22, 21, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	33,
+					"Y":	35
+				}, {
+					"X":	25,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	52
+				}, {
+					"X":	23,
+					"Y":	52
+				}, {
+					"X":	20,
+					"Y":	50
+				}, {
+					"X":	20,
+					"Y":	55
+				}, {
+					"X":	23,
+					"Y":	55
+				}, {
+					"X":	25,
+					"Y":	55
+				}, {
+					"X":	28,
+					"Y":	55
+				}, {
+					"X":	28,
+					"Y":	52
+				}, {
+					"X":	30,
+					"Y":	52
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}, {
+			"Id_vehiculo":	3,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	190,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	815.88470913081824,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	8,
+			"Fitness Vehiculo":	95.884709130818266,
+			"Ruta Clientes":	[0, 13, 17, 18, 19, 15, 16, 14, 12, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	22,
+					"Y":	75
+				}, {
+					"X":	18,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	85
+				}, {
+					"X":	22,
+					"Y":	85
+				}, {
+					"X":	25,
+					"Y":	85
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}, {
+			"Id_vehiculo":	4,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	200,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1170.4449516203752,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	11,
+			"Fitness Vehiculo":	113.18717755083537,
+			"Ruta Clientes":	[0, 33, 31, 35, 37, 38, 39, 36, 34, 50, 48, 47, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	8,
+					"Y":	40
+				}, {
+					"X":	10,
+					"Y":	35
+				}, {
+					"X":	5,
+					"Y":	35
+				}, {
+					"X":	2,
+					"Y":	40
+				}, {
+					"X":	0,
+					"Y":	40
+				}, {
+					"X":	0,
+					"Y":	45
+				}, {
+					"X":	5,
+					"Y":	45
+				}, {
+					"X":	8,
+					"Y":	45
+				}, {
+					"X":	26,
+					"Y":	32
+				}, {
+					"X":	28,
+					"Y":	30
+				}, {
+					"X":	30,
+					"Y":	35
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}, {
+			"Id_vehiculo":	5,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	190,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1203.7671595655895,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	12,
+			"Fitness Vehiculo":	114.5227810500419,
+			"Ruta Clientes":	[0, 32, 7, 8, 10, 11, 9, 6, 4, 1, 2, 3, 5, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	10,
+					"Y":	40
+				}, {
+					"X":	40,
+					"Y":	66
+				}, {
+					"X":	38,
+					"Y":	68
+				}, {
+					"X":	35,
+					"Y":	66
+				}, {
+					"X":	35,
+					"Y":	69
+				}, {
+					"X":	38,
+					"Y":	70
+				}, {
+					"X":	40,
+					"Y":	69
+				}, {
+					"X":	42,
+					"Y":	68
+				}, {
+					"X":	45,
+					"Y":	68
+				}, {
+					"X":	45,
+					"Y":	70
+				}, {
+					"X":	42,
+					"Y":	66
+				}, {
+					"X":	42,
+					"Y":	65
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}]
+}

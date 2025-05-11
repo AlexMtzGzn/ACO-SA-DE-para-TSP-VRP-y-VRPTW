@@ -42,7 +42,7 @@ double **asignar_memoria_instancia(int tamanio_instancia)
  */
 int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 {
-    int *arreglo = (int *)malloc(sizeof(int) * (tamanio_arreglo));
+    int *arreglo = (int *)calloc(tamanio_arreglo,sizeof(int));
     if (arreglo == NULL)
     {
         imprimir_mensaje("No se pudo asignar memoria para el arreglo entero");
@@ -57,7 +57,7 @@ int *asignar_memoria_arreglo_int(int tamanio_arreglo)
  */
 double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 {
-    double *arreglo = (double *)malloc(sizeof(double) * (tamanio_arreglo));
+    double *arreglo = (double *)calloc(tamanio_arreglo,sizeof(double));
     if (arreglo == NULL)
     {
         imprimir_mensaje("No se pudo asignar memoria para el arreglo double");
@@ -92,6 +92,22 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
+struct rangos *asignar_memoria_rangos()
+{
+    struct rangos *rango = (struct rangos *)malloc(sizeof(struct rangos));
+    if (rango == NULL)
+    {
+        imprimir_mensaje("Error: No se pudo asignar memoria para los rangos");
+        exit(EXIT_FAILURE);
+    }
+    return rango;
+}
+
+void liberar_rangos(struct rangos *rango)
+{
+    free(rango);
+}
+
 /*Funciones para la estructura del individuo*/
 
 /**
@@ -100,7 +116,7 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
  */
 struct individuo *asignar_memoria_individuos(int poblacion)
 {
-    struct individuo *individuo = (struct individuo *)malloc(sizeof(struct individuo) * poblacion);
+    struct individuo *individuo = (struct individuo *)calloc(poblacion,sizeof(struct individuo));
     if (individuo == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para los individuos");
@@ -116,11 +132,21 @@ struct individuo *asignar_memoria_individuos(int poblacion)
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
     if (tipo)
+    {
         for (int i = 0; i < num_poblacion; i++)
-            liberar_lista_vehiculos(ind[i].hormiga->flota);
+        {
+            if (ind[i].hormiga) // Verificamos que la hormiga exista
+            {
+                if (ind[i].hormiga->flota) // Verificamos que la flota exista
+                    vaciar_lista_vehiculos(ind[i].hormiga->flota);
 
+                free(ind[i].hormiga); // Importante: liberar la hormiga después
+            }
+        }
+    }
     free(ind);
 }
+
 
 /*Funciones para la estructura de configuración VRP*/
 
@@ -178,7 +204,7 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
 
-    struct hormiga *hormiga = (struct hormiga *)malloc(sizeof(struct hormiga) * numHormigas);
+    struct hormiga *hormiga = (struct hormiga *)calloc(numHormigas,sizeof(struct hormiga));
     if (hormiga == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para hormigas.");
@@ -221,7 +247,7 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
     hormiga->fitness_global = 0.0;
     
     // Free old fleet and create a new one
-    liberar_lista_vehiculos(hormiga->flota);
+    vaciar_lista_vehiculos(hormiga->flota);
     hormiga->vehiculos_necesarios = 0;
     
     // Insert the first vehicle
@@ -314,3 +340,33 @@ struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
     }
     return nodo_vehiculo;
 }
+
+struct metal *asignar_memoria_metal()
+{
+    struct metal *metal = (struct metal *)malloc(sizeof(struct metal));
+    if (metal == NULL)
+    {
+        imprimir_mensaje("Error: No se pudo asignar memoria para el metal.");
+        exit(EXIT_FAILURE);
+    }
+    return metal;
+}
+
+/**
+ * Libera la memoria del metal.
+ */
+void liberar_memoria_metal(struct individuo *ind)
+{
+    if (ind->metal)
+    {
+        if (ind->metal->solucion_vecina)
+            liberar_lista_vehiculos(ind->metal->solucion_vecina);
+        if (ind->metal->solucion_inicial)
+            liberar_lista_vehiculos(ind->metal->solucion_inicial);
+        if (ind->metal->mejor_solucion)
+            liberar_lista_vehiculos(ind->metal->mejor_solucion);
+        free(ind->metal);
+    }
+}
+
+

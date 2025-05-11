@@ -16,20 +16,36 @@ typedef struct lista_ruta
     nodo_ruta *cola;   // Último nodo en la ruta
 } lista_ruta;
 
+// --------------------- TIEMPO CLIENTE ---------------------
+// Estructura que representa los tiempos de cada cliente
+
+typedef struct tiempos_cliente
+{
+    int cliente; //Cliente
+    double tiempo_llegada; // 
+    double tiempo_espera;
+    double inicio_servicio;
+    double duracion_servicio;
+    double tiempo_salida;
+
+} tiempos_cliente;
 // --------------------- VEHÍCULOS ---------------------
 // Estructura que representa un vehículo en la flota
 typedef struct vehiculo
 {
-    int id_vehiculo;            // ID único del vehículo
-    double capacidad_maxima;    // Capacidad máxima del vehículo
-    double capacidad_acumulada; // Capacidad actual acumulada en el vehículo
-    double vt_actual;           // Ventana de tiempo actual del vehículo
-    double vt_final;            // Ventana de tiempo final
-    double vt_inicial;          // Ventana de tiempo inicial
-    double velocidad;           // Velocidad del vehículo
-    int clientes_contados;      // Contador de clientes atendidos por el vehículo
-    lista_ruta *ruta;           // Ruta que sigue el vehículo
-    double fitness_vehiculo;    // Medida de rendimiento del vehículo
+    int id_vehiculo;                 // ID único del vehículo
+    double capacidad_maxima;         // Capacidad máxima del vehículo
+    double capacidad_acumulada;      // Capacidad actual acumulada en el vehículo
+    double vt_actual;                // Ventana de tiempo actual del vehículo
+    double vt_final;                 // Ventana de tiempo final
+    double vt_inicial;               // Ventana de tiempo inicial
+    double tiempo_salida_vehiculo;   // Tiempo de salida del vehiculo
+    double tiempo_llegada_vehiculo;  // Tiempo de llegada del vehiculo
+    double velocidad;                // Velocidad del vehículo
+    int clientes_contados;           // Contador de clientes atendidos por el vehículo
+    lista_ruta *ruta;                // Ruta que sigue el vehículo
+    double fitness_vehiculo;         // Medida de rendimiento del vehículo
+    tiempos_cliente *tiempos_cliente; // Arreglo que lleva el control de de los timepos de servicio del cliente
 } vehiculo;
 
 // --------------------- NODO Y LISTA DE VEHÍCULOS ---------------------
@@ -46,6 +62,22 @@ typedef struct lista_vehiculos
     nodo_vehiculo *cabeza; // Primer vehículo en la flota
     nodo_vehiculo *cola;   // Último vehículo en la flota
 } lista_vehiculos;
+
+// --------------------- METAL ---------------------
+// Estructura que representa el metal en el algoritmo SA
+typedef struct metal
+{
+
+    lista_vehiculos *mejor_solucion;   // Mejor solución
+    double fitness_mejor_solucion;     // Fitness de la mejor solución
+    lista_vehiculos *solucion_inicial; // Solución inicial
+    double fitness_solucion_inicial;   // Fitness de la solución inicial
+    lista_vehiculos *solucion_actual;  // Solución actual
+    double fitness_solucion_actual;    // Fitness de la solución actual
+    lista_vehiculos *solucion_vecina;  // Solución vecina
+    double fitness_solucion_vecina;    // Fitness de la solución vecina
+
+} metal;
 
 // --------------------- HORMIGA ---------------------
 // Estructura que representa una hormiga en el algoritmo ACO
@@ -84,23 +116,58 @@ typedef struct vrp_configuracion
     int num_clientes;        // Número total de clientes en el VRP
     int num_vehiculos;       // Número total de vehículos disponibles
     int num_capacidad;       // Capacidad de cada vehículo
+    int generaciones;        // Numero de generaciones
+    int poblacion;           // Numero de poblacion
     cliente *clientes;       // Arreglo de clientes en el VRP
     double tiempo_ejecucion; // Tiempo de ejecucion del codigo
     char *archivo_instancia; // Nombre del archivo
 } vrp_configuracion;
+// --------------------- RANGOS ---------------------
+// Estructura que contiene los rangos de los parámetros del algoritmo
+typedef struct rangos
+{
+    double maxAlpha;               // Parámetro alpha máximo
+    double minAlpha;               // Parámetro alpha mínimo
+    double maxBeta;                // Parámetro beta máximo
+    double minBeta;                // Parámetro beta mínimo
+    double maxGamma;               // Parametro gamma minimo
+    double minGamma;               // Parametro gamma maximo
+    double maxRho;                 // Parámetro rho máximo
+    double minRho;                 // Parámetro rho mínimo
+    double maxNumHormigas;         // Número máximo de hormigas
+    double minNumHormigas;         // Número mínimo de hormigas
+    int maxNumIteracionesACO;      // Número máximo de iteraciones ACO
+    int minNumIteracionesACO;      // Número mínimo de iteraciones ACO
+    double maxTemperatura_inicial; // Temperatura inicial máxima
+    double minTemperatura_inicial; // Temperatura inicial mínima
+    double maxTemperatura_final;   // Temperatura final máxima
+    double minTemperatura_final;   // Temperatura final mínima
+    double maxFactor_enfriamiento; // Factor de enfriamiento máximo
+    double minFactor_enfriamiento; // Factor de enfriamiento mínimo
+    double maxFactor_control;      // Factor de control máximo
+    double minFactor_control;      // Factor de control mínimo
+    int maxIteracionesSA;          // Número máximo de iteraciones SA
+    int minIteracionesSA;          // Número mínimo de iteraciones SA
+} rangos;
 
 // --------------------- INDIVIDUO ---------------------
 // Estructura que representa un individuo en la población de soluciones
 typedef struct individuo
 {
-    double alpha;       // Parámetro alpha para el algoritmo ACO
-    double beta;        // Parámetro beta para el algoritmo ACO
-    double gamma;       // Parámetro gamma para el algortimo ACO
-    double rho;         // Factor de evaporación de feromona
-    int numHormigas;    // Número de hormigas en la población
-    int numIteraciones; // Número de iteraciones del algoritmo
-    double fitness;     // Medida de rendimiento del individuo
-    hormiga *hormiga;   // Puntero a la hormiga asociada al individuo
+    double alpha;               // Parámetro alpha para el algoritmo ACO
+    double beta;                // Parámetro beta para el algoritmo ACO
+    double gamma;               // Parametro gamma para el algoritmo ACO
+    double rho;                 // Factor de evaporación de feromona para el algoritmo ACO
+    int numHormigas;            // Número de hormigas en la población para el algoritmo ACO
+    int numIteracionesACO;      // Número de iteraciones del algoritmo para el algoritmo ACO
+    double temperatura_inicial; // Temperatura inicial para el algoritmo SA
+    double temperatura_final;   // Temperatura final para el algoritmo SA
+    double factor_enfriamiento; // Factor de enfriamiento para el algoritmo SA
+    double factor_control;      // Factor de control para el algoritmo SA
+    int numIteracionesSA;       // Número de iteraciones del algoritmo SA
+    double fitness;             // Medida de rendimiento del individuo
+    hormiga *hormiga;           // Puntero a la hormiga asociada al individuo
+    metal *metal;               // Puntero a las soluciones de SA
 } individuo;
 
 #endif // ESTRUCTURAS_H

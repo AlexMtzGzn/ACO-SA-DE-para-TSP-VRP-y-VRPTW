@@ -12,8 +12,11 @@
 
 double calcular_Distancia(struct tsp_configuracion *tsp, int cliente_origen, int cliente_destino)
 {
-   // Retornamos la distancia de los puntos
-   double distancia = sqrt(pow((tsp->clientes[cliente_destino].coordenada_x - tsp->clientes[cliente_origen].coordenada_x), 2.0) + pow((tsp->clientes[cliente_destino].coordenada_y - tsp->clientes[cliente_origen].coordenada_y), 2.0));
+   // Declaramos distancia
+   double distancia;
+   // Calculamos la distancia entre el cliente origen y el cliente destino
+   distancia = sqrt(pow((tsp->clientes[cliente_destino].coordenada_x - tsp->clientes[cliente_origen].coordenada_x), 2.0) + pow((tsp->clientes[cliente_destino].coordenada_y - tsp->clientes[cliente_origen].coordenada_y), 2.0));
+   // Retornamos la distancia
    return distancia;
 }
 
@@ -75,7 +78,7 @@ void inicializar_Feromona(struct tsp_configuracion *tsp, double **instancia_fero
          if (i != j)
             instancia_feromona[i][j] = 1.0;
          else
-            instancia_feromona[i][j] = 0.0;
+            instancia_feromona[i][j] = 0.0; // Si son iguales, se asigana 0.0
       }
    }
 }
@@ -93,7 +96,8 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
 double generaAleatorio(double minimo, double maximo)
 {
    // Genera un número aleatorio entre 0 y 1, luego lo escala al rango deseado
-   double aleatorio = minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
+   double aleatorio;
+   aleatorio = minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
    return aleatorio;
 }
 
@@ -124,6 +128,7 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
       ruidoso[i].temperatura_inicial = objetivo[aleatorio1].temperatura_inicial + 0.5 * (objetivo[aleatorio2].temperatura_inicial - objetivo[aleatorio3].temperatura_inicial);
       ruidoso[i].temperatura_final = objetivo[aleatorio1].temperatura_final + 0.5 * (objetivo[aleatorio2].temperatura_final - objetivo[aleatorio3].temperatura_final);
       ruidoso[i].factor_enfriamiento = objetivo[aleatorio1].factor_enfriamiento + 0.5 * (objetivo[aleatorio2].factor_enfriamiento - objetivo[aleatorio3].factor_enfriamiento);
+      ruidoso[i].factor_control = objetivo[aleatorio1].factor_control + 0.5 * (objetivo[aleatorio2].factor_control - objetivo[aleatorio3].factor_control);
       ruidoso[i].numIteracionesSA = objetivo[aleatorio1].numIteracionesSA + (int)(0.5 * (objetivo[aleatorio2].numIteracionesSA - objetivo[aleatorio3].numIteracionesSA));
 
       // Limita los valores de los parámetros para asegurarse de que estén dentro de un rango válido
@@ -184,6 +189,13 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
       if (ruidoso[i].factor_enfriamiento < rango->minFactor_enfriamiento)
          ruidoso[i].factor_enfriamiento = rango->minFactor_enfriamiento;
 
+      // Limita 'factor_control' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].factor_control > rango->maxFactor_control)
+         ruidoso[i].factor_control = rango->maxFactor_control;
+
+      if (ruidoso[i].factor_control < rango->minFactor_control)
+         ruidoso[i].factor_control = rango->minFactor_control;
+
       // Limita 'numIteracionesSA' a estar dentro de los valores mínimos y máximos
       if (ruidoso[i].numIteracionesSA > rango->maxIteracionesSA)
          ruidoso[i].numIteracionesSA = rango->maxIteracionesSA;
@@ -223,39 +235,109 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
 
 void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *tsp, struct rangos *rango, int poblacion)
 {
+   // Asigna rangos específicos según el número de clientes en el TSP
+   if (tsp->num_clientes == 26)
+   {
+      rango->maxAlpha = 3.0;
+      rango->minAlpha = 1.0;
+
+      rango->maxBeta = 3.0;
+      rango->minBeta = 1.0;
+
+      rango->maxRho = 0.7;
+      rango->minRho = 0.5;
+
+      rango->maxNumHormigas = 25;
+      rango->minNumHormigas = 10;
+
+      rango->maxNumIteracionesACO = 100;
+      rango->minNumIteracionesACO = 50;
+
+      rango->maxTemperatura_inicial = 2000.0;
+      rango->minTemperatura_inicial = 1000.0;
+
+      rango->maxTemperatura_final = 0.5;
+      rango->minTemperatura_final = 0.1;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.99;
+
+      rango->maxFactor_control = 0.7;
+      rango->minFactor_control = 0.5;
+
+      rango->maxIteracionesSA = 150;
+      rango->minIteracionesSA = 100;
+   }
+
+   if (tsp->num_clientes == 51)
+   {
+      rango->maxAlpha = 4.0;
+      rango->minAlpha = 2.0;
+
+      rango->maxBeta = 4.0;
+      rango->minBeta = 2.0;
+
+      rango->maxRho = 0.6;
+      rango->minRho = 0.4;
+
+      rango->maxNumHormigas = 40;
+      rango->minNumHormigas = 25;
+
+      rango->maxNumIteracionesACO = 150;
+      rango->minNumIteracionesACO = 100;
+
+      rango->maxTemperatura_inicial = 2500.0;
+      rango->minTemperatura_inicial = 1500.0;
+
+      rango->maxTemperatura_final = 0.3;
+      rango->minTemperatura_final = 0.1;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.95;
+
+      rango->maxFactor_control = 0.8;
+      rango->minFactor_control = 0.6;
+
+      rango->maxIteracionesSA = 200;
+      rango->minIteracionesSA = 150;
+   }
+
+   if (tsp->num_clientes == 101)
+   {
+      rango->maxAlpha = 5.0;
+      rango->minAlpha = 3.0;
+
+      rango->maxBeta = 5.0;
+      rango->minBeta = 3.0;
+
+      rango->maxRho = 0.5;
+      rango->minRho = 0.3;
+
+      rango->maxNumHormigas = 40;
+      rango->minNumHormigas = 50;
+
+      rango->maxNumIteracionesACO = 200;
+      rango->minNumIteracionesACO = 150;
+
+      rango->maxTemperatura_inicial = 3000.0;
+      rango->minTemperatura_inicial = 2000.0;
+
+      rango->maxTemperatura_final = 0.2;
+      rango->minTemperatura_final = 0.1;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.95;
+
+      rango->maxFactor_control = 0.9;
+      rango->minFactor_control = 0.6;
+
+      rango->maxIteracionesSA = 300;
+      rango->minIteracionesSA = 200;
+   }
+
    // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)
    {
-
-      // Asigna rangos específicos según el número de clientes en el TSP
-
-      rango->maxAlpha = 6.0;
-      rango->minAlpha = 1.0;
-
-      rango->maxBeta = 8.0;
-      rango->minBeta = 1.0;
-
-      rango->maxRho = 0.9;
-      rango->minRho = 0.1;
-
-      rango->maxNumHormigas = 50;
-      rango->minNumHormigas = 5;
-
-      rango->maxNumIteracionesACO = 200;
-      rango->minNumIteracionesACO = 30;
-
-      rango->maxTemperatura_inicial = 2000.0;
-      rango->minTemperatura_inicial = 100.0;
-
-      rango->maxTemperatura_final = 0.5;
-      rango->minTemperatura_final = 0.001;
-
-      rango->maxFactor_enfriamiento = 0.999;
-      rango->minFactor_enfriamiento = 0.90;
-
-      rango->maxIteracionesSA = 300;
-      rango->minIteracionesSA = 50;
-
       // Genera valores aleatorios dentro de los rangos definidos para cada individuo
       objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);
       objetivo[i].beta = generaAleatorio(rango->minBeta, rango->maxBeta);
@@ -265,15 +347,16 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
       objetivo[i].temperatura_inicial = generaAleatorio(rango->minTemperatura_inicial, rango->maxTemperatura_inicial);
       objetivo[i].temperatura_final = generaAleatorio(rango->minTemperatura_final, rango->maxTemperatura_final);
       objetivo[i].factor_enfriamiento = generaAleatorio(rango->minFactor_enfriamiento, rango->maxFactor_enfriamiento);
+      objetivo[i].factor_control = generaAleatorio(rango->minFactor_control, rango->maxFactor_control);
       objetivo[i].numIteracionesSA = (int)generaAleatorio(rango->minIteracionesSA, rango->maxIteracionesSA);
    }
 }
 
 void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t tiempo_inicial, tiempo_final;                                          // Decraramos las variables para el tiempo
-   tiempo_inicial = clock();                                                      // Inicializamos el tiempo
-   char respuesta;                                                                // Respuesta
+   clock_t tiempo_inicial, tiempo_final; // Decraramos las variables para el tiempo
+   tiempo_inicial = clock();             // Inicializamos el tiempo
+   // char respuesta;                                                                // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
@@ -316,6 +399,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
          resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
          resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
+         resultado->factor_control = objetivo[i].factor_control;           // Copiamos el factor de control del mejor metal
          resultado->numIteracionesSA = objetivo[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
          recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);        // Recuperamos la mejor hormiga
       }
@@ -341,6 +425,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
             resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
             resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
             resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
+            resultado->factor_control = prueba[i].factor_control;           // Copiamos el factor de control del mejor metal
             resultado->numIteracionesSA = prueba[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);        // Recuperamos la mejor hormiga
          }
@@ -376,11 +461,11 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    imprimir_mejor_hormiga(resultado->hormiga, resultado);          // Imprimimos la mejor hormiga
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos); // Imprimimos el tiempo de ejecución
 
-   printf("\n¿Quieres imprimir el archivo JSON (s/n)? "); // Preguntamos si quiere imprimir el archivo JSON
-   scanf(" %c", &respuesta);                              // Recibimos la respuesta
+   // printf("\n¿Quieres imprimir el archivo JSON (s/n)? "); // Preguntamos si quiere imprimir el archivo JSON
+   // scanf(" %c", &respuesta);                              // Recibimos la respuesta
 
-   if (respuesta == 's' || respuesta == 'S')                      // Comparamos la Respuesta
-      guardar_json_en_archivo(resultado, tsp, archivo_instancia); // Guradamos el archivo JSON
+   // if (respuesta == 's' || respuesta == 'S')                      // Comparamos la Respuesta
+   guardar_json_en_archivo(resultado, tsp, archivo_instancia); // Guradamos el archivo JSON
 
    liberar_instancia(instancia_feromonas, tsp->num_clientes);   // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, tsp->num_clientes); // Liberemos la memoria de la instancia visibilidad

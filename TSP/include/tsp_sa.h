@@ -1,14 +1,17 @@
 #ifndef TSP_SA_H
 #define TSP_SA_H
 
+#include <stdbool.h>
 #include "../include/estructuras.h" // Asegúrate de que esta incluya las definiciones de `struct individuo` y `struct tsp_configuracion`
 
 // Evalúa la función objetivo para la solución vecina
 void evaluaFO_SA(struct individuo *ind, struct tsp_configuracion *tsp, double **instancia_distancias);
 
+bool invertirSegmentoRuta(struct individuo *ind);
 // Intercambia dos clientes aleatorios en la solución vecina
-void intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp);
+bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp);
 
+bool moverClienteRuta(struct individuo *ind);
 // Genera una solución vecina a partir de la solución actual
 void generar_vecino(struct individuo *ind);
 

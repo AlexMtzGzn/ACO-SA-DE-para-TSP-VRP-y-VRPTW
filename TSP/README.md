@@ -1,18 +1,18 @@
-# 🚚 "Optimización del Problema del Viajante (TSP) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
+# 🚚 "Optimización del Problema del Agente Viajero (TSP) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
 
-Este proyecto implementa una solución híbrida para el Problema del Viajante (TSP), utilizando el algoritmo Ant Colony Optimization (ACO) para generar rutas iniciales, el Recocido Simulado (SA) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (DE).
+Este proyecto implementa una solución híbrida para el Problema del Agente Viajero (TSP), utilizando el algoritmo Ant Colony Optimization (ACO) para generar rutas iniciales, el Recocido Simulado (SA) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (DE).
 
 ## 🧩 ¿Qué es el TSP?
 
-El Problema del Viajante (TSP, por sus siglas en inglés "Traveling Salesman Problem") es uno de los problemas clásicos más conocidos en optimización combinatoria.
+El Problema del Agente Viajero (TSP, por sus siglas en inglés "Traveling Salesman Problem") es uno de los problemas clásicos más conocidos en optimización combinatoria.
 
-Consiste en encontrar la ruta más corta posible que permita a un viajante visitar una serie de ciudades o clientes **exactamente una vez** y regresar al punto de partida.
+Consiste en encontrar la ruta más corta posible que permita a un viajero visitar una serie de ciudades o clientes **exactamente una vez** y regresar al punto de partida.
 
 ## 🐜 ¿Qué es ACO (Ant Colony Optimization)?
 
 ACO (Ant Colony Optimization) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
 
-En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromonas. Cuanto mejor sea el camino (más corto), más feromonas se acumulan, y más probable es que otras hormigas lo sigan, reforzando así la solución.
+En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromonas,cuanto mejor sea el camino (más corto), la cantidad de feromonas aumenta y la probabilidad de que otras hormigas lo sigan también, reforzando así la solución.
 
 En el TSP, simulamos este comportamiento:
 
@@ -27,11 +27,40 @@ En el TSP, simulamos este comportamiento:
 El Recocido Simulado (Simulated Annealing, SA) es una metaheurística inspirada en el proceso metalúrgico de recocido, donde un metal se calienta y luego se enfría controladamente para modificar sus propiedades físicas.
 En optimización:
 
-Inicialmente acepta soluciones peores con alta probabilidad (temperatura alta)
-Gradualmente se vuelve más selectivo (enfriamiento)
-Este enfoque permite escapar de óptimos locales y explorar más ampliamente el espacio de soluciones
+- Inicialmente acepta soluciones peores con alta probabilidad (temperatura alta)
+- Gradualmente se vuelve más selectivo (enfriamiento)
+
+Este enfoque permite escapar de óptimos locales y explorar ampliamente el espacio de soluciones.
 
 En nuestro sistema, SA toma las rutas generadas por ACO y las refina mediante pequeñas modificaciones, aceptando algunas soluciones subóptimas temporalmente para potencialmente encontrar mejores soluciones globales.
+
+## 🔄 Movimientos de Vecindad del Recocido Simulado (SA)
+
+Durante la optimización local con SA, se generan **soluciones vecinas** a partir de la solución actual mediante uno de los siguientes tres movimientos aleatorios:
+
+1. **Inversión de un segmento de ruta:**  
+   Se selecciona una ruta y se invierte el orden de visita de un segmento entre dos clientes. Este cambio puede reducir la distancia total si existen trayectos cruzados o ineficientes.
+
+2. **Intercambio de dos clientes:**  
+   Se eligen dos clientes (dentro de una misma ruta o entre rutas diferentes) y se intercambian sus posiciones. Esto puede modificar significativamente la estructura del recorrido.
+
+3. **Reubicación de un cliente dentro de una ruta:**  
+   Se toma un cliente y se lo mueve a otra posición dentro de la misma ruta. Es útil para ajustes finos sin alterar mucho la composición de la ruta.
+
+La elección del movimiento se realiza aleatoriamente con igual probabilidad, usando el siguiente criterio:
+
+```bash
+if (prob < factor / 3.0)
+    aceptado = invertirSegmentoRuta(...);
+else if (prob < 2.0 * factor / 3.0)
+    aceptado = intercambiarClienteRuta(...);
+else
+    aceptado = moverClienteDentroDeRuta(...);
+```
+
+Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por DE.
+
+Este conjunto de movimientos permite que SA explore diversas configuraciones vecinas, ayudando a escapar de óptimos locales y mejorando la calidad de las rutas generadas por ACO.
 
 ## 🧬 ¿Qué es el Algoritmo Evolutivo Diferencial (DE)?
 
@@ -64,60 +93,63 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 ### 🔢 Tamaños de instancia considerados
 
 | Tamaño del problema | Número de clientes (`tsp->num_clientes`) |
-|---------------------|-------------------------------------------|
-| **Pequeña**         | `≤ 25`                                    |
-| **Mediana**         | `> 25 y ≤ 51`                              |
-| **Grande**          | `> 51 y ≤ 101`                             |
+| ------------------- | ---------------------------------------- |
+| **Pequeña**         | `25`                                     |
+| **Mediana**         | `50`                                     |
+| **Grande**          | `100`                                    |
 
 ---
 
 ### 📐 Rangos de Parámetros por Tamaño
 
-#### 🔸 Instancia Pequeña (`≤ 25 clientes`)
+#### 🔸 Instancia Pequeña (`25 clientes`)
 
-| Parámetro                 | Mínimo | Máximo |
-|---------------------------|--------|--------|
-| `alpha`                   | 0.8    | 2.5    |
-| `beta`                    | 2.5    | 6.0    |
-| `rho`                     | 0.1    | 0.5    |
-| `número de hormigas`      | 10     | 30     |
-| `iteraciones ACO`         | 50     | 200    |
-| `temperatura inicial`     | 200.0  | 400.0  |
-| `temperatura final`       | 0.01   | 0.1    |
-| `factor de enfriamiento`  | 0.95   | 0.98   |
-| `iteraciones SA`          | 30     | 50     |
-
----
-
-#### 🔸 Instancia Mediana (`26 - 51 clientes`)
-
-| Parámetro                 | Mínimo | Máximo |
-|---------------------------|--------|--------|
-| `alpha`                   | 0.8    | 2.5    |
-| `beta`                    | 2.5    | 6.0    |
-| `rho`                     | 0.1    | 0.5    |
-| `número de hormigas`      | 20     | 40     |
-| `iteraciones ACO`         | 50     | 200    |
-| `temperatura inicial`     | 400.0  | 600.0  |
-| `temperatura final`       | 0.01   | 0.1    |
-| `factor de enfriamiento`  | 0.95   | 0.98   |
-| `iteraciones SA`          | 50     | 80     |
+| Parámetro                | Mínimo | Máximo |
+| ------------------------ | ------ | ------ |
+| `alpha`                  | 1.0    | 3.0    |
+| `beta`                   | 1.0    | 3.0    |
+| `rho`                    | 0.5    | 0.7    |
+| `número de hormigas`     | 10     | 25     |
+| `iteraciones ACO`        | 50     | 100    |
+| `temperatura inicial`    | 1000.0 | 2000.0 |
+| `temperatura final`      | 0.1    | 0.5    |
+| `factor de enfriamiento` | 0.99   | 0.999  |
+| `factor de control`      | 0.7    | 0.5    |
+| `iteraciones SA`         | 100    | 150    |
 
 ---
 
-#### 🔸 Instancia Grande (`52 - 101 clientes`)
+#### 🔸 Instancia Mediana (`50 clientes`)
 
-| Parámetro                 | Mínimo | Máximo |
-|---------------------------|--------|--------|
-| `alpha`                   | 0.8    | 2.0    |
-| `beta`                    | 3.0    | 5.0    |
-| `rho`                     | 0.1    | 0.3    |
-| `número de hormigas`      | 40     | 100    |
-| `iteraciones ACO`         | 50     | 250    |
-| `temperatura inicial`     | 600.0  | 1000.0 |
-| `temperatura final`       | 0.01   | 0.1    |
-| `factor de enfriamiento`  | 0.98   | 0.995  |
-| `iteraciones SA`          | 80     | 150    |
+| Parámetro                | Mínimo | Máximo |
+| ------------------------ | ------ | ------ |
+| `alpha`                  | 2.0    | 4.0    |
+| `beta`                   | 2.0    | 4.0    |
+| `rho`                    | 0.4    | 0.6    |
+| `número de hormigas`     | 25     | 40     |
+| `iteraciones ACO`        | 100    | 150    |
+| `temperatura inicial`    | 1500.0 | 2500.0 |
+| `temperatura final`      | 0.1    | 0.3    |
+| `factor de control`      | 0.6    | 0.8    |
+| `factor de enfriamiento` | 0.95   | 0.999  |
+| `iteraciones SA`         | 150    | 200    |
+
+---
+
+#### 🔸 Instancia Grande (`100 clientes`)
+
+| Parámetro                | Mínimo | Máximo |
+| ------------------------ | ------ | ------ |
+| `alpha`                  | 3.0    | 5.0    |
+| `beta`                   | 3.0    | 5.0    |
+| `rho`                    | 0.3    | 0.5    |
+| `número de hormigas`     | 40     | 50     |
+| `iteraciones ACO`        | 150    | 200    |
+| `temperatura inicial`    | 2000.0 | 3000.0 |
+| `temperatura final`      | 0.1    | 0.2    |
+| `factor de enfriamiento` | 0.95   | 0.999  |
+| `factor de control`      | 0.6    | 0.9    |
+| `iteraciones SA`         | 200    | 300    |
 
 ---
 
@@ -127,20 +159,19 @@ Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño 
 
 ---
 
-## 🔁 🔁 Proceso de Optimización Híbrida (DE + ACO + SA) para TSP
-
+## 🔁 Proceso de Optimización Híbrida (DE + ACO + SA) para TSP
 
 1. **Inicialización con DE**:  
-   Se genera aleatoriamente una población inicial de posibles soluciones, donde cada individuo representa un conjunto de parámetros para el algoritmo **ACO** (por ejemplo: α, β, ρ, número de hormigas, número de iteraciones, etc.).
+   Se genera aleatoriamente una población inicial de posibles soluciones, donde cada individuo representa un conjunto de parámetros para el algoritmo **ACO** y **SA**.
 
 2. **Evaluación de Individuos**:  
-   Cada conjunto de parámetros se evalúa ejecutando el algoritmo **ACO** con dichos valores.
+   Cada conjunto de parámetros se evalúa ejecutando el algoritmo **ACO** y **SA** con dichos valores.
 
 3. **Optimización Local**:  
-   En algunos casos, se aplica **Recocido Simulado (SA)** como optimizador local para refinar la solución obtenida por **ACO**.
+   Después de que **ACO** genera una solución (ruta), se aplica **Recocido Simulado (SA)** como optimizador local. Este paso consiste en realizar pequeños ajustes en la ruta generada por **ACO** para mejorar su calidad. **SA** se encarga de explorar soluciones vecinas a la actual (cercanas en el espacio de soluciones) para encontrar una mejor solución local. Durante este proceso, **SA** acepta temporalmente soluciones peores con una probabilidad que disminuye gradualmente a medida que "enfría" su temperatura, permitiendo escapar de óptimos locales.
 
 4. **Cálculo del Fitness**:  
-   Se obtiene la **distancia total de la mejor ruta** generada por ACO (posiblemente refinada con SA). Esta distancia se utiliza como el valor de fitness del individuo.
+   Se obtiene la **distancia total de la mejor ruta** generada por **ACO** y refinada con **SA**. Esta distancia se utiliza como el valor de fitness del individuo.
 
 5. **Evolución con DE**:  
    El algoritmo **DE** utiliza los valores de fitness para evolucionar la población, generando nuevos conjuntos de parámetros con el objetivo de **minimizar la distancia total**.
@@ -148,14 +179,13 @@ Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño 
 6. **Criterio de Paro**:  
    El proceso se repite durante un número máximo de generaciones.
 
-
 ---
 
-Este proceso permite **optimizar automáticamente** el rendimiento del algoritmo ACO (y SA), **evitando el ajuste manual** de parámetros y encontrando de manera más eficiente soluciones de alta calidad para el **Problema del Viajante (TSP)**.
+Este proceso permite **optimizar automáticamente** el rendimiento del algoritmo **ACO** y **SA**, **evitando el ajuste manual** de parámetros y encontrando de manera más eficiente soluciones de alta calidad para el **Problema del Agente Viajero (TSP)**.
 
 ## 🎯 Resultados Esperados
 
-El objetivo principal de este proyecto es encontrar la mejor ruta para el **Problema del Viajante de Comercio (TSP)** mediante el uso combinado del algoritmo **ACO** y el algoritmo **DE**, el cual optimiza automáticamente los parámetros del ACO y del Recocido Simulado (SA).
+El objetivo principal de este proyecto es encontrar la mejor ruta para el **Problema del Agente Viajero(TSP)** mediante el uso combinado del algoritmo **ACO** y el algoritmo **DE**, el cual optimiza automáticamente los parámetros del **ACO** y del **SA**.
 
 ---
 
@@ -204,19 +234,20 @@ El archivo `JSON` generado tendrá una estructura como la siguiente:
 
 ```json
 {
-  "Archivo": "C101",
+  "Archivo": "C100_(25)",
   "Tiempo Ejecucion en Minutos": 2,
-  "Poblacion": 10,
-  "Generaciones": 10,
-  "Alpha": 2.3476589154906842,
-  "Beta": 2.3577138539323181,
-  "Rho": 0.2498495201812356,
-  "Numero Hormigas": 35,
-  "Numero Iteraciones ACO": 100,
-  "Temperatura Inicial": 748.30022249291665,
-  "Temperatura Final": 0.1,
-  "Factor de Enfriamiento": 0.99,
-  "Numero Iteraciones SA": 99,
+  "Poblacion: ": 10,
+  "Generaciones: ": 10,
+  "Alpha": 2.8790662250849728,
+  "Beta": 2.8561790305451393,
+  "Rho": 0.521937084115081,
+  "Numero Hormigas": 14,
+  "Numero Iteraciones ACO": 61,
+  "Temperatura Inicial: ": 1609.4313662543107,
+  "Temperatura Final: ": 0.27527441725846125,
+  "Factor de Enfriamiento: ": 0.997566642304215,
+  "Factor de Control: ": 0.57651851441549062,
+  "Numero Iteraciones SA: ": 149,
   "Fitness Global": 132.12162500340892,
   "Ruta Clientes": [
     0, 20, 21, 22, 24, 25, 23, 13, 17, 18, 19, 15, 16, 14, 12, 11, 10, 8, 9, 6,
@@ -364,7 +395,8 @@ make clean
 ```
 
 ## ✅ Conclusión
-El desarrollo de una metaheurística híbrida basada en Ant Colony Optimization (ACO) y Recocido Simulado (SA), calibrada automáticamente mediante un Algoritmo Evolutivo Diferencial (DE), demostró ser una estrategia efectiva para resolver el Problema del Viajante (TSP).
+
+El desarrollo de una metaheurística híbrida basada en Ant Colony Optimization (ACO) y Recocido Simulado (SA), calibrada automáticamente mediante un Algoritmo Evolutivo Diferencial (DE), demostró ser una estrategia efectiva para resolver el Problema del Agente Viajero (TSP).
 
 El uso de ACO permitió generar soluciones iniciales de alta calidad inspiradas en el comportamiento de las hormigas, mientras que SA refinó estas soluciones para escapar de óptimos locales y explorar regiones más prometedoras del espacio de búsqueda. La incorporación del DE automatizó por completo el ajuste de parámetros, adaptando la configuración de los algoritmos en función del tamaño y complejidad del problema.
 
@@ -389,7 +421,7 @@ Este trabajo busca contribuir al estudio y solución del problema TSP mediante l
   Autor del proyecto. Encargado del diseño, implementación y documentación del sistema de optimización.
 
 - 🧪 **Jaime López Lara**  
-  Ayudante en la ejecución del código y recolección de resultados.
+   Colaborador en la ejecución del código y recolección de resultados.
 
 ## 📝 Licencia
 

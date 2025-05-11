@@ -25,6 +25,9 @@ void liberar_memoria_arreglo_double(double *arreglo);
 // Libera la memoria de la instancia (matriz de distancias)
 void liberar_instancia(double **instancia, int tamanio_instancia);
 
+struct rangos *asignar_memoria_rangos();
+void liberar_rangos(struct rangos *rango);
+
 
 // Funciones para asignar y liberar memoria para la estructura de individuos
 
@@ -81,5 +84,8 @@ struct vehiculo *asignar_memoria_vehiculo();
 
 // Asigna memoria para un nodo de vehículo
 struct nodo_vehiculo *asignar_memoria_nodo_vehiculo();
+
+struct metal *asignar_memoria_metal();
+void liberar_memoria_metal(struct individuo *ind);
 
 #endif // CONTROL_MEMORIA_H

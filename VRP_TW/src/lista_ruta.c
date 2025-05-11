@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"
@@ -91,7 +92,7 @@ struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
 void liberar_ruta(struct lista_ruta *ruta)
 {
     struct nodo_ruta *cliente_actual = ruta->cabeza;
-    
+
     // Se libera cada nodo de la lista de ruta
     while (cliente_actual)
     {
@@ -99,6 +100,165 @@ void liberar_ruta(struct lista_ruta *ruta)
         cliente_actual = cliente_actual->siguiente;
         free(cliente_temp);
     }
-    
+
     free(ruta); // Se libera la estructura de la lista de ruta
+}
+
+bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias)
+{
+    struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
+    struct nodo_ruta *clienteAnterior = NULL;
+
+    double tiempo = 0.0;
+    double capacidad = 0.0;
+    double inicio = 0.0;
+    double fin = 0.0;
+
+    // Verificar los clientes de la ruta del vehículo
+    while (clienteActual != NULL)
+    {
+        int id_actual = clienteActual->cliente;
+
+        // Si es el primer cliente (después del depósito)
+        if (clienteAnterior == NULL)
+        {
+            if (id_actual != 0)
+            {
+                tiempo += instancia_distancias[0][id_actual] / vehiculo->velocidad;
+
+                // Asegurarse de no llegar antes del inicio de la ventana de tiempo
+                if (tiempo < vrp->clientes[id_actual].vt_inicial)
+                {
+                    tiempo = vrp->clientes[id_actual].vt_inicial;
+                }
+
+                // Acumulando la demanda de capacidad
+                capacidad += vrp->clientes[id_actual].demanda_capacidad;
+
+                // Verificar violación de ventana de tiempo
+                if (tiempo > vrp->clientes[id_actual].vt_final)
+                {
+                    //printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
+                           //id_actual, tiempo, vrp->clientes[id_actual].vt_final);
+                    return false; // Violación de ventana de tiempo, retorno falso
+                }
+            }
+        }
+        else
+        {
+            // Para los siguientes clientes, calcular tiempo de viaje y servicio
+            if (clienteAnterior->cliente != 0)
+            {
+                tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
+            }
+
+            tiempo += instancia_distancias[clienteAnterior->cliente][id_actual] / vehiculo->velocidad;
+
+            // Asegurarse de no llegar antes del inicio de la ventana de tiempo
+            if (tiempo < vrp->clientes[id_actual].vt_inicial)
+            {
+                tiempo = vrp->clientes[id_actual].vt_inicial;
+            }
+
+            if (id_actual != 0)
+            {
+                capacidad += vrp->clientes[id_actual].demanda_capacidad;
+
+                // Verificar violación de ventana de tiempo
+                if (tiempo > vrp->clientes[id_actual].vt_final)
+                {
+                    //printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
+                          // id_actual, tiempo, vrp->clientes[id_actual].vt_final);
+                    return false; // Violación de ventana de tiempo, retorno falso
+                }
+            }
+        }
+
+        clienteAnterior = clienteActual;
+        clienteActual = clienteActual->siguiente;
+    }
+
+    // Después de la última entrega, volver al depósito
+    if (clienteAnterior != NULL && clienteAnterior->cliente != 0)
+    {
+        tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
+    }
+    tiempo += instancia_distancias[clienteAnterior->cliente][0] / vehiculo->velocidad;
+    fin = tiempo;
+
+    // Asignamos el tiempo de salida y llegada del vehículo
+    vehiculo->tiempo_salida_vehiculo = inicio;
+    vehiculo->tiempo_llegada_vehiculo = fin;
+    vehiculo->capacidad_acumulada = capacidad;
+
+    // Verificación de capacidad total
+    if (capacidad > vehiculo->capacidad_maxima)
+    {
+        //printf("Violación de capacidad en Vehículo ID %d: %.2f > %.2f\n",
+              // vehiculo->id_vehiculo, capacidad, vehiculo->capacidad_maxima);
+        return false; // Violación de capacidad, retorno falso
+    }
+
+    return true; // Si no hubo violaciones, retorno verdadero
+}
+
+
+void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, double **instancia_distancias)
+{
+    struct nodo_ruta *anterior = vehiculo->ruta->cabeza;
+    struct nodo_ruta *actual = anterior->siguiente;
+
+    while (actual != NULL)
+    {
+        if (actual->cliente == cliente)
+        {
+            anterior->siguiente = actual->siguiente;
+            free(actual);
+            vehiculo->clientes_contados--;
+            return;
+        }
+        anterior = actual;
+        actual = actual->siguiente;
+    }
+}
+
+
+
+bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias)
+{
+    struct nodo_ruta *nuevo = asignar_memoria_nodo_ruta();
+    if (!nuevo) return false;
+
+    nuevo->cliente = cliente;
+    nuevo->siguiente = NULL;
+
+    struct nodo_ruta *actual = vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *previo = vehiculo->ruta->cabeza;
+    int pos_actual = 0;
+
+    while (actual != NULL)
+    {
+        if (pos_actual == posicion)
+        {
+            nuevo->siguiente = actual;
+            previo->siguiente = nuevo;
+            vehiculo->clientes_contados++;
+            return true;
+        }
+        previo = actual;
+        actual = actual->siguiente;
+        pos_actual++;
+    }
+
+    // Si no se alcanzó la posición deseada, insertar antes del depósito final
+    if (actual != NULL && actual->cliente == 0)
+    {
+        nuevo->siguiente = actual;
+        previo->siguiente = nuevo;
+        vehiculo->clientes_contados++;
+        return true;
+    }
+
+    free(nuevo);
+    return false;
 }

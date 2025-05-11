@@ -12,7 +12,7 @@
 // Matriz cuadrada (e.g., instancia)
 double **asignar_memoria_instancia(int tamanio_instancia)
 {
-    double **instancia = (double **)malloc(tamanio_instancia * sizeof(double *));
+    double **instancia = (double **)calloc(tamanio_instancia, sizeof(double *));
     if (instancia == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para las filas de la instancia");
@@ -21,10 +21,10 @@ double **asignar_memoria_instancia(int tamanio_instancia)
 
     for (int i = 0; i < tamanio_instancia; i++)
     {
-        instancia[i] = (double *)malloc(tamanio_instancia * sizeof(double));
+        instancia[i] = (double *)calloc(tamanio_instancia, sizeof(double));
         if (instancia[i] == NULL)
         {
-            imprimir_mensaje("No se pudo asignar memoria para la columna");
+            imprimir_mensaje("Error: No se pudo asignar memoria para la columna");
             for (int j = 0; j < i; j++) free(instancia[j]);
             free(instancia);
             exit(EXIT_FAILURE);
@@ -43,10 +43,10 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
 // Arreglo de enteros
 int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 {
-    int *arreglo = (int *)malloc(sizeof(int) * tamanio_arreglo);
+    int *arreglo = (int *)calloc(tamanio_arreglo, sizeof(int));  // Inicializamos a cero
     if (arreglo == NULL)
     {
-        imprimir_mensaje("No se pudo asignar memoria para el arreglo entero");
+        imprimir_mensaje("Error: No se pudo asignar memoria para el arreglo entero");
         exit(EXIT_FAILURE);
     }
     return arreglo;
@@ -60,7 +60,7 @@ void liberar_memoria_arreglo_int(int *arreglo)
 // Arreglo de doubles
 double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 {
-    double *arreglo = (double *)malloc(sizeof(double) * tamanio_arreglo);
+    double *arreglo = (double *)calloc(tamanio_arreglo, sizeof(double));  // Inicializamos a cero
     if (arreglo == NULL)
     {
         imprimir_mensaje("No se pudo asignar memoria para el arreglo double");
@@ -80,7 +80,7 @@ void liberar_memoria_arreglo_double(double *arreglo)
 
 struct rangos *asignar_memoria_rangos()
 {
-    struct rangos *rango = (struct rangos *)malloc(sizeof(struct rangos));
+    struct rangos *rango = (struct rangos *)calloc(1, sizeof(struct rangos));  // Inicializamos a cero
     if (rango == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para los rangos");
@@ -100,7 +100,7 @@ void liberar_rangos(struct rangos *rango)
 
 struct individuo *asignar_memoria_individuos(int poblacion)
 {
-    struct individuo *individuo = (struct individuo *)malloc(sizeof(struct individuo) * poblacion);
+    struct individuo *individuo = (struct individuo *)calloc(poblacion, sizeof(struct individuo));  // Inicializamos a cero
     if (individuo == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para los individuos");
@@ -123,7 +123,7 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 
 struct tsp_configuracion *asignar_memoria_tsp_configuracion()
 {
-    struct tsp_configuracion *tsp = (struct tsp_configuracion *)malloc(sizeof(struct tsp_configuracion));
+    struct tsp_configuracion *tsp = (struct tsp_configuracion *)calloc(1, sizeof(struct tsp_configuracion));  // Inicializamos a cero
     if (tsp == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para la configuración tsp");
@@ -148,7 +148,7 @@ void liberar_memoria_tsp_configuracion(struct tsp_configuracion *tsp)
 
 struct cliente *asignar_memoria_clientes(struct tsp_configuracion *tsp)
 {
-    struct cliente *cliente = (struct cliente *)malloc(tsp->num_clientes * sizeof(struct cliente));
+    struct cliente *cliente = (struct cliente *)calloc(tsp->num_clientes, sizeof(struct cliente));  // Inicializamos a cero
     if (cliente == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para los clientes");
@@ -163,7 +163,7 @@ struct cliente *asignar_memoria_clientes(struct tsp_configuracion *tsp)
 
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
-    struct hormiga *hormiga = (struct hormiga *)malloc(sizeof(struct hormiga) * numHormigas);
+    struct hormiga *hormiga = (struct hormiga *)calloc(numHormigas, sizeof(struct hormiga));  // Inicializamos a cero
     if (hormiga == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para hormigas.");
@@ -204,10 +204,10 @@ void liberar_memoria_hormiga(struct hormiga *hormiga)
 
 struct metal *asignar_memoria_metal()
 {
-    struct metal *metal = (struct metal *)malloc(sizeof(struct metal));
+    struct metal *metal = (struct metal *)calloc(1, sizeof(struct metal));  // Inicializamos a cero
     if (metal == NULL)
     {
-        imprimir_mensaje("No se pudo asignar memoria para la estructura metal");
+        imprimir_mensaje("Error: No se pudo asignar memoria para la estructura metal");
         exit(EXIT_FAILURE);
     }
     return metal;
@@ -233,7 +233,7 @@ void liberar_memoria_metal(struct individuo *ind)
 
 struct lista_ruta *asignar_memoria_lista_ruta()
 {
-    struct lista_ruta *nueva_lista = (struct lista_ruta *)malloc(sizeof(struct lista_ruta));
+    struct lista_ruta *nueva_lista = (struct lista_ruta *)calloc(1, sizeof(struct lista_ruta));  // Inicializamos a cero
     if (nueva_lista == NULL)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para la lista de rutas.");
@@ -248,7 +248,7 @@ struct lista_ruta *asignar_memoria_lista_ruta()
 
 struct nodo_ruta *asignar_memoria_nodo_ruta()
 {
-    struct nodo_ruta *nodo_nuevo = (struct nodo_ruta *)malloc(sizeof(struct nodo_ruta));
+    struct nodo_ruta *nodo_nuevo = (struct nodo_ruta *)calloc(1, sizeof(struct nodo_ruta));  // Inicializamos a cero
     if (!nodo_nuevo)
     {
         imprimir_mensaje("Error: No se pudo asignar memoria para nodo_ruta");

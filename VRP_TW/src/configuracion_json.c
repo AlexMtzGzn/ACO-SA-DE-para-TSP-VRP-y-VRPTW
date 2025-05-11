@@ -30,8 +30,10 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
     cJSON_AddNumberToObject(json_vehiculo, "Id_vehiculo", v->id_vehiculo);
     cJSON_AddNumberToObject(json_vehiculo, "Capacidad Maxima", v->capacidad_maxima);
     cJSON_AddNumberToObject(json_vehiculo, "Capacidad Acumulada", v->capacidad_acumulada);
-    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Consumido", v->vt_actual);
-    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Maximo", v->vt_final);
+    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Salida", v->tiempo_salida_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Llegada", v->tiempo_llegada_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Ventana Inicial", v->vt_inicial);
+    cJSON_AddNumberToObject(json_vehiculo, "Ventana Final", v->vt_final);
     cJSON_AddNumberToObject(json_vehiculo, "Numero Clientes", v->clientes_contados);
     cJSON_AddNumberToObject(json_vehiculo, "Fitness Vehiculo", v->fitness_vehiculo);
 
@@ -55,12 +57,19 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     cJSON *json_individuo = cJSON_CreateObject();
     cJSON_AddStringToObject(json_individuo, "Archivo", vrp->archivo_instancia);
     cJSON_AddNumberToObject(json_individuo, "Tiempo Ejecucion en Minutos", vrp->tiempo_ejecucion);
+    cJSON_AddNumberToObject(json_individuo, "Poblacion: ", vrp->poblacion);
+    cJSON_AddNumberToObject(json_individuo, "Generaciones: ", vrp->generaciones);
     cJSON_AddNumberToObject(json_individuo, "Alpha", ind->alpha);
     cJSON_AddNumberToObject(json_individuo, "Beta", ind->beta);
     cJSON_AddNumberToObject(json_individuo, "Gamma", ind->gamma);
     cJSON_AddNumberToObject(json_individuo, "Rho", ind->rho);
     cJSON_AddNumberToObject(json_individuo, "Numero Hormigas", ind->numHormigas);
-    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones", ind->numIteraciones);
+    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones ACO", ind->numIteracionesACO);
+    cJSON_AddNumberToObject(json_individuo, "Temperatura Inicial: ", ind->temperatura_inicial);
+    cJSON_AddNumberToObject(json_individuo, "Temperatura Final: ", ind->temperatura_final);
+    cJSON_AddNumberToObject(json_individuo, "Factor de Enfriamiento: ", ind->factor_enfriamiento);
+    cJSON_AddNumberToObject(json_individuo, "Factor de Control: ", ind->factor_control);
+    cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones SA: ", ind->numIteracionesSA);
     cJSON_AddNumberToObject(json_individuo, "Fitness Global", ind->fitness);
 
     cJSON *flota_json = cJSON_CreateArray();

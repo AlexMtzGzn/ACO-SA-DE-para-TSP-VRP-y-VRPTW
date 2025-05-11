@@ -39,6 +39,7 @@ cJSON *individuo_a_json(individuo *ind, struct tsp_configuracion *tsp, cliente *
     cJSON_AddNumberToObject(json_individuo, "Temperatura Inicial: ", ind->temperatura_inicial);
     cJSON_AddNumberToObject(json_individuo, "Temperatura Final: ", ind->temperatura_final);
     cJSON_AddNumberToObject(json_individuo, "Factor de Enfriamiento: ", ind->factor_enfriamiento);
+    cJSON_AddNumberToObject(json_individuo, "Factor de Control: ", ind->factor_control);
     cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones SA: ", ind->numIteracionesSA);
     cJSON_AddNumberToObject(json_individuo, "Fitness Global", ind->fitness);
 

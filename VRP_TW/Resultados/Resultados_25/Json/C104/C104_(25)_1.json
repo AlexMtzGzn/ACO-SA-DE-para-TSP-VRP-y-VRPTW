@@ -1,0 +1,148 @@
+{
+	"Archivo":	"C104_(25)",
+	"Tiempo Ejecucion en Minutos":	15,
+	"Poblacion: ":	20,
+	"Generaciones: ":	50,
+	"Alpha":	4.1739024305943886,
+	"Beta":	4.7131250754874783,
+	"Gamma":	0.1,
+	"Rho":	0.47550873508467756,
+	"Numero Hormigas":	38,
+	"Numero Iteraciones ACO":	199,
+	"Temperatura Inicial: ":	865.63821796299362,
+	"Temperatura Final: ":	0.33116356747037545,
+	"Factor de Enfriamiento: ":	0.913497396363206,
+	"Factor de Control: ":	0.771226008432557,
+	"Numero Iteraciones SA: ":	278,
+	"Fitness Global":	188.52544580186515,
+	"flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	110,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1017.1980390271856,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	6,
+			"Fitness Vehiculo":	36.440679714304849,
+			"Ruta Clientes":	[0, 20, 24, 25, 23, 22, 21, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	30,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	52
+				}, {
+					"X":	28,
+					"Y":	55
+				}, {
+					"X":	28,
+					"Y":	52
+				}, {
+					"X":	30,
+					"Y":	52
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}, {
+			"Id_vehiculo":	2,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	200,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	906.0398087693228,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	9,
+			"Fitness Vehiculo":	96.039808769322832,
+			"Ruta Clientes":	[0, 13, 17, 18, 19, 15, 16, 14, 12, 10, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	22,
+					"Y":	75
+				}, {
+					"X":	18,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	85
+				}, {
+					"X":	22,
+					"Y":	85
+				}, {
+					"X":	25,
+					"Y":	85
+				}, {
+					"X":	35,
+					"Y":	66
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}, {
+			"Id_vehiculo":	3,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	150,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1021.2870929677334,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	10,
+			"Fitness Vehiculo":	56.044957318237479,
+			"Ruta Clientes":	[0, 5, 3, 7, 8, 11, 9, 6, 4, 2, 1, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	42,
+					"Y":	65
+				}, {
+					"X":	42,
+					"Y":	66
+				}, {
+					"X":	40,
+					"Y":	66
+				}, {
+					"X":	38,
+					"Y":	68
+				}, {
+					"X":	35,
+					"Y":	69
+				}, {
+					"X":	38,
+					"Y":	70
+				}, {
+					"X":	40,
+					"Y":	69
+				}, {
+					"X":	42,
+					"Y":	68
+				}, {
+					"X":	45,
+					"Y":	70
+				}, {
+					"X":	45,
+					"Y":	68
+				}, {
+					"X":	40,
+					"Y":	50
+				}]
+		}]
+}

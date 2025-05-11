@@ -48,9 +48,9 @@ int main(int argc, char *argv[])
 
         } while (tamanio_instancia != 25 && tamanio_instancia != 50 && tamanio_instancia != 100);
     }
-
+    fflush(stdout);
     char archivo_instancia[100];                                                         // Declaramos nombre de la instacia a leer
     snprintf(archivo_instancia, sizeof(archivo_instancia), "%s_(%s)", argv[3], argv[4]); // Copiamos el nombre de la instacia a leer a del parametro argv[3] y argv[4];
-    aed_vrp(num_poblacion, num_generaciones, tamanio_instancia, archivo_instancia);   // Enviamos al como parametro el numero de la poblacion , numero de generaciones , y el archivo de la instancia
-    return 0;
+    aed_vrp(num_poblacion, num_generaciones, tamanio_instancia, archivo_instancia);      // Enviamos al como parametro el numero de la poblacion , numero de generaciones , y el archivo de la instancia
+    return 0;                                                                            // Retornamos 0
 }

@@ -5,6 +5,7 @@
 #include <time.h>
 #include "../include/estructuras.h"
 #include "../include/vrp_tw_aco.h"
+#include "../include/vrp_tw_sa.h"
 #include "../include/lista_flota.h"
 #include "../include/lista_ruta.h"
 #include "../include/control_memoria.h"
@@ -12,28 +13,23 @@
 
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
+    // Si ya existía una hormiga, liberar su flota primero
+    if (ind->hormiga != NULL && ind->hormiga->flota != NULL)
+        liberar_lista_vehiculos(ind->hormiga->flota);
+
+    // Si la hormiga no estaba creada aún, asignarla
     if (ind->hormiga == NULL)
         ind->hormiga = asignar_memoria_hormigas(1);
 
-    // Copiamos la ID de la hormiga mejorada al individuo
+    // Copiar los campos escalares
     ind->hormiga->id_hormiga = hormiga->id_hormiga;
-
-    // Copiamos el fitness global de la hormiga mejorada al individuo
     ind->fitness = hormiga->fitness_global;
     ind->hormiga->fitness_global = hormiga->fitness_global;
-
-    // Copiamos los vehículos máximos que la hormiga puede utilizar
     ind->hormiga->vehiculos_maximos = hormiga->vehiculos_maximos;
-
-    // Copiamos los vehículos necesarios utilizados por la hormiga
     ind->hormiga->vehiculos_necesarios = hormiga->vehiculos_necesarios;
 
-    // Verificamos si la flota de la hormiga es nula (no se ha asignado aún)
-    if (hormiga->flota == NULL)
-        liberar_lista_vehiculos(ind->hormiga->flota); // Liberamos cualquier memoria previamente asignada a la flota
-
-    // Copiamos la flota de vehículos de la hormiga al individuo
-    ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota); // Se crea una copia de la flota de la hormiga para el individuo
+    // Copiar flota
+    ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota);
 }
 
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
@@ -117,7 +113,7 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
     }
 }
 
-void calcular_fitness(struct hormiga *hormiga, double **instancia_distancias)
+void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias)
 {
     // Recorremos cada vehículo en la flota de la hormiga
     struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
@@ -191,7 +187,7 @@ void inicializar_hormiga(struct vrp_configuracion *vrp, struct individuo *ind, s
         hormiga[i].flota = asignar_memoria_lista_vehiculos();
 
         // Insertamos el primer vehículo en la flota de la hormiga
-        inserta_vehiculo_flota(&hormiga[i], vrp, hormiga->vehiculos_necesarios + 1);
+        inserta_vehiculo_flota(&hormiga[i], vrp, hormiga[i].vehiculos_necesarios + 1);
 
         // Incrementamos el número de vehículos necesarios después de agregar el primer vehículo
         hormiga[i].vehiculos_necesarios++;
@@ -236,49 +232,52 @@ void calcular_posibles_clientes(int origen, struct vehiculo *vehiculo, struct vr
 
 double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct vrp_configuracion *vrp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad, double **instancia_ventanas_tiempo)
 {
+    // Establecer un valor mínimo para evitar valores extremadamente pequeños
+    double epsilon = 1e-6, feromona, visibilidad, ventana_tiempo, numerador, probabilidad;
+
+    // Validar los valores de las matrices
+    feromona = fmax(instancia_feromona[origen][destino], epsilon);
+    visibilidad = fmax(instancia_visibilidad[origen][destino], epsilon);
+    ventana_tiempo = fmax(instancia_ventanas_tiempo[origen][destino], epsilon);
+
     // Calculamos el numerador de la fórmula de probabilidad
-    // La fórmula se basa en tres componentes: la cantidad de feromona, la visibilidad y las ventanas de tiempo.
-    // Cada uno de estos valores se eleva a un exponente, que está definido por los parámetros alpha, beta y gamma del individuo.
-    // Feromona^alpha * Visibilidad^beta * Ventanas de tiempo^gamma
-    double numerador = pow(instancia_feromona[origen][destino], ind->alpha) *
-                       pow(instancia_visibilidad[origen][destino], ind->beta) *
-                       pow(instancia_ventanas_tiempo[origen][destino], ind->gamma);
+    numerador = pow(feromona, ind->alpha) *
+                pow(visibilidad, ind->beta) *
+                pow(ventana_tiempo, ind->gamma);
 
     // Inicializamos la suma de probabilidades a 0 antes de calcular el denominador
     hormiga->suma_probabilidades = 0.0;
 
     // Calculamos la suma de probabilidades (denominador)
-    // Sumamos todas las probabilidades de los posibles clientes que no sean el origen y que sean accesibles
     for (int i = 0; i < vrp->num_clientes; i++)
     {
-        // Verificamos que el cliente no sea el origen y que sea un cliente posible
         if (i != origen && hormiga->posibles_clientes[i] == 1)
         {
+            // Validar los valores antes de usarlos
+            feromona = fmax(instancia_feromona[origen][i], epsilon);
+            visibilidad = fmax(instancia_visibilidad[origen][i], epsilon);
+            ventana_tiempo = fmax(instancia_ventanas_tiempo[origen][i], epsilon);
+
             // Acumulamos la probabilidad de cada cliente posible usando los mismos términos que en el numerador
-            hormiga->suma_probabilidades += pow(instancia_feromona[origen][i], ind->alpha) *
-                                            pow(instancia_visibilidad[origen][i], ind->beta) *
-                                            pow(instancia_ventanas_tiempo[origen][i], ind->gamma);
+            hormiga->suma_probabilidades += pow(feromona, ind->alpha) *
+                                            pow(visibilidad, ind->beta) *
+                                            pow(ventana_tiempo, ind->gamma);
         }
     }
+
     // Protección contra la división por cero
     if (hormiga->suma_probabilidades == 0.0)
-        return 0.0; // O alguna otra estrategia para manejar este caso (como devolver 1.0 o el valor predeterminado)
+        return 0.0; // O alguna otra estrategia para manejar este caso
 
     // Retornamos la probabilidad de elegir el cliente destino dado el origen
-    // La probabilidad es el valor del numerador dividido por la suma de probabilidades (denominador)
-    double probabilidad = 0;
     probabilidad = numerador / hormiga->suma_probabilidades;
     return probabilidad;
 }
 
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias, double **instancia_ventanas_tiempo)
 {
-    // Seleccionamos la flota de la hormiga
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza;
-
-    // Seleccionamos el primer vehículo de la flota de la hormiga
     struct vehiculo *vehiculo = flota_vehiculo->vehiculo;
-
     // Apuntador a la lista de rutas del vehículo
     struct lista_ruta *ruta = vehiculo->ruta;
 
@@ -323,9 +322,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             {
                 // Si el vehículo aún no ha regresado al depósito, lo agregamos
                 if (ruta->cola->cliente != 0)
-                {
                     insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Regreso al depósito
-                }
 
                 // Si aún quedan clientes por visitar, agregamos un nuevo vehículo
                 if (hormiga->tabu_contador < vrp->num_clientes)
@@ -335,17 +332,11 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                     flota_vehiculo = hormiga->flota->cola;                                   // Apuntamos al nuevo vehículo agregado
                     vehiculo = flota_vehiculo->vehiculo;                                     // Lo seleccionamos como vehículo actual
                 }
-                else
-                {
-                    // Si ya visitamos todos los clientes, reiniciamos la hormiga
-                    //reiniciar_hormiga(hormiga, vrp);
-                    break;
-                }
             }
             else
             {
-                // Si se alcanzó el límite de vehículos permitidos, reiniciamos la hormiga
                 reiniciar_hormiga(hormiga, vrp);
+        
             }
         }
         else
@@ -360,8 +351,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             for (int i = 0; i < vrp->num_clientes; i++)
                 if (hormiga->posibles_clientes[i] == 1)
                     hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, vrp, hormiga, instancia_feromona, instancia_visibilidad, instancia_ventanas_tiempo);
-            
-
 
             // Generamos un número aleatorio entre 0 y 1 para la selección probabilística del siguiente cliente
             double aleatorio_seleccion = ((double)rand() / RAND_MAX);
@@ -407,12 +396,11 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
     int indice = -1; // Índice de la mejor hormiga en cada iteración, inicializado en -1
-
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(vrp, ind, hormiga);
 
     // Bucle principal de iteraciones del algoritmo ACO
-    for (int i = 0; i < ind->numIteraciones; i++)
+    for (int i = 0; i < ind->numIteracionesACO; i++)
     {
         // Recorremos todas las hormigas para construir sus soluciones
         for (int j = 0; j < ind->numHormigas; j++)
@@ -421,7 +409,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             aco(vrp, ind, &hormiga[j], instancia_visiblidad, instancia_feromona, instancia_distancias, instancia_ventanas_tiempo);
 
             // Calculamos el fitness de la ruta generada por la hormiga j
-            calcular_fitness(&hormiga[j], instancia_distancias);
+            evaluaFO_ACO(&hormiga[j], instancia_distancias);
         }
 
         // Buscamos la hormiga con el mejor fitness en esta iteración
@@ -442,17 +430,19 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
         refuerzo_feromona_mejor_ruta(&hormiga[indice], instancia_feromona, delta);
 
         // Si no es la última iteración, reiniciamos las hormigas para la siguiente generación
-        if (i < ind->numIteraciones - 1)
+        if (i < ind->numIteracionesACO - 1)
         {
             for (int j = 0; j < ind->numHormigas; j++)
-            {
                 reiniciar_hormiga(&hormiga[j], vrp);
-            }
         }
     }
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[indice]);
-    // Liberamos la memoria utilizada por las hormigas al final del proceso
+
+    calculamosVentanasCapacidad(ind->hormiga->flota, vrp, instancia_distancias);
+
+    vrp_tw_sa(vrp, ind, instancia_distancias);
+    //  Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);
 }
