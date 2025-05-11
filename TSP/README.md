@@ -77,15 +77,16 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 
 | Parámetro                 | Mínimo | Máximo |
 |---------------------------|--------|--------|
-| `alpha`                   | 0.8    | 2.5    |
-| `beta`                    | 2.5    | 6.0    |
-| `rho`                     | 0.1    | 0.5    |
-| `número de hormigas`      | 10     | 30     |
-| `iteraciones ACO`         | 50     | 200    |
-| `temperatura inicial`     | 200.0  | 400.0  |
-| `temperatura final`       | 0.01   | 0.1    |
-| `factor de enfriamiento`  | 0.95   | 0.98   |
-| `iteraciones SA`          | 30     | 50     |
+| `alpha`                   | 1.0    | 3.0    |
+| `beta`                    | 1.0    | 3.0    |
+| `rho`                     | 0.5    | 0.7    |
+| `número de hormigas`      | 10     | 25     |
+| `iteraciones ACO`         | 50     | 100    |
+| `temperatura inicial`     | 1000.0 | 2000.0 |
+| `temperatura final`       | 0.1    | 0.5    |
+| `factor de enfriamiento`  | 0.99   | 0.999  |
+| `factor de control`       | 0.7    | 0.5    |
+| `iteraciones SA`          | 100    | 150    |
 
 ---
 

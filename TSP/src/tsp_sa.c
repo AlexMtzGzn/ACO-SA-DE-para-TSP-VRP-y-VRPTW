@@ -143,71 +143,60 @@ bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp)
     return false; // No se logró encontrar ambos clientes tras varios intentos
 }
 
-bool moverClienteRuta(struct individuo *ind)
-{
+bool moverClienteRuta(struct individuo *ind) {
     if (ind == NULL || ind->metal == NULL || ind->metal->solucion_actual == NULL) 
-        return false; // Si el individuo o su solución actual son NULL, no se puede hacer nada
+        return false;
 
     lista_ruta *ruta = ind->metal->solucion_actual;
-    
-    // Verificar que haya al menos 2 clientes en la ruta
     if (ruta->cabeza == NULL || ruta->cabeza->siguiente == NULL)
         return false;
 
-    // Seleccionar dos posiciones aleatorias dentro de la ruta
+    // Contar total de nodos
     int total_clientes = 0;
     nodo_ruta *nodo = ruta->cabeza->siguiente;
-    while (nodo != NULL)
-    {
+    while (nodo != NULL) {
         total_clientes++;
         nodo = nodo->siguiente;
     }
 
     if (total_clientes < 2)
-        return false; // Si hay menos de 2 clientes, no podemos hacer el movimiento
+        return false;
 
-    // Elegir dos índices aleatorios diferentes
     int idx1 = rand() % total_clientes;
     int idx2 = rand() % total_clientes;
 
-    // Asegurarse de que los índices sean distintos
     while (idx1 == idx2)
         idx2 = rand() % total_clientes;
 
-    if (idx1 > idx2)
-    {
+    // Asegurar que idx1 < idx2
+    if (idx1 > idx2) {
         int tmp = idx1;
         idx1 = idx2;
         idx2 = tmp;
     }
 
-    // Obtener los nodos en las posiciones idx1 e idx2
-    nodo_ruta *nodo_izq = ruta->cabeza->siguiente;
-    nodo_ruta *nodo_der = ruta->cabeza->siguiente;
-
+    // Buscar nodo anterior a idx1
+    nodo_ruta *prev1 = ruta->cabeza;
     for (int i = 0; i < idx1; i++)
-        nodo_izq = nodo_izq->siguiente;
+        prev1 = prev1->siguiente;
 
-    for (int i = 0; i < idx2; i++)
-        nodo_der = nodo_der->siguiente;
-
-    // Verificar si los nodos seleccionados son válidos
-    if (nodo_izq == NULL || nodo_der == NULL)
+    nodo_ruta *nodo_mover = prev1->siguiente;
+    if (nodo_mover == NULL)
         return false;
 
-    // Desconectar el nodo en idx1
-    nodo_ruta *nodo_a_mover = nodo_izq;
-    nodo_izq = nodo_izq->siguiente;
-    nodo_a_mover->siguiente = NULL;  // Desconectar el nodo temporalmente
+    // Desconectar nodo_mover
+    prev1->siguiente = nodo_mover->siguiente;
 
-    // Conectar el nodo a la nueva posición (después de idx2)
-    nodo_a_mover->siguiente = nodo_der->siguiente;
-    nodo_der->siguiente = nodo_a_mover;
+    // Buscar nodo en posición idx2 (nodo después del cual se insertará)
+    nodo_ruta *curr = ruta->cabeza->siguiente;
+    for (int i = 0; i < idx2 - 1; i++)
+        curr = curr->siguiente;
 
-    // Opcional: Verificar que el movimiento sea válido (por ejemplo, capacidad de vehículos si es VRP)
-    // Si tienes restricciones adicionales, puedes agregar validaciones aquí
+    // Insertar nodo_mover después de curr
+    nodo_mover->siguiente = curr->siguiente;
+    curr->siguiente = nodo_mover;
 
-    return true; // Movimiento exitoso
+    return true;
 }
 
 // Genera una solución vecina a partir de la solución actual

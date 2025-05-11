@@ -261,114 +261,119 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
 
 void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion)
 {
+   if (vrp->num_clientes == 26)
+   {
+      // Asigna rangos específicos según el número de clientes en el TSP
+      rango->maxAlpha = 2.5;
+      rango->minAlpha = 1.0;
+
+      rango->maxBeta = 5.0;
+      rango->minBeta = 3.0;
+
+      rango->maxGamma = 2.0;
+      rango->minGamma = 0.5;
+
+      rango->maxRho = 0.6;
+      rango->minRho = 0.4;
+
+      rango->maxNumHormigas = 20;
+      rango->minNumHormigas = 10;
+
+      rango->maxNumIteracionesACO = 100;
+      rango->minNumIteracionesACO = 50;
+
+      rango->maxTemperatura_inicial = 2000.0;
+      rango->minTemperatura_inicial = 1500.0;
+
+      rango->maxTemperatura_final = 0.1;
+      rango->minTemperatura_final = 0.05;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.95;
+
+      rango->maxFactor_control = 0.8;
+      rango->minFactor_control = 0.6;
+
+      rango->maxIteracionesSA = 150;
+      rango->minIteracionesSA = 100;
+   }
+
+   if (vrp->num_clientes == 51)
+   {
+      // Asigna rangos específicos según el número de clientes en el TSP
+      rango->maxAlpha = 4.0;
+      rango->minAlpha = 2.0;
+
+      rango->maxBeta = 6.0;
+      rango->minBeta = 4.0;
+
+      rango->maxGamma = 3.0;
+      rango->minGamma = 1.0;
+
+      rango->maxRho = 0.5;
+      rango->minRho = 0.3;
+
+      rango->maxNumHormigas = 35;
+      rango->minNumHormigas = 20;
+
+      rango->maxNumIteracionesACO = 150;
+      rango->minNumIteracionesACO = 100;
+
+      rango->maxTemperatura_inicial = 2500.0;
+      rango->minTemperatura_inicial = 1800.0;
+
+      rango->maxTemperatura_final = 0.1;
+      rango->minTemperatura_final = 0.02;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.96;
+
+      rango->maxFactor_control = 0.9;
+      rango->minFactor_control = 0.7;
+
+      rango->maxIteracionesSA = 200;
+      rango->minIteracionesSA = 150;
+   }
+
+   if (vrp->num_clientes == 101)
+   {
+      // Asigna rangos específicos según el número de clientes en el TSP
+      rango->maxAlpha = 6.0;
+      rango->minAlpha = 3.0;
+
+      rango->maxBeta = 8.0;
+      rango->minBeta = 5.0;
+
+      rango->maxGamma = 6.0;
+      rango->minGamma = 2.0;
+
+      rango->maxRho = 0.4;
+      rango->minRho = 0.1;
+
+      rango->maxNumHormigas = 50;
+      rango->minNumHormigas = 35;
+
+      rango->maxNumIteracionesACO = 200;
+      rango->minNumIteracionesACO = 150;
+
+      rango->maxTemperatura_inicial = 3000.0;
+      rango->minTemperatura_inicial = 2000.0;
+
+      rango->maxTemperatura_final = 0.05;
+      rango->minTemperatura_final = 0.0001;
+
+      rango->maxFactor_enfriamiento = 0.999;
+      rango->minFactor_enfriamiento = 0.97;
+
+      rango->maxFactor_control = 0.9;
+      rango->minFactor_control = 0.7;
+
+      rango->maxIteracionesSA = 300;
+      rango->minIteracionesSA = 200;
+   }
    // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)
    {
-      if (vrp->num_clientes == 26)
-      {
-         rango->maxAlpha = 6.0;
-         rango->minAlpha = 1.0;
-
-         rango->maxBeta = 8.0;
-         rango->minBeta = 1.0;
-
-         rango->minGamma = 0.1;
-         rango->maxGamma = 5.0;
-
-         rango->maxRho = 0.9;
-         rango->minRho = 0.1;
-
-         rango->maxNumHormigas = 50;
-         rango->minNumHormigas = 5;
-
-         rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 30;
-
-         rango->maxTemperatura_inicial = 2000.0;
-         rango->minTemperatura_inicial = 100.0;
-
-         rango->maxTemperatura_final = 0.5;
-         rango->minTemperatura_final = 0.001;
-
-         rango->maxFactor_enfriamiento = 0.999;
-         rango->minFactor_enfriamiento = 0.90;
-
-         rango->maxFactor_control = 0.8;
-         rango->minFactor_control = 0.2;
-
-         rango->maxIteracionesSA = 300;
-         rango->minIteracionesSA = 50;
-      }
-      if (vrp->num_clientes == 51)
-      {
-         rango->maxAlpha = 6.0;
-         rango->minAlpha = 1.0;
-
-         rango->maxBeta = 8.0;
-         rango->minBeta = 1.0;
-
-         rango->minGamma = 0.1;
-         rango->maxGamma = 5.0;
-
-         rango->maxRho = 0.9;
-         rango->minRho = 0.1;
-
-         rango->maxNumHormigas = 50;
-         rango->minNumHormigas = 5;
-
-         rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 30;
-
-         rango->maxTemperatura_inicial = 2000.0;
-         rango->minTemperatura_inicial = 100.0;
-
-         rango->maxTemperatura_final = 0.5;
-         rango->minTemperatura_final = 0.001;
-
-         rango->maxFactor_enfriamiento = 0.999;
-         rango->minFactor_enfriamiento = 0.90;
-
-         rango->maxFactor_control = 0.8;
-         rango->minFactor_control = 0.2;
-
-         rango->maxIteracionesSA = 300;
-         rango->minIteracionesSA = 50;
-      }
-      if (vrp->num_clientes == 101)
-      {
-         rango->maxAlpha = 4.0;
-         rango->minAlpha = 1.0;
-
-         rango->maxBeta = 8.0;
-         rango->minBeta = 2.5;
-
-         rango->maxGamma = 5.0;
-         rango->minGamma = 0.5;
-
-         rango->maxRho = 0.9;
-         rango->minRho = 0.4;
-
-         rango->maxNumHormigas = 50;
-         rango->minNumHormigas = 5;
-
-         rango->maxNumIteracionesACO = 200;
-         rango->minNumIteracionesACO = 30;
-
-         rango->maxTemperatura_inicial = 2500.0;
-         rango->minTemperatura_inicial = 800.0;
-
-         rango->maxTemperatura_final = 0.5;
-         rango->minTemperatura_final = 0.001;
-
-         rango->maxFactor_enfriamiento = 0.999;
-         rango->minFactor_enfriamiento = 0.95;
-
-         rango->maxFactor_control = 0.9;
-         rango->minFactor_control = 0.1;
-
-         rango->maxIteracionesSA = 400;
-         rango->minIteracionesSA = 150;
-      }
 
       // Genera valores aleatorios dentro de los rangos definidos para cada individuo
       objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);
