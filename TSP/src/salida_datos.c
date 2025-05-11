@@ -6,7 +6,7 @@
 // Función para imprimir un mensaje de error
 void imprimir_mensaje(char *texto_instancia)
 {
-    fprintf(stderr, "Error: %s\n", texto_instancia);
+    fprintf(stderr, "%s\n", texto_instancia);
 }
 
 // Función para imprimir una matriz de instancia tsp

@@ -273,7 +273,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
    if (vrp->num_clientes == 51)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
       rango->maxAlpha = 4.0;
       rango->minAlpha = 2.0;
 
@@ -307,7 +306,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
    if (vrp->num_clientes == 101)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
       rango->maxAlpha = 5.0;
       rango->minAlpha = 3.0;
 
@@ -394,11 +392,11 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    {
       if (objetivo[i].fitness < resultado->fitness)
       {
-         resultado->alpha = objetivo[i].alpha;
-         resultado->beta = objetivo[i].beta;
-         resultado->rho = objetivo[i].rho;
-         resultado->numHormigas = objetivo[i].numHormigas;
-         resultado->numIteracionesACO = objetivo[i].numIteracionesACO;
+         resultado->alpha = objetivo[i].alpha;                             // Copiamos el alpha del mejor metal
+         resultado->beta = objetivo[i].beta;                               // Copiamos el beta del mejor metal
+         resultado->rho = objetivo[i].rho;                                 // Copiamos el rho del mejor metal
+         resultado->numHormigas = objetivo[i].numHormigas;                 // Copiamos el numero de hormigas del mejor metal
+         resultado->numIteracionesACO = objetivo[i].numIteracionesACO;     // Copiamos el numero de iteraciones del mejor metal
          resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
          resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
          resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
@@ -422,11 +420,11 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          // Actualizamos el mejor resultado si encontramos uno mejor
          if (prueba[i].fitness < resultado->fitness)
          {
-            resultado->alpha = prueba[i].alpha;
-            resultado->beta = prueba[i].beta;
-            resultado->rho = prueba[i].rho;
-            resultado->numHormigas = prueba[i].numHormigas;
-            resultado->numIteracionesACO = prueba[i].numIteracionesACO;
+            resultado->alpha = prueba[i].alpha;                             // Copiamos el alpha del mejor metal
+            resultado->beta = prueba[i].beta;                               // Copiamos el beta del mejor metal
+            resultado->rho = prueba[i].rho;                                 // Copiamos el rho del mejor metal
+            resultado->numHormigas = prueba[i].numHormigas;                 // Copiamos el numero de hormigas del mejor metal
+            resultado->numIteracionesACO = prueba[i].numIteracionesACO;     // Copiamos el numero de iteraciones del mejor metal
             resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
             resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
             resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal

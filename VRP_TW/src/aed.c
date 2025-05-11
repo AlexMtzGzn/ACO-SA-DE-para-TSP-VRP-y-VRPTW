@@ -13,7 +13,8 @@
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
    // Retornamos la distancia de los puntos
-   double distancia = sqrt(pow((vrp->clientes[cliente_destino].coordenada_x - vrp->clientes[cliente_origen].coordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].coordenada_y - vrp->clientes[cliente_origen].coordenada_y), 2.0));
+   double distancia;
+   distancia = sqrt(pow((vrp->clientes[cliente_destino].coordenada_x - vrp->clientes[cliente_origen].coordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].coordenada_y - vrp->clientes[cliente_origen].coordenada_y), 2.0));
    return distancia;
 }
 
@@ -92,8 +93,8 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
          // Si i y j son diferentes (es decir, no es la misma ciudad), se asigna un valor de feromona de 1.0
          if (i != j)
          {
-            instancia_feromona[i][j] = 1.0/vrp->clientes[j].vt_final; // Se asigna un valor de feromona
-            instancia_feromona[j][i] = instancia_feromona[i][j]; // Aprovechamos la simetría
+            instancia_feromona[i][j] = 1.0 / vrp->clientes[j].vt_final; // Se asigna un valor de feromona
+            instancia_feromona[j][i] = instancia_feromona[i][j];        // Aprovechamos la simetría
          }
 
          else
@@ -261,9 +262,10 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
 
 void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion)
 {
+   // Asigna rangos específicos según el número de clientes en el TSP
+
    if (vrp->num_clientes == 26)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
       rango->maxAlpha = 2.5;
       rango->minAlpha = 1.0;
 
@@ -300,7 +302,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
    if (vrp->num_clientes == 51)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
       rango->maxAlpha = 4.0;
       rango->minAlpha = 2.0;
 
@@ -337,7 +338,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
    if (vrp->num_clientes == 101)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
       rango->maxAlpha = 6.0;
       rango->minAlpha = 3.0;
 
@@ -392,8 +392,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
 void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t timepo_inicial, timepo_final;
-   timepo_inicial = clock();
+   clock_t timepo_inicial, timepo_final; // Variables para medir el tiempo de ejecución
+   timepo_inicial = clock(); //Iniciar Tiempo
    char respuesta;                                                                // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso

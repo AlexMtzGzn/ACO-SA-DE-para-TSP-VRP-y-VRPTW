@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
@@ -134,7 +133,7 @@ bool invertirSegmentoRuta(struct individuo *ind)
     int intentos_maximos = 10; // Limitamos el número de intentos para evitar recursión infinita
 
     // Seleccionamos un vehículo aleatorio que tenga al menos 3 clientes
-    for (int intento = 0; intento < 10; intento++)
+    for (int intento = 0; intento < intentos_maximos; intento++)
     {
         vehiculo_actual = seleccionar_vehiculo_aleatorio(ind);
 
@@ -246,9 +245,11 @@ bool moverDosClientesVehiculos(struct individuo *ind, struct vrp_configuracion *
     int pos1, pos2;
     int cliente1, cliente2;
     double demanda1, demanda2;
+    int intentos_maximos = 10; // Limitamos el número de intentos para evitar recursión infinita
+
     
     // Intentar 10 veces realizar el movimiento
-    for (int intento = 0; intento < 10; intento++) {
+    for (int intento = 0; intento < intentos_maximos; intento++) {
         // Seleccionar dos vehículos con al menos 3 clientes (incluyendo depósitos)
         veh1 = seleccionar_vehiculo_aleatorio(ind);
         veh2 = seleccionar_vehiculo_aleatorio(ind);
@@ -413,12 +414,6 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
     // Ciclo de enfriamiento
     while (temperatura > ind->temperatura_final)
     {
-        // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
-        // printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
-        //        temperatura,
-        //        ind->metal->fitness_solucion_actual,
-        //        ind->metal->fitness_mejor_solucion);
-        // <<<
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
             generar_vecino(ind, vrp);
@@ -479,15 +474,15 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
 // Inicializa la estructura metal de un individuo
 void inicializar_metal(struct individuo *ind)
 {
-    ind->metal = asignar_memoria_metal();
-    ind->metal->solucion_vecina = NULL;
-    ind->metal->solucion_actual = NULL;
-    ind->metal->mejor_solucion = NULL;
-    ind->metal->fitness_solucion_actual = 0.0;
-    ind->metal->fitness_solucion_vecina = 0.0;
-    ind->metal->fitness_mejor_solucion = 0.0;
-    ind->metal->solucion_inicial = copiar_lista_vehiculos(ind->hormiga->flota);
-    ind->metal->fitness_solucion_inicial = ind->hormiga->fitness_global;
+    ind->metal = asignar_memoria_metal(); // Asignación de memoria para la estructura metal
+    ind->metal->solucion_vecina = NULL; // Inicializa la solución vecina
+    ind->metal->solucion_actual = NULL; // Inicializa la solución actual
+    ind->metal->mejor_solucion = NULL; // Inicializa la mejor solución
+    ind->metal->fitness_solucion_actual = 0.0; // Inicializa el fitness de la solución actual
+    ind->metal->fitness_solucion_vecina = 0.0; // Inicializa el fitness de la solución vecina
+    ind->metal->fitness_mejor_solucion = 0.0; // Inicializa el fitness de la mejor solución
+    ind->metal->solucion_inicial = copiar_lista_vehiculos(ind->hormiga->flota); // Copia la solución inicial
+    ind->metal->fitness_solucion_inicial = ind->hormiga->fitness_global; // Guarda el fitness de la solución inicial
 }
 
 // Función principal que ejecuta SA sobre un individuo del VRP

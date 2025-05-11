@@ -27,175 +27,178 @@ void evaluaFO_SA(struct individuo *ind, struct tsp_configuracion *tsp, double **
     }
 }
 
+// Invierte un segmento aleatorio de clientes en la ruta de la solución vecina
 bool invertirSegmentoRuta(struct individuo *ind)
 {
     struct lista_ruta *ruta = ind->metal->solucion_vecina;
     if (!ruta || !ruta->cabeza)
         return false;
 
-    // Contar clientes (ignorando el depósito 0)
-    int total_clientes = 0;
-    nodo_ruta *nodo = ruta->cabeza;
-    while (nodo)
-    {
-        if (nodo->cliente != 0)
-            total_clientes++;
-        nodo = nodo->siguiente;
-    }
-
-    if (total_clientes < 3)
-        return false;
-
-    // Seleccionar dos índices aleatorios distintos
-    int idx1 = rand() % total_clientes;
-    int idx2 = rand() % total_clientes;
-    while (idx1 == idx2)
-        idx2 = rand() % total_clientes;
-
-    if (idx1 > idx2)
-    {
-        int temp = idx1;
-        idx1 = idx2;
-        idx2 = temp;
-    }
-
-    // Recorrer la lista y ubicar los punteros a los nodos a invertir
-    int pos = 0;
+    // Contar cuántos clientes (ignorando los depósitos con cliente = 0) hay en la ruta
+    int num_clientes = 0;
     nodo_ruta *nodo_actual = ruta->cabeza;
-    nodo_ruta *segmento[total_clientes]; // Punteros a los nodos cliente
+    while (nodo_actual)
+    {
+        if (nodo_actual->cliente != 0)
+            num_clientes++;
+        nodo_actual = nodo_actual->siguiente;
+    }
+
+    if (num_clientes < 3)
+        return false; // Se necesitan al menos 3 clientes para invertir un segmento
+
+    // Elegir dos posiciones aleatorias distintas dentro de los clientes
+    int inicio = rand() % num_clientes;
+    int fin = rand() % num_clientes;
+    while (inicio == fin)
+        fin = rand() % num_clientes;
+
+    if (inicio > fin)
+    {
+        int tmp = inicio;
+        inicio = fin;
+        fin = tmp;
+    }
+
+    // Crear un arreglo de punteros a los nodos de clientes (ignorando depósitos)
+    nodo_ruta *clientes[num_clientes];
+    nodo_actual = ruta->cabeza;
+    int pos = 0;
 
     while (nodo_actual)
     {
         if (nodo_actual->cliente != 0)
         {
-            segmento[pos] = nodo_actual;
+            clientes[pos] = nodo_actual;
             pos++;
         }
         nodo_actual = nodo_actual->siguiente;
     }
 
-    // Invertir el segmento entre idx1 y idx2
-    while (idx1 < idx2)
+    // Invertir el segmento entre las posiciones 'inicio' y 'fin'
+    while (inicio < fin)
     {
-        int tmp = segmento[idx1]->cliente;
-        segmento[idx1]->cliente = segmento[idx2]->cliente;
-        segmento[idx2]->cliente = tmp;
-        idx1++;
-        idx2--;
+        int temp_cliente = clientes[inicio]->cliente;
+        clientes[inicio]->cliente = clientes[fin]->cliente;
+        clientes[fin]->cliente = temp_cliente;
+        inicio++;
+        fin--;
     }
 
     return true;
 }
 
-
-// Intercambia dos clientes distintos en la solución vecina
-bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *tsp)
+// Intercambia dos clientes aleatorios distintos en la solución vecina
+bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *config)
 {
-    int intentos = 100;
+    int intentos_maximos = 10;
 
-    while (intentos--)
+    while (intentos_maximos--)
     {
-        int cliente1 = (rand() % tsp->num_clientes) + 1; // Clientes 1..n
-        int cliente2 = (rand() % tsp->num_clientes) + 1;
+        int cliente1 = (rand() % config->num_clientes) + 1; // Clientes válidos de 1 a n
+        int cliente2 = (rand() % config->num_clientes) + 1;
 
         if (cliente1 == cliente2)
             continue;
 
-        nodo_ruta *nodo_cliente1 = NULL;
-        nodo_ruta *nodo_cliente2 = NULL;
+        nodo_ruta *nodo1 = NULL;
+        nodo_ruta *nodo2 = NULL;
 
         struct lista_ruta *ruta = ind->metal->solucion_vecina;
         if (!ruta || !ruta->cabeza)
             return false;
 
-        nodo_ruta *actual = ruta->cabeza;
+        nodo_ruta *nodo_actual = ruta->cabeza;
 
-        // Buscar los nodos correspondientes
-        while (actual != NULL)
+        // Buscar los nodos correspondientes a los clientes seleccionados
+        while (nodo_actual)
         {
-            if (actual->cliente == 0)
+            if (nodo_actual->cliente == 0)
             {
-                actual = actual->siguiente;
-                continue; // ignorar depósito
+                nodo_actual = nodo_actual->siguiente;
+                continue; // Ignorar depósito
             }
 
-            if (actual->cliente == cliente1)
-                nodo_cliente1 = actual;
-            else if (actual->cliente == cliente2)
-                nodo_cliente2 = actual;
+            if (nodo_actual->cliente == cliente1)
+                nodo1 = nodo_actual;
+            else if (nodo_actual->cliente == cliente2)
+                nodo2 = nodo_actual;
 
-            if (nodo_cliente1 && nodo_cliente2)
+            if (nodo1 && nodo2)
                 break;
 
-            actual = actual->siguiente;
+            nodo_actual = nodo_actual->siguiente;
         }
 
-        // Si ambos nodos fueron encontrados, intercambiarlos
-        if (nodo_cliente1 && nodo_cliente2)
+        // Si ambos nodos fueron encontrados, intercambiar sus valores
+        if (nodo1 && nodo2)
         {
-            int temp = nodo_cliente1->cliente;
-            nodo_cliente1->cliente = nodo_cliente2->cliente;
-            nodo_cliente2->cliente = temp;
+            int temp = nodo1->cliente;
+            nodo1->cliente = nodo2->cliente;
+            nodo2->cliente = temp;
             return true;
         }
     }
 
-    return false; // No se logró encontrar ambos clientes tras varios intentos
+    return false; // No se encontraron ambos clientes tras varios intentos
 }
 
-bool moverClienteRuta(struct individuo *ind) {
-    
-    if (ind == NULL || ind->metal == NULL || ind->metal->solucion_actual == NULL) 
+// Mueve un cliente de una posición a otra en la solución actual
+bool moverClienteRuta(struct individuo *ind)
+{
+    if (!ind || !ind->metal || !ind->metal->solucion_actual)
         return false;
 
     lista_ruta *ruta = ind->metal->solucion_actual;
-    if (ruta->cabeza == NULL || ruta->cabeza->siguiente == NULL)
+    if (!ruta->cabeza || !ruta->cabeza->siguiente)
         return false;
 
-    // Contar total de nodos
-    int total_clientes = 0;
-    nodo_ruta *nodo = ruta->cabeza->siguiente;
-    while (nodo != NULL) {
-        total_clientes++;
-        nodo = nodo->siguiente;
+    // Contar el número total de clientes (nodos, incluyendo depósito inicial)
+    int num_nodos = 0;
+    nodo_ruta *nodo_actual = ruta->cabeza->siguiente;
+    while (nodo_actual)
+    {
+        num_nodos++;
+        nodo_actual = nodo_actual->siguiente;
     }
 
-    if (total_clientes < 2)
-        return false;
+    if (num_nodos < 2)
+        return false; // Se requiere al menos 2 nodos para mover uno
 
-    int idx1 = rand() % total_clientes;
-    int idx2 = rand() % total_clientes;
+    int origen = rand() % num_nodos;
+    int destino = rand() % num_nodos;
 
-    while (idx1 == idx2)
-        idx2 = rand() % total_clientes;
+    while (origen == destino)
+        destino = rand() % num_nodos;
 
-    // Asegurar que idx1 < idx2
-    if (idx1 > idx2) {
-        int tmp = idx1;
-        idx1 = idx2;
-        idx2 = tmp;
+    // Asegurar que origen < destino para simplificar lógica
+    if (origen > destino)
+    {
+        int temp = origen;
+        origen = destino;
+        destino = temp;
     }
 
-    // Buscar nodo anterior a idx1
-    nodo_ruta *prev1 = ruta->cabeza;
-    for (int i = 0; i < idx1; i++)
-        prev1 = prev1->siguiente;
+    // Buscar nodo anterior a la posición 'origen'
+    nodo_ruta *nodo_prev_origen = ruta->cabeza;
+    for (int i = 0; i < origen; i++)
+        nodo_prev_origen = nodo_prev_origen->siguiente;
 
-    nodo_ruta *nodo_mover = prev1->siguiente;
-    if (nodo_mover == NULL)
+    nodo_ruta *nodo_mover = nodo_prev_origen->siguiente;
+    if (!nodo_mover)
         return false;
 
-    // Desconectar nodo_mover
-    prev1->siguiente = nodo_mover->siguiente;
+    // Desconectar el nodo a mover
+    nodo_prev_origen->siguiente = nodo_mover->siguiente;
 
-    // Buscar nodo en posición idx2 (nodo después del cual se insertará)
-    nodo_ruta *curr = ruta->cabeza->siguiente;
-    for (int i = 0; i < idx2 - 1; i++)
-        curr = curr->siguiente;
+    // Buscar nodo en la posición 'destino' para insertar después
+    nodo_ruta *nodo_destino = ruta->cabeza->siguiente;
+    for (int i = 0; i < destino - 1; i++)
+        nodo_destino = nodo_destino->siguiente;
 
-    // Insertar nodo_mover después de curr
-    nodo_mover->siguiente = curr->siguiente;
-    curr->siguiente = nodo_mover;
+    // Insertar nodo_mover después de nodo_destino
+    nodo_mover->siguiente = nodo_destino->siguiente;
+    nodo_destino->siguiente = nodo_mover;
 
     return true;
 }
@@ -280,7 +283,7 @@ void sa(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia
 // Inicializa la estructura 'metal' que contiene información del espacio de búsqueda para SA
 void inicializar_metal(struct individuo *ind)
 {
-    ind->metal = (struct metal *)malloc(sizeof(struct metal));
+    ind->metal = asignar_memoria_metal();
     ind->metal->solucion_vecina = NULL;
     ind->metal->solucion_actual = NULL;
     ind->metal->mejor_solucion = NULL;

@@ -12,8 +12,11 @@
 
 double calcular_Distancia(struct tsp_configuracion *tsp, int cliente_origen, int cliente_destino)
 {
-   // Retornamos la distancia de los puntos
-   double distancia = sqrt(pow((tsp->clientes[cliente_destino].coordenada_x - tsp->clientes[cliente_origen].coordenada_x), 2.0) + pow((tsp->clientes[cliente_destino].coordenada_y - tsp->clientes[cliente_origen].coordenada_y), 2.0));
+   // Declaramos distancia
+   double distancia;
+   // Calculamos la distancia entre el cliente origen y el cliente destino
+   distancia = sqrt(pow((tsp->clientes[cliente_destino].coordenada_x - tsp->clientes[cliente_origen].coordenada_x), 2.0) + pow((tsp->clientes[cliente_destino].coordenada_y - tsp->clientes[cliente_origen].coordenada_y), 2.0));
+   // Retornamos la distancia
    return distancia;
 }
 
@@ -75,7 +78,7 @@ void inicializar_Feromona(struct tsp_configuracion *tsp, double **instancia_fero
          if (i != j)
             instancia_feromona[i][j] = 1.0;
          else
-            instancia_feromona[i][j] = 0.0;
+            instancia_feromona[i][j] = 0.0; // Si son iguales, se asigana 0.0
       }
    }
 }
@@ -93,7 +96,8 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
 double generaAleatorio(double minimo, double maximo)
 {
    // Genera un número aleatorio entre 0 y 1, luego lo escala al rango deseado
-   double aleatorio = minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
+   double aleatorio;
+   aleatorio = minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
    return aleatorio;
 }
 
@@ -185,6 +189,7 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
       if (ruidoso[i].factor_enfriamiento < rango->minFactor_enfriamiento)
          ruidoso[i].factor_enfriamiento = rango->minFactor_enfriamiento;
 
+      // Limita 'factor_control' a estar dentro de los valores mínimos y máximos
       if (ruidoso[i].factor_control > rango->maxFactor_control)
          ruidoso[i].factor_control = rango->maxFactor_control;
 
@@ -230,10 +235,9 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
 
 void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *tsp, struct rangos *rango, int poblacion)
 {
-
+   // Asigna rangos específicos según el número de clientes en el TSP
    if (tsp->num_clientes == 26)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
       rango->maxAlpha = 3.0;
       rango->minAlpha = 1.0;
 
@@ -267,7 +271,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
 
    if (tsp->num_clientes == 51)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
       rango->maxAlpha = 4.0;
       rango->minAlpha = 2.0;
 
@@ -301,7 +304,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
 
    if (tsp->num_clientes == 101)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
       rango->maxAlpha = 5.0;
       rango->minAlpha = 3.0;
 
@@ -352,9 +354,9 @@ void inicializaPoblacion(struct individuo *objetivo, struct tsp_configuracion *t
 
 void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t tiempo_inicial, tiempo_final;                                          // Decraramos las variables para el tiempo
-   tiempo_inicial = clock();                                                      // Inicializamos el tiempo
-   char respuesta;                                                                // Respuesta
+   clock_t tiempo_inicial, tiempo_final; // Decraramos las variables para el tiempo
+   tiempo_inicial = clock();             // Inicializamos el tiempo
+   // char respuesta;                                                                // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
@@ -423,7 +425,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
             resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
             resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
             resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
-            resultado->factor_control = prueba[i].factor_control;           // Copiamos el factor de control del mejor metal  
+            resultado->factor_control = prueba[i].factor_control;           // Copiamos el factor de control del mejor metal
             resultado->numIteracionesSA = prueba[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);        // Recuperamos la mejor hormiga
          }
@@ -459,11 +461,11 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    imprimir_mejor_hormiga(resultado->hormiga, resultado);          // Imprimimos la mejor hormiga
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos); // Imprimimos el tiempo de ejecución
 
-   printf("\n¿Quieres imprimir el archivo JSON (s/n)? "); // Preguntamos si quiere imprimir el archivo JSON
-   scanf(" %c", &respuesta);                              // Recibimos la respuesta
+   // printf("\n¿Quieres imprimir el archivo JSON (s/n)? "); // Preguntamos si quiere imprimir el archivo JSON
+   // scanf(" %c", &respuesta);                              // Recibimos la respuesta
 
-   if (respuesta == 's' || respuesta == 'S')                      // Comparamos la Respuesta
-      guardar_json_en_archivo(resultado, tsp, archivo_instancia); // Guradamos el archivo JSON
+   // if (respuesta == 's' || respuesta == 'S')                      // Comparamos la Respuesta
+   guardar_json_en_archivo(resultado, tsp, archivo_instancia); // Guradamos el archivo JSON
 
    liberar_instancia(instancia_feromonas, tsp->num_clientes);   // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, tsp->num_clientes); // Liberemos la memoria de la instancia visibilidad

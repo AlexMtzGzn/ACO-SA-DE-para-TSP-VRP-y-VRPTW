@@ -24,7 +24,7 @@ double **asignar_memoria_instancia(int tamanio_instancia)
         instancia[i] = (double *)calloc(tamanio_instancia, sizeof(double));
         if (instancia[i] == NULL)
         {
-            imprimir_mensaje("No se pudo asignar memoria para la columna");
+            imprimir_mensaje("Error: No se pudo asignar memoria para la columna");
             for (int j = 0; j < i; j++) free(instancia[j]);
             free(instancia);
             exit(EXIT_FAILURE);
@@ -46,7 +46,7 @@ int *asignar_memoria_arreglo_int(int tamanio_arreglo)
     int *arreglo = (int *)calloc(tamanio_arreglo, sizeof(int));  // Inicializamos a cero
     if (arreglo == NULL)
     {
-        imprimir_mensaje("No se pudo asignar memoria para el arreglo entero");
+        imprimir_mensaje("Error: No se pudo asignar memoria para el arreglo entero");
         exit(EXIT_FAILURE);
     }
     return arreglo;
@@ -207,7 +207,7 @@ struct metal *asignar_memoria_metal()
     struct metal *metal = (struct metal *)calloc(1, sizeof(struct metal));  // Inicializamos a cero
     if (metal == NULL)
     {
-        imprimir_mensaje("No se pudo asignar memoria para la estructura metal");
+        imprimir_mensaje("Error: No se pudo asignar memoria para la estructura metal");
         exit(EXIT_FAILURE);
     }
     return metal;

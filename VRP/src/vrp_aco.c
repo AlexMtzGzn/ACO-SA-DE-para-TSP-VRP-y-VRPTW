@@ -250,31 +250,40 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
 
 void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad)
 {
+    // Apuntadores iniciales a la flota y vehículo actual
     struct nodo_vehiculo *flota_vehiculo = hormiga->flota->cabeza;
     struct vehiculo *vehiculo = flota_vehiculo->vehiculo;
     struct lista_ruta *ruta = vehiculo->ruta;
     struct nodo_ruta *ultimo_cliente_ruta;
     int origen;
 
+    // Mientras queden clientes por visitar
     while (hormiga->tabu_contador < vrp->num_clientes)
     {
+        // Reiniciar el vector de posibles clientes
         for (int i = 0; i < vrp->num_clientes; i++)
             hormiga->posibles_clientes[i] = 0;
         hormiga->posibles_clientes_contador = 0;
 
+        // Obtener la ruta actual y el último cliente en ella
         ruta = vehiculo->ruta;
         ultimo_cliente_ruta = ruta->cola;
         origen = ultimo_cliente_ruta->cliente;
 
+        // Calcular los clientes posibles a visitar desde el cliente actual (origen)
         calcular_posibles_clientes(origen, vehiculo, vrp, hormiga);
 
+        // Si no hay clientes posibles, hay que cerrar la ruta o usar un nuevo vehículo
         if (hormiga->posibles_clientes_contador == 0)
         {
+            // Verifica si puede usar otro vehículo
             if (hormiga->vehiculos_necesarios + 1 <= hormiga->vehiculos_maximos)
             {
+                // Asegura cerrar la ruta actual con el depósito si no lo está
                 if (ruta->cola->cliente != 0)
-                    insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0]));
+                    insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Cliente 0 es el depósito
 
+                // Si aún hay clientes pendientes, se añade un nuevo vehículo
                 if (hormiga->tabu_contador < vrp->num_clientes)
                 {
                     inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1);
@@ -285,21 +294,25 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             }
             else
             {
+                // Si no hay más vehículos disponibles, reiniciar la hormiga y empezar desde cero
                 reiniciar_hormiga(hormiga, vrp);
-              
             }
         }
         else
         {
             int proximo_cliente = -1;
 
+            // Inicializar las probabilidades de cada cliente
             for (int i = 0; i < vrp->num_clientes; i++)
                 hormiga->probabilidades[i] = 0.0;
 
+            // Calcular las probabilidades de transición hacia cada cliente posible
             for (int i = 0; i < vrp->num_clientes; i++)
                 if (hormiga->posibles_clientes[i] == 1)
-                    hormiga->probabilidades[i] = calcular_probabilidad(origen, i, ind, vrp, hormiga, instancia_feromona, instancia_visibilidad);
+                    hormiga->probabilidades[i] = calcular_probabilidad(
+                        origen, i, ind, vrp, hormiga, instancia_feromona, instancia_visibilidad);
 
+            // Selección estocástica del siguiente cliente usando ruleta
             double aleatorio_seleccion = ((double)rand() / RAND_MAX);
             double acumulador = 0.0;
 
@@ -317,6 +330,7 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
                 }
             }
 
+            // Si se seleccionó un cliente, se inserta en la ruta
             if (proximo_cliente != -1)
             {
                 insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[proximo_cliente]));
@@ -325,9 +339,11 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
         }
     }
 
+    // Cierra la última ruta añadiendo el depósito si no lo tiene
     if (ruta->cola->cliente != 0)
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0]));
 }
+
 
 void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
