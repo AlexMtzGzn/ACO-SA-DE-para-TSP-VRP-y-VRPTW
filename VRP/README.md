@@ -16,7 +16,7 @@ El objetivo es encontrar las rutas óptimas para una flota de vehículos que deb
 
 ACO (_Ant Colony Optimization_) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
 
-En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de alimento dejando feromonas en el trayecto. Cuanto mejor es el camino (más corto), más feromonas se acumulan, lo que aumenta la probabilidad de que otras hormigas lo sigan, reforzando así la solución.
+En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de alimento dejando feromona en el trayecto. Cuanto mejor es el camino (más corto), más feromona se acumulan, lo que aumenta la probabilidad de que otras hormigas lo sigan, reforzando así la solución.
 
 En el VRP, simulamos este comportamiento:
 
@@ -182,9 +182,8 @@ Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño 
    El algoritmo **DE** utiliza los valores de fitness para evolucionar la población, generando nuevos conjuntos de parámetros con el objetivo de **minimizar la distancia total de la solución del VRP**.
 
 6. **Criterio de Paro**:  
-   El proceso se repite durante un número máximo de generaciones o hasta que la mejora entre generaciones sea mínima.
+   El proceso se repite durante un número máximo de generaciones.
 
----
 
 Este proceso permite **optimizar automáticamente** el rendimiento del algoritmo ACO (y SA), **evitando el ajuste manual** de parámetros y encontrando de manera más eficiente soluciones de alta calidad para el **Problema de Ruteo de Vehículos (VRP)**.
 
