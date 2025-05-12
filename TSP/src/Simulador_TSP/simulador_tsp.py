@@ -180,7 +180,7 @@ class TSPSimulator:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Uso: python simulador_tsp.py <archivo_json> [numero_clientes]")
+        print("Uso: python3 simulador_tsp.py <archivo_json> [numero_clientes]")
         sys.exit(1)
     
     # Obtener el número de clientes del segundo parámetro (si existe)
