@@ -45,77 +45,59 @@ void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **
 // Mueve un cliente aleatorio de un vehículo a otro (si es válido)
 bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp)
 {
-    nodo_vehiculo *vehiculo_origen = NULL;
-    nodo_vehiculo *vehiculo_destino = NULL;
-    int intentos = 10, id_vehiculo_origen, id_vehiculo_destino, pos_cliente, id_cliente;
-    double demanda;
-    nodo_ruta *actual = NULL, *prev = NULL, *penultimo = NULL;
+    nodo_vehiculo *origen = NULL;
+    nodo_vehiculo *destino = NULL;
+    int intentos = 10;
 
-    while (intentos--)
-    {
-        // Selecciona dos vehículos (pueden ser iguales)
-        id_vehiculo_origen = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
-        id_vehiculo_destino = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
+    while (intentos--) {
+        int id_origen = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
+        int id_destino = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
 
         // Buscar vehículos por ID
-        vehiculo_origen = ind->metal->solucion_vecina->cabeza;
-        while (vehiculo_origen && vehiculo_origen->vehiculo->id_vehiculo != id_vehiculo_origen)
-            vehiculo_origen = vehiculo_origen->siguiente;
+        origen = ind->metal->solucion_vecina->cabeza;
+        while (origen && origen->vehiculo->id_vehiculo != id_origen)
+            origen = origen->siguiente;
 
-        vehiculo_destino = ind->metal->solucion_vecina->cabeza;
-        while (vehiculo_destino && vehiculo_destino->vehiculo->id_vehiculo != id_vehiculo_destino)
-            vehiculo_destino = vehiculo_destino->siguiente;
+        destino = ind->metal->solucion_vecina->cabeza;
+        while (destino && destino->vehiculo->id_vehiculo != id_destino)
+            destino = destino->siguiente;
 
-        if (!vehiculo_origen || !vehiculo_destino)
+        if (!origen || !destino || origen->vehiculo->clientes_contados <= 2)
             continue;
 
-        if (vehiculo_origen->vehiculo->clientes_contados <= 2) // solo depósitos
-            continue;
+        int pos_cliente = rand() % (origen->vehiculo->clientes_contados - 2) + 1;
 
-        // Selecciona posición válida (evitando depósitos)
-        pos_cliente = rand() % (vehiculo_origen->vehiculo->clientes_contados - 2) + 1;
-
-        prev = vehiculo_origen->vehiculo->ruta->cabeza;
-        actual = prev->siguiente;
-
-        for (int i = 1; i < pos_cliente && actual && actual->siguiente; i++)
-        {
-            prev = actual;
+        nodo_ruta *anterior = origen->vehiculo->ruta->cabeza;
+        nodo_ruta *actual = anterior->siguiente;
+        for (int i = 1; i < pos_cliente && actual && actual->siguiente; i++) {
+            anterior = actual;
             actual = actual->siguiente;
         }
 
-        if (!actual || actual->cliente == 0)
+        if (!actual || actual->cliente <= 0 || actual->cliente >= vrp->num_clientes)
             continue;
 
-        id_cliente = actual->cliente;
+        double demanda = vrp->clientes[actual->cliente].demanda_capacidad;
 
-        if (id_cliente < 0 || id_cliente >= vrp->num_clientes)
+        if (destino->vehiculo->capacidad_acumulada + demanda > destino->vehiculo->capacidad_maxima)
             continue;
 
-        demanda = vrp->clientes[id_cliente].demanda_capacidad;
+        // Eliminar cliente de vehículo origen
+        anterior->siguiente = actual->siguiente;
+        if (actual == origen->vehiculo->ruta->cola)
+            origen->vehiculo->ruta->cola = anterior;
+        origen->vehiculo->capacidad_acumulada -= demanda;
+        origen->vehiculo->clientes_contados--;
 
-        // Verificar capacidad del destino
-        if ((vehiculo_destino->vehiculo->capacidad_acumulada + demanda) > vehiculo_destino->vehiculo->capacidad_maxima)
-            continue;
-
-        // Eliminar nodo del origen
-        prev->siguiente = actual->siguiente;
-        if (actual == vehiculo_origen->vehiculo->ruta->cola)
-            vehiculo_origen->vehiculo->ruta->cola = prev;
-
-        vehiculo_origen->vehiculo->capacidad_acumulada -= demanda;
-        vehiculo_origen->vehiculo->clientes_contados--;
-
-        // Insertar antes del depósito final del destino
-        penultimo = vehiculo_destino->vehiculo->ruta->cabeza;
-        while (penultimo->siguiente != vehiculo_destino->vehiculo->ruta->cola)
+        // Insertar cliente antes del depósito final en destino
+        nodo_ruta *penultimo = destino->vehiculo->ruta->cabeza;
+        while (penultimo->siguiente != destino->vehiculo->ruta->cola)
             penultimo = penultimo->siguiente;
 
-        actual->siguiente = vehiculo_destino->vehiculo->ruta->cola;
+        actual->siguiente = destino->vehiculo->ruta->cola;
         penultimo->siguiente = actual;
-
-        vehiculo_destino->vehiculo->capacidad_acumulada += demanda;
-        vehiculo_destino->vehiculo->clientes_contados++;
+        destino->vehiculo->capacidad_acumulada += demanda;
+        destino->vehiculo->clientes_contados++;
 
         return true;
     }
@@ -123,271 +105,124 @@ bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp)
     return false;
 }
 
-bool invertirSegmentoRuta(struct individuo *ind)
-{
+bool invertirSegmentoRuta(struct individuo *ind) {
+    nodo_vehiculo *vehiculo = NULL;
+    int intentos = 10;
 
-    nodo_vehiculo *vehiculo_actual = NULL;
-    nodo_ruta *inicio = NULL, *fin = NULL;
-    int idx1, idx2, total_clientes;
-    int i;
-    int intentos_maximos = 10; // Limitamos el número de intentos para evitar recursión infinita
-
-    // Seleccionamos un vehículo aleatorio que tenga al menos 3 clientes
-    for (int intento = 0; intento < intentos_maximos; intento++)
-    {
-        vehiculo_actual = seleccionar_vehiculo_aleatorio(ind);
-
-        if (vehiculo_actual && vehiculo_actual->vehiculo->clientes_contados >= 3)
+    for (int i = 0; i < intentos; i++) {
+        vehiculo = seleccionar_vehiculo_aleatorio(ind);
+        if (vehiculo && vehiculo->vehiculo->clientes_contados >= 3)
             break;
     }
 
-    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 3)
+    if (!vehiculo || vehiculo->vehiculo->clientes_contados < 3)
         return false;
 
-    // Iteramos hasta encontrar una inversión válida o agotar intentos
-    for (int intento = 0; intento < intentos_maximos; intento++)
-    {
-        total_clientes = vehiculo_actual->vehiculo->clientes_contados;
+    for (int i = 0; i < intentos; i++) {
+        int total = vehiculo->vehiculo->clientes_contados;
+        int inicio = rand() % total;
+        int fin = rand() % total;
 
-        // Elegimos dos posiciones distintas idx1 < idx2 dentro de la ruta del vehículo
-        idx1 = rand() % total_clientes;
-        idx2 = rand() % total_clientes;
+        while (inicio == fin)
+            fin = rand() % total;
 
-        while (idx1 == idx2)
-            idx2 = rand() % total_clientes;
-
-        if (idx1 > idx2)
-        {
-            int tmp = idx1;
-            idx1 = idx2;
-            idx2 = tmp;
+        if (inicio > fin) {
+            int tmp = inicio;
+            inicio = fin;
+            fin = tmp;
         }
 
-        // Guardamos el orden original de los clientes para poder revertir si es necesario
-        int *clientes_originales = asignar_memoria_arreglo_int(idx2 - idx1 + 1);
+        int longitud = fin - inicio + 1;
+        int *segmento = asignar_memoria_arreglo_int(longitud);
+        if (!segmento) return false;
 
-        nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            nodo_temp = nodo_temp->siguiente;
+        nodo_ruta *nodo = vehiculo->vehiculo->ruta->cabeza->siguiente;
+        for (int j = 0; j < inicio; j++)
+            nodo = nodo->siguiente;
 
-        for (i = 0; i <= idx2 - idx1; i++)
-        {
-            clientes_originales[i] = nodo_temp->cliente;
-            nodo_temp = nodo_temp->siguiente;
+        nodo_ruta *iter = nodo;
+        for (int j = 0; j < longitud; j++) {
+            segmento[j] = iter->cliente;
+            iter = iter->siguiente;
         }
 
-        // Obtenemos punteros a los nodos en las posiciones idx1 e idx2
-        inicio = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            inicio = inicio->siguiente;
-
-        fin = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx2; i++)
-            fin = fin->siguiente;
-
-        if (inicio == NULL || fin == NULL)
-        {
-            free(clientes_originales);
-            return false;
+        for (int j = 0; j < longitud / 2; j++) {
+            int temp = segmento[j];
+            segmento[j] = segmento[longitud - 1 - j];
+            segmento[longitud - 1 - j] = temp;
         }
 
-        // Invertimos el segmento entre idx1 e idx2
-        int left = idx1;
-        int right = idx2;
+        nodo = vehiculo->vehiculo->ruta->cabeza->siguiente;
+        for (int j = 0; j < inicio; j++)
+            nodo = nodo->siguiente;
 
-        while (left < right)
-        {
-            nodo_ruta *nodo_left = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-            for (i = 0; i < left; i++)
-                nodo_left = nodo_left->siguiente;
-
-            nodo_ruta *nodo_right = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-            for (i = 0; i < right; i++)
-                nodo_right = nodo_right->siguiente;
-
-            int temp = nodo_left->cliente;
-            nodo_left->cliente = nodo_right->cliente;
-            nodo_right->cliente = temp;
-
-            left++;
-            right--;
+        for (int j = 0; j < longitud; j++) {
+            nodo->cliente = segmento[j];
+            nodo = nodo->siguiente;
         }
 
-        // Verificamos que las restricciones sigan válidas
-        if (vehiculo_actual->vehiculo->capacidad_acumulada <= vehiculo_actual->vehiculo->capacidad_maxima)
-        // Recalculamos la función objetivo para la solución
-        {
-            free(clientes_originales);
-            return true; // Inversión exitosa y factible
-        }
-
-        // Si no es válido, revertimos a la configuración original
-        nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            nodo_temp = nodo_temp->siguiente;
-
-        for (i = 0; i <= idx2 - idx1; i++)
-        {
-            nodo_temp->cliente = clientes_originales[i];
-            nodo_temp = nodo_temp->siguiente;
-        }
-
-        free(clientes_originales);
-        // Continuamos al siguiente intento
+        free(segmento);
+        return true;
     }
 
-    return false; // No se encontró una inversión válida después de varios intentos
+    return false;
 }
+
 
 bool moverDosClientesVehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias) {
     nodo_vehiculo *veh1 = NULL, *veh2 = NULL;
     nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
-    int pos1, pos2;
-    int cliente1, cliente2;
-    double demanda1, demanda2;
-    int intentos_maximos = 10; // Limitamos el número de intentos para evitar recursión infinita
+    int intentos = 10;
 
-    
-    // Intentar 10 veces realizar el movimiento
-    for (int intento = 0; intento < intentos_maximos; intento++) {
-        // Seleccionar dos vehículos con al menos 3 clientes (incluyendo depósitos)
+    while (intentos--) {
         veh1 = seleccionar_vehiculo_aleatorio(ind);
         veh2 = seleccionar_vehiculo_aleatorio(ind);
 
-        // Validar que sean diferentes vehículos y que ambos tengan al menos 3 clientes
-        if (!veh1 || !veh2 || veh1 == veh2 || veh1->vehiculo->clientes_contados < 3 || veh2->vehiculo->clientes_contados < 3) {
+        if (!veh1 || !veh2 || veh1 == veh2)
             continue;
-        }
 
-        // Escoger posiciones internas válidas (sin incluir depósitos)
-        bool posiciones_validas = false;
-        for (int j = 0; j < 10; j++) {
-            pos1 = rand() % (veh1->vehiculo->clientes_contados - 2) + 1; // Asegurarse de no seleccionar el depósito
-            pos2 = rand() % (veh2->vehiculo->clientes_contados - 2) + 1;
-
-            if (pos1 != pos2 || veh1 != veh2) {
-                posiciones_validas = true;
-                break;
-            }
-        }
-
-        if (!posiciones_validas) {
+        if (veh1->vehiculo->clientes_contados < 3 || veh2->vehiculo->clientes_contados < 3)
             continue;
-        }
 
-        // Obtener nodos de los vehículos en las posiciones seleccionadas
-        nodo1 = veh1->vehiculo->ruta->cabeza;
-        if (!nodo1 || !nodo1->siguiente) {
-            continue;
-        }
-        nodo1 = nodo1->siguiente; // Saltar depósito
+        int pos1 = rand() % (veh1->vehiculo->clientes_contados - 2) + 1;
+        int pos2 = rand() % (veh2->vehiculo->clientes_contados - 2) + 1;
 
-        for (int i = 1; i < pos1 && nodo1; i++) {
+        nodo1 = veh1->vehiculo->ruta->cabeza->siguiente;
+        for (int i = 1; i < pos1 && nodo1; i++)
             nodo1 = nodo1->siguiente;
-        }
 
-        nodo2 = veh2->vehiculo->ruta->cabeza;
-        if (!nodo2 || !nodo2->siguiente) {
-            continue;
-        }
-        nodo2 = nodo2->siguiente; // Saltar depósito
-
-        for (int i = 1; i < pos2 && nodo2; i++) {
+        nodo2 = veh2->vehiculo->ruta->cabeza->siguiente;
+        for (int i = 1; i < pos2 && nodo2; i++)
             nodo2 = nodo2->siguiente;
-        }
 
-        // Verificar que los nodos no son depósitos
-        if (!nodo1 || !nodo2 || nodo1->cliente == 0 || nodo2->cliente == 0) {
+        if (!nodo1 || !nodo2 || nodo1->cliente == 0 || nodo2->cliente == 0)
             continue;
-        }
 
-        cliente1 = nodo1->cliente;
-        cliente2 = nodo2->cliente;
+        int id1 = nodo1->cliente;
+        int id2 = nodo2->cliente;
 
-        // Verificar que los clientes estén dentro de los límites
-        if (cliente1 < 0 || cliente1 >= vrp->num_clientes || cliente2 < 0 || cliente2 >= vrp->num_clientes) {
+        if (id1 < 0 || id2 < 0 || id1 >= vrp->num_clientes || id2 >= vrp->num_clientes)
             continue;
-        }
 
-        demanda1 = vrp->clientes[cliente1].demanda_capacidad;
-        demanda2 = vrp->clientes[cliente2].demanda_capacidad;
+        double d1 = vrp->clientes[id1].demanda_capacidad;
+        double d2 = vrp->clientes[id2].demanda_capacidad;
 
-        // Verificar las restricciones de capacidad después del intercambio
-        double nueva_cap_veh1 = veh1->vehiculo->capacidad_acumulada - demanda1 + demanda2;
-        double nueva_cap_veh2 = veh2->vehiculo->capacidad_acumulada - demanda2 + demanda1;
+        double nueva_cap1 = veh1->vehiculo->capacidad_acumulada - d1 + d2;
+        double nueva_cap2 = veh2->vehiculo->capacidad_acumulada - d2 + d1;
 
-        if (nueva_cap_veh1 > veh1->vehiculo->capacidad_maxima || nueva_cap_veh2 > veh2->vehiculo->capacidad_maxima ||
-            nueva_cap_veh1 < 0 || nueva_cap_veh2 < 0) {
+        if (nueva_cap1 > veh1->vehiculo->capacidad_maxima || nueva_cap2 > veh2->vehiculo->capacidad_maxima)
             continue;
-        }
 
-        // Realizar el intercambio de clientes entre los vehículos
-        nodo1->cliente = cliente2;
-        nodo2->cliente = cliente1;
+        // Intercambio válido
+        nodo1->cliente = id2;
+        nodo2->cliente = id1;
+        veh1->vehiculo->capacidad_acumulada = nueva_cap1;
+        veh2->vehiculo->capacidad_acumulada = nueva_cap2;
 
-        // Actualizar las capacidades acumuladas de los vehículos
-        veh1->vehiculo->capacidad_acumulada = nueva_cap_veh1;
-        veh2->vehiculo->capacidad_acumulada = nueva_cap_veh2;
-
-        // Si llegamos aquí, el intercambio fue exitoso
         return true;
     }
-    
-    return false; // No se logró un intercambio válido en los intentos dados
-}
 
-// Intercambia dos clientes aleatorios dentro de un mismo vehículo
-bool intercambiarClientes(struct individuo *ind, struct vrp_configuracion *vrp)
-{
-    int vehiculo_aleatorio, intentos = 10, cliente1_idx, cliente2_idx, temp;
-    nodo_vehiculo *vehiculo_actual = NULL;
-    nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
-
-    while (intentos--)
-    {
-        vehiculo_aleatorio = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
-
-        vehiculo_actual = ind->metal->solucion_vecina->cabeza;
-        while (vehiculo_actual != NULL)
-        {
-            if (vehiculo_actual->vehiculo->id_vehiculo == vehiculo_aleatorio)
-                break;
-            vehiculo_actual = vehiculo_actual->siguiente;
-        }
-
-        if (vehiculo_actual->vehiculo->clientes_contados < 2)
-            continue;
-
-        break;
-    }
-
-    if (vehiculo_actual->vehiculo->clientes_contados < 2)
-        return false;
-
-    // Selecciona dos índices distintos para intercambiar
-    do
-    {
-        cliente1_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
-        cliente2_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
-    } while (cliente1_idx == cliente2_idx);
-
-    nodo1 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-    nodo2 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-
-    if (nodo1 == NULL || nodo2 == NULL)
-        return false;
-
-    for (int i = 0; i < cliente1_idx; i++)
-        nodo1 = nodo1->siguiente;
-    for (int i = 0; i < cliente2_idx; i++)
-        nodo2 = nodo2->siguiente;
-
-    // Intercambia los clientes
-    temp = nodo1->cliente;
-    nodo1->cliente = nodo2->cliente;
-    nodo2->cliente = temp;
-
-    return true;
+    return false;
 }
 
 // Copia la solución actual como base para generar un vecino

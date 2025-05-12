@@ -130,8 +130,8 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 | `iteraciones ACO`        | 100    | 150    |
 | `temperatura inicial`    | 1500.0 | 2500.0 |
 | `temperatura final`      | 0.1    | 0.3    |
-| `factor de control`      | 0.6    | 0.8    |
 | `factor de enfriamiento` | 0.95   | 0.999  |
+| `factor de control`      | 0.6    | 0.8    |
 | `iteraciones SA`         | 150    | 200    |
 
 ---

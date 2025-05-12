@@ -15,6 +15,7 @@ cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes)
     while (actual)
     {
         cJSON *punto = cJSON_CreateObject();
+        cJSON_AddNumberToObject(punto, "Capacidad", clientes[actual->cliente].demanda_capacidad);
         cJSON_AddNumberToObject(punto, "X", clientes[actual->cliente].coordenada_x);
         cJSON_AddNumberToObject(punto, "Y", clientes[actual->cliente].coordenada_y);
         cJSON_AddItemToArray(json_ruta, punto);

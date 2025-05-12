@@ -12,9 +12,10 @@
 
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
-   // Retornamos la distancia de los puntos
-   double distancia = sqrt(pow((vrp->clientes[cliente_destino].coordenada_x - vrp->clientes[cliente_origen].coordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].coordenada_y - vrp->clientes[cliente_origen].coordenada_y), 2.0));
-   return distancia;
+   double distancia; //Definimos la variable distancia
+   // Calculamos la distancia entre los clientes 
+   distancia = sqrt(pow((vrp->clientes[cliente_destino].coordenada_x - vrp->clientes[cliente_origen].coordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].coordenada_y - vrp->clientes[cliente_origen].coordenada_y), 2.0));
+   return distancia; //Retorna la distancia entre los clientes
 }
 
 void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
@@ -239,7 +240,7 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
    if (vrp->num_clientes == 26)
    {
-      // Asigna rangos específicos según el número de clientes en el TSP
+      // Asigna rangos específicos según el número de clientes en el VRP
       rango->maxAlpha = 3.0;
       rango->minAlpha = 1.0;
 
@@ -355,9 +356,9 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
 void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t tiempo_inicial, tiempo_final;
-   tiempo_inicial = clock();
-   char respuesta;                                                                // Respuesta
+   clock_t tiempo_inicial, tiempo_final; // Definimos la variable tiempo_inicial y tiempo_final
+   tiempo_inicial = clock(); // Iniciamos el Relej
+   //char respuesta;                                                                // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
@@ -464,11 +465,11 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    imprimir_mejor_hormiga(resultado->hormiga, resultado);
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos);
 
-   printf("\n¿Quieres imprimir el archivo JSON (s/n)? ");
-   scanf(" %c", &respuesta);
+   // printf("\n¿Quieres imprimir el archivo JSON (s/n)? ");
+   // scanf(" %c", &respuesta);
 
-   if (respuesta == 's' || respuesta == 'S')
-      guardar_json_en_archivo(resultado, vrp, archivo_instancia);
+   // if (respuesta == 's' || respuesta == 'S')
+   guardar_json_en_archivo(resultado, vrp, archivo_instancia);
 
    liberar_instancia(instancia_feromonas, vrp->num_clientes);   // Liberemos la memoria de la instancia feromona
    liberar_instancia(instancia_visibilidad, vrp->num_clientes); // Liberemos la memoria de la instancia visibilidad

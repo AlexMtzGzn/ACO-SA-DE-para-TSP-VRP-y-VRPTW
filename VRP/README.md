@@ -1,37 +1,64 @@
 # 🚚 "Optimización del Problema de Ruteo de Vehículos (VRP) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
 
-
 Este proyecto implementa una solución híbrida para el Problema de Ruteo de Vehículos (VRP), combinando el algoritmo de Optimización por Colonias de Hormigas (**ACO**) con Recocido Simulado (**SA**) como refinador local, y ajustando automáticamente sus parámetros mediante un Algoritmo Evolutivo Diferencial (**DE**).
 
 ## 🧩 ¿Qué es el VRP?
 
-El Problema de Ruteo de Vehículos (VRP, por sus siglas en inglés *Vehicle Routing Problem*) es una extensión del clásico Problema del Viajante (*TSP*), y representa uno de los desafíos más relevantes en logística y distribución.
+El Problema de Ruteo de Vehículos (VRP, por sus siglas en inglés _Vehicle Routing Problem_) es una extensión del clásico Problema del Viajante (_TSP_), y representa uno de los desafíos más relevantes en logística y distribución.
 
 El objetivo es encontrar las rutas óptimas para una flota de vehículos que deben atender a un conjunto de clientes, considerando restricciones como la capacidad de carga de cada vehículo y la demanda de cada cliente. La meta principal es **minimizar la distancia total recorrida**.
 
 ## 🔥 ¿Qué es el Recocido Simulado (SA)?
 
-El Recocido Simulado (*Simulated Annealing*, SA) es una metaheurística inspirada en el proceso metalúrgico de recocido, donde un metal se calienta y luego se enfría de forma controlada para modificar sus propiedades físicas.
+El Recocido Simulado (_Simulated Annealing_, SA) es una metaheurística inspirada en el proceso metalúrgico de recocido, donde un metal se calienta y luego se enfría de forma controlada para modificar sus propiedades físicas.
 
 En optimización:
 
 - Inicialmente, **acepta soluciones peores con alta probabilidad** (cuando la temperatura es alta).
-- Gradualmente, **se vuelve más selectivo** a medida que la temperatura disminuye (*enfriamiento*).
+- Gradualmente, **se vuelve más selectivo** a medida que la temperatura disminuye (_enfriamiento_).
 - Este enfoque permite escapar de óptimos locales y explorar más ampliamente el espacio de soluciones.
 
 🔧 En nuestro sistema, **SA toma las rutas generadas por ACO y las refina** mediante pequeñas modificaciones, aceptando temporalmente algunas soluciones subóptimas para potencialmente encontrar mejores soluciones globales.
+
+## 🔄 Movimientos de Vecindad del Recocido Simulado (SA)
+
+Durante la optimización local con SA, se generan **soluciones vecinas** a partir de la solución actual mediante uno de los siguientes tres movimientos aleatorios:
+
+1. **Inversión de un segmento de ruta:**  
+   Se selecciona una ruta y se invierte el orden de visita de un segmento entre dos clientes. Este cambio puede reducir la distancia total si existen trayectos cruzados o ineficientes.
+
+2. **Intercambio de dos clientes:**  
+   Se eligen dos clientes (dentro de una misma ruta o entre rutas diferentes) y se intercambian sus posiciones. Esto puede modificar significativamente la estructura del recorrido.
+
+3. **Reubicación de un cliente dentro de una ruta:**  
+   Se toma un cliente y se lo mueve a otra posición dentro de la misma ruta. Es útil para ajustes finos sin alterar mucho la composición de la ruta.
+
+La elección del movimiento se realiza aleatoriamente con igual probabilidad, usando el siguiente criterio:
+
+```bash
+if (prob < factor / 3.0)
+    aceptado = invertirSegmentoRuta(...);
+else if (prob < 2.0 * factor / 3.0)
+    aceptado = intercambiarClienteRuta(...);
+else
+    aceptado = moverClienteDentroDeRuta(...);
+```
+
+Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por DE.
+
+Este conjunto de movimientos permite que SA explore diversas configuraciones vecinas, ayudando a escapar de óptimos locales y mejorando la calidad de las rutas generadas por ACO.
 
 ---
 
 ## 🐜 ¿Qué es ACO (Ant Colony Optimization)?
 
-ACO (*Ant Colony Optimization*) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
+ACO (_Ant Colony Optimization_) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
 
 En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de alimento dejando feromonas en el trayecto. Cuanto mejor es el camino (más corto), más feromonas se acumulan, lo que aumenta la probabilidad de que otras hormigas lo sigan, reforzando así la solución.
 
 En el VRP, simulamos este comportamiento:
 
-- Cada *hormiga* construye una solución recorriendo los clientes.
+- Cada _hormiga_ construye una solución recorriendo los clientes.
 - Las decisiones se toman en función de:
   - **Cantidad de feromona** (conocimiento aprendido).
   - **Visibilidad** (inverso de la distancia entre nodos).
@@ -72,64 +99,64 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 
 ### 🔢 Tamaños de instancia considerados
 
-| Tamaño del problema | Número de clientes (`vrp->num_clientes`) |
-|---------------------|-------------------------------------------|
-| **Pequeña**         | `≤ 25`                                    |
-| **Mediana**         | `> 25 y ≤ 51`                              |
-| **Grande**          | `> 51 y ≤ 101`                             |
+| Tamaño del problema | Número de clientes (`tsp->num_clientes`) |
+| ------------------- | ---------------------------------------- |
+| **Pequeña**         | `25`                                     |
+| **Mediana**         | `50`                                     |
+| **Grande**          | `100`                                    |
 
 ---
 
 ### 📐 Rangos de Parámetros por Tamaño
 
-#### 🔸 Instancia Pequeña (`≤ 25 clientes`)
+#### 🔸 Instancia Pequeña (`25 clientes`)
 
-| Parámetro                 | Mínimo | Máximo |
-|---------------------------|--------|--------|
-| `alpha`                   | 0.8    | 2.5    |
-| `beta`                    | 2.5    | 6.0    |
-| `rho`                     | 0.1    | 0.5    |
-| `número de hormigas`      | 10     | 30     |
-| `iteraciones ACO`         | 50     | 200    |
-| `temperatura inicial`     | 200.0  | 400.0  |
-| `temperatura final`       | 0.01   | 0.1    |
-| `factor de enfriamiento`  | 0.95   | 0.98   |
-| `factor de control`       | 0.5    | 0.9    |
-| `iteraciones SA`          | 30     | 50     |
-
----
-
-#### 🔸 Instancia Mediana (`26 - 51 clientes`)
-
-| Parámetro                 | Mínimo | Máximo |
-|---------------------------|--------|--------|
-| `alpha`                   | 0.8    | 2.5    |
-| `beta`                    | 2.5    | 6.0    |
-| `rho`                     | 0.1    | 0.5    |
-| `número de hormigas`      | 20     | 40     |
-| `iteraciones ACO`         | 50     | 200    |
-| `temperatura inicial`     | 400.0  | 600.0  |
-| `temperatura final`       | 0.01   | 0.1    |
-| `factor de enfriamiento`  | 0.95   | 0.98   |
-| `factor de control`       | 0.5    | 0.9    |
-| `iteraciones SA`          | 50     | 80     |
+| Parámetro                | Mínimo | Máximo |
+| ------------------------ | ------ | ------ |
+| `alpha`                  | 1.0    | 3.0    |
+| `beta`                   | 1.0    | 3.0    |
+| `rho`                    | 0.4    | 0.6    |
+| `número de hormigas`     | 10     | 25     |
+| `iteraciones ACO`        | 50     | 100    |
+| `temperatura inicial`    | 1000.0 | 2000.0 |
+| `temperatura final`      | 0.1    | 0.3    |
+| `factor de enfriamiento` | 0.95   | 0.999  |
+| `factor de control`      | 0.7    | 0.5    |
+| `iteraciones SA`         | 100    | 150    |
 
 ---
 
-#### 🔸 Instancia Grande (`52 - 101 clientes`)
+#### 🔸 Instancia Mediana (`50 clientes`)
 
-| Parámetro                 | Mínimo | Máximo |
-|---------------------------|--------|--------|
-| `alpha`                   | 0.8    | 2.0    |
-| `beta`                    | 3.0    | 5.0    |
-| `rho`                     | 0.1    | 0.3    |
-| `número de hormigas`      | 40     | 100    |
-| `iteraciones ACO`         | 50     | 250    |
-| `temperatura inicial`     | 600.0  | 1000.0 |
-| `temperatura final`       | 0.01   | 0.1    |
-| `factor de enfriamiento`  | 0.98   | 0.995  |
-| `factor de control`       | 0.5    | 0.9    |
-| `iteraciones SA`          | 80     | 100    |
+| Parámetro                | Mínimo | Máximo |
+| ------------------------ | ------ | ------ |
+| `alpha`                  | 2.0    | 4.0    |
+| `beta`                   | 3.0    | 5.0    |
+| `rho`                    | 0.4    | 0.6    |
+| `número de hormigas`     | 25     | 40     |
+| `iteraciones ACO`        | 100    | 150    |
+| `temperatura inicial`    | 1500.0 | 2500.0 |
+| `temperatura final`      | 0.1    | 0.3    |
+| `factor de enfriamiento` | 0.95   | 0.999  |
+| `factor de control`      | 0.6    | 0.8    |
+| `iteraciones SA`         | 150    | 200    |
+
+---
+
+#### 🔸 Instancia Grande (`100 clientes`)
+
+| Parámetro                | Mínimo | Máximo |
+| ------------------------ | ------ | ------ |
+| `alpha`                  | 3.0    | 5.0    |
+| `beta`                   | 3.0    | 5.0    |
+| `rho`                    | 0.3    | 0.5    |
+| `número de hormigas`     | 40     | 50     |
+| `iteraciones ACO`        | 150    | 200    |
+| `temperatura inicial`    | 2000.0 | 3000.0 |
+| `temperatura final`      | 0.1    | 0.2    |
+| `factor de enfriamiento` | 0.95   | 0.999  |
+| `factor de control`      | 0.7    | 0.9    |
+| `iteraciones SA`         | 200    | 300    |
 
 ---
 
@@ -145,8 +172,8 @@ Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño 
 2. **Evaluación de Individuos**:  
    Cada conjunto de parámetros se evalúa ejecutando el algoritmo **ACO** para resolver el **VRP**, construyendo rutas factibles que respetan la capacidad de los vehículos.
 
-3. **Optimización Local con SA**:  
-   En algunos casos, se aplica **Recocido Simulado (SA)** como optimizador local para refinar las rutas generadas por **ACO**, mejorando la asignación de clientes y reduciendo la distancia total.
+3. **Optimización Local**:  
+   Después de que **ACO** genera una solución (rutas), se aplica **Recocido Simulado (SA)** como optimizador local. Este paso consiste en realizar pequeños ajustes en las rutas generadas por **ACO** para mejorar su calidad. **SA** se encarga de explorar soluciones vecinas a la actual (cercanas en el espacio de soluciones) para encontrar una mejor solución local. Durante este proceso, **SA** acepta temporalmente soluciones peores con una probabilidad que disminuye gradualmente a medida que "enfría" su temperatura, permitiendo escapar de óptimos locales.
 
 4. **Cálculo del Fitness**:  
    Se calcula la **distancia total recorrida por todos los vehículos**. Este valor se utiliza como el **fitness** del individuo, penalizando soluciones que excedan la capacidad o que tengan vehículos mal distribuidos.
@@ -220,54 +247,58 @@ El algoritmo **DE** se encarga de optimizar automáticamente los parámetros de 
    Ejemplo de visualización:  
    ![Imagen Ruta](Recursos_Readme/Ejemplo_png.png)
 
-5. **GIF simulado** 
+5. **GIF simulado**
 
    - Se crea un **GIF animado** que simula el proceso de construcción de las rutas, mostrando cómo cada vehículo va atendiendo clientes, según el proceso de decisión de la hormiga.
 
    Ejemplo de animación:  
    ![Simulador Ruta](Recursos_Readme/Ejemplo_gif.gif)
 
-
 ### 💾 Ejemplo de archivo JSON
 
 El archivo `JSON` generado tendrá la siguiente estructura:
+
 ```json
 {
-	"Archivo":	"RC100_(25)",
-	"Tiempo Ejecucion en Minutos":	2,
-	"Alpha":	1.332143975506604,
-	"Beta":	2.7454391065963728,
-	"Rho":	0.19041168572865974,
-	"Numero Hormigas":	20,
-	"Numero Iteraciones ACO":	148,
-	"Temperatura Inicial: ":	540.64893656906145,
-	"Temperatura Final: ":	0.083569377757874028,
-	"Factor de Enfriamiento: ":	0.9893298309293248,
-	"Factor de Control: ":	0.532362188786437,
-	"Numero Iteraciones SA: ":	50,
-	"Fitness Global":	294.99443951784644,
-	"flota":	[{
-			"Id_vehiculo":	1,
-			"Capacidad Maxima":	200,
-			"Capacidad Acumulada":	180,
-			"Numero Clientes":	8,
-			"Fitness Vehiculo":	101.88256760196126,
-			"Ruta Clientes":	[0, 24, 25, 23, 21, 18, 19, 20, 22, 0],
-		}, {
-			"Id_vehiculo":	2,
-			"Capacidad Maxima":	200,
-			"Capacidad Acumulada":	190,
-			"Numero Clientes":	9,
-			"Fitness Vehiculo":	97.2271627850669,
-			"Ruta Clientes":	[0, 10, 11, 9, 13, 15, 16, 17, 14, 12, 0],
-		}, {
-			"Id_vehiculo":	3,
-			"Capacidad Maxima":	200,
-			"Capacidad Acumulada":	170,
-			"Numero Clientes":	8,
-			"Fitness Vehiculo":	95.884709130818266,
-			"Ruta Clientes":	[0, 1, 3, 5, 4, 8, 7, 6, 2, 0],
-		}]
+  "Archivo": "RC100_(25)",
+  "Tiempo Ejecucion en Minutos": 2,
+  "Alpha": 1.332143975506604,
+  "Beta": 2.7454391065963728,
+  "Rho": 0.19041168572865974,
+  "Numero Hormigas": 20,
+  "Numero Iteraciones ACO": 148,
+  "Temperatura Inicial: ": 540.64893656906145,
+  "Temperatura Final: ": 0.083569377757874028,
+  "Factor de Enfriamiento: ": 0.9893298309293248,
+  "Factor de Control: ": 0.532362188786437,
+  "Numero Iteraciones SA: ": 50,
+  "Fitness Global": 294.99443951784644,
+  "flota": [
+    {
+      "Id_vehiculo": 1,
+      "Capacidad Maxima": 200,
+      "Capacidad Acumulada": 180,
+      "Numero Clientes": 8,
+      "Fitness Vehiculo": 101.88256760196126,
+      "Ruta Clientes": [0, 24, 25, 23, 21, 18, 19, 20, 22, 0]
+    },
+    {
+      "Id_vehiculo": 2,
+      "Capacidad Maxima": 200,
+      "Capacidad Acumulada": 190,
+      "Numero Clientes": 9,
+      "Fitness Vehiculo": 97.2271627850669,
+      "Ruta Clientes": [0, 10, 11, 9, 13, 15, 16, 17, 14, 12, 0]
+    },
+    {
+      "Id_vehiculo": 3,
+      "Capacidad Maxima": 200,
+      "Capacidad Acumulada": 170,
+      "Numero Clientes": 8,
+      "Fitness Vehiculo": 95.884709130818266,
+      "Ruta Clientes": [0, 1, 3, 5, 4, 8, 7, 6, 2, 0]
+    }
+  ]
 }
 ```
 
@@ -279,11 +310,12 @@ Para ejecutar este proyecto, asegúrate de tener lo siguiente:
 
 Es necesario tener un compilador de C instalado (como gcc) para compilar el código fuente.
 
-### Librería `cJSON`:  
-  Este proyecto requiere la librería `cJSON` para trabajar con archivos JSON en C.  
-  Puedes encontrarla y consultar cómo instalarla en su repositorio oficial:
-    
-  👉 [https://github.com/DaveGamble/cJSON](https://github.com/DaveGamble/cJSON)
+### Librería `cJSON`:
+
+Este proyecto requiere la librería `cJSON` para trabajar con archivos JSON en C.  
+ Puedes encontrarla y consultar cómo instalarla en su repositorio oficial:
+
+👉 [https://github.com/DaveGamble/cJSON](https://github.com/DaveGamble/cJSON)
 
 ### 📦 Python
 
@@ -320,6 +352,7 @@ Una vez compilado el proyecto, puedes ejecutar el ejecutable generado (llamado m
 ```
 
 Ejemplo:
+
 ```bash
 ./main 50 100 RC100 25
 ```
@@ -345,16 +378,16 @@ make clean
 ├── include/                  # Archivos de cabecera (.h)
 │   ├── aed.h
 │   ├── configuracion_json.h
-│   ├── configuracion_vrp.h    
+│   ├── configuracion_vrp.h
 │   ├── control_memoria.h
 │   ├── estructuras.h
 │   ├── lista_flota.h
 │   ├── lista_ruta.h
 │   ├── salida_datos.h
 │   ├── vrp_aco.h
-│   └── vrp_sa.h               
+│   └── vrp_sa.h
 ├── Instancias/               # Instancias CSV utilizadas en la ejecución
-│   ├── Instancias_25/        
+│   ├── Instancias_25/
 │   ├── Instancias_50/
 │   └── Instancias_100/
 ├── main                      # Ejecutable generado tras compilar
@@ -376,14 +409,14 @@ make clean
 ├── src/                      # Código fuente del proyecto en C y Python
 │   ├── aed.c
 │   ├── configuracion_json.c
-│   ├── configuracion_vrp.c  
+│   ├── configuracion_vrp.c
 │   ├── control_memoria.c
 │   ├── lista_flota.c
 │   ├── lista_ruta.c
 │   ├── main.c
 │   ├── salida_datos.c
 │   ├── vrp_aco.c
-│   ├── vrp_sa.c              
+│   ├── vrp_sa.c
 │   └── Simulador_VRP/        # Modificado para VRP
 │       └── simulador_vrp.py
 └── VRP_Solomon/              # Instancias del benchmark Solomon
@@ -411,6 +444,7 @@ make clean
 ```
 
 ## ✅ Conclusión
+
 Este proyecto presentó una solución híbrida al Problema de Ruteo de Vehículos (VRP), integrando las fortalezas de tres algoritmos metaheurísticos: ACO para la construcción de rutas, SA como optimizador local y DE como calibrador automático de parámetros. La combinación permitió generar rutas eficientes que respetan las restricciones del problema, al mismo tiempo que se optimizaban automáticamente los hiperparámetros involucrados.
 
 Gracias al uso de rangos adaptativos de parámetros según el tamaño del problema, se logró un equilibrio entre calidad de la solución y eficiencia computacional, permitiendo que el sistema sea escalable a distintas instancias del VRP.
@@ -438,7 +472,7 @@ Este trabajo busca contribuir al estudio y solución del problema VRP mediante l
   Autor del proyecto. Encargado del diseño, implementación y documentación del sistema de optimización.
 
 - 🧪 **Jaime López Lara**  
-  Ayudante en la ejecución del código y recolección de resultados.
+  Colaborador en la ejecución del código y recolección de resultados.
 
 ## 📝 Licencia
 
