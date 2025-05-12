@@ -3,6 +3,7 @@
 Este proyecto implementa una solución híbrida para el Problema de Ruteo de Vehículos (VRP), combinando el algoritmo de Optimización por Colonias de Hormigas (**ACO**) con Recocido Simulado (**SA**) como refinador local, y ajustando automáticamente sus parámetros mediante un Algoritmo Evolutivo Diferencial (**DE**).
 
 ---
+
 ## 🧩 ¿Qué es el VRP?
 
 El Problema de Ruteo de Vehículos (VRP, por sus siglas en inglés _Vehicle Routing Problem_) es una extensión del clásico Problema del Agente Viajero (_TSP_), y representa uno de los desafíos más relevantes en logística y distribución.
@@ -10,6 +11,7 @@ El Problema de Ruteo de Vehículos (VRP, por sus siglas en inglés _Vehicle Rout
 El objetivo es encontrar las rutas óptimas para una flota de vehículos que deben atender a un conjunto de clientes, considerando restricciones como la capacidad de carga de cada vehículo y la demanda de cada cliente. La meta principal es **minimizar la distancia total recorrida**.
 
 ---
+
 ## 🐜 ¿Qué es ACO (Ant Colony Optimization)?
 
 ACO (_Ant Colony Optimization_) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
@@ -26,6 +28,7 @@ En el VRP, simulamos este comportamiento:
 - Se respetan las **restricciones de capacidad** de cada vehículo.
 
 ---
+
 ## 🔥 ¿Qué es el Recocido Simulado (SA)?
 
 El Recocido Simulado (_Simulated Annealing_, SA) es una metaheurística inspirada en el proceso metalúrgico de recocido, donde un metal se calienta y luego se enfría de forma controlada para modificar sus propiedades físicas.
@@ -34,33 +37,34 @@ En optimización:
 
 - Inicialmente, **acepta soluciones peores con alta probabilidad** (cuando la temperatura es alta).
 - Gradualmente, **se vuelve más selectivo** a medida que la temperatura disminuye (_enfriamiento_).
-- Este enfoque permite escapar de óptimos locales y explorar más ampliamente el espacio de soluciones.
+- Este enfoque permite escapar de óptimos locales y explorar ampliamente el espacio de soluciones.
 
 🔧 En nuestro sistema, **SA toma las rutas generadas por ACO y las refina** mediante pequeñas modificaciones, aceptando temporalmente algunas soluciones subóptimas para potencialmente encontrar mejores soluciones globales.
 
 ---
+
 ## 🔄 Movimientos de Vecindad del Recocido Simulado (SA)
 
 Durante la optimización local con SA, se generan **soluciones vecinas** a partir de la solución actual mediante uno de los siguientes tres movimientos aleatorios:
 
-1. **Inversión de un segmento de ruta:**  
-   Se selecciona una ruta y se invierte el orden de visita de un segmento entre dos clientes. Este cambio puede reducir la distancia total si existen trayectos cruzados o ineficientes.
+1. **Mover un cliente entre vehículos:**  
+   Se selecciona un cliente de un vehículo y se lo asigna a otro vehículo (si es factible en capacidad). Este movimiento permite explorar cambios importantes en la asignación general de la flota.
 
-2. **Intercambio de dos clientes:**  
-   Se eligen dos clientes (dentro de una misma ruta o entre rutas diferentes) y se intercambian sus posiciones. Esto puede modificar significativamente la estructura del recorrido.
+2. **Inversión de un segmento de ruta:**  
+   Similar al movimiento clásico de 2-opt. Se invierte el orden de visita entre dos puntos dentro de una misma ruta, buscando reducir cruces o trayectos ineficientes.
 
-3. **Reubicación de un cliente dentro de una ruta:**  
-   Se toma un cliente y se lo mueve a otra posición dentro de la misma ruta. Es útil para ajustes finos sin alterar mucho la composición de la ruta.
+3. **Mover dos clientes entre vehículos:**  
+   Se seleccionan dos clientes en rutas distintas y se intercambian entre sí, siempre que las restricciones de capacidad lo permitan. Este movimiento puede generar reconfiguraciones más grandes y efectivas.
 
 La elección del movimiento se realiza aleatoriamente con igual probabilidad, usando el siguiente criterio:
 
 ```bash
 if (prob < factor / 3.0)
-    aceptado = invertirSegmentoRuta(...);
+    aceptado = moverClienteVehiculo(ind, vrp);
 else if (prob < 2.0 * factor / 3.0)
-    aceptado = intercambiarClienteRuta(...);
+    aceptado = invertirSegmentoRuta(ind);
 else
-    aceptado = moverClienteDentroDeRuta(...);
+    aceptado = moverDosClientesVehiculos(ind, vrp, instancia_distancias);
 ```
 
 Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por DE.
@@ -82,6 +86,7 @@ DE es una técnica de optimización basada en poblaciones, ideal para problemas 
 En este proyecto, **DE ajusta automáticamente los parámetros de ACO** (como α, β, ρ, número de hormigas, etc.) para minimizar la distancia total recorrida por los vehículos.
 
 ---
+
 ## 🧠 ¿Cómo se resolvió el VRP?
 
 El enfoque fue **híbrido**, utilizando tres algoritmos colaborativos:
@@ -98,16 +103,13 @@ Para lograr una **mejor calibración** de los algoritmos ACO (Ant Colony Optimiz
 
 Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la **complejidad del problema** (tamaño de la instancia).
 
-
 ### 🔢 Tamaños de instancia considerados
 
-| Tamaño del problema | Número de clientes (`tsp->num_clientes`) |
+| Tamaño del problema | Número de clientes (`vrp->num_clientes`) |
 | ------------------- | ---------------------------------------- |
 | **Pequeña**         | `25`                                     |
 | **Mediana**         | `50`                                     |
 | **Grande**          | `100`                                    |
-
-
 
 ### 📐 Rangos de Parámetros por Tamaño
 
@@ -126,7 +128,6 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 | `factor de control`      | 0.7    | 0.5    |
 | `iteraciones SA`         | 100    | 150    |
 
-
 #### 🔸 Instancia Mediana (`50 clientes`)
 
 | Parámetro                | Mínimo | Máximo |
@@ -141,8 +142,6 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 | `factor de enfriamiento` | 0.95   | 0.999  |
 | `factor de control`      | 0.6    | 0.8    |
 | `iteraciones SA`         | 150    | 200    |
-
-
 
 #### 🔸 Instancia Grande (`100 clientes`)
 
@@ -159,13 +158,12 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 | `factor de control`      | 0.7    | 0.9    |
 | `iteraciones SA`         | 200    | 300    |
 
-
-
 ### 🧠 ¿Por qué definir rangos diferentes?
 
 Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño del problema**, evitando usar configuraciones demasiado pequeñas para instancias grandes, o demasiado costosas para instancias pequeñas. Así se logra un **balance entre calidad de la solución y tiempo de cómputo**.
 
 ---
+
 ## 🔁 Proceso de Optimización Híbrida (DE + ACO + SA) para VRP
 
 1. **Inicialización con DE**:  
@@ -191,6 +189,7 @@ Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño 
 Este proceso permite **optimizar automáticamente** el rendimiento del algoritmo ACO (y SA), **evitando el ajuste manual** de parámetros y encontrando de manera más eficiente soluciones de alta calidad para el **Problema de Ruteo de Vehículos (VRP)**.
 
 ---
+
 ## 🚛 Gestión de Vehículos y Capacidad en el VRP
 
 A diferencia del TSP, el VRP introduce restricciones adicionales que hacen más compleja la construcción de rutas:
@@ -209,13 +208,12 @@ El algoritmo construye rutas de la siguiente forma:
 
 Este enfoque garantiza que todas las restricciones del problema sean respetadas, generando soluciones viables y eficientes para el VRP.
 
-
 ---
+
 ## 🎯 Resultados Esperados
 
 El objetivo principal de este proyecto es encontrar la mejor solución al **Problema de Ruteo de Vehículos (VRP)** utilizando un enfoque híbrido con los algoritmos **ACO**, **SA** y **DE**.  
-El algoritmo **DE** se encarga de optimizar automáticamente los parámetros de ACO y SA, adaptándose al tamaño y complejidad de la instancia.
-
+El algoritmo **DE** se encarga de optimizar automáticamente los parámetros de **ACO** y **SA**, adaptándose al tamaño y complejidad de la instancia.
 
 ### 🔍 ¿Qué se espera como salida?
 
@@ -230,7 +228,6 @@ El algoritmo **DE** se encarga de optimizar automáticamente los parámetros de 
 
 4. **Parámetros óptimos encontrados**  
    Valores de α, β, ρ, temperatura, número de hormigas, iteraciones, etc., que generaron la mejor solución en la instancia evaluada.
-
 
 ### 📦 Resultados Generados
 
@@ -306,7 +303,9 @@ El archivo `JSON` generado tendrá la siguiente estructura:
   ]
 }
 ```
+
 ---
+
 ## Requisitos
 
 Para ejecutar este proyecto, asegúrate de tener lo siguiente:
@@ -333,6 +332,7 @@ Asegúrate de tener Python instalado junto con las siguientes bibliotecas:
 - numpy
 
 ---
+
 ## Compilación y Ejecución
 
 ### 1. **Compilación**
@@ -375,7 +375,9 @@ Si deseas limpiar los archivos generados (archivos objeto, ejecutables, etc.), p
 ```bash
 make clean
 ```
+
 ---
+
 ## 📁 Estructura del Proyecto
 
 ```bash
@@ -450,6 +452,7 @@ make clean
 ```
 
 ---
+
 ## ✅ Conclusión
 
 Este proyecto presentó una solución híbrida al Problema de Ruteo de Vehículos (VRP), integrando las fortalezas de tres algoritmos metaheurísticos: ACO para la construcción de rutas, SA como optimizador local y DE como calibrador automático de parámetros. La combinación permitió generar rutas eficientes que respetan las restricciones del problema, al mismo tiempo que se optimizaban automáticamente los hiperparámetros involucrados.
@@ -461,6 +464,7 @@ Los resultados obtenidos evidencian que la integración de ACO con SA mejora la 
 En conjunto, este enfoque demostró ser una alternativa robusta y flexible para abordar problemas de ruteo complejos en logística, con potencial de ser aplicado o extendido a otras variantes del VRP o a escenarios reales.
 
 ---
+
 ## 🚀 Trabajo futuro
 
 Como línea futura de trabajo, se propone la integración de otros enfoques metaheurísticos híbridos que puedan mejorar la calidad de las soluciones encontradas y reducir el tiempo de cómputo. También sería interesante evaluar el rendimiento del algoritmo propuesto con diferentes tipos de instancias del problema, incluyendo aquellas con restricciones más complejas como ventanas de tiempo o múltiples depósitos.
@@ -468,11 +472,13 @@ Como línea futura de trabajo, se propone la integración de otros enfoques meta
 Además, se podría explorar la paralelización del algoritmo utilizando técnicas de programación concurrente o programación paralela, con el fin de acelerar el proceso de optimización en instancias de mayor tamaño.
 
 ---
+
 ## ✅ Consideraciones finales
 
 Este trabajo busca contribuir al estudio y solución del problema VRP mediante la implementación de algoritmos bioinspirados. La principal diferencia respecto a la versión TSP es la incorporación de restricciones de capacidad y la selección greedy de vehículos. Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
 
 ---
+
 ## 👥 Contribuciones
 
 - 🧑‍🏫 **Dr. Edwin Montes Orozco**  
@@ -484,8 +490,8 @@ Este trabajo busca contribuir al estudio y solución del problema VRP mediante l
 - 🧪 **Jaime López Lara**  
   Colaborador en la ejecución del código y recolección de resultados.
 
-
 ---
+
 ## 📝 Licencia
 
 Este proyecto está licenciado bajo los términos de la licencia MIT.  
