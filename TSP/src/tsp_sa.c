@@ -28,7 +28,7 @@ void evaluaFO_SA(struct individuo *ind, struct tsp_configuracion *tsp, double **
 }
 
 // Invierte un segmento aleatorio de clientes en la ruta de la solución vecina
-bool invertirSegmentoRuta(struct individuo *ind)
+bool invertir_segmento_ruta(struct individuo *ind)
 {
     struct lista_ruta *ruta = ind->metal->solucion_vecina;
     if (!ruta || !ruta->cabeza)
@@ -89,7 +89,7 @@ bool invertirSegmentoRuta(struct individuo *ind)
 }
 
 // Intercambia dos clientes aleatorios distintos en la solución vecina
-bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *config)
+bool intercambiar_clientes(struct individuo *ind, struct tsp_configuracion *config)
 {
     int intentos_maximos = 10;
 
@@ -144,7 +144,7 @@ bool intercambiarClientes(struct individuo *ind, struct tsp_configuracion *confi
 }
 
 // Mueve un cliente de una posición a otra en la solución actual
-bool moverClienteRuta(struct individuo *ind)
+bool mover_cliente_ruta(struct individuo *ind)
 {
     if (!ind || !ind->metal || !ind->metal->solucion_actual)
         return false;
@@ -247,15 +247,15 @@ void sa(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia
             // Dependiendo del valor de prob, se decide qué movimiento realizar:
             // Si el valor de prob es menor que 'factor / 3.0', se realiza el movimiento 'invertirSegmentoRuta'
             if (prob < factor / 3.0)
-                aceptado = invertirSegmentoRuta(ind); // Invertir un segmento de la ruta
+                aceptado = invertir_segmento_ruta(ind); // Invertir un segmento de la ruta
 
             // Si el valor de prob está entre 'factor / 3.0' y '2.0 * factor / 3.0', se realiza el movimiento 'intercambiarClientes'
             else if (prob < 2.0 * factor / 3.0)
-                aceptado = intercambiarClientes(ind, tsp); // Intercambiar dos clientes dentro de la misma ruta
+                aceptado = intercambiar_clientes(ind, tsp); // Intercambiar dos clientes dentro de la misma ruta
 
             // Si el valor de prob es mayor que '2.0 * factor / 3.0', se realiza el movimiento 'moverClienteRuta'
             else
-                aceptado = moverClienteRuta(ind); // Mover un cliente a otra posición dentro de la misma ruta
+                aceptado = mover_cliente_ruta(ind); // Mover un cliente a otra posición dentro de la misma ruta
 
             // Si el movimiento no ha sido aceptado, se salta al siguiente ciclo sin hacer nada
             if (!aceptado)

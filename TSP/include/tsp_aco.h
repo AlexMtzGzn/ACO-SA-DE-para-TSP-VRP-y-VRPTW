@@ -1,7 +1,9 @@
 #ifndef TSP_ACO_H
 #define TSP_ACO_H
 
+// Bibliotecas necesarias
 #include <stdbool.h>
+// Incluimos el archivo de estructuras necesarias
 #include "../include/estructuras.h"
 
 // Función para recuperar la mejor hormiga y copiar sus datos a un individuo

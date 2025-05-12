@@ -1,7 +1,9 @@
 #ifndef LISTA_RUTA_H
 #define LISTA_RUTA_H
 
+// Bibliotecas necesarias
 #include <stdbool.h>
+// Incluimos el archivo de estructuras necesarias
 #include "../include/estructuras.h"
 
 // Función para crear un nuevo nodo en la ruta de una hormiga con un cliente específico

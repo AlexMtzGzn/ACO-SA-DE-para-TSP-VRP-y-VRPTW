@@ -1,8 +1,9 @@
 #ifndef CONFIGURACION_TSP_H
 #define CONFIGURACION_TSP_H
 
-// Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del TSP
+// Bibliotecas necesarias
 #include <cjson/cJSON.h>
+// Incluimos el archivo de estructuras necesarias
 #include "../include/estructuras.h"
 
 // Declaramos prototipos de funciones que gestionan la configuración de la instancia TSP
