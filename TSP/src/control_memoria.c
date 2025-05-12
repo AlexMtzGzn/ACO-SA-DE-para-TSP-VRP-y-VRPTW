@@ -9,7 +9,7 @@
 /*== MEMORIA BÁSICA ======*/
 /*=========================*/
 
-// Matriz cuadrada (e.g., instancia)
+// Asignar memoria para una matriz
 double **asignar_memoria_instancia(int tamanio_instancia)
 {
     double **instancia = (double **)calloc(tamanio_instancia, sizeof(double *));
@@ -33,6 +33,7 @@ double **asignar_memoria_instancia(int tamanio_instancia)
     return instancia;
 }
 
+// Liberar memoria de una matriz
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia; i++)
