@@ -2,5 +2,5 @@
 
 for i in {1..10}; do
     echo "Ejecución $i"
-    ./main 10 10 RC100 50
+    ./main 10 10 C200 50
 done
