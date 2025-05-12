@@ -60,11 +60,11 @@ La elección del movimiento se realiza aleatoriamente con igual probabilidad, us
 
 ```bash
 if (prob < factor / 3.0)
-    aceptado = moverClienteVehiculo(ind, vrp);
+    aceptado = moverClienteVehiculo(...);
 else if (prob < 2.0 * factor / 3.0)
-    aceptado = invertirSegmentoRuta(ind);
+    aceptado = invertirSegmentoRuta(...);
 else
-    aceptado = moverDosClientesVehiculos(ind, vrp, instancia_distancias);
+    aceptado = moverDosClientesVehiculos(...);
 ```
 
 Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por DE.
