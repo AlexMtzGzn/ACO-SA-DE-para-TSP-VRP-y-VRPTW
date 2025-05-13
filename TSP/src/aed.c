@@ -376,13 +376,13 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    clock_t tiempo_inicial, tiempo_final; // Declaramos las variables para medir el tiempo de ejecución
    tiempo_inicial = clock();             // Guardamos el tiempo inicial
 
+   tsp_configuracion *tsp = leer_instancia(archivo_instancia, tamanio_instancia); // Leemos el archivo de instancia TSP y guardamos la configuración
    // Asignamos memoria para los arreglos de individuos de cada etapa del algoritmo
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Individuos actuales (soluciones base)
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Individuos perturbados aleatoriamente
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Individuos resultantes de la mezcla entre objetivo y ruidoso
    struct individuo *resultado = asignar_memoria_individuos(1);                   // Individuo que almacena el mejor resultado obtenido
 
-   tsp_configuracion *tsp = leer_instancia(archivo_instancia, tamanio_instancia); // Leemos el archivo de instancia TSP y guardamos la configuración
    struct rangos *rango = asignar_memoria_rangos();                               // Reservamos memoria para los rangos de parámetros
 
    // Asignamos parámetros básicos del algoritmo evolutivo

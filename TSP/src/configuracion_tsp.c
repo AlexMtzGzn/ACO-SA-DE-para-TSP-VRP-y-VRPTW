@@ -234,7 +234,7 @@ struct tsp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
     }
 
     // Si no se encontró ningún archivo válido
-    imprimir_mensaje("Error: No se encontró ningún archivo de instancia válido.");
+    imprimir_mensaje("No se encontró ningún archivo de instancia válido.");
     liberar_memoria_tsp_configuracion(tsp);
     exit(EXIT_FAILURE);
 }

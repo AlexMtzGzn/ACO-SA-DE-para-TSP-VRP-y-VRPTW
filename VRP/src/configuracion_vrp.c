@@ -229,6 +229,7 @@ struct vrp_configuracion *leer_instancia(char *archivo_instancia, int tamanio_in
         }
         return vrp; // Retornamos vrp si la lectura fue exitosa
     }
-
+    imprimir_mensaje("No se encontró ningún archivo de instancia válido.");
+    liberar_memoria_vrp_configuracion(vrp);
     exit(EXIT_FAILURE); // Finaliza el programa con un código de error
 }

@@ -12,10 +12,10 @@
 
 double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
-   double distancia; //Definimos la variable distancia
-   // Calculamos la distancia entre los clientes 
+   double distancia; // Definimos la variable distancia
+   // Calculamos la distancia entre los clientes
    distancia = sqrt(pow((vrp->clientes[cliente_destino].coordenada_x - vrp->clientes[cliente_origen].coordenada_x), 2.0) + pow((vrp->clientes[cliente_destino].coordenada_y - vrp->clientes[cliente_origen].coordenada_y), 2.0));
-   return distancia; //Retorna la distancia entre los clientes
+   return distancia; // Retorna la distancia entre los clientes
 }
 
 void inicializar_visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
@@ -360,14 +360,15 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    clock_t tiempo_inicial, tiempo_final;
    tiempo_inicial = clock(); // Iniciamos el reloj
 
-   // Asignamos memoria para los arreglos de individuos
-   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Población actual
-   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion); // Población ruidosa (vector diferencial)
-   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);  // Población de prueba
-   struct individuo *resultado = asignar_memoria_individuos(1);           // Mejor individuo encontrado
-
    // Leemos los datos de la instancia del problema VRP desde archivo
    vrp_configuracion *vrp = leer_instancia(archivo_instancia, tamanio_instancia);
+
+   
+   // Asignamos memoria para los arreglos de individuos
+   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Población actual
+   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);  // Población ruidosa (vector diferencial)
+   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);   // Población de prueba
+   struct individuo *resultado = asignar_memoria_individuos(1);            // Mejor individuo encontrado
 
    // Asignamos los parámetros globales
    vrp->generaciones = num_generaciones;
@@ -379,8 +380,8 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    double **instancia_distancias = asignar_memoria_instancia(vrp->num_clientes);
 
    // Inicializamos las matrices con los valores correspondientes
-   inicializar_distancias(instancia_distancias, vrp);    // Calcula matriz de distancias
-   inicializar_visibilidad(instancia_visibilidad, vrp);  // Calcula matriz de visibilidad (1/distancia)
+   inicializar_distancias(instancia_distancias, vrp);   // Calcula matriz de distancias
+   inicializar_visibilidad(instancia_visibilidad, vrp); // Calcula matriz de visibilidad (1/distancia)
 
    // Inicializamos rangos para generar individuos con parámetros aleatorios
    struct rangos *rango = asignar_memoria_rangos();
