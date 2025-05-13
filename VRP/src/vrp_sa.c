@@ -43,7 +43,7 @@ void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **
 }
 
 // Mueve un cliente aleatorio de un vehículo a otro (si es válido)
-bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp)
+bool mover_cliente_vehiculo(struct individuo *ind, struct vrp_configuracion *vrp)
 {
     nodo_vehiculo *origen = NULL;
     nodo_vehiculo *destino = NULL;
@@ -105,7 +105,7 @@ bool moverClienteVehiculo(struct individuo *ind, struct vrp_configuracion *vrp)
     return false;
 }
 
-bool invertirSegmentoRuta(struct individuo *ind) {
+bool invertir_segmento_ruta(struct individuo *ind) {
     nodo_vehiculo *vehiculo = NULL;
     int intentos = 10;
 
@@ -169,7 +169,7 @@ bool invertirSegmentoRuta(struct individuo *ind) {
 }
 
 
-bool moverDosClientesVehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias) {
+bool mover_dos_clientes_vehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias) {
     nodo_vehiculo *veh1 = NULL, *veh2 = NULL;
     nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
     int intentos = 10;
@@ -262,11 +262,11 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
             {
 
                 if (prob < factor / 3.0)
-                    aceptado = moverClienteVehiculo(ind, vrp);
+                    aceptado = mover_cliente_vehiculo(ind, vrp);
                 else if (prob < 2.0 * factor / 3.0)
-                    aceptado = invertirSegmentoRuta(ind);
+                    aceptado = invertir_segmento_ruta(ind);
                 else
-                    aceptado = moverDosClientesVehiculos(ind,vrp, instancia_distancias);
+                    aceptado = mover_dos_clientes_vehiculos(ind,vrp, instancia_distancias);
             }
             else
             {

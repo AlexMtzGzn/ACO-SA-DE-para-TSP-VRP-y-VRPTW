@@ -61,7 +61,7 @@ void inicializar_distancias(double **instancia_distancias, struct tsp_configurac
             // Calculamos la distancia entre los clientes i y j
             distancia = calcular_distancia(tsp, i, j);
             instancia_distancias[i][j] = distancia;
-            instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
+            instancia_distancias[j][i] = instancia_distancias[i][j]; // Aprovechamos la simetría
          }
          else
          {
@@ -332,7 +332,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct tsp_configuracion *
       rango->maxRho = 0.5;
       rango->minRho = 0.3;
 
-      rango->maxNumHormigas = 50;  // ← Corregido aquí, antes estaba al revés
+      rango->maxNumHormigas = 50; 
       rango->minNumHormigas = 40;
 
       rango->maxNumIteracionesACO = 200;

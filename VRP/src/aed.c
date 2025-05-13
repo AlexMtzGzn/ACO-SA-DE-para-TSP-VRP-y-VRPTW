@@ -10,7 +10,7 @@
 #include "../include/salida_datos.h"
 #include "../include/configuracion_json.h"
 
-double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
+double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
    double distancia; //Definimos la variable distancia
    // Calculamos la distancia entre los clientes 
@@ -18,7 +18,7 @@ double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int
    return distancia; //Retorna la distancia entre los clientes
 }
 
-void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
+void inicializar_visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
    double distancia;
    // Recorre todos los clientes y calcula la visibilidad entre ellos
@@ -31,7 +31,7 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
          if (i != j)
          {
             // Calculamos la distancia entre los clientes i y j una sola vez
-            distancia = calcular_Distancia(vrp, i, j);
+            distancia = calcular_distancia(vrp, i, j);
             instancia_visibilidad[i][j] = 1.0 / distancia;
             instancia_visibilidad[j][i] = instancia_visibilidad[i][j]; // Aprovechamos la simetría
          }
@@ -43,7 +43,7 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
    }
 }
 
-void inicializar_Distancias(double **instancia_distancias, struct vrp_configuracion *vrp)
+void inicializar_distancias(double **instancia_distancias, struct vrp_configuracion *vrp)
 {
    double distancia;
    // Recorre todos los clientes y calcula las distancias entre ellos
@@ -54,7 +54,7 @@ void inicializar_Distancias(double **instancia_distancias, struct vrp_configurac
 
          if (i != j)
          {
-            distancia = calcular_Distancia(vrp, i, j);
+            distancia = calcular_distancia(vrp, i, j);
             instancia_distancias[i][j] = distancia;
             instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
          }
@@ -66,7 +66,7 @@ void inicializar_Distancias(double **instancia_distancias, struct vrp_configurac
    }
 }
 
-void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona)
+void inicializar_feromona(struct vrp_configuracion *vrp, double **instancia_feromona)
 {
    // Recorre todos los clientes en la matriz de feromonas (fila i, columna j)
    for (int i = 0; i < vrp->num_clientes; i++)
@@ -91,20 +91,20 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
 void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, struct vrp_configuracion *vrp)
 {
    // Inicializa las feromonas en la instancia
-   inicializar_Feromona(vrp, instancia_feromona);
+   inicializar_feromona(vrp, instancia_feromona);
    // imprimir_instancia(instancia_feromonas,vrp,"INSTANCIA FEROMONAS");
    //  Ejecuta el algoritmo de optimización con ventanas de tiempo (ACO) en el individuo+
    vrp_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona);
 }
 
-double generaAleatorio(double minimo, double maximo)
+double genera_aleatorio(double minimo, double maximo)
 {
    // Genera un número aleatorio entre 0 y 1, luego lo escala al rango deseado
    double aleatorio = minimo + ((double)rand() / RAND_MAX) * (maximo - minimo);
    return aleatorio;
 }
 
-void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, struct rangos *rango, int poblacion)
+void construye_ruidosos(struct individuo *objetivo, struct individuo *ruidoso, struct rangos *rango, int poblacion)
 {
    // Recorre cada individuo de la población ruidosa
    for (int i = 0; i < poblacion; ++i)
@@ -207,7 +207,7 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
    }
 }
 
-void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
+void construye_prueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
    double aleatorio; // Variable para almacenar un número aleatorio
    // Itera sobre todos los individuos en la población.
@@ -235,7 +235,7 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
          objetivo[i] = prueba[i];
 }
 
-void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion)
+void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion)
 {
 
    if (vrp->num_clientes == 26)
@@ -316,8 +316,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxRho = 0.5;
       rango->minRho = 0.3;
 
-      rango->maxNumHormigas = 40;
-      rango->minNumHormigas = 50;
+      rango->maxNumHormigas = 50;
+      rango->minNumHormigas = 40;
 
       rango->maxNumIteracionesACO = 200;
       rango->minNumIteracionesACO = 150;
@@ -341,16 +341,16 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
    for (int i = 0; i < poblacion; ++i)
    {
       // Genera valores aleatorios dentro de los rangos definidos para cada individuo
-      objetivo[i].alpha = generaAleatorio(rango->minAlpha, rango->maxAlpha);
-      objetivo[i].beta = generaAleatorio(rango->minBeta, rango->maxBeta);
-      objetivo[i].rho = generaAleatorio(rango->minRho, rango->maxRho);
-      objetivo[i].numHormigas = (int)generaAleatorio(rango->minNumHormigas, rango->maxNumHormigas);
-      objetivo[i].numIteracionesACO = (int)generaAleatorio(rango->minNumIteracionesACO, rango->maxNumIteracionesACO);
-      objetivo[i].temperatura_inicial = generaAleatorio(rango->minTemperatura_inicial, rango->maxTemperatura_inicial);
-      objetivo[i].temperatura_final = generaAleatorio(rango->minTemperatura_final, rango->maxTemperatura_final);
-      objetivo[i].factor_enfriamiento = generaAleatorio(rango->minFactor_enfriamiento, rango->maxFactor_enfriamiento);
-      objetivo[i].factor_control = generaAleatorio(rango->minFactor_control, rango->maxFactor_control);
-      objetivo[i].numIteracionesSA = (int)generaAleatorio(rango->minIteracionesSA, rango->maxIteracionesSA);
+      objetivo[i].alpha = genera_aleatorio(rango->minAlpha, rango->maxAlpha);
+      objetivo[i].beta = genera_aleatorio(rango->minBeta, rango->maxBeta);
+      objetivo[i].rho = genera_aleatorio(rango->minRho, rango->maxRho);
+      objetivo[i].numHormigas = (int)genera_aleatorio(rango->minNumHormigas, rango->maxNumHormigas);
+      objetivo[i].numIteracionesACO = (int)genera_aleatorio(rango->minNumIteracionesACO, rango->maxNumIteracionesACO);
+      objetivo[i].temperatura_inicial = genera_aleatorio(rango->minTemperatura_inicial, rango->maxTemperatura_inicial);
+      objetivo[i].temperatura_final = genera_aleatorio(rango->minTemperatura_final, rango->maxTemperatura_final);
+      objetivo[i].factor_enfriamiento = genera_aleatorio(rango->minFactor_enfriamiento, rango->maxFactor_enfriamiento);
+      objetivo[i].factor_control = genera_aleatorio(rango->minFactor_control, rango->maxFactor_control);
+      objetivo[i].numIteracionesSA = (int)genera_aleatorio(rango->minIteracionesSA, rango->maxIteracionesSA);
    }
 }
 
@@ -373,9 +373,9 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);   // Generamos memoria para la instancia de la feromona
    double **instancia_distancias = asignar_memoria_instancia(vrp->num_clientes);  // Generamos memoria para la instancia de la las distancias
 
-   inicializar_Distancias(instancia_distancias, vrp);        // Inicializamos las distancias
-   inicializar_Visibilidad(instancia_visibilidad, vrp);      // Inicializamos las visibilidad
-   inicializaPoblacion(objetivo, vrp, rango, num_poblacion); // Inicializamos la poblacion
+   inicializar_distancias(instancia_distancias, vrp);        // Inicializamos las distancias
+   inicializar_visibilidad(instancia_visibilidad, vrp);      // Inicializamos las visibilidad
+   inicializa_poblacion(objetivo, vrp, rango, num_poblacion); // Inicializamos la poblacion
 
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,vrp,"INSTANCIA DISTANCIAS");
@@ -410,8 +410,8 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    // Inicializamos ya las generaciones
    for (int i = 0; i < num_generaciones; i++)
    {
-      construyeRuidosos(objetivo, ruidoso, rango, num_poblacion); // Contruimos Ruidosos
-      construyePrueba(objetivo, ruidoso, prueba, num_poblacion);  // Contruimos Prueba
+      construye_ruidosos(objetivo, ruidoso, rango, num_poblacion); // Contruimos Ruidosos
+      construye_prueba(objetivo, ruidoso, prueba, num_poblacion);  // Contruimos Prueba
                                                                   // Evaluamos la función objetivo para cada individuo de prueba
       for (int j = 0; j < num_poblacion; ++j)                     // Mandamos a evaluar la funcion objetivo de prueba{
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);
