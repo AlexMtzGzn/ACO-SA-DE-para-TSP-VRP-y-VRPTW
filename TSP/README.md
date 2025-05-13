@@ -6,9 +6,9 @@ Este proyecto implementa una solución híbrida para el Problema del Agente Viaj
 
 ## 🧩 ¿Qué es el TSP?
 
-El Problema del Agente Viajero (TSP, por sus siglas en inglés _Traveling Salesman Problem_) es uno de los problemas clásicos más conocidos en optimización combinatoria.
+El Problema del Agente Viajero (TSP, por sus siglas en inglés _Traveling Salesman Problem_), es uno de los problemas clásicos más conocidos en optimización combinatoria.
 
-Consiste en encontrar la ruta más corta posible que permita a un viajero visitar una serie de ciudades o clientes **exactamente una vez** y regresar al punto de partida.
+Consiste en encontrar la ruta más corta posible, que permita a un viajero visitar una serie de ciudades o clientes **exactamente una vez** y regresar al punto de partida.
 
 ---
 
@@ -16,12 +16,12 @@ Consiste en encontrar la ruta más corta posible que permita a un viajero visita
 
 ACO (Ant Colony Optimization) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
 
-En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromona. Cuanto mejor sea el camino (más corto), más feromona se acumulan, y más probabilidad es que otras hormigas lo sigan el camino, reforzando así la solución.
+En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromonas, cuanto mejor sea el camino (más corto), más feromonas se acumulan, y  hay más probabilidad de que otras hormigas sigan el camino, reforzando así la solución.
 
 En el TSP, simulamos este comportamiento:
 
 - Cada "hormiga" construye una solución recorriendo ciudades o clientes.
-- Las decisiones se toman con base en:
+- Las decisiones se toman basadas en:
   - **Cantidad de feromona** (lo aprendido)
   - **Visibilidad** (inverso de la distancia)
 - Después de cada iteración, se actualizan las feromonas, favoreciendo los caminos más cortos.
@@ -47,13 +47,13 @@ En optimización:
 Durante la optimización local con SA, se generan **soluciones vecinas** a partir de la solución actual mediante uno de los siguientes tres movimientos aleatorios:
 
 1. **Inversión de un segmento de ruta:**  
-   Se selecciona una ruta y se invierte el orden de visita de un segmento entre dos clientes. Este cambio puede reducir la distancia total si existen trayectos cruzados o ineficientes.
+   Se selecciona una ruta y se invierte el orden de visita de un segmento entre dos clientes, este cambio puede reducir la distancia total si existen trayectos cruzados o ineficientes.
 
 2. **Intercambio de dos clientes:**  
-   Se eligen dos clientes (dentro de una misma ruta o entre rutas diferentes) y se intercambian sus posiciones. Esto puede modificar significativamente la estructura del recorrido.
+   Se eligen dos clientes (dentro de una misma ruta o entre rutas diferentes) y se intercambian sus posiciones, esto puede modificar significativamente la estructura del recorrido.
 
 3. **Reubicación de un cliente dentro de una ruta:**  
-   Se toma un cliente y se lo mueve a otra posición dentro de la misma ruta. Es útil para ajustes finos sin alterar mucho la composición de la ruta.
+   Se toma un cliente y se lo mueve a otra posición dentro de la misma ruta, es útil para ajustes finos sin alterar mucho la composición de la ruta.
 
 La elección del movimiento se realiza aleatoriamente con igual probabilidad, usando el siguiente criterio:
 
@@ -74,7 +74,7 @@ Este conjunto de movimientos permite que SA explore diversas configuraciones vec
 
 ## 🧬 ¿Qué es el Algoritmo Evolutivo Diferencial (DE)?
 
-DE es una técnica de optimización basada en poblaciones. Ideal para problemas continuos y para ajustar parámetros automáticamente.
+DE es una técnica de optimización basada en poblaciones, ideal para problemas continuos y para ajustar parámetros automáticamente.
 
 📌 Se basa en tres operadores:
 
@@ -159,7 +159,7 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 
 ### 🧠 ¿Por qué definir rangos diferentes?
 
-Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño del problema**, evitando usar configuraciones demasiado pequeñas para instancias grandes, o demasiado costosas para instancias pequeñas. De esta manera se logra un **balance entre calidad de la solución y tiempo de cómputo.**
+Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño del problema**, evitando usar configuraciones demasiado pequeñas para instancias grandes, o demasiado costosas para instancias pequeñas,de esta manera se logra un **balance entre calidad de la solución y tiempo de cómputo.**
 
 ---
 
@@ -172,7 +172,7 @@ Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño 
    Cada conjunto de parámetros se evalúa ejecutando el algoritmo **ACO** y **SA** con dichos valores.
 
 3. **Optimización Local**:  
-   Después de que **ACO** genera una solución (ruta), se aplica **Recocido Simulado (SA)** como optimizador local. Este paso consiste en realizar pequeños ajustes en la ruta generada por **ACO** para mejorar su calidad. **SA** se encarga de explorar soluciones vecinas a la actual (cercanas en el espacio de soluciones) para encontrar una mejor solución local. Durante este proceso, **SA** acepta temporalmente soluciones peores con una probabilidad que disminuye gradualmente a medida que "enfría" su temperatura, permitiendo escapar de óptimos locales.
+   Después de que **ACO** genera una solución (ruta), se aplica **Recocido Simulado (SA)** como optimizador local, este paso consiste en realizar pequeños ajustes en la ruta generada por **ACO** para mejorar su calidad. **SA** se encarga de explorar soluciones vecinas a la actual (cercanas en el espacio de soluciones) para encontrar una mejor solución local. Durante este proceso, **SA** acepta temporalmente soluciones peores con una probabilidad que disminuye gradualmente a medida que "enfría" su temperatura, permitiendo escapar de óptimos locales.
 
 4. **Cálculo del Fitness**:  
    Se obtiene la **distancia total de la mejor ruta** generada por **ACO** y refinada con **SA**. Esta distancia se utiliza como el valor de fitness del individuo.
@@ -409,7 +409,7 @@ Para compilar el proyecto, usa el siguiente comando:
 make
 ```
 
-Este comando compilará el código en modo release por defecto (optimizado). Si prefieres compilar en modo debug para facilitar la depuración, puedes usar:
+Este comando compilará el código en modo release por defecto (optimizado), si prefieres compilar en modo debug para facilitar la depuración, puedes usar:
 
 ```bash
 make debug
@@ -536,7 +536,9 @@ Además, se podría explorar la paralelización del algoritmo utilizando técnic
 
 ## ✅ Consideraciones finales
 
-Este trabajo busca contribuir al estudio y solución del problema TSP mediante la implementación de algoritmos bioinspirados. Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
+Este trabajo busca contribuir al estudio y solución del problema TSP mediante la implementación de algoritmos bioinspirados. 
+
+Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
 
 ---
 
@@ -546,7 +548,7 @@ Este trabajo busca contribuir al estudio y solución del problema TSP mediante l
   Director de PT y responsable del acompañamiento académico durante el desarrollo del proyecto.
 
 - 👨‍💻 **Alejandro Martínez Guzmán**  
-  Autor del proyecto. Encargado del diseño, implementación y documentación del sistema de optimización.
+  Autor del proyecto, encargado del diseño, implementación y documentación del sistema de optimización.
 
 - 🧪 **Jaime López Lara**  
   Colaborador en la ejecución del código y recolección de resultados.
