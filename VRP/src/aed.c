@@ -356,88 +356,108 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
 
 void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t tiempo_inicial, tiempo_final; // Definimos la variable tiempo_inicial y tiempo_final
-   tiempo_inicial = clock(); // Iniciamos el Relej
-   //char respuesta;                                                                // Respuesta
-   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
-   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
-   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
-   struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
-   vrp_configuracion *vrp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
+   // Variables para medir el tiempo de ejecución
+   clock_t tiempo_inicial, tiempo_final;
+   tiempo_inicial = clock(); // Iniciamos el reloj
+
+   // Asignamos memoria para los arreglos de individuos
+   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion); // Población actual
+   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion); // Población ruidosa (vector diferencial)
+   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);  // Población de prueba
+   struct individuo *resultado = asignar_memoria_individuos(1);           // Mejor individuo encontrado
+
+   // Leemos los datos de la instancia del problema VRP desde archivo
+   vrp_configuracion *vrp = leer_instancia(archivo_instancia, tamanio_instancia);
+
+   // Asignamos los parámetros globales
+   vrp->generaciones = num_generaciones;
+   vrp->poblacion = num_poblacion;
+
+   // Asignamos memoria para matrices auxiliares usadas en la evaluación del problema
+   double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes);
+   double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);
+   double **instancia_distancias = asignar_memoria_instancia(vrp->num_clientes);
+
+   // Inicializamos las matrices con los valores correspondientes
+   inicializar_distancias(instancia_distancias, vrp);    // Calcula matriz de distancias
+   inicializar_visibilidad(instancia_visibilidad, vrp);  // Calcula matriz de visibilidad (1/distancia)
+
+   // Inicializamos rangos para generar individuos con parámetros aleatorios
    struct rangos *rango = asignar_memoria_rangos();
 
-   vrp->generaciones = num_generaciones; // Asignamos el numero de generaciones
-   vrp->poblacion = num_poblacion;       // Asiganamos el numero de poblacion
+   // Inicializamos la población con valores aleatorios
+   inicializa_poblacion(objetivo, vrp, rango, num_poblacion);
 
-   double **instancia_visibilidad = asignar_memoria_instancia(vrp->num_clientes); // Generamos memoria para la instancia de la visibilidad
-   double **instancia_feromonas = asignar_memoria_instancia(vrp->num_clientes);   // Generamos memoria para la instancia de la feromona
-   double **instancia_distancias = asignar_memoria_instancia(vrp->num_clientes);  // Generamos memoria para la instancia de la las distancias
-
-   inicializar_distancias(instancia_distancias, vrp);        // Inicializamos las distancias
-   inicializar_visibilidad(instancia_visibilidad, vrp);      // Inicializamos las visibilidad
-   inicializa_poblacion(objetivo, vrp, rango, num_poblacion); // Inicializamos la poblacion
-
-   // Aqui podemos imprimir las instancias
-   // imprimir_instancia(instancia_distancias,vrp,"INSTANCIA DISTANCIAS");
-   // imprimir_instancia(instancia_visibilidad,vrp,"INSTANCIA VISIBILIDAD");
-
-   // Inicializamos la estructura de resultados
+   // Inicializamos la estructura del mejor individuo
    resultado->fitness = INFINITY;
-   resultado->hormiga = asignar_memoria_hormigas(1);
-   // Evaluamos la función objetivo para cada individuo de la población inicial
+   resultado->hormiga = asignar_memoria_hormigas(1); // Solo 1 hormiga, correspondiente al mejor
+
+   // Evaluamos cada individuo de la población inicial
    for (int i = 0; i < num_poblacion; ++i)
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);
 
-   // Encontramos el mejor individuo de la población inicial
+   // Buscamos el mejor individuo de la población inicial
    for (int i = 0; i < num_poblacion; i++)
    {
       if (objetivo[i].fitness < resultado->fitness)
       {
-         resultado->alpha = objetivo[i].alpha;                             // Copiamos el alpha del mejor metal
-         resultado->beta = objetivo[i].beta;                               // Copiamos el beta del mejor metal
-         resultado->rho = objetivo[i].rho;                                 // Copiamos el rho del mejor metal
-         resultado->numHormigas = objetivo[i].numHormigas;                 // Copiamos el numero de hormigas del mejor metal
-         resultado->numIteracionesACO = objetivo[i].numIteracionesACO;     // Copiamos el numero de iteraciones del mejor metal
-         resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
-         resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
-         resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
-         resultado->factor_control = objetivo[i].factor_control;           // Copiamos el factor de control del mejor metal
-         resultado->numIteracionesSA = objetivo[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
+         // Copiamos todos los parámetros del mejor individuo
+         resultado->alpha = objetivo[i].alpha;
+         resultado->beta = objetivo[i].beta;
+         resultado->rho = objetivo[i].rho;
+         resultado->numHormigas = objetivo[i].numHormigas;
+         resultado->numIteracionesACO = objetivo[i].numIteracionesACO;
+         resultado->temperatura_inicial = objetivo[i].temperatura_inicial;
+         resultado->temperatura_final = objetivo[i].temperatura_final;
+         resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento;
+         resultado->factor_control = objetivo[i].factor_control;
+         resultado->numIteracionesSA = objetivo[i].numIteracionesSA;
+
+         // Copiamos la mejor hormiga encontrada
          recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);
       }
    }
 
-   // Inicializamos ya las generaciones
+   // Bucle principal de generaciones del algoritmo evolutivo diferencial
    for (int i = 0; i < num_generaciones; i++)
    {
-      construye_ruidosos(objetivo, ruidoso, rango, num_poblacion); // Contruimos Ruidosos
-      construye_prueba(objetivo, ruidoso, prueba, num_poblacion);  // Contruimos Prueba
-                                                                  // Evaluamos la función objetivo para cada individuo de prueba
-      for (int j = 0; j < num_poblacion; ++j)                     // Mandamos a evaluar la funcion objetivo de prueba{
+      // Generamos la población ruidosa a partir de la población actual
+      construye_ruidosos(objetivo, ruidoso, rango, num_poblacion);
+
+      // Construimos la población de prueba combinando objetivo y ruidoso
+      construye_prueba(objetivo, ruidoso, prueba, num_poblacion);
+
+      // Evaluamos la población de prueba
+      for (int j = 0; j < num_poblacion; ++j)
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);
 
+      // Buscamos si hay un nuevo mejor individuo
       for (int i = 0; i < num_poblacion; i++)
       {
-         // Actualizamos el mejor resultado si encontramos uno mejor
          if (prueba[i].fitness < resultado->fitness)
          {
-            resultado->alpha = prueba[i].alpha;                             // Copiamos el alpha del mejor metal
-            resultado->beta = prueba[i].beta;                               // Copiamos el beta del mejor metal
-            resultado->rho = prueba[i].rho;                                 // Copiamos el rho del mejor metal
-            resultado->numHormigas = prueba[i].numHormigas;                 // Copiamos el numero de hormigas del mejor metal
-            resultado->numIteracionesACO = prueba[i].numIteracionesACO;     // Copiamos el numero de iteraciones del mejor metal
-            resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
-            resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
-            resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
-            resultado->factor_control = prueba[i].factor_control;           // Copiamos el factor de control del mejor metal
-            resultado->numIteracionesSA = prueba[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
+            // Guardamos los nuevos mejores parámetros
+            resultado->alpha = prueba[i].alpha;
+            resultado->beta = prueba[i].beta;
+            resultado->rho = prueba[i].rho;
+            resultado->numHormigas = prueba[i].numHormigas;
+            resultado->numIteracionesACO = prueba[i].numIteracionesACO;
+            resultado->temperatura_inicial = prueba[i].temperatura_inicial;
+            resultado->temperatura_final = prueba[i].temperatura_final;
+            resultado->factor_enfriamiento = prueba[i].factor_enfriamiento;
+            resultado->factor_control = prueba[i].factor_control;
+            resultado->numIteracionesSA = prueba[i].numIteracionesSA;
 
+            // Copiamos la mejor hormiga encontrada
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);
          }
       }
-      // Realizamos la selección de la siguiente generación
-      seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
-      int barra_ancho = 50;                       // ancho de la barra de progreso
+
+      // Selección para la siguiente generación
+      seleccion(objetivo, prueba, num_poblacion);
+
+      // Barra de progreso y tiempo estimado
+      int barra_ancho = 50;
       int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho);
 
       printf("\r[");
@@ -448,6 +468,8 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          else
             printf(" ");
       }
+
+      // Imprimimos la barra de progreso, fitness y tiempo transcurrido
       printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
              ((float)(i + 1) / num_generaciones) * 100,
              resultado->fitness,
@@ -455,29 +477,29 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
       fflush(stdout);
    }
 
+   // Calculamos tiempo total de ejecución
    tiempo_final = clock();
    double minutos = (((double)(tiempo_final - tiempo_inicial)) / CLOCKS_PER_SEC) / 60.0;
 
+   // Guardamos el tiempo de ejecución en la estructura VRP
    vrp->tiempo_ejecucion = ceil(minutos);
    vrp->archivo_instancia = archivo_instancia;
 
-   // Imprimimos la meojor homriga
+   // Mostramos la mejor hormiga encontrada
    imprimir_mejor_hormiga(resultado->hormiga, resultado);
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos);
 
-   // printf("\n¿Quieres imprimir el archivo JSON (s/n)? ");
-   // scanf(" %c", &respuesta);
-
-   // if (respuesta == 's' || respuesta == 'S')
+   // Guardamos el resultado en formato JSON
    guardar_json_en_archivo(resultado, vrp, archivo_instancia);
 
-   liberar_instancia(instancia_feromonas, vrp->num_clientes);   // Liberemos la memoria de la instancia feromona
-   liberar_instancia(instancia_visibilidad, vrp->num_clientes); // Liberemos la memoria de la instancia visibilidad
-   liberar_instancia(instancia_distancias, vrp->num_clientes);  // Liberemos la memoria de la instancia distancias
-   liberar_rangos(rango);                                       // Liberemos la memoria de los rangos
-   liberar_individuos(objetivo, num_poblacion, true);           // Liberemos la memoria del objetivo
-   liberar_individuos(prueba, num_poblacion, true);             // Liberemos la memoria de la prueba
-   liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso
-   liberar_individuos(resultado, 1, true);                      // Liberemos los resultado
-   liberar_memoria_vrp_configuracion(vrp);                      // Liberemos la memoria del vrp
+   // Liberamos toda la memoria asignada
+   liberar_instancia(instancia_feromonas, vrp->num_clientes);
+   liberar_instancia(instancia_visibilidad, vrp->num_clientes);
+   liberar_instancia(instancia_distancias, vrp->num_clientes);
+   liberar_rangos(rango);
+   liberar_individuos(objetivo, num_poblacion, true);
+   liberar_individuos(prueba, num_poblacion, true);
+   liberar_individuos(ruidoso, num_poblacion, false);
+   liberar_individuos(resultado, 1, true);
+   liberar_memoria_vrp_configuracion(vrp);
 }

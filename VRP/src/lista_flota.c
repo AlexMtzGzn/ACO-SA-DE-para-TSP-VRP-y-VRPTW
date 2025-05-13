@@ -162,12 +162,14 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
         struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
         vehiculo_actual = vehiculo_actual->siguiente;
 
+        // Liberar memoria del vehículo si existe
         if (vehiculo_temp->vehiculo != NULL)
             liberar_vehiculo(vehiculo_temp->vehiculo);
 
         free(vehiculo_temp);
     }
 
+    // Liberar la estructura de la lista
     free(flota);
 }
 
@@ -178,9 +180,10 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind)
 
     while (intentos--)
     {
-        // Seleciionamor el id de un veiculo aleatorio
+        // Seleccionar aleatoriamente un id de vehículo
         vehiculo_aleatorio = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
 
+        // Buscar el vehículo con ese id en la lista
         nodo_vehiculo_aleatorio = ind->metal->solucion_vecina->cabeza;
         while (nodo_vehiculo_aleatorio != NULL)
         {
@@ -190,6 +193,7 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind)
         }
     }
 
+    // Verificar que el vehículo tenga al menos un cliente
     if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
         return NULL;
     else

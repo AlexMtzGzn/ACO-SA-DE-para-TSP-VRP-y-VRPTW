@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in {1..10}; do
+for i in {1..1}; do
     echo "Ejecución $i"
-    ./main 3 1 R100 25
+    ./main 10 10 C100 25
 done

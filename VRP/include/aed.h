@@ -4,7 +4,6 @@
 // Incluimos las bibliotecas necesarias
 #include "../include/estructuras.h"
 
-
 // Calcula la distancia entre dos clientes dados en la configuración del VRP
 double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino);
 
