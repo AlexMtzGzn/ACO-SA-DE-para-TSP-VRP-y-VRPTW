@@ -30,7 +30,7 @@ En el TSP, simulamos este comportamiento:
 
 ## 🔥 ¿Qué es el Recocido Simulado (SA)?
 
-El Recocido Simulado (_Simulated Annealing_, SA) es una metaheurística inspirada en el proceso metalúrgico de recocido, donde un metal se calienta y luego se enfría de forma controlada para modificar sus propiedades físicas.
+El Recocido Simulado (_Simulated Annealing_, SA) es una metaheurística inspirada en el proceso metalúrgico de Recocido, donde un metal se calienta y luego se enfría de forma controlada para modificar sus propiedades físicas.
 
 En optimización:
 

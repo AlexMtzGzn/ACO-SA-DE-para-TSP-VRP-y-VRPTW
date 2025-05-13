@@ -19,7 +19,7 @@ void inicializar_distancias(double **instancia_distancias, struct vrp_configurac
 void inicializar_feromona(struct vrp_configuracion *vrp, double **instancia_feromona);
 
 // Evalúa la función objetivo (FO) del algoritmo evolutivo diferencial (AED) usando la instancia de feromona, visibilidad y distancias
-void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad,double **instancia_distancias,struct vrp_configuracion *vrp);
+void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, struct vrp_configuracion *vrp);
 
 // Genera un número aleatorio dentro de un rango especificado (mínimo, máximo)
 double genera_aleatorio(double minimo, double maximo);
@@ -37,6 +37,6 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
 void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion);
 
 // Función principal del algoritmo Evolutivo Diferencial (AED) para resolver el VRP, que recibe el número de individuos, generaciones y el archivo de instancia
-void aed_vrp(int num_poblacion, int num_generaciones,int tamanio_instancia, char *archivo_instancia);
+void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia);
 
 #endif // AED_H

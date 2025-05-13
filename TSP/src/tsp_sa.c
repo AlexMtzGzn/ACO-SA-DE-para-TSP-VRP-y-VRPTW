@@ -27,6 +27,7 @@ void evaluaFO_SA(struct individuo *ind, struct tsp_configuracion *tsp, double **
     }
 }
 
+
 // Invierte un segmento aleatorio de clientes en la ruta de la solución vecina
 bool invertir_segmento_ruta(struct individuo *ind)
 {
@@ -89,14 +90,14 @@ bool invertir_segmento_ruta(struct individuo *ind)
 }
 
 // Intercambia dos clientes aleatorios distintos en la solución vecina
-bool intercambiar_clientes(struct individuo *ind, struct tsp_configuracion *config)
+bool intercambiar_clientes(struct individuo *ind, struct tsp_configuracion *tsp)
 {
     int intentos_maximos = 10;
 
     while (intentos_maximos--)
     {
-        int cliente1 = (rand() % config->num_clientes) + 1; // Clientes válidos de 1 a n
-        int cliente2 = (rand() % config->num_clientes) + 1;
+        int cliente1 = (rand() % tsp->num_clientes) + 1; // Clientes válidos de 1 a n
+        int cliente2 = (rand() % tsp->num_clientes) + 1;
 
         if (cliente1 == cliente2)
             continue;

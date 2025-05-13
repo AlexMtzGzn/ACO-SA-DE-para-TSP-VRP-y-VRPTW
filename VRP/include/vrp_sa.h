@@ -16,6 +16,9 @@ bool invertir_segmento_ruta(struct individuo *ind);
 // Intenta intercambiar dos clientes entre rutas para generar un vecino.
 bool intercambiar_clientes(struct individuo *ind, struct vrp_configuracion *vrp);
 
+// Intenta mover dos clientes en la misma ruta para generar un vecino.
+bool intercambiar_clientes(struct individuo *ind, struct vrp_configuracion *vrp);
+
 // Genera un vecino del individuo actual usando técnicas de movimiento.
 void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp);
 

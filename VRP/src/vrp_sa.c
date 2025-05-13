@@ -49,7 +49,8 @@ bool mover_cliente_vehiculo(struct individuo *ind, struct vrp_configuracion *vrp
     nodo_vehiculo *destino = NULL;
     int intentos = 10;
 
-    while (intentos--) {
+    while (intentos--)
+    {
         int id_origen = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
         int id_destino = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
 
@@ -69,7 +70,8 @@ bool mover_cliente_vehiculo(struct individuo *ind, struct vrp_configuracion *vrp
 
         nodo_ruta *anterior = origen->vehiculo->ruta->cabeza;
         nodo_ruta *actual = anterior->siguiente;
-        for (int i = 1; i < pos_cliente && actual && actual->siguiente; i++) {
+        for (int i = 1; i < pos_cliente && actual && actual->siguiente; i++)
+        {
             anterior = actual;
             actual = actual->siguiente;
         }
@@ -105,11 +107,13 @@ bool mover_cliente_vehiculo(struct individuo *ind, struct vrp_configuracion *vrp
     return false;
 }
 
-bool invertir_segmento_ruta(struct individuo *ind) {
+bool invertir_segmento_ruta(struct individuo *ind)
+{
     nodo_vehiculo *vehiculo = NULL;
     int intentos = 10;
 
-    for (int i = 0; i < intentos; i++) {
+    for (int i = 0; i < intentos; i++)
+    {
         vehiculo = seleccionar_vehiculo_aleatorio(ind);
         if (vehiculo && vehiculo->vehiculo->clientes_contados >= 3)
             break;
@@ -118,7 +122,8 @@ bool invertir_segmento_ruta(struct individuo *ind) {
     if (!vehiculo || vehiculo->vehiculo->clientes_contados < 3)
         return false;
 
-    for (int i = 0; i < intentos; i++) {
+    for (int i = 0; i < intentos; i++)
+    {
         int total = vehiculo->vehiculo->clientes_contados;
         int inicio = rand() % total;
         int fin = rand() % total;
@@ -126,7 +131,8 @@ bool invertir_segmento_ruta(struct individuo *ind) {
         while (inicio == fin)
             fin = rand() % total;
 
-        if (inicio > fin) {
+        if (inicio > fin)
+        {
             int tmp = inicio;
             inicio = fin;
             fin = tmp;
@@ -134,19 +140,22 @@ bool invertir_segmento_ruta(struct individuo *ind) {
 
         int longitud = fin - inicio + 1;
         int *segmento = asignar_memoria_arreglo_int(longitud);
-        if (!segmento) return false;
+        if (!segmento)
+            return false;
 
         nodo_ruta *nodo = vehiculo->vehiculo->ruta->cabeza->siguiente;
         for (int j = 0; j < inicio; j++)
             nodo = nodo->siguiente;
 
         nodo_ruta *iter = nodo;
-        for (int j = 0; j < longitud; j++) {
+        for (int j = 0; j < longitud; j++)
+        {
             segmento[j] = iter->cliente;
             iter = iter->siguiente;
         }
 
-        for (int j = 0; j < longitud / 2; j++) {
+        for (int j = 0; j < longitud / 2; j++)
+        {
             int temp = segmento[j];
             segmento[j] = segmento[longitud - 1 - j];
             segmento[longitud - 1 - j] = temp;
@@ -156,7 +165,8 @@ bool invertir_segmento_ruta(struct individuo *ind) {
         for (int j = 0; j < inicio; j++)
             nodo = nodo->siguiente;
 
-        for (int j = 0; j < longitud; j++) {
+        for (int j = 0; j < longitud; j++)
+        {
             nodo->cliente = segmento[j];
             nodo = nodo->siguiente;
         }
@@ -168,13 +178,14 @@ bool invertir_segmento_ruta(struct individuo *ind) {
     return false;
 }
 
-
-bool mover_dos_clientes_vehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias) {
+bool mover_dos_clientes_vehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+{
     nodo_vehiculo *veh1 = NULL, *veh2 = NULL;
     nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
     int intentos = 10;
 
-    while (intentos--) {
+    while (intentos--)
+    {
         veh1 = seleccionar_vehiculo_aleatorio(ind);
         veh2 = seleccionar_vehiculo_aleatorio(ind);
 
@@ -225,6 +236,118 @@ bool mover_dos_clientes_vehiculos(struct individuo *ind, struct vrp_configuracio
     return false;
 }
 
+// Intercambia dos clientes aleatorios distintos en la solución vecina
+bool intercambiar_clientes(struct individuo *ind, struct vrp_configuracion *vrp)
+{
+    int intentos_maximos = 10;
+
+    while (intentos_maximos--)
+    {
+        int cliente1 = (rand() % (vrp->num_clientes - 2)) + 1; 
+        int cliente2 = (rand() % (vrp->num_clientes - 2)) + 1;
+
+        if (cliente1 == cliente2)
+            continue;
+
+        nodo_ruta *nodo1 = NULL;
+        nodo_ruta *nodo2 = NULL;
+
+        // Recorrer todos los vehículos de la solución
+        nodo_vehiculo *vehiculo_actual = ind->metal->solucion_vecina->cabeza;
+        while (vehiculo_actual && (!nodo1 || !nodo2))
+        {
+            struct lista_ruta *ruta = vehiculo_actual->vehiculo->ruta;
+            if (!ruta || !ruta->cabeza)
+            {
+                vehiculo_actual = vehiculo_actual->siguiente;
+                continue;
+            }
+
+            nodo_ruta *nodo_actual = ruta->cabeza;
+
+            // Buscar los nodos correspondientes a los clientes seleccionados
+            while (nodo_actual)
+            {
+                if (nodo_actual->cliente == 0)
+                {
+                    nodo_actual = nodo_actual->siguiente;
+                    continue; // Ignorar depósito
+                }
+
+                if (nodo_actual->cliente == cliente1 && !nodo1)
+                    nodo1 = nodo_actual;
+                else if (nodo_actual->cliente == cliente2 && !nodo2)
+                    nodo2 = nodo_actual;
+
+                if (nodo1 && nodo2)
+                    break;
+
+                nodo_actual = nodo_actual->siguiente;
+            }
+
+            vehiculo_actual = vehiculo_actual->siguiente;
+        }
+
+        // Si ambos nodos fueron encontrados, intercambiar sus valores
+        if (nodo1 && nodo2)
+        {
+            // Verificar que el intercambio no viola restricciones de capacidad
+            nodo_vehiculo *vehiculo1 = NULL;
+            nodo_vehiculo *vehiculo2 = NULL;
+
+            // Encontrar a qué vehículos pertenecen los nodos
+            vehiculo_actual = ind->metal->solucion_vecina->cabeza;
+            while (vehiculo_actual && (!vehiculo1 || !vehiculo2))
+            {
+                struct lista_ruta *ruta = vehiculo_actual->vehiculo->ruta;
+                nodo_ruta *nodo_actual = ruta->cabeza;
+
+                while (nodo_actual)
+                {
+                    if (nodo_actual == nodo1)
+                        vehiculo1 = vehiculo_actual;
+                    else if (nodo_actual == nodo2)
+                        vehiculo2 = vehiculo_actual;
+
+                    if (vehiculo1 && vehiculo2)
+                        break;
+
+                    nodo_actual = nodo_actual->siguiente;
+                }
+
+                vehiculo_actual = vehiculo_actual->siguiente;
+            }
+
+            // Si los clientes están en diferentes vehículos, verificar capacidad
+            if (vehiculo1 != vehiculo2)
+            {
+                double demanda1 = vrp->clientes[nodo1->cliente].demanda_capacidad;
+                double demanda2 = vrp->clientes[nodo2->cliente].demanda_capacidad;
+
+                double nueva_cap1 = vehiculo1->vehiculo->capacidad_acumulada - demanda1 + demanda2;
+                double nueva_cap2 = vehiculo2->vehiculo->capacidad_acumulada - demanda2 + demanda1;
+
+                if (nueva_cap1 > vehiculo1->vehiculo->capacidad_maxima ||
+                    nueva_cap2 > vehiculo2->vehiculo->capacidad_maxima)
+                    continue; // El intercambio violaría restricciones de capacidad
+
+                // Actualizar capacidades
+                vehiculo1->vehiculo->capacidad_acumulada = nueva_cap1;
+                vehiculo2->vehiculo->capacidad_acumulada = nueva_cap2;
+            }
+
+            // Realizar el intercambio
+            int temp = nodo1->cliente;
+            nodo1->cliente = nodo2->cliente;
+            nodo2->cliente = temp;
+
+            return true;
+        }
+    }
+
+    return false; // No se encontraron ambos clientes tras varios intentos
+}
+
 // Copia la solución actual como base para generar un vecino
 void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp)
 {
@@ -266,11 +389,14 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
                 else if (prob < 2.0 * factor / 3.0)
                     aceptado = invertir_segmento_ruta(ind);
                 else
-                    aceptado = mover_dos_clientes_vehiculos(ind,vrp, instancia_distancias);
+                    aceptado = mover_dos_clientes_vehiculos(ind, vrp, instancia_distancias);
             }
             else
             {
-                aceptado = false;
+                if (prob < factor / 2.0)
+                    aceptado = invertir_segmento_ruta(ind);
+                else
+                    aceptado = intercambiar_clientes(ind, vrp);
             }
 
             if (!aceptado)
@@ -309,15 +435,15 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
 // Inicializa la estructura metal de un individuo
 void inicializar_metal(struct individuo *ind)
 {
-    ind->metal = asignar_memoria_metal(); // Asignación de memoria para la estructura metal
-    ind->metal->solucion_vecina = NULL; // Inicializa la solución vecina
-    ind->metal->solucion_actual = NULL; // Inicializa la solución actual
-    ind->metal->mejor_solucion = NULL; // Inicializa la mejor solución
-    ind->metal->fitness_solucion_actual = 0.0; // Inicializa el fitness de la solución actual
-    ind->metal->fitness_solucion_vecina = 0.0; // Inicializa el fitness de la solución vecina
-    ind->metal->fitness_mejor_solucion = 0.0; // Inicializa el fitness de la mejor solución
+    ind->metal = asignar_memoria_metal();                                       // Asignación de memoria para la estructura metal
+    ind->metal->solucion_vecina = NULL;                                         // Inicializa la solución vecina
+    ind->metal->solucion_actual = NULL;                                         // Inicializa la solución actual
+    ind->metal->mejor_solucion = NULL;                                          // Inicializa la mejor solución
+    ind->metal->fitness_solucion_actual = 0.0;                                  // Inicializa el fitness de la solución actual
+    ind->metal->fitness_solucion_vecina = 0.0;                                  // Inicializa el fitness de la solución vecina
+    ind->metal->fitness_mejor_solucion = 0.0;                                   // Inicializa el fitness de la mejor solución
     ind->metal->solucion_inicial = copiar_lista_vehiculos(ind->hormiga->flota); // Copia la solución inicial
-    ind->metal->fitness_solucion_inicial = ind->hormiga->fitness_global; // Guarda el fitness de la solución inicial
+    ind->metal->fitness_solucion_inicial = ind->hormiga->fitness_global;        // Guarda el fitness de la solución inicial
 }
 
 // Función principal que ejecuta SA sobre un individuo del VRP
