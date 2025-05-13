@@ -51,6 +51,8 @@ cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
 // Función para convertir un individuo en JSON
 cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *clientes)
 {
+    char vehiculos_ocupados[50]; // Asegúrate de que el tamaño sea lo suficientemente grande
+    sprintf(vehiculos_ocupados, "%d/%d", ind->hormiga->vehiculos_necesarios, ind->hormiga->vehiculos_maximos);
     cJSON *json_individuo = cJSON_CreateObject();
     cJSON_AddStringToObject(json_individuo, "Archivo", vrp->archivo_instancia);
     cJSON_AddNumberToObject(json_individuo, "Tiempo Ejecucion en Minutos", vrp->tiempo_ejecucion);
@@ -67,6 +69,7 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     cJSON_AddNumberToObject(json_individuo, "Factor de Control: ", ind->factor_control);
     cJSON_AddNumberToObject(json_individuo, "Numero Iteraciones SA: ", ind->numIteracionesSA);
     cJSON_AddNumberToObject(json_individuo, "Fitness Global", ind->fitness);
+    cJSON_AddStringToObject(json_individuo, "Vehiculos Necesarios", vehiculos_ocupados);
 
     cJSON *flota_json = cJSON_CreateArray();
     nodo_vehiculo *actual = ind->hormiga->flota->cabeza;
@@ -102,7 +105,8 @@ void crear_directorio_si_no_existe(const char *ruta)
 }
 
 // Función para leer una instancia desde archivo CSV o TXT
-void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia) {
+void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia)
+{
     cJSON *json_individuo = individuo_a_json(ind, vrp, vrp->clientes);
     char *json_string = cJSON_Print(json_individuo);
 
@@ -112,9 +116,10 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
     // Crear los directorios necesarios
     char dir_base[256], dir_instancia[1024];
     snprintf(dir_base, sizeof(dir_base), "Resultados/Resultados_%d/Json", (vrp->num_clientes - 1));
-    
+
     // Verificamos que no se exceda el tamaño del buffer
-    if (snprintf(dir_instancia, sizeof(dir_instancia), "%s/%s", dir_base, nombre_instancia) >= sizeof(dir_instancia)) {
+    if (snprintf(dir_instancia, sizeof(dir_instancia), "%s/%s", dir_base, nombre_instancia) >= sizeof(dir_instancia))
+    {
         fprintf(stderr, "Error: la ruta de la instancia es demasiado larga.\n");
         free(json_string);
         cJSON_Delete(json_individuo);
@@ -135,7 +140,8 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
 
     // Ruta final del archivo JSON
     char ruta[1024];
-    if (snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero) >= sizeof(ruta)) {
+    if (snprintf(ruta, sizeof(ruta), "%s/%s_%d.json", dir_instancia, archivo_instancia, numero) >= sizeof(ruta))
+    {
         fprintf(stderr, "Error: la ruta del archivo JSON es demasiado larga.\n");
         free(json_string);
         cJSON_Delete(json_individuo);
@@ -144,10 +150,13 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
 
     // Abrir el archivo y escribir el JSON
     FILE *archivo = fopen(ruta, "w");
-    if (archivo) {
+    if (archivo)
+    {
         fprintf(archivo, "%s", json_string);
         fclose(archivo);
-    } else {
+    }
+    else
+    {
         printf("Error al abrir el archivo para escritura: %s\n", ruta);
     }
 
@@ -155,10 +164,11 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
     cJSON_Delete(json_individuo);
 
     // Ejecutar el script de simulación en Python
-    char comando_py[1200]; 
+    char comando_py[1200];
     if (snprintf(comando_py, sizeof(comando_py),
                  "python3 src/Simulador_VRP/simulador_vrp.py \"%s\" %d",
-                 ruta, vrp->num_clientes - 1) >= sizeof(comando_py)) {
+                 ruta, vrp->num_clientes - 1) >= sizeof(comando_py))
+    {
         fprintf(stderr, "Error: el comando Python es demasiado largo.\n");
         return;
     }
