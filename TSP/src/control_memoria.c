@@ -41,7 +41,7 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
-// Arreglo de enteros
+// Asigana memoria para un arreglo de enteros
 int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 {
     int *arreglo = (int *)calloc(tamanio_arreglo, sizeof(int));  // Inicializamos a cero
@@ -53,12 +53,13 @@ int *asignar_memoria_arreglo_int(int tamanio_arreglo)
     return arreglo;
 }
 
+//Libera memoria de un arreglo de enteros
 void liberar_memoria_arreglo_int(int *arreglo)
 {
     free(arreglo);
 }
 
-// Arreglo de doubles
+//Asigana memoria para un arreglo de double
 double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 {
     double *arreglo = (double *)calloc(tamanio_arreglo, sizeof(double));  // Inicializamos a cero
@@ -70,6 +71,7 @@ double *asignar_memoria_arreglo_double(int tamanio_arreglo)
     return arreglo;
 }
 
+//Asigna memoria para arreglo de double
 void liberar_memoria_arreglo_double(double *arreglo)
 {
     free(arreglo);
@@ -79,6 +81,7 @@ void liberar_memoria_arreglo_double(double *arreglo)
 /*== ESTRUCTURA: RANGOS ==*/
 /*=========================*/
 
+//Asiganamos memoria para la estructura rangos
 struct rangos *asignar_memoria_rangos()
 {
     struct rangos *rango = (struct rangos *)calloc(1, sizeof(struct rangos));  // Inicializamos a cero
@@ -90,6 +93,7 @@ struct rangos *asignar_memoria_rangos()
     return rango;
 }
 
+//Liberamos memoria de la estructura rangos
 void liberar_rangos(struct rangos *rango)
 {
     free(rango);
@@ -99,6 +103,7 @@ void liberar_rangos(struct rangos *rango)
 /*== ESTRUCTURA: INDIVIDUOS ==*/
 /*=============================*/
 
+// Asignamos memoria para la estructura individuo
 struct individuo *asignar_memoria_individuos(int poblacion)
 {
     struct individuo *individuo = (struct individuo *)calloc(poblacion, sizeof(struct individuo));  // Inicializamos a cero
@@ -110,6 +115,7 @@ struct individuo *asignar_memoria_individuos(int poblacion)
     return individuo;
 }
 
+// Liberamos memoria de la estructura individuo
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
     if (tipo)
@@ -122,6 +128,7 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 /*== ESTRUCTURA: CONFIGURACIÓN ==*/
 /*===============================*/
 
+// Asignamos memoria para la estructura tsp_configuracion
 struct tsp_configuracion *asignar_memoria_tsp_configuracion()
 {
     struct tsp_configuracion *tsp = (struct tsp_configuracion *)calloc(1, sizeof(struct tsp_configuracion));  // Inicializamos a cero
@@ -133,6 +140,7 @@ struct tsp_configuracion *asignar_memoria_tsp_configuracion()
     return tsp;
 }
 
+// Liberamos memoria de la estructura tsp_configuracion
 void liberar_memoria_tsp_configuracion(struct tsp_configuracion *tsp)
 {
     if (tsp != NULL)
@@ -147,6 +155,7 @@ void liberar_memoria_tsp_configuracion(struct tsp_configuracion *tsp)
 /*== ESTRUCTURA: CLIENTES ==*/
 /*===========================*/
 
+// Asignamos memoria para la estructura cliente
 struct cliente *asignar_memoria_clientes(struct tsp_configuracion *tsp)
 {
     struct cliente *cliente = (struct cliente *)calloc(tsp->num_clientes, sizeof(struct cliente));  // Inicializamos a cero
@@ -162,6 +171,7 @@ struct cliente *asignar_memoria_clientes(struct tsp_configuracion *tsp)
 /*== ESTRUCTURA: HORMIGA ==*/
 /*==========================*/
 
+// Asignamos memoria para la estructura hormiga
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
     struct hormiga *hormiga = (struct hormiga *)calloc(numHormigas, sizeof(struct hormiga));  // Inicializamos a cero
@@ -173,6 +183,7 @@ struct hormiga *asignar_memoria_hormigas(int numHormigas)
     return hormiga;
 }
 
+// Reiniciamos la hormiga
 void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct tsp_configuracion *tsp)
 {
     for (int i = 0; i < tsp->num_clientes; i++)
@@ -191,6 +202,7 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct individuo *ind, struct ts
     insertar_cliente_ruta(hormiga, &tsp->clientes[0]);
 }
 
+// Liberamos memoria de la estructura hormiga
 void liberar_memoria_hormiga(struct hormiga *hormiga)
 {
     liberar_memoria_arreglo_int(hormiga->tabu);
@@ -203,6 +215,7 @@ void liberar_memoria_hormiga(struct hormiga *hormiga)
 /*== ESTRUCTURA: METAL ====*/
 /*=========================*/
 
+// Asignamos memoria para la estructura metal
 struct metal *asignar_memoria_metal()
 {
     struct metal *metal = (struct metal *)calloc(1, sizeof(struct metal));  // Inicializamos a cero
@@ -214,6 +227,7 @@ struct metal *asignar_memoria_metal()
     return metal;
 }
 
+// Liberamos memoria de la estructura metal
 void liberar_memoria_metal(struct individuo *ind)
 {
     if (ind->metal->solucion_inicial)
@@ -232,6 +246,7 @@ void liberar_memoria_metal(struct individuo *ind)
 /*== ESTRUCTURA: RUTA ======*/
 /*==========================*/
 
+// Asignamos memoria para la estructura lista_ruta
 struct lista_ruta *asignar_memoria_lista_ruta()
 {
     struct lista_ruta *nueva_lista = (struct lista_ruta *)calloc(1, sizeof(struct lista_ruta));  // Inicializamos a cero
@@ -247,6 +262,7 @@ struct lista_ruta *asignar_memoria_lista_ruta()
     return nueva_lista;
 }
 
+// Liberamos memoria de la estructura lista_ruta
 struct nodo_ruta *asignar_memoria_nodo_ruta()
 {
     struct nodo_ruta *nodo_nuevo = (struct nodo_ruta *)calloc(1, sizeof(struct nodo_ruta));  // Inicializamos a cero

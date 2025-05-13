@@ -18,8 +18,8 @@ struct nodo_ruta *crear_nodo_ruta(struct hormiga *hormiga, struct cliente *clien
     // Se actualiza la lista tabú de la hormiga si el cliente aún no ha sido visitado
     if (hormiga->tabu[cliente->id_cliente] == 0)
     {
-        hormiga->tabu[cliente->id_cliente] = 1;
-        hormiga->tabu_contador++;
+        hormiga->tabu[cliente->id_cliente] = 1; // Se marca al cliente como visitado
+        hormiga->tabu_contador++; // Se incrementa el contador de clientes visitados
     }
 
     return nodo_nuevo; // Se retorna el nodo recién creado
@@ -59,8 +59,9 @@ struct lista_ruta *copiar_lista_ruta(struct lista_ruta *ruta_original)
     }
 
     // Se asigna memoria para la nueva lista de ruta
-    struct lista_ruta *ruta_nueva = asignar_memoria_lista_ruta();//(struct lista_ruta *)malloc(sizeof(struct lista_ruta));
+    struct lista_ruta *ruta_nueva = asignar_memoria_lista_ruta();
 
+    // Inicialización de la nueva lista como vacía
     ruta_nueva->cabeza = NULL;
     ruta_nueva->cola = NULL;
 
@@ -68,12 +69,12 @@ struct lista_ruta *copiar_lista_ruta(struct lista_ruta *ruta_original)
     struct nodo_ruta *actual = ruta_original->cabeza;
     while (actual != NULL)
     {
+        // Se crea un nuevo nodo con los mismos datos
         struct nodo_ruta *nuevo_nodo = asignar_memoria_nodo_ruta();
-
         nuevo_nodo->cliente = actual->cliente;
         nuevo_nodo->siguiente = NULL;
 
-        // Añadir el nuevo nodo a la lista
+        // Añadir el nuevo nodo a la lista nueva
         if (ruta_nueva->cabeza == NULL)
         {
             ruta_nueva->cabeza = nuevo_nodo;
@@ -85,15 +86,16 @@ struct lista_ruta *copiar_lista_ruta(struct lista_ruta *ruta_original)
             ruta_nueva->cola = nuevo_nodo;
         }
 
+        // Avanzar al siguiente nodo de la ruta original
         actual = actual->siguiente;
     }
 
-    return ruta_nueva;
+    return ruta_nueva; // Se retorna la copia de la ruta
 }
 
+// Función para liberar completamente una lista de ruta (nodos + estructura)
 void liberar_lista_ruta(struct lista_ruta *ruta)
 {
-
     if (ruta == NULL)
         return;
 
@@ -104,12 +106,13 @@ void liberar_lista_ruta(struct lista_ruta *ruta)
     {
         struct nodo_ruta *cliente_temp = cliente_actual;
         cliente_actual = cliente_actual->siguiente;
-        free(cliente_temp);
+        free(cliente_temp); // Liberamos cada nodo individualmente
     }
-    free(ruta);
 
+    free(ruta); // Finalmente, liberamos la estructura de la lista
 }
 
+// Función para vaciar una lista de ruta, pero manteniendo la estructura lista válida
 void vaciar_lista_ruta(struct lista_ruta *ruta)
 {
     if (ruta == NULL)
@@ -122,7 +125,7 @@ void vaciar_lista_ruta(struct lista_ruta *ruta)
     {
         struct nodo_ruta *cliente_temp = cliente_actual;
         cliente_actual = cliente_actual->siguiente;
-        free(cliente_temp);
+        free(cliente_temp); // Liberamos cada nodo
     }
 
     // Reiniciamos la lista como vacía pero válida

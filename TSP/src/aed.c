@@ -10,6 +10,7 @@
 #include "../include/salida_datos.h"
 #include "../include/configuracion_json.h"
 
+// Calcula la distancia euclidiana entre dos clientes dados sus índices
 double calcular_distancia(struct tsp_configuracion *tsp, int cliente_origen, int cliente_destino)
 {
    // Declaramos distancia
@@ -20,6 +21,7 @@ double calcular_distancia(struct tsp_configuracion *tsp, int cliente_origen, int
    return distancia;
 }
 
+// Inicializa la visibilidad entre todos los pares de clientes (1 / distancia)
 void inicializar_visibilidad(double **instancia_visibilidad, struct tsp_configuracion *tsp)
 {
    // Declaramos distancia
@@ -29,7 +31,6 @@ void inicializar_visibilidad(double **instancia_visibilidad, struct tsp_configur
    {
       for (int j = i + 1; j < tsp->num_clientes; j++)
       {
-
          if (i != j)
          {
             // Calculamos la distancia entre los clientes i y j una sola vez
@@ -45,6 +46,7 @@ void inicializar_visibilidad(double **instancia_visibilidad, struct tsp_configur
    }
 }
 
+// Inicializa la matriz de distancias entre clientes
 void inicializar_distancias(double **instancia_distancias, struct tsp_configuracion *tsp)
 {
    // Declaramos distancia
@@ -69,6 +71,7 @@ void inicializar_distancias(double **instancia_distancias, struct tsp_configurac
    }
 }
 
+// Inicializa la matriz de feromonas con valores predeterminados
 void inicializar_feromona(struct tsp_configuracion *tsp, double **instancia_feromona)
 {
    // Recorre todos los clientes en la matriz de feromonas (fila i, columna j)
@@ -85,6 +88,7 @@ void inicializar_feromona(struct tsp_configuracion *tsp, double **instancia_fero
    }
 }
 
+// Evalúa la función objetivo del individuo usando el algoritmo ACO
 void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, struct tsp_configuracion *tsp)
 {
    // Inicializa las feromonas en la instancia
@@ -95,6 +99,7 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
    tsp_aco(tsp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona);
 }
 
+// Genera un número aleatorio en el rango [minimo, maximo]
 double genera_aleatorio(double minimo, double maximo)
 {
    // Genera un número aleatorio entre 0 y 1, luego lo escala al rango deseado
@@ -103,6 +108,7 @@ double genera_aleatorio(double minimo, double maximo)
    return aleatorio;
 }
 
+// Construye una población ruidosa a partir de la población objetivo aplicando perturbaciones
 void construye_ruidosos(struct individuo *objetivo, struct individuo *ruidoso, struct rangos *rango, int poblacion)
 {
    // Recorre cada individuo de la población ruidosa
@@ -207,9 +213,11 @@ void construye_ruidosos(struct individuo *objetivo, struct individuo *ruidoso, s
    }
 }
 
+// Esta función construye una población de prueba combinando aleatoriamente individuos de dos poblaciones distintas: objetivo y ruidosa.
 void construye_prueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
    double aleatorio; // Variable para almacenar un número aleatorio
+
    // Itera sobre todos los individuos en la población.
    for (int i = 0; i < poblacion; ++i)
    {
@@ -225,6 +233,8 @@ void construye_prueba(struct individuo *objetivo, struct individuo *ruidoso, str
    }
 }
 
+// Esta función compara los individuos de dos poblaciones y reemplaza al individuo en 'objetivo' si el de 'prueba' es mejor.
+// En este contexto, se asume que un menor valor de fitness representa una mejor solución.
 void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblacion)
 {
    // Recorremos la población para comparar cada individuo de ambas poblaciones.
@@ -235,11 +245,16 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
          objetivo[i] = prueba[i];
 }
 
+// Esta función inicializa los individuos de la población con valores aleatorios dentro de ciertos rangos
+// definidos específicamente para diferentes tamaños de problema del TSP (26, 51 y 101 clientes).
 void inicializa_poblacion(struct individuo *objetivo, struct tsp_configuracion *tsp, struct rangos *rango, int poblacion)
 {
-   // Asigna rangos específicos según el número de clientes en el TSP
+   // Asigna rangos específicos según el número de clientes en el TSP.
+   // Estos rangos determinan los valores posibles para los parámetros de ACO y SA.
+
    if (tsp->num_clientes == 26)
    {
+      // Parámetros adecuados para instancias pequeñas.
       rango->maxAlpha = 3.0;
       rango->minAlpha = 1.0;
 
@@ -273,6 +288,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct tsp_configuracion *
 
    if (tsp->num_clientes == 51)
    {
+      // Rango medio: requiere más recursos computacionales que el caso de 26 clientes.
       rango->maxAlpha = 4.0;
       rango->minAlpha = 2.0;
 
@@ -306,6 +322,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct tsp_configuracion *
 
    if (tsp->num_clientes == 101)
    {
+      // Rango grande: parámetros más exigentes para tratar con más combinaciones posibles.
       rango->maxAlpha = 5.0;
       rango->minAlpha = 3.0;
 
@@ -315,8 +332,8 @@ void inicializa_poblacion(struct individuo *objetivo, struct tsp_configuracion *
       rango->maxRho = 0.5;
       rango->minRho = 0.3;
 
-      rango->maxNumHormigas = 40;
-      rango->minNumHormigas = 50;
+      rango->maxNumHormigas = 50;  // ← Corregido aquí, antes estaba al revés
+      rango->minNumHormigas = 40;
 
       rango->maxNumIteracionesACO = 200;
       rango->minNumIteracionesACO = 150;
@@ -340,7 +357,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct tsp_configuracion *
    // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)
    {
-      // Genera valores aleatorios dentro de los rangos definidos para cada individuo
+      // Genera valores aleatorios dentro de los rangos definidos para cada parámetro.
       objetivo[i].alpha = genera_aleatorio(rango->minAlpha, rango->maxAlpha);
       objetivo[i].beta = genera_aleatorio(rango->minBeta, rango->maxBeta);
       objetivo[i].rho = genera_aleatorio(rango->minRho, rango->maxRho);
@@ -356,87 +373,92 @@ void inicializa_poblacion(struct individuo *objetivo, struct tsp_configuracion *
 
 void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t tiempo_inicial, tiempo_final; // Decraramos las variables para el tiempo
-   tiempo_inicial = clock();             // Inicializamos el tiempo
-   // char respuesta;                                                                // Respuesta
-   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
-   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
-   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
-   struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
-   tsp_configuracion *tsp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura tsp_configuracion
-   struct rangos *rango = asignar_memoria_rangos();                               // Asignamos memoria para los rangos
+   clock_t tiempo_inicial, tiempo_final; // Declaramos las variables para medir el tiempo de ejecución
+   tiempo_inicial = clock();             // Guardamos el tiempo inicial
 
-   tsp->generaciones = num_generaciones; // Asiganamos el numero de generaciones
-   tsp->poblacion = num_poblacion;       // Asiganamos el numero de poblacion
+   // Asignamos memoria para los arreglos de individuos de cada etapa del algoritmo
+   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Individuos actuales (soluciones base)
+   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Individuos perturbados aleatoriamente
+   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Individuos resultantes de la mezcla entre objetivo y ruidoso
+   struct individuo *resultado = asignar_memoria_individuos(1);                   // Individuo que almacena el mejor resultado obtenido
 
-   double **instancia_visibilidad = asignar_memoria_instancia(tsp->num_clientes); // Generamos memoria para la instancia de la visibilidad
-   double **instancia_feromonas = asignar_memoria_instancia(tsp->num_clientes);   // Generamos memoria para la instancia de la feromona
-   double **instancia_distancias = asignar_memoria_instancia(tsp->num_clientes);  // Generamos memoria para la instancia de la las distancias
+   tsp_configuracion *tsp = leer_instancia(archivo_instancia, tamanio_instancia); // Leemos el archivo de instancia TSP y guardamos la configuración
+   struct rangos *rango = asignar_memoria_rangos();                               // Reservamos memoria para los rangos de parámetros
 
-   inicializar_distancias(instancia_distancias, tsp);        // Inicializamos las distancias
-   inicializar_visibilidad(instancia_visibilidad, tsp);      // Inicializamos las visibilidad
-   inicializa_poblacion(objetivo, tsp, rango, num_poblacion); // Inicializamos la poblacion
+   // Asignamos parámetros básicos del algoritmo evolutivo
+   tsp->generaciones = num_generaciones; // Asignamos número total de generaciones
+   tsp->poblacion = num_poblacion;       // Asignamos tamaño de la población
 
-   // Aqui podemos imprimir las instancias
-   // imprimir_instancia(instancia_distancias,tsp,"INSTANCIA DISTANCIAS");
-   // imprimir_instancia(instancia_visibilidad,tsp,"INSTANCIA VISIBILIDAD");
+   // Asignamos memoria para las matrices relacionadas al TSP
+   double **instancia_visibilidad = asignar_memoria_instancia(tsp->num_clientes); // Visibilidad entre nodos (1/distancia)
+   double **instancia_feromonas = asignar_memoria_instancia(tsp->num_clientes);   // Niveles de feromonas entre nodos
+   double **instancia_distancias = asignar_memoria_instancia(tsp->num_clientes);  // Matriz de distancias entre nodos
 
-   // Inicializamos la estructura de resultados
-   resultado->fitness = INFINITY;                    // Inicializamos el fitness como infinito
-   resultado->hormiga = asignar_memoria_hormigas(1); // Asiganamos memoria para la mejor hormiga
-   //  Evaluamos la función objetivo para cada individuo de la población inicial
+   // Inicializamos las matrices con sus respectivos valores
+   inicializar_distancias(instancia_distancias, tsp);        // Calcula las distancias euclidianas
+   inicializar_visibilidad(instancia_visibilidad, tsp);      // Calcula visibilidad = 1/distancia
+   inicializa_poblacion(objetivo, tsp, rango, num_poblacion); // Inicializa aleatoriamente la población objetivo
 
-   for (int i = 0; i < num_poblacion; i++) // Iniciamos la funcion objetivo con el objetivo
+   // Inicializamos el individuo resultado con valores por defecto
+   resultado->fitness = INFINITY;                    // El mejor fitness comienza como infinito
+   resultado->hormiga = asignar_memoria_hormigas(1); // Asignamos memoria para la mejor hormiga (camino)
+
+   // Evaluamos la función objetivo (FO) para cada individuo inicial
+   for (int i = 0; i < num_poblacion; i++)
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, tsp);
-   // Encontramos el mejor individuo de la población inicial
 
+   // Buscamos el mejor individuo dentro de la población inicial
    for (int i = 0; i < num_poblacion; i++)
       if (objetivo[i].fitness < resultado->fitness)
       {
-         resultado->alpha = objetivo[i].alpha;                             // Copiamos alpha a la mejor hormiga
-         resultado->beta = objetivo[i].beta;                               // Copiamos beta a la mejor hormiga
-         resultado->rho = objetivo[i].rho;                                 // Copiamos rho a la mejor hormiga
-         resultado->numHormigas = objetivo[i].numHormigas;                 // Copiamos numHormigas a la mejor hormiga
-         resultado->numIteracionesACO = objetivo[i].numIteracionesACO;     // Copiamos numIteraciones a la mejor hormiga
-         resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
-         resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
-         resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
-         resultado->factor_control = objetivo[i].factor_control;           // Copiamos el factor de control del mejor metal
-         resultado->numIteracionesSA = objetivo[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
-         recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);        // Recuperamos la mejor hormiga
+         // Copiamos los parámetros del mejor individuo
+         resultado->alpha = objetivo[i].alpha;
+         resultado->beta = objetivo[i].beta;
+         resultado->rho = objetivo[i].rho;
+         resultado->numHormigas = objetivo[i].numHormigas;
+         resultado->numIteracionesACO = objetivo[i].numIteracionesACO;
+         resultado->temperatura_inicial = objetivo[i].temperatura_inicial;
+         resultado->temperatura_final = objetivo[i].temperatura_final;
+         resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento;
+         resultado->factor_control = objetivo[i].factor_control;
+         resultado->numIteracionesSA = objetivo[i].numIteracionesSA;
+         recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga); // Copiamos la mejor hormiga (camino)
       }
 
-   // Inicializamos ya las generaciones
+   // Ciclo principal de generaciones (optimización)
    for (int i = 0; i < num_generaciones; i++)
    {
-      construye_ruidosos(objetivo, ruidoso, rango, num_poblacion); // Contruimos Ruidosos
-      construye_prueba(objetivo, ruidoso, prueba, num_poblacion);  // Contruimos Prueba
-                                                                  // Evaluamos la función objetivo para cada individuo de prueba
-      for (int j = 0; j < num_poblacion; ++j)                     // Mandamos a evaluar la funcion objetivo de prueba{
+      construye_ruidosos(objetivo, ruidoso, rango, num_poblacion); // Generamos individuos ruidosos
+      construye_prueba(objetivo, ruidoso, prueba, num_poblacion);  // Combinamos individuos objetivo y ruidoso para formar la población de prueba
+
+      // Evaluamos la FO para cada individuo de prueba
+      for (int j = 0; j < num_poblacion; ++j)
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, tsp);
 
+      // Buscamos si algún individuo de prueba es mejor que el actual resultado
       for (int i = 0; i < num_poblacion; i++)
-         // Actualizamos el mejor resultado si encontramos uno mejor
          if (prueba[i].fitness < resultado->fitness)
          {
-            resultado->alpha = prueba[i].alpha;                             // Copiamos alpha a la mejor hormiga
-            resultado->beta = prueba[i].beta;                               // Copiamos beta a la mejor hormiga
-            resultado->rho = prueba[i].rho;                                 // Copiamos rho a la mejor hormiga
-            resultado->numHormigas = prueba[i].numHormigas;                 // Copiamos numHormigas a la mejor hormiga
-            resultado->numIteracionesACO = prueba[i].numIteracionesACO;     // Copiamos numIteraciones a la mejor hormiga
-            resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
-            resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
-            resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
-            resultado->factor_control = prueba[i].factor_control;           // Copiamos el factor de control del mejor metal
-            resultado->numIteracionesSA = prueba[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
-            recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);        // Recuperamos la mejor hormiga
+            // Si es mejor, actualizamos el individuo resultado
+            resultado->alpha = prueba[i].alpha;
+            resultado->beta = prueba[i].beta;
+            resultado->rho = prueba[i].rho;
+            resultado->numHormigas = prueba[i].numHormigas;
+            resultado->numIteracionesACO = prueba[i].numIteracionesACO;
+            resultado->temperatura_inicial = prueba[i].temperatura_inicial;
+            resultado->temperatura_final = prueba[i].temperatura_final;
+            resultado->factor_enfriamiento = prueba[i].factor_enfriamiento;
+            resultado->factor_control = prueba[i].factor_control;
+            resultado->numIteracionesSA = prueba[i].numIteracionesSA;
+            recuperamos_mejor_hormiga(resultado, prueba[i].hormiga); // Copiamos la mejor hormiga
          }
-      // Realizamos la selección de la siguiente generación
-      seleccion(objetivo, prueba, num_poblacion);                                   // Hacemos la seleccion
-      int barra_ancho = 50;                                                         // Ancho de la barra de progreso
-      int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho); // Calculamos el progreso de la barra
 
-      // Imprimimos la barra de progreso
+      seleccion(objetivo, prueba, num_poblacion); // Seleccionamos la siguiente generación de individuos
+
+      // Cálculo e impresión de barra de progreso
+      int barra_ancho = 50; // Ancho total de la barra
+      int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho); // Progreso actual
+
       printf("\r[");
       for (int j = 0; j < barra_ancho; ++j)
       {
@@ -445,6 +467,8 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
          else
             printf(" ");
       }
+
+      // Mostramos porcentaje, fitness y tiempo transcurrido
       printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
              ((float)(i + 1) / num_generaciones) * 100,
              resultado->fitness,
@@ -452,30 +476,30 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
       fflush(stdout);
    }
 
-   tiempo_final = clock(); // Finalizamos el tiempo
-   // Calculamos el tiempo de ejecución en minutos
+   // Finalizamos la medición de tiempo
+   tiempo_final = clock();
+
+   // Calculamos el tiempo total de ejecución en minutos
    double minutos = (((double)(tiempo_final - tiempo_inicial)) / CLOCKS_PER_SEC) / 60.0;
 
-   tsp->tiempo_ejecucion = ceil(minutos);      // Redondiamos minutos
-   tsp->archivo_instancia = archivo_instancia; // Copiamos el archivo de instancia
+   // Guardamos tiempo y nombre de la instancia
+   tsp->tiempo_ejecucion = ceil(minutos);      // Redondeamos el tiempo
+   tsp->archivo_instancia = archivo_instancia; // Guardamos nombre del archivo de instancia
 
-   // Imprimimos la meojor homriga
-   imprimir_mejor_hormiga(resultado->hormiga, resultado);          // Imprimimos la mejor hormiga
-   printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos); // Imprimimos el tiempo de ejecución
+   imprimir_mejor_hormiga(resultado->hormiga, resultado);          // Mostramos el mejor resultado obtenido
+   printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos); // Mostramos tiempo total
 
-   // printf("\n¿Quieres imprimir el archivo JSON (s/n)? "); // Preguntamos si quiere imprimir el archivo JSON
-   // scanf(" %c", &respuesta);                              // Recibimos la respuesta
+   // Guardamos los resultados en un archivo JSON
+   guardar_json_en_archivo(resultado, tsp, archivo_instancia);
 
-   // if (respuesta == 's' || respuesta == 'S')                      // Comparamos la Respuesta
-   guardar_json_en_archivo(resultado, tsp, archivo_instancia); // Guradamos el archivo JSON
-
-   liberar_instancia(instancia_feromonas, tsp->num_clientes);   // Liberemos la memoria de la instancia feromona
-   liberar_instancia(instancia_visibilidad, tsp->num_clientes); // Liberemos la memoria de la instancia visibilidad
-   liberar_instancia(instancia_distancias, tsp->num_clientes);  // Liberemos la memoria de la instancia distancias
-   liberar_rangos(rango);                                       // Liberemos la memoria de los rangos
-   liberar_individuos(objetivo, num_poblacion, true);           // Liberemos la memoria del objetivo
-   liberar_individuos(prueba, num_poblacion, false);            // Liberemos la memoria de la prueba
-   liberar_individuos(ruidoso, num_poblacion, false);           // Liberemos la memoria del ruidoso
-   liberar_individuos(resultado, 1, true);                      // Liberemos los resultado
-   liberar_memoria_tsp_configuracion(tsp);                      // Liberemos la memoria del tsp
+   // Liberamos toda la memoria dinámica usada
+   liberar_instancia(instancia_feromonas, tsp->num_clientes);
+   liberar_instancia(instancia_visibilidad, tsp->num_clientes);
+   liberar_instancia(instancia_distancias, tsp->num_clientes);
+   liberar_rangos(rango);
+   liberar_individuos(objetivo, num_poblacion, true);
+   liberar_individuos(prueba, num_poblacion, false);
+   liberar_individuos(ruidoso, num_poblacion, false);
+   liberar_individuos(resultado, 1, true);
+   liberar_memoria_tsp_configuracion(tsp); 
 }

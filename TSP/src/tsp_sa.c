@@ -292,18 +292,25 @@ void sa(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia
     liberar_lista_ruta(ind->metal->solucion_actual);
 }
 
-// Inicializa la estructura 'metal' que contiene información del espacio de búsqueda para SA
+// Función para inicializar la estructura de metal de un individuo
 void inicializar_metal(struct individuo *ind)
 {
+    // Se asigna memoria para la estructura 'metal' dentro del individuo
     ind->metal = asignar_memoria_metal();
-    ind->metal->solucion_vecina = NULL;
-    ind->metal->solucion_actual = NULL;
-    ind->metal->mejor_solucion = NULL;
-    ind->metal->fitness_solucion_actual = 0.0;
-    ind->metal->fitness_solucion_vecina = 0.0;
 
-    // Guarda la solución inicial (proveniente de ACO, por ejemplo)
+    // Inicialización de los punteros de la solución a NULL
+    ind->metal->solucion_vecina = NULL; // No hay una solución vecina inicialmente
+    ind->metal->solucion_actual = NULL; // No hay solución actual inicialmente
+    ind->metal->mejor_solucion = NULL; // No hay mejor solución inicialmente
+
+    // Inicialización de las variables de fitness a 0.0
+    ind->metal->fitness_solucion_actual = 0.0; // Fitness de la solución actual
+    ind->metal->fitness_solucion_vecina = 0.0; // Fitness de la solución vecina
+
+    // Guarda la solución inicial (por ejemplo, la proveniente de ACO) en la estructura metal
     ind->metal->solucion_inicial = copiar_lista_ruta(ind->hormiga->ruta);
+
+    // Guarda el fitness de la solución inicial
     ind->metal->fitness_solucion_inicial = ind->hormiga->fitness_global;
 }
 

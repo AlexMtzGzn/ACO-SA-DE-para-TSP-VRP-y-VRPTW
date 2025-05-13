@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
 #include <time.h>
@@ -10,6 +9,7 @@
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
 
+// Función para liberar la memoria de una hormiga
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
     // Verificamos que la hormiga del individuo esté inicializada
@@ -29,6 +29,7 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
     ind->hormiga->ruta = copiar_lista_ruta(hormiga->ruta);
 }
 
+// Función para reforzar la feromona en la mejor ruta de una hormiga
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
 {
     // Accedemos a la ruta de la hormiga
@@ -56,6 +57,7 @@ void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_fe
     }
 }
 
+// Función para actualizar la feromona en la matriz de feromona
 void actualizar_feromona(struct individuo *ind, struct hormiga *hormigas, struct tsp_configuracion *tsp, double **instancia_feromona, double delta)
 {
     // Evaporación de feromonas
@@ -85,6 +87,7 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormigas, struct
     }
 }
 
+// Función para evaluar la función objetivo (fitness) de una hormiga
 void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias)
 {
     hormiga->fitness_global = 0.0;
@@ -106,6 +109,7 @@ void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias)
     }
 }
 
+// Función para inicializar las hormigas
 void inicializar_hormiga(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *hormiga)
 {
     // Iteramos sobre todas las hormigas para inicializarlas
@@ -138,6 +142,7 @@ void inicializar_hormiga(struct tsp_configuracion *tsp, struct individuo *ind, s
     }
 }
 
+// Función para calcular los posibles clientes que pueden ser visitados por la hormiga
 void calcular_posibles_clientes(struct tsp_configuracion *tsp, struct hormiga *hormiga)
 {
     // Iteramos sobre todos los clientes para verificar si pueden ser visitados
@@ -153,6 +158,7 @@ void calcular_posibles_clientes(struct tsp_configuracion *tsp, struct hormiga *h
     }
 }
 
+// Función para calcular la probabilidad de elegir un cliente
 double calcular_probabilidad(int origen, int destino, struct individuo *ind, struct tsp_configuracion *tsp, struct hormiga *hormiga, double **instancia_feromona, double **instancia_visibilidad)
 {
     // Establecer un valor mínimo para evitar valores extremadamente pequeños
@@ -190,6 +196,7 @@ double calcular_probabilidad(int origen, int destino, struct individuo *ind, str
     return probabilidad;
 }
 
+// Funcion para seleccionar clientes y contruir la ruta de la hormiga
 void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *hormiga, double **instancia_visibilidad, double **instancia_feromona, double **instancia_distancias)
 {
     struct lista_ruta *ruta = NULL;
@@ -263,6 +270,7 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
             }
             else
             {
+                //Reiniciamos la hormiga
                 reiniciar_hormiga(hormiga, ind, tsp);
                 origen = 0;
                 continue;
@@ -277,6 +285,7 @@ void aco(struct tsp_configuracion *tsp, struct individuo *ind, struct hormiga *h
     insertar_cliente_ruta(hormiga, &tsp->clientes[0]);
 }
 
+// Función principal del algoritmo ACO para resolver el TSP
 void tsp_aco(struct tsp_configuracion *tsp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
     // Asignamos memoria para el número de hormigas

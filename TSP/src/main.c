@@ -4,6 +4,7 @@
 #include <time.h>
 #include "../include/aed.h"
 
+// Función principal
 int main(int argc, char *argv[])
 {
     // Verificación de parámetros
