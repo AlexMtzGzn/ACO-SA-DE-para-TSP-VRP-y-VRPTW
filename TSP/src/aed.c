@@ -315,8 +315,8 @@ void inicializa_poblacion(struct individuo *objetivo, struct tsp_configuracion *
       rango->maxRho = 0.5;
       rango->minRho = 0.3;
 
-      rango->maxNumHormigas = 40;
-      rango->minNumHormigas = 50;
+      rango->maxNumHormigas = 50;
+      rango->minNumHormigas = 40;
 
       rango->maxNumIteracionesACO = 200;
       rango->minNumIteracionesACO = 150;
