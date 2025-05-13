@@ -1,0 +1,135 @@
+{
+	"Archivo":	"C200_(25)",
+	"Tiempo Ejecucion en Minutos":	1,
+	"Poblacion: ":	10,
+	"Generaciones: ":	10,
+	"Alpha":	2.4407922259721868,
+	"Beta":	2.69330996353799,
+	"Rho":	0.428875108449196,
+	"Numero Hormigas":	17,
+	"Numero Iteraciones ACO":	57,
+	"Temperatura Inicial: ":	1696.5380477237227,
+	"Temperatura Final: ":	0.16906873130661842,
+	"Factor de Enfriamiento: ":	0.97357458063008939,
+	"Factor de Control: ":	0.653251007829444,
+	"Numero Iteraciones SA: ":	143,
+	"Fitness Global":	196.23028364125085,
+	"Vehiculos Necesarios":	"1/25",
+	"flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	700,
+			"Capacidad Acumulada":	460,
+			"Numero Clientes":	25,
+			"Fitness Vehiculo":	196.23028364125085,
+			"Ruta Clientes":	[0, 4, 3, 7, 1, 2, 5, 10, 11, 9, 13, 15, 12, 14, 16, 19, 18, 17, 23, 25, 8, 21, 22, 24, 6, 20, 0],
+			"Ruta Coordenadas":	[{
+					"Capacidad":	0,
+					"X":	40,
+					"Y":	50
+				}, {
+					"Capacidad":	10,
+					"X":	60,
+					"Y":	66
+				}, {
+					"Capacidad":	10,
+					"X":	62,
+					"Y":	69
+				}, {
+					"Capacidad":	20,
+					"X":	58,
+					"Y":	70
+				}, {
+					"Capacidad":	10,
+					"X":	52,
+					"Y":	75
+				}, {
+					"Capacidad":	30,
+					"X":	45,
+					"Y":	70
+				}, {
+					"Capacidad":	10,
+					"X":	42,
+					"Y":	65
+				}, {
+					"Capacidad":	10,
+					"X":	35,
+					"Y":	66
+				}, {
+					"Capacidad":	10,
+					"X":	35,
+					"Y":	69
+				}, {
+					"Capacidad":	10,
+					"X":	28,
+					"Y":	70
+				}, {
+					"Capacidad":	30,
+					"X":	22,
+					"Y":	75
+				}, {
+					"Capacidad":	40,
+					"X":	20,
+					"Y":	80
+				}, {
+					"Capacidad":	20,
+					"X":	25,
+					"Y":	85
+				}, {
+					"Capacidad":	10,
+					"X":	22,
+					"Y":	85
+				}, {
+					"Capacidad":	40,
+					"X":	20,
+					"Y":	85
+				}, {
+					"Capacidad":	10,
+					"X":	15,
+					"Y":	80
+				}, {
+					"Capacidad":	20,
+					"X":	15,
+					"Y":	75
+				}, {
+					"Capacidad":	20,
+					"X":	18,
+					"Y":	75
+				}, {
+					"Capacidad":	10,
+					"X":	14,
+					"Y":	66
+				}, {
+					"Capacidad":	40,
+					"X":	22,
+					"Y":	66
+				}, {
+					"Capacidad":	20,
+					"X":	34,
+					"Y":	60
+				}, {
+					"Capacidad":	20,
+					"X":	30,
+					"Y":	56
+				}, {
+					"Capacidad":	20,
+					"X":	28,
+					"Y":	52
+				}, {
+					"Capacidad":	10,
+					"X":	25,
+					"Y":	50
+				}, {
+					"Capacidad":	20,
+					"X":	16,
+					"Y":	42
+				}, {
+					"Capacidad":	10,
+					"X":	30,
+					"Y":	50
+				}, {
+					"Capacidad":	0,
+					"X":	40,
+					"Y":	50
+				}]
+		}]
+}
