@@ -1,11 +1,9 @@
 #ifndef CONFIGURACION_VRP_H
 #define CONFIGURACION_VRP_H
 
-// Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del VRP
+// Incluimos las bibliotecas necesarias
 #include <cjson/cJSON.h>
 #include "../include/estructuras.h"
-
-// Declaramos prototipos de funciones que gestionan la configuración de la instancia VRP con ventanas de tiempo (VRPTW)
 
 // Función para leer una instancia de VRP desde un archivo CSV, llenando la estructura vrp_configuracion
 void leemos_csv(vrp_configuracion *vrp, char *archivo_instancia,int tamanio_instancia);

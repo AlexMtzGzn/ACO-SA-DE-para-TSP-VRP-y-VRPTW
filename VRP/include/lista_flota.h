@@ -1,6 +1,7 @@
 #ifndef LISTA_FLOTA_H
 #define LISTA_FLOTA_H
 
+// Incluimos las bibliotecas necesarias
 #include <stdbool.h>
 #include "../include/estructuras.h"
 

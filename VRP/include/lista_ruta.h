@@ -1,6 +1,7 @@
 #ifndef LISTA_RUTA_H
 #define LISTA_RUTA_H
 
+// Incluimos las bibliotecas necesarias
 #include <stdbool.h>
 #include "../include/estructuras.h"
 

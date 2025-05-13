@@ -1,7 +1,7 @@
 #ifndef SALIDA_DATOS_H
 #define SALIDA_DATOS_H
 
-// Incluimos el archivo de estructuras necesarias
+// Incluimos las bibliotecas necesarias
 #include "../include/estructuras.h"
 
 // Función para imprimir un mensaje de texto que podría contener información sobre la instancia

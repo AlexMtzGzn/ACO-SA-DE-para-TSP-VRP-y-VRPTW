@@ -1,11 +1,9 @@
 #ifndef CONFIGURACION_JSON_H
 #define CONFIGURACION_JSON_H
 
-// Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del VRP
+// Incluimos las bibliotecas necesarias
 #include <cjson/cJSON.h>
 #include "../include/estructuras.h"
-
-// Declaramos prototipos de funciones que gestionan la configuración del archivo Json del VRP con ventanas de tiempo (VRPTW)
 
 // Función para generar un objeto JSON con las coordenadas de la ruta
 cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes);

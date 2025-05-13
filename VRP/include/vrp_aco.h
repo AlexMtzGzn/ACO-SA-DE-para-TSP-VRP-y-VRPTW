@@ -1,6 +1,7 @@
 #ifndef VRP_ACO_H
 #define VRP_ACO_H
 
+// Incluimos las bibliotecas necesarias
 #include <stdbool.h>
 #include "../include/estructuras.h"
 

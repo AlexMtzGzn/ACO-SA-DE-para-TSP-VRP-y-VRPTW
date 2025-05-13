@@ -1,10 +1,9 @@
 #ifndef AED_H
 #define AED_H
 
-// Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del VRP
+// Incluimos las bibliotecas necesarias
 #include "../include/estructuras.h"
 
-// Prototipos de funciones
 
 // Calcula la distancia entre dos clientes dados en la configuración del VRP
 double calcular_distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino);

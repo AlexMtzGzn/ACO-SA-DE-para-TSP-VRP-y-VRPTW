@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"
 #include "../include/lista_flota.h"
@@ -19,7 +18,7 @@ struct nodo_vehiculo *crear_nodo(struct hormiga *hormiga, struct vrp_configuraci
     vehiculo_nuevo->vehiculo->capacidad_acumulada = 0.0;
     vehiculo_nuevo->vehiculo->clientes_contados = 0;
     vehiculo_nuevo->vehiculo->fitness_vehiculo = 0.0;
-    
+
     // Asignar memoria para la lista de rutas y añadir el primer cliente
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();
     vehiculo_nuevo->siguiente = NULL;
@@ -55,8 +54,11 @@ void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *v
         }
     }
     else
-        // Si hubo un error al asignar memoria, mostrar mensaje de error
-        imprimir_mensaje("Error al asignar memoria al nodo del vehiculo.");
+    {
+        // Si no se pudo crear el vehículo, liberar la memoria
+        free(vehiculo_nuevo);
+        exit(EXIT_FAILURE);
+    }
 }
 
 // Función para copiar un vehículo original y crear una copia
@@ -126,6 +128,9 @@ void liberar_vehiculo(struct vehiculo *vehiculo)
 // Función para vaciar la memoria de la lista de vehículos
 void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
 {
+    if (flota == NULL)
+        return;
+
     struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
     while (vehiculo_actual)
     {
@@ -148,10 +153,8 @@ void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
 // Función para liberar la memoria de la lista de vehículos
 void liberar_lista_vehiculos(struct lista_vehiculos *flota)
 {
-    if (flota == NULL) {
-        printf("Flota nula, no hay nada que liberar.\n");
+    if (flota == NULL)
         return;
-    }
 
     struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
     while (vehiculo_actual)
@@ -159,19 +162,14 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
         struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
         vehiculo_actual = vehiculo_actual->siguiente;
 
-        if (vehiculo_temp->vehiculo == NULL) {
-            printf("vehiculo es NULL, se omite liberar\n");
-        } else {
+        if (vehiculo_temp->vehiculo != NULL)
             liberar_vehiculo(vehiculo_temp->vehiculo);
-        }
 
         free(vehiculo_temp);
     }
 
     free(flota);
 }
-
-
 
 struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind)
 {
@@ -193,12 +191,7 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct individuo *ind)
     }
 
     if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
-    {
-        //eliminar_vehiculo_vacio(ind->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
         return NULL;
-    }
     else
-    {
         return nodo_vehiculo_aleatorio;
-    }
 }
