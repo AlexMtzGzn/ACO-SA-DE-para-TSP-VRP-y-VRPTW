@@ -1,12 +1,12 @@
 # 🚚 "Optimización del Problema del Agente Viajero (TSP) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
 
-Este proyecto implementa una solución híbrida para el Problema del Agente Viajero (TSP), utilizando el algoritmo Ant Colony Optimization (ACO) para generar rutas iniciales, el Recocido Simulado (SA) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (DE).
+Este proyecto implementa una solución híbrida para el Problema del Agente Viajero (**TSP**), utilizando el algoritmo Ant Colony Optimization (**ACO**) para generar rutas iniciales, el Recocido Simulado (**SA**) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (**DE**).
 
 ---
 
 ## 🧩 ¿Qué es el TSP?
 
-El Problema del Agente Viajero (TSP, por sus siglas en inglés _Traveling Salesman Problem_) es uno de los problemas clásicos más conocidos en optimización combinatoria.
+El Problema del Agente Viajero (**TSP**, por sus siglas en inglés _Traveling Salesman Problem_) es uno de los problemas clásicos más conocidos en optimización combinatoria.
 
 Consiste en encontrar la ruta más corta posible que permita a un viajero visitar una serie de ciudades o clientes **exactamente una vez** y regresar al punto de partida.
 
@@ -14,11 +14,11 @@ Consiste en encontrar la ruta más corta posible que permita a un viajero visita
 
 ## 🐜 ¿Qué es ACO (Ant Colony Optimization)?
 
-ACO (Ant Colony Optimization) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
+**ACO** (Ant Colony Optimization) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
 
 En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromona. Cuanto mejor sea el camino (más corto), más feromona se acumulan, y más probabilidad es que otras hormigas lo sigan el camino, reforzando así la solución.
 
-En el TSP, simulamos este comportamiento:
+En el **TSP**, simulamos este comportamiento:
 
 - Cada "hormiga" construye una solución recorriendo ciudades o clientes.
 - Las decisiones se toman con base en:
@@ -30,7 +30,7 @@ En el TSP, simulamos este comportamiento:
 
 ## 🔥 ¿Qué es el Recocido Simulado (SA)?
 
-El Recocido Simulado (_Simulated Annealing_, SA) es una metaheurística inspirada en el proceso metalúrgico de recocido, donde un metal se calienta y luego se enfría de forma controlada para modificar sus propiedades físicas.
+El Recocido Simulado (_Simulated Annealing_, **SA**) es una metaheurística inspirada en el proceso metalúrgico de Recocido, donde un metal se calienta y luego se enfría de forma controlada para modificar sus propiedades físicas.
 
 En optimización:
 
@@ -44,7 +44,7 @@ En optimización:
 
 ## 🔄 Movimientos de Vecindad del Recocido Simulado (SA)
 
-Durante la optimización local con SA, se generan **soluciones vecinas** a partir de la solución actual mediante uno de los siguientes tres movimientos aleatorios:
+Durante la optimización local con **SA**, se generan **soluciones vecinas** a partir de la solución actual mediante uno de los siguientes tres movimientos aleatorios:
 
 1. **Inversión de un segmento de ruta:**  
    Se selecciona una ruta y se invierte el orden de visita de un segmento entre dos clientes. Este cambio puede reducir la distancia total si existen trayectos cruzados o ineficientes.
@@ -59,22 +59,22 @@ La elección del movimiento se realiza aleatoriamente con igual probabilidad, us
 
 ```bash
 if (prob < factor / 3.0)
-    aceptado = invertirSegmentoRuta(...);
+    aceptado = invertir_segmento_ruta(...);
 else if (prob < 2.0 * factor / 3.0)
-    aceptado = intercambiarClienteRuta(...);
+    aceptado = intercambiar_cliente_ruta(...);
 else
-    aceptado = moverClienteDentroDeRuta(...);
+    aceptado = mover_cliente_dentro_ruta(...);
 ```
 
-Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por DE.
+Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por **DE**.
 
-Este conjunto de movimientos permite que SA explore diversas configuraciones vecinas, ayudando a escapar de óptimos locales y mejorando la calidad de las rutas generadas por ACO.
+Este conjunto de movimientos permite que **SA** explore diversas configuraciones vecinas, ayudando a escapar de óptimos locales y mejorando la calidad de las rutas generadas por **ACO**.
 
 ---
 
 ## 🧬 ¿Qué es el Algoritmo Evolutivo Diferencial (DE)?
 
-DE es una técnica de optimización basada en poblaciones. Ideal para problemas continuos y para ajustar parámetros automáticamente.
+**DE** es una técnica de optimización basada en poblaciones. Ideal para problemas continuos y para ajustar parámetros automáticamente.
 
 📌 Se basa en tres operadores:
 
@@ -90,15 +90,15 @@ En este proyecto, **DE ajusta automáticamente los parámetros de ACO** (como α
 
 El enfoque fue **híbrido** con tres algortimos:
 
-- **ACO** resuelve el TSP directamente.
-- **SA** refina las rutas generadas por ACO.
+- **ACO** resuelve el **TSP** directamente.
+- **SA** refina las rutas generadas por **ACO**.
 - **DE** encuentra los mejores parámetros para ambos algoritmos.
 
 ---
 
 ## ⚙️ Rango de Parámetros Adaptativos según el Tamaño del Problema
 
-Para lograr una **mejor calibración** de los algoritmos ACO (Ant Colony Optimization) y SA (Simulated Annealing), se definieron **rangos de parámetros adaptativos** en función del número de clientes en la instancia del TSP.
+Para lograr una **mejor calibración** de los algoritmos ACO (Ant Colony Optimization) y **SA** (Simulated Annealing), se definieron **rangos de parámetros adaptativos** en función del número de clientes en la instancia del **TSP**.
 
 Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la complejidad del problema (tamaño de la instancia).
 
@@ -159,7 +159,7 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 
 ### 🧠 ¿Por qué definir rangos diferentes?
 
-Esto permite que el algoritmo DE explore soluciones **más ajustadas al tamaño del problema**, evitando usar configuraciones demasiado pequeñas para instancias grandes, o demasiado costosas para instancias pequeñas. De esta manera se logra un **balance entre calidad de la solución y tiempo de cómputo.**
+Esto permite que el algoritmo **DE** explore soluciones **más ajustadas al tamaño del problema**, evitando usar configuraciones demasiado pequeñas para instancias grandes, o demasiado costosas para instancias pequeñas. De esta manera se logra un **balance entre calidad de la solución y tiempo de cómputo.**
 
 ---
 
@@ -212,15 +212,15 @@ El objetivo principal de este proyecto es encontrar la mejor ruta para el **Prob
    - Se genera un archivo `.json` que contiene todos los **parámetros optimizados automáticamente** durante la ejecución, tales como:
      - Nombre del archivo de entrada
      - Tiempo de ejecución en minutos
-     - Población y generaciones del DE
-     - Parámetros de ACO (`α`, `β`, `ρ`, número de hormigas, iteraciones ACO)
-     - Parámetros de SA (temperatura inicial, final, factor de enfriamiento, factor de control, iteraciones SA)
+     - Población y generaciones del **DE**
+     - Parámetros de **ACO** (`α`, `β`, `ρ`, número de hormigas, iteraciones **ACO**)
+     - Parámetros de **SA** (temperatura inicial, final, factor de enfriamiento, factor de control, iteraciones **SA**)
      - Valor de fitness de la solución
      - Ruta generada (lista de ciudades o clientes visitados)
 
 4. **Imagen simulada**
 
-   - Se genera una imagen estática (`.png`) que representa visualmente la **ruta generada** por el algoritmo ACO.
+   - Se genera una imagen estática (`.png`) que representa visualmente la **ruta generada** por el algoritmo **ACO**.
 
    Ejemplo de visualización:
    ![Imagen Ruta](Recursos_Readme/Ejemplo_png.png)
@@ -435,7 +435,7 @@ Ejemplo:
 
 - archivo: el archivo de entrada.
 
-- numero_de_clientes: el número de clientes o ciudades a considerar en el TSP.
+- numero_de_clientes: el número de clientes o ciudades a considerar en el **TSP**.
 
 ### 3. Limpieza
 
@@ -518,11 +518,11 @@ make clean
 
 ## ✅ Conclusión
 
-El desarrollo de una metaheurística híbrida basada en Ant Colony Optimization (ACO) y Recocido Simulado (SA), calibrada automáticamente mediante un Algoritmo Evolutivo Diferencial (DE), demostró ser una estrategia efectiva para resolver el Problema del Agente Viajero (TSP).
+El desarrollo de una metaheurística híbrida basada en Ant Colony Optimization (**ACO**) y Recocido Simulado (**SA**), calibrada automáticamente mediante un Algoritmo Evolutivo Diferencial (**DE**), demostró ser una estrategia efectiva para resolver el Problema del Agente Viajero (**TSP**).
 
-El uso de ACO permitió generar soluciones iniciales de alta calidad inspiradas en el comportamiento de las hormigas, mientras que SA refinó estas soluciones para escapar de óptimos locales y explorar regiones más prometedoras del espacio de búsqueda. La incorporación del DE automatizó por completo el ajuste de parámetros, adaptando la configuración de los algoritmos en función del tamaño y complejidad del problema.
+El uso de **ACO** permitió generar soluciones iniciales de alta calidad inspiradas en el comportamiento de las hormigas, mientras que **SA** refinó estas soluciones para escapar de óptimos locales y explorar regiones más prometedoras del espacio de búsqueda. La incorporación del **DE** automatizó por completo el ajuste de parámetros, adaptando la configuración de los algoritmos en función del tamaño y complejidad del problema.
 
-Gracias a este enfoque híbrido, se obtuvieron rutas más cortas y eficientes con menor intervención manual, haciendo el sistema escalable y versátil para distintas instancias del TSP. Además, el uso de rangos adaptativos por tamaño del problema garantizó un equilibrio entre precisión y eficiencia computacional.
+Gracias a este enfoque híbrido, se obtuvieron rutas más cortas y eficientes con menor intervención manual, haciendo el sistema escalable y versátil para distintas instancias del **TSP**. Además, el uso de rangos adaptativos por tamaño del problema garantizó un equilibrio entre precisión y eficiencia computacional.
 
 ---
 
@@ -536,7 +536,7 @@ Además, se podría explorar la paralelización del algoritmo utilizando técnic
 
 ## ✅ Consideraciones finales
 
-Este trabajo busca contribuir al estudio y solución del problema TSP mediante la implementación de algoritmos bioinspirados. Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
+Este trabajo busca contribuir al estudio y solución del problema **TSP** mediante la implementación de algoritmos bioinspirados. Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
 
 ---
 
