@@ -35,10 +35,10 @@ double **asignar_memoria_instancia(int tamanio_instancia)
     return instancia;
 }
 
-//Asigana memoria para un arreglo de enteros
+// Asigana memoria para un arreglo de enteros
 int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 {
-    int *arreglo = (int *)calloc(tamanio_arreglo,sizeof(int));
+    int *arreglo = (int *)calloc(tamanio_arreglo, sizeof(int));
     if (arreglo == NULL)
     {
         imprimir_mensaje("No se pudo asignar memoria para el arreglo entero");
@@ -50,7 +50,7 @@ int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 // Asigna memoria para un arreglo de tipo double
 double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 {
-    double *arreglo = (double *)calloc(tamanio_arreglo,sizeof(double));
+    double *arreglo = (double *)calloc(tamanio_arreglo, sizeof(double));
     if (arreglo == NULL)
     {
         imprimir_mensaje("No se pudo asignar memoria para el arreglo double");
@@ -59,8 +59,7 @@ double *asignar_memoria_arreglo_double(int tamanio_arreglo)
     return arreglo;
 }
 
-
-//Libera la memoria del arreglo de enteros.
+// Libera la memoria del arreglo de enteros.
 void liberar_memoria_arreglo_int(int *arreglo)
 {
     free(arreglo);
@@ -102,57 +101,11 @@ void liberar_rangos(struct rangos *rango)
     free(rango);
 }
 
-/*=============================*/
-/*== ESTRUCTURA: INDIVIDUOS ==*/
-/*=============================*/
-
-// Asigna memoria para la estructura de individuos
-struct individuo *asignar_memoria_individuos(int poblacion)
-{
-    struct individuo *individuo = (struct individuo *)calloc(poblacion,sizeof(struct individuo));
-    if (individuo == NULL)
-    {
-        imprimir_mensaje("No se pudo asignar memoria para los individuos");
-        exit(EXIT_FAILURE);
-    }
-    return individuo;
-}
-
-// Libera la memoria de la estructura de individuos
-void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
-{
-    if (ind == NULL)
-        return;
-
-    if (tipo)
-    {
-        for (int i = 0; i < num_poblacion; i++)
-        {
-            if (ind[i].hormiga != NULL)
-            {
-                liberar_lista_vehiculos(ind[i].hormiga->flota);
-                ind[i].hormiga->flota = NULL;
-
-                free(ind[i].hormiga->tabu);
-                free(ind[i].hormiga->probabilidades);
-                free(ind[i].hormiga->posibles_clientes);
-
-                free(ind[i].hormiga);
-                ind[i].hormiga = NULL;
-            }
-        }
-    }
-
-    free(ind);
-}
-
-
-
 /*===============================*/
 /*== ESTRUCTURA: CONFIGURACIÓN ==*/
 /*===============================*/
 
-//Libera la memoria de la estructura 'vrp_configuracion'.
+// Libera la memoria de la estructura 'vrp_configuracion'.
 struct vrp_configuracion *asignar_memoria_vrp_configuracion()
 {
     struct vrp_configuracion *vrp = (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion));
@@ -164,7 +117,7 @@ struct vrp_configuracion *asignar_memoria_vrp_configuracion()
     return vrp;
 }
 
-//Libera la memoria de la estructura 'vrp_configuracion'.
+// Libera la memoria de la estructura 'vrp_configuracion'.
 void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
 {
     if (vrp != NULL)
@@ -191,6 +144,37 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
     return cliente;
 }
 
+/*=========================*/
+/*== ESTRUCTURA: METAL ====*/
+/*=========================*/
+
+// Asignamos memoria para la estructura metal
+struct metal *asignar_memoria_metal()
+{
+    struct metal *metal = (struct metal *)malloc(sizeof(struct metal));
+    if (metal == NULL)
+    {
+        imprimir_mensaje("No se pudo asignar memoria para el metal.");
+        exit(EXIT_FAILURE);
+    }
+    return metal;
+}
+
+// Liberamos memoria de la estructura metal
+void liberar_memoria_metal(struct individuo *ind)
+{
+    if (ind->metal)
+    {
+        if (ind->metal->solucion_vecina)
+            liberar_lista_vehiculos(ind->metal->solucion_vecina);
+        if (ind->metal->solucion_inicial)
+            liberar_lista_vehiculos(ind->metal->solucion_inicial);
+        if (ind->metal->mejor_solucion)
+            liberar_lista_vehiculos(ind->metal->mejor_solucion);
+        free(ind->metal);
+    }
+}
+
 /*==========================*/
 /*== ESTRUCTURA: HORMIGA ==*/
 /*==========================*/
@@ -199,7 +183,7 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
 
-    struct hormiga *hormiga = (struct hormiga *)calloc(numHormigas,sizeof(struct hormiga));
+    struct hormiga *hormiga = (struct hormiga *)calloc(numHormigas, sizeof(struct hormiga));
     if (hormiga == NULL)
     {
         imprimir_mensaje("No se pudo asignar memoria para hormigas.");
@@ -231,19 +215,54 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
         hormiga->probabilidades[i] = 0.0;
     }
 
-
     hormiga->tabu_contador = 0;
     hormiga->posibles_clientes_contador = 0;
     hormiga->suma_probabilidades = 0.0;
     hormiga->fitness_global = 0.0;
-    
+
     vaciar_lista_vehiculos(hormiga->flota);
     hormiga->vehiculos_necesarios = 0;
-    
+
     inserta_vehiculo_flota(hormiga, vrp, hormiga->vehiculos_necesarios + 1);
     hormiga->vehiculos_necesarios++;
 }
 
+/*=============================*/
+/*== ESTRUCTURA: INDIVIDUOS ==*/
+/*=============================*/
+
+// Asigna memoria para la estructura de individuos
+struct individuo *asignar_memoria_individuos(int poblacion)
+{
+    struct individuo *individuo = (struct individuo *)calloc(poblacion, sizeof(struct individuo));
+    if (individuo == NULL)
+    {
+        imprimir_mensaje("No se pudo asignar memoria para los individuos");
+        exit(EXIT_FAILURE);
+    }
+    return individuo;
+}
+
+// Libera la memoria de la estructura de individuos
+void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
+{
+    if (ind == NULL)
+        return;
+
+    if (tipo)
+    {
+        for (int i = 0; i < num_poblacion; i++)
+        {
+            if (ind[i].hormiga != NULL)
+            {
+                liberar_lista_vehiculos(ind[i].hormiga->flota);
+                free(ind[i].hormiga); // Libera la hormiga
+            }
+        }
+    }
+
+    free(ind); // Libera el arreglo de individuos
+}
 
 /*==========================*/
 /*== ESTRUCTURA: RUTA ======*/
@@ -320,36 +339,3 @@ struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
     }
     return nodo_vehiculo;
 }
-
-/*=========================*/
-/*== ESTRUCTURA: METAL ====*/
-/*=========================*/
-
-// Asignamos memoria para la estructura metal
-struct metal *asignar_memoria_metal()
-{
-    struct metal *metal = (struct metal *)malloc(sizeof(struct metal));
-    if (metal == NULL)
-    {
-        imprimir_mensaje("No se pudo asignar memoria para el metal.");
-        exit(EXIT_FAILURE);
-    }
-    return metal;
-}
-
-// Liberamos memoria de la estructura metal
-void liberar_memoria_metal(struct individuo *ind)
-{
-    if (ind->metal)
-    {
-        if (ind->metal->solucion_vecina)
-            liberar_lista_vehiculos(ind->metal->solucion_vecina);
-        if (ind->metal->solucion_inicial)
-            liberar_lista_vehiculos(ind->metal->solucion_inicial);
-        if (ind->metal->mejor_solucion)
-            liberar_lista_vehiculos(ind->metal->mejor_solucion);
-        free(ind->metal);
-    }
-}
-
-

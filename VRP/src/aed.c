@@ -391,6 +391,7 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
 
    // Inicializamos la estructura del mejor individuo
    resultado->fitness = INFINITY;
+
    // Evaluamos cada individuo de la población inicial
    for (int i = 0; i < num_poblacion; ++i)
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);

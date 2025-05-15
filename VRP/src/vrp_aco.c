@@ -16,8 +16,14 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
     if (ind->hormiga == NULL)
     {
-        struct hormiga *nueva_hormiga = asignar_memoria_hormigas(1);
-        // Copiar campos...
+        struct hormiga *nueva_hormiga = (struct hormiga *)calloc(1, sizeof(struct hormiga));
+        if (nueva_hormiga == NULL)
+        {
+            imprimir_mensaje("No se pudo asignar memoria para nueva hormiga.");
+            exit(EXIT_FAILURE);
+        }
+
+        // Copiar campos
         nueva_hormiga->id_hormiga = hormiga->id_hormiga;
         nueva_hormiga->fitness_global = hormiga->fitness_global;
         nueva_hormiga->vehiculos_maximos = hormiga->vehiculos_maximos;
@@ -37,7 +43,6 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
         ind->fitness = hormiga->fitness_global;
     }
 }
-
 
 
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
