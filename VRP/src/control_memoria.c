@@ -121,21 +121,31 @@ struct individuo *asignar_memoria_individuos(int poblacion)
 // Libera la memoria de la estructura de individuos
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
+    if (ind == NULL)
+        return;
+
     if (tipo)
     {
         for (int i = 0; i < num_poblacion; i++)
         {
-            if (ind[i].hormiga) 
+            if (ind[i].hormiga != NULL)
             {
-                if (ind[i].hormiga->flota) 
-                    vaciar_lista_vehiculos(ind[i].hormiga->flota);
+                liberar_lista_vehiculos(ind[i].hormiga->flota);
+                ind[i].hormiga->flota = NULL;
+
+                free(ind[i].hormiga->tabu);
+                free(ind[i].hormiga->probabilidades);
+                free(ind[i].hormiga->posibles_clientes);
 
                 free(ind[i].hormiga);
+                ind[i].hormiga = NULL;
             }
         }
     }
+
     free(ind);
 }
+
 
 
 /*===============================*/
@@ -199,9 +209,9 @@ struct hormiga *asignar_memoria_hormigas(int numHormigas)
 }
 
 // Liberamos memoria de la estructura hormiga
-void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
+void liberar_memoria_hormiga(struct hormiga *hormiga, int numHormigas)
 {
-    for (int i = 0; i < ind->numHormigas; i++)
+    for (int i = 0; i < numHormigas; i++)
     {
         liberar_memoria_arreglo_int(hormiga[i].tabu);
         liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);

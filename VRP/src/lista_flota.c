@@ -119,11 +119,13 @@ struct lista_vehiculos *copiar_lista_vehiculos(struct lista_vehiculos *original)
 // Función para liberar la memoria de un vehículo
 void liberar_vehiculo(struct vehiculo *vehiculo)
 {
-    // Liberar la memoria asociada a la ruta del vehículo
+    if (vehiculo == NULL)
+        return;
+
     liberar_ruta(vehiculo->ruta);
-    // Liberar la memoria del vehículo
     free(vehiculo);
 }
+
 
 // Función para vaciar la memoria de la lista de vehículos
 void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
@@ -157,19 +159,16 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
         return;
 
     struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
+
     while (vehiculo_actual)
     {
         struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
         vehiculo_actual = vehiculo_actual->siguiente;
 
-        // Liberar memoria del vehículo si existe
-        if (vehiculo_temp->vehiculo != NULL)
-            liberar_vehiculo(vehiculo_temp->vehiculo);
-
+        liberar_vehiculo(vehiculo_temp->vehiculo);
         free(vehiculo_temp);
     }
 
-    // Liberar la estructura de la lista
     free(flota);
 }
 

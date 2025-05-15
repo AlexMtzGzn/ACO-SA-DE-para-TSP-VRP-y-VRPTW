@@ -11,26 +11,34 @@
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
 
+
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
-    // Si ya existía una hormiga, liberar su flota primero
-    if (ind->hormiga != NULL && ind->hormiga->flota != NULL)
-        liberar_lista_vehiculos(ind->hormiga->flota);
-
-    // Si la hormiga no estaba creada aún, asignarla
     if (ind->hormiga == NULL)
-        ind->hormiga = asignar_memoria_hormigas(1);
+    {
+        struct hormiga *nueva_hormiga = asignar_memoria_hormigas(1);
+        // Copiar campos...
+        nueva_hormiga->id_hormiga = hormiga->id_hormiga;
+        nueva_hormiga->fitness_global = hormiga->fitness_global;
+        nueva_hormiga->vehiculos_maximos = hormiga->vehiculos_maximos;
+        nueva_hormiga->vehiculos_necesarios = hormiga->vehiculos_necesarios;
+        nueva_hormiga->flota = copiar_lista_vehiculos(hormiga->flota);
+        nueva_hormiga->tabu = NULL;
+        nueva_hormiga->posibles_clientes = NULL;
+        nueva_hormiga->probabilidades = NULL;
 
-    // Copiar los campos escalares
-    ind->hormiga->id_hormiga = hormiga->id_hormiga;
-    ind->fitness = hormiga->fitness_global;
-    ind->hormiga->fitness_global = hormiga->fitness_global;
-    ind->hormiga->vehiculos_maximos = hormiga->vehiculos_maximos;
-    ind->hormiga->vehiculos_necesarios = hormiga->vehiculos_necesarios;
-
-    // Copiar flota
-    ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota);
+        ind->hormiga = nueva_hormiga;
+        ind->fitness = nueva_hormiga->fitness_global;
+    }
+    else
+    {
+        liberar_lista_vehiculos(ind->hormiga->flota);
+        ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota);
+        ind->fitness = hormiga->fitness_global;
+    }
 }
+
+
 
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
 {
@@ -344,7 +352,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0]));
 }
 
-
 void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona)
 {
     // Asignamos memoria para el número de hormigas
@@ -399,5 +406,5 @@ void vrp_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **inst
     // imprimir_hormigas(hormiga, vrp, ind);
 
     // Liberamos la memoria utilizada por las hormigas al final del proceso
-    liberar_memoria_hormiga(hormiga, ind);
+    liberar_memoria_hormiga(hormiga, ind->numHormigas);
 }

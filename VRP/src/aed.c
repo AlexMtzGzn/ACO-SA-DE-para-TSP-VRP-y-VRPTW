@@ -391,8 +391,6 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
 
    // Inicializamos la estructura del mejor individuo
    resultado->fitness = INFINITY;
-   resultado->hormiga = asignar_memoria_hormigas(1); // Solo 1 hormiga, correspondiente al mejor
-
    // Evaluamos cada individuo de la población inicial
    for (int i = 0; i < num_poblacion; ++i)
       evaluaFO_AED(&objetivo[i], instancia_feromonas, instancia_visibilidad, instancia_distancias, vrp);
@@ -498,8 +496,8 @@ void aed_vrp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_instancia(instancia_visibilidad, vrp->num_clientes);
    liberar_instancia(instancia_distancias, vrp->num_clientes);
    liberar_rangos(rango);
-   liberar_individuos(objetivo, num_poblacion, true);
-   liberar_individuos(prueba, num_poblacion, true);
+   liberar_individuos(objetivo, num_poblacion, false);
+   liberar_individuos(prueba, num_poblacion, false);
    liberar_individuos(ruidoso, num_poblacion, false);
    liberar_individuos(resultado, 1, true);
    liberar_memoria_vrp_configuracion(vrp);

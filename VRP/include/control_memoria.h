@@ -60,7 +60,7 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);
 struct hormiga *asignar_memoria_hormigas(int numHormigas);
 
 // Libera la memoria de las hormigas y de los individuos relacionados
-void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind);
+void liberar_memoria_hormiga(struct hormiga *hormiga, int numHormigas);
 
 // Reinicia los valores de las hormigas para una nueva iteración
 void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp);
