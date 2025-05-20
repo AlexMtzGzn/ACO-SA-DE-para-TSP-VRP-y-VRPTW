@@ -11,12 +11,11 @@
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
 
-
 void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 {
     if (ind->hormiga == NULL)
     {
-        struct hormiga *nueva_hormiga = (struct hormiga *)calloc(1, sizeof(struct hormiga));
+        struct hormiga *nueva_hormiga = asignar_memoria_hormigas(1);
         if (nueva_hormiga == NULL)
         {
             imprimir_mensaje("No se pudo asignar memoria para nueva hormiga.");
@@ -40,10 +39,12 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
     {
         liberar_lista_vehiculos(ind->hormiga->flota);
         ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota);
+        ind->hormiga->vehiculos_maximos = hormiga->vehiculos_maximos;
+        ind->hormiga->vehiculos_necesarios = hormiga->vehiculos_necesarios;
         ind->fitness = hormiga->fitness_global;
+        ind->hormiga->fitness_global = hormiga->fitness_global;
     }
 }
-
 
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
 {
