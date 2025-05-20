@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "../include/estructuras.h"
 #include "../include/lista_flota.h"
@@ -197,10 +198,14 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, int numHormigas)
 {
     for (int i = 0; i < numHormigas; i++)
     {
-        liberar_memoria_arreglo_int(hormiga[i].tabu);
-        liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
-        liberar_memoria_arreglo_double(hormiga[i].probabilidades);
-        liberar_lista_vehiculos(hormiga[i].flota);
+        if (hormiga[i].tabu != NULL)
+            liberar_memoria_arreglo_int(hormiga[i].tabu);
+        if (hormiga[i].posibles_clientes != NULL)
+            liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
+        if (hormiga[i].probabilidades != NULL)
+            liberar_memoria_arreglo_double(hormiga[i].probabilidades);
+        if (hormiga[i].flota != NULL)
+            liberar_lista_vehiculos(hormiga[i].flota);
     }
     free(hormiga);
 }
@@ -250,16 +255,11 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
         return;
 
     if (tipo)
-    {
-        for (int i = 0; i < num_poblacion; i++)
+        if (ind->hormiga != NULL)
         {
-            if (ind[i].hormiga != NULL)
-            {
-                liberar_lista_vehiculos(ind[i].hormiga->flota);
-                free(ind[i].hormiga); // Libera la hormiga
-            }
+            liberar_memoria_hormiga(ind->hormiga, 1);
+            ind->hormiga = NULL;
         }
-    }
 
     free(ind); // Libera el arreglo de individuos
 }
