@@ -1,3 +1,9 @@
-# Proyecto-Terminal-Green-VRP
-El Green Vehicle Routing Problem (GVRP) se centra en optimizar rutas para vehículos ecológicos con autonomía limitada. El proyecto busca minimizar el impacto ambiental determinando rutas eficientes, considerando la necesidad de recarga o repostaje en estaciones especializadas, combinando sostenibilidad con la optimización logística.
- 
+# Optimización del TSP, VRP y VRPTW mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial
+
+El presente trabajo aborda la resolución de tres problemas clásicos de optimización combinatoria: el Problema del Agente Viajero (TSP), el Problema de Ruteo de Vehículos (VRP) y el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW). Estos problemas tienen una alta relevancia práctica en áreas como la logística, el transporte y la planificación de rutas, y se caracterizan por su complejidad computacional, perteneciendo a la clase NP-hard.
+
+Para enfrentar estos desafíos, se propone una metaheurística híbrida basada en la combinación de Sistemas de Colonias de Hormigas (ACO) y Recocido Simulado (SA), aprovechando la capacidad exploratoria de ACO y la capacidad de escape de óptimos locales de SA. A fin de mejorar el rendimiento del algoritmo híbrido, se implementa un proceso de calibración automática de parámetros utilizando el algoritmo de Evolución Diferencial (DE), permitiendo ajustar valores clave como el número de hormigas, los factores de influencia de feromonas y heurística (α y β), el coeficiente de evaporación (ρ), la temperatura inicial y el factor de enfriamiento de SA.
+
+Se realizaron experimentos con distintas instancias estándar para cada problema, analizando el desempeño del modelo propuesto en términos de calidad de solución y eficiencia computacional. Los resultados obtenidos muestran que la combinación de ACO y SA, junto con la calibración mediante DE, permite mejorar la calidad de las soluciones y reducir la sensibilidad del modelo a la elección manual de parámetros.
+
+Este trabajo contribuye al campo de la optimización metaheurística al demostrar la efectividad de un enfoque híbrido adaptativo para problemas de ruteo, abriendo la puerta a futuras aplicaciones en entornos más complejos y realistas.
