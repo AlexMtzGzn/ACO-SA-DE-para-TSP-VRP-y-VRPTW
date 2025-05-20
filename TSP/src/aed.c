@@ -497,7 +497,7 @@ void aed_tsp(int num_poblacion, int num_generaciones, int tamanio_instancia, cha
    liberar_instancia(instancia_visibilidad, tsp->num_clientes);
    liberar_instancia(instancia_distancias, tsp->num_clientes);
    liberar_rangos(rango);
-   liberar_individuos(objetivo, num_poblacion, true);
+   liberar_individuos(objetivo, num_poblacion, false);
    liberar_individuos(prueba, num_poblacion, false);
    liberar_individuos(ruidoso, num_poblacion, false);
    liberar_individuos(resultado, 1, true);
