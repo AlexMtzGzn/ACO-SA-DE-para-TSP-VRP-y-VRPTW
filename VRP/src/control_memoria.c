@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include <stdio.h>
 
 #include "../include/estructuras.h"
 #include "../include/lista_flota.h"

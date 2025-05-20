@@ -56,7 +56,7 @@ void insertar_cliente_ruta(struct hormiga *hormiga, struct vehiculo *vehiculo, s
 struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
 {
     // Se asigna memoria para la nueva lista de ruta
-    struct lista_ruta *ruta_nueva = malloc(sizeof(lista_ruta));
+    struct lista_ruta *ruta_nueva = asignar_memoria_lista_ruta();
     ruta_nueva->cabeza = NULL;
     ruta_nueva->cola = NULL;
 
@@ -65,7 +65,7 @@ struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
     while (actual != NULL)
     {
         // Se asigna memoria para un nuevo nodo y se copian los datos
-        struct nodo_ruta *nuevo_nodo = malloc(sizeof(struct nodo_ruta));
+        struct nodo_ruta *nuevo_nodo = asignar_memoria_nodo_ruta();
         nuevo_nodo->cliente = actual->cliente;
         nuevo_nodo->siguiente = NULL;
 
