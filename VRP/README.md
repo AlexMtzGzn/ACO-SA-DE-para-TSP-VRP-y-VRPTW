@@ -60,11 +60,11 @@ La elección del movimiento se realiza aleatoriamente con igual probabilidad, us
 
 ```bash
 if (prob < factor / 3.0)
-    aceptado = moverClienteVehiculo(...);
+    aceptado = mover_cliente_vehiculo(...);
 else if (prob < 2.0 * factor / 3.0)
-    aceptado = invertirSegmentoRuta(...);
+    aceptado = invertir__segmento_ruta(...);
 else
-    aceptado = moverDosClientesVehiculos(...);
+    aceptado = mover_dos_clientes_vehiculos(...);
 ```
 
 Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por **DE**.
@@ -236,23 +236,25 @@ El algoritmo **DE** se encarga de optimizar automáticamente los parámetros de 
      - Tiempo de ejecución en minutos
      - Tamaño de población y número de generaciones del DE
      - Parámetros de **ACO** (`α`, `β`, `ρ`, número de hormigas, iteraciones ACO)
-     - Parámetros de **SA** (temperatura inicial, final, factor de enfriamiento, factor de control, iteraciones SA)
+     - Parámetros de **SA** (temperatura inicial, final, factor de enfriamiento, factor de control, iteraciones **SA**)
      - Valor de fitness de la solución (distancia total recorrida)
      - Conjunto de rutas generadas (lista de clientes visitados por cada vehículo)
 
-4. **Imagen simulada**
+4. **GIF simulado**
+
+   - Se crea un **GIF animado** que simula el proceso de construcción de las rutas, mostrando cómo cada vehículo va atendiendo clientes, según el proceso de decisión de la hormiga.
+
+   Ejemplo de animación:  
+   ![Simulador Ruta](Recursos_Readme/Ejemplo_gif.gif)
+
+5. **Imagen simulada**
 
    - Se genera una imagen estática (`.png`) que representa visualmente el **conjunto de rutas** recorridas por los vehículos, partiendo y regresando al depósito.
 
    Ejemplo de visualización:  
    ![Imagen Ruta](Recursos_Readme/Ejemplo_png.png)
 
-5. **GIF simulado**
 
-   - Se crea un **GIF animado** que simula el proceso de construcción de las rutas, mostrando cómo cada vehículo va atendiendo clientes, según el proceso de decisión de la hormiga.
-
-   Ejemplo de animación:  
-   ![Simulador Ruta](Recursos_Readme/Ejemplo_gif.gif)
 
 ### 💾 Ejemplo de archivo JSON
 
@@ -637,7 +639,7 @@ Además, se podría explorar la paralelización del algoritmo utilizando técnic
 
 ## ✅ Consideraciones finales
 
-Este trabajo busca contribuir al estudio y solución del problema VRP mediante la implementación de algoritmos bioinspirados. La principal diferencia respecto a la versión TSP es la incorporación de restricciones de capacidad y la selección greedy de vehículos. Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
+Este trabajo busca contribuir al estudio y solución del problema **VRP** mediante la implementación de algoritmos bioinspirados. La principal diferencia respecto a la versión **TSP** es la incorporación de restricciones de capacidad y la selección greedy de vehículos. Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
 
 ---
 

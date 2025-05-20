@@ -1,6 +1,6 @@
 # 🚚 "Optimización del Problema del Agente Viajero (TSP) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
 
-Este proyecto implementa una solución híbrida para el Problema del Agente Viajero (**TSP**), utilizando el algoritmo Ant Colony Optimization (**ACO**) para generar rutas iniciales, el Recocido Simulado (**SA**) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (DE).
+Este proyecto implementa una solución híbrida para el Problema del Agente Viajero (**TSP**), utilizando el algoritmo Ant Colony Optimization (**ACO**) para generar rutas iniciales, el Recocido Simulado (**SA**) para refinarlas, y todo el proceso optimizado automáticamente mediante el Algoritmo Evolutivo Diferencial (**DE**).
 
 ---
 
@@ -8,7 +8,7 @@ Este proyecto implementa una solución híbrida para el Problema del Agente Viaj
 
 El Problema del Agente Viajero (**TSP**, por sus siglas en inglés _Traveling Salesman Problem_), es uno de los problemas clásicos más conocidos en optimización combinatoria.
 
-Consiste en encontrar la ruta más corta posible, que permita a un viajero visitar una serie de ciudades o clientes **exactamente una vez** y regresar al punto de partida.
+Consiste en encontrar la ruta más corta posible, que permita a un viajero visitar una serie de ciudades o clientes **exactamente una vez** y regresar al punto de partida. La meta principal es **minimizar la distancia total recorrida por los vehiculos**.
 
 ---
 
@@ -16,7 +16,7 @@ Consiste en encontrar la ruta más corta posible, que permita a un viajero visit
 
 **ACO** (Ant Colony Optimization) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
 
-En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromonas, cuanto mejor sea el camino (más corto), más feromonas se acumulan, y  hay más probabilidad de que otras hormigas sigan el camino, reforzando así la solución.
+En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromonas, cuanto mejor sea el camino (más corto), más feromonas se acumulan, y hay más probabilidad de que otras hormigas sigan el camino, reforzando así la solución.
 
 En el **TSP**, simulamos este comportamiento:
 
@@ -38,7 +38,7 @@ En optimización:
 - Gradualmente, **se vuelve más selectivo** a medida que la temperatura disminuye (_enfriamiento_).
 - Este enfoque permite escapar de óptimos locales y explorar ampliamente el espacio de soluciones.
 
-🔧 En nuestro sistema, **SA** toma las rutas generadas por **ACO** y las refina** mediante pequeñas modificaciones, aceptando temporalmente algunas soluciones subóptimas para potencialmente encontrar mejores soluciones globales.
+🔧 En nuestro sistema, **SA** toma las rutas generadas por **ACO** y las refina mediante pequeñas modificaciones, aceptando temporalmente algunas soluciones subóptimas para potencialmente encontrar mejores soluciones globales.
 
 ---
 
@@ -66,7 +66,7 @@ else
     aceptado = mover_cliente_dentro_ruta(...);
 ```
 
-Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por DE.
+Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por **DE**.
 
 Este conjunto de movimientos permite que **SA** explore diversas configuraciones vecinas, ayudando a escapar de óptimos locales y mejorando la calidad de las rutas generadas por **ACO**.
 
@@ -231,8 +231,6 @@ El objetivo principal de este proyecto es encontrar la mejor ruta para el **Prob
 
    Ejemplo de visualización:
    ![Imagen Ruta](Recursos_Readme/Ejemplo_png.png)
-
-
 
 ### 💾 Ejemplo de archivo JSON
 
@@ -538,7 +536,7 @@ Además, se podría explorar la paralelización del algoritmo utilizando técnic
 
 ## ✅ Consideraciones finales
 
-Este trabajo busca contribuir al estudio y solución del problema **TSP** mediante la implementación de algoritmos bioinspirados. 
+Este trabajo busca contribuir al estudio y solución del problema **TSP** mediante la implementación de algoritmos bioinspirados.
 
 Se invita a la comunidad a explorar, reutilizar y mejorar el código según sus necesidades.
 
