@@ -53,39 +53,39 @@ void insertar_cliente_ruta(struct hormiga *hormiga, struct vehiculo *vehiculo, s
 }
 
 // Función para copiar la ruta de un vehículo en una nueva estructura
-struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
+struct lista_ruta *copiar_ruta(struct lista_ruta *ruta_original)
 {
-    // Se asigna memoria para la nueva lista de ruta
+    if (ruta_original == NULL)
+        return NULL;
+
     struct lista_ruta *ruta_nueva = asignar_memoria_lista_ruta();
     ruta_nueva->cabeza = NULL;
     ruta_nueva->cola = NULL;
 
-    // Se itera sobre la ruta original para copiar los nodos
-    struct nodo_ruta *actual = vehiculo_original->ruta->cabeza;
+    struct nodo_ruta *actual = ruta_original->cabeza;
     while (actual != NULL)
     {
-        // Se asigna memoria para un nuevo nodo y se copian los datos
         struct nodo_ruta *nuevo_nodo = asignar_memoria_nodo_ruta();
         nuevo_nodo->cliente = actual->cliente;
         nuevo_nodo->siguiente = NULL;
 
-        // Si la nueva lista está vacía, el nodo es la cabeza y la cola
         if (ruta_nueva->cabeza == NULL)
         {
             ruta_nueva->cabeza = nuevo_nodo;
             ruta_nueva->cola = nuevo_nodo;
         }
-        else // Si no, se añade al final de la lista
+        else
         {
             ruta_nueva->cola->siguiente = nuevo_nodo;
             ruta_nueva->cola = nuevo_nodo;
         }
 
-        actual = actual->siguiente; // Se avanza al siguiente nodo en la ruta original
+        actual = actual->siguiente;
     }
 
-    return ruta_nueva; // Se retorna la copia de la ruta
+    return ruta_nueva;
 }
+
 
 // Función para liberar la memoria de una lista de ruta
 void liberar_ruta(struct lista_ruta *ruta)

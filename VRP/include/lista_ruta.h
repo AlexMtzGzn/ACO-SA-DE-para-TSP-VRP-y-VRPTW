@@ -15,7 +15,7 @@ bool es_vacia_lista_ruta(struct lista_ruta *ruta);
 void insertar_cliente_ruta(struct hormiga *hormiga, struct vehiculo *vehiculo, struct cliente *cliente);
 
 // Función para copiar una ruta de un vehículo original
-struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original);
+struct lista_ruta *copiar_ruta(struct lista_ruta *ruta_original);
 
 // Función para liberar la memoria ocupada por una lista de ruta
 void liberar_ruta(struct lista_ruta *ruta);

@@ -75,7 +75,7 @@ struct vehiculo *copiar_vehiculo(struct vehiculo *original)
     nuevo_vehiculo->fitness_vehiculo = original->fitness_vehiculo;
 
     // Copiar la ruta asociada al vehículo original
-    nuevo_vehiculo->ruta = copiar_ruta(original);
+    nuevo_vehiculo->ruta = copiar_ruta(original->ruta);
 
     return nuevo_vehiculo;
 }
