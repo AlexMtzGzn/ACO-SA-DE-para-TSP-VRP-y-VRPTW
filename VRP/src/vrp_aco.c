@@ -24,6 +24,7 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 
         // Copiar campos
         nueva_hormiga->id_hormiga = hormiga->id_hormiga;
+        ind->fitness = hormiga->fitness_global;
         nueva_hormiga->fitness_global = hormiga->fitness_global;
         nueva_hormiga->vehiculos_maximos = hormiga->vehiculos_maximos;
         nueva_hormiga->vehiculos_necesarios = hormiga->vehiculos_necesarios;
