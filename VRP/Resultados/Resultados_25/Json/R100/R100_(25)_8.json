@@ -1,0 +1,151 @@
+{
+	"Archivo":	"R100_(25)",
+	"Tiempo Ejecucion en Minutos":	1,
+	"Poblacion: ":	10,
+	"Generaciones: ":	10,
+	"Alpha":	1.5666147733883071,
+	"Beta":	1.1914281371009667,
+	"Rho":	0.57603475739063448,
+	"Numero Hormigas":	18,
+	"Numero Iteraciones ACO":	52,
+	"Temperatura Inicial: ":	1326.6366619275123,
+	"Temperatura Final: ":	0.29760022908337425,
+	"Factor de Enfriamiento: ":	0.99032871642817222,
+	"Factor de Control: ":	0.68029252094230264,
+	"Numero Iteraciones SA: ":	135,
+	"Fitness Global":	335.268843624772,
+	"Vehiculos Necesarios":	"2/25",
+	"flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	132,
+			"Numero Clientes":	11,
+			"Fitness Vehiculo":	141.53812551320451,
+			"Ruta Clientes":	[0, 13, 6, 18, 8, 7, 19, 11, 10, 20, 9, 1, 0],
+			"Ruta Coordenadas":	[{
+					"Capacidad":	0,
+					"X":	35,
+					"Y":	35
+				}, {
+					"Capacidad":	23,
+					"X":	30,
+					"Y":	25
+				}, {
+					"Capacidad":	3,
+					"X":	25,
+					"Y":	30
+				}, {
+					"Capacidad":	12,
+					"X":	20,
+					"Y":	40
+				}, {
+					"Capacidad":	9,
+					"X":	10,
+					"Y":	43
+				}, {
+					"Capacidad":	5,
+					"X":	20,
+					"Y":	50
+				}, {
+					"Capacidad":	17,
+					"X":	15,
+					"Y":	60
+				}, {
+					"Capacidad":	12,
+					"X":	20,
+					"Y":	65
+				}, {
+					"Capacidad":	16,
+					"X":	30,
+					"Y":	60
+				}, {
+					"Capacidad":	9,
+					"X":	45,
+					"Y":	65
+				}, {
+					"Capacidad":	16,
+					"X":	55,
+					"Y":	60
+				}, {
+					"Capacidad":	10,
+					"X":	41,
+					"Y":	49
+				}, {
+					"Capacidad":	0,
+					"X":	35,
+					"Y":	35
+				}]
+		}, {
+			"Id_vehiculo":	2,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	200,
+			"Numero Clientes":	14,
+			"Fitness Vehiculo":	193.73071811156748,
+			"Ruta Clientes":	[0, 12, 3, 24, 25, 4, 23, 22, 21, 2, 15, 14, 16, 17, 5, 0],
+			"Ruta Coordenadas":	[{
+					"Capacidad":	0,
+					"X":	35,
+					"Y":	35
+				}, {
+					"Capacidad":	19,
+					"X":	50,
+					"Y":	35
+				}, {
+					"Capacidad":	13,
+					"X":	55,
+					"Y":	45
+				}, {
+					"Capacidad":	3,
+					"X":	65,
+					"Y":	35
+				}, {
+					"Capacidad":	6,
+					"X":	65,
+					"Y":	20
+				}, {
+					"Capacidad":	19,
+					"X":	55,
+					"Y":	20
+				}, {
+					"Capacidad":	29,
+					"X":	55,
+					"Y":	5
+				}, {
+					"Capacidad":	18,
+					"X":	45,
+					"Y":	10
+				}, {
+					"Capacidad":	11,
+					"X":	45,
+					"Y":	20
+				}, {
+					"Capacidad":	7,
+					"X":	35,
+					"Y":	17
+				}, {
+					"Capacidad":	8,
+					"X":	30,
+					"Y":	5
+				}, {
+					"Capacidad":	20,
+					"X":	15,
+					"Y":	10
+				}, {
+					"Capacidad":	19,
+					"X":	10,
+					"Y":	20
+				}, {
+					"Capacidad":	2,
+					"X":	5,
+					"Y":	30
+				}, {
+					"Capacidad":	26,
+					"X":	15,
+					"Y":	30
+				}, {
+					"Capacidad":	0,
+					"X":	35,
+					"Y":	35
+				}]
+		}]
+}
