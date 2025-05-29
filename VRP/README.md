@@ -483,7 +483,7 @@ Es necesario tener un compilador de C instalado (como gcc) para compilar el cód
 Este proyecto requiere la librería `cJSON` para trabajar con archivos JSON en C.  
  Puedes encontrarla y consultar cómo instalarla en su repositorio oficial:
 
-👉 [https://github.com/DaveGamble/cJSON](https://github.com/DaveGamble/cJSON)
+👉 [https://github.com/DaveGamble/cJSON]
 
 ### 📦 Python
 
