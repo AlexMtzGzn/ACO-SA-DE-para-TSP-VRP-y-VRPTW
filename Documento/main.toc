@@ -1,9 +1,9 @@
 \babel@toc {spanish}{}\relax 
 \contentsline {chapter}{\numberline {1}Resumen}{1}{}%
-\contentsline {chapter}{\numberline {2}Introducci\'on}{3}{}%
+\contentsline {chapter}{\numberline {2}Introducción}{3}{}%
 \contentsline {chapter}{\numberline {3}Conocimientos preliminares}{5}{}%
-\contentsline {section}{\numberline {3.1}Problema de Optimizaci\'on}{5}{}%
-\contentsline {subsection}{\numberline {3.1.1}Tipos de Optimizaci\'on}{5}{}%
+\contentsline {section}{\numberline {3.1}Problema de Optimización}{5}{}%
+\contentsline {subsection}{\numberline {3.1.1}Tipos de Optimización}{5}{}%
 \contentsline {subsubsection}{Optimizaci\'on Discreta}{6}{}%
 \contentsline {subsubsection}{Optimizaci\'on Continua}{6}{}%
 \contentsline {section}{\numberline {3.2}Heur\'istica y Metaheur\'istica}{6}{}%

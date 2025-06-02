@@ -80,11 +80,12 @@
 %Estos datos apareceran en la portada y los encabezados
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\titulo{Nombre del Proyecto}
+\titulo{Optimización del TSP, VRP y VRPTW mediante una metaheurística híbrida ACO-SA con calibración de parámetros por Evolución Diferencial}
 \nombre{\uppercase{alejandro martínez guzmán}}
 \carrera{Licenciatura en Ingeniería en Computación}
 \director{\uppercase{edwin montes orozco}}
-\fecha{Mes y a\~no (de finalizaci\'on)}
+\fecha{Mayo de 2025}
+
 
 
 \begin{document}
@@ -93,56 +94,42 @@
 % Portada
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \thispagestyle{empty}
 
 \hskip-1.5cm
-\begin{minipage}[c][5cm][s]{4cm}
-	\begin{center}
-		%\rput(-2,.5){\uamlogo{.75}{black}}
 
-
-		\hskip2pt \vrule width2pt height16cm\hskip1mm
-		\vrule width1pt height16cm\\[10pt]
-
-	\end{center}
-\end{minipage}\quad
-%% Barra derecha - TÃ­Â­tulos
+% Barra derecha - Títulos
 \begin{minipage}[c][9.5cm][s]{10cm}
 	\begin{center}
 		% Barra superior
-		{\Large \scshape Universidad Aut\'onoma Metropolitana}
-		\vspace{.3cm}
+		{\Large \scshape Universidad Autónoma Metropolitana}
+		\vspace{0.3cm}
 		\hrule height2pt
-		\vspace{.1cm}
+		\vspace{0.1cm}
 		\hrule height1pt
-		\vspace{.3cm}
-		% \scshape
-		{ UNIDAD CUAJIMALPA}
-
+		\vspace{0.3cm}
+		{\scshape Unidad Cuajimalpa}
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		% Poner aquí el título del trabajo
+		% Título del trabajo (ajustar acentos y mayúsculas)
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		\vspace{2cm}
 
-		{\Large \textsc{GREEN-VRP}}
+		{\large \textbf{Optimización del TSP, VRP y VRPTW mediante una metaheurística híbrida ACO-SA con calibración de parámetros por Evolución Diferencial}}
 
 		\vspace{2cm}
 		\makebox[8cm][c]{\Large Proyecto Terminal}\\[8pt]
 
-
 		\makebox[6cm]{QUE PRESENTA:}\\[3pt]
-		\elnombre\\
-		\vspace{.5cm}
-		{\textsc {\large \lacarrera}}\\[3pt]
-		\makebox[10cm]{Departamento de Matem\'aticas Aplicadas e Ingenier\'{i}a}\\[13pt]
-		\makebox[10cm]{Divisi\'on de Ciencias Naturales e Ingenier\'ia}\\[13pt]
+		\elnombre\\[0.5cm]
 
+		{\textsc{\large \lacarrera}}\\[3pt]
+		\makebox[10cm]{Departamento de Matemáticas Aplicadas e Ingeniería}\\[13pt]
+		\makebox[10cm]{División de Ciencias Naturales e Ingeniería}\\[13pt]
 
 		\vspace{2cm}
 
-		{ Asesor y Responsable de la tesis:\\ \eldirector\\}
+		{Asesor y Responsable de la tesis:\\ \eldirector}
 
 		\vspace{2cm}
 		\begin{flushright}
@@ -151,6 +138,7 @@
 
 	\end{center}
 \end{minipage}
+
 
 
 \frontmatter{}
@@ -190,17 +178,17 @@
 %Uno o dos párrafos de que se hizo en el proyecto terminal
 
 
-\chapter{Introducci\'on}
+\chapter{Introducción}
 %una o dos p\'aginas, escrita para ser comprensible por cualquier persona
 \chapter{Conocimientos preliminares}
 %En este capítulo deberán incluir todos los conocimientos necesarios para poder entender los temas que se trataron en el proyecto. 
-\section{Problema de Optimizaci\'on}
+\section{Problema de Optimización}
 
-La optimización es una rama de las matemáticas aplicadas que se enfoca en el desarrollo de principios y métodos para resolver problemas cuantitativos en diversas disciplinas como la f\'isica, biolog\'ia, ingenier\'ia o econom\'ia, as\'i como en cualquier campo donde sea necesaria la toma de decisiones dentro de un conjunto de opciones, con el objetivo de encontrar la mejor o una de las mejores soluciones de manera eficiente.
+La optimización es una rama de las matemáticas aplicadas que se enfoca en el desarrollo de principios y métodos para resolver problemas cuantitativos en diversas disciplinas como la f\'isica, biolog\'ia, ingenier\'ia o econom\'ia, as\'i como en cualquier campo donde sea necesaria la toma de decisiones dentro de un conjunto de opciones, con el objetivo de encontrar la mejor o una de las mejores soluciones de manera eficiente,
 
-En t\'erminos formales, consideramos una funci\'on \( f : S \rightarrow \mathbb{R} \), donde \( S \subseteq \mathbb{R}^n \). Denominaremos a \( f \) como funci\'on objetivo, y a \( S \) lo llamaremos conjunto factible o conjunto de soluciones posibles.
+en términos formales, consideramos una función \( f : S \rightarrow \mathbb{R} \), donde \( S \subseteq \mathbb{R}^n \). Denominaremos a \( f \) como funci\'on objetivo, y a \( S \) lo llamaremos conjunto factible o conjunto de soluciones posibles.
 
-\subsection{Tipos de Optimizaci\'on}
+\subsection{Tipos de Optimización}
 
 Dentro de la optimizaci\'on, existen dos tipos principales: la optimizaci\'on discreta y la optimizaci\'on continua.
 

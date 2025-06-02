@@ -1,16 +1,15 @@
-INFO:  latexindent version 3.20.1, 2023-01-07, a script to indent .tex files
+INFO:  latexindent version 3.15, 2022-01-21, a script to indent .tex files
        latexindent lives here: /usr/share/texlive/texmf-dist/scripts/latexindent/
-       Thu Oct 24 23:30:36 2024
-       Filename: /home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento/main.tex
+       Fri May 30 00:59:17 2025
+       Filename: /home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex
 INFO:  Processing switches:
-INFO:  Directory for backup files and indent.log:
-       /home/amg/Documentos/Proyecto-Terminal-Green-VRP/Documento
+INFO:  Directory for backup files and indent.log: /home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento
 INFO:  YAML settings read: defaultSettings.yaml
        Reading defaultSettings.yaml from /usr/share/texlive/texmf-dist/scripts/latexindent/defaultSettings.yaml
-INFO:  YAML reading settings
-       Home directory is /home/amg
-       latexindent.pl didn't find indentconfig.yaml or .indentconfig.yaml
-       see all possible locations: https://latexindentpl.readthedocs.io/en/latest/sec-appendices.html#indentconfig-options)
+INFO:  YAML settings read: indentconfig.yaml or .indentconfig.yaml
+       Home directory is /home/amg (didn't find either indentconfig.yaml or .indentconfig.yaml)
+       To specify user settings you would put indentconfig.yaml here: /home/amg/indentconfig.yaml
+       Alternatively, you can use the hidden file .indentconfig.yaml as: /home/amg/.indentconfig.yaml
 INFO:  Phase 1: searching for objects
 INFO:  Phase 2: finding surrounding indentation
 INFO:  Phase 3: indenting objects
