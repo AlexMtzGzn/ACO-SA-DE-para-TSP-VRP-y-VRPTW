@@ -410,6 +410,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
             // Calculamos el fitness de la ruta generada por la hormiga j
             evaluaFO_ACO(&hormiga[j], instancia_distancias);
+
+             //Vamos a refinar la ruta de la hormiga
+            vrp_tw_sa(vrp,&hormiga[j],ind,instancia_distancias);
         }
 
         // Buscamos la hormiga con el mejor fitness en esta iteración
@@ -442,7 +445,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
     calculamosVentanasCapacidad(ind->hormiga->flota, vrp, instancia_distancias);
 
-    vrp_tw_sa(vrp, ind, instancia_distancias);
+    //vrp_tw_sa(vrp, ind, instancia_distancias);
     //  Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);
 }

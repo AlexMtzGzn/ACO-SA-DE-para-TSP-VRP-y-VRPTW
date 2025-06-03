@@ -86,6 +86,6 @@ struct vehiculo *asignar_memoria_vehiculo();
 struct nodo_vehiculo *asignar_memoria_nodo_vehiculo();
 
 struct metal *asignar_memoria_metal();
-void liberar_memoria_metal(struct individuo *ind);
+void liberar_memoria_metal(struct hormiga * hormiga);
 
 #endif // CONTROL_MEMORIA_H

@@ -555,12 +555,12 @@ void sa(struct vrp_configuracion *vrp, struct hormiga * hormiga, struct individu
     // Ciclo de enfriamiento
     while (temperatura > ind->temperatura_final)
     {
-        // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
+        //>>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
         // printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
         //        temperatura,
-        //        ind->metal->fitness_solucion_actual,
-        //        ind->metal->fitness_mejor_solucion);
-        // <<<
+        //        hormiga->metal->fitness_solucion_actual,
+        //        hormiga->metal->fitness_mejor_solucion);
+       // <<<
 
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
@@ -638,25 +638,24 @@ void inicializar_metal(struct hormiga * hormiga)
 void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga * hormiga, struct individuo *ind, double **instancia_distancias)
 {
     inicializar_metal(hormiga);
-    sa(vrp, hormiga,ind,instancia_distancias);
+    sa(vrp, hormiga, ind, instancia_distancias);
     calculamosVentanasCapacidad(hormiga->metal->mejor_solucion, vrp, instancia_distancias);
 
     // Si se mejora la solución global, se guarda
     if (hormiga->metal->fitness_mejor_solucion < hormiga->fitness_global)
     {
-        // printf("\nMejoro de %.2lf a %.2lf", ind->hormiga->fitness_global, ind->metal->fitness_mejor_solucion);
-        hormiga->fitness_global = hormiga->metal->fitness_mejor_solucion;
+        printf("\nMejoro de %.2lf a %.2lf", hormiga->fitness_global, hormiga->metal->fitness_mejor_solucion);
         hormiga->fitness_global = hormiga->metal->fitness_mejor_solucion;
 
-        if (ind->hormiga->flota)
-            liberar_lista_vehiculos(ind->hormiga->flota);
+        if (hormiga->flota)
+            liberar_lista_vehiculos(hormiga->flota);
 
-        ind->hormiga->flota = copiar_lista_vehiculos(hormiga->metal->mejor_solucion);
+        hormiga->flota = copiar_lista_vehiculos(hormiga->metal->mejor_solucion);
     }
-    // else
-    // {
-    //     printf("\nNo mejora %.2lf", ind->hormiga->fitness_global);
-    // }
+    else
+    {
+        printf("\nNo mejora %.2lf", hormiga->fitness_global);
+    }
 
-    liberar_memoria_metal(ind); // Limpieza final
+    liberar_memoria_metal(hormiga); // Limpieza final
 }
