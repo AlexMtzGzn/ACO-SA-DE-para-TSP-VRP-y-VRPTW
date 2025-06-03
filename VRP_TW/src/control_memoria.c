@@ -400,17 +400,17 @@ struct metal *asignar_memoria_metal()
  * Libera la memoria de la estructura 'metal' dentro de un individuo.
  * Esto incluye liberar las listas de vehículos asociadas.
  */
-void liberar_memoria_metal(struct individuo *ind)
+void liberar_memoria_metal(struct hormiga * hormiga)
 {
-    if (ind->metal)
+    if (hormiga->metal)
     {
-        if (ind->metal->solucion_vecina)
-            liberar_lista_vehiculos(ind->metal->solucion_vecina);
-        if (ind->metal->solucion_inicial)
-            liberar_lista_vehiculos(ind->metal->solucion_inicial);
-        if (ind->metal->mejor_solucion)
-            liberar_lista_vehiculos(ind->metal->mejor_solucion);
+        if (hormiga->metal->solucion_vecina)
+            liberar_lista_vehiculos(hormiga->metal->solucion_vecina);
+        if (hormiga->metal->solucion_inicial)
+            liberar_lista_vehiculos(hormiga->metal->solucion_inicial);
+        if (hormiga->metal->mejor_solucion)
+            liberar_lista_vehiculos(hormiga->metal->mejor_solucion);
 
-        free(ind->metal); // Liberamos la memoria de la estructura 'metal'
+        free(hormiga->metal); // Liberamos la memoria de la estructura 'metal'
     }
 }

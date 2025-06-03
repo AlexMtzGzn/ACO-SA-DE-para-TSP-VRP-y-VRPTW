@@ -129,15 +129,15 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
     }
 }
 
-void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+void evaluaFO_SA(struct hormiga * hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    ind->metal->fitness_solucion_vecina = 0.0;
+    hormiga->metal->fitness_solucion_vecina = 0.0;
 
     struct lista_ruta *ruta;
     nodo_ruta *nodo_actual;
     double fitness_vehiculo;
     int cliente_actual, cliente_siguiente;
-    struct nodo_vehiculo *vehiculo_actual = ind->metal->solucion_vecina->cabeza;
+    struct nodo_vehiculo *vehiculo_actual = hormiga->metal->solucion_vecina->cabeza;
 
     // Recorre todos los vehículos de la solución vecina
     while (vehiculo_actual != NULL)
@@ -157,12 +157,12 @@ void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **
         }
 
         vehiculo_actual->vehiculo->fitness_vehiculo = fitness_vehiculo;
-        ind->metal->fitness_solucion_vecina += fitness_vehiculo;
+        hormiga->metal->fitness_solucion_vecina += fitness_vehiculo;
         vehiculo_actual = vehiculo_actual->siguiente;
     }
 }
 
-bool moverDosClientesVehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+bool moverDosClientesVehiculos(struct hormiga * hormiga,struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     nodo_vehiculo *primer_vehiculo = NULL, *segundo_vehiculo = NULL;
     nodo_ruta *primer_nodo_cliente = NULL, *segundo_nodo_cliente = NULL;
@@ -175,8 +175,8 @@ bool moverDosClientesVehiculos(struct individuo *ind, struct vrp_configuracion *
         bool vehiculos_validos = false;
         for (int j = 0; j < 10; j++)
         {
-            primer_vehiculo = seleccionar_vehiculo_aleatorio(ind);
-            segundo_vehiculo = seleccionar_vehiculo_aleatorio(ind);
+            primer_vehiculo = seleccionar_vehiculo_aleatorio(hormiga);
+            segundo_vehiculo = seleccionar_vehiculo_aleatorio(hormiga);
 
             if (!primer_vehiculo || !segundo_vehiculo || !primer_vehiculo->vehiculo || !segundo_vehiculo->vehiculo)
                 continue;
@@ -274,7 +274,7 @@ bool moverDosClientesVehiculos(struct individuo *ind, struct vrp_configuracion *
     return factible;
 }
 
-bool moverClienteEntreVehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+bool moverClienteEntreVehiculos(struct hormiga * hormiga,struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
     nodo_ruta *nodo_cliente = NULL;
@@ -286,8 +286,8 @@ bool moverClienteEntreVehiculos(struct individuo *ind, struct vrp_configuracion 
         bool vehiculos_validos = false;
         for (int j = 0; j < 10; j++)
         {
-            vehiculo_origen = seleccionar_vehiculo_aleatorio(ind);
-            vehiculo_destino = seleccionar_vehiculo_aleatorio(ind);
+            vehiculo_origen = seleccionar_vehiculo_aleatorio(hormiga);
+            vehiculo_destino = seleccionar_vehiculo_aleatorio(hormiga);
 
             if (!vehiculo_origen || !vehiculo_destino ||
                 !vehiculo_origen->vehiculo || !vehiculo_destino->vehiculo)
@@ -353,7 +353,7 @@ bool moverClienteEntreVehiculos(struct individuo *ind, struct vrp_configuracion 
 }
 
 // Intercambia dos clientes aleatorios dentro de un mismo vehículo
-bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+bool intercambiarClienteRuta(struct hormiga * hormiga,struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     int vehiculo_aleatorio, intentos = 10, cliente1_idx, cliente2_idx, temp;
     nodo_vehiculo *vehiculo_actual = NULL;
@@ -361,9 +361,9 @@ bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vr
 
     while (intentos--)
     {
-        vehiculo_aleatorio = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
+        vehiculo_aleatorio = (rand() % hormiga->vehiculos_necesarios) + 1;
 
-        vehiculo_actual = ind->metal->solucion_vecina->cabeza;
+        vehiculo_actual = hormiga->metal->solucion_vecina->cabeza;
         while (vehiculo_actual != NULL)
         {
             if (vehiculo_actual->vehiculo->id_vehiculo == vehiculo_aleatorio)
@@ -416,7 +416,7 @@ bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vr
 }
 
 // Invierte el orden de un segmento de la ruta
-bool invertirSegmentoRuta(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+bool invertirSegmentoRuta(struct hormiga * hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
 
     nodo_vehiculo *vehiculo_actual = NULL;
@@ -428,7 +428,7 @@ bool invertirSegmentoRuta(struct individuo *ind, struct vrp_configuracion *vrp, 
     // Seleccionamos un vehículo aleatorio que tenga al menos 3 clientes
     for (int intento = 0; intento < 10; intento++)
     {
-        vehiculo_actual = seleccionar_vehiculo_aleatorio(ind);
+        vehiculo_actual = seleccionar_vehiculo_aleatorio(hormiga);
 
         if (vehiculo_actual && vehiculo_actual->vehiculo->clientes_contados >= 3)
             break;
@@ -532,25 +532,25 @@ bool invertirSegmentoRuta(struct individuo *ind, struct vrp_configuracion *vrp, 
 }
 
 // Copia la solución actual como base para generar un vecino
-void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp)
+void generar_vecino(struct hormiga * hormiga, struct vrp_configuracion *vrp)
 {
-    if (ind->metal->solucion_vecina)
-        liberar_lista_vehiculos(ind->metal->solucion_vecina);
+    if (hormiga->metal->solucion_vecina)
+        liberar_lista_vehiculos(hormiga->metal->solucion_vecina);
 
-    ind->metal->solucion_vecina = copiar_lista_vehiculos(ind->metal->solucion_actual);
+    hormiga->metal->solucion_vecina = copiar_lista_vehiculos(hormiga->metal->solucion_actual);
 }
 
 // Algoritmo de Recocido Simulado (SA)
-void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
+void sa(struct vrp_configuracion *vrp, struct hormiga * hormiga, struct individuo * ind, double **instancia_distancias)
 {
     double temperatura = ind->temperatura_inicial, delta, prob, factor;
     bool aceptado = false;
 
     // Inicialización de soluciones
-    ind->metal->mejor_solucion = copiar_lista_vehiculos(ind->metal->solucion_inicial);
-    ind->metal->fitness_mejor_solucion = ind->metal->fitness_solucion_inicial;
-    ind->metal->solucion_actual = copiar_lista_vehiculos(ind->metal->solucion_inicial);
-    ind->metal->fitness_solucion_actual = ind->metal->fitness_solucion_inicial;
+    hormiga->metal->mejor_solucion = copiar_lista_vehiculos(hormiga->metal->solucion_inicial);
+    hormiga->metal->fitness_mejor_solucion = hormiga->metal->fitness_solucion_inicial;
+    hormiga->metal->solucion_actual = copiar_lista_vehiculos(hormiga->metal->solucion_inicial);
+    hormiga->metal->fitness_solucion_actual = hormiga->metal->fitness_solucion_inicial;
 
     // Ciclo de enfriamiento
     while (temperatura > ind->temperatura_final)
@@ -564,36 +564,36 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
 
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
-            generar_vecino(ind, vrp);
+            generar_vecino(hormiga, vrp);
 
             prob = (double)rand() / RAND_MAX;
             factor = ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial));
             aceptado = false;
 
-            if (ind->hormiga->vehiculos_necesarios > 1)
+            if (hormiga->vehiculos_necesarios > 1)
             {
                 // Distribuye el factor entre los tres movimientos, puedes ajustar los pesos si lo deseas
                 if (prob < factor / 3.0)
-                    aceptado = moverDosClientesVehiculos(ind, vrp, instancia_distancias);
+                    aceptado = moverDosClientesVehiculos(hormiga, vrp, instancia_distancias);
                 else if (prob < 2.0 * factor / 3.0)
-                    aceptado = moverClienteEntreVehiculos(ind, vrp, instancia_distancias);
+                    aceptado = moverClienteEntreVehiculos(hormiga, vrp, instancia_distancias);
                 else
-                    aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
+                    aceptado = intercambiarClienteRuta(hormiga, vrp, instancia_distancias);
             }
             else
             {
                 // Si solo hay un vehículo, 50% para cada operador
                 if (prob < factor / 2.0)
-                    aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
+                    aceptado = intercambiarClienteRuta(hormiga, vrp, instancia_distancias);
                 else if (prob < factor)
-                    aceptado = invertirSegmentoRuta(ind, vrp, instancia_distancias);
+                    aceptado = invertirSegmentoRuta(hormiga, vrp, instancia_distancias);
             }
 
             if (!aceptado)
                 continue;
 
-            evaluaFO_SA(ind, vrp, instancia_distancias);
-            delta = ind->metal->fitness_solucion_vecina - ind->metal->fitness_solucion_actual;
+            evaluaFO_SA(hormiga, vrp, instancia_distancias);
+            delta = hormiga->metal->fitness_solucion_vecina - hormiga->metal->fitness_solucion_actual;
 
             bool aceptar = false;
             if (delta < 0 || (double)rand() / RAND_MAX < exp(-delta / temperatura * factor))
@@ -601,15 +601,15 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
 
             if (aceptar)
             {
-                liberar_lista_vehiculos(ind->metal->solucion_actual);
-                ind->metal->solucion_actual = copiar_lista_vehiculos(ind->metal->solucion_vecina);
-                ind->metal->fitness_solucion_actual = ind->metal->fitness_solucion_vecina;
+                liberar_lista_vehiculos(hormiga->metal->solucion_actual);
+                hormiga->metal->solucion_actual = copiar_lista_vehiculos(hormiga->metal->solucion_vecina);
+                hormiga->metal->fitness_solucion_actual = hormiga->metal->fitness_solucion_vecina;
 
-                if (ind->metal->fitness_solucion_actual < ind->metal->fitness_mejor_solucion)
+                if (hormiga->metal->fitness_solucion_actual < hormiga->metal->fitness_mejor_solucion)
                 {
-                    liberar_lista_vehiculos(ind->metal->mejor_solucion);
-                    ind->metal->mejor_solucion = copiar_lista_vehiculos(ind->metal->solucion_actual);
-                    ind->metal->fitness_mejor_solucion = ind->metal->fitness_solucion_actual;
+                    liberar_lista_vehiculos(hormiga->metal->mejor_solucion);
+                    hormiga->metal->mejor_solucion = copiar_lista_vehiculos(hormiga->metal->solucion_actual);
+                    hormiga->metal->fitness_mejor_solucion = hormiga->metal->fitness_solucion_actual;
                 }
             }
         }
@@ -617,42 +617,41 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
         temperatura *= ind->factor_enfriamiento; // Disminuye temperatura
     }
 
-    liberar_lista_vehiculos(ind->metal->solucion_actual);
+    liberar_lista_vehiculos(hormiga->metal->solucion_actual);
 }
 
 // Inicializa la estructura metal de un individuo
-void inicializar_metal(struct individuo *ind)
+void inicializar_metal(struct hormiga * hormiga)
 {
-    ind->metal = asignar_memoria_metal();
-    ind->metal->solucion_vecina = NULL;
-    ind->metal->solucion_actual = NULL;
-    ind->metal->mejor_solucion = NULL;
-    ind->metal->fitness_solucion_actual = 0.0;
-    ind->metal->fitness_solucion_vecina = 0.0;
-    ind->metal->fitness_mejor_solucion = 0.0;
-    ind->metal->solucion_inicial = copiar_lista_vehiculos(ind->hormiga->flota);
-    ind->metal->fitness_solucion_inicial = ind->hormiga->fitness_global;
+    hormiga->metal = asignar_memoria_metal();
+    hormiga->metal->solucion_vecina = NULL;
+    hormiga->metal->solucion_actual = NULL;
+    hormiga->metal->mejor_solucion = NULL;
+    hormiga->metal->fitness_solucion_actual = 0.0;
+    hormiga->metal->fitness_solucion_vecina = 0.0;
+    hormiga->metal->fitness_mejor_solucion = 0.0;
+    hormiga->metal->solucion_inicial = copiar_lista_vehiculos(hormiga->flota);
+    hormiga->metal->fitness_solucion_inicial = hormiga->fitness_global;
 }
 
 // Función principal que ejecuta SA sobre un individuo del VRP
-void vrp_tw_sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
+void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga * hormiga, struct individuo *ind, double **instancia_distancias)
 {
-
-    inicializar_metal(ind);
-    sa(vrp, ind, instancia_distancias);
-    calculamosVentanasCapacidad(ind->metal->mejor_solucion, vrp, instancia_distancias);
+    inicializar_metal(hormiga);
+    sa(vrp, hormiga,ind,instancia_distancias);
+    calculamosVentanasCapacidad(hormiga->metal->mejor_solucion, vrp, instancia_distancias);
 
     // Si se mejora la solución global, se guarda
-    if (ind->metal->fitness_mejor_solucion < ind->hormiga->fitness_global)
+    if (hormiga->metal->fitness_mejor_solucion < hormiga->fitness_global)
     {
         // printf("\nMejoro de %.2lf a %.2lf", ind->hormiga->fitness_global, ind->metal->fitness_mejor_solucion);
-        ind->fitness = ind->metal->fitness_mejor_solucion;
-        ind->hormiga->fitness_global = ind->metal->fitness_mejor_solucion;
+        hormiga->fitness_global = hormiga->metal->fitness_mejor_solucion;
+        hormiga->fitness_global = hormiga->metal->fitness_mejor_solucion;
 
         if (ind->hormiga->flota)
             liberar_lista_vehiculos(ind->hormiga->flota);
 
-        ind->hormiga->flota = copiar_lista_vehiculos(ind->metal->mejor_solucion);
+        ind->hormiga->flota = copiar_lista_vehiculos(hormiga->metal->mejor_solucion);
     }
     // else
     // {

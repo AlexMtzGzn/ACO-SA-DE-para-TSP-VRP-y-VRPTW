@@ -93,6 +93,7 @@ typedef struct hormiga
     int vehiculos_necesarios;       // Número de vehículos necesarios para la hormiga
     int vehiculos_maximos;          // Número máximo de vehículos que puede utilizar la hormiga
     double fitness_global;          // Medida de rendimiento de la hormiga
+    metal *metal;                   // Puntero a las soluciones de SA
     lista_vehiculos *flota;         // Flota de vehículos asignada a la hormiga
 } hormiga;
 
@@ -167,7 +168,7 @@ typedef struct individuo
     int numIteracionesSA;       // Número de iteraciones del algoritmo SA
     double fitness;             // Medida de rendimiento del individuo
     hormiga *hormiga;           // Puntero a la hormiga asociada al individuo
-    metal *metal;               // Puntero a las soluciones de SA
+    //metal *metal;               // Puntero a las soluciones de SA
 } individuo;
 
 #endif // ESTRUCTURAS_H
