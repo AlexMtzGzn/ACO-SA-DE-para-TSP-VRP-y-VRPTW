@@ -30,6 +30,7 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga)
 
     // Copiar flota
     ind->hormiga->flota = copiar_lista_vehiculos(hormiga->flota);
+
 }
 
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta)
