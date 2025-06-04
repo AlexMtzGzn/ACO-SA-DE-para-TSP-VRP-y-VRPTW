@@ -645,7 +645,7 @@ void vrp_tw_sa(struct vrp_configuracion *vrp, struct individuo *ind, double **in
     // Si se mejora la solución global, se guarda
     if (ind->metal->fitness_mejor_solucion < ind->hormiga->fitness_global)
     {
-        // printf("\nMejoro de %.2lf a %.2lf", ind->hormiga->fitness_global, ind->metal->fitness_mejor_solucion);
+        printf("\nMejoro de %.2lf a %.2lf", ind->hormiga->fitness_global, ind->metal->fitness_mejor_solucion);
         ind->fitness = ind->metal->fitness_mejor_solucion;
         ind->hormiga->fitness_global = ind->metal->fitness_mejor_solucion;
 
@@ -654,10 +654,10 @@ void vrp_tw_sa(struct vrp_configuracion *vrp, struct individuo *ind, double **in
 
         ind->hormiga->flota = copiar_lista_vehiculos(ind->metal->mejor_solucion);
     }
-    // else
-    // {
-    //     printf("\nNo mejora %.2lf", ind->hormiga->fitness_global);
-    // }
+    else
+    {
+        printf("\nNo mejora %.2lf", ind->hormiga->fitness_global);
+    }
 
     liberar_memoria_metal(ind); // Limpieza final
 }
