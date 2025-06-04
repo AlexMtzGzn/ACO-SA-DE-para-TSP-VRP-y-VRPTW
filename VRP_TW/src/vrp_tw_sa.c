@@ -556,10 +556,10 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
     while (temperatura > ind->temperatura_final)
     {
         // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
-        printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
-               temperatura,
-               ind->metal->fitness_solucion_actual,
-               ind->metal->fitness_mejor_solucion);
+        // printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
+        //        temperatura,
+        //        ind->metal->fitness_solucion_actual,
+        //        ind->metal->fitness_mejor_solucion);
         // <<<
 
         for (int i = 0; i < ind->numIteracionesSA; i++)
@@ -574,11 +574,12 @@ void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia
             {
                 // Distribuye el factor entre los tres movimientos, puedes ajustar los pesos si lo deseas
                 if (prob < factor / 3.0)
-                    aceptado = moverDosClientesVehiculos(ind, vrp, instancia_distancias);
-                else if (prob < 2.0 * factor / 3.0)
                     aceptado = moverClienteEntreVehiculos(ind, vrp, instancia_distancias);
-                else
+                else if (prob < 2.0 * factor / 3.0)
                     aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
+
+                else
+                    aceptado = moverDosClientesVehiculos(ind, vrp, instancia_distancias);
             }
             else
             {
