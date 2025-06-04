@@ -302,38 +302,38 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
    if (vrp->num_clientes == 51)
    {
-      rango->maxAlpha = 4.0;
       rango->minAlpha = 2.0;
+      rango->maxAlpha = 4.5;
 
-      rango->maxBeta = 6.0;
-      rango->minBeta = 4.0;
+      rango->minBeta = 5.0;
+      rango->maxBeta = 7.0;
 
-      rango->maxGamma = 3.0;
-      rango->minGamma = 1.0;
+      rango->minGamma = 0.8;
+      rango->maxGamma = 2.5;
 
-      rango->maxRho = 0.5;
       rango->minRho = 0.3;
+      rango->maxRho = 0.5;
 
-      rango->maxNumHormigas = 35;
-      rango->minNumHormigas = 20;
+      rango->minNumHormigas = 25;
+      rango->maxNumHormigas = 40;
 
-      rango->maxNumIteracionesACO = 150;
-      rango->minNumIteracionesACO = 100;
+      rango->minNumIteracionesACO = 120;
+      rango->maxNumIteracionesACO = 180;
 
-      rango->maxTemperatura_inicial = 2500.0;
-      rango->minTemperatura_inicial = 1800.0;
+      rango->minTemperatura_inicial = 2000.0;
+      rango->maxTemperatura_inicial = 2600.0;
 
-      rango->maxTemperatura_final = 0.1;
       rango->minTemperatura_final = 0.02;
+      rango->maxTemperatura_final = 0.08;
 
-      rango->maxFactor_enfriamiento = 0.999;
-      rango->minFactor_enfriamiento = 0.96;
+      rango->minFactor_enfriamiento = 0.97;
+      rango->maxFactor_enfriamiento = 0.995;
 
+      rango->minFactor_control = 0.75;
       rango->maxFactor_control = 0.9;
-      rango->minFactor_control = 0.7;
 
-      rango->maxIteracionesSA = 200;
       rango->minIteracionesSA = 150;
+      rango->maxIteracionesSA = 250;
    }
 
    if (vrp->num_clientes == 101)
@@ -392,8 +392,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
 void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t timepo_inicial, timepo_final; // Variables para medir el tiempo de ejecución
-   timepo_inicial = clock(); //Iniciar Tiempo
+   clock_t timepo_inicial, timepo_final;                                          // Variables para medir el tiempo de ejecución
+   timepo_inicial = clock();                                                      // Iniciar Tiempo
    char respuesta;                                                                // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
@@ -513,8 +513,8 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    liberar_instancia(instancia_distancias, vrp->num_clientes);      // Liberemos la memoria de la instancia distancias
    liberar_instancia(instancia_ventanas_tiempo, vrp->num_clientes); // Liberemos la memoria de la instancia ventanas de tiempo
    liberar_rangos(rango);                                           // Liberemos la memoria de los rangos
-   liberar_individuos(objetivo, num_poblacion, false);               // Liberemos la memoria del objetivo
-   liberar_individuos(prueba, num_poblacion, false);                 // Liberemos la memoria de la prueba
+   liberar_individuos(objetivo, num_poblacion, false);              // Liberemos la memoria del objetivo
+   liberar_individuos(prueba, num_poblacion, false);                // Liberemos la memoria de la prueba
    liberar_individuos(ruidoso, num_poblacion, false);               // Liberemos la memoria del ruidoso
    liberar_individuos(resultado, 1, true);                          // Liberemos los resultado
    liberar_memoria_vrp_configuracion(vrp);                          // Liberemos la memoria del vrp

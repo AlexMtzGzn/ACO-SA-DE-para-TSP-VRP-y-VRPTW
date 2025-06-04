@@ -399,9 +399,11 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(vrp, ind, hormiga);
 
+
     // Bucle principal de iteraciones del algoritmo ACO
     for (int i = 0; i < ind->numIteracionesACO; i++)
     {
+        printf("\n");
         // Recorremos todas las hormigas para construir sus soluciones
         for (int j = 0; j < ind->numHormigas; j++)
         {
