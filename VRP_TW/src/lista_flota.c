@@ -210,7 +210,7 @@ void eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
         return;
 
     // Reajustar IDs de todos los vehículos desde 1
-    int nuevo_id = 0;
+    int nuevo_id = 1;
     actual = lista->cabeza;
 
     while (actual != NULL)
@@ -243,7 +243,7 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga * hormiga)
     if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
     {
         //eliminar_vehiculo_vacio(hormiga->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
-        printf("Se elimino Vehiculo");
+        //printf("Se elimino Vehiculo");
         return NULL;
     }
     else
