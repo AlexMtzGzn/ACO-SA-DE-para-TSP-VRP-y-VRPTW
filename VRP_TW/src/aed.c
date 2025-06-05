@@ -262,114 +262,117 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
 
 void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion)
 {
-   // Asigna rangos específicos según el número de clientes en el TSP
 
    if (vrp->num_clientes == 26)
    {
-      rango->maxAlpha = 2.5;
-      rango->minAlpha = 1.0;
+      rango->maxAlpha = 3.5; // Antes: 2.5 → Más influencia feromonas
+      rango->minAlpha = 2.0; // Antes: 1.0 → Evitar convergencia prematura
 
-      rango->maxBeta = 5.0;
-      rango->minBeta = 3.0;
+      rango->maxBeta = 4.0; // Antes: 5.0 → Menos codicia
+      rango->minBeta = 2.5; // Antes: 3.0 → Más exploración
 
-      rango->maxGamma = 2.0;
-      rango->minGamma = 0.5;
+      rango->maxGamma = 2.5; // OK - Mantener
+      rango->minGamma = 1.0; // Antes: 0.5 → Más consistencia ventanas
 
-      rango->maxRho = 0.6;
-      rango->minRho = 0.4;
+      rango->maxRho = 0.5; // Antes: 0.6 → Evaporación más gradual
+      rango->minRho = 0.3; // Antes: 0.4 → Más diversidad
 
-      rango->maxNumHormigas = 20;
-      rango->minNumHormigas = 10;
+      rango->maxNumHormigas = 15; // Antes: 20 → Suficiente para este tamaño
+      rango->minNumHormigas = 10; // OK - Mantener
 
-      rango->maxNumIteracionesACO = 100;
-      rango->minNumIteracionesACO = 50;
+      rango->maxNumIteracionesACO = 80; // Antes: 100 → Más eficiente
+      rango->minNumIteracionesACO = 60; // Antes: 50 → Mínimo razonable
 
-      rango->maxTemperatura_inicial = 2000.0;
-      rango->minTemperatura_inicial = 1500.0;
+      // SA - Temperaturas más conservadoras
+      rango->maxTemperatura_inicial = 1800.0; // Antes: 2000 → Menos agresivo
+      rango->minTemperatura_inicial = 1200.0; // Antes: 1500 → Más rango
 
-      rango->maxTemperatura_final = 0.1;
-      rango->minTemperatura_final = 0.05;
+      rango->maxTemperatura_final = 0.1;  // OK - Mantener
+      rango->minTemperatura_final = 0.01; // Antes: 0.05 → Más enfriamiento
 
-      rango->maxFactor_enfriamiento = 0.999;
-      rango->minFactor_enfriamiento = 0.95;
+      rango->maxFactor_enfriamiento = 0.98; // Antes: 0.999 → Enfriamiento más rápido
+      rango->minFactor_enfriamiento = 0.95; // OK - Mantener
 
-      rango->maxFactor_control = 0.8;
-      rango->minFactor_control = 0.6;
+      rango->maxFactor_control = 0.9; // Antes: 0.8 → 90% prob final
+      rango->minFactor_control = 0.6; // Mantener → 60% prob final
 
-      rango->maxIteracionesSA = 150;
-      rango->minIteracionesSA = 100;
+      rango->maxIteracionesSA = 120; // Antes: 150 → Más eficiente
+      rango->minIteracionesSA = 80;  // Antes: 100 → Mínimo adecuado
    }
 
    if (vrp->num_clientes == 51)
    {
-      rango->minAlpha = 2.0;
-      rango->maxAlpha = 4.5;
+      rango->maxAlpha = 4.0; // Antes: 4.5 → Progresión más suave
+      rango->minAlpha = 2.5; // Antes: 2.0 → Continuidad con 26
 
-      rango->minBeta = 5.0;
-      rango->maxBeta = 7.0;
+      rango->maxBeta = 5.0; // OK - Mantener
+      rango->minBeta = 3.5; // Antes: 5.0 → Corrección error min>max
 
-      rango->minGamma = 0.8;
-      rango->maxGamma = 2.5;
+      rango->maxGamma = 3.0; // Antes: 2.5 → Más importancia ventanas
+      rango->minGamma = 1.5; // Antes: 0.8 → Continuidad
 
-      rango->minRho = 0.3;
-      rango->maxRho = 0.5;
+      rango->maxRho = 0.45; // Antes: 0.5 → Evaporación moderada
+      rango->minRho = 0.25; // Antes: 0.3 → Más diversidad
 
-      rango->minNumHormigas = 25;
-      rango->maxNumHormigas = 40;
+      rango->maxNumHormigas = 30; // Antes: 40 → Más eficiente
+      rango->minNumHormigas = 20; // Antes: 25 → Mínimo adecuado
 
-      rango->minNumIteracionesACO = 120;
-      rango->maxNumIteracionesACO = 180;
+      rango->maxNumIteracionesACO = 150; // Antes: 180 → Más eficiente
+      rango->minNumIteracionesACO = 100; // Antes: 120 → Transición suave
 
-      rango->minTemperatura_inicial = 2000.0;
-      rango->maxTemperatura_inicial = 2600.0;
+      // SA - Progresión lógica
+      rango->maxTemperatura_inicial = 2200.0; // Antes: 2600 → Menos agresivo
+      rango->minTemperatura_inicial = 1600.0; // Antes: 2000 → Progresión suave
 
-      rango->minTemperatura_final = 0.02;
-      rango->maxTemperatura_final = 0.08;
+      rango->maxTemperatura_final = 0.05;  // Antes: 0.08 → Más enfriamiento
+      rango->minTemperatura_final = 0.005; // Antes: 0.02 → Progresión lógica
 
-      rango->minFactor_enfriamiento = 0.97;
-      rango->maxFactor_enfriamiento = 0.995;
+      rango->maxFactor_enfriamiento = 0.99; // Antes: 0.995 → Más eficiente
+      rango->minFactor_enfriamiento = 0.97; // OK - Mantener
 
-      rango->minFactor_control = 0.75;
-      rango->maxFactor_control = 0.9;
+      rango->maxFactor_control = 0.85; // Antes: 0.9 → Menos agresivo
+      rango->minFactor_control = 0.55; // Antes: 0.75 → Más rango
 
-      rango->minIteracionesSA = 150;
-      rango->maxIteracionesSA = 250;
+      rango->maxIteracionesSA = 200; // Antes: 250 → Más eficiente
+      rango->minIteracionesSA = 120; // Antes: 150 → Progresión suave
    }
 
    if (vrp->num_clientes == 101)
    {
-      rango->maxAlpha = 6.0;
-      rango->minAlpha = 3.0;
+      rango->maxAlpha = 5.0; // Antes: 6.0 → Evitar sobreexplotación
+      rango->minAlpha = 3.0; // OK - Mantener
 
-      rango->maxBeta = 8.0;
-      rango->minBeta = 5.0;
+      rango->maxBeta = 6.0; // Antes: 8.0 → Menos codicia
+      rango->minBeta = 4.0; // Antes: 5.0 → Progresión suave
 
-      rango->maxGamma = 6.0;
-      rango->minGamma = 2.0;
+      rango->maxGamma = 4.0; // Antes: 6.0 → Más realista
+      rango->minGamma = 2.0; // OK - Mantener
 
-      rango->maxRho = 0.4;
-      rango->minRho = 0.1;
+      rango->maxRho = 0.3; // Antes: 0.4 → Evaporación lenta
+      rango->minRho = 0.1; // OK - Mantener diversidad
 
-      rango->maxNumHormigas = 50;
-      rango->minNumHormigas = 35;
+      rango->maxNumHormigas = 40; // Antes: 50 → Más eficiente
+      rango->minNumHormigas = 25; // Antes: 35 → Mínimo razonable
 
-      rango->maxNumIteracionesACO = 200;
-      rango->minNumIteracionesACO = 150;
+      rango->maxNumIteracionesACO = 180; // Antes: 200 → Más eficiente
+      rango->minNumIteracionesACO = 120; // Antes: 150 → Progresión suave
 
-      rango->maxTemperatura_inicial = 3000.0;
-      rango->minTemperatura_inicial = 2000.0;
+      // SA - ¡CRÍTICO! Reducir iteraciones dramáticamente
+      rango->maxTemperatura_inicial = 4000.0; // Antes: 5000 → Más conservador
+      rango->minTemperatura_inicial = 2500.0; // Antes: 3000 → Progresión suave
 
-      rango->maxTemperatura_final = 0.05;
-      rango->minTemperatura_final = 0.0001;
+      rango->maxTemperatura_final = 0.01;  // Antes: 0.05 → Más enfriamiento
+      rango->minTemperatura_final = 0.001; // Antes: 0.0001 → Más realista
 
-      rango->maxFactor_enfriamiento = 0.999;
-      rango->minFactor_enfriamiento = 0.97;
+      rango->maxFactor_enfriamiento = 0.995; // OK - Mantener
+      rango->minFactor_enfriamiento = 0.98;  // Antes: 0.97 → Enfriamiento más lento
 
-      rango->maxFactor_control = 0.9;
-      rango->minFactor_control = 0.7;
+      rango->maxFactor_control = 0.75; // Antes: 0.9 → Gran reducción
+      rango->minFactor_control = 0.45; // Antes: 0.7 → Más rango
 
-      rango->maxIteracionesSA = 300;
-      rango->minIteracionesSA = 200;
+      // ¡CAMBIO CRÍTICO!
+      rango->maxIteracionesSA = 300; // Antes: 1000 → 70% reducción
+      rango->minIteracionesSA = 200; // Antes: 500 → 60% reducción
    }
    // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)

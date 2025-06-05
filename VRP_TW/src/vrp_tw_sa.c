@@ -574,6 +574,7 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga, struct individuo
             {
                 if (prob < factor / 3.0)
                     aceptado = moverClienteEntreVehiculos(hormiga, vrp, instancia_distancias);
+
                 else if (prob < 2.0 * factor / 3.0)
                     aceptado = intercambiarClienteRuta(hormiga, vrp, instancia_distancias);
                 else

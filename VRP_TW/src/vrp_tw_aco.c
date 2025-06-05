@@ -403,7 +403,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     // Bucle principal de iteraciones del algoritmo ACO
     for (int i = 0; i < ind->numIteracionesACO; i++)
     {
-        printf("\n");
+        //printf("\n");
         // Recorremos todas las hormigas para construir sus soluciones
         for (int j = 0; j < ind->numHormigas; j++)
         {
@@ -414,7 +414,8 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             evaluaFO_ACO(&hormiga[j], instancia_distancias);
 
              //Vamos a refinar la ruta de la hormiga
-            vrp_tw_sa(vrp,&hormiga[j],ind,instancia_distancias);
+        vrp_tw_sa(vrp,&hormiga[j],ind,instancia_distancias);
+            //printf("\n%lf",hormiga[j].fitness_global);
         }
 
         // Buscamos la hormiga con el mejor fitness en esta iteración
