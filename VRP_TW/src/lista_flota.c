@@ -228,6 +228,7 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga * hormiga)
     while (intentos--)
     {
         // Seleciionamor el id de un veiculo aleatorio
+        //printf("\n%d",hormiga->vehiculos_necesarios);
         vehiculo_aleatorio = (rand() % hormiga->vehiculos_necesarios) + 1;
 
         nodo_vehiculo_aleatorio = hormiga->metal->solucion_vecina->cabeza;

@@ -567,43 +567,45 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga, struct individuo
         {
             generar_vecino(hormiga, vrp);
 
-            prob = (double)rand() / RAND_MAX;
-            factor = ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial));
-            aceptado = false;
+            double prob = (double)rand() / RAND_MAX;
+            double temp_invertida = temperatura / ind->temperatura_inicial; // va de 0 a 1 (inicio a fin)
+            bool aceptado = false;
 
             if (hormiga->vehiculos_necesarios > 1)
             {
-                // aceptado = opt_2_5(hormiga, vrp, instancia_distancias); // 20% - 2.5-opt
+                // Para múltiples vehículos, usar distribución proporcional que dependa de la temperatura invertida
+                // Usamos temp_invertida para favorecer ciertos movimientos a medida que la temperatura baja
+                double umbral1 = 0.2 * temp_invertida;           // movimientos locales al final (exploitation)
+                double umbral2 = umbral1 + 0.2 * temp_invertida; // swap intra
+                double umbral3 = umbral2 + 0.2;                  // reinserción (fijo, balanceado)
+                double umbral4 = umbral3 + 0.2;                  // swap inter (exploración)
+                // resto para opt_2_5 (exploración)
 
-                // // Distribución equilibrada para múltiples vehículos
-                if (prob < factor / 5.0)
-                    aceptado = swap_inter(hormiga, vrp, instancia_distancias); // 20% - Intercambio entre vehículos
+                if (prob < umbral1)
+                    aceptado = opt_2(hormiga, vrp, instancia_distancias);
+                else if (prob < umbral2)
+                    aceptado = swap_inter(hormiga, vrp, instancia_distancias);
 
-                else if (prob < 2.0 * factor / 5.0)
-                    //aceptado = swap_intra(hormiga, vrp, instancia_distancias); // 20% - Intercambio intra-ruta
-
-                aceptado = reinsercion_intra_inter(hormiga, vrp, instancia_distancias); // 20% - Reinserción (intra/inter)
-
-                else if (prob < 3.0 * factor / 5.0)
-                    aceptado = false; // opt_2_5(hormiga, vrp, instancia_distancias); // 20% - 2.5-opt
-
-                else if (prob < 4.0 * factor / 5.0)
-                    aceptado = swap_intra(hormiga, vrp, instancia_distancias); // 20% - Intercambio intra-ruta
-
-                else
-                    aceptado = opt_2(hormiga, vrp, instancia_distancias); // 20% - 2-opt (inversión)
+                else if (prob < umbral3)
+                    aceptado = reinsercion_intra_inter(hormiga, vrp, instancia_distancias);
+                else if (prob < umbral4)
+                    aceptado = swap_intra(hormiga, vrp, instancia_distancias);
+                //else
+                    //aceptado = opt_2_5(hormiga, vrp, instancia_distancias);
             }
             else
             {
-                // Para un solo vehículo (solo operadores intra-ruta son relevantes)
-                if (prob < factor / 3.0)
-                    aceptado = swap_intra(hormiga, vrp, instancia_distancias); // 33% - Intercambio intra-ruta
+                // Para un solo vehículo, más simple, con distribución igualada pero adaptada por factor (que baja con la temperatura)
+                double factor = ind->factor_control * (1.0 - temp_invertida);
+                double umbral1 = factor / 3.0;
+                double umbral2 = 2.0 * factor / 3.0;
 
-                else if (prob < 2.0 * factor / 3.0)
-                    aceptado = opt_2(hormiga, vrp, instancia_distancias); // 33% - 2-opt (inversión)
-
-                else
-                    aceptado = opt_2_5(hormiga, vrp, instancia_distancias); // 33% - 2.5-opt intra-ruta
+                if (prob < umbral1)
+                    aceptado = swap_intra(hormiga, vrp, instancia_distancias);
+                else if (prob < umbral2)
+                    aceptado = opt_2(hormiga, vrp, instancia_distancias);
+                // else
+                // aceptado = opt_2_5(hormiga, vrp, instancia_distancias);
             }
 
             if (!aceptado)
