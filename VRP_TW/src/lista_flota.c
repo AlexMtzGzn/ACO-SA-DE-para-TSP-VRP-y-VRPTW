@@ -241,7 +241,7 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga * hormiga)
 
     if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
     {
-        eliminar_vehiculo_vacio(hormiga->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
+        //eliminar_vehiculo_vacio(hormiga->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
         printf("Se elimino Vehiculo");
         return NULL;
     }

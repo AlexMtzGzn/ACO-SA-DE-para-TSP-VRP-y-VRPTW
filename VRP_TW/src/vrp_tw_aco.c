@@ -336,7 +336,6 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
             else
             {
                 reiniciar_hormiga(hormiga, vrp);
-        
             }
         }
         else
@@ -399,12 +398,11 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(vrp, ind, hormiga);
 
-
     // Bucle principal de iteraciones del algoritmo ACO
     for (int i = 0; i < ind->numIteracionesACO; i++)
     {
-        //printf("\n");
-        // Recorremos todas las hormigas para construir sus soluciones
+        // printf("\n");
+        //  Recorremos todas las hormigas para construir sus soluciones
         for (int j = 0; j < ind->numHormigas; j++)
         {
             // Generamos la ruta de la hormiga j usando el algoritmo ACO
@@ -413,9 +411,11 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
             // Calculamos el fitness de la ruta generada por la hormiga j
             evaluaFO_ACO(&hormiga[j], instancia_distancias);
 
-             //Vamos a refinar la ruta de la hormiga
-        vrp_tw_sa(vrp,&hormiga[j],ind,instancia_distancias);
-            //printf("\n%lf",hormiga[j].fitness_global);
+            // Vamos a refinar la ruta de la hormiga
+            vrp_tw_sa(vrp, &hormiga[j], ind, instancia_distancias);
+            calculamosVentanasCapacidad(hormiga[j].flota, vrp, instancia_distancias);
+
+            // printf("\n%lf",hormiga[j].fitness_global);
         }
 
         // Buscamos la hormiga con el mejor fitness en esta iteración
@@ -448,7 +448,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
     calculamosVentanasCapacidad(ind->hormiga->flota, vrp, instancia_distancias);
 
-    //vrp_tw_sa(vrp, ind, instancia_distancias);
-    //  Liberamos la memoria utilizada por las hormigas al final del proceso
+    // vrp_tw_sa(vrp, ind, instancia_distancias);
+    //   Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);
 }
