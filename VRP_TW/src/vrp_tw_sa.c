@@ -9,6 +9,7 @@
 #include "../include/lista_ruta.h"
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
+#include "../include/movimientos_sa.h"
 
 void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
