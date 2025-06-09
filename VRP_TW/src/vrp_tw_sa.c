@@ -581,17 +581,17 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga, struct individuo
                 double umbral4 = umbral3 + 0.2;                  // swap inter (exploración)
                 // resto para opt_2_5 (exploración)
 
-                if (prob < umbral1)
-                    aceptado = opt_2(hormiga, vrp, instancia_distancias);
-                else if (prob < umbral2)
-                    aceptado = swap_inter(hormiga, vrp, instancia_distancias);
+                // if (prob < umbral1)
+                //     aceptado = opt_2(hormiga, vrp, instancia_distancias);
+                // else if (prob < umbral2)
+                //     aceptado = swap_inter(hormiga, vrp, instancia_distancias);
 
-                else if (prob < umbral3)
-                    aceptado = reinsercion_intra_inter(hormiga, vrp, instancia_distancias);
-                else if (prob < umbral4)
-                    aceptado = swap_intra(hormiga, vrp, instancia_distancias);
-                //else
-                    //aceptado = opt_2_5(hormiga, vrp, instancia_distancias);
+                // else if (prob < umbral3)
+                //     aceptado = reinsercion_intra_inter(hormiga, vrp, instancia_distancias);
+                // else if (prob < umbral4)
+                //     aceptado = swap_intra(hormiga, vrp, instancia_distancias);
+                // //else
+                    aceptado = opt_2_5(hormiga, vrp, instancia_distancias);
             }
             else
             {

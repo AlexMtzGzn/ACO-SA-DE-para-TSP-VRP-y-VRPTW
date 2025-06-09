@@ -6,6 +6,7 @@
 #include "../include/control_memoria.h"
 #include "../include/lista_ruta.h"
 #include "../include/lista_flota.h"
+#include "../include/salida_datos.h"
 
 // Invierte un segmento de la ruta
 bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
@@ -48,8 +49,8 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
             }
         }
 
-        int length_segmento = idx2 - idx1 + 1;
-        int *clientes_originales = asignar_memoria_arreglo_int(length_segmento);
+        int tamanio_segmento = idx2 - idx1 + 1;
+        int *clientes_originales = asignar_memoria_arreglo_int(tamanio_segmento);
 
         if (clientes_originales == NULL)
             return false;
@@ -59,7 +60,7 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
         for (int i = 0; i < idx1; i++)
             nodo_temp = nodo_temp->siguiente;
 
-        for (int i = 0; i < length_segmento; i++)
+        for (int i = 0; i < tamanio_segmento; i++)
         {
             clientes_originales[i] = nodo_temp->cliente;
             nodo_temp = nodo_temp->siguiente;
@@ -111,7 +112,7 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
         for (int i = 0; i < idx1; i++)
             nodo_temp = nodo_temp->siguiente;
 
-        for (int i = 0; i < length_segmento; i++)
+        for (int i = 0; i < tamanio_segmento; i++)
         {
             nodo_temp->cliente = clientes_originales[i];
             nodo_temp = nodo_temp->siguiente;
@@ -396,303 +397,45 @@ bool reinsercion_intra_inter(struct hormiga *hormiga, struct vrp_configuracion *
 
 // Implementación del algoritmo 2.5-opt
 // Elimina un segmento de una ruta y lo reinserta en otra posición
-bool opt_2_5(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias) 
+bool opt_2_5(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    if (!hormiga || !vrp || !instancia_distancias || !hormiga->metal || !hormiga->metal->solucion_vecina)
-        return false;
-
-    nodo_vehiculo *vehiculo_origen = NULL;
-    nodo_vehiculo *vehiculo_destino = NULL;
     int intentos_maximos = 10;
+    struct nodo_vehiculo *vehiculo_aleatorio;
 
-    // Seleccionar vehículo origen con al menos 3 clientes
-    for (int i = 0; i < intentos_maximos; i++) {
-        vehiculo_origen = seleccionar_vehiculo_aleatorio(hormiga);
-        if (vehiculo_origen && vehiculo_origen->vehiculo && vehiculo_origen->vehiculo->clientes_contados >= 3)
+    for (int intentos = 0; intentos < intentos_maximos; intentos++)
+    {
+
+        vehiculo_aleatorio = seleccionar_vehiculo_aleatorio(hormiga);
+
+        if (vehiculo_aleatorio == NULL)
+            continue;
+
+        if (vehiculo_aleatorio->vehiculo->clientes_contados < 3)
+            continue;
+
+        if (vehiculo_aleatorio != NULL && vehiculo_aleatorio->vehiculo->clientes_contados > 3)
             break;
     }
-    
-    if (!vehiculo_origen || !vehiculo_origen->vehiculo || vehiculo_origen->vehiculo->clientes_contados < 3)
-        return false;
 
-    // Decidir si es movimiento intra-ruta o inter-ruta
-    bool es_inter_ruta = (rand() % 2 == 0);
-    
-    if (es_inter_ruta) {
-        // Seleccionar vehículo destino diferente
-        for (int i = 0; i < intentos_maximos; i++) {
-            vehiculo_destino = seleccionar_vehiculo_aleatorio(hormiga);
-            if (vehiculo_destino && vehiculo_destino != vehiculo_origen && 
-                vehiculo_destino->vehiculo && vehiculo_destino->vehiculo->clientes_contados >= 1)
-                break;
-        }
-        // Si no encontramos vehículo válido, usar movimiento intra-ruta
-        if (!vehiculo_destino || vehiculo_destino == vehiculo_origen) {
-            vehiculo_destino = vehiculo_origen;
-            es_inter_ruta = false;
-        }
-    } else {
-        vehiculo_destino = vehiculo_origen;
-    }
+    int posicion_origen, cliente_origen;
+    struct nodo_ruta *cliente;
 
-    // Determinar longitud del segmento (1 o 2 clientes máximo)
-    int max_longitud = (vehiculo_origen->vehiculo->clientes_contados >= 4) ? 2 : 1;
-    int longitud_segmento = (rand() % max_longitud) + 1;
+    // for (int intentos = 0; intentos < intentos_maximos; intentos++)
+    // {
+    posicion_origen = rand() % (vehiculo_aleatorio->vehiculo->clientes_contados - 2) + 1;
+    printf("Ruta Inicial\n");
+    imprimir_ruta(vehiculo_aleatorio->vehiculo->ruta, vehiculo_aleatorio->vehiculo->id_vehiculo);
+    cliente = vehiculo_aleatorio->vehiculo->ruta->cabeza->siguiente;
 
-    // Ajustar longitud si es necesario
-    if (longitud_segmento >= vehiculo_origen->vehiculo->clientes_contados - 1) {
-        longitud_segmento = 1;
-    }
+    for (int i = 0; i < posicion_origen; i++)
+        cliente = cliente->siguiente;
 
-    for (int intento = 0; intento < intentos_maximos; intento++) {
-        
-        // Seleccionar posición de inicio del segmento (excluyendo depósitos)
-        int max_pos_inicio = vehiculo_origen->vehiculo->clientes_contados - longitud_segmento;
-        if (max_pos_inicio <= 1) continue;
-        
-        int pos_inicio_segmento = (rand() % (max_pos_inicio - 1)) + 1;
+    cliente_origen = cliente->cliente;
 
-        // Seleccionar posición de inserción
-        int pos_insercion;
-        if (es_inter_ruta) {
-            // Inter-ruta: cualquier posición válida en el vehículo destino
-            int max_pos_destino = vehiculo_destino->vehiculo->clientes_contados;
-            pos_insercion = (rand() % max_pos_destino) + 1;
-        } else {
-            // Intra-ruta: evitar solapamiento con el segmento original
-            int max_pos_destino = vehiculo_destino->vehiculo->clientes_contados - longitud_segmento;
-            if (max_pos_destino <= 1) continue;
-            
-            do {
-                pos_insercion = (rand() % max_pos_destino) + 1;
-            } while (abs(pos_insercion - pos_inicio_segmento) < longitud_segmento + 1);
-        }
+    eliminar_cliente_ruta(vehiculo_aleatorio->vehiculo, vrp, cliente_origen, instancia_distancias);
 
-        // Extraer el segmento
-        int *segmento = asignar_memoria_arreglo_int(longitud_segmento);
-        if (!segmento) return false;
+    printf("Ruta actualizada\n");
+    imprimir_ruta(vehiculo_aleatorio->vehiculo->ruta, vehiculo_aleatorio->vehiculo->id_vehiculo);
 
-        nodo_ruta *nodo = vehiculo_origen->vehiculo->ruta->cabeza;
-        // Avanzar hasta el primer cliente real (saltando el depósito inicial)
-        if (nodo) nodo = nodo->siguiente;
-        
-        // Avanzar hasta la posición de inicio del segmento
-        for (int i = 0; i < pos_inicio_segmento && nodo; i++) {
-            nodo = nodo->siguiente;
-        }
-        
-        // Extraer los clientes del segmento
-        for (int i = 0; i < longitud_segmento && nodo; i++) {
-            segmento[i] = nodo->cliente;
-            nodo = nodo->siguiente;
-        }
-
-        // Verificar que extrajimos correctamente
-        bool segmento_valido = true;
-        for (int i = 0; i < longitud_segmento; i++) {
-            if (segmento[i] <= 0) {
-                segmento_valido = false;
-                break;
-            }
-        }
-        
-        if (!segmento_valido) {
-            liberar_memoria_arreglo_int(segmento);
-            continue;
-        }
-
-        // Eliminar el segmento del vehículo origen (en orden inverso para mantener índices)
-        for (int i = longitud_segmento - 1; i >= 0; i--) {
-            eliminar_cliente_ruta(vehiculo_origen->vehiculo, vrp, segmento[i], instancia_distancias);
-        }
-
-        // Insertar el segmento en la nueva posición
-        bool exito_insercion = true;
-        for (int i = 0; i < longitud_segmento; i++) {
-            if (!insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, segmento[i], 
-                                         pos_insercion + i, instancia_distancias)) {
-                exito_insercion = false;
-                // Revertir inserciones parciales
-                for (int j = i - 1; j >= 0; j--) {
-                    eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, segmento[j], instancia_distancias);
-                }
-                break;
-            }
-        }
-
-        // Verificar restricciones si la inserción fue exitosa
-        bool es_valido = false;
-        if (exito_insercion) {
-            if (es_inter_ruta) {
-                // Verificar ambos vehículos
-                es_valido = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
-                           verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
-            } else {
-                // Solo verificar el vehículo (mismo origen y destino)
-                es_valido = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias);
-            }
-        }
-
-        if (es_valido) {
-            // Movimiento exitoso
-            liberar_memoria_arreglo_int(segmento);
-            return true;
-        }
-
-        // Revertir el movimiento si no es válido
-        if (exito_insercion) {
-            // Eliminar del destino
-            for (int i = longitud_segmento - 1; i >= 0; i--) {
-                eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, segmento[i], instancia_distancias);
-            }
-        }
-
-        // Restaurar en la posición original
-        for (int i = 0; i < longitud_segmento; i++) {
-            insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp, segmento[i], 
-                                    pos_inicio_segmento + i, instancia_distancias);
-        }
-
-        liberar_memoria_arreglo_int(segmento);
-    }
-
-    return false;
+    //}
 }
-
-
-// // Variante más agresiva de 2.5-opt que prueba diferentes longitudes de segmento
-// bool opt_2_5_adaptativo(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
-// {
-//     int intentos_maximos = 15;
-
-//     // Probar diferentes longitudes de segmento
-//     for (int longitud = 1; longitud <= 3; longitud++)
-//     {
-//         for (int intento = 0; intento < intentos_maximos; intento++)
-//         {
-//             nodo_vehiculo *vehiculo_origen = seleccionar_vehiculo_aleatorio(hormiga);
-
-//             if (!vehiculo_origen || vehiculo_origen->vehiculo->clientes_contados < longitud + 2)
-//                 continue;
-
-//             // Decidir tipo de movimiento
-//             bool es_inter_ruta = (rand() % 3 == 0); // 33% probabilidad inter-ruta
-//             nodo_vehiculo *vehiculo_destino = vehiculo_origen;
-
-//             if (es_inter_ruta)
-//             {
-//                 vehiculo_destino = seleccionar_vehiculo_aleatorio(hormiga);
-//                 if (!vehiculo_destino || vehiculo_destino == vehiculo_origen)
-//                     vehiculo_destino = vehiculo_origen;
-//             }
-
-//             // Seleccionar posiciones
-//             int pos_inicio = (rand() % (vehiculo_origen->vehiculo->clientes_contados - longitud - 1)) + 1;
-//             int pos_destino;
-
-//             if (vehiculo_destino == vehiculo_origen)
-//             {
-//                 // Intra-ruta: evitar solapamiento
-//                 do {
-//                     pos_destino = (rand() % (vehiculo_destino->vehiculo->clientes_contados - 1)) + 1;
-//                 } while (abs(pos_destino - pos_inicio) < longitud + 1);
-//             }
-//             else
-//             {
-//                 pos_destino = (rand() % (vehiculo_destino->vehiculo->clientes_contados - 1)) + 1;
-//             }
-
-//             // Guardar configuración original
-//             int *segmento = asignar_memoria_arreglo_int(longitud);
-//             nodo_ruta *nodo_temp = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
-
-//             for (int i = 0; i < pos_inicio; i++)
-//                 nodo_temp = nodo_temp->siguiente;
-
-//             for (int i = 0; i < longitud; i++)
-//             {
-//                 segmento[i] = nodo_temp->cliente;
-//                 nodo_temp = nodo_temp->siguiente;
-//             }
-
-//             // Realizar movimiento
-//             bool exito = realizar_movimiento_25opt(vehiculo_origen, vehiculo_destino, segmento,
-//                                                  longitud, pos_inicio, pos_destino, vrp, instancia_distancias);
-
-//             if (exito)
-//             {
-//                 liberar_memoria_arreglo_int(segmento);
-//                 return true;
-//             }
-
-//             liberar_memoria_arreglo_int(segmento);
-//         }
-//     }
-
-//     return false;
-// }
-
-// // Función auxiliar para realizar el movimiento 2.5-opt
-// bool realizar_movimiento_25opt(nodo_vehiculo *vehiculo_origen, nodo_vehiculo *vehiculo_destino,
-//                               int *segmento, int longitud, int pos_inicio, int pos_destino,
-//                               struct vrp_configuracion *vrp, double **instancia_distancias)
-// {
-//     // Eliminar segmento de origen
-//     for (int i = longitud - 1; i >= 0; i--)
-//     {
-//         eliminar_cliente_ruta(vehiculo_origen->vehiculo, vrp, segmento[i], instancia_distancias);
-//     }
-
-//     // Insertar en destino
-//     bool insercion_exitosa = true;
-//     for (int i = 0; i < longitud; i++)
-//     {
-//         if (!insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, segmento[i],
-//                                      pos_destino + i, instancia_distancias))
-//         {
-//             insercion_exitosa = false;
-//             // Revertir inserciones parciales
-//             for (int j = i - 1; j >= 0; j--)
-//             {
-//                 eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, segmento[j], instancia_distancias);
-//             }
-//             break;
-//         }
-//     }
-
-//     // Verificar factibilidad
-//     bool es_factible = false;
-//     if (insercion_exitosa)
-//     {
-//         if (vehiculo_destino == vehiculo_origen)
-//         {
-//             es_factible = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias);
-//         }
-//         else
-//         {
-//             es_factible = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
-//                          verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
-//         }
-//     }
-
-//     if (es_factible)
-//         return true;
-
-//     // Revertir si no es factible
-//     if (insercion_exitosa)
-//     {
-//         for (int i = longitud - 1; i >= 0; i--)
-//         {
-//             eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, segmento[i], instancia_distancias);
-//         }
-//     }
-
-//     // Restaurar en posición original
-//     for (int i = 0; i < longitud; i++)
-//     {
-//         insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp, segmento[i],
-//                                 pos_inicio + i, instancia_distancias);
-//     }
-
-//     return false;
-// }
