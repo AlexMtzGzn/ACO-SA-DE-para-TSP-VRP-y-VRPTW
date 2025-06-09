@@ -63,21 +63,14 @@ typedef struct lista_vehiculos
     nodo_vehiculo *cola;   // Último vehículo en la flota
 } lista_vehiculos;
 
-// --------------------- METAL ---------------------
-// Estructura que representa el metal en el algoritmo SA
-typedef struct metal
+// ---------------------  ---------------------
+// 
+typedef struct mejores_hormigas
 {
+    int id;
+    double fitness;
 
-    lista_vehiculos *mejor_solucion;   // Mejor solución
-    double fitness_mejor_solucion;     // Fitness de la mejor solución
-    lista_vehiculos *solucion_inicial; // Solución inicial
-    double fitness_solucion_inicial;   // Fitness de la solución inicial
-    lista_vehiculos *solucion_actual;  // Solución actual
-    double fitness_solucion_actual;    // Fitness de la solución actual
-    lista_vehiculos *solucion_vecina;  // Solución vecina
-    double fitness_solucion_vecina;    // Fitness de la solución vecina
-
-} metal;
+} mejores_hormigas;
 
 // --------------------- HORMIGA ---------------------
 // Estructura que representa una hormiga en el algoritmo ACO
@@ -93,7 +86,6 @@ typedef struct hormiga
     int vehiculos_necesarios;       // Número de vehículos necesarios para la hormiga
     int vehiculos_maximos;          // Número máximo de vehículos que puede utilizar la hormiga
     double fitness_global;          // Medida de rendimiento de la hormiga
-    metal *metal;                   // Puntero a las soluciones de SA
     lista_vehiculos *flota;         // Flota de vehículos asignada a la hormiga
 } hormiga;
 

@@ -1,0 +1,130 @@
+{
+	"Archivo":	"R201_(25)",
+	"Tiempo Ejecucion en Minutos":	7,
+	"Poblacion: ":	3,
+	"Generaciones: ":	15,
+	"Alpha":	2.4769744011466273,
+	"Beta":	3.0307593597242422,
+	"Gamma":	1.9069221631656039,
+	"Rho":	0.37846339022669168,
+	"Numero Hormigas":	13,
+	"Numero Iteraciones ACO":	64,
+	"Temperatura Inicial: ":	1228.4452512992757,
+	"Temperatura Final: ":	0.094007930347699636,
+	"Factor de Enfriamiento: ":	0.96288508536428452,
+	"Factor de Control: ":	0.652722288180479,
+	"Numero Iteraciones SA: ":	110,
+	"Fitness Global":	523.65734307708658,
+	"flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	1000,
+			"Capacidad Acumulada":	123,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	882,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1000,
+			"Numero Clientes":	11,
+			"Fitness Vehiculo":	225.46225723114742,
+			"Ruta Clientes":	[0, 11, 19, 7, 16, 8, 18, 6, 22, 4, 25, 24, 0],
+			"Ruta Coordenadas":	[{
+					"X":	35,
+					"Y":	35
+				}, {
+					"X":	20,
+					"Y":	65
+				}, {
+					"X":	15,
+					"Y":	60
+				}, {
+					"X":	20,
+					"Y":	50
+				}, {
+					"X":	10,
+					"Y":	20
+				}, {
+					"X":	10,
+					"Y":	43
+				}, {
+					"X":	20,
+					"Y":	40
+				}, {
+					"X":	25,
+					"Y":	30
+				}, {
+					"X":	45,
+					"Y":	10
+				}, {
+					"X":	55,
+					"Y":	20
+				}, {
+					"X":	65,
+					"Y":	20
+				}, {
+					"X":	65,
+					"Y":	35
+				}, {
+					"X":	35,
+					"Y":	35
+				}]
+		}, {
+			"Id_vehiculo":	2,
+			"Capacidad Maxima":	1000,
+			"Capacidad Acumulada":	209,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	814.381702329558,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1000,
+			"Numero Clientes":	14,
+			"Fitness Vehiculo":	298.19508584593916,
+			"Ruta Clientes":	[0, 5, 14, 15, 2, 23, 21, 12, 9, 3, 20, 10, 1, 17, 13, 0],
+			"Ruta Coordenadas":	[{
+					"X":	35,
+					"Y":	35
+				}, {
+					"X":	15,
+					"Y":	30
+				}, {
+					"X":	15,
+					"Y":	10
+				}, {
+					"X":	30,
+					"Y":	5
+				}, {
+					"X":	35,
+					"Y":	17
+				}, {
+					"X":	55,
+					"Y":	5
+				}, {
+					"X":	45,
+					"Y":	20
+				}, {
+					"X":	50,
+					"Y":	35
+				}, {
+					"X":	55,
+					"Y":	60
+				}, {
+					"X":	55,
+					"Y":	45
+				}, {
+					"X":	45,
+					"Y":	65
+				}, {
+					"X":	30,
+					"Y":	60
+				}, {
+					"X":	41,
+					"Y":	49
+				}, {
+					"X":	5,
+					"Y":	30
+				}, {
+					"X":	30,
+					"Y":	25
+				}, {
+					"X":	35,
+					"Y":	35
+				}]
+		}]
+}

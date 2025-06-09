@@ -68,7 +68,7 @@ void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_fe
     }
 }
 
-void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta)
+void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct mejores_hormigas *mejores_hormigas, struct vrp_configuracion *vrp, double **instancia_feromona, double delta)
 {
     // Primero, reducimos la cantidad de feromona en todas las aristas de la matriz de feromona
     // Iteramos sobre todas las posibles combinaciones de clientes en la matriz de feromona
@@ -78,9 +78,9 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
                 instancia_feromona[i][j] *= (1.0 - ind->rho); // Reducimos la feromona por el factor rho
 
     // Iteramos sobre todas las hormigas para actualizar las feromonas de acuerdo a sus rutas
-    for (int i = 0; i < ind->numHormigas; i++)
+    for (int i = 0; i < ceil((double)(ind->numHormigas * 0.2)); i++)
     {
-        struct nodo_vehiculo *vehiculo_actual = hormiga[i].flota->cabeza; // Obtenemos el primer vehículo de la flota de la hormiga
+        struct nodo_vehiculo *vehiculo_actual = hormiga[mejores_hormigas[i].id - 1].flota->cabeza; // Obtenemos el primer vehículo de la flota de la hormiga
 
         // Recorremos cada vehículo de la flota de la hormiga
         while (vehiculo_actual != NULL)
@@ -97,8 +97,8 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
                 // Si el cliente actual no es el mismo que el siguiente, actualizamos la feromona
                 if (cliente_actual != cliente_siguiente)
                 {
-                    instancia_feromona[cliente_actual][cliente_siguiente] += delta; // Aumentamos la feromona en esta arista
-                    instancia_feromona[cliente_siguiente][cliente_actual] += delta; // Aumentamos la feromona en la arista inversa
+                    instancia_feromona[cliente_actual][cliente_siguiente] += delta;
+                    instancia_feromona[cliente_siguiente][cliente_actual] += delta;
                 }
                 else // Si son el mismo cliente, no debe haber feromona (se debe eliminar la feromona)
                 {
@@ -389,12 +389,43 @@ void aco(struct vrp_configuracion *vrp, struct individuo *ind, struct hormiga *h
         insertar_cliente_ruta(hormiga, vehiculo, &(vrp->clientes[0])); // Agregamos el depósito al final
 }
 
+void quicksort_mejores(struct mejores_hormigas *mejores_hormigas, int bajo, int alto)
+{
+    if (bajo < alto)
+    {
+        // Partición
+        double pivote = mejores_hormigas[alto].fitness;
+        int i = bajo - 1;
+        for (int j = bajo; j < alto; j++)
+        {
+            if (mejores_hormigas[j].fitness <= pivote)
+            {
+                i++;
+                // Swap correcto
+                struct mejores_hormigas temp = mejores_hormigas[i];
+                mejores_hormigas[i] = mejores_hormigas[j];
+                mejores_hormigas[j] = temp; // Aquí faltaba 'temp' en vez de 'mejores_hormigas'
+            }
+        }
+        // Swap pivote
+        struct mejores_hormigas temp = mejores_hormigas[i + 1];
+        mejores_hormigas[i + 1] = mejores_hormigas[alto];
+        mejores_hormigas[alto] = temp;
+
+        int pi = i + 1;
+
+        // Llamadas recursivas
+        quicksort_mejores(mejores_hormigas, bajo, pi - 1);
+        quicksort_mejores(mejores_hormigas, pi + 1, alto);
+    }
+}
+
 void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_visiblidad, double **instancia_distancias, double **instancia_feromona, double **instancia_ventanas_tiempo)
 {
     // Asignamos memoria para el número de hormigas
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
+    struct mejores_hormigas *mejores_hormigas = (struct mejores_hormigas *)calloc(ind->numHormigas, sizeof(struct mejores_hormigas));
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
-    int indice = -1; // Índice de la mejor hormiga en cada iteración, inicializado en -1
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(vrp, ind, hormiga);
 
@@ -410,30 +441,23 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
             // Calculamos el fitness de la ruta generada por la hormiga j
             evaluaFO_ACO(&hormiga[j], instancia_distancias);
-
-            // Vamos a refinar la ruta de la hormiga
-            vrp_tw_sa(vrp, &hormiga[j], ind, instancia_distancias);
-            calculamosVentanasCapacidad(hormiga[j].flota, vrp, instancia_distancias);
-
-            // printf("\n%lf",hormiga[j].fitness_global);
         }
 
-        // Buscamos la hormiga con el mejor fitness en esta iteración
-        delta = INFINITY;
         for (int j = 0; j < ind->numHormigas; j++)
         {
-            if (hormiga[j].fitness_global < delta)
-            {
-                delta = 1.0 / hormiga[j].fitness_global;
-                indice = j; // Guardamos el índice de la mejor hormiga
-            }
+            mejores_hormigas[j].id = hormiga[j].id_hormiga;
+            mejores_hormigas[j].fitness = hormiga[j].fitness_global;
         }
 
-        // Actualizamos la matriz de feromonas con base en las soluciones generadas
-        actualizar_feromona(ind, hormiga, vrp, instancia_feromona, delta);
+        quicksort_mejores(mejores_hormigas, 0, ind->numHormigas - 1);
 
-        // Aplicamos un refuerzo de feromonas a la mejor ruta de la iteración
-        refuerzo_feromona_mejor_ruta(&hormiga[indice], instancia_feromona, delta);
+        for (int j = 0; j < ceil((double)(ind->numHormigas * 0.20)); j++)
+            vrp_tw_sa(vrp, &hormiga[mejores_hormigas[j].id - 1], ind, instancia_distancias);
+        
+        delta = 1.0 / hormiga[mejores_hormigas[0].id - 1].fitness_global;
+
+        // Actualizamos la matriz de feromonas con base en las soluciones generadas
+        actualizar_feromona(ind, hormiga, mejores_hormigas, vrp, instancia_feromona, delta);
 
         // Si no es la última iteración, reiniciamos las hormigas para la siguiente generación
         if (i < ind->numIteracionesACO - 1)
@@ -444,11 +468,12 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     }
 
     // Guardamos la mejor hormiga encontrada en la estructura individuo
-    recuperamos_mejor_hormiga(ind, &hormiga[indice]);
+    recuperamos_mejor_hormiga(ind, &hormiga[mejores_hormigas[0].id - 1]);
 
     calculamosVentanasCapacidad(ind->hormiga->flota, vrp, instancia_distancias);
 
     // vrp_tw_sa(vrp, ind, instancia_distancias);
     //   Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);
+    free(mejores_hormigas);
 }

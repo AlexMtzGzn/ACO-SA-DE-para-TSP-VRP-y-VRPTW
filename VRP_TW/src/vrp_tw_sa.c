@@ -227,7 +227,7 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 else if (prob < umbral3)
                     aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
                 else if (prob < umbral4)
-                    aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                    aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
                 else
                     aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
             }
@@ -298,7 +298,7 @@ void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_original, 
     // Si se mejora la solución global, se guarda
     if (hormiga_mejor_solucion->fitness_global < hormiga_original->fitness_global)
     {
-        printf("\nMejoro de %.2lf a %.2lf", hormiga_original->fitness_global, hormiga_mejor_solucion->fitness_global);
+        //printf("\nMejoro de %.2lf a %.2lf", hormiga_original->fitness_global, hormiga_mejor_solucion->fitness_global);
 
         hormiga_original->fitness_global = hormiga_mejor_solucion->fitness_global;
         hormiga_original->vehiculos_necesarios = hormiga_mejor_solucion->vehiculos_necesarios;
@@ -308,15 +308,21 @@ void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_original, 
 
         hormiga_original->flota = copiar_lista_vehiculos(hormiga_mejor_solucion->flota);
     }
-    else
-    {
-        printf("\nNo mejora %.2lf", hormiga_original->fitness_global);
-    }
+    // else
+    // {
+    //     printf("\nNo mejora %.2lf", hormiga_original->fitness_global);
+    // }
 
-    // if (hormiga_solucion_vecina->flota)
-    //     liberar_lista_vehiculos(hormiga_solucion_vecina->flota);
-    // if (hormiga_solucion_inicial->flota)
-    //     liberar_lista_vehiculos(hormiga_solucion_inicial->flota);
-    // if (hormiga_mejor_solucion->flota)
-    //     liberar_lista_vehiculos(hormiga_mejor_solucion->flota);
+    if (hormiga_solucion_inicial->flota)
+        liberar_lista_vehiculos(hormiga_solucion_inicial->flota);
+    free(hormiga_solucion_inicial);
+    if (hormiga_solucion_vecina->flota)
+        liberar_lista_vehiculos(hormiga_solucion_vecina->flota);
+    free(hormiga_solucion_vecina);
+    if (hormiga_solucion_actual->flota)
+        liberar_lista_vehiculos(hormiga_solucion_actual->flota);
+    free(hormiga_solucion_actual);
+    if (hormiga_mejor_solucion->flota)
+        liberar_lista_vehiculos(hormiga_mejor_solucion->flota);
+    free(hormiga_mejor_solucion);
 }
