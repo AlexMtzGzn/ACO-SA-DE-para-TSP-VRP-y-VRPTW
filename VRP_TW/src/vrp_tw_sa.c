@@ -227,7 +227,7 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 else if (prob < umbral3)
                     aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
                 else if (prob < umbral4)
-                    aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                    aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
                 else
                     aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
             }
