@@ -8,12 +8,88 @@
 #include "../include/lista_flota.h"
 #include "../include/salida_datos.h"
 
-// Invierte un segmento de la ruta
+
+// // Intercambia dos clientes aleatorios dentro de un mismo vehículo
+bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias) {
+    int vehiculo_aleatorio, intentos_maximos = 10, cliente1_idx, cliente2_idx, temp;
+    nodo_vehiculo *vehiculo_actual = NULL;
+    nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
+    
+    // Buscar un vehículo válido con al menos 2 clientes
+    for (int intento = 0; intento < intentos_maximos; intento++) {
+        vehiculo_aleatorio = (rand() % hormiga->vehiculos_necesarios) + 1;
+        
+        vehiculo_actual = hormiga->flota->cabeza;
+        while (vehiculo_actual != NULL) {
+            if (vehiculo_actual->vehiculo->id_vehiculo == vehiculo_aleatorio)
+                break;
+            vehiculo_actual = vehiculo_actual->siguiente;
+        }
+        
+        // Verificar que el vehículo existe y tiene al menos 2 clientes
+        if (vehiculo_actual != NULL && vehiculo_actual->vehiculo->clientes_contados >= 2)
+            break;
+    }
+    
+    // Si no se encontró un vehículo válido después de todos los intentos
+    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 2)
+        return false;
+    
+    // Seleccionar dos clientes diferentes para intercambiar
+    if (vehiculo_actual->vehiculo->clientes_contados == 2) {
+        cliente1_idx = 0;
+        cliente2_idx = 1;
+    } else {
+        do {
+            cliente1_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
+            cliente2_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
+        } while (cliente1_idx == cliente2_idx);
+    }
+    
+    // Encontrar los nodos correspondientes a los índices seleccionados
+    // Empezamos desde el primer cliente (después del depósito)
+    nodo1 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+    nodo2 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+    
+    // Navegar hasta el primer cliente
+    for (int i = 0; i < cliente1_idx; i++) {
+        if (nodo1 == NULL) return false; // Verificación de seguridad
+        nodo1 = nodo1->siguiente;
+    }
+    
+    // Navegar hasta el segundo cliente
+    for (int i = 0; i < cliente2_idx; i++) {
+        if (nodo2 == NULL) return false; // Verificación de seguridad
+        nodo2 = nodo2->siguiente;
+    }
+    
+    // Verificación final de que ambos nodos existen
+    if (nodo1 == NULL || nodo2 == NULL)
+        return false;
+    
+    // Realizar el intercambio tentativo
+    temp = nodo1->cliente;
+    nodo1->cliente = nodo2->cliente;
+    nodo2->cliente = temp;
+    
+    // Verificar si el intercambio mantiene la factibilidad
+    if (!verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias)) {
+        // Revertir el intercambio si viola las restricciones
+        temp = nodo1->cliente;
+        nodo1->cliente = nodo2->cliente;
+        nodo2->cliente = temp;
+        return false;
+    }
+    
+    return true;
+}
+
 bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     nodo_vehiculo *vehiculo_actual = NULL;
     int intentos_maximos = 10;
 
+    // Seleccionar vehículo con al menos 3 clientes
     for (int intento = 0; intento < intentos_maximos; intento++)
     {
         vehiculo_actual = seleccionar_vehiculo_aleatorio(hormiga);
@@ -21,421 +97,296 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
             break;
     }
 
-    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo == NULL || vehiculo_actual->vehiculo->clientes_contados < 3)
+    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 3)
         return false;
 
-    int idx1, idx2;
-
-    for (int intento = 0; intento < intentos_maximos; intento++)
-    {
-        if (vehiculo_actual->vehiculo->clientes_contados == 3)
-        {
-            idx1 = 0;
-            idx2 = 2;
-        }
-        else
-        {
-            idx1 = rand() % vehiculo_actual->vehiculo->clientes_contados;
-            idx2 = rand() % vehiculo_actual->vehiculo->clientes_contados;
-
-            while (idx1 == idx2)
-                idx2 = rand() % vehiculo_actual->vehiculo->clientes_contados;
-
-            if (idx1 > idx2)
-            {
-                int tmp = idx1;
-                idx1 = idx2;
-                idx2 = tmp;
-            }
-        }
-
-        int tamanio_segmento = idx2 - idx1 + 1;
-        int *clientes_originales = asignar_memoria_arreglo_int(tamanio_segmento);
-
-        if (clientes_originales == NULL)
-            return false;
-
-        nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-
-        for (int i = 0; i < idx1; i++)
-            nodo_temp = nodo_temp->siguiente;
-
-        for (int i = 0; i < tamanio_segmento; i++)
-        {
-            clientes_originales[i] = nodo_temp->cliente;
-            nodo_temp = nodo_temp->siguiente;
-        }
-
-        nodo_ruta *inicio = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (int i = 0; i < idx1; i++)
-            inicio = inicio->siguiente;
-
-        nodo_ruta *fin = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (int i = 0; i < idx2; i++)
-            fin = fin->siguiente;
-
-        if (inicio == NULL || fin == NULL)
-        {
-            liberar_memoria_arreglo_int(clientes_originales);
-            return false;
-        }
-
-        int izq = idx1;
-        int der = idx2;
-
-        while (izq < der)
-        {
-            nodo_ruta *nodo_izq = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-            for (int i = 0; i < izq; i++)
-                nodo_izq = nodo_izq->siguiente;
-
-            nodo_ruta *nodo_der = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-            for (int i = 0; i < der; i++)
-                nodo_der = nodo_der->siguiente;
-
-            int temp = nodo_izq->cliente;
-            nodo_izq->cliente = nodo_der->cliente;
-            nodo_der->cliente = temp;
-
-            izq++;
-            der--;
-        }
-
-        if (verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
-        {
-            liberar_memoria_arreglo_int(clientes_originales);
-            return true;
-        }
-
-        // Revertir cambios
-        nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (int i = 0; i < idx1; i++)
-            nodo_temp = nodo_temp->siguiente;
-
-        for (int i = 0; i < tamanio_segmento; i++)
-        {
-            nodo_temp->cliente = clientes_originales[i];
-            nodo_temp = nodo_temp->siguiente;
-        }
-
-        liberar_memoria_arreglo_int(clientes_originales);
+    int total_clientes = vehiculo_actual->vehiculo->clientes_contados;
+    
+    // Seleccionar segmento a invertir (evitando depósitos)
+    int idx1 = rand() % (total_clientes - 2) + 1;  // Evita primer depósito
+    int idx2 = rand() % (total_clientes - 2) + 1;  // Evita último depósito
+    
+    if (idx1 == idx2) 
+        return false;
+    
+    if (idx1 > idx2) {
+        int temp = idx1;
+        idx1 = idx2;
+        idx2 = temp;
     }
 
-    return false;
+    // Guardar estado original
+    int tamanio_segmento = idx2 - idx1 + 1;
+    int *clientes_originales = asignar_memoria_arreglo_int(tamanio_segmento);
+    if (clientes_originales == NULL)
+        return false;
+
+    // Crear array de punteros a nodos para acceso eficiente
+    nodo_ruta **nodos = malloc(total_clientes * sizeof(nodo_ruta*));
+    if (nodos == NULL) {
+        liberar_memoria_arreglo_int(clientes_originales);
+        return false;
+    }
+
+    // Llenar array de nodos
+    nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+    for (int i = 0; i < total_clientes && nodo_temp; i++) {
+        nodos[i] = nodo_temp;
+        nodo_temp = nodo_temp->siguiente;
+    }
+
+    // Guardar estado original
+    for (int i = 0; i < tamanio_segmento; i++) {
+        clientes_originales[i] = nodos[idx1 + i]->cliente;
+    }
+
+    // Invertir segmento
+    for (int i = 0; i < tamanio_segmento / 2; i++) {
+        int temp = nodos[idx1 + i]->cliente;
+        nodos[idx1 + i]->cliente = nodos[idx2 - i]->cliente;
+        nodos[idx2 - i]->cliente = temp;
+    }
+
+    // Verificar restricciones
+    bool factible = verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias);
+
+    if (!factible) {
+        // Revertir cambios
+        for (int i = 0; i < tamanio_segmento; i++) {
+            nodos[idx1 + i]->cliente = clientes_originales[i];
+        }
+    }
+
+    free(nodos);
+    liberar_memoria_arreglo_int(clientes_originales);
+    return factible;
 }
 
-// Intercambia dos clientes aleatorios dentro de un mismo vehículo
-bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
+// Versión corregida de swap_inter - Intercambio entre vehículos
+bool swap_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    int vehiculo_aleatorio, intentos_maximos = 10, cliente1_idx, cliente2_idx, temp;
-    nodo_vehiculo *vehiculo_actual = NULL;
-    nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
+    nodo_vehiculo *primer_vehiculo = NULL, *segundo_vehiculo = NULL;
+    int intentos_maximos = 10;
 
+    // Seleccionar dos vehículos diferentes con clientes
     for (int intento = 0; intento < intentos_maximos; intento++)
     {
-        vehiculo_aleatorio = (rand() % hormiga->vehiculos_necesarios) + 1;
+        primer_vehiculo = seleccionar_vehiculo_aleatorio(hormiga);
+        segundo_vehiculo = seleccionar_vehiculo_aleatorio(hormiga);
 
-        vehiculo_actual = hormiga->metal->solucion_vecina->cabeza;
-        while (vehiculo_actual != NULL)
-        {
-            if (vehiculo_actual->vehiculo->id_vehiculo == vehiculo_aleatorio)
-                break;
-            vehiculo_actual = vehiculo_actual->siguiente;
-        }
+        if (!primer_vehiculo || !segundo_vehiculo || 
+            !primer_vehiculo->vehiculo || !segundo_vehiculo->vehiculo)
+            continue;
 
-        if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 2)
+        if (primer_vehiculo == segundo_vehiculo)
+            continue;
+
+        if (primer_vehiculo->vehiculo->clientes_contados >= 1 &&
+            segundo_vehiculo->vehiculo->clientes_contados >= 1)
+            break;
+    }
+
+    if (!primer_vehiculo || !segundo_vehiculo)
+        return false;
+
+    int total1 = primer_vehiculo->vehiculo->clientes_contados;
+    int total2 = segundo_vehiculo->vehiculo->clientes_contados;
+
+    // CORRECCIÓN: Permitir intercambio en cualquier posición (incluso primera y última)
+    int pos1 = rand() % total1 + 1;  // Posición 1 a total1 (evita solo depósito inicial)
+    int pos2 = rand() % total2 + 1;  // Posición 1 a total2 (evita solo depósito inicial)
+
+    // Navegar a posiciones
+    nodo_ruta *nodo1 = primer_vehiculo->vehiculo->ruta->cabeza->siguiente;
+    nodo_ruta *nodo2 = segundo_vehiculo->vehiculo->ruta->cabeza->siguiente;
+
+    for (int i = 1; i < pos1 && nodo1; i++)
+        nodo1 = nodo1->siguiente;
+    for (int i = 1; i < pos2 && nodo2; i++)
+        nodo2 = nodo2->siguiente;
+
+    if (!nodo1 || !nodo2 || nodo1->cliente == 0 || nodo2->cliente == 0)
+        return false;
+
+    // Realizar intercambio
+    int temp = nodo1->cliente;
+    nodo1->cliente = nodo2->cliente;
+    nodo2->cliente = temp;
+
+    // Verificar restricciones en ambos vehículos
+    bool factible = verificarRestricciones(primer_vehiculo->vehiculo, vrp, instancia_distancias) &&
+                   verificarRestricciones(segundo_vehiculo->vehiculo, vrp, instancia_distancias);
+
+    if (!factible) {
+        // Revertir intercambio
+        temp = nodo1->cliente;
+        nodo1->cliente = nodo2->cliente;
+        nodo2->cliente = temp;
+    }
+
+    return factible;
+}
+
+// Versión corregida de reinsercion_intra_inter
+bool reinsercion_intra_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
+{
+    nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
+    int intentos_maximos = 10;
+
+    // Seleccionar vehículos
+    for (int intento = 0; intento < intentos_maximos; intento++)
+    {
+        vehiculo_origen = seleccionar_vehiculo_aleatorio(hormiga);
+        vehiculo_destino = seleccionar_vehiculo_aleatorio(hormiga);
+
+        if (!vehiculo_origen || !vehiculo_destino || 
+            !vehiculo_origen->vehiculo || !vehiculo_destino->vehiculo)
+            continue;
+
+        // Vehículo origen debe tener al menos 1 cliente
+        if (vehiculo_origen->vehiculo->clientes_contados < 1)
+            continue;
+
+        // Si es el mismo vehículo, debe tener al menos 2 clientes
+        if (vehiculo_origen == vehiculo_destino && 
+            vehiculo_origen->vehiculo->clientes_contados < 2)
             continue;
 
         break;
     }
 
-    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 2)
+    if (!vehiculo_origen || !vehiculo_destino)
         return false;
 
-    if (vehiculo_actual->vehiculo->clientes_contados == 2)
-    {
+    int total_origen = vehiculo_origen->vehiculo->clientes_contados;
+    int total_destino = vehiculo_destino->vehiculo->clientes_contados;
 
-        cliente1_idx = 0;
-        cliente2_idx = 1;
-    }
+    // CORRECCIÓN: Permitir selección de cualquier cliente real
+    int pos_origen = rand() % total_origen + 1;  // Posición 1 a total_origen
+    
+    // Navegar al cliente origen
+    nodo_ruta *nodo_cliente = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
+    for (int i = 1; i < pos_origen && nodo_cliente; i++)
+        nodo_cliente = nodo_cliente->siguiente;
 
-    else
-    {
-        do
-        {
-            cliente1_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
-            cliente2_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
-
-        } while (cliente1_idx == cliente2_idx);
-    }
-
-    nodo1 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-    nodo2 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-
-    for (int i = 0; i < cliente1_idx; i++)
-        nodo1 = nodo1->siguiente;
-    for (int i = 0; i < cliente2_idx; i++)
-        nodo2 = nodo2->siguiente;
-
-    if (nodo1 == NULL || nodo2 == NULL)
+    if (!nodo_cliente || nodo_cliente->cliente == 0)
         return false;
 
-    // Intercambio tentativo
-    temp = nodo1->cliente;
-    nodo1->cliente = nodo2->cliente;
-    nodo2->cliente = temp;
-    // Verificamos si sigue siendo factible con respecto a la ventana de tiempo y capacidad
-    if (!verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
-    {
-        // Revertimos el intercambio si viola las restricciones
-        temp = nodo1->cliente;
-        nodo1->cliente = nodo2->cliente;
-        nodo2->cliente = temp;
+    int cliente = nodo_cliente->cliente;
+    
+    // Posición destino: después del depósito inicial hasta después del último cliente
+    int pos_destino = rand() % (total_destino + 1) + 1;  // Posición 1 a total_destino+1
 
-        return false;
-    }
+    // Eliminar cliente de origen
+    eliminar_cliente_ruta(vehiculo_origen->vehiculo, vrp, cliente, instancia_distancias);
 
-    return true;
-}
+    // Insertar en destino
+    bool factible = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, cliente,
+                                              pos_destino, instancia_distancias);
 
-// Intercambia dos clientes de diferentes vehiculos
-bool swap_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
-{
-    nodo_vehiculo *primer_vehiculo = NULL, *segundo_vehiculo = NULL;
-    nodo_ruta *primer_nodo_cliente = NULL, *segundo_nodo_cliente = NULL;
-    int intentos_maximos = 10, primer_cliente, segundo_cliente;
-    int primer_posicion, segunda_posicion;
-    bool factible = false;
-
-    for (int intento = 0; intento < intentos_maximos; intento++)
-    {
-        bool vehiculos_validos = false;
-        for (int j = 0; j < intentos_maximos; j++)
-        {
-            primer_vehiculo = seleccionar_vehiculo_aleatorio(hormiga);
-            segundo_vehiculo = seleccionar_vehiculo_aleatorio(hormiga);
-
-            if (!primer_vehiculo || !segundo_vehiculo || !primer_vehiculo->vehiculo || !segundo_vehiculo->vehiculo)
-                continue;
-
-            if (primer_vehiculo == segundo_vehiculo)
-                continue;
-
-            if (primer_vehiculo->vehiculo->clientes_contados > 1 &&
-                segundo_vehiculo->vehiculo->clientes_contados > 1)
-            {
-                vehiculos_validos = true;
-                break;
-            }
-        }
-
-        if (!vehiculos_validos)
-            return false;
-
-        // Evitar división por cero en rand() % ...
-        if (primer_vehiculo->vehiculo->clientes_contados <= 2 ||
-            segundo_vehiculo->vehiculo->clientes_contados <= 2)
-        {
-            continue;
-        }
-
-        primer_posicion = rand() % (primer_vehiculo->vehiculo->clientes_contados - 2) + 1;
-        segunda_posicion = rand() % (segundo_vehiculo->vehiculo->clientes_contados - 2) + 1;
-
-        primer_nodo_cliente = primer_vehiculo->vehiculo->ruta->cabeza->siguiente;
-        for (int k = 0; k < primer_posicion && primer_nodo_cliente; k++)
-            primer_nodo_cliente = primer_nodo_cliente->siguiente;
-
-        segundo_nodo_cliente = segundo_vehiculo->vehiculo->ruta->cabeza->siguiente;
-        for (int k = 0; k < segunda_posicion && segundo_nodo_cliente; k++)
-            segundo_nodo_cliente = segundo_nodo_cliente->siguiente;
-
-        if (!primer_nodo_cliente || !segundo_nodo_cliente)
-            continue;
-
-        primer_cliente = primer_nodo_cliente->cliente;
-        segundo_cliente = segundo_nodo_cliente->cliente;
-
-        // swap
-        int temp = primer_nodo_cliente->cliente;
-        primer_nodo_cliente->cliente = segundo_nodo_cliente->cliente;
-        segundo_nodo_cliente->cliente = temp;
-
-        // verificar ambos vehículos
-        factible = verificarRestricciones(primer_vehiculo->vehiculo, vrp, instancia_distancias) &&
-                   verificarRestricciones(segundo_vehiculo->vehiculo, vrp, instancia_distancias);
-
-        if (!factible)
-        {
-            // revertir swap
-            temp = primer_nodo_cliente->cliente;
-            primer_nodo_cliente->cliente = segundo_nodo_cliente->cliente;
-            segundo_nodo_cliente->cliente = temp;
-        }
-        else
-        {
-            return true; // swap exitoso
-        }
-    }
-
-    return false; // no se pudo hacer swap factible
-}
-
-bool reinsercion_intra_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
-{
-    nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
-    nodo_ruta *nodo_cliente = NULL;
-    int cliente, posicion_origen, posicion_destino;
-    int intentos_maximos = 10;
-
-    for (int intento = 0; intento < intentos_maximos; intento++)
-    {
-        bool vehiculos_validos = false;
-
-        for (int j = 0; j < intentos_maximos; j++)
-        {
-            vehiculo_origen = seleccionar_vehiculo_aleatorio(hormiga);
-            vehiculo_destino = seleccionar_vehiculo_aleatorio(hormiga);
-
-            if (!vehiculo_origen || !vehiculo_destino || !vehiculo_origen->vehiculo || !vehiculo_destino->vehiculo)
-            {
-                continue;
-            }
-
-            if (vehiculo_origen->vehiculo->clientes_contados < 2)
-            {
-                continue;
-            }
-
-            if (vehiculo_origen == vehiculo_destino)
-            {
-                if (vehiculo_origen->vehiculo->clientes_contados < 3)
-                {
-                    continue;
-                }
-            }
-            else
-            {
-                if (vehiculo_destino->vehiculo->clientes_contados < 1)
-                {
-                    continue;
-                }
-            }
-
-            vehiculos_validos = true;
-            break;
-        }
-
-        if (!vehiculos_validos)
-        {
-            continue;
-        }
-
-        int total_clientes_origen = vehiculo_origen->vehiculo->clientes_contados;
-        if (total_clientes_origen < 3)
-        {
-            continue;
-        }
-
-        posicion_origen = rand() % (total_clientes_origen - 2) + 1;
-
-        int total_clientes_destino = vehiculo_destino->vehiculo->clientes_contados;
-        if (total_clientes_destino < 1)
-        {
-            continue;
-        }
-
-        posicion_destino = rand() % total_clientes_destino + 1;
-
-        if (vehiculo_origen == vehiculo_destino && posicion_origen == posicion_destino)
-        {
-            continue;
-        }
-
-        nodo_cliente = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
-        for (int k = 0; k < posicion_origen && nodo_cliente; k++)
-        {
-            nodo_cliente = nodo_cliente->siguiente;
-        }
-
-        if (!nodo_cliente)
-        {
-            continue;
-        }
-
-        cliente = nodo_cliente->cliente;
-
-        eliminar_cliente_ruta(vehiculo_origen->vehiculo, vrp, cliente, instancia_distancias);
-
-        bool factible = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, cliente,
-                                                  posicion_destino, instancia_distancias);
-
-        bool restricciones_origen_ok = false, restricciones_destino_ok = false;
-
-        if (factible)
-        {
-            restricciones_origen_ok = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias);
-            restricciones_destino_ok = verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
-        }
-
-        if (factible && restricciones_origen_ok && restricciones_destino_ok)
-        {
+    if (factible) {
+        // Verificar restricciones en ambos vehículos
+        bool restricciones_ok = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
+                               verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
+        
+        if (restricciones_ok) {
             return true;
         }
-
-        if (factible)
-        {
-            eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, cliente, instancia_distancias);
-        }
-
-        insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp, cliente,
-                                  posicion_origen, instancia_distancias);
+        
+        // Revertir: eliminar de destino
+        eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, cliente, instancia_distancias);
     }
 
+    // Revertir: restaurar en origen
+    insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp, cliente, pos_origen, instancia_distancias);
     return false;
 }
 
-// Implementación del algoritmo 2.5-opt
-// Elimina un segmento de una ruta y lo reinserta en otra posición
+// Versión completa de opt_2_5 - Relocación de segmento
 bool opt_2_5(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     int intentos_maximos = 10;
-    struct nodo_vehiculo *vehiculo_aleatorio;
+    struct nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
 
-    for (int intentos = 0; intentos < intentos_maximos; intentos++)
+    // Seleccionar vehículo origen con al menos 2 clientes
+    for (int intento = 0; intento < intentos_maximos; intento++)
     {
-
-        vehiculo_aleatorio = seleccionar_vehiculo_aleatorio(hormiga);
-
-        if (vehiculo_aleatorio == NULL)
-            continue;
-
-        if (vehiculo_aleatorio->vehiculo->clientes_contados < 3)
-            continue;
-
-        if (vehiculo_aleatorio != NULL && vehiculo_aleatorio->vehiculo->clientes_contados > 3)
+        vehiculo_origen = seleccionar_vehiculo_aleatorio(hormiga);
+        if (vehiculo_origen && vehiculo_origen->vehiculo && 
+            vehiculo_origen->vehiculo->clientes_contados >= 2)
             break;
     }
 
-    int posicion_origen, cliente_origen;
-    struct nodo_ruta *cliente;
+    if (!vehiculo_origen || vehiculo_origen->vehiculo->clientes_contados < 2)
+        return false;
 
-    // for (int intentos = 0; intentos < intentos_maximos; intentos++)
-    // {
-    posicion_origen = rand() % (vehiculo_aleatorio->vehiculo->clientes_contados - 2) + 1;
-    printf("Ruta Inicial\n");
-    imprimir_ruta(vehiculo_aleatorio->vehiculo->ruta, vehiculo_aleatorio->vehiculo->id_vehiculo);
-    cliente = vehiculo_aleatorio->vehiculo->ruta->cabeza->siguiente;
+    // Seleccionar vehículo destino (puede ser el mismo)
+    vehiculo_destino = seleccionar_vehiculo_aleatorio(hormiga);
+    if (!vehiculo_destino)
+        return false;
 
-    for (int i = 0; i < posicion_origen; i++)
-        cliente = cliente->siguiente;
+    int total_origen = vehiculo_origen->vehiculo->clientes_contados;
+    
+    // Seleccionar segmento de 1-2 clientes
+    int inicio_segmento = rand() % total_origen + 1;  // Posición 1 a total_origen
+    int tamanio_segmento = 1 + (rand() % 2);  // 1 o 2 clientes
+    
+    // Ajustar tamaño si excede límites
+    if (inicio_segmento + tamanio_segmento - 1 > total_origen)
+        tamanio_segmento = total_origen - inicio_segmento + 1;
 
-    cliente_origen = cliente->cliente;
+    // Guardar clientes del segmento
+    int *clientes_segmento = malloc(tamanio_segmento * sizeof(int));
+    if (!clientes_segmento)
+        return false;
 
-    eliminar_cliente_ruta(vehiculo_aleatorio->vehiculo, vrp, cliente_origen, instancia_distancias);
+    nodo_ruta *nodo_temp = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
+    for (int i = 1; i < inicio_segmento; i++)
+        nodo_temp = nodo_temp->siguiente;
 
-    printf("Ruta actualizada\n");
-    imprimir_ruta(vehiculo_aleatorio->vehiculo->ruta, vehiculo_aleatorio->vehiculo->id_vehiculo);
+    for (int i = 0; i < tamanio_segmento; i++) {
+        clientes_segmento[i] = nodo_temp->cliente;
+        nodo_temp = nodo_temp->siguiente;
+    }
 
-    //}
+    // Eliminar segmento del origen
+    for (int i = tamanio_segmento - 1; i >= 0; i--) {
+        eliminar_cliente_ruta(vehiculo_origen->vehiculo, vrp, clientes_segmento[i], instancia_distancias);
+    }
+
+    // Seleccionar posición de inserción en destino
+    int total_destino = vehiculo_destino->vehiculo->clientes_contados;
+    int pos_insercion = rand() % (total_destino + 1) + 1;
+
+    // Insertar segmento en destino
+    bool factible = true;
+    for (int i = 0; i < tamanio_segmento && factible; i++) {
+        factible = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, 
+                                           clientes_segmento[i], pos_insercion + i, instancia_distancias);
+    }
+
+    if (factible) {
+        // Verificar restricciones
+        bool restricciones_ok = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
+                               verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
+        
+        if (restricciones_ok) {
+            free(clientes_segmento);
+            return true;
+        }
+
+        // Revertir: eliminar de destino
+        for (int i = tamanio_segmento - 1; i >= 0; i--) {
+            eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, clientes_segmento[i], instancia_distancias);
+        }
+    }
+
+    // Revertir: restaurar en origen
+    for (int i = 0; i < tamanio_segmento; i++) {
+        insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp, 
+                                clientes_segmento[i], inicio_segmento + i, instancia_distancias);
+    }
+
+    free(clientes_segmento);
+    return false;
 }
