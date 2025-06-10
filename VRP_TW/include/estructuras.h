@@ -61,14 +61,15 @@ typedef struct lista_vehiculos
 {
     nodo_vehiculo *cabeza; // Primer vehículo en la flota
     nodo_vehiculo *cola;   // Último vehículo en la flota
+
 } lista_vehiculos;
 
-// ---------------------  ---------------------
-// 
+// --------------------- MEJORES HORMIGAS ---------------------
+//
 typedef struct mejores_hormigas
 {
-    int id;
-    double fitness;
+    int id;         // Id de la hormiga
+    double fitness; // Fitness de la hormiga
 
 } mejores_hormigas;
 
@@ -129,6 +130,8 @@ typedef struct rangos
     double minRho;                 // Parámetro rho mínimo
     double maxNumHormigas;         // Número máximo de hormigas
     double minNumHormigas;         // Número mínimo de hormigas
+    double maxPorcentajeHormigas;     // Porcentaje máximo de hormigas
+    double minPorcenjateHormigas;     // Porcentaje mínimo de hormigas
     int maxNumIteracionesACO;      // Número máximo de iteraciones ACO
     int minNumIteracionesACO;      // Número mínimo de iteraciones ACO
     double maxTemperatura_inicial; // Temperatura inicial máxima
@@ -137,8 +140,6 @@ typedef struct rangos
     double minTemperatura_final;   // Temperatura final mínima
     double maxFactor_enfriamiento; // Factor de enfriamiento máximo
     double minFactor_enfriamiento; // Factor de enfriamiento mínimo
-    double maxFactor_control;      // Factor de control máximo
-    double minFactor_control;      // Factor de control mínimo
     int maxIteracionesSA;          // Número máximo de iteraciones SA
     int minIteracionesSA;          // Número mínimo de iteraciones SA
 } rangos;
@@ -152,6 +153,7 @@ typedef struct individuo
     double gamma;               // Parametro gamma para el algoritmo ACO
     double rho;                 // Factor de evaporación de feromona para el algoritmo ACO
     int numHormigas;            // Número de hormigas en la población para el algoritmo ACO
+    double porcentajeHormigas;             // Porcentaje de mejores hormigas para el algorimo ACO
     int numIteracionesACO;      // Número de iteraciones del algoritmo para el algoritmo ACO
     double temperatura_inicial; // Temperatura inicial para el algoritmo SA
     double temperatura_final;   // Temperatura final para el algoritmo SA
@@ -160,7 +162,7 @@ typedef struct individuo
     int numIteracionesSA;       // Número de iteraciones del algoritmo SA
     double fitness;             // Medida de rendimiento del individuo
     hormiga *hormiga;           // Puntero a la hormiga asociada al individuo
-    //metal *metal;               // Puntero a las soluciones de SA
+    // metal *metal;               // Puntero a las soluciones de SA
 } individuo;
 
 #endif // ESTRUCTURAS_H

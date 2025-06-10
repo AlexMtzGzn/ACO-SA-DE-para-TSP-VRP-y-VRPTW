@@ -146,11 +146,11 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
       ruidoso[i].gamma = objetivo[aleatorio1].gamma + 0.5 * (objetivo[aleatorio2].gamma - objetivo[aleatorio3].gamma);
       ruidoso[i].rho = objetivo[aleatorio1].rho + 0.5 * (objetivo[aleatorio2].rho - objetivo[aleatorio3].rho);
       ruidoso[i].numHormigas = objetivo[aleatorio1].numHormigas + (int)(0.5 * (objetivo[aleatorio2].numHormigas - objetivo[aleatorio3].numHormigas));
+      ruidoso[i].porcentajeHormigas = objetivo[aleatorio1].porcentajeHormigas + 0.5 * (objetivo[aleatorio2].porcentajeHormigas - objetivo[aleatorio3].porcentajeHormigas);
       ruidoso[i].numIteracionesACO = objetivo[aleatorio1].numIteracionesACO + (int)(0.5 * (objetivo[aleatorio2].numIteracionesACO - objetivo[aleatorio3].numIteracionesACO));
       ruidoso[i].temperatura_inicial = objetivo[aleatorio1].temperatura_inicial + 0.5 * (objetivo[aleatorio2].temperatura_inicial - objetivo[aleatorio3].temperatura_inicial);
       ruidoso[i].temperatura_final = objetivo[aleatorio1].temperatura_final + 0.5 * (objetivo[aleatorio2].temperatura_final - objetivo[aleatorio3].temperatura_final);
       ruidoso[i].factor_enfriamiento = objetivo[aleatorio1].factor_enfriamiento + 0.5 * (objetivo[aleatorio2].factor_enfriamiento - objetivo[aleatorio3].factor_enfriamiento);
-      ruidoso[i].factor_control = objetivo[aleatorio1].factor_control + 0.5 * (objetivo[aleatorio2].factor_control - objetivo[aleatorio3].factor_control);
       ruidoso[i].numIteracionesSA = objetivo[aleatorio1].numIteracionesSA + (int)(0.5 * (objetivo[aleatorio2].numIteracionesSA - objetivo[aleatorio3].numIteracionesSA));
       // Limita los valores de los parámetros para asegurarse de que estén dentro de un rango válido
 
@@ -189,6 +189,13 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
       if (ruidoso[i].numHormigas < rango->minNumHormigas)
          ruidoso[i].numHormigas = rango->minNumHormigas;
 
+      // Limita 'numHormigas' a estar dentro de los valores mínimos y máximos
+      if (ruidoso[i].porcentajeHormigas > rango->maxPorcentajeHormigas)
+         ruidoso[i].porcentajeHormigas = rango->maxPorcentajeHormigas;
+
+      if (ruidoso[i].porcentajeHormigas < rango->minPorcenjateHormigas)
+         ruidoso[i].porcentajeHormigas = rango->minPorcenjateHormigas;
+
       // Limita 'numIteracionesACO' a estar dentro de los valores mínimos y máximos
       if (ruidoso[i].numIteracionesACO > rango->maxNumIteracionesACO)
          ruidoso[i].numIteracionesACO = rango->maxNumIteracionesACO;
@@ -216,13 +223,6 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
 
       if (ruidoso[i].factor_enfriamiento < rango->minFactor_enfriamiento)
          ruidoso[i].factor_enfriamiento = rango->minFactor_enfriamiento;
-
-      // Limita 'factor_control' a estar dentro de los valores mínimos y máximos
-      if (ruidoso[i].factor_control > rango->maxFactor_control)
-         ruidoso[i].factor_control = rango->maxFactor_control;
-
-      if (ruidoso[i].factor_control < rango->minFactor_control)
-         ruidoso[i].factor_control = rango->minFactor_control;
 
       // Limita 'numIteracionesSA' a estar dentro de los valores mínimos y máximos
       if (ruidoso[i].numIteracionesSA > rango->maxIteracionesSA)
@@ -277,8 +277,11 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxRho = 0.5; // Antes: 0.6 → Evaporación más gradual
       rango->minRho = 0.3; // Antes: 0.4 → Más diversidad
 
-      rango->maxNumHormigas = 15; // Antes: 20 → Suficiente para este tamaño
-      rango->minNumHormigas = 10; // OK - Mantener
+      rango->maxNumHormigas = 6; // Antes: 20 → Suficiente para este tamaño
+      rango->minNumHormigas = 3; // OK - Mantener
+
+      rango->maxPorcentajeHormigas = 0.20;
+      rango->minPorcenjateHormigas = 0.50;
 
       rango->maxNumIteracionesACO = 80; // Antes: 100 → Más eficiente
       rango->minNumIteracionesACO = 60; // Antes: 50 → Mínimo razonable
@@ -292,9 +295,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
       rango->maxFactor_enfriamiento = 0.98; // Antes: 0.999 → Enfriamiento más rápido
       rango->minFactor_enfriamiento = 0.95; // OK - Mantener
-
-      rango->maxFactor_control = 0.9; // Antes: 0.8 → 90% prob final
-      rango->minFactor_control = 0.6; // Mantener → 60% prob final
 
       rango->maxIteracionesSA = 120; // Antes: 150 → Más eficiente
       rango->minIteracionesSA = 80;  // Antes: 100 → Mínimo adecuado
@@ -314,8 +314,11 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxRho = 0.45; // Antes: 0.5 → Evaporación moderada
       rango->minRho = 0.25; // Antes: 0.3 → Más diversidad
 
-      rango->maxNumHormigas = 30; // Antes: 40 → Más eficiente
-      rango->minNumHormigas = 20; // Antes: 25 → Mínimo adecuado
+      rango->maxNumHormigas = 12; // Antes: 40 → Más eficiente
+      rango->minNumHormigas = 6;  // Antes: 25 → Mínimo adecuado
+
+      rango->maxPorcentajeHormigas = 0.20;
+      rango->minPorcenjateHormigas = 0.50;
 
       rango->maxNumIteracionesACO = 150; // Antes: 180 → Más eficiente
       rango->minNumIteracionesACO = 100; // Antes: 120 → Transición suave
@@ -329,9 +332,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
       rango->maxFactor_enfriamiento = 0.99; // Antes: 0.995 → Más eficiente
       rango->minFactor_enfriamiento = 0.97; // OK - Mantener
-
-      rango->maxFactor_control = 0.85; // Antes: 0.9 → Menos agresivo
-      rango->minFactor_control = 0.55; // Antes: 0.75 → Más rango
 
       rango->maxIteracionesSA = 200; // Antes: 250 → Más eficiente
       rango->minIteracionesSA = 120; // Antes: 150 → Progresión suave
@@ -351,8 +351,11 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxRho = 0.3; // Antes: 0.4 → Evaporación lenta
       rango->minRho = 0.1; // OK - Mantener diversidad
 
-      rango->maxNumHormigas = 40; // Antes: 50 → Más eficiente
-      rango->minNumHormigas = 25; // Antes: 35 → Mínimo razonable
+      rango->maxNumHormigas = 20; // Antes: 50 → Más eficiente
+      rango->minNumHormigas = 10; // Antes: 35 → Mínimo razonable
+
+      rango->maxPorcentajeHormigas = 0.20;
+      rango->minPorcenjateHormigas = 0.50;
 
       rango->maxNumIteracionesACO = 180; // Antes: 200 → Más eficiente
       rango->minNumIteracionesACO = 120; // Antes: 150 → Progresión suave
@@ -366,9 +369,6 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
       rango->maxFactor_enfriamiento = 0.995; // OK - Mantener
       rango->minFactor_enfriamiento = 0.98;  // Antes: 0.97 → Enfriamiento más lento
-
-      rango->maxFactor_control = 0.75; // Antes: 0.9 → Gran reducción
-      rango->minFactor_control = 0.45; // Antes: 0.7 → Más rango
 
       // ¡CAMBIO CRÍTICO!
       rango->maxIteracionesSA = 300; // Antes: 1000 → 70% reducción
@@ -384,11 +384,12 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       objetivo[i].gamma = generaAleatorio(rango->minGamma, rango->maxGamma);
       objetivo[i].rho = generaAleatorio(rango->minRho, rango->maxRho);
       objetivo[i].numHormigas = (int)generaAleatorio(rango->minNumHormigas, rango->maxNumHormigas);
+      objetivo[i].porcentajeHormigas = generaAleatorio(rango->minPorcenjateHormigas, rango->maxPorcentajeHormigas);
       objetivo[i].numIteracionesACO = (int)generaAleatorio(rango->minNumIteracionesACO, rango->maxNumIteracionesACO);
       objetivo[i].temperatura_inicial = generaAleatorio(rango->minTemperatura_inicial, rango->maxTemperatura_inicial);
       objetivo[i].temperatura_final = generaAleatorio(rango->minTemperatura_final, rango->maxTemperatura_final);
       objetivo[i].factor_enfriamiento = generaAleatorio(rango->minFactor_enfriamiento, rango->maxFactor_enfriamiento);
-      objetivo[i].factor_control = generaAleatorio(rango->minFactor_control, rango->maxFactor_control);
+
       objetivo[i].numIteracionesSA = (int)generaAleatorio(rango->minIteracionesSA, rango->maxIteracionesSA);
    }
 }
