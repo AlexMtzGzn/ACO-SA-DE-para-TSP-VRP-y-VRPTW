@@ -78,7 +78,7 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
                 instancia_feromona[i][j] *= (1.0 - ind->rho); // Reducimos la feromona por el factor rho
 
     // Iteramos sobre todas las hormigas para actualizar las feromonas de acuerdo a sus rutas
-    for (int i = 0; i < ceil((double)(ind->numHormigas * 0.2)); i++)
+    for (int i = 0; i < (int)ceil((double)(ind->numHormigas * ind->porcentajeHormigas)); i++)
     {
         struct nodo_vehiculo *vehiculo_actual = hormiga[mejores_hormigas[i].id - 1].flota->cabeza; // Obtenemos el primer vehículo de la flota de la hormiga
 
@@ -424,6 +424,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 {
     // Asignamos memoria para el número de hormigas
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
+    struct hormiga *hormiga_chismosa = asignar_memoria_hormigas(1);
     struct mejores_hormigas *mejores_hormigas = (struct mejores_hormigas *)calloc(ind->numHormigas, sizeof(struct mejores_hormigas));
     double delta;    // Variable para almacenar el mejor fitness de cada iteración
     // Inicializamos las hormigas con valores iniciales
@@ -451,8 +452,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
         quicksort_mejores(mejores_hormigas, 0, ind->numHormigas - 1);
 
-        for (int j = 0; j < ceil((double)(ind->numHormigas * 0.20)); j++)
+        for (int j = 0; j < (int)ceil((double)(ind->numHormigas * ind->porcentajeHormigas)); j++)
             vrp_tw_sa(vrp, &hormiga[mejores_hormigas[j].id - 1], ind, instancia_distancias);
+        
         
         delta = 1.0 / hormiga[mejores_hormigas[0].id - 1].fitness_global;
 
@@ -470,9 +472,6 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     // Guardamos la mejor hormiga encontrada en la estructura individuo
     recuperamos_mejor_hormiga(ind, &hormiga[mejores_hormigas[0].id - 1]);
 
-    calculamosVentanasCapacidad(ind->hormiga->flota, vrp, instancia_distancias);
-
-    // vrp_tw_sa(vrp, ind, instancia_distancias);
     //   Liberamos la memoria utilizada por las hormigas al final del proceso
     liberar_memoria_hormiga(hormiga, ind);
     free(mejores_hormigas);

@@ -280,8 +280,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxNumHormigas = 6; // Antes: 20 → Suficiente para este tamaño
       rango->minNumHormigas = 3; // OK - Mantener
 
-      rango->maxPorcentajeHormigas = 0.20;
-      rango->minPorcenjateHormigas = 0.50;
+      rango->maxPorcentajeHormigas = 0.60;
+      rango->minPorcenjateHormigas = 0.30;
 
       rango->maxNumIteracionesACO = 80; // Antes: 100 → Más eficiente
       rango->minNumIteracionesACO = 60; // Antes: 50 → Mínimo razonable
@@ -317,8 +317,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxNumHormigas = 12; // Antes: 40 → Más eficiente
       rango->minNumHormigas = 6;  // Antes: 25 → Mínimo adecuado
 
-      rango->maxPorcentajeHormigas = 0.20;
-      rango->minPorcenjateHormigas = 0.50;
+      rango->maxPorcentajeHormigas = 0.50;
+      rango->minPorcenjateHormigas = 0.20;
 
       rango->maxNumIteracionesACO = 150; // Antes: 180 → Más eficiente
       rango->minNumIteracionesACO = 100; // Antes: 120 → Transición suave
@@ -354,8 +354,8 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
       rango->maxNumHormigas = 20; // Antes: 50 → Más eficiente
       rango->minNumHormigas = 10; // Antes: 35 → Mínimo razonable
 
-      rango->maxPorcentajeHormigas = 0.20;
-      rango->minPorcenjateHormigas = 0.50;
+      rango->maxPorcentajeHormigas = 0.35;
+      rango->minPorcenjateHormigas = 0.15;
 
       rango->maxNumIteracionesACO = 180; // Antes: 200 → Más eficiente
       rango->minNumIteracionesACO = 120; // Antes: 150 → Progresión suave
@@ -441,11 +441,11 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
          resultado->gamma = objetivo[i].gamma;
          resultado->rho = objetivo[i].rho;
          resultado->numHormigas = objetivo[i].numHormigas;
+         resultado->porcentajeHormigas = objetivo[i].porcentajeHormigas;
          resultado->numIteracionesACO = objetivo[i].numIteracionesACO;
          resultado->temperatura_inicial = objetivo[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
          resultado->temperatura_final = objetivo[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
          resultado->factor_enfriamiento = objetivo[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
-         resultado->factor_control = objetivo[i].factor_control;           // Copiamos el factor de control del mejor metal
          resultado->numIteracionesSA = objetivo[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
          recuperamos_mejor_hormiga(resultado, objetivo[i].hormiga);
       }
@@ -468,11 +468,11 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
             resultado->gamma = prueba[i].gamma;
             resultado->rho = prueba[i].rho;
             resultado->numHormigas = prueba[i].numHormigas;
+            resultado->porcentajeHormigas = prueba[i].porcentajeHormigas;
             resultado->numIteracionesACO = prueba[i].numIteracionesACO;
             resultado->temperatura_inicial = prueba[i].temperatura_inicial; // Copiamos la temperatura inicial del mejor metal
             resultado->temperatura_final = prueba[i].temperatura_final;     // Copiamos la temperatura final  del mejor metal
             resultado->factor_enfriamiento = prueba[i].factor_enfriamiento; // Copiamos el factor de enfriamiento del mejor metal
-            resultado->factor_control = prueba[i].factor_control;           // Copiamos el factor de control del mejor metal
             resultado->numIteracionesSA = prueba[i].numIteracionesSA;       // Copiamos el numero de iteraciones del mejor metal
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);
          }
