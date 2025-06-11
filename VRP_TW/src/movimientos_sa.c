@@ -17,7 +17,7 @@ bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double *
     
     // Buscar un vehículo válido con al menos 2 clientes
     for (int intento = 0; intento < intentos_maximos; intento++) {
-        vehiculo_aleatorio = (rand() % hormiga->vehiculos_necesarios) + 1;
+        vehiculo_aleatorio = seleccionar_vehiculo_aleatorio(hormiga);
         
         vehiculo_actual = hormiga->flota->cabeza;
         while (vehiculo_actual != NULL) {

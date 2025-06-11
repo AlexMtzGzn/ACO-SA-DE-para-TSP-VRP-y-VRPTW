@@ -206,15 +206,20 @@ struct hormiga *asignar_memoria_hormigas(int numHormigas)
 /**
  * Libera la memoria asociada a las hormigas, incluyendo las estructuras dentro de cada hormiga.
  */
-void liberar_memoria_hormiga(struct hormiga *hormiga, struct individuo *ind)
+void liberar_memoria_hormiga(struct hormiga *hormiga, int numHormigas)
 {
-    for (int i = 0; i < ind->numHormigas; i++)
+    for (int i = 0; i < numHormigas; i++)
     {
-        liberar_memoria_arreglo_int(hormiga[i].tabu);
-        liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
-        liberar_memoria_arreglo_double(hormiga[i].probabilidades);
-        liberar_lista_vehiculos(hormiga[i].flota);
+        if (hormiga[i].tabu)
+            liberar_memoria_arreglo_int(hormiga[i].tabu);
+        if (hormiga[i].posibles_clientes)
+            liberar_memoria_arreglo_int(hormiga[i].posibles_clientes);
+        if (hormiga[i].probabilidades)
+            liberar_memoria_arreglo_double(hormiga[i].probabilidades);
+        if (hormiga[i].flota)
+            liberar_lista_vehiculos(hormiga[i].flota);
     }
+
     free(hormiga);
 }
 
@@ -280,8 +285,6 @@ struct nodo_ruta *asignar_memoria_nodo_ruta()
 
 /*Funciones para la estructura tiempos clientes*/
 
-
-
 struct tiempos_cliente *asiganar_memoria_tiempos_clientes(int numero_clientes)
 {
 
@@ -296,7 +299,8 @@ struct tiempos_cliente *asiganar_memoria_tiempos_clientes(int numero_clientes)
     return tiempos;
 }
 
-void liberar_tiempos_clientes(struct tiempos_cliente * tiempos){
+void liberar_tiempos_clientes(struct tiempos_cliente *tiempos)
+{
     free(tiempos);
 }
 
@@ -372,4 +376,3 @@ void liberar_lista_ruta(struct lista_ruta *lista)
 
     free(lista);
 }
-

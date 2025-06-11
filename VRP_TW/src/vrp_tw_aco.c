@@ -404,7 +404,7 @@ void quicksort_mejores(struct mejores_hormigas *mejores_hormigas, int bajo, int 
                 // Swap correcto
                 struct mejores_hormigas temp = mejores_hormigas[i];
                 mejores_hormigas[i] = mejores_hormigas[j];
-                mejores_hormigas[j] = temp; // Aquí faltaba 'temp' en vez de 'mejores_hormigas'
+                mejores_hormigas[j] = temp; 
             }
         }
         // Swap pivote
@@ -425,8 +425,9 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     // Asignamos memoria para el número de hormigas
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
     struct hormiga *hormiga_chismosa = asignar_memoria_hormigas(1);
+    hormiga_chismosa->fitness_global = INFINITY;
     struct mejores_hormigas *mejores_hormigas = (struct mejores_hormigas *)calloc(ind->numHormigas, sizeof(struct mejores_hormigas));
-    double delta;    // Variable para almacenar el mejor fitness de cada iteración
+    double delta; // Variable para almacenar el mejor fitness de cada iteración
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(vrp, ind, hormiga);
 
@@ -454,25 +455,37 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
         for (int j = 0; j < (int)ceil((double)(ind->numHormigas * ind->porcentajeHormigas)); j++)
             vrp_tw_sa(vrp, &hormiga[mejores_hormigas[j].id - 1], ind, instancia_distancias);
-        
-        
+
+        for (int j = 0; j < (int)ceil((double)(ind->numHormigas * ind->porcentajeHormigas)); j++)
+        {
+            if (hormiga[mejores_hormigas[j].id - 1].fitness_global < hormiga_chismosa->fitness_global)
+            {
+                if (hormiga_chismosa->flota)
+                    liberar_memoria_hormiga(hormiga_chismosa, 1);
+
+                hormiga_chismosa = copiar_hormiga_sa(&hormiga[mejores_hormigas[j].id - 1]);
+            }
+        }
+
         delta = 1.0 / hormiga[mejores_hormigas[0].id - 1].fitness_global;
 
         // Actualizamos la matriz de feromonas con base en las soluciones generadas
         actualizar_feromona(ind, hormiga, mejores_hormigas, vrp, instancia_feromona, delta);
+        delta = (1.0 / hormiga_chismosa->fitness_global)*2;
+        refuerzo_feromona_mejor_ruta(hormiga_chismosa, instancia_feromona, delta);
 
         // Si no es la última iteración, reiniciamos las hormigas para la siguiente generación
         if (i < ind->numIteracionesACO - 1)
-        {
             for (int j = 0; j < ind->numHormigas; j++)
                 reiniciar_hormiga(&hormiga[j], vrp);
-        }
     }
 
-    // Guardamos la mejor hormiga encontrada en la estructura individuo
-    recuperamos_mejor_hormiga(ind, &hormiga[mejores_hormigas[0].id - 1]);
+    if (hormiga_chismosa->fitness_global < hormiga[mejores_hormigas[0].id - 1].fitness_global)
+        recuperamos_mejor_hormiga(ind, &hormiga[mejores_hormigas[0].id - 1]);
+    else
+        recuperamos_mejor_hormiga(ind, hormiga_chismosa);
 
-    //   Liberamos la memoria utilizada por las hormigas al final del proceso
-    liberar_memoria_hormiga(hormiga, ind);
+    liberar_memoria_hormiga(hormiga, ind->numHormigas);
+    liberar_memoria_hormiga(hormiga_chismosa, 1);
     free(mejores_hormigas);
 }

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "../include/estructuras.h"
 #include "../include/control_memoria.h"
 #include "../include/lista_flota.h"
@@ -174,7 +175,7 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
     free(flota); // Liberar la memoria de la lista de vehículos
 }
 
-void eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
+bool eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
 {
     struct nodo_vehiculo *anterior = NULL;
     struct nodo_vehiculo *actual = lista->cabeza;
@@ -196,7 +197,8 @@ void eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
                     anterior->siguiente = actual->siguiente;
                 }
 
-                liberar_vehiculo(actual->vehiculo); // libera memoria: ruta, nodos, etc.
+                liberar_vehiculo(actual->vehiculo); // Libera memoria interna
+                free(actual); // Libera el nodo de la lista
                 eliminado = true;
                 break;
             }
@@ -207,7 +209,7 @@ void eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
     }
 
     if (!eliminado)
-        return;
+        return false;
 
     // Reajustar IDs de todos los vehículos desde 1
     int nuevo_id = 1;
@@ -218,9 +220,12 @@ void eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
         actual->vehiculo->id_vehiculo = nuevo_id++;
         actual = actual->siguiente;
     }
+
+    return true;
 }
 
-struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga * hormiga)
+
+struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga *hormiga)
 {
     int intentos = 10, vehiculo_aleatorio = -1;
     struct nodo_vehiculo *nodo_vehiculo_aleatorio = NULL;
@@ -242,8 +247,8 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga * hormiga)
 
     if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
     {
-        //eliminar_vehiculo_vacio(hormiga->metal->solucion_vecina, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo);
-        //printf("Se elimino Vehiculo");
+        if(eliminar_vehiculo_vacio(hormiga->flota, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo))
+            hormiga->vehiculos_necesarios--;
         return NULL;
     }
     else
@@ -251,5 +256,3 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga * hormiga)
         return nodo_vehiculo_aleatorio;
     }
 }
-
-
