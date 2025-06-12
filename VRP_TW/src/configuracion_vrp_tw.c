@@ -86,7 +86,7 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tam
     }
 
     // Escribimos la primera línea con los parámetros de configuración
-    fprintf(archivo, "%s\n%d, %d, %d\n",
+    fprintf(archivo, "%s\n%d, %lf, %d\n",
             archivo_instancia,
             vrp->num_vehiculos,
             vrp->num_capacidad,
@@ -130,7 +130,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
                 char *ptr = buffer;
                 while (*ptr == ' ' && *ptr != '\0')
                     ptr++;
-                sscanf(ptr, "%d %d", &vrp->num_vehiculos, &vrp->num_capacidad);
+                sscanf(ptr, "%d %2lf", &vrp->num_vehiculos, &vrp->num_capacidad);
                 break;
             }
         }

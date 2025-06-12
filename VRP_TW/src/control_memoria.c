@@ -376,3 +376,22 @@ void liberar_lista_ruta(struct lista_ruta *lista)
 
     free(lista);
 }
+
+struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas)
+{
+    struct mejores_hormigas *mejores_hormigas = (struct mejores_hormigas *)calloc(numHormigas, sizeof(struct mejores_hormigas));
+
+    if (!mejores_hormigas)
+    {
+        imprimir_mensaje("No se pudo asignar memoria para arreglo mejores_hormigas");
+        exit(EXIT_FAILURE);
+    }
+
+    return mejores_hormigas;
+}
+
+void liberar_memoria_mejores_hormigas(struct mejores_hormigas *mejores_hormigas)
+{
+
+    free(mejores_hormigas);
+}

@@ -426,7 +426,7 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
     struct hormiga *hormiga = asignar_memoria_hormigas(ind->numHormigas);
     struct hormiga *hormiga_chismosa = asignar_memoria_hormigas(1);
     hormiga_chismosa->fitness_global = INFINITY;
-    struct mejores_hormigas *mejores_hormigas = (struct mejores_hormigas *)calloc(ind->numHormigas, sizeof(struct mejores_hormigas));
+    struct mejores_hormigas *mejores_hormigas = asignar_memoria_mejores_hormigas(ind->numHormigas);
     double delta; // Variable para almacenar el mejor fitness de cada iteración
     // Inicializamos las hormigas con valores iniciales
     inicializar_hormiga(vrp, ind, hormiga);
@@ -487,5 +487,5 @@ void vrp_tw_aco(struct vrp_configuracion *vrp, struct individuo *ind, double **i
 
     liberar_memoria_hormiga(hormiga, ind->numHormigas);
     liberar_memoria_hormiga(hormiga_chismosa, 1);
-    free(mejores_hormigas);
+    liberar_memoria_mejores_hormigas(mejores_hormigas);
 }

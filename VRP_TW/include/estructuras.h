@@ -19,16 +19,17 @@ typedef struct lista_ruta
 // --------------------- TIEMPO CLIENTE ---------------------
 // Estructura que representa los tiempos de cada cliente
 
-typedef struct tiempos_cliente
+typedef struct capacidad_tiempos_cliente
 {
     int cliente;              // ID del cliente
+    double demanda_capacidad; // Demanda de capacidaded del cliente
     double tiempo_llegada;    // Tiempo de llegada del vehiculo al cliente
     double tiempo_espera;     // Tiempo de espera del vehiculo en el cliente
     double inicio_servicio;   // Tiempo de inicio del servicio al cliente
     double duracion_servicio; // Duración del servicio al cliente
     double tiempo_salida;     // Tiempo de salida del vehiculo del cliente
 
-} tiempos_cliente;
+} capacidad_tiempos_cliente;
 // --------------------- VEHÍCULOS ---------------------
 // Estructura que representa un vehículo en la flota
 typedef struct vehiculo
@@ -45,7 +46,7 @@ typedef struct vehiculo
     int clientes_contados;            // Contador de clientes atendidos por el vehículo
     lista_ruta *ruta;                 // Ruta que sigue el vehículo
     double fitness_vehiculo;          // Medida de rendimiento del vehículo
-    tiempos_cliente *tiempos_cliente; // Arreglo que lleva el control de de los timepos de servicio del vehiuculo con el cliente
+    capacidad_tiempos_cliente *capacidad_tiempos_cliente; // Arreglo que lleva el control de de los timepos de servicio del vehiuculo con el cliente
 } vehiculo;
 
 // --------------------- NODO Y LISTA DE VEHÍCULOS ---------------------
@@ -109,7 +110,7 @@ typedef struct vrp_configuracion
 {
     int num_clientes;        // Número total de clientes en el VRP
     int num_vehiculos;       // Número total de vehículos disponibles
-    int num_capacidad;       // Capacidad de cada vehículo
+    double num_capacidad;    // Capacidad de cada vehículo
     int generaciones;        // Numero de generaciones
     int poblacion;           // Numero de poblacion
     cliente *clientes;       // Arreglo de clientes en el VRP
@@ -130,8 +131,8 @@ typedef struct rangos
     double minRho;                 // Parámetro rho mínimo
     double maxNumHormigas;         // Número máximo de hormigas
     double minNumHormigas;         // Número mínimo de hormigas
-    double maxPorcentajeHormigas;     // Porcentaje máximo de hormigas
-    double minPorcenjateHormigas;     // Porcentaje mínimo de hormigas
+    double maxPorcentajeHormigas;  // Porcentaje máximo de hormigas
+    double minPorcenjateHormigas;  // Porcentaje mínimo de hormigas
     int maxNumIteracionesACO;      // Número máximo de iteraciones ACO
     int minNumIteracionesACO;      // Número mínimo de iteraciones ACO
     double maxTemperatura_inicial; // Temperatura inicial máxima
@@ -153,7 +154,7 @@ typedef struct individuo
     double gamma;               // Parametro gamma para el algoritmo ACO
     double rho;                 // Factor de evaporación de feromona para el algoritmo ACO
     int numHormigas;            // Número de hormigas en la población para el algoritmo ACO
-    double porcentajeHormigas;             // Porcentaje de mejores hormigas para el algorimo ACO
+    double porcentajeHormigas;  // Porcentaje de mejores hormigas para el algorimo ACO
     int numIteracionesACO;      // Número de iteraciones del algoritmo para el algoritmo ACO
     double temperatura_inicial; // Temperatura inicial para el algoritmo SA
     double temperatura_final;   // Temperatura final para el algoritmo SA

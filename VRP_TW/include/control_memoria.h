@@ -28,7 +28,6 @@ void liberar_instancia(double **instancia, int tamanio_instancia);
 struct rangos *asignar_memoria_rangos();
 void liberar_rangos(struct rangos *rango);
 
-
 // Funciones para asignar y liberar memoria para la estructura de individuos
 
 // Asigna memoria para una población de individuos
@@ -36,7 +35,6 @@ struct individuo *asignar_memoria_individuos(int poblacion);
 
 // Libera la memoria de los individuos en la población
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo);
-
 
 // Funciones para asignar y liberar memoria para la estructura `vrp_configuracion`
 
@@ -46,12 +44,10 @@ struct vrp_configuracion *asignar_memoria_vrp_configuracion();
 // Libera la memoria utilizada por la configuración del VRP
 void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp);
 
-
 // Funciones para asignar memoria para la estructura de clientes
 
 // Asigna memoria para la estructura de clientes según la configuración del VRP
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);
-
 
 // Funciones para asignar y liberar memoria para la estructura de hormigas
 
@@ -64,7 +60,6 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, int numHormigas);
 // Reinicia los valores de las hormigas para una nueva iteración
 void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 
-
 // Funciones para asignar memoria para las estructuras de rutas
 
 // Asigna memoria para una lista de rutas
@@ -73,16 +68,23 @@ struct lista_ruta *asignar_memoria_lista_ruta();
 // Asigna memoria para un nodo de ruta
 struct nodo_ruta *asignar_memoria_nodo_ruta();
 
-
 // Funciones para asignar memoria para las estructuras de vehículos
 
 // Asigna memoria para una lista de vehículos
-lista_vehiculos* asignar_memoria_lista_vehiculos();
+lista_vehiculos *asignar_memoria_lista_vehiculos();
 
 // Asigna memoria para un vehículo
 struct vehiculo *asignar_memoria_vehiculo();
 
 // Asigna memoria para un nodo de vehículo
 struct nodo_vehiculo *asignar_memoria_nodo_vehiculo();
+
+// Funciones para asignar memoria para las estructuras de mejores hormigas
+
+// Asigna memoria para un arreglo de mejores hormigas
+struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas);
+
+// Libera memoria para una estructura de arreglos de hormiga
+void liberar_memoria_mejores_hormigas(struct mejores_hormigas *mejores_hormigas);
 
 #endif // CONTROL_MEMORIA_H
