@@ -13,14 +13,16 @@ void imprimir_instancia(double **matriz_instancia, struct vrp_configuracion *vrp
 
 void imprimir_datos_cliente(struct vehiculo *vehiculo);
 
+void imprimir_ruta_cordenadas(struct lista_ruta *ruta, int vehiculo_id, struct vrp_configuracion *vrp) ;
+
 // Función para imprimir la ruta de un vehículo, identificada por su ID
 void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id);
 
 // Función para imprimir la información de un vehículo en particular
-void imprimir_vehiculo(struct vehiculo *vehiculo);
+void imprimir_vehiculo(struct vehiculo *vehiculo,struct vrp_configuracion * vrp);
 
 // Función para imprimir la flota de vehículos (lista de vehículos)
-void imprimir_flota(struct lista_vehiculos *flota);
+void imprimir_flota(struct lista_vehiculos *flota,struct vrp_configuracion * vrp);
 
 // Función para imprimir el arreglo `tabu`, que indica los clientes que han sido visitados por la hormiga
 void imprimir_tabu(int *tabu, int num_clientes);
@@ -32,6 +34,6 @@ void imprimir_individuo(individuo *ind);
 void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, struct individuo * ind);
 
 // Función para imprimir la mejor hormiga encontrada hasta el momento, junto con su correspondiente individuo
-void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo * ind);
+void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo * ind,struct vrp_configuracion * vrp);
 
 #endif // SALIDA_DATOS_H

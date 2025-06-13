@@ -505,7 +505,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
 
    llenar_datos_clientes(resultado->hormiga->flota,vrp,instancia_distancias);
        // Imprimimos la meojor homriga
-       imprimir_mejor_hormiga(resultado->hormiga, resultado);
+       imprimir_mejor_hormiga(resultado->hormiga, resultado,vrp);
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos);
 
    printf("\n¿Quieres imprimir el archivo JSON (s/n)? ");

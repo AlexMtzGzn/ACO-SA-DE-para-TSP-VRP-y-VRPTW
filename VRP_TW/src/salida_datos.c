@@ -89,7 +89,7 @@ void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id) {
 }
 
 // Imprime la información completa de un vehículo
-void imprimir_vehiculo(struct vehiculo *vehiculo) {
+void imprimir_vehiculo(struct vehiculo *vehiculo,struct vrp_configuracion * vrp) {
     printf("  + Vehículo ID: %d\n", vehiculo->id_vehiculo);
     printf("    - Capacidad máxima     : %.2f\n", vehiculo->capacidad_maxima);
     printf("    - Capacidad acumulada  : %.2f\n", vehiculo->capacidad_acumulada);
@@ -101,18 +101,20 @@ void imprimir_vehiculo(struct vehiculo *vehiculo) {
     printf("    - Fitness del vehículo : %.2f\n", vehiculo->fitness_vehiculo);
 
     imprimir_ruta(vehiculo->ruta, vehiculo->id_vehiculo);
+    imprimir_ruta_cordenadas(vehiculo->ruta,vehiculo->id_vehiculo,vrp);
     imprimir_datos_cliente(vehiculo);
+    
 }
 
 // Imprime la flota completa de un conjunto de vehículos
-void imprimir_flota(struct lista_vehiculos *flota) {
+void imprimir_flota(struct lista_vehiculos *flota,struct vrp_configuracion * vrp) {
     printf("  >> Flota:\n");
 
     struct nodo_vehiculo *actual = flota->cabeza;
     int contador = 1;
 
     while (actual != NULL) {
-        imprimir_vehiculo(actual->vehiculo);
+        imprimir_vehiculo(actual->vehiculo,vrp);
         actual = actual->siguiente;
         contador++;
     }
@@ -154,7 +156,7 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
         printf("  Fitness global   : %.2f\n", hormigas[i].fitness_global);
 
         imprimir_tabu(hormigas[i].tabu, vrp->num_clientes);
-        imprimir_flota(hormigas[i].flota);
+        imprimir_flota(hormigas[i].flota,vrp);
 
         printf("-------------------------------------------------\n");
     }
@@ -163,7 +165,7 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 }
 
 // Imprime la información de la mejor hormiga encontrada
-void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo *ind) {
+void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo *ind,struct vrp_configuracion * vrp) {
     printf("=================================================\n");
     printf(">>> MEJOR HORMIGA ENCONTRADA\n");
     printf("=================================================\n");
@@ -172,7 +174,7 @@ void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo *ind) {
     printf("  Vehículos usados : %d/%d\n", hormiga->vehiculos_necesarios, hormiga->vehiculos_maximos);
     printf("  Fitness global   : %.2f\n", hormiga->fitness_global);
 
-    imprimir_flota(hormiga->flota);
+    imprimir_flota(hormiga->flota,vrp);
 
     printf("=================================================\n");
 }
