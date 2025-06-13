@@ -16,8 +16,9 @@ typedef struct lista_ruta
     nodo_ruta *cola;   // Último nodo en la ruta
 } lista_ruta;
 
-// --------------------- TIEMPO CLIENTE ---------------------
-// Estructura que representa los tiempos de cada cliente
+
+// --------------------- DATOS CLIENTES ---------------------
+// Estructura que representa los datos de cada cliente
 
 typedef struct datos_cliente
 {
@@ -165,7 +166,6 @@ typedef struct individuo
     int numIteracionesSA;       // Número de iteraciones del algoritmo SA
     double fitness;             // Medida de rendimiento del individuo
     hormiga *hormiga;           // Puntero a la hormiga asociada al individuo
-    // metal *metal;               // Puntero a las soluciones de SA
 } individuo;
 
 #endif // ESTRUCTURAS_H

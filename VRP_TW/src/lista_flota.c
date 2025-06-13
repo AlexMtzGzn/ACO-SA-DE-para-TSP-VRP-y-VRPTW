@@ -62,7 +62,7 @@ void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *v
     }
     else
         // Si hubo un error al asignar memoria, mostrar mensaje de error
-        imprimir_mensaje("Error al asignar memoria al nodo del vehiculo.");
+        imprimir_mensaje("No se puedo asignar memoria al nodo del vehiculo.");
 }
 
 // Función para copiar un vehículo original y crear una copia
@@ -133,6 +133,7 @@ void liberar_vehiculo(struct vehiculo *vehiculo)
     // Liberar la memoria asociada a la ruta del vehículo
     if (vehiculo->ruta)
         liberar_ruta(vehiculo->ruta);
+    // Liberar memoria asociada a los datos del cliente
     if(vehiculo->datos_cliente)
         liberar_memoria_datos_cliente(vehiculo->datos_cliente);
     // Liberar la memoria del vehículo
