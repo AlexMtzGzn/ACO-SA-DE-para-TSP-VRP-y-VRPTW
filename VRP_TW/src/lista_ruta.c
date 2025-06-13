@@ -138,8 +138,8 @@ bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion 
                 // Verificar violación de ventana de tiempo
                 if (tiempo > vrp->clientes[id_actual].vt_final)
                 {
-                    //printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
-                           //id_actual, tiempo, vrp->clientes[id_actual].vt_final);
+                    // printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
+                    // id_actual, tiempo, vrp->clientes[id_actual].vt_final);
                     return false; // Violación de ventana de tiempo, retorno falso
                 }
             }
@@ -167,8 +167,8 @@ bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion 
                 // Verificar violación de ventana de tiempo
                 if (tiempo > vrp->clientes[id_actual].vt_final)
                 {
-                    //printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
-                          // id_actual, tiempo, vrp->clientes[id_actual].vt_final);
+                    // printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
+                    //  id_actual, tiempo, vrp->clientes[id_actual].vt_final);
                     return false; // Violación de ventana de tiempo, retorno falso
                 }
             }
@@ -194,14 +194,13 @@ bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion 
     // Verificación de capacidad total
     if (capacidad > vehiculo->capacidad_maxima)
     {
-        //printf("Violación de capacidad en Vehículo ID %d: %.2f > %.2f\n",
-              // vehiculo->id_vehiculo, capacidad, vehiculo->capacidad_maxima);
+        // printf("Violación de capacidad en Vehículo ID %d: %.2f > %.2f\n",
+        //  vehiculo->id_vehiculo, capacidad, vehiculo->capacidad_maxima);
         return false; // Violación de capacidad, retorno falso
     }
 
     return true; // Si no hubo violaciones, retorno verdadero
 }
-
 
 void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, double **instancia_distancias)
 {
@@ -222,12 +221,154 @@ void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *
     }
 }
 
+void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias)
+{
 
+    struct nodo_vehiculo *nodoVehiculo = flota->cabeza;
+
+    while (nodoVehiculo != NULL)
+    {
+        struct vehiculo *vehiculo = nodoVehiculo->vehiculo;
+        struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
+        struct nodo_ruta *clienteAnterior = NULL;
+
+        double tiempo = 0.0;
+        double capacidad = 0.0;
+        double inicio = 0.0;
+        double fin = 0.0;
+
+        if (vehiculo->clientes_contados > 0)
+        {
+
+            // Reservar memoria para el arreglo de tiempos de clientes
+            if (vehiculo->datos_cliente != NULL)
+            {
+                free(vehiculo->datos_cliente);
+            }
+            vehiculo->datos_cliente = (struct datos_cliente *)
+                malloc(vehiculo->clientes_contados * sizeof(struct datos_cliente));
+
+            int indice_cliente = 0;
+
+            while (clienteActual != NULL)
+            {
+                int id_actual = clienteActual->cliente;
+
+                if (clienteAnterior == NULL)
+                {
+                    // Primer cliente desde el depósito
+                    if (id_actual != 0)
+                    {
+
+                        double tiempo_viaje = instancia_distancias[0][id_actual] / vehiculo->velocidad;
+                        tiempo += tiempo_viaje;
+
+                        double tiempo_llegada = tiempo;
+                        double tiempo_espera = 0.0;
+
+                        // Ajustar por ventana de tiempo
+                        if (tiempo < vrp->clientes[id_actual].vt_inicial)
+                        {
+                            tiempo_espera = vrp->clientes[id_actual].vt_inicial - tiempo;
+                            tiempo = vrp->clientes[id_actual].vt_inicial;
+                        }
+
+                        if (indice_cliente == 0)
+                        {
+                            inicio = tiempo;
+                        }
+
+                        capacidad += vrp->clientes[id_actual].demanda_capacidad;
+
+                        // Llenar estructura de tiempos del cliente
+                        vehiculo->datos_cliente[indice_cliente].cliente = id_actual;
+                        vehiculo->datos_cliente[indice_cliente].demanda_capacidad = vrp->clientes[id_actual].demanda_capacidad;
+                        vehiculo->datos_cliente[indice_cliente].tiempo_llegada = tiempo_llegada;
+                        vehiculo->datos_cliente[indice_cliente].tiempo_espera = tiempo_espera;
+                        vehiculo->datos_cliente[indice_cliente].inicio_servicio = tiempo;
+                        vehiculo->datos_cliente[indice_cliente].duracion_servicio = vrp->clientes[id_actual].tiempo_servicio;
+                        vehiculo->datos_cliente[indice_cliente].tiempo_salida = tiempo + vrp->clientes[id_actual].tiempo_servicio;
+
+                        indice_cliente++;
+                    }
+                }
+                else
+                {
+                    // Añadir tiempo de servicio del cliente anterior
+                    if (clienteAnterior->cliente != 0)
+                    {
+                        tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
+                    }
+
+                    // Añadir tiempo de viaje desde cliente anterior
+                    double tiempo_viaje = instancia_distancias[clienteAnterior->cliente][id_actual] / vehiculo->velocidad;
+                    tiempo += tiempo_viaje;
+
+                    if (id_actual != 0)
+                    {
+                        double tiempo_llegada = tiempo;
+                        double tiempo_espera = 0.0;
+
+                        // Ajustar por ventana de tiempo
+                        if (tiempo < vrp->clientes[id_actual].vt_inicial)
+                        {
+                            tiempo_espera = vrp->clientes[id_actual].vt_inicial - tiempo;
+                            tiempo = vrp->clientes[id_actual].vt_inicial;
+                        }
+
+                        capacidad += vrp->clientes[id_actual].demanda_capacidad;
+
+                        // Llenar estructura de tiempos del cliente
+                        vehiculo->datos_cliente[indice_cliente].cliente = id_actual;
+                        vehiculo->datos_cliente[indice_cliente].demanda_capacidad = vrp->clientes[id_actual].demanda_capacidad;
+                        vehiculo->datos_cliente[indice_cliente].ventana_inicial = vrp->clientes[id_actual].vt_inicial;
+                        vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[id_actual].vt_final;
+                        vehiculo->datos_cliente[indice_cliente].tiempo_llegada = tiempo_llegada;
+                        vehiculo->datos_cliente[indice_cliente].tiempo_espera = tiempo_espera;
+                        vehiculo->datos_cliente[indice_cliente].inicio_servicio = tiempo;
+                        vehiculo->datos_cliente[indice_cliente].duracion_servicio = vrp->clientes[id_actual].tiempo_servicio;
+                        vehiculo->datos_cliente[indice_cliente].tiempo_salida = tiempo + vrp->clientes[id_actual].tiempo_servicio;
+
+                        indice_cliente++;
+                    }
+                }
+
+                // Si es el último cliente o el siguiente es el depósito
+                if (clienteActual->siguiente == NULL || clienteActual->siguiente->cliente == 0)
+                {
+                    if (id_actual != 0)
+                    {
+                        tiempo += vrp->clientes[id_actual].tiempo_servicio;
+                    }
+
+                    // Tiempo de regreso al depósito
+                    tiempo += instancia_distancias[id_actual][0] / vehiculo->velocidad;
+                    fin = tiempo;
+
+                    if (clienteActual->siguiente != NULL && clienteActual->siguiente->cliente == 0)
+                    {
+                        clienteActual = clienteActual->siguiente;
+                    }
+                }
+
+                clienteAnterior = clienteActual;
+                clienteActual = clienteActual->siguiente;
+            }
+        }
+
+        vehiculo->capacidad_acumulada = capacidad;
+        vehiculo->tiempo_salida_vehiculo = inicio;
+        vehiculo->tiempo_llegada_vehiculo = fin;
+
+        nodoVehiculo = nodoVehiculo->siguiente;
+    }
+}
 
 bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias)
 {
     struct nodo_ruta *nuevo = asignar_memoria_nodo_ruta();
-    if (!nuevo) return false;
+    if (!nuevo)
+        return false;
 
     nuevo->cliente = cliente;
     nuevo->siguiente = NULL;

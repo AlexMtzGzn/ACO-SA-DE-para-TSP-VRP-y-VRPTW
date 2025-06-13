@@ -22,6 +22,7 @@ void liberar_ruta(struct lista_ruta *ruta);
 bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias);
 bool verificarRestriccionesFlota(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias);
 void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, double **instancia_distancias);
+void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias);
 
 bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias);
 

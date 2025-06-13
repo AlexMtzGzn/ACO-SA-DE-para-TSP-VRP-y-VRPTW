@@ -129,7 +129,10 @@ struct lista_vehiculos *copiar_lista_vehiculos(struct lista_vehiculos *original)
 void liberar_vehiculo(struct vehiculo *vehiculo)
 {
     // Liberar la memoria asociada a la ruta del vehículo
+    if(vehiculo->ruta)
     liberar_ruta(vehiculo->ruta);
+    if(vehiculo->datos_cliente)
+        liberar_memor
     // Liberar la memoria del vehículo
     free(vehiculo);
 }

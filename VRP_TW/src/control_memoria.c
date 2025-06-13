@@ -283,25 +283,23 @@ struct nodo_ruta *asignar_memoria_nodo_ruta()
     return nodo_nuevo;
 }
 
-/*Funciones para la estructura tiempos clientes*/
+/*Funciones para la estructura datos_cliente*/
 
-struct tiempos_cliente *asiganar_memoria_tiempos_clientes(int numero_clientes)
+struct datos_cliente *asignar_memoria_datos_clientes(int numClientes)
 {
-
-    struct tiempos_cliente *tiempos = (struct tiempos_cliente *)malloc(sizeof(tiempos_cliente) * numero_clientes);
-
-    if (tiempos == NULL)
+    struct datos_cliente *datos_cliente = (struct datos_cliente *)calloc(numClientes, sizeof(struct datos_cliente));
+    if (!datos_cliente)
     {
-        imprimir_mensaje("No se pudo asignar memoria para el arreglo de de tiempos clientes.");
+        imprimir_mensaje("No se pudo asiganar memoria para el arreglo datos clientes");
         exit(EXIT_FAILURE);
     }
 
-    return tiempos;
+    return datos_cliente;
 }
 
-void liberar_tiempos_clientes(struct tiempos_cliente *tiempos)
+void liberar_memoria_datos_cliente(struct datos_cliente *datos_cliente)
 {
-    free(tiempos);
+    free(datos_cliente);
 }
 
 /**

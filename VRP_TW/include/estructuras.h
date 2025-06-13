@@ -31,7 +31,7 @@ typedef struct datos_cliente
     double duracion_servicio; // Duración del servicio al cliente
     double tiempo_salida;     // Tiempo de salida del vehiculo del cliente
 
-} datos_clientes;
+} datos_cliente;
 // --------------------- VEHÍCULOS ---------------------
 // Estructura que representa un vehículo en la flota
 typedef struct vehiculo
@@ -48,7 +48,7 @@ typedef struct vehiculo
     int clientes_contados;          // Contador de clientes atendidos por el vehículo
     lista_ruta *ruta;               // Ruta que sigue el vehículo
     double fitness_vehiculo;        // Medida de rendimiento del vehículo
-    datos_clientes *datos_clientes; // Arreglo que lleva el control de de los timepos de servicio del vehiuculo con el cliente
+    datos_cliente *datos_cliente; // Arreglo que lleva el control de de los timepos de servicio del vehiuculo con el cliente
 } vehiculo;
 
 // --------------------- NODO Y LISTA DE VEHÍCULOS ---------------------

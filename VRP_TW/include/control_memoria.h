@@ -49,6 +49,9 @@ void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp);
 // Asigna memoria para la estructura de clientes según la configuración del VRP
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);
 
+struct datos_cliente *  asignar_memoria_datos_clientes(int numClientes);
+void liberar_memoria_datos_cliente(struct datos_cliente * datos_cliente);
+
 // Funciones para asignar y liberar memoria para la estructura de hormigas
 
 // Asigna memoria para un conjunto de hormigas
