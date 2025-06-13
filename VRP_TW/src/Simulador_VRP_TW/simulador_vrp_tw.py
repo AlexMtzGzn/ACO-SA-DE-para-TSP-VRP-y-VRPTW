@@ -22,14 +22,14 @@ class VRPSimulator:
         self.numero_clientes = numero_clientes
         
         # Colores para cada ruta
-        self.colors = plt.cm.tab10(np.linspace(0, 1, len(self.data['flota'])))
+        self.colors = plt.cm.tab10(np.linspace(0, 1, len(self.data['Flota'])))
     
     def plot_static_routes(self):
         """Dibuja todas las rutas de forma estática"""
         fig, ax = plt.subplots(figsize=(12, 10))
         
         # Dibujar cada ruta
-        for i, vehiculo in enumerate(self.data['flota']):
+        for i, vehiculo in enumerate(self.data['Flota']):
             color = self.colors[i]
             ruta = vehiculo['Ruta Coordenadas']
             
@@ -43,18 +43,33 @@ class VRPSimulator:
             # Dibujar el depósito con un símbolo especial
             ax.plot(ruta[0]['X'], ruta[0]['Y'], 'ks', markersize=8)
         
-        # Dibujar todos los clientes como puntos
+        # Dibujar todos los clientes como puntos y etiquetas
         clientes_x = []
         clientes_y = []
-        for vehiculo in self.data['flota']:
-            for punto in vehiculo['Ruta Coordenadas'][1:-1]:  # Excluir el depósito
+        clientes_id = []
+        cliente_counter = 1
+        
+        for vehiculo in self.data['Flota']:
+            ruta = vehiculo['Ruta Coordenadas']
+            for j, punto in enumerate(ruta[1:-1]):  # Excluir el depósito y retorno
                 clientes_x.append(punto['X'])
                 clientes_y.append(punto['Y'])
+                if 'Ruta Clientes' in vehiculo and j + 1 < len(vehiculo['Ruta Clientes']):
+                    clientes_id.append(vehiculo['Ruta Clientes'][j+1])  # +1 porque el índice 0 es el depósito
+                else:
+                    clientes_id.append(cliente_counter)
+                    cliente_counter += 1
         
+        # Dibujar puntos de clientes
         ax.scatter(clientes_x, clientes_y, c='black', s=20, alpha=0.5)
         
+        # Añadir etiquetas de cliente
+        for i in range(len(clientes_x)):
+            ax.annotate(str(clientes_id[i]), (clientes_x[i], clientes_y[i]), 
+                        xytext=(3, 3), textcoords='offset points', fontsize=8)
+        
         # Añadir etiqueta al depósito
-        depot_x, depot_y = self.data['flota'][0]['Ruta Coordenadas'][0]['X'], self.data['flota'][0]['Ruta Coordenadas'][0]['Y']
+        depot_x, depot_y = self.data['Flota'][0]['Ruta Coordenadas'][0]['X'], self.data['Flota'][0]['Ruta Coordenadas'][0]['Y']
         ax.annotate('Depósito', (depot_x, depot_y), 
                     xytext=(5, 5), textcoords='offset points', fontsize=12)
         
@@ -65,9 +80,11 @@ class VRPSimulator:
         ax.legend(loc='upper right', bbox_to_anchor=(1.1, 1))
         ax.grid(True)
         
+        # Guardar el gráfico
         plt.tight_layout()
         os.makedirs(f'Resultados/Resultados_{self.numero_clientes}/Imagenes/{self.directory}', exist_ok=True)
-        plt.savefig(f'Resultados/Resultados_{self.numero_clientes}/Imagenes/{self.directory}/{self.filename}.png')        
+        plt.savefig(f'Resultados/Resultados_{self.numero_clientes}/Imagenes/{self.directory}/{self.filename}.png')
+        
     
     def animate_routes(self):
         """Anima la simulación de rutas"""
@@ -82,7 +99,7 @@ class VRPSimulator:
         all_routes = []
         
         # Preparar los datos para la animación
-        for i, vehiculo in enumerate(self.data['flota']):
+        for i, vehiculo in enumerate(self.data['Flota']):
             ruta = vehiculo['Ruta Coordenadas']
             
             # Extraer coordenadas
@@ -106,7 +123,7 @@ class VRPSimulator:
             max_steps = max(max_steps, len(x))
         
         # Dibujar el depósito
-        depot_x, depot_y = self.data['flota'][0]['Ruta Coordenadas'][0]['X'], self.data['flota'][0]['Ruta Coordenadas'][0]['Y']
+        depot_x, depot_y = self.data['Flota'][0]['Ruta Coordenadas'][0]['X'], self.data['Flota'][0]['Ruta Coordenadas'][0]['Y']
         ax.plot(depot_x, depot_y, 'ks', markersize=8)
         ax.annotate('Depósito', (depot_x, depot_y), 
                     xytext=(5, 5), textcoords='offset points', fontsize=12)
@@ -117,7 +134,7 @@ class VRPSimulator:
         clientes_id = []
         cliente_counter = 1
         
-        for vehiculo in self.data['flota']:
+        for vehiculo in self.data['Flota']:
             for j, punto in enumerate(vehiculo['Ruta Coordenadas'][1:-1]):  # Excluir el depósito y el punto final
                 clientes_x.append(punto['X'])
                 clientes_y.append(punto['Y'])
@@ -175,7 +192,7 @@ class VRPSimulator:
                     vehicle.center = (x[frame], y[frame])
                     
                     # Añadir información del vehículo
-                    vehiculo = self.data['flota'][i]
+                    vehiculo = self.data['Flota'][i]
                     if frame < len(x) - 1:
                         # Intentar obtener información del cliente actual y siguiente
                         if 'Ruta Clientes' in vehiculo and frame < len(vehiculo['Ruta Clientes']):
