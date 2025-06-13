@@ -169,7 +169,7 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
     struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
     while (vehiculo_actual)
     {
-        // Guardar el siguiente nodo para evitar perderlo
+        // Guardar el siguiente nodo para evitar perdero
         struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
         vehiculo_actual = vehiculo_actual->siguiente;
 
