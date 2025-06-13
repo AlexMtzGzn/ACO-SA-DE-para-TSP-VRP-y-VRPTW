@@ -144,7 +144,7 @@ void imprimir_individuo(individuo *ind) {
 
 // Imprime toda la información de todas las hormigas
 void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, struct individuo *ind) {
-    printf("=================================================\n");
+    printf("\n=================================================\n");
     printf(">>> INFORMACIÓN DE HORMIGAS Y SUS RUTAS\n");
     printf("=================================================\n");
 
@@ -166,7 +166,7 @@ void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, 
 
 // Imprime la información de la mejor hormiga encontrada
 void imprimir_mejor_hormiga(struct hormiga *hormiga, struct individuo *ind,struct vrp_configuracion * vrp) {
-    printf("=================================================\n");
+    printf("\n=================================================\n");
     printf(">>> MEJOR HORMIGA ENCONTRADA\n");
     printf("=================================================\n");
 
