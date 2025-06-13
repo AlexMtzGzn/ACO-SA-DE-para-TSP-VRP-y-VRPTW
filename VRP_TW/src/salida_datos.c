@@ -21,6 +21,21 @@ void imprimir_instancia(double **matriz_instancia, struct vrp_configuracion *vrp
     }
 }
 
+void imprimir_datos_cliente(struct vehiculo *vehiculo)
+{
+
+    for (int i = 0; i < vehiculo->clientes_contados; i++)
+
+        printf("%-8d %-10.2f %-12.2f %-12.2f %-15.2f %-15.2f %-12.2f\n",
+               vehiculo->datos_cliente[i].cliente,
+               vehiculo->datos_cliente[i].demanda_capacidad,
+               vehiculo->datos_cliente[i].tiempo_llegada,
+               vehiculo->datos_cliente[i].tiempo_espera,
+               vehiculo->datos_cliente[i].inicio_servicio,
+               vehiculo->datos_cliente[i].duracion_servicio,
+               vehiculo->datos_cliente[i].tiempo_salida);
+}
+
 // Función para imprimir una ruta de un vehículo (lista enlazada de clientes)
 void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id)
 {
@@ -57,6 +72,13 @@ void imprimir_vehiculo(struct vehiculo *vehiculo)
 
     // Imprime la ruta del vehículo
     imprimir_ruta(vehiculo->ruta, vehiculo->id_vehiculo);
+
+      printf("\nDetalles de clientes:\n");
+    printf("%-8s %-10s %-12s %-12s %-15s %-15s %-12s\n",
+           "Cliente", "Demanda", "Llegada", "Espera", "Inicio Serv.", "Duración", "Salida");
+    printf("%-8s %-10s %-12s %-12s %-15s %-15s %-12s\n",
+           "-------", "-------", "--------", "------", "-----------", "--------", "------");
+    imprimir_datos_cliente(vehiculo);
 }
 
 // Función para imprimir la flota de vehículos de una hormiga

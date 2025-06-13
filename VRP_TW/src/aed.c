@@ -9,6 +9,7 @@
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
 #include "../include/configuracion_json.h"
+#include "../include/lista_ruta.h"
 
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
@@ -502,8 +503,9 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    vrp->tiempo_ejecucion = ceil(minutos);
    vrp->archivo_instancia = archivo_instancia;
 
-   // Imprimimos la meojor homriga
-   imprimir_mejor_hormiga(resultado->hormiga, resultado);
+   llenar_datos_clientes(resultado->hormiga->flota,vrp,instancia_distancias);
+       // Imprimimos la meojor homriga
+       imprimir_mejor_hormiga(resultado->hormiga, resultado);
    printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos);
 
    printf("\n¿Quieres imprimir el archivo JSON (s/n)? ");

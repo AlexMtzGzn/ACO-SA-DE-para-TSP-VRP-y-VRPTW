@@ -27,6 +27,7 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
 
     // Asignar memoria para la lista de rutas y añadir el primer cliente
     vehiculo_nuevo->vehiculo->ruta = asignar_memoria_lista_ruta();
+    vehiculo_nuevo->vehiculo->datos_cliente = NULL;
     vehiculo_nuevo->siguiente = NULL;
     insertar_cliente_ruta(hormiga, vehiculo_nuevo->vehiculo, &(vrp->clientes[0]));
 
@@ -85,6 +86,7 @@ struct vehiculo *copiar_vehiculo(struct vehiculo *original)
 
     // Copiar la ruta asociada al vehículo original
     nuevo_vehiculo->ruta = copiar_ruta(original);
+    nuevo_vehiculo->datos_cliente = NULL;
 
     return nuevo_vehiculo;
 }
@@ -129,10 +131,10 @@ struct lista_vehiculos *copiar_lista_vehiculos(struct lista_vehiculos *original)
 void liberar_vehiculo(struct vehiculo *vehiculo)
 {
     // Liberar la memoria asociada a la ruta del vehículo
-    if(vehiculo->ruta)
-    liberar_ruta(vehiculo->ruta);
+    if (vehiculo->ruta)
+        liberar_ruta(vehiculo->ruta);
     if(vehiculo->datos_cliente)
-        liberar_memor
+        liberar_memoria_datos_cliente(vehiculo->datos_cliente);
     // Liberar la memoria del vehículo
     free(vehiculo);
 }
@@ -148,7 +150,8 @@ void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
         vehiculo_actual = vehiculo_actual->siguiente;
 
         // Liberar la memoria del vehículo asociado a este nodo
-        liberar_vehiculo(vehiculo_temp->vehiculo);
+        if (vehiculo_temp->vehiculo)
+            liberar_vehiculo(vehiculo_temp->vehiculo);
 
         // Liberar la memoria del nodo actual
         free(vehiculo_temp);
@@ -170,9 +173,10 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
         vehiculo_actual = vehiculo_actual->siguiente;
 
         // Liberar la memoria del vehículo asociado a este nodo
-        liberar_vehiculo(vehiculo_temp->vehiculo);
+        if (vehiculo_temp->vehiculo)
+            liberar_vehiculo(vehiculo_temp->vehiculo);
 
-        // Liberar la memoria del nodo actual
+        // // Liberar la memoria del nodo actual
         free(vehiculo_temp);
     }
     free(flota); // Liberar la memoria de la lista de vehículos
@@ -201,7 +205,7 @@ bool eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
                 }
 
                 liberar_vehiculo(actual->vehiculo); // Libera memoria interna
-                free(actual); // Libera el nodo de la lista
+                free(actual);                       // Libera el nodo de la lista
                 eliminado = true;
                 break;
             }
@@ -227,7 +231,6 @@ bool eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
     return true;
 }
 
-
 struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga *hormiga)
 {
     int intentos = 10, vehiculo_aleatorio = -1;
@@ -250,7 +253,7 @@ struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga *hormiga)
 
     if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
     {
-        if(eliminar_vehiculo_vacio(hormiga->flota, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo))
+        if (eliminar_vehiculo_vacio(hormiga->flota, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo))
             hormiga->vehiculos_necesarios--;
         return NULL;
     }

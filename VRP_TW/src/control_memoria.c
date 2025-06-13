@@ -16,7 +16,7 @@ double **asignar_memoria_instancia(int tamanio_instancia)
     double **instancia = (double **)malloc(tamanio_instancia * sizeof(double *));
     if (instancia == NULL)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para las filas de la instancia");
+        imprimir_mensaje("No se pudo asignar memoria para las filas de la instancia");
         exit(EXIT_FAILURE);
     }
 
@@ -98,7 +98,7 @@ struct rangos *asignar_memoria_rangos()
     struct rangos *rango = (struct rangos *)malloc(sizeof(struct rangos));
     if (rango == NULL)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para los rangos");
+        imprimir_mensaje("No se pudo asignar memoria para los rangos");
         exit(EXIT_FAILURE);
     }
     return rango;
@@ -120,7 +120,7 @@ struct individuo *asignar_memoria_individuos(int poblacion)
     struct individuo *individuo = (struct individuo *)calloc(poblacion, sizeof(struct individuo)); // Usamos calloc para inicializar a 0
     if (individuo == NULL)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para los individuos");
+        imprimir_mensaje("No se pudo asignar memoria para los individuos");
         exit(EXIT_FAILURE);
     }
     return individuo;
@@ -133,8 +133,10 @@ struct individuo *asignar_memoria_individuos(int poblacion)
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
     if (tipo)
+    {
         for (int i = 0; i < num_poblacion; i++)
-            vaciar_lista_vehiculos(ind[i].hormiga->flota);
+                vaciar_lista_vehiculos(ind[i].hormiga->flota);
+    }
 
     free(ind);
 }
@@ -150,7 +152,7 @@ struct vrp_configuracion *asignar_memoria_vrp_configuracion()
     struct vrp_configuracion *vrp = (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion));
     if (vrp == NULL)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para la configuración VRP");
+        imprimir_mensaje("No se pudo asignar memoria para la configuración VRP");
         exit(EXIT_FAILURE);
     }
     return vrp;
@@ -161,10 +163,10 @@ struct vrp_configuracion *asignar_memoria_vrp_configuracion()
  */
 void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
 {
-    if (vrp != NULL)
+    if (vrp)
     {
-        free(vrp->clientes);
-        vrp->clientes = NULL;
+        if (vrp->clientes)
+            free(vrp->clientes);
         free(vrp);
     }
 }
@@ -180,7 +182,7 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
     struct cliente *cliente = (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente));
     if (cliente == NULL)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para los clientes");
+        imprimir_mensaje("No se pudo asignar memoria para los clientes");
         exit(EXIT_FAILURE);
     }
     return cliente;
@@ -197,7 +199,7 @@ struct hormiga *asignar_memoria_hormigas(int numHormigas)
     struct hormiga *hormiga = (struct hormiga *)calloc(numHormigas, sizeof(struct hormiga)); // Usamos calloc para inicializar a 0
     if (hormiga == NULL)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para hormigas.");
+        imprimir_mensaje("No se pudo asignar memoria para hormigas.");
         exit(EXIT_FAILURE);
     }
     return hormiga;
@@ -258,7 +260,7 @@ struct lista_ruta *asignar_memoria_lista_ruta()
     struct lista_ruta *nueva_lista = (struct lista_ruta *)malloc(sizeof(struct lista_ruta));
     if (nueva_lista == NULL)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para la lista de rutas.");
+        imprimir_mensaje("No se pudo asignar memoria para la lista de rutas.");
         exit(EXIT_FAILURE);
     }
 
@@ -287,7 +289,7 @@ struct nodo_ruta *asignar_memoria_nodo_ruta()
 
 struct datos_cliente *asignar_memoria_datos_clientes(int numClientes)
 {
-    struct datos_cliente *datos_cliente = (struct datos_cliente *)calloc(numClientes, sizeof(struct datos_cliente));
+    struct datos_cliente *datos_cliente = (struct datos_cliente *)malloc(numClientes * sizeof(struct datos_cliente));
     if (!datos_cliente)
     {
         imprimir_mensaje("No se pudo asiganar memoria para el arreglo datos clientes");
@@ -330,7 +332,7 @@ struct vehiculo *asignar_memoria_vehiculo()
     struct vehiculo *vehiculo = (struct vehiculo *)malloc(sizeof(struct vehiculo));
     if (!vehiculo)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para el vehiculo.");
+        imprimir_mensaje("No se pudo asignar memoria para el vehiculo.");
         exit(EXIT_FAILURE);
     }
     return vehiculo;
@@ -345,7 +347,7 @@ struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
     struct nodo_vehiculo *nodo_vehiculo = (struct nodo_vehiculo *)malloc(sizeof(struct nodo_vehiculo));
     if (!nodo_vehiculo)
     {
-        imprimir_mensaje("Error: No se pudo asignar memoria para nodo_vehiculo.");
+        imprimir_mensaje("No se pudo asignar memoria para nodo_vehiculo.");
         exit(EXIT_FAILURE);
     }
     return nodo_vehiculo;
@@ -390,6 +392,5 @@ struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas)
 
 void liberar_memoria_mejores_hormigas(struct mejores_hormigas *mejores_hormigas)
 {
-
     free(mejores_hormigas);
 }

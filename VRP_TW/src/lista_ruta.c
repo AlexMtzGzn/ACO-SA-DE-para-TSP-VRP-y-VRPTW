@@ -223,7 +223,7 @@ void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *
 
 void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-
+    printf("Entre");
     struct nodo_vehiculo *nodoVehiculo = flota->cabeza;
 
     while (nodoVehiculo != NULL)
@@ -245,8 +245,7 @@ void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuraci
             {
                 free(vehiculo->datos_cliente);
             }
-            vehiculo->datos_cliente = (struct datos_cliente *)
-                malloc(vehiculo->clientes_contados * sizeof(struct datos_cliente));
+            vehiculo->datos_cliente = asignar_memoria_datos_clientes(vehiculo->clientes_contados);
 
             int indice_cliente = 0;
 
@@ -283,6 +282,8 @@ void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuraci
                         // Llenar estructura de tiempos del cliente
                         vehiculo->datos_cliente[indice_cliente].cliente = id_actual;
                         vehiculo->datos_cliente[indice_cliente].demanda_capacidad = vrp->clientes[id_actual].demanda_capacidad;
+                        vehiculo->datos_cliente[indice_cliente].ventana_inicial = vrp->clientes[id_actual].vt_inicial;
+                        vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[id_actual].vt_final;
                         vehiculo->datos_cliente[indice_cliente].tiempo_llegada = tiempo_llegada;
                         vehiculo->datos_cliente[indice_cliente].tiempo_espera = tiempo_espera;
                         vehiculo->datos_cliente[indice_cliente].inicio_servicio = tiempo;
