@@ -33,7 +33,7 @@ void leemos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tama
     }
 
     vrp->num_vehiculos = num_vehiculos;
-    vrp->num_capacidad = num_capacidad;
+    vrp->num_capacidad = (double)num_capacidad;
     vrp->num_clientes = num_clientes;
 
     // Asignamos memoria para los clientes
@@ -86,10 +86,10 @@ void creamos_csv(struct vrp_configuracion *vrp, char *archivo_instancia, int tam
     }
 
     // Escribimos la primera línea con los parámetros de configuración
-    fprintf(archivo, "%s\n%d, %lf, %d\n",
+    fprintf(archivo, "%s\n%d, %d, %d\n",
             archivo_instancia,
             vrp->num_vehiculos,
-            vrp->num_capacidad,
+            (int)vrp->num_capacidad,
             vrp->num_clientes);
 
     // Escribimos los datos de cada cliente
@@ -130,7 +130,7 @@ void leemos_txt(struct vrp_configuracion *vrp, char *ruta)
                 char *ptr = buffer;
                 while (*ptr == ' ' && *ptr != '\0')
                     ptr++;
-                sscanf(ptr, "%d %2lf", &vrp->num_vehiculos, &vrp->num_capacidad);
+                sscanf(ptr, "%d %lf", &vrp->num_vehiculos, &vrp->num_capacidad);
                 break;
             }
         }
