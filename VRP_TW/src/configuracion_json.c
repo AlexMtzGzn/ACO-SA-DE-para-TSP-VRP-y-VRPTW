@@ -52,31 +52,29 @@ cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes)
 }
 
 // Función para convertir un vehículo en JSON
-cJSON *vehiculo_a_json(vehiculo *v, cliente *clientes)
+cJSON *vehiculo_a_json(vehiculo *vehiculo, cliente *clientes)
 {
     cJSON *json_vehiculo = cJSON_CreateObject();
-    cJSON_AddNumberToObject(json_vehiculo, "Id_vehiculo", v->id_vehiculo);
-    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Maxima", v->capacidad_maxima);
-    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Acumulada", v->capacidad_acumulada);
-    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Salida", v->tiempo_salida_vehiculo);
-    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Llegada", v->tiempo_llegada_vehiculo);
-    cJSON_AddNumberToObject(json_vehiculo, "Ventana Inicial", v->vt_inicial);
-    cJSON_AddNumberToObject(json_vehiculo, "Ventana Final", v->vt_final);
-    cJSON_AddNumberToObject(json_vehiculo, "Numero Clientes", v->clientes_contados);
-    cJSON_AddNumberToObject(json_vehiculo, "Fitness Vehiculo", v->fitness_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Id_vehiculo", vehiculo->id_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Maxima", vehiculo->capacidad_maxima);
+    cJSON_AddNumberToObject(json_vehiculo, "Capacidad Acumulada", vehiculo->capacidad_acumulada);
+    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Salida", vehiculo->tiempo_salida_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Tiempo Llegada", vehiculo->tiempo_llegada_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Ventana Inicial", vehiculo->vt_inicial);
+    cJSON_AddNumberToObject(json_vehiculo, "Ventana Final", vehiculo->vt_final);
+    cJSON_AddNumberToObject(json_vehiculo, "Numero Clientes", vehiculo->clientes_contados);
+    cJSON_AddNumberToObject(json_vehiculo, "Fitness Vehiculo", vehiculo->fitness_vehiculo);
 
     cJSON *ruta_clientes = cJSON_CreateArray();
-    nodo_ruta *actual = v->ruta->cabeza;
+    nodo_ruta *actual = vehiculo->ruta->cabeza;
     while (actual)
     {
         cJSON_AddItemToArray(ruta_clientes, cJSON_CreateNumber(actual->cliente));
         actual = actual->siguiente;
     }
     cJSON_AddItemToObject(json_vehiculo, "Ruta Clientes", ruta_clientes);
-
-    cJSON_AddItemToObject(json_vehiculo, "Ruta Coordenadas", generar_ruta_coordenadas(v->ruta, clientes));
-
-    cJSON_AddItemToObject(json_vehiculo, "Detalles Cliente", detalles_clientes_json(v->datos_cliente, v->clientes_contados + 2));
+    cJSON_AddItemToObject(json_vehiculo, "Ruta Coordenadas", generar_ruta_coordenadas(vehiculo->ruta, clientes));
+    cJSON_AddItemToObject(json_vehiculo, "Detalles Cliente", detalles_clientes_json(vehiculo->datos_cliente, vehiculo->clientes_contados + 2));
 
     return json_vehiculo;
 }

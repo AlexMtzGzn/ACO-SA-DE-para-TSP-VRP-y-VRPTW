@@ -11,23 +11,15 @@
 // // Intercambia dos clientes aleatorios dentro de un mismo vehículo
 bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    int vehiculo_aleatorio, intentos_maximos = 10, cliente1_idx, cliente2_idx, temp;
+    int intentos_maximos = 10, cliente1_idx, cliente2_idx, temp;
     nodo_vehiculo *vehiculo_actual = NULL;
     nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
 
     // Buscar un vehículo válido con al menos 2 clientes
     for (int intento = 0; intento < intentos_maximos; intento++)
     {
-        vehiculo_aleatorio = (rand() % hormiga->vehiculos_necesarios) + 1;
-
-        vehiculo_actual = hormiga->flota->cabeza;
-        while (vehiculo_actual != NULL)
-        {
-            if (vehiculo_actual->vehiculo->id_vehiculo == vehiculo_aleatorio)
-                break;
-            vehiculo_actual = vehiculo_actual->siguiente;
-        }
-
+        // Seleccionamos un vehiculo aleatorimente
+        vehiculo_actual = seleccionar_vehiculo_aleatorio(hormiga);
         // Verificar que el vehículo existe y tiene al menos 2 clientes
         if (vehiculo_actual != NULL && vehiculo_actual->vehiculo->clientes_contados >= 2)
             break;
@@ -38,18 +30,20 @@ bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double *
         return false;
 
     // Seleccionar dos clientes diferentes para intercambiar
+
+    // Si el vehiuclo solo tiene dos clientes entonces asiganamos a los clientes manualmente
     if (vehiculo_actual->vehiculo->clientes_contados == 2)
     {
         cliente1_idx = 0;
         cliente2_idx = 1;
     }
-    else
+    else // Si los clientes son mayor a dos entonces si los asiganaos aleatorimente
     {
         do
         {
-            cliente1_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
-            cliente2_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
-        } while (cliente1_idx == cliente2_idx);
+            cliente1_idx = rand() % (vehiculo_actual->vehiculo->clientes_contados - 2) + 1;
+            cliente2_idx = rand() % (vehiculo_actual->vehiculo->clientes_contados - 2) + 1;
+        } while (cliente1_idx == cliente2_idx); // Verificamos que no sean iguales
     }
 
     // Encontrar los nodos correspondientes a los índices seleccionados
