@@ -7,10 +7,7 @@
 
 /*Funciones para asignación y liberación de memoria para arreglos y matrices*/
 
-/**
- * Asigna memoria para una matriz de doble puntero (instancia) de tamaño [tamanio_instancia x tamanio_instancia].
- * Si no puede asignarse, termina el programa con un mensaje de error.
- */
+// Funcion para asigna memoria para una matriz de doble puntero (instancia) de tamaño [tamanio_instancia x tamanio_instancia].
 double **asignar_memoria_instancia(int tamanio_instancia)
 {
     double **instancia = (double **)malloc(tamanio_instancia * sizeof(double *));
@@ -83,9 +80,7 @@ void liberar_memoria_arreglo_double(double *arreglo)
     free(arreglo);
 }
 
-/**
- * Libera la memoria de la instancia (matriz) de tamaño 'tamanio_instancia'.
- */
+// Funcion que libera la memoria de la instancia (matriz) de tamaño 'tamanio_instancia'.
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia; i++)
