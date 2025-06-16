@@ -7,12 +7,13 @@
 // Función para imprimir un mensaje de texto que podría contener información sobre la instancia
 void imprimir_mensaje(char *texto_instancia);
 
-
 // Función para imprimir la matriz de distancias de la instancia del problema junto con la configuración del VRP
 void imprimir_instancia(double **matriz_instancia, struct vrp_configuracion *vrp, char *texto_instancia);
 
+// Función para imprimir los datos de servicio de un vehículo, incluyendo los clientes visitados
 void imprimir_datos_cliente(struct vehiculo *vehiculo);
 
+// Función para imprimir la ruta de un vehículo en coordenadas, identificada por su ID
 void imprimir_ruta_cordenadas(struct lista_ruta *ruta, int vehiculo_id, struct vrp_configuracion *vrp) ;
 
 // Función para imprimir la ruta de un vehículo, identificada por su ID
