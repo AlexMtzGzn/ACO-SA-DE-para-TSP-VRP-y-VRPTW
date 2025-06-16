@@ -11,6 +11,7 @@
 #include "../include/configuracion_json.h"
 #include "../include/lista_ruta.h"
 
+// Función para calcular la distancia entre dos clientes dados sus coordenadas
 double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int cliente_destino)
 {
    // Retornamos la distancia de los puntos
@@ -19,6 +20,7 @@ double calcular_Distancia(struct vrp_configuracion *vrp, int cliente_origen, int
    return distancia;
 }
 
+// Inicializa la visibilidad entre los clientes en la instancia de VRP
 void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configuracion *vrp)
 {
    double distancia; // Declaramos la variable distancia
@@ -42,6 +44,7 @@ void inicializar_Visibilidad(double **instancia_visibilidad, struct vrp_configur
    }
 }
 
+// Inicializa las ventanas de tiempo entre los clientes en la instancia de VRP
 void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp)
 {
    // Recorre todos los clientes y calcula la ventana de tiempo entre ellos
@@ -62,6 +65,7 @@ void inicializar_Ventana_Tiempo(double **instancia_ventanas_tiempo, struct vrp_c
    }
 }
 
+// Inicializa las distancias entre los clientes en la instancia de VRP
 void inicializar_Distancias(double **instancia_distancias, struct vrp_configuracion *vrp)
 {
    double distancia;
@@ -84,6 +88,7 @@ void inicializar_Distancias(double **instancia_distancias, struct vrp_configurac
    }
 }
 
+// Inicializa la matriz de feromonas para el algoritmo ACO
 void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_feromona)
 {
    // Recorre todos los clientes en la matriz de feromonas (fila i, columna j)
@@ -107,6 +112,7 @@ void inicializar_Feromona(struct vrp_configuracion *vrp, double **instancia_fero
    }
 }
 
+// Evalúa la función objetivo (FO) para un individuo usando el algoritmo ACO con ventanas de tiempo
 void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **instancia_visibilidad, double **instancia_distancias, double **instancia_ventanas_tiempo, struct vrp_configuracion *vrp)
 {
    // Inicializa las feromonas en la instancia
@@ -116,6 +122,7 @@ void evaluaFO_AED(struct individuo *ind, double **instancia_feromona, double **i
    vrp_tw_aco(vrp, ind, instancia_visibilidad, instancia_distancias, instancia_feromona, instancia_ventanas_tiempo);
 }
 
+// Genera un número aleatorio entre un rango dado (mínimo y máximo)
 double generaAleatorio(double minimo, double maximo)
 {
    // Genera un número aleatorio entre 0 y 1, luego lo escala al rango deseado
@@ -124,6 +131,7 @@ double generaAleatorio(double minimo, double maximo)
    return aleatorio;
 }
 
+// Construye un nuevo individuo ruidoso a partir de un individuo objetivo y un rango dado
 void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, struct rangos *rango, int poblacion)
 {
    // Recorre cada individuo de la población ruidosa
@@ -235,6 +243,7 @@ void construyeRuidosos(struct individuo *objetivo, struct individuo *ruidoso, st
    }
 }
 
+// Construye una población de prueba a partir de un individuo objetivo y un individuo ruidoso
 void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, struct individuo *prueba, int poblacion)
 {
    double aleatorio;
@@ -253,6 +262,7 @@ void construyePrueba(struct individuo *objetivo, struct individuo *ruidoso, stru
    }
 }
 
+// Selecciona el mejor individuo entre dos poblaciones: objetivo y prueba.
 void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblacion)
 {
    // Recorremos la población para comparar cada individuo de ambas poblaciones.
@@ -263,6 +273,7 @@ void seleccion(struct individuo *objetivo, struct individuo *prueba, int poblaci
          objetivo[i] = prueba[i];
 }
 
+// Inicializa la población de individuos con valores aleatorios dentro de los rangos especificados.
 void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *vrp, struct rangos *rango, int poblacion)
 {
 
@@ -393,6 +404,7 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
    }
 }
 
+// Función principal que ejecuta el algoritmo de optimización basado en ACO para el problema VRP con ventanas de tiempo
 void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
    clock_t tiempo_inicial, tiempo_final; // Variables para medir el tiempo de ejecución

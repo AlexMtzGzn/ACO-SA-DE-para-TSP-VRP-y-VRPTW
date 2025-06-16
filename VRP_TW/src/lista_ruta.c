@@ -202,202 +202,220 @@ bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion 
     return true; // Si no hubo violaciones, retorno verdadero
 }
 
+// Elimina un cliente específico de la ruta de un vehículo.
 void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, double **instancia_distancias)
 {
-    struct nodo_ruta *anterior = vehiculo->ruta->cabeza;
-    struct nodo_ruta *actual = anterior->siguiente;
+    struct nodo_ruta *anterior = vehiculo->ruta->cabeza; // Nodo anterior comienza en la cabeza (depósito inicial)
+    struct nodo_ruta *actual = anterior->siguiente;      // Nodo actual es el siguiente después de la cabeza
 
+    // Recorremos la lista enlazada de nodos ruta buscando el cliente a eliminar
     while (actual != NULL)
     {
-        if (actual->cliente == cliente)
+        if (actual->cliente == cliente) // Si encontramos el cliente buscado
         {
-            anterior->siguiente = actual->siguiente;
-            free(actual);
-            vehiculo->clientes_contados--;
-            return;
+            anterior->siguiente = actual->siguiente; // Se salta el nodo actual en la lista
+            free(actual);                            // Se libera la memoria del nodo eliminado
+            vehiculo->clientes_contados--;           // Se decrementa el contador de clientes del vehículo
+            return;                                  // Se termina la función ya que se eliminó el cliente
         }
-        anterior = actual;
-        actual = actual->siguiente;
+        anterior = actual;          // Avanzamos el nodo anterior
+        actual = actual->siguiente; // Avanzamos el nodo actual
     }
 }
 
+// Llena los datos temporales y capacidades de los clientes en cada vehículo, calculando tiempos de llegada, esperas, inicio y fin de servicio basado en las ventanas de tiempo y distancias.
 void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    struct nodo_vehiculo *nodoVehiculo = flota->cabeza;
+    struct nodo_vehiculo *nodoVehiculo = flota->cabeza; // Comenzamos con el primer vehículo en la flota
 
+    // Iteramos sobre cada vehículo en la flota
     while (nodoVehiculo != NULL)
     {
         struct vehiculo *vehiculo = nodoVehiculo->vehiculo;
-        struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
+        struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza; // Empezamos en el depósito inicial (cabeza)
         struct nodo_ruta *clienteAnterior = NULL;
 
-        double tiempo = 0.0;
-        double capacidad = 0.0;
-        double inicio = 0.0;
-        double fin = 0.0;
+        double tiempo = 0.0;    // Tiempo acumulado de ruta
+        double capacidad = 0.0; // Capacidad acumulada de la carga del vehículo
+        double inicio = 0.0;    // Tiempo de inicio del servicio (primer cliente)
+        double fin = 0.0;       // Tiempo final al regresar al depósito
 
-            // Reservar memoria para los clientes + depósito inicial + depósito final
-            if (vehiculo->datos_cliente != NULL)
+        // Si ya existía memoria para datos_cliente, la liberamos para evitar fugas
+        if (vehiculo->datos_cliente != NULL)
+        {
+            free(vehiculo->datos_cliente);
+        }
+
+        // Asignamos memoria para datos de clientes: clientes en ruta + 2 (depósito inicio y fin)
+        vehiculo->datos_cliente = asignar_memoria_datos_clientes(vehiculo->clientes_contados + 2);
+
+        int indice_cliente = 0;
+
+        // ===== DEPÓSITO INICIAL =====
+        vehiculo->datos_cliente[indice_cliente].cliente = 0;                               // ID del depósito inicial
+        vehiculo->datos_cliente[indice_cliente].demanda_capacidad = 0;                     // No hay demanda en depósito
+        vehiculo->datos_cliente[indice_cliente].ventana_inicial = 0;                       // Ventana inicial del depósito
+        vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[0].vt_final; // Ventana final del depósito
+        vehiculo->datos_cliente[indice_cliente].tiempo_llegada = 0;
+        vehiculo->datos_cliente[indice_cliente].tiempo_espera = 0;
+        vehiculo->datos_cliente[indice_cliente].inicio_servicio = 0;
+        vehiculo->datos_cliente[indice_cliente].duracion_servicio = 0;
+        vehiculo->datos_cliente[indice_cliente].tiempo_salida = 0;
+        indice_cliente++;
+
+        // Recorremos cada cliente en la ruta (lista enlazada)
+        while (clienteActual != NULL)
+        {
+            int id_actual = clienteActual->cliente; // ID del cliente actual en la ruta
+
+            if (clienteAnterior == NULL) // Si es el primer cliente después del depósito
             {
-                free(vehiculo->datos_cliente);
-            }
-
-            
-            vehiculo->datos_cliente = asignar_memoria_datos_clientes(vehiculo->clientes_contados+2);
-
-            int indice_cliente = 0;
-
-            // ===== DEPÓSITO INICIAL =====
-            vehiculo->datos_cliente[indice_cliente].cliente = 0;
-            vehiculo->datos_cliente[indice_cliente].demanda_capacidad = 0;
-            vehiculo->datos_cliente[indice_cliente].ventana_inicial = 0;
-            vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[0].vt_final;
-            vehiculo->datos_cliente[indice_cliente].tiempo_llegada = 0;
-            vehiculo->datos_cliente[indice_cliente].tiempo_espera = 0;
-            vehiculo->datos_cliente[indice_cliente].inicio_servicio = 0;
-            vehiculo->datos_cliente[indice_cliente].duracion_servicio = 0;
-            vehiculo->datos_cliente[indice_cliente].tiempo_salida = 0;
-            indice_cliente++;
-
-            while (clienteActual != NULL)
-            {
-                int id_actual = clienteActual->cliente;
-
-                if (clienteAnterior == NULL)
+                if (id_actual != 0) // Si no es el depósito
                 {
-                    if (id_actual != 0)
-                    {
-                        double tiempo_viaje = instancia_distancias[0][id_actual] / vehiculo->velocidad;
-                        tiempo += tiempo_viaje;
-
-                        double tiempo_llegada = tiempo;
-                        double tiempo_espera = 0.0;
-
-                        if (tiempo < vrp->clientes[id_actual].vt_inicial)
-                        {
-                            tiempo_espera = vrp->clientes[id_actual].vt_inicial - tiempo;
-                            tiempo = vrp->clientes[id_actual].vt_inicial;
-                        }
-
-                        if (indice_cliente == 1)
-                        {
-                            inicio = tiempo;
-                        }
-
-                        capacidad += vrp->clientes[id_actual].demanda_capacidad;
-
-                        vehiculo->datos_cliente[indice_cliente].cliente = id_actual;
-                        vehiculo->datos_cliente[indice_cliente].demanda_capacidad = vrp->clientes[id_actual].demanda_capacidad;
-                        vehiculo->datos_cliente[indice_cliente].ventana_inicial = vrp->clientes[id_actual].vt_inicial;
-                        vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[id_actual].vt_final;
-                        vehiculo->datos_cliente[indice_cliente].tiempo_llegada = tiempo_llegada;
-                        vehiculo->datos_cliente[indice_cliente].tiempo_espera = tiempo_espera;
-                        vehiculo->datos_cliente[indice_cliente].inicio_servicio = tiempo;
-                        vehiculo->datos_cliente[indice_cliente].duracion_servicio = vrp->clientes[id_actual].tiempo_servicio;
-                        vehiculo->datos_cliente[indice_cliente].tiempo_salida = tiempo + vrp->clientes[id_actual].tiempo_servicio;
-
-                        indice_cliente++;
-                    }
-                }
-                else
-                {
-                    if (clienteAnterior->cliente != 0)
-                        tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
-
-                    double tiempo_viaje = instancia_distancias[clienteAnterior->cliente][id_actual] / vehiculo->velocidad;
+                    // Calculamos tiempo de viaje desde depósito (0) hasta el cliente actual
+                    double tiempo_viaje = instancia_distancias[0][id_actual] / vehiculo->velocidad;
                     tiempo += tiempo_viaje;
 
-                    if (id_actual != 0)
+                    double tiempo_llegada = tiempo;
+                    double tiempo_espera = 0.0;
+
+                    // Si llegamos antes de la ventana de tiempo del cliente, esperamos
+                    if (tiempo < vrp->clientes[id_actual].vt_inicial)
                     {
-                        double tiempo_llegada = tiempo;
-                        double tiempo_espera = 0.0;
-
-                        if (tiempo < vrp->clientes[id_actual].vt_inicial)
-                        {
-                            tiempo_espera = vrp->clientes[id_actual].vt_inicial - tiempo;
-                            tiempo = vrp->clientes[id_actual].vt_inicial;
-                        }
-
-                        capacidad += vrp->clientes[id_actual].demanda_capacidad;
-
-                        vehiculo->datos_cliente[indice_cliente].cliente = id_actual;
-                        vehiculo->datos_cliente[indice_cliente].demanda_capacidad = vrp->clientes[id_actual].demanda_capacidad;
-                        vehiculo->datos_cliente[indice_cliente].ventana_inicial = vrp->clientes[id_actual].vt_inicial;
-                        vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[id_actual].vt_final;
-                        vehiculo->datos_cliente[indice_cliente].tiempo_llegada = tiempo_llegada;
-                        vehiculo->datos_cliente[indice_cliente].tiempo_espera = tiempo_espera;
-                        vehiculo->datos_cliente[indice_cliente].inicio_servicio = tiempo;
-                        vehiculo->datos_cliente[indice_cliente].duracion_servicio = vrp->clientes[id_actual].tiempo_servicio;
-                        vehiculo->datos_cliente[indice_cliente].tiempo_salida = tiempo + vrp->clientes[id_actual].tiempo_servicio;
-
-                        indice_cliente++;
+                        tiempo_espera = vrp->clientes[id_actual].vt_inicial - tiempo;
+                        tiempo = vrp->clientes[id_actual].vt_inicial; // Avanzamos tiempo al inicio de ventana
                     }
-                }
 
-                if (clienteActual->siguiente == NULL || clienteActual->siguiente->cliente == 0)
+                    if (indice_cliente == 1)
+                    {
+                        inicio = tiempo; // Guardamos tiempo de inicio servicio del primer cliente
+                    }
+
+                    capacidad += vrp->clientes[id_actual].demanda_capacidad; // Acumulamos demanda
+
+                    // Guardamos los datos del cliente en el arreglo
+                    vehiculo->datos_cliente[indice_cliente].cliente = id_actual;
+                    vehiculo->datos_cliente[indice_cliente].demanda_capacidad = vrp->clientes[id_actual].demanda_capacidad;
+                    vehiculo->datos_cliente[indice_cliente].ventana_inicial = vrp->clientes[id_actual].vt_inicial;
+                    vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[id_actual].vt_final;
+                    vehiculo->datos_cliente[indice_cliente].tiempo_llegada = tiempo_llegada;
+                    vehiculo->datos_cliente[indice_cliente].tiempo_espera = tiempo_espera;
+                    vehiculo->datos_cliente[indice_cliente].inicio_servicio = tiempo;
+                    vehiculo->datos_cliente[indice_cliente].duracion_servicio = vrp->clientes[id_actual].tiempo_servicio;
+                    vehiculo->datos_cliente[indice_cliente].tiempo_salida = tiempo + vrp->clientes[id_actual].tiempo_servicio;
+
+                    indice_cliente++;
+                }
+            }
+            else
+            {
+                // Para clientes posteriores al primero
+                if (clienteAnterior->cliente != 0) // Si cliente anterior no es depósito, sumar tiempo de servicio
+                    tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
+
+                // Sumamos tiempo de viaje entre cliente anterior y actual
+                double tiempo_viaje = instancia_distancias[clienteAnterior->cliente][id_actual] / vehiculo->velocidad;
+                tiempo += tiempo_viaje;
+
+                if (id_actual != 0)
                 {
-                    if (id_actual != 0)
-                        tiempo += vrp->clientes[id_actual].tiempo_servicio;
+                    double tiempo_llegada = tiempo;
+                    double tiempo_espera = 0.0;
 
-                    tiempo += instancia_distancias[id_actual][0] / vehiculo->velocidad;
-                    fin = tiempo;
+                    // Espera si llegamos antes del inicio de ventana del cliente
+                    if (tiempo < vrp->clientes[id_actual].vt_inicial)
+                    {
+                        tiempo_espera = vrp->clientes[id_actual].vt_inicial - tiempo;
+                        tiempo = vrp->clientes[id_actual].vt_inicial;
+                    }
 
-                    if (clienteActual->siguiente != NULL)
-                        clienteActual = clienteActual->siguiente;
+                    capacidad += vrp->clientes[id_actual].demanda_capacidad; // Acumulamos demanda
+
+                    // Guardamos datos del cliente en la estructura
+                    vehiculo->datos_cliente[indice_cliente].cliente = id_actual;
+                    vehiculo->datos_cliente[indice_cliente].demanda_capacidad = vrp->clientes[id_actual].demanda_capacidad;
+                    vehiculo->datos_cliente[indice_cliente].ventana_inicial = vrp->clientes[id_actual].vt_inicial;
+                    vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[id_actual].vt_final;
+                    vehiculo->datos_cliente[indice_cliente].tiempo_llegada = tiempo_llegada;
+                    vehiculo->datos_cliente[indice_cliente].tiempo_espera = tiempo_espera;
+                    vehiculo->datos_cliente[indice_cliente].inicio_servicio = tiempo;
+                    vehiculo->datos_cliente[indice_cliente].duracion_servicio = vrp->clientes[id_actual].tiempo_servicio;
+                    vehiculo->datos_cliente[indice_cliente].tiempo_salida = tiempo + vrp->clientes[id_actual].tiempo_servicio;
+
+                    indice_cliente++;
                 }
-
-                clienteAnterior = clienteActual;
-                clienteActual = clienteActual->siguiente;
             }
 
-            // ===== DEPÓSITO FINAL =====
-            vehiculo->datos_cliente[indice_cliente].cliente = 0;
-            vehiculo->datos_cliente[indice_cliente].demanda_capacidad = 0;
-            vehiculo->datos_cliente[indice_cliente].ventana_inicial = 0;
-            vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[0].vt_final;
-            vehiculo->datos_cliente[indice_cliente].tiempo_llegada = fin;
-            vehiculo->datos_cliente[indice_cliente].tiempo_espera = 0;
-            vehiculo->datos_cliente[indice_cliente].inicio_servicio = fin;
-            vehiculo->datos_cliente[indice_cliente].duracion_servicio = 0;
-            vehiculo->datos_cliente[indice_cliente].tiempo_salida = fin;
-        
+            // Si estamos en el último cliente o el siguiente es depósito, calculamos tiempo de regreso
+            if (clienteActual->siguiente == NULL || clienteActual->siguiente->cliente == 0)
+            {
+                if (id_actual != 0)
+                    tiempo += vrp->clientes[id_actual].tiempo_servicio;
 
+                // Tiempo de viaje de regreso al depósito
+                tiempo += instancia_distancias[id_actual][0] / vehiculo->velocidad;
+                fin = tiempo; // Guardamos tiempo final
+
+                // Avanzamos clienteActual si hay siguiente (depósito final)
+                if (clienteActual->siguiente != NULL)
+                    clienteActual = clienteActual->siguiente;
+            }
+
+            clienteAnterior = clienteActual;          // Actualizamos clienteAnterior para la siguiente iteración
+            clienteActual = clienteActual->siguiente; // Avanzamos en la lista de ruta
+        }
+
+        // ===== DEPÓSITO FINAL =====
+        vehiculo->datos_cliente[indice_cliente].cliente = 0;
+        vehiculo->datos_cliente[indice_cliente].demanda_capacidad = 0;
+        vehiculo->datos_cliente[indice_cliente].ventana_inicial = 0;
+        vehiculo->datos_cliente[indice_cliente].ventana_final = vrp->clientes[0].vt_final;
+        vehiculo->datos_cliente[indice_cliente].tiempo_llegada = fin;
+        vehiculo->datos_cliente[indice_cliente].tiempo_espera = 0;
+        vehiculo->datos_cliente[indice_cliente].inicio_servicio = fin;
+        vehiculo->datos_cliente[indice_cliente].duracion_servicio = 0;
+        vehiculo->datos_cliente[indice_cliente].tiempo_salida = fin;
+
+        // Actualizamos propiedades acumuladas en vehículo
         vehiculo->capacidad_acumulada = capacidad;
         vehiculo->tiempo_salida_vehiculo = inicio;
         vehiculo->tiempo_llegada_vehiculo = fin;
 
-        nodoVehiculo = nodoVehiculo->siguiente;
+        nodoVehiculo = nodoVehiculo->siguiente; // Pasamos al siguiente vehículo
     }
 }
 
+// Funcion que inserta un cliente en una posición específica dentro de la ruta de un vehículo.
 bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias)
 {
-    struct nodo_ruta *nuevo = asignar_memoria_nodo_ruta();
-    if (!nuevo)
+    struct nodo_ruta *nuevo = asignar_memoria_nodo_ruta(); // Crear nuevo nodo para el cliente
+    if (!nuevo)                                            // Si la asignación falla, retorna false
         return false;
 
-    nuevo->cliente = cliente;
-    nuevo->siguiente = NULL;
+    nuevo->cliente = cliente; // Asignar cliente al nuevo nodo
+    nuevo->siguiente = NULL;  // Inicializar siguiente como NULL
 
-    struct nodo_ruta *actual = vehiculo->ruta->cabeza->siguiente;
+    // Punteros para recorrer la lista
+    struct nodo_ruta *actual = vehiculo->ruta->cabeza->siguiente; // Empieza después del depósito
     struct nodo_ruta *previo = vehiculo->ruta->cabeza;
     int pos_actual = 0;
 
+    // Recorremos hasta encontrar la posición donde insertar
     while (actual != NULL)
     {
-        if (pos_actual == posicion)
+        if (pos_actual == posicion) // Si encontramos la posición deseada
         {
-            nuevo->siguiente = actual;
-            previo->siguiente = nuevo;
-            vehiculo->clientes_contados++;
-            return true;
+            nuevo->siguiente = actual;     // Insertamos el nodo nuevo antes del nodo actual
+            previo->siguiente = nuevo;     // Enlazamos el nodo previo al nuevo nodo
+            vehiculo->clientes_contados++; // Incrementamos contador de clientes
+            return true;                   // Inserción exitosa
         }
-        previo = actual;
+        previo = actual; // Avanzamos punteros
         actual = actual->siguiente;
         pos_actual++;
     }
 
-    // Si no se alcanzó la posición deseada, insertar antes del depósito final
+    // Si no se encontró la posición, intentamos insertar antes del depósito final (cliente 0)
     if (actual != NULL && actual->cliente == 0)
     {
         nuevo->siguiente = actual;
@@ -406,6 +424,7 @@ bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuraci
         return true;
     }
 
+    // Si no se pudo insertar, liberamos memoria y retornamos false
     free(nuevo);
     return false;
 }

@@ -183,74 +183,89 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
     free(flota); // Liberar la memoria de la lista de vehículos
 }
 
+// Función que elimina de una lista de vehículos aquellos que no tienen clientes asignados (vacíos y retorna el total de vehículos restantes).
 int eliminar_vehiculos_vacios(struct lista_vehiculos *lista)
 {
-    struct nodo_vehiculo *anterior = NULL;
-    struct nodo_vehiculo *actual = lista->cabeza;
+    struct nodo_vehiculo *anterior = NULL;  // Puntero al nodo anterior para manejar la eliminación
+    struct nodo_vehiculo *actual = lista->cabeza;  // Puntero al nodo actual que se va a revisar
 
+    // Recorre toda la lista enlazada de vehículos
     while (actual != NULL)
     {
+        // Si el vehículo actual no tiene clientes asignados
         if (actual->vehiculo->clientes_contados == 0)
         {
-            // Nodo a eliminar
+            // Guardamos el nodo a eliminar
             struct nodo_vehiculo *a_eliminar = actual;
 
+            // Si el nodo a eliminar es el primero de la lista (sin nodo anterior)
             if (anterior == NULL)
             {
+                // Ajustamos la cabeza de la lista al siguiente nodo
                 lista->cabeza = actual->siguiente;
-                actual = lista->cabeza;
+                actual = lista->cabeza;  // Continuamos desde la nueva cabeza
             }
             else
             {
+                // Si no es el primero, enlazamos el nodo anterior con el siguiente del actual
                 anterior->siguiente = actual->siguiente;
-                actual = anterior->siguiente;
+                actual = anterior->siguiente;  // Continuamos desde el siguiente del anterior
             }
 
+            // Liberamos la memoria del vehículo y del nodo eliminado
             liberar_vehiculo(a_eliminar->vehiculo);
             free(a_eliminar);
         }
         else
         {
+            // Si el vehículo sí tiene clientes, avanzamos al siguiente nodo
             anterior = actual;
             actual = actual->siguiente;
         }
     }
 
-    // Reajustar IDs desde 1 y contar
+    // Después de eliminar los vacíos, reajustamos los IDs de vehículos empezando en 1
     int nuevo_id = 1;
     int total_vehiculos = 0;
     actual = lista->cabeza;
 
+    // Recorremos nuevamente la lista para asignar IDs consecutivos y contar vehículos
     while (actual != NULL)
     {
-        actual->vehiculo->id_vehiculo = nuevo_id++;
-        total_vehiculos++;
+        actual->vehiculo->id_vehiculo = nuevo_id++;  // Asignar nuevo ID
+        total_vehiculos++;                           // Incrementar conteo
         actual = actual->siguiente;
     }
 
-    return total_vehiculos;
+    return total_vehiculos;  // Retornamos la cantidad final de vehículos en la lista
 }
 
 
-
+// Función para seleccionar aleatoriamente un vehículo dentro de la flota de una hormiga y retorna el nodo del vehículo seleccionado o NULL si no se encuentra.
 struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga *hormiga)
 {
-    int intentos_maximos = 10;
-    int vehiculo_aleatorio;
-    struct nodo_vehiculo *nodo_vehiculo_aleatorio = NULL;
+    int intentos_maximos = 10;      // Número máximo de intentos para seleccionar un vehículo válido
+    int vehiculo_aleatorio;         // ID aleatorio de vehículo seleccionado
+    struct nodo_vehiculo *nodo_vehiculo_aleatorio = NULL;  // Puntero al nodo seleccionado
 
+    // Intentamos hasta intentos_maximos veces
     for(int intento = 0; intento < intentos_maximos; intento++)
     {
+        // Generamos un número aleatorio entre 1 y la cantidad de vehículos necesarios
         vehiculo_aleatorio = (rand() % hormiga->vehiculos_necesarios) + 1;
 
+        // Recorremos la lista de vehículos para encontrar el nodo con ese ID
         nodo_vehiculo_aleatorio = hormiga->flota->cabeza;
         while (nodo_vehiculo_aleatorio != NULL)
         {
+            // Si encontramos el vehículo con el ID aleatorio generado, lo retornamos
             if (nodo_vehiculo_aleatorio->vehiculo->id_vehiculo == vehiculo_aleatorio)
                 return nodo_vehiculo_aleatorio; 
+
             nodo_vehiculo_aleatorio = nodo_vehiculo_aleatorio->siguiente;
         }
     }
 
+    // Si no se encontró un vehículo válido en los intentos, retornamos NULL
     return NULL;
 }

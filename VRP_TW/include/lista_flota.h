@@ -25,9 +25,10 @@ void vaciar_lista_vehiculos(struct lista_vehiculos *flota);
 // Función para liberar la memoria de una lista de vehículos
 void liberar_lista_vehiculos(struct lista_vehiculos *flota);
 
-
+// Función para eliminar los vehículos vacíos de la lista de vehículos de una hormiga
 int eliminar_vehiculos_vacios(struct lista_vehiculos *lista);
 
+// Función para seleccionar aleatoriamente un vehículo dentro de la flota de una hormiga y retorna el nodo del vehículo seleccionado o NULL si no se encuentra.
 struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga * hormiga);
 
 
