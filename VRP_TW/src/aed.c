@@ -268,115 +268,112 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
    if (vrp->num_clientes <= 26)
    {
-      rango->maxAlpha = 3.5; // Maximo de Alpha es 3.5
-      rango->minAlpha = 2.0; // Antes: 1.0 → Evitar convergencia prematura
+      rango->maxAlpha = 3.5; // Asignamos 3.5 a maxAlpha
+      rango->minAlpha = 2.0; // Asignamos 2.0 a minAlpha
 
-      rango->maxBeta = 4.0; // Antes: 5.0 → Menos codicia
-      rango->minBeta = 2.5; // Antes: 3.0 → Más exploración
+      rango->maxBeta = 4.0; // Asignamos 4.0 a maxBeta
+      rango->minBeta = 2.5; // Asignamos 2.5 a minBeta
 
-      rango->maxGamma = 2.5; // OK - Mantener
-      rango->minGamma = 1.0; // Antes: 0.5 → Más consistencia ventanas
+      rango->maxGamma = 2.5; // Asignamos 2.5 a maxGamma
+      rango->minGamma = 1.0; // Asignamos 1.0 a minGamma
 
-      rango->maxRho = 0.5; // Antes: 0.6 → Evaporación más gradual
-      rango->minRho = 0.3; // Antes: 0.4 → Más diversidad
+      rango->maxRho = 0.5; // Asignamos 0.5 a maxRho
+      rango->minRho = 0.3; // Asignamos 0.3 a minRho
 
-      rango->maxNumHormigas = 6; // Antes: 20 → Suficiente para este tamaño
-      rango->minNumHormigas = 3; // OK - Mantener
+      rango->maxNumHormigas = 6; // Asignamos 6 a maxNumHormigas
+      rango->minNumHormigas = 3; // Asignamos 3 a minNumHormigas
 
-      rango->maxPorcentajeHormigas = 0.60;
-      rango->minPorcenjateHormigas = 0.30;
+      rango->maxPorcentajeHormigas = 0.60; // Asignamos 0.60 a maxPorcentajeHormigas
+      rango->minPorcenjateHormigas = 0.30; // Asignamos 0.30 a minPorcenjateHormigas
 
-      rango->maxNumIteracionesACO = 80; // Antes: 100 → Más eficiente
-      rango->minNumIteracionesACO = 60; // Antes: 50 → Mínimo razonable
+      rango->maxNumIteracionesACO = 80; // Asignamos 80 a maxNumIteracionesACO
+      rango->minNumIteracionesACO = 60; // Asignamos 60 a minNumIteracionesACO
 
-      // SA - Temperaturas más conservadoras
-      rango->maxTemperatura_inicial = 1800.0; // Antes: 2000 → Menos agresivo
-      rango->minTemperatura_inicial = 1200.0; // Antes: 1500 → Más rango
+      rango->maxTemperatura_inicial = 1800.0; // Asignamos 1800.0 a maxTemperatura_inicial
+      rango->minTemperatura_inicial = 1200.0; // Asignamos 1200.0 a minTemperatura_inicial
 
-      rango->maxTemperatura_final = 0.1;  // OK - Mantener
-      rango->minTemperatura_final = 0.01; // Antes: 0.05 → Más enfriamiento
+      rango->maxTemperatura_final = 0.1;  // Asignamos 0.1 a maxTemperatura_final
+      rango->minTemperatura_final = 0.01; // Asignamos 0.01 a minTemperatura_final
 
-      rango->maxFactor_enfriamiento = 0.98; // Antes: 0.999 → Enfriamiento más rápido
-      rango->minFactor_enfriamiento = 0.95; // OK - Mantener
+      rango->maxFactor_enfriamiento = 0.98; // Asignamos 0.98 a maxFactor_enfriamiento
+      rango->minFactor_enfriamiento = 0.95; // Asignamos 0.95 a minFactor_enfriamiento
 
-      rango->maxIteracionesSA = 120; // Antes: 150 → Más eficiente
-      rango->minIteracionesSA = 80;  // Antes: 100 → Mínimo adecuado
+      rango->maxIteracionesSA = 120; // Asignamos 120 a maxIteracionesSA
+      rango->minIteracionesSA = 80;  // Asignamos 80 a minIteracionesSA
    }
 
-   if (vrp->num_clientes == 51)
+   if (vrp->num_clientes > 26 && vrp->num_clientes <= 51)
    {
-      rango->maxAlpha = 4.0; // Antes: 4.5 → Progresión más suave
-      rango->minAlpha = 2.5; // Antes: 2.0 → Continuidad con 26
+      rango->maxAlpha = 4.0; // Asignamos 4.0 a maxAlpha
+      rango->minAlpha = 2.5; // Asignamos 2.5 a minAlpha
 
-      rango->maxBeta = 5.0; // OK - Mantener
-      rango->minBeta = 3.5; // Antes: 5.0 → Corrección error min>max
+      rango->maxBeta = 5.0; // Asignamos 5.0 a maxBeta
+      rango->minBeta = 3.5; // Asignamos 3.5 a minBeta
 
-      rango->maxGamma = 3.0; // Antes: 2.5 → Más importancia ventanas
-      rango->minGamma = 1.5; // Antes: 0.8 → Continuidad
+      rango->maxGamma = 3.0; // Asignamos 3.0 a maxGamma
+      rango->minGamma = 1.5; // Asignamos 1.5 a minGamma
 
-      rango->maxRho = 0.45; // Antes: 0.5 → Evaporación moderada
-      rango->minRho = 0.25; // Antes: 0.3 → Más diversidad
+      rango->maxRho = 0.45; // Asignamos 0.45 a maxRho
+      rango->minRho = 0.25; // Asignamos 0.25 a minRho
 
-      rango->maxNumHormigas = 12; // Antes: 40 → Más eficiente
-      rango->minNumHormigas = 6;  // Antes: 25 → Mínimo adecuado
+      rango->maxNumHormigas = 12; // Asignamos 12 a maxNumHormigas
+      rango->minNumHormigas = 6;  // Asignamos 6 a minNumHormigas
 
-      rango->maxPorcentajeHormigas = 0.50;
-      rango->minPorcenjateHormigas = 0.20;
+      rango->maxPorcentajeHormigas = 0.50; // Asignamos 0.50 a maxPorcentajeHormigas
+      rango->minPorcenjateHormigas = 0.20; // Asignamos 0.20 a minPorcentajeHormigas
 
-      rango->maxNumIteracionesACO = 150; // Antes: 180 → Más eficiente
-      rango->minNumIteracionesACO = 100; // Antes: 120 → Transición suave
+      rango->maxNumIteracionesACO = 150; // Asignamos 150 a maxNumIteracionesACO
+      rango->minNumIteracionesACO = 100; // Asignamos 100 a minNumIteracionesACO
 
-      // SA - Progresión lógica
-      rango->maxTemperatura_inicial = 2200.0; // Antes: 2600 → Menos agresivo
-      rango->minTemperatura_inicial = 1600.0; // Antes: 2000 → Progresión suave
+      rango->maxTemperatura_inicial = 2200.0; // Asignamos 2200.0 a maxTemperatura_inicial
+      rango->minTemperatura_inicial = 1600.0; // Asignamos 1600.0 a minTemperatura_inicial
 
-      rango->maxTemperatura_final = 0.05;  // Antes: 0.08 → Más enfriamiento
-      rango->minTemperatura_final = 0.005; // Antes: 0.02 → Progresión lógica
+      rango->maxTemperatura_final = 0.05;  // Asignamos 0.05 a maxTemperatura_final
+      rango->minTemperatura_final = 0.005; // Asignamos 0.005 a minTemperatura_final
 
-      rango->maxFactor_enfriamiento = 0.99; // Antes: 0.995 → Más eficiente
-      rango->minFactor_enfriamiento = 0.97; // OK - Mantener
+      rango->maxFactor_enfriamiento = 0.99; // Asignamos 0.99 a maxFactor_enfriamiento
+      rango->minFactor_enfriamiento = 0.97; // Asignamos 0.97 a minFactor_enfriamiento
 
-      rango->maxIteracionesSA = 200; // Antes: 250 → Más eficiente
-      rango->minIteracionesSA = 120; // Antes: 150 → Progresión suave
+      rango->maxIteracionesSA = 200; // Asignamos 200 a maxIteracionesSA
+      rango->minIteracionesSA = 120; // Asignamos 120 a minIteracionesSA
    }
 
-   if (vrp->num_clientes == 101)
+   if (vrp->num_clientes > 51 && vrp->num_clientes <= 101)
    {
-      rango->maxAlpha = 5.0; // Antes: 6.0 → Evitar sobreexplotación
-      rango->minAlpha = 3.0; // OK - Mantener
+      rango->maxAlpha = 5.0; // Asignamos 5.0 a maxAlpha
+      rango->minAlpha = 3.0; // Asignamos 3.0 a minAlpha
 
-      rango->maxBeta = 6.0; // Antes: 8.0 → Menos codicia
-      rango->minBeta = 4.0; // Antes: 5.0 → Progresión suave
+      rango->maxBeta = 6.0; // Asignamos 6.0 a maxBeta
+      rango->minBeta = 4.0; // Asignamos 4.0 a minBeta
 
-      rango->maxGamma = 4.0; // Antes: 6.0 → Más realista
-      rango->minGamma = 2.0; // OK - Mantener
+      rango->maxGamma = 4.0; // Asignamos 4.0 a maxGamma
+      rango->minGamma = 2.0; // Asignamos 2.0 a minGamma
 
-      rango->maxRho = 0.3; // Antes: 0.4 → Evaporación lenta
-      rango->minRho = 0.1; // OK - Mantener diversidad
+      rango->maxRho = 0.3; // Asignamos 0.3 a maxRho
+      rango->minRho = 0.1; // Asignamos 0.1 a minRho
 
-      rango->maxNumHormigas = 20; // Antes: 50 → Más eficiente
-      rango->minNumHormigas = 10; // Antes: 35 → Mínimo razonable
+      rango->maxNumHormigas = 20; // Asignamos 20 a maxNumHormigas
+      rango->minNumHormigas = 10; // Asignamos 10 a minNumHormigas
 
-      rango->maxPorcentajeHormigas = 0.35;
-      rango->minPorcenjateHormigas = 0.15;
+      rango->maxPorcentajeHormigas = 0.35; // Asignamos 0.35 a maxPorcentajeHormigas
+      rango->minPorcenjateHormigas = 0.15; // Asignamos 0.15 a minPorcentajeHormigas
 
-      rango->maxNumIteracionesACO = 180; // Antes: 200 → Más eficiente
-      rango->minNumIteracionesACO = 120; // Antes: 150 → Progresión suave
+      rango->maxNumIteracionesACO = 180; // Asignamos 180 a maxNumIteracionesACO
+      rango->minNumIteracionesACO = 120; // Asignamos 120 a minNumIteracionesACO
 
-      // SA - ¡CRÍTICO! Reducir iteraciones dramáticamente
-      rango->maxTemperatura_inicial = 4000.0; // Antes: 5000 → Más conservador
-      rango->minTemperatura_inicial = 2500.0; // Antes: 3000 → Progresión suave
+      rango->maxTemperatura_inicial = 4000.0; // Asignamos 4000.0 a maxTemperatura_inicial
+      rango->minTemperatura_inicial = 2500.0; // Asignamos 2500.0 a minTemperatura_inicial
 
-      rango->maxTemperatura_final = 0.01;  // Antes: 0.05 → Más enfriamiento
-      rango->minTemperatura_final = 0.001; // Antes: 0.0001 → Más realista
+      rango->maxTemperatura_final = 0.01;  // Asignamos 0.01 a maxTemperatura_final
+      rango->minTemperatura_final = 0.001; // Asignamos 0.001 a minTemperatura_final
 
-      rango->maxFactor_enfriamiento = 0.995; // OK - Mantener
-      rango->minFactor_enfriamiento = 0.98;  // Antes: 0.97 → Enfriamiento más lento
+      rango->maxFactor_enfriamiento = 0.995; // Asignamos 0.995 a maxFactor_enfriamiento
+      rango->minFactor_enfriamiento = 0.98;  // Asignamos 0.98 a minFactor_enfriamiento
 
-      // ¡CAMBIO CRÍTICO!
-      rango->maxIteracionesSA = 300; // Antes: 1000 → 70% reducción
-      rango->minIteracionesSA = 200; // Antes: 500 → 60% reducción
+      rango->maxIteracionesSA = 300; // Asignamos 300 a maxIteracionesSA
+      rango->minIteracionesSA = 200; // Asignamos 200 a minIteracionesSA
    }
+
    // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)
    {
@@ -398,8 +395,10 @@ void inicializaPoblacion(struct individuo *objetivo, struct vrp_configuracion *v
 
 void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, char *archivo_instancia)
 {
-   clock_t tieepo_inicial, timepo_final;                                          // Variables para medir el tiempo de ejecución
-   tieepo_inicial = clock();                                                      // Iniciar Tiempo                                                               // Respuesta
+   clock_t tiempo_inicial, tiempo_final; // Variables para medir el tiempo de ejecución
+   int barra_ancho, progreso_barras;
+   double minutos;                                                                // Variables para la barra de progreso y el tiempo en minutos
+   tiempo_inicial = clock();                                                      // Iniciar Tiempo                                                               // Respuesta
    struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
    struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
    struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
@@ -479,8 +478,8 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
          }
       // Realizamos la selección de la siguiente generación
       seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
-      int barra_ancho = 50;                       // Ancho de la barra de progreso
-      int progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho);
+      barra_ancho = 50;                           // Ancho de la barra de progreso
+      progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho);
 
       printf("\r[");
       for (int j = 0; j < barra_ancho; ++j)
@@ -493,12 +492,12 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
       printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
              ((float)(i + 1) / num_generaciones) * 100,
              resultado->fitness,
-             ((double)(clock() - tieepo_inicial)) / CLOCKS_PER_SEC / 60.0);
+             ((double)(clock() - tiempo_inicial)) / CLOCKS_PER_SEC / 60.0);
       fflush(stdout);
    }
 
-   timepo_final = clock();
-   double minutos = (((double)(timepo_final - tieepo_inicial)) / CLOCKS_PER_SEC) / 60.0;
+   tiempo_final = clock();
+   minutos = (((double)(tiempo_final - tiempo_inicial)) / CLOCKS_PER_SEC) / 60.0;
 
    vrp->tiempo_ejecucion = ceil(minutos);
    vrp->archivo_instancia = archivo_instancia;
@@ -506,8 +505,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    llenar_datos_clientes(resultado->hormiga->flota, vrp, instancia_distancias);
    // Imprimimos la meojor homriga
    imprimir_mejor_hormiga(resultado->hormiga, resultado, vrp);
-   printf("\nEl tiempo de ejecución es: %.2f minutos\n", minutos);
-
+   printf("\nEl tiempo de ejecución es: %.2f minutos\n\n\n", minutos);
    guardar_json_en_archivo(resultado, vrp, archivo_instancia);
 
    liberar_instancia(instancia_feromonas, vrp->num_clientes);       // Liberemos la memoria de la instancia feromona
