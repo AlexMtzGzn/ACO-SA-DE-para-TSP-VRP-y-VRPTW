@@ -35,7 +35,7 @@ void imprimir_datos_cliente(struct vehiculo *vehiculo) {
 
     for (int i = 0; i < vehiculo->clientes_contados + 2; i++) {
         if (vehiculo->datos_cliente[i].cliente == 0)
-            printf("  %-10s ", "Depósito");
+            printf("  %-11s ", "Depósito ");
         else
             printf("  %-10d ", vehiculo->datos_cliente[i].cliente);
 

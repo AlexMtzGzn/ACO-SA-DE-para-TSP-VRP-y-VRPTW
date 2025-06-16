@@ -26,7 +26,8 @@ void vaciar_lista_vehiculos(struct lista_vehiculos *flota);
 void liberar_lista_vehiculos(struct lista_vehiculos *flota);
 
 
-bool eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar);
+int eliminar_vehiculos_vacios(struct lista_vehiculos *lista);
+
 struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga * hormiga);
 
 

@@ -134,7 +134,7 @@ void liberar_vehiculo(struct vehiculo *vehiculo)
     if (vehiculo->ruta)
         liberar_ruta(vehiculo->ruta);
     // Liberar memoria asociada a los datos del cliente
-    if(vehiculo->datos_cliente)
+    if (vehiculo->datos_cliente)
         liberar_memoria_datos_cliente(vehiculo->datos_cliente);
     // Liberar la memoria del vehículo
     free(vehiculo);
@@ -183,83 +183,74 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
     free(flota); // Liberar la memoria de la lista de vehículos
 }
 
-bool eliminar_vehiculo_vacio(struct lista_vehiculos *lista, int id_a_eliminar)
+int eliminar_vehiculos_vacios(struct lista_vehiculos *lista)
 {
     struct nodo_vehiculo *anterior = NULL;
     struct nodo_vehiculo *actual = lista->cabeza;
-    bool eliminado = false;
 
     while (actual != NULL)
     {
-        if (actual->vehiculo->id_vehiculo == id_a_eliminar)
+        if (actual->vehiculo->clientes_contados == 0)
         {
-            if (actual->vehiculo->clientes_contados == 0)
+            // Nodo a eliminar
+            struct nodo_vehiculo *a_eliminar = actual;
+
+            if (anterior == NULL)
             {
-                // Eliminar el nodo
-                if (anterior == NULL)
-                {
-                    lista->cabeza = actual->siguiente;
-                }
-                else
-                {
-                    anterior->siguiente = actual->siguiente;
-                }
-
-                liberar_vehiculo(actual->vehiculo); // Libera memoria interna
-                free(actual);                       // Libera el nodo de la lista
-                eliminado = true;
-                break;
+                lista->cabeza = actual->siguiente;
+                actual = lista->cabeza;
             }
-        }
+            else
+            {
+                anterior->siguiente = actual->siguiente;
+                actual = anterior->siguiente;
+            }
 
-        anterior = actual;
-        actual = actual->siguiente;
+            liberar_vehiculo(a_eliminar->vehiculo);
+            free(a_eliminar);
+        }
+        else
+        {
+            anterior = actual;
+            actual = actual->siguiente;
+        }
     }
 
-    if (!eliminado)
-        return false;
-
-    // Reajustar IDs de todos los vehículos desde 1
+    // Reajustar IDs desde 1 y contar
     int nuevo_id = 1;
+    int total_vehiculos = 0;
     actual = lista->cabeza;
 
     while (actual != NULL)
     {
         actual->vehiculo->id_vehiculo = nuevo_id++;
+        total_vehiculos++;
         actual = actual->siguiente;
     }
 
-    return true;
+    return total_vehiculos;
 }
+
+
 
 struct nodo_vehiculo *seleccionar_vehiculo_aleatorio(struct hormiga *hormiga)
 {
-    int intentos = 10, vehiculo_aleatorio = -1;
+    int intentos_maximos = 10;
+    int vehiculo_aleatorio;
     struct nodo_vehiculo *nodo_vehiculo_aleatorio = NULL;
 
-    while (intentos--)
+    for(int intento = 0; intento < intentos_maximos; intento++)
     {
-
-        // Seleciionamor el id de un veiculo aleatorio
         vehiculo_aleatorio = (rand() % hormiga->vehiculos_necesarios) + 1;
 
         nodo_vehiculo_aleatorio = hormiga->flota->cabeza;
         while (nodo_vehiculo_aleatorio != NULL)
         {
             if (nodo_vehiculo_aleatorio->vehiculo->id_vehiculo == vehiculo_aleatorio)
-                break;
+                return nodo_vehiculo_aleatorio; 
             nodo_vehiculo_aleatorio = nodo_vehiculo_aleatorio->siguiente;
         }
     }
 
-    if (nodo_vehiculo_aleatorio->vehiculo->clientes_contados < 1)
-    {
-        if (eliminar_vehiculo_vacio(hormiga->flota, nodo_vehiculo_aleatorio->vehiculo->id_vehiculo))
-            hormiga->vehiculos_necesarios--;
-        return NULL;
-    }
-    else
-    {
-        return nodo_vehiculo_aleatorio;
-    }
+    return NULL;
 }

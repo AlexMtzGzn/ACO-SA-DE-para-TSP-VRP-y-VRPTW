@@ -177,7 +177,8 @@ void evaluaFO_SA(struct hormiga *hormiga, struct vrp_configuracion *vrp, double 
     }
 }
 
-// Algoritmo de Recocido Simulado (SA)
+// Algoritmo de Recocido Simulado (SA) Optimizado
+// Algoritmo de Recocido Simulado (SA) Optimizado
 void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
         struct hormiga *hormiga_solucion_actual, struct hormiga *hormiga_mejor_solucion,
         struct individuo *ind, double **instancia_distancias)
@@ -185,15 +186,11 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
     double temperatura = ind->temperatura_inicial;
     double delta, prob;
     bool aceptado = false;
+    int operador_usado = -1; // Para trackear qué operador se usó
 
     // Ciclo de enfriamiento
     while (temperatura > ind->temperatura_final)
     {
-        // printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
-        //        temperatura,
-        //        hormiga_solucion_actual->fitness_global,
-        //        hormiga_mejor_solucion->fitness_global);
-
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
             // 1. Copiar solución actual a vecina para modificar
@@ -206,166 +203,309 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
 
             // 2. Generar vecino aplicando movimiento
             prob = (double)rand() / RAND_MAX;
-            double temp_invertida = temperatura / ind->temperatura_inicial;
             aceptado = false;
+            operador_usado = -1;
 
+            // === INSTANCIAS PEQUEÑAS (26 clientes) ===
             if (vrp->num_clientes == 26)
             {
-
                 if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
                 {
-                    // temp_invertida va de 0 a 1, así que 1-temp_invertida favorece exploración al inicio
-                    double temp_explo = 1.0 - temp_invertida; // va de 1 a 0
-
-                    double umbral1 = 0.40 * temp_invertida;           // 2-opt (más importante)
-                    double umbral2 = umbral1 + 0.25 * temp_invertida; // reinserción
-                    double umbral3 = umbral2 + 0.20 * temp_invertida; // 2.5-opt
-                    double umbral4 = umbral3 + 0.10 * temp_explo;     // swap_intra (opcional)
-                    // resto para 2.5-opt
+                    // CONFIGURACIÓN AGRESIVA - Prioriza exploración máxima
+                    double umbral1 = 0.25;           // Cross-exchange (MÁS DISRUPTIVO)
+                    double umbral2 = umbral1 + 0.20; // Relocate-chain (EXPLORACIÓN EXTREMA)
+                    double umbral3 = umbral2 + 0.20; // Swap inter (CAMBIOS ENTRE RUTAS)
+                    double umbral4 = umbral3 + 0.15; // Reinserción (REESTRUCTURACIÓN)
+                    double umbral5 = umbral4 + 0.10; // 2.5-opt (REFINAMIENTO AGRESIVO)
+                    double umbral6 = umbral5 + 0.05; // 2-opt (BASE MÍNIMA)
+                    // resto para Or-opt y Swap intra (menos agresivos)
 
                     if (prob < umbral1)
+                    {
+                        aceptado = cross_exchange(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 7;
+                    }
+                    else if (prob < umbral2)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < umbral3)
+                    {
                         aceptado = swap_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral2)
-                        aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral3)
-                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 4;
+                    }
                     else if (prob < umbral4)
-                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else
-                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
-                }
-                else
-                {
-
-                    // temp_invertida va de 0 a 1, así que 1-temp_invertida favorece exploración al inicio
-                    double temp_explo = 1.0 - temp_invertida; // va de 1 a 0
-
-                    double umbral1 = 0.30 * temp_invertida;           // 2-opt
-                    double umbral2 = umbral1 + 0.25 * temp_invertida; // 2.5-opt
-                    double umbral3 = umbral2 + 0.20 * temp_explo;     // reinserción
-                    double umbral4 = umbral3 + 0.15 * temp_explo;     // or-opt
-                    // resto para swap_intra
-                    if (prob < umbral1)
-                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral2)
-                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral3)
+                    {
                         aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral4)
+                        operador_usado = 5;
+                    }
+                    else if (prob < umbral5)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < umbral6)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else if (prob < umbral6 + 0.03)
+                    {
                         aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
                     else
+                    {
                         aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 3;
+                    }
+                }
+                else // Un solo vehículo (TSP) - Más agresivo que original
+                {
+                    double umbral1 = 0.30;           // Relocate-chain (EXPLORACIÓN EXTREMA)
+                    double umbral2 = umbral1 + 0.25; // 2.5-opt (REFINAMIENTO AGRESIVO)
+                    double umbral3 = umbral2 + 0.20; // Reinserción (REESTRUCTURACIÓN)
+                    double umbral4 = umbral3 + 0.15; // 2-opt (BASE NECESARIA)
+                    // resto para Or-opt
+
+                    if (prob < umbral1)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < umbral2)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < umbral3)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < umbral4)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
                 }
             }
 
+            // === INSTANCIAS MEDIANAS (51 clientes) ===
             if (vrp->num_clientes == 51)
             {
-
                 if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
                 {
-                    // temp_invertida va de 0 a 1, así que 1-temp_invertida favorece exploración al inicio
-                    double temp_explo = 1.0 - temp_invertida; // va de 1 a 0
-
-                    double umbral1 = 0.30 * temp_invertida;           // 2-opt
-                    double umbral2 = umbral1 + 0.25 * temp_explo;     // swap_inter (exploración)
-                    double umbral3 = umbral2 + 0.20 * temp_invertida; // reinserción
-                    double umbral4 = umbral3 + 0.15 * temp_invertida; // or-opt
-                                                                      // resto para 2.5-opt
-                    // resto para opt_2_5
-
-                    if (prob < umbral1)
-                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral2)
-                        aceptado = swap_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral3)
-                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral4)
-                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else
-                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
-                }
-                else // Un solo vehículo
-                {
-                    double temp_explo = 1.0 - temp_invertida; // va de 1 a 0
-
-                    double umbral1 = 0.35 * temp_invertida;           // 2-opt (fundamental en TSP)
-                    double umbral2 = umbral1 + 0.25 * temp_invertida; // 2.5-opt
-                    double umbral3 = umbral2 + 0.20 * temp_invertida; // or-opt
-                    double umbral4 = umbral3 + 0.15 * temp_explo;     // reinserción
-                    // resto para swap_intra
+                    // CONFIGURACIÓN AGRESIVA - Maximiza disrupciones complejas
+                    double umbral1 = 0.30;           // Cross-exchange (MÁXIMA DISRUPCIÓN)
+                    double umbral2 = umbral1 + 0.25; // Relocate-chain (EXPLORACIÓN EXTREMA)
+                    double umbral3 = umbral2 + 0.20; // Swap inter (CAMBIOS ENTRE RUTAS)
+                    double umbral4 = umbral3 + 0.12; // Reinserción (REESTRUCTURACIÓN)
+                    double umbral5 = umbral4 + 0.08; // 2.5-opt (REFINAMIENTO AGRESIVO)
+                    double umbral6 = umbral5 + 0.03; // 2-opt (MÍNIMO NECESARIO)
+                    // resto para Or-opt y Swap intra
 
                     if (prob < umbral1)
-                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral2)
-                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral3)
-                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral4)
-                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else
-                        aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
-                }
-            }
-
-            if (vrp->num_clientes == 101)
-            {
-
-                if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
-                {
-                    // temp_invertida va de 0 a 1, así que 1-temp_invertida favorece exploración al inicio
-                    double temp_explo = 1.0 - temp_invertida; // va de 1 a 0
-
-                    double umbral1 = 0.25 * temp_explo;               // swap_inter (exploración fuerte)
-                    double umbral2 = umbral1 + 0.20 * temp_invertida; // 2-opt
-                    double umbral3 = umbral2 + 0.18 * temp_invertida; // cross-exchange
-                    double umbral4 = umbral3 + 0.15 * temp_invertida; // or-opt
-                    double umbral5 = umbral4 + 0.12 * temp_invertida; // relocate-chain
-                    double umbral6 = umbral5 + 0.08 * temp_invertida; // reinserción
-                    // resto para opt_2_5
-
-                    if (prob < umbral1)
-                        aceptado = swap_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral2)
-                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral3)
+                    {
                         aceptado = cross_exchange(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral4)
-                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral5)
+                        operador_usado = 7;
+                    }
+                    else if (prob < umbral2)
+                    {
                         aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral6)
+                        operador_usado = 8;
+                    }
+                    else if (prob < umbral3)
+                    {
+                        aceptado = swap_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 4;
+                    }
+                    else if (prob < umbral4)
+                    {
                         aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else
+                        operador_usado = 5;
+                    }
+                    else if (prob < umbral5)
+                    {
                         aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < umbral6)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else if (prob < umbral6 + 0.01)
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                    else
+                    {
+                        aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 3;
+                    }
                 }
                 else // Un solo vehículo
                 {
-                    double temp_explo = 1.0 - temp_invertida; // va de 1 a 0
-
-                    double umbral1 = 0.30 * temp_invertida;           // 2-opt (crítico)
-                    double umbral2 = umbral1 + 0.25 * temp_invertida; // 2.5-opt
-                    double umbral3 = umbral2 + 0.20 * temp_invertida; // or-opt
-                    double umbral4 = umbral3 + 0.15 * temp_explo;     // relocate-chain
-                    double umbral5 = umbral4 + 0.08 * temp_invertida; // reinserción
-                    // resto para swap_intra
+                    double umbral1 = 0.35;           // Relocate-chain (EXPLORACIÓN EXTREMA)
+                    double umbral2 = umbral1 + 0.30; // 2.5-opt (REFINAMIENTO AGRESIVO)
+                    double umbral3 = umbral2 + 0.20; // Reinserción (REESTRUCTURACIÓN)
+                    double umbral4 = umbral3 + 0.10; // 2-opt (BASE MÍNIMA)
+                    // resto para Or-opt
 
                     if (prob < umbral1)
-                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral2)
-                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral3)
-                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral4)
+                    {
                         aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
-                    else if (prob < umbral5)
+                        operador_usado = 8;
+                    }
+                    else if (prob < umbral2)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < umbral3)
+                    {
                         aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < umbral4)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
                     else
-                        aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
                 }
             }
 
+            // === INSTANCIAS GRANDES (101+ clientes) ===
+            if (vrp->num_clientes >= 101)
+            {
+                if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
+                {
+                    // CONFIGURACIÓN SÚPER AGRESIVA - Prioriza máxima exploración
+                    double umbral1 = 0.35;           // Relocate-chain (EXPLORACIÓN EXTREMA)
+                    double umbral2 = umbral1 + 0.30; // Cross-exchange (MÁXIMA DISRUPCIÓN)
+                    double umbral3 = umbral2 + 0.20; // Swap inter (CAMBIOS ENTRE RUTAS)
+                    double umbral4 = umbral3 + 0.10; // Reinserción (REESTRUCTURACIÓN)
+                    double umbral5 = umbral4 + 0.03; // 2.5-opt (REFINAMIENTO MÍNIMO)
+                    double umbral6 = umbral5 + 0.01; // 2-opt (CASI ELIMINADO)
+                    // resto para Or-opt y Swap intra (mínimos)
+
+                    if (prob < umbral1)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < umbral2)
+                    {
+                        aceptado = cross_exchange(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 7;
+                    }
+                    else if (prob < umbral3)
+                    {
+                        aceptado = swap_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 4;
+                    }
+                    else if (prob < umbral4)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < umbral5)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < umbral6)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else if (prob < umbral6 + 0.005)
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                    else
+                    {
+                        aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 3;
+                    }
+                }
+                else // Un solo vehículo
+                {
+                    double umbral1 = 0.40;           // Relocate-chain (EXPLORACIÓN EXTREMA)
+                    double umbral2 = umbral1 + 0.35; // 2.5-opt (REFINAMIENTO AGRESIVO)
+                    double umbral3 = umbral2 + 0.20; // Reinserción (REESTRUCTURACIÓN)
+                    double umbral4 = umbral3 + 0.03; // 2-opt (CASI ELIMINADO)
+                    // resto para Or-opt (mínimo)
+
+                    if (prob < umbral1)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < umbral2)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < umbral3)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < umbral4)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                }
+            }
             if (!aceptado)
                 continue;
+
+            // ESTRATEGIA ÓPTIMA DE LIMPIEZA DE VEHÍCULOS VACÍOS:
+            // Solo limpiar después de operadores que pueden crear vehículos vacíos
+            // Y solo en instancias con múltiples vehículos
+            bool necesita_limpieza = false;
+            if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
+            {
+                // Operadores que pueden dejar vehículos vacíos:
+                // 4 = swap_inter, 5 = reinsercion, 7 = cross_exchange, 8 = relocate_chain
+                if (operador_usado == 4 || operador_usado == 5 ||
+                    operador_usado == 7 || operador_usado == 8)
+                {
+                    necesita_limpieza = true;
+                }
+
+                // Limpieza periódica cada 15 iteraciones para mayor seguridad
+                if (i % 15 == 0)
+                {
+                    necesita_limpieza = true;
+                }
+            }
+
+            if (necesita_limpieza)
+            {
+                hormiga_solucion_vecina->vehiculos_necesarios = eliminar_vehiculos_vacios(hormiga_solucion_vecina->flota);
+            }
 
             // 3. Evaluar solución vecina
             evaluaFO_SA(hormiga_solucion_vecina, vrp, instancia_distancias);
@@ -408,10 +548,12 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 }
             }
         }
-
         temperatura *= ind->factor_enfriamiento; // Disminuye temperatura
     }
+
+    hormiga_mejor_solucion->vehiculos_necesarios = eliminar_vehiculos_vacios(hormiga_mejor_solucion->flota);
 }
+
 // Función principal que ejecuta SA sobre un individuo del VRP
 void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_original, struct individuo *ind, double **instancia_distancias)
 {
@@ -430,7 +572,6 @@ void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_original, 
     // Si se mejora la solución global, se guarda
     if (hormiga_mejor_solucion->fitness_global < hormiga_original->fitness_global)
     {
-
         hormiga_original->fitness_global = hormiga_mejor_solucion->fitness_global;
         hormiga_original->vehiculos_necesarios = hormiga_mejor_solucion->vehiculos_necesarios;
 
