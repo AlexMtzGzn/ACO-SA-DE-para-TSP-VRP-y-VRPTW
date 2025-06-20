@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+
+// Includes de headers propios, que contienen estructuras y funciones del VRP, SA, etc.
 #include "../include/vrp_tw_sa.h"
 #include "../include/estructuras.h"
 #include "../include/lista_flota.h"
@@ -10,39 +12,46 @@
 #include "../include/salida_datos.h"
 #include "../include/movimientos_sa.h"
 
+// Función que copia una hormiga (solución) para usar en SA
 struct hormiga *copiar_hormiga_sa(struct hormiga *hormiga_original)
 {
-
+    // Asigna memoria para una hormiga (1)
     struct hormiga *hormiga_copia = asignar_memoria_hormigas(1);
 
+    // Copia atributos simples
     hormiga_copia->id_hormiga = hormiga_original->id_hormiga;
     hormiga_copia->fitness_global = hormiga_original->fitness_global;
     hormiga_copia->vehiculos_maximos = hormiga_original->vehiculos_maximos;
     hormiga_copia->vehiculos_necesarios = hormiga_original->vehiculos_necesarios;
+
+    // Copia profunda de la lista de vehículos (flota)
     hormiga_copia->flota = copiar_lista_vehiculos(hormiga_original->flota);
 
     return hormiga_copia;
 }
 
+// Calcula ventanas de tiempo y capacidad acumulada para cada vehículo de la flota
 void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     struct nodo_vehiculo *nodoVehiculo = flota->cabeza;
 
+    // Itera sobre cada vehículo en la flota
     while (nodoVehiculo != NULL)
     {
         struct vehiculo *vehiculo = nodoVehiculo->vehiculo;
         struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
         struct nodo_ruta *clienteAnterior = NULL;
 
-        double tiempo = 0.0;
-        double capacidad = 0.0;
-        double inicio = 0.0;
-        double fin = 0.0;
+        double tiempo = 0.0;       // Tiempo acumulado para la ruta
+        double capacidad = 0.0;    // Capacidad acumulada
+        double inicio = 0.0;       // Tiempo de inicio para el vehículo
+        double fin = 0.0;          // Tiempo de llegada al final de la ruta
 
         if (vehiculo->clientes_contados > 0)
         {
             int clientesReales = 0;
 
+            // Cuenta clientes diferentes del depósito (cliente 0)
             struct nodo_ruta *temp = vehiculo->ruta->cabeza;
             while (temp != NULL)
             {
@@ -53,26 +62,30 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                 temp = temp->siguiente;
             }
 
+            // Si hay clientes reales, calcula tiempos y capacidades
             if (clientesReales > 0)
             {
                 while (clienteActual != NULL)
                 {
                     int id_actual = clienteActual->cliente;
 
-                    if (clienteAnterior == NULL)
+                    if (clienteAnterior == NULL) // Primer cliente
                     {
                         if (id_actual != 0)
                         {
+                            // Tiempo desde depósito hasta el primer cliente dividido por velocidad
                             tiempo += instancia_distancias[0][id_actual] / vehiculo->velocidad;
 
+                            // Si se llega antes de la ventana, se espera
                             if (tiempo < vrp->clientes[id_actual].vt_inicial)
                             {
                                 tiempo = vrp->clientes[id_actual].vt_inicial;
                             }
 
-                            inicio = tiempo;
-                            capacidad += vrp->clientes[id_actual].demanda_capacidad;
+                            inicio = tiempo; // Tiempo inicio ruta
+                            capacidad += vrp->clientes[id_actual].demanda_capacidad; // Suma demanda
 
+                            // Verifica violación ventana tiempo
                             if (tiempo > vrp->clientes[id_actual].vt_final)
                             {
                                 printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
@@ -84,11 +97,14 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                     {
                         if (clienteAnterior->cliente != 0)
                         {
+                            // Se añade el tiempo de servicio del cliente anterior
                             tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
                         }
 
+                        // Tiempo entre cliente anterior y actual dividido por velocidad
                         tiempo += instancia_distancias[clienteAnterior->cliente][id_actual] / vehiculo->velocidad;
 
+                        // Espera si llega antes de la ventana inicial
                         if (tiempo < vrp->clientes[id_actual].vt_inicial)
                         {
                             tiempo = vrp->clientes[id_actual].vt_inicial;
@@ -98,6 +114,7 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                         {
                             capacidad += vrp->clientes[id_actual].demanda_capacidad;
 
+                            // Verifica violación ventana tiempo
                             if (tiempo > vrp->clientes[id_actual].vt_final)
                             {
                                 printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
@@ -106,6 +123,7 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                         }
                     }
 
+                    // Si es el último cliente o el siguiente es depósito (fin ruta)
                     if (clienteActual->siguiente == NULL || clienteActual->siguiente->cliente == 0)
                     {
                         if (id_actual != 0)
@@ -113,9 +131,11 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                             tiempo += vrp->clientes[id_actual].tiempo_servicio;
                         }
 
+                        // Tiempo regreso a depósito
                         tiempo += instancia_distancias[id_actual][0] / vehiculo->velocidad;
                         fin = tiempo;
 
+                        // Si el siguiente es depósito, avanzamos para terminar
                         if (clienteActual->siguiente != NULL && clienteActual->siguiente->cliente == 0)
                         {
                             clienteActual = clienteActual->siguiente;
@@ -128,11 +148,12 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
             }
         }
 
+        // Guardamos resultados en el vehículo
         vehiculo->capacidad_acumulada = capacidad;
         vehiculo->tiempo_salida_vehiculo = inicio;
         vehiculo->tiempo_llegada_vehiculo = fin;
 
-        // Verificación de restricción de capacidad
+        // Verifica restricción de capacidad
         if (capacidad > vehiculo->capacidad_maxima)
         {
             printf("Violación de capacidad en Vehículo ID %d: %.2f > %.2f\n",
@@ -143,6 +164,7 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
     }
 }
 
+// Evalúa la función objetivo (fitness) para la hormiga en base a la distancia total de la solución
 void evaluaFO_SA(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     hormiga->fitness_global = 0.0;
@@ -153,14 +175,14 @@ void evaluaFO_SA(struct hormiga *hormiga, struct vrp_configuracion *vrp, double 
     int cliente_actual, cliente_siguiente;
     struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
 
-    // Recorre todos los vehículos de la solución vecina
+    // Para cada vehículo en la flota
     while (vehiculo_actual != NULL)
     {
         fitness_vehiculo = 0.0;
         ruta = vehiculo_actual->vehiculo->ruta;
         nodo_actual = ruta->cabeza;
 
-        // Suma la distancia entre pares consecutivos de clientes
+        // Suma la distancia entre clientes consecutivos en la ruta
         while (nodo_actual->siguiente != NULL)
         {
             cliente_actual = nodo_actual->cliente;
@@ -176,23 +198,23 @@ void evaluaFO_SA(struct hormiga *hormiga, struct vrp_configuracion *vrp, double 
     }
 }
 
-// Algoritmo de Recocido Simulado (SA) Optimizado
-// Algoritmo de Recocido Simulado (SA) Optimizado
+// Función principal de recocido simulado (Simulated Annealing) optimizado para el VRPTW
 void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
         struct hormiga *hormiga_solucion_actual, struct hormiga *hormiga_mejor_solucion,
         struct individuo *ind, double **instancia_distancias)
 {
-    double temperatura = ind->temperatura_inicial;
+    double temperatura = ind->temperatura_inicial; // Temperatura inicial
     double delta, prob;
     bool aceptado = false;
-    int operador_usado = -1; // Para trackear qué operador se usó
+    int operador_usado = -1; // Para identificar qué operador se utilizó
 
-    // Ciclo de enfriamiento
+    // Ciclo de enfriamiento: mientras la temperatura sea mayor que la temperatura final
     while (temperatura > ind->temperatura_final)
     {
+        // Por cada iteración en el ciclo interno
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
-            // 1. Copiar solución actual a vecina para modificar
+            // 1. Preparar solución vecina: liberar flota antigua y copiar solución actual
             if (hormiga_solucion_vecina->flota)
                 liberar_lista_vehiculos(hormiga_solucion_vecina->flota);
 
@@ -200,24 +222,27 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
             hormiga_solucion_vecina->vehiculos_necesarios = hormiga_solucion_actual->vehiculos_necesarios;
             hormiga_solucion_vecina->flota = copiar_lista_vehiculos(hormiga_solucion_actual->flota);
 
-            // 2. Generar vecino aplicando movimiento
+            // 2. Selección aleatoria de operador para generar vecino
             prob = (double)rand() / RAND_MAX;
             aceptado = false;
             operador_usado = -1;
 
-            // === INSTANCIAS PEQUEÑAS (26 clientes) ===
+            // Selección de operadores según tamaño de instancia y número de vehículos
+            // (Comentarios explicativos de cada bloque por tamaño de problema)
+
+            // --- INSTANCIAS PEQUEÑAS (26 clientes) ---
             if (vrp->num_clientes == 26)
             {
                 if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
                 {
-                    // CONFIGURACIÓN AGRESIVA - Prioriza exploración máxima
-                    double umbral1 = 0.25;           // Cross-exchange (MÁS DISRUPTIVO)
-                    double umbral2 = umbral1 + 0.20; // Relocate-chain (EXPLORACIÓN EXTREMA)
-                    double umbral3 = umbral2 + 0.20; // Swap inter (CAMBIOS ENTRE RUTAS)
-                    double umbral4 = umbral3 + 0.15; // Reinserción (REESTRUCTURACIÓN)
-                    double umbral5 = umbral4 + 0.10; // 2.5-opt (REFINAMIENTO AGRESIVO)
-                    double umbral6 = umbral5 + 0.05; // 2-opt (BASE MÍNIMA)
-                    // resto para Or-opt y Swap intra (menos agresivos)
+                    // Configuración agresiva para varias rutas
+                    double umbral1 = 0.25;           // Cross-exchange
+                    double umbral2 = umbral1 + 0.20; // Relocate-chain
+                    double umbral3 = umbral2 + 0.20; // Swap inter
+                    double umbral4 = umbral3 + 0.15; // Reinserción intra/inter
+                    double umbral5 = umbral4 + 0.10; // 2.5-opt
+                    double umbral6 = umbral5 + 0.05; // 2-opt
+                    // Restante para or-opt y swap intra
 
                     if (prob < umbral1)
                     {
@@ -260,13 +285,13 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                         operador_usado = 3;
                     }
                 }
-                else // Un solo vehículo (TSP) - Más agresivo que original
+                else // Un solo vehículo (TSP)
                 {
-                    double umbral1 = 0.30;           // Relocate-chain (EXPLORACIÓN EXTREMA)
-                    double umbral2 = umbral1 + 0.25; // 2.5-opt (REFINAMIENTO AGRESIVO)
-                    double umbral3 = umbral2 + 0.20; // Reinserción (REESTRUCTURACIÓN)
-                    double umbral4 = umbral3 + 0.15; // 2-opt (BASE NECESARIA)
-                    // resto para Or-opt
+                    double umbral1 = 0.30;           // Relocate-chain
+                    double umbral2 = umbral1 + 0.25; // 2.5-opt
+                    double umbral3 = umbral2 + 0.20; // Reinserción
+                    double umbral4 = umbral3 + 0.15; // 2-opt
+                    // Restante para or-opt
 
                     if (prob < umbral1)
                     {
@@ -296,19 +321,17 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 }
             }
 
-            // === INSTANCIAS MEDIANAS (51 clientes) ===
+            // --- INSTANCIAS MEDIANAS (51 clientes) ---
             if (vrp->num_clientes == 51)
             {
                 if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
                 {
-                    // CONFIGURACIÓN AGRESIVA - Maximiza disrupciones complejas
-                    double umbral1 = 0.30;           // Cross-exchange (MÁXIMA DISRUPCIÓN)
-                    double umbral2 = umbral1 + 0.25; // Relocate-chain (EXPLORACIÓN EXTREMA)
-                    double umbral3 = umbral2 + 0.20; // Swap inter (CAMBIOS ENTRE RUTAS)
-                    double umbral4 = umbral3 + 0.12; // Reinserción (REESTRUCTURACIÓN)
-                    double umbral5 = umbral4 + 0.08; // 2.5-opt (REFINAMIENTO AGRESIVO)
-                    double umbral6 = umbral5 + 0.03; // 2-opt (MÍNIMO NECESARIO)
-                    // resto para Or-opt y Swap intra
+                    double umbral1 = 0.30;
+                    double umbral2 = umbral1 + 0.25;
+                    double umbral3 = umbral2 + 0.20;
+                    double umbral4 = umbral3 + 0.12;
+                    double umbral5 = umbral4 + 0.08;
+                    double umbral6 = umbral5 + 0.03;
 
                     if (prob < umbral1)
                     {
@@ -353,11 +376,10 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 }
                 else // Un solo vehículo
                 {
-                    double umbral1 = 0.35;           // Relocate-chain (EXPLORACIÓN EXTREMA)
-                    double umbral2 = umbral1 + 0.30; // 2.5-opt (REFINAMIENTO AGRESIVO)
-                    double umbral3 = umbral2 + 0.20; // Reinserción (REESTRUCTURACIÓN)
-                    double umbral4 = umbral3 + 0.10; // 2-opt (BASE MÍNIMA)
-                    // resto para Or-opt
+                    double umbral1 = 0.35;
+                    double umbral2 = umbral1 + 0.30;
+                    double umbral3 = umbral2 + 0.20;
+                    double umbral4 = umbral3 + 0.10;
 
                     if (prob < umbral1)
                     {
@@ -387,19 +409,17 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 }
             }
 
-            // === INSTANCIAS GRANDES (101+ clientes) ===
+            // --- INSTANCIAS GRANDES (101+ clientes) ---
             if (vrp->num_clientes >= 101)
             {
                 if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
                 {
-                    // CONFIGURACIÓN SÚPER AGRESIVA - Prioriza máxima exploración
-                    double umbral1 = 0.35;           // Relocate-chain (EXPLORACIÓN EXTREMA)
-                    double umbral2 = umbral1 + 0.30; // Cross-exchange (MÁXIMA DISRUPCIÓN)
-                    double umbral3 = umbral2 + 0.20; // Swap inter (CAMBIOS ENTRE RUTAS)
-                    double umbral4 = umbral3 + 0.10; // Reinserción (REESTRUCTURACIÓN)
-                    double umbral5 = umbral4 + 0.03; // 2.5-opt (REFINAMIENTO MÍNIMO)
-                    double umbral6 = umbral5 + 0.01; // 2-opt (CASI ELIMINADO)
-                    // resto para Or-opt y Swap intra (mínimos)
+                    double umbral1 = 0.35;
+                    double umbral2 = umbral1 + 0.30;
+                    double umbral3 = umbral2 + 0.20;
+                    double umbral4 = umbral3 + 0.10;
+                    double umbral5 = umbral4 + 0.03;
+                    double umbral6 = umbral5 + 0.01;
 
                     if (prob < umbral1)
                     {
@@ -444,11 +464,10 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 }
                 else // Un solo vehículo
                 {
-                    double umbral1 = 0.40;           // Relocate-chain (EXPLORACIÓN EXTREMA)
-                    double umbral2 = umbral1 + 0.35; // 2.5-opt (REFINAMIENTO AGRESIVO)
-                    double umbral3 = umbral2 + 0.20; // Reinserción (REESTRUCTURACIÓN)
-                    double umbral4 = umbral3 + 0.03; // 2-opt (CASI ELIMINADO)
-                    // resto para Or-opt (mínimo)
+                    double umbral1 = 0.40;
+                    double umbral2 = umbral1 + 0.35;
+                    double umbral3 = umbral2 + 0.20;
+                    double umbral4 = umbral3 + 0.03;
 
                     if (prob < umbral1)
                     {
@@ -477,12 +496,12 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                     }
                 }
             }
+
+            // Si no se aceptó el movimiento, pasa a siguiente iteración
             if (!aceptado)
                 continue;
 
-            // ESTRATEGIA ÓPTIMA DE LIMPIEZA DE VEHÍCULOS VACÍOS:
-            // Solo limpiar después de operadores que pueden crear vehículos vacíos
-            // Y solo en instancias con múltiples vehículos
+            // Limpieza de vehículos vacíos tras ciertos operadores para evitar rutas vacías inútiles
             bool necesita_limpieza = false;
             if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
             {
@@ -494,7 +513,7 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                     necesita_limpieza = true;
                 }
 
-                // Limpieza periódica cada 15 iteraciones para mayor seguridad
+                // Limpieza periódica cada 15 iteraciones como backup
                 if (i % 15 == 0)
                 {
                     necesita_limpieza = true;
@@ -506,7 +525,7 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 hormiga_solucion_vecina->vehiculos_necesarios = eliminar_vehiculos_vacios(hormiga_solucion_vecina->flota);
             }
 
-            // 3. Evaluar solución vecina
+            // 3. Evalúa la función objetivo para la solución vecina
             evaluaFO_SA(hormiga_solucion_vecina, vrp, instancia_distancias);
             delta = hormiga_solucion_vecina->fitness_global - hormiga_solucion_actual->fitness_global;
 
@@ -514,28 +533,30 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
             bool aceptar = false;
             if (delta < 0)
             {
-                // Mejora: siempre acepta
+                // Mejoró la solución, aceptar siempre
                 aceptar = true;
             }
             else
             {
-                // Empeora: acepta con probabilidad
+                // Empeoró, aceptar con cierta probabilidad según temperatura y delta
                 double prob_aceptacion = exp(-delta / temperatura);
                 if ((double)rand() / RAND_MAX < prob_aceptacion)
                     aceptar = true;
             }
 
+            // Si se acepta la solución vecina
             if (aceptar)
             {
-                // 5. Actualizar solución actual
+                // Libera memoria de la solución actual para no perder memoria
                 if (hormiga_solucion_actual->flota)
                     liberar_lista_vehiculos(hormiga_solucion_actual->flota);
 
+                // Actualiza solución actual con la vecina
                 hormiga_solucion_actual->fitness_global = hormiga_solucion_vecina->fitness_global;
                 hormiga_solucion_actual->vehiculos_necesarios = hormiga_solucion_vecina->vehiculos_necesarios;
                 hormiga_solucion_actual->flota = copiar_lista_vehiculos(hormiga_solucion_vecina->flota);
 
-                // 6. Actualizar mejor solución si es necesario
+                // Si mejora la mejor solución, actualizarla también
                 if (hormiga_solucion_vecina->fitness_global < hormiga_mejor_solucion->fitness_global)
                 {
                     if (hormiga_mejor_solucion->flota)
@@ -547,39 +568,47 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 }
             }
         }
-        temperatura *= ind->factor_enfriamiento; // Disminuye temperatura
+
+        // Reduce temperatura para próxima iteración del enfriamiento
+        temperatura *= ind->factor_enfriamiento;
     }
 
+    // Al final, limpiar vehículos vacíos de la mejor solución
     hormiga_mejor_solucion->vehiculos_necesarios = eliminar_vehiculos_vacios(hormiga_mejor_solucion->flota);
 }
 
-// Función principal que ejecuta SA sobre un individuo del VRP
+// Función principal que ejecuta SA sobre un individuo del VRP con ventanas de tiempo
 void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_original, struct individuo *ind, double **instancia_distancias)
 {
+    // Asignación de memoria para soluciones vecinas, actuales y mejores
     struct hormiga *hormiga_solucion_vecina = asignar_memoria_hormigas(1);
     struct hormiga *hormiga_solucion_actual = asignar_memoria_hormigas(1);
     struct hormiga *hormiga_mejor_solucion = asignar_memoria_hormigas(1);
     struct hormiga *hormiga_solucion_inicial = asignar_memoria_hormigas(1);
 
+    // Copia la solución original para iniciar el proceso de SA
     hormiga_solucion_inicial = copiar_hormiga_sa(hormiga_original);
     hormiga_solucion_vecina = copiar_hormiga_sa(hormiga_solucion_inicial);
     hormiga_solucion_actual = copiar_hormiga_sa(hormiga_solucion_inicial);
     hormiga_mejor_solucion = copiar_hormiga_sa(hormiga_solucion_inicial);
 
+    // Ejecuta el algoritmo de recocido simulado
     sa(vrp, hormiga_solucion_vecina, hormiga_solucion_actual, hormiga_mejor_solucion, ind, instancia_distancias);
 
-    // Si se mejora la solución global, se guarda
+    // Si la mejor solución obtenida es mejor que la original, actualiza la solución original
     if (hormiga_mejor_solucion->fitness_global < hormiga_original->fitness_global)
     {
         hormiga_original->fitness_global = hormiga_mejor_solucion->fitness_global;
         hormiga_original->vehiculos_necesarios = hormiga_mejor_solucion->vehiculos_necesarios;
 
+        // Libera la memoria de la flota original antes de copiar la nueva solución
         if (hormiga_original->flota)
             liberar_lista_vehiculos(hormiga_original->flota);
 
         hormiga_original->flota = copiar_lista_vehiculos(hormiga_mejor_solucion->flota);
     }
 
+    // Libera la memoria de las soluciones temporales usadas en SA
     liberar_memoria_hormiga(hormiga_solucion_inicial, 1);
     liberar_memoria_hormiga(hormiga_solucion_vecina, 1);
     liberar_memoria_hormiga(hormiga_solucion_actual, 1);
