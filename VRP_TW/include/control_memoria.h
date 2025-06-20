@@ -10,20 +10,20 @@
 // Asigna memoria para una instancia (matriz de distancias)
 double **asignar_memoria_instancia(int tamanio_instancia);
 
+// Libera la memoria de la instancia (matriz de distancias)
+void liberar_instancia(double **instancia, int tamanio_instancia);
+
 // Asigna memoria para un arreglo de enteros de tamaño especificado
 int *asignar_memoria_arreglo_int(int tamanio_arreglo);
-
-// Asigna memoria para un arreglo de números de punto flotante (doble) de tamaño especificado
-double *asignar_memoria_arreglo_double(int tamanio_arreglo);
 
 // Libera la memoria de un arreglo de enteros
 void liberar_memoria_arreglo_int(int *arreglo);
 
+// Asigna memoria para un arreglo de números de punto flotante (doble) de tamaño especificado
+double *asignar_memoria_arreglo_double(int tamanio_arreglo);
+
 // Libera la memoria de un arreglo de números de punto flotante (doble)
 void liberar_memoria_arreglo_double(double *arreglo);
-
-// Libera la memoria de la instancia (matriz de distancias)
-void liberar_instancia(double **instancia, int tamanio_instancia);
 
 struct rangos *asignar_memoria_rangos();
 void liberar_rangos(struct rangos *rango);
@@ -63,6 +63,14 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, int numHormigas);
 // Reinicia los valores de las hormigas para una nueva iteración
 void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp);
 
+// Funciones para asignar memoria para las estructuras de mejores hormigas
+
+// Asigna memoria para un arreglo de mejores hormigas
+struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas);
+
+// Libera memoria para una estructura de arreglos de hormiga
+void liberar_memoria_mejores_hormigas(struct mejores_hormigas *mejores_hormigas);
+
 // Funciones para asignar memoria para las estructuras de rutas
 
 // Asigna memoria para una lista de rutas
@@ -70,6 +78,12 @@ struct lista_ruta *asignar_memoria_lista_ruta();
 
 // Asigna memoria para un nodo de ruta
 struct nodo_ruta *asignar_memoria_nodo_ruta();
+
+libera_memoria_nodo_ruta(struct nodo_ruta *nodo_ruta);
+
+struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes);
+
+void liberar_memoria_arreglo_nodos_ruta(struct nodo_ruta **arreglo);
 
 // Funciones para asignar memoria para las estructuras de vehículos
 
@@ -82,15 +96,12 @@ struct vehiculo *asignar_memoria_vehiculo();
 // Asigna memoria para un nodo de vehículo
 struct nodo_vehiculo *asignar_memoria_nodo_vehiculo();
 
-// Funciones para asignar memoria para las estructuras de mejores hormigas
+// Funciones para liberar memoria de vehículos
 
-// Asigna memoria para un arreglo de mejores hormigas
-struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas);
+// Libera la memoria de un nodo de vehículo.
+void liberar_memoria_nodo_vehiculo(struct nodo_vehiculo *nodo_vehiculo);
 
-// Libera memoria para una estructura de arreglos de hormiga
-void liberar_memoria_mejores_hormigas(struct mejores_hormigas *mejores_hormigas);
+// Libera la memoria de una lista de rutas.
+void liberar_lista_ruta(struct lista_ruta *lista);
 
-struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes);
-
-void liberar_memoria_arreglo_nodos_ruta(struct nodo_ruta **arreglo);
 #endif // CONTROL_MEMORIA_H
