@@ -130,7 +130,7 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
     if (tipo)
     {
         for (int i = 0; i < num_poblacion; i++)
-                vaciar_lista_vehiculos(ind[i].hormiga->flota);
+            vaciar_lista_vehiculos(ind[i].hormiga->flota);
     }
 
     free(ind);
@@ -388,4 +388,22 @@ struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas)
 void liberar_memoria_mejores_hormigas(struct mejores_hormigas *mejores_hormigas)
 {
     free(mejores_hormigas);
+}
+
+struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes)
+{
+
+    struct nodo_ruta **arreglo_nodos = malloc(total_clientes * sizeof(nodo_ruta *));
+    if (!arreglo_nodos)
+    {
+        imprimir_mensaje("No se pudo asignar memoria para el arreglo de nodos ruta.");
+        exit(EXIT_FAILURE);
+    }
+    return arreglo_nodos;
+}
+
+void liberar_memoria_arreglo_nodos_ruta(struct nodo_ruta **arreglo)
+{
+    if (arreglo)
+        free(arreglo);
 }

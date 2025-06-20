@@ -49,8 +49,8 @@ void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp);
 // Asigna memoria para la estructura de clientes según la configuración del VRP
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp);
 
-struct datos_cliente *  asignar_memoria_datos_clientes(int numClientes);
-void liberar_memoria_datos_cliente(struct datos_cliente * datos_cliente);
+struct datos_cliente *asignar_memoria_datos_clientes(int numClientes);
+void liberar_memoria_datos_cliente(struct datos_cliente *datos_cliente);
 
 // Funciones para asignar y liberar memoria para la estructura de hormigas
 
@@ -90,4 +90,7 @@ struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas);
 // Libera memoria para una estructura de arreglos de hormiga
 void liberar_memoria_mejores_hormigas(struct mejores_hormigas *mejores_hormigas);
 
+struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes);
+
+void liberar_memoria_arreglo_nodos_ruta(struct nodo_ruta **arreglo);
 #endif // CONTROL_MEMORIA_H
