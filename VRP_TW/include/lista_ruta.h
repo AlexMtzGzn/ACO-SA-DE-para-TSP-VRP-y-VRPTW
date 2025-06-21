@@ -16,9 +16,6 @@ void insertar_cliente_ruta(struct hormiga *hormiga, struct vehiculo *vehiculo, s
 // Función para copiar una ruta de un vehículo original
 struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original);
 
-// Función para liberar la memoria ocupada por una lista de ruta
-void liberar_ruta(struct lista_ruta *ruta);
-
 //Funcion para verificar las restricciones de un vehículo en su ruta, incluyendo capacidad y ventanas de tiempo
 bool verificar_restricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias);
 

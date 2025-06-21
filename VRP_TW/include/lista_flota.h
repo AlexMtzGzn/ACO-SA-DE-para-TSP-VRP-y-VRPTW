@@ -16,15 +16,6 @@ void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *v
 // Función para copiar una lista de vehículos (profundidad) de una flota a otra
 struct lista_vehiculos* copiar_lista_vehiculos(struct lista_vehiculos *original);
 
-// Función para liberar la memoria de un vehículo
-void liberar_vehiculo(struct vehiculo *vehiculo);
-
-// Función para vaciar la memoria de la lista de vehículos
-void vaciar_lista_vehiculos(struct lista_vehiculos *flota);
-
-// Función para liberar la memoria de una lista de vehículos
-void liberar_lista_vehiculos(struct lista_vehiculos *flota);
-
 // Función para eliminar los vehículos vacíos de la lista de vehículos de una hormiga
 int eliminar_vehiculos_vacios(struct lista_vehiculos *lista);
 

@@ -127,62 +127,6 @@ struct lista_vehiculos *copiar_lista_vehiculos(struct lista_vehiculos *original)
     return nueva_lista;
 }
 
-// Función para liberar la memoria de un vehículo
-void liberar_vehiculo(struct vehiculo *vehiculo)
-{
-    // Liberar la memoria asociada a la ruta del vehículo
-    if (vehiculo->ruta)
-        liberar_ruta(vehiculo->ruta);
-    // Liberar memoria asociada a los datos del cliente
-    if (vehiculo->datos_cliente)
-        liberar_memoria_datos_cliente(vehiculo->datos_cliente);
-    // Liberar la memoria del vehículo
-    free(vehiculo);
-}
-
-// Función para vaciar la memoria de la lista de vehículos
-void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
-{
-    struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
-    while (vehiculo_actual)
-    {
-        // Guardar el siguiente nodo para evitar perderlo
-        struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
-        vehiculo_actual = vehiculo_actual->siguiente;
-
-        // Liberar la memoria del vehículo asociado a este nodo
-        if (vehiculo_temp->vehiculo)
-            liberar_vehiculo(vehiculo_temp->vehiculo);
-
-        // Liberar la memoria del nodo actual
-        free(vehiculo_temp);
-    }
-
-    // Establecer la cabeza y cola de la flota a NULL
-    flota->cabeza = NULL;
-    flota->cola = NULL;
-}
-
-// Función para liberar la memoria de la lista de vehículos
-void liberar_lista_vehiculos(struct lista_vehiculos *flota)
-{
-    struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
-    while (vehiculo_actual)
-    {
-        // Guardar el siguiente nodo para evitar perdero
-        struct nodo_vehiculo *vehiculo_temp = vehiculo_actual;
-        vehiculo_actual = vehiculo_actual->siguiente;
-
-        // Liberar la memoria del vehículo asociado a este nodo
-        if (vehiculo_temp->vehiculo)
-            liberar_vehiculo(vehiculo_temp->vehiculo);
-
-        // // Liberar la memoria del nodo actual
-        free(vehiculo_temp);
-    }
-    free(flota); // Liberar la memoria de la lista de vehículos
-}
-
 // Función que elimina de una lista de vehículos aquellos que no tienen clientes asignados (vacíos y retorna el total de vehículos restantes).
 int eliminar_vehiculos_vacios(struct lista_vehiculos *lista)
 {

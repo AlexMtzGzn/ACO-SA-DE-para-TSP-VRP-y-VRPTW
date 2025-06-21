@@ -88,22 +88,6 @@ struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
     return ruta_nueva; // Se retorna la copia de la ruta
 }
 
-// Función para liberar la memoria de una lista de ruta
-void liberar_ruta(struct lista_ruta *ruta)
-{
-    struct nodo_ruta *cliente_actual = ruta->cabeza;
-
-    // Se libera cada nodo de la lista de ruta
-    while (cliente_actual)
-    {
-        struct nodo_ruta *cliente_temp = cliente_actual;
-        cliente_actual = cliente_actual->siguiente;
-        free(cliente_temp);
-    }
-
-    free(ruta); // Se libera la estructura de la lista de ruta
-}
-
 bool verificar_restricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
