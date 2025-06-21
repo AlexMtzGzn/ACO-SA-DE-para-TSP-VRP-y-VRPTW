@@ -293,7 +293,7 @@ struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes)
 }
 
 // Libera la memoria de un arreglo de nodos de ruta.
-void liberar_memoria_arreglo_nodos_ruta(struct nodo_ruta **arreglo)
+void liberar_memoria_arreglo_nodo_ruta(struct nodo_ruta **arreglo)
 {
     if (arreglo)
         free(arreglo);

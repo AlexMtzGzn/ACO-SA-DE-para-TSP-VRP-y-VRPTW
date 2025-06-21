@@ -144,7 +144,7 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
     // Validar que se hayan llenado todos los nodos necesarios
     if (count < total_clientes || idx2 >= count)
     {
-        liberar_memoria_arreglo_nodos_ruta(nodos);
+        liberar_memoria_arreglo_nodo_ruta(nodos);
         liberar_memoria_arreglo_int(clientes_originales);
         return false;
     }
@@ -172,7 +172,7 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
     }
 
     // Liberar la memoria usada
-    liberar_memoria_arreglo_nodos_ruta(nodos);
+    liberar_memoria_arreglo_nodo_ruta(nodos);
     liberar_memoria_arreglo_int(clientes_originales);
 
     return factible;

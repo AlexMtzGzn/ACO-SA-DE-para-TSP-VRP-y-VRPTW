@@ -42,10 +42,10 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
         struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
         struct nodo_ruta *clienteAnterior = NULL;
 
-        double tiempo = 0.0;       // Tiempo acumulado para la ruta
-        double capacidad = 0.0;    // Capacidad acumulada
-        double inicio = 0.0;       // Tiempo de inicio para el vehículo
-        double fin = 0.0;          // Tiempo de llegada al final de la ruta
+        double tiempo = 0.0;    // Tiempo acumulado para la ruta
+        double capacidad = 0.0; // Capacidad acumulada
+        double inicio = 0.0;    // Tiempo de inicio para el vehículo
+        double fin = 0.0;       // Tiempo de llegada al final de la ruta
 
         if (vehiculo->clientes_contados > 0)
         {
@@ -82,7 +82,7 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                                 tiempo = vrp->clientes[id_actual].vt_inicial;
                             }
 
-                            inicio = tiempo; // Tiempo inicio ruta
+                            inicio = tiempo;                                         // Tiempo inicio ruta
                             capacidad += vrp->clientes[id_actual].demanda_capacidad; // Suma demanda
 
                             // Verifica violación ventana tiempo
@@ -227,9 +227,6 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
             aceptado = false;
             operador_usado = -1;
 
-            // Selección de operadores según tamaño de instancia y número de vehículos
-            // (Comentarios explicativos de cada bloque por tamaño de problema)
-
             // --- INSTANCIAS PEQUEÑAS ---
             if (vrp->num_clientes <= 26)
             {
@@ -285,7 +282,7 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                         operador_usado = 3;
                     }
                 }
-                else 
+                else
                 {
                     double umbral1 = 0.30;           // Relocate-chain
                     double umbral2 = umbral1 + 0.25; // 2.5-opt
@@ -511,11 +508,9 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                     operador_usado == 7 || operador_usado == 8)
                     necesita_limpieza = true;
 
-
                 // Limpieza periódica cada 15 iteraciones como backup
                 if (i % 15 == 0)
                     necesita_limpieza = true;
-            
             }
 
             if (necesita_limpieza)

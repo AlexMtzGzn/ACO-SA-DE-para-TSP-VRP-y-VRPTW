@@ -1,7 +1,6 @@
 #ifndef CONTROL_MEMORIA_H
 #define CONTROL_MEMORIA_H
 
-// Incluimos las bibliotecas necesarias
 #include <stdbool.h>
 #include "../include/estructuras.h"
 
@@ -25,7 +24,10 @@ double *asignar_memoria_arreglo_double(int tamanio_arreglo);
 // Libera la memoria de un arreglo de números de punto flotante (doble)
 void liberar_memoria_arreglo_double(double *arreglo);
 
+// Asigna memoria para la estructura de rangos.
 struct rangos *asignar_memoria_rangos();
+
+// Libera la memoria de la estructura de rangos.
 void liberar_rangos(struct rangos *rango);
 
 // Funciones para asignar y liberar memoria para la estructura de individuos
@@ -79,11 +81,14 @@ struct lista_ruta *asignar_memoria_lista_ruta();
 // Asigna memoria para un nodo de ruta
 struct nodo_ruta *asignar_memoria_nodo_ruta();
 
+// Libera memoria del nodo de ruta
 void liberar_memoria_nodo_ruta(struct nodo_ruta *nodo_ruta);
 
+// Asigna memoria al arreglo de nodo ruta
 struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes);
 
-void liberar_memoria_arreglo_nodos_ruta(struct nodo_ruta **arreglo);
+// Libera memoria de arreglo de nodo ruta
+void liberar_memoria_arreglo_nodo_ruta(struct nodo_ruta **arreglo);
 
 // Funciones para asignar memoria para las estructuras de vehículos
 
