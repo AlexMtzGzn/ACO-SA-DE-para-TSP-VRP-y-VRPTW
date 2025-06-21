@@ -700,7 +700,7 @@ bool cross_exchange(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
 }
 
 
-// Relocate-chain - Relocación de cadena de clientes consecutivos (VERSIÓN MEJORADA)
+// Relocate-chain - Relocación de cadena de clientes consecutivos
 bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
