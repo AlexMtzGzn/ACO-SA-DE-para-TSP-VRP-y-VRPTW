@@ -150,7 +150,7 @@ void imprimir_tabu(int *tabu, int num_clientes)
 }
 
 // Imprime los parámetros de un individuo (usados en metaheurísticas ACO y SA)
-void imprimir_individuo(individuo *ind)
+void imprimir_individuo(struct individuo *ind)
 {
     printf(">> Individuo:\n");
     // Parámetros de ACO

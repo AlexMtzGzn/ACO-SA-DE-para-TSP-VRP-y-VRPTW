@@ -11,8 +11,8 @@
 bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     int vehiculo_aleatorio, intentos_maximos = 10, cliente1_idx, cliente2_idx, temp;
-    nodo_vehiculo *vehiculo_actual = NULL;
-    nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
+    struct nodo_vehiculo *vehiculo_actual = NULL;
+    struct nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
 
     // Selecciona un vehículo aleatorio que tenga al menos 2 clientes
     for (int intento = 0; intento < intentos_maximos; intento++)
@@ -103,7 +103,7 @@ bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double *
 // Swap_inter - Intercambia un cliente de un vehículo con un cliente de otro vehículo
 bool swap_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    nodo_vehiculo *primer_vehiculo = NULL, *segundo_vehiculo = NULL;
+    struct nodo_vehiculo *primer_vehiculo = NULL, *segundo_vehiculo = NULL;
     int intentos_maximos = 10;
 
     // Intenta seleccionar dos vehículos distintos que tengan al menos un cliente cada uno
@@ -143,8 +143,8 @@ bool swap_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double *
     int pos2 = rand() % total2;
 
     // Se navega por las rutas de ambos vehículos, comenzando después del depósito
-    nodo_ruta *nodo1 = primer_vehiculo->vehiculo->ruta->cabeza->siguiente;
-    nodo_ruta *nodo2 = segundo_vehiculo->vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *nodo1 = primer_vehiculo->vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *nodo2 = segundo_vehiculo->vehiculo->ruta->cabeza->siguiente;
 
     for (int i = 0; i < pos1 && nodo1; i++)
         nodo1 = nodo1->siguiente;
@@ -180,7 +180,7 @@ bool swap_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double *
 // Reinserción intra e inter vehículo - Mueve un cliente de una posición a otra, ya sea dentro del mismo vehículo (intra) o entre vehículos diferentes (inter)
 bool reinsercion_intra_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
+    struct nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
     int intentos_maximos = 10;
 
     // Se intenta seleccionar dos vehículos: uno de origen (que tenga al menos 1 cliente) y uno de destino
@@ -266,7 +266,7 @@ bool reinsercion_intra_inter(struct hormiga *hormiga, struct vrp_configuracion *
 // 2-opt - Invierte un segmento de la ruta
 bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    nodo_vehiculo *vehiculo_actual = NULL;
+    struct nodo_vehiculo *vehiculo_actual = NULL;
     int intentos_maximos = 10;
 
     // Seleccionar un vehículo con al menos 3 clientes (para que exista un segmento invertible)
@@ -294,10 +294,10 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
 
     // Reservar memoria para guardar el estado original y punteros a los nodos
     int *clientes_originales = asignar_memoria_arreglo_int(tamanio_segmento);
-    nodo_ruta **nodos = asignar_memoria_arreglo_nodo_ruta(total_clientes);
+    struct nodo_ruta **nodos = asignar_memoria_arreglo_nodo_ruta(total_clientes);
 
     // Llenar arreglo con los nodos actuales de la ruta, saltando el depósito
-    nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
     int count = 0;
     while (nodo_temp && count < total_clientes)
     {
@@ -347,7 +347,7 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
 bool opt_2_5(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     int intentos_maximos = 10;
-    nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
+    struct nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
 
     // Selecciona un vehículo origen que tenga al menos 2 clientes
     for (int intento = 0; intento < intentos_maximos; intento++)
@@ -385,7 +385,7 @@ bool opt_2_5(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **in
     int *clientes_segmento = asignar_memoria_arreglo_int(tamanio_segmento);
 
     // Extrae los clientes del segmento desde la ruta del vehículo origen
-    nodo_ruta *nodo_temp = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *nodo_temp = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
     for (int i = 0; i < inicio_segmento; i++)
         nodo_temp = nodo_temp->siguiente;
 
@@ -454,7 +454,7 @@ bool opt_2_5(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **in
 // Or-opt - Mueve un segmento de clientes dentro de la misma ruta de un vehículo
 bool or_opt(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    nodo_vehiculo *vehiculo_actual = NULL;
+    struct nodo_vehiculo *vehiculo_actual = NULL;
     int intentos_maximos = 10;
 
     // Selecciona aleatoriamente un vehículo con al menos 3 clientes
@@ -509,7 +509,7 @@ bool or_opt(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **ins
     }
 
     // Se navega hasta el nodo donde comienza el segmento a mover
-    nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
     for (int i = 0; i < inicio_segmento; i++)
         nodo_temp = nodo_temp->siguiente;
 
@@ -575,7 +575,7 @@ bool or_opt(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **ins
 // Cross-exchange - Intercambio de segmentos entre dos vehículos
 bool cross_exchange(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    nodo_vehiculo *primer_vehiculo = NULL, *segundo_vehiculo = NULL;
+    struct nodo_vehiculo *primer_vehiculo = NULL, *segundo_vehiculo = NULL;
     int intentos_maximos = 10;
 
     // Intentar seleccionar dos vehículos distintos con al menos un cliente cada uno
@@ -628,7 +628,7 @@ bool cross_exchange(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
     int *segmento2 = asignar_memoria_arreglo_int(tamanio2);
 
     // Extraer clientes del primer segmento navegando desde el inicio correspondiente
-    nodo_ruta *nodo_temp = primer_vehiculo->vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *nodo_temp = primer_vehiculo->vehiculo->ruta->cabeza->siguiente;
     for (int i = 1; i < inicio1; i++)
         nodo_temp = nodo_temp->siguiente;
 
@@ -703,7 +703,7 @@ bool cross_exchange(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
 // Relocate-chain - Relocación de cadena de clientes consecutivos
 bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
+    struct nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
     int intentos_maximos = 10;
 
     // Seleccionar vehículo origen con al menos 2 clientes
@@ -765,7 +765,7 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
     }
 
     // Obtener puntero al nodo inicial de la cadena (navegar desde cabeza->siguiente)
-    nodo_ruta *nodo_temp = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
+    struct nodo_ruta *nodo_temp = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
     for (int i = 1; i < inicio_cadena && nodo_temp; i++)
         nodo_temp = nodo_temp->siguiente;
 

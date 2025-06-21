@@ -408,13 +408,13 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
 {
    clock_t tiempo_inicial, tiempo_final; // Variables para medir el tiempo de ejecución
    int barra_ancho, progreso_barras;
-   double minutos;                                                                // Variables para la barra de progreso y el tiempo en minutos
-   tiempo_inicial = clock();                                                      // Iniciar Tiempo                                                               // Respuesta
-   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);        // Asignamos memoria para el arreglo objetivo
-   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);         // Asignamos memoria para el arreglo ruidoso
-   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);          // Asiganamos memoria para el arreglo prueba
-   struct individuo *resultado = asignar_memoria_individuos(1);                   // Asignamos memoria para el arreglo de resultados
-   vrp_configuracion *vrp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
+   double minutos;                                                                       // Variables para la barra de progreso y el tiempo en minutos
+   tiempo_inicial = clock();                                                             // Iniciar Tiempo                                                               // Respuesta
+   struct individuo *objetivo = asignar_memoria_individuos(num_poblacion);               // Asignamos memoria para el arreglo objetivo
+   struct individuo *ruidoso = asignar_memoria_individuos(num_poblacion);                // Asignamos memoria para el arreglo ruidoso
+   struct individuo *prueba = asignar_memoria_individuos(num_poblacion);                 // Asiganamos memoria para el arreglo prueba
+   struct individuo *resultado = asignar_memoria_individuos(1);                          // Asignamos memoria para el arreglo de resultados
+   struct vrp_configuracion *vrp = leer_instancia(archivo_instancia, tamanio_instancia); // Mandamo a leer la instancia y a retormamos en un apuntador structura vrp_configuracion
    struct rangos *rango = asignar_memoria_rangos();
 
    vrp->generaciones = num_generaciones; // Asignamos el numero de generaciones
@@ -429,7 +429,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    inicializar_visibilidad(instancia_visibilidad, vrp);        // Inicializamos las visibilidad
    inicializar_ventana_tiempo(instancia_ventanas_tiempo, vrp); // Inicializmos las ventanas de tiempo
    inicializar_feromona(vrp, instancia_feromonas);             // Inicializamos la feromona
-   inicializa_poblacion(objetivo, vrp, rango, num_poblacion);   // Inicializamos la poblacion
+   inicializa_poblacion(objetivo, vrp, rango, num_poblacion);  // Inicializamos la poblacion
 
    // Aqui podemos imprimir las instancias
    // imprimir_instancia(instancia_distancias,vrp,"INSTANCIA DISTANCIAS");
@@ -465,7 +465,7 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
    for (int i = 0; i < num_generaciones; i++)
    {
       construye_ruidosos(objetivo, ruidoso, rango, num_poblacion); // Contruimos Ruidosos
-      construye_prueba(objetivo, ruidoso, prueba, num_poblacion);   // Contruimos Prueba
+      construye_prueba(objetivo, ruidoso, prueba, num_poblacion);  // Contruimos Prueba
                                                                    // Evaluamos la función objetivo para cada individuo de prueba
       for (int j = 0; j < num_poblacion; ++j)                      // Mandamos a evaluar la funcion objetivo de prueba{
          evaluaFO_AED(&prueba[j], instancia_feromonas, instancia_visibilidad, instancia_distancias, instancia_ventanas_tiempo, vrp);

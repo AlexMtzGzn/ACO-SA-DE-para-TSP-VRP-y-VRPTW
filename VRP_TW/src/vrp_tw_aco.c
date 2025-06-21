@@ -41,8 +41,8 @@ void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_fe
     // Recorremos cada vehículo de la flota de la hormiga
     while (vehiculo_actual != NULL)
     {
-        lista_ruta *ruta = vehiculo_actual->vehiculo->ruta; // Obtenemos la ruta del vehículo
-        nodo_ruta *nodo_actual = ruta->cabeza;              // Empezamos desde el primer cliente de la ruta
+        struct lista_ruta *ruta = vehiculo_actual->vehiculo->ruta; // Obtenemos la ruta del vehículo
+        struct nodo_ruta *nodo_actual = ruta->cabeza;              // Empezamos desde el primer cliente de la ruta
 
         // Recorremos la ruta del vehículo
         while (nodo_actual != NULL && nodo_actual->siguiente != NULL)
@@ -87,8 +87,8 @@ void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct 
         // Recorremos cada vehículo de la flota de la hormiga
         while (vehiculo_actual != NULL)
         {
-            lista_ruta *ruta = vehiculo_actual->vehiculo->ruta; // Obtenemos la ruta del vehículo
-            nodo_ruta *nodo_actual = ruta->cabeza;              // Empezamos desde el primer cliente de la ruta
+            struct lista_ruta *ruta = vehiculo_actual->vehiculo->ruta; // Obtenemos la ruta del vehículo
+            struct nodo_ruta *nodo_actual = ruta->cabeza;              // Empezamos desde el primer cliente de la ruta
 
             // Recorremos la ruta del vehículo
             while (nodo_actual != NULL && nodo_actual->siguiente != NULL)
@@ -128,8 +128,8 @@ void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias)
         double fitness_vehiculo = 0.0;
 
         // Accedemos a la ruta del vehículo actual
-        lista_ruta *ruta = vehiculo_actual->vehiculo->ruta; // Obtenemos la lista de clientes en la ruta del vehículo
-        nodo_ruta *nodo_actual = ruta->cabeza;              // Empezamos desde el primer cliente de la ruta
+        struct lista_ruta *ruta = vehiculo_actual->vehiculo->ruta; // Obtenemos la lista de clientes en la ruta del vehículo
+        struct nodo_ruta *nodo_actual = ruta->cabeza;              // Empezamos desde el primer cliente de la ruta
 
         // Recorremos la ruta del vehículo sumando las distancias entre clientes consecutivos
         while (nodo_actual != NULL && nodo_actual->siguiente != NULL)

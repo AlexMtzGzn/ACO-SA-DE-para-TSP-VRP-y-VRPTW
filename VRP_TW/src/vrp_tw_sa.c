@@ -167,7 +167,7 @@ void evaluaFO_SA(struct hormiga *hormiga, struct vrp_configuracion *vrp, double 
     hormiga->fitness_global = 0.0;
 
     struct lista_ruta *ruta;
-    nodo_ruta *nodo_actual;
+    struct nodo_ruta *nodo_actual;
     double fitness_vehiculo;
     int cliente_actual, cliente_siguiente;
     struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
