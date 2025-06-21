@@ -62,6 +62,7 @@ cJSON *vehiculo_a_json(vehiculo *vehiculo, cliente *clientes)
 
     // Información general del vehículo
     cJSON_AddNumberToObject(json_vehiculo, "Id_vehiculo", vehiculo->id_vehiculo);
+    cJSON_AddNumberToObject(json_vehiculo, "Velocidad", vehiculo->velocidad);
     cJSON_AddNumberToObject(json_vehiculo, "Capacidad Maxima", vehiculo->capacidad_maxima);
     cJSON_AddNumberToObject(json_vehiculo, "Capacidad Acumulada", vehiculo->capacidad_acumulada);
     cJSON_AddNumberToObject(json_vehiculo, "Tiempo Salida", vehiculo->tiempo_salida_vehiculo);
