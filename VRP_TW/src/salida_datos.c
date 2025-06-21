@@ -88,7 +88,7 @@ void imprimir_ruta(struct lista_ruta *ruta, int vehiculo_id) {
         actual = actual->siguiente;
     }
 
-    printf(" -> Depósito\n");
+    printf("Depósito\n");
 }
 
 // Imprime toda la información de un solo vehículo
