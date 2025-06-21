@@ -57,7 +57,7 @@ void insertar_cliente_ruta(struct hormiga *hormiga, struct vehiculo *vehiculo, s
 struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
 {
     // Se asigna memoria para la nueva lista de ruta
-    struct lista_ruta *ruta_nueva = malloc(sizeof(lista_ruta));
+    struct lista_ruta *ruta_nueva = asignar_memoria_lista_ruta();
     ruta_nueva->cabeza = NULL;
     ruta_nueva->cola = NULL;
 
@@ -66,7 +66,7 @@ struct lista_ruta *copiar_ruta(struct vehiculo *vehiculo_original)
     while (actual != NULL)
     {
         // Se asigna memoria para un nuevo nodo y se copian los datos
-        struct nodo_ruta *nuevo_nodo = malloc(sizeof(struct nodo_ruta));
+        struct nodo_ruta *nuevo_nodo = asignar_memoria_nodo_ruta();
         nuevo_nodo->cliente = actual->cliente;
         nuevo_nodo->siguiente = NULL;
 
@@ -128,9 +128,7 @@ bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion 
 
                 // Asegurarse de no llegar antes del inicio de la ventana de tiempo
                 if (tiempo < vrp->clientes[id_actual].vt_inicial)
-                {
                     tiempo = vrp->clientes[id_actual].vt_inicial;
-                }
 
                 // Acumulando la demanda de capacidad
                 capacidad += vrp->clientes[id_actual].demanda_capacidad;
@@ -148,17 +146,13 @@ bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion 
         {
             // Para los siguientes clientes, calcular tiempo de viaje y servicio
             if (clienteAnterior->cliente != 0)
-            {
                 tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
-            }
 
             tiempo += instancia_distancias[clienteAnterior->cliente][id_actual] / vehiculo->velocidad;
 
             // Asegurarse de no llegar antes del inicio de la ventana de tiempo
             if (tiempo < vrp->clientes[id_actual].vt_inicial)
-            {
                 tiempo = vrp->clientes[id_actual].vt_inicial;
-            }
 
             if (id_actual != 0)
             {
@@ -180,9 +174,8 @@ bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion 
 
     // Después de la última entrega, volver al depósito
     if (clienteAnterior != NULL && clienteAnterior->cliente != 0)
-    {
         tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
-    }
+
     tiempo += instancia_distancias[clienteAnterior->cliente][0] / vehiculo->velocidad;
     fin = tiempo;
 
@@ -214,7 +207,7 @@ void eliminar_cliente_ruta(struct vehiculo *vehiculo, struct vrp_configuracion *
         if (actual->cliente == cliente) // Si encontramos el cliente buscado
         {
             anterior->siguiente = actual->siguiente; // Se salta el nodo actual en la lista
-            free(actual);                            // Se libera la memoria del nodo eliminado
+            liberar_memoria_nodo_ruta(actual);                            // Se libera la memoria del nodo eliminado
             vehiculo->clientes_contados--;           // Se decrementa el contador de clientes del vehículo
             return;                                  // Se termina la función ya que se eliminó el cliente
         }
@@ -242,9 +235,7 @@ void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuraci
 
         // Si ya existía memoria para datos_cliente, la liberamos para evitar fugas
         if (vehiculo->datos_cliente != NULL)
-        {
-            free(vehiculo->datos_cliente);
-        }
+            liberar_memoria_datos_cliente(vehiculo->datos_cliente);
 
         // Asignamos memoria para datos de clientes: clientes en ruta + 2 (depósito inicio y fin)
         vehiculo->datos_cliente = asignar_memoria_datos_clientes(vehiculo->clientes_contados + 2);
@@ -287,9 +278,8 @@ void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuraci
                     }
 
                     if (indice_cliente == 1)
-                    {
                         inicio = tiempo; // Guardamos tiempo de inicio servicio del primer cliente
-                    }
+
 
                     capacidad += vrp->clientes[id_actual].demanda_capacidad; // Acumulamos demanda
 
@@ -425,6 +415,6 @@ bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuraci
     }
 
     // Si no se pudo insertar, liberamos memoria y retornamos false
-    free(nuevo);
+    liberar_memoria_nodo_ruta(nuevo);
     return false;
 }

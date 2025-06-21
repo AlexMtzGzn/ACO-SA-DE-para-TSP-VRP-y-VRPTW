@@ -79,7 +79,7 @@ struct lista_ruta *asignar_memoria_lista_ruta();
 // Asigna memoria para un nodo de ruta
 struct nodo_ruta *asignar_memoria_nodo_ruta();
 
-libera_memoria_nodo_ruta(struct nodo_ruta *nodo_ruta);
+void liberar_memoria_nodo_ruta(struct nodo_ruta *nodo_ruta);
 
 struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes);
 

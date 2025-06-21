@@ -149,12 +149,9 @@ int contar_archivos_json(const char *directorio, const char *prefijo)
 void crear_directorio_si_no_existe(const char *ruta)
 {
     if (access(ruta, F_OK) != 0)
-    {
         if (mkdir(ruta, 0777) != 0)
-        {
             perror("Error creando directorio");
-        }
-    }
+    
 }
 
 // Genera un archivo JSON con los datos del individuo y ejecuta un script de simulación
@@ -230,7 +227,6 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
 
     int ret = system(comando_py);
     if (ret == -1)
-    {
         fprintf(stderr, "Error al ejecutar el comando Python\n");
-    }
+    
 }

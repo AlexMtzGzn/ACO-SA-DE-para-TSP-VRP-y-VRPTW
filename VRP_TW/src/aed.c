@@ -489,33 +489,36 @@ void aed_vrp_tw(int num_poblacion, int num_generaciones, int tamanio_instancia, 
             recuperamos_mejor_hormiga(resultado, prueba[i].hormiga);
          }
       // Realizamos la selección de la siguiente generación
-      seleccion(objetivo, prueba, num_poblacion); // Hacemos la seleccion
-      barra_ancho = 50;                           // Ancho de la barra de progreso
-      progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho);
+      seleccion(objetivo, prueba, num_poblacion);                               // Hacemos la seleccion
+      barra_ancho = 50;                                                         // Ancho de la barra de progreso
+      progreso_barras = (int)((float)(i + 1) / num_generaciones * barra_ancho); // Cuántos bloques pintar
 
-      printf("\r[");
+      printf("\r["); // Regresa al inicio de la línea
       for (int j = 0; j < barra_ancho; ++j)
       {
          if (j < progreso_barras)
-            printf("#");
+            printf("#"); // Imprime bloque completado
          else
-            printf(" ");
+            printf(" "); // Espacio restante
       }
+
+      // Muestra porcentaje, fitness y tiempo transcurrido
       printf("] %.2f%%  Mejor Fitness: %.2lf  Tiempo: %.2lf minutos",
              ((float)(i + 1) / num_generaciones) * 100,
              resultado->fitness,
              ((double)(clock() - tiempo_inicial)) / CLOCKS_PER_SEC / 60.0);
-      fflush(stdout);
+      fflush(stdout); // Limpia buffer para mostrar en consola al instante
    }
 
+   // Finaliza cronómetro
    tiempo_final = clock();
    minutos = (((double)(tiempo_final - tiempo_inicial)) / CLOCKS_PER_SEC) / 60.0;
 
+   // Guardamos el tiempo y datos finales
    vrp->tiempo_ejecucion = ceil(minutos);
    vrp->archivo_instancia = archivo_instancia;
 
    llenar_datos_clientes(resultado->hormiga->flota, vrp, instancia_distancias);
-   // Imprimimos la meojor homriga
    imprimir_mejor_hormiga(resultado->hormiga, resultado, vrp);
    printf("\nEl tiempo de ejecución es: %.2f minutos\n\n\n", minutos);
    guardar_json_en_archivo(resultado, vrp, archivo_instancia);

@@ -114,10 +114,9 @@ struct individuo *asignar_memoria_individuos(int poblacion)
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
     if (tipo)
-    {
         for (int i = 0; i < num_poblacion; i++)
             vaciar_lista_vehiculos(ind[i].hormiga->flota);
-    }
+            
     free(ind);
 }
 

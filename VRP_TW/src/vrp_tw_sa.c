@@ -230,8 +230,8 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
             // Selección de operadores según tamaño de instancia y número de vehículos
             // (Comentarios explicativos de cada bloque por tamaño de problema)
 
-            // --- INSTANCIAS PEQUEÑAS (26 clientes) ---
-            if (vrp->num_clientes == 26)
+            // --- INSTANCIAS PEQUEÑAS ---
+            if (vrp->num_clientes <= 26)
             {
                 if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
                 {
@@ -285,7 +285,7 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                         operador_usado = 3;
                     }
                 }
-                else // Un solo vehículo (TSP)
+                else 
                 {
                     double umbral1 = 0.30;           // Relocate-chain
                     double umbral2 = umbral1 + 0.25; // 2.5-opt
@@ -321,8 +321,8 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 }
             }
 
-            // --- INSTANCIAS MEDIANAS (51 clientes) ---
-            if (vrp->num_clientes == 51)
+            // --- INSTANCIAS MEDIANAS ---
+            if (vrp->num_clientes > 26 && vrp->num_clientes <= 51)
             {
                 if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
                 {
@@ -409,8 +409,8 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 }
             }
 
-            // --- INSTANCIAS GRANDES (101+ clientes) ---
-            if (vrp->num_clientes >= 101)
+            // --- INSTANCIAS GRANDES ---
+            if (vrp->num_clientes > 51 && vrp->num_clientes <= 101)
             {
                 if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
                 {
@@ -509,21 +509,17 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
                 // 4 = swap_inter, 5 = reinsercion, 7 = cross_exchange, 8 = relocate_chain
                 if (operador_usado == 4 || operador_usado == 5 ||
                     operador_usado == 7 || operador_usado == 8)
-                {
                     necesita_limpieza = true;
-                }
+
 
                 // Limpieza periódica cada 15 iteraciones como backup
                 if (i % 15 == 0)
-                {
                     necesita_limpieza = true;
-                }
+            
             }
 
             if (necesita_limpieza)
-            {
                 hormiga_solucion_vecina->vehiculos_necesarios = eliminar_vehiculos_vacios(hormiga_solucion_vecina->flota);
-            }
 
             // 3. Evalúa la función objetivo para la solución vecina
             evaluaFO_SA(hormiga_solucion_vecina, vrp, instancia_distancias);
