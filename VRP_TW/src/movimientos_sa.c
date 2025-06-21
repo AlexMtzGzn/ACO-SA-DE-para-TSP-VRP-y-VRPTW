@@ -99,85 +99,6 @@ bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double *
     return true;
 }
 
-// 2-opt - Invierte un segmento de la ruta
-bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
-{
-    nodo_vehiculo *vehiculo_actual = NULL;
-    int intentos_maximos = 10;
-
-    // Seleccionar un vehículo con al menos 3 clientes (para que exista un segmento invertible)
-    for (int intento = 0; intento < intentos_maximos; intento++)
-    {
-        vehiculo_actual = seleccionar_vehiculo_aleatorio(hormiga);
-        if (vehiculo_actual && vehiculo_actual->vehiculo && vehiculo_actual->vehiculo->clientes_contados >= 3)
-            break;
-    }
-
-    // Si no se encuentra un vehículo válido, salir
-    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 3)
-        return false;
-
-    int total_clientes = vehiculo_actual->vehiculo->clientes_contados;
-
-    // Seleccionar aleatoriamente dos índices que definan el segmento a invertir
-    int idx1 = rand() % (total_clientes - 1); // inicio del segmento
-    int idx2 = (rand() % (total_clientes - idx1 - 1)) + idx1 + 1; // final del segmento
-
-    int tamanio_segmento = idx2 - idx1 + 1;
-
-    if (tamanio_segmento < 2)
-        return false;
-
-    // Reservar memoria para guardar el estado original y punteros a los nodos
-    int *clientes_originales = asignar_memoria_arreglo_int(tamanio_segmento);
-    nodo_ruta **nodos = asignar_memoria_arreglo_nodo_ruta(total_clientes);
-
-    // Llenar arreglo con los nodos actuales de la ruta, saltando el depósito
-    nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-    int count = 0;
-    while (nodo_temp && count < total_clientes)
-    {
-        nodos[count++] = nodo_temp;
-        nodo_temp = nodo_temp->siguiente;
-    }
-
-    // Validar que se hayan llenado todos los nodos necesarios
-    if (count < total_clientes || idx2 >= count)
-    {
-        liberar_memoria_arreglo_nodo_ruta(nodos);
-        liberar_memoria_arreglo_int(clientes_originales);
-        return false;
-    }
-
-    // Guardar los clientes actuales del segmento antes de invertir
-    for (int i = 0; i < tamanio_segmento; i++)
-        clientes_originales[i] = nodos[idx1 + i]->cliente;
-
-    // Invertir el segmento seleccionado
-    for (int i = 0; i < tamanio_segmento / 2; i++)
-    {
-        int temp = nodos[idx1 + i]->cliente;
-        nodos[idx1 + i]->cliente = nodos[idx2 - i]->cliente;
-        nodos[idx2 - i]->cliente = temp;
-    }
-
-    // Verificar si la ruta sigue siendo válida tras el cambio
-    bool factible = verificar_restricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias);
-
-    // Si no se cumple alguna restricción, revertir el cambio
-    if (!factible)
-    {
-        for (int i = 0; i < tamanio_segmento; i++)
-            nodos[idx1 + i]->cliente = clientes_originales[i];
-    }
-
-    // Liberar la memoria usada
-    liberar_memoria_arreglo_nodo_ruta(nodos);
-    liberar_memoria_arreglo_int(clientes_originales);
-
-    return factible;
-}
-
 
 // Swap_inter - Intercambia un cliente de un vehículo con un cliente de otro vehículo
 bool swap_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
@@ -339,6 +260,86 @@ bool reinsercion_intra_inter(struct hormiga *hormiga, struct vrp_configuracion *
     // Si no fue factible o se violaron restricciones, se intenta restaurar el cliente en su posición original
     inserta_cliente_en_posicion(vehiculo_origen->vehiculo, vrp, cliente, pos_origen + 1, instancia_distancias);
     return false;
+}
+
+
+// 2-opt - Invierte un segmento de la ruta
+bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
+{
+    nodo_vehiculo *vehiculo_actual = NULL;
+    int intentos_maximos = 10;
+
+    // Seleccionar un vehículo con al menos 3 clientes (para que exista un segmento invertible)
+    for (int intento = 0; intento < intentos_maximos; intento++)
+    {
+        vehiculo_actual = seleccionar_vehiculo_aleatorio(hormiga);
+        if (vehiculo_actual && vehiculo_actual->vehiculo && vehiculo_actual->vehiculo->clientes_contados >= 3)
+            break;
+    }
+
+    // Si no se encuentra un vehículo válido, salir
+    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 3)
+        return false;
+
+    int total_clientes = vehiculo_actual->vehiculo->clientes_contados;
+
+    // Seleccionar aleatoriamente dos índices que definan el segmento a invertir
+    int idx1 = rand() % (total_clientes - 1); // inicio del segmento
+    int idx2 = (rand() % (total_clientes - idx1 - 1)) + idx1 + 1; // final del segmento
+
+    int tamanio_segmento = idx2 - idx1 + 1;
+
+    if (tamanio_segmento < 2)
+        return false;
+
+    // Reservar memoria para guardar el estado original y punteros a los nodos
+    int *clientes_originales = asignar_memoria_arreglo_int(tamanio_segmento);
+    nodo_ruta **nodos = asignar_memoria_arreglo_nodo_ruta(total_clientes);
+
+    // Llenar arreglo con los nodos actuales de la ruta, saltando el depósito
+    nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
+    int count = 0;
+    while (nodo_temp && count < total_clientes)
+    {
+        nodos[count++] = nodo_temp;
+        nodo_temp = nodo_temp->siguiente;
+    }
+
+    // Validar que se hayan llenado todos los nodos necesarios
+    if (count < total_clientes || idx2 >= count)
+    {
+        liberar_memoria_arreglo_nodo_ruta(nodos);
+        liberar_memoria_arreglo_int(clientes_originales);
+        return false;
+    }
+
+    // Guardar los clientes actuales del segmento antes de invertir
+    for (int i = 0; i < tamanio_segmento; i++)
+        clientes_originales[i] = nodos[idx1 + i]->cliente;
+
+    // Invertir el segmento seleccionado
+    for (int i = 0; i < tamanio_segmento / 2; i++)
+    {
+        int temp = nodos[idx1 + i]->cliente;
+        nodos[idx1 + i]->cliente = nodos[idx2 - i]->cliente;
+        nodos[idx2 - i]->cliente = temp;
+    }
+
+    // Verificar si la ruta sigue siendo válida tras el cambio
+    bool factible = verificar_restricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias);
+
+    // Si no se cumple alguna restricción, revertir el cambio
+    if (!factible)
+    {
+        for (int i = 0; i < tamanio_segmento; i++)
+            nodos[idx1 + i]->cliente = clientes_originales[i];
+    }
+
+    // Liberar la memoria usada
+    liberar_memoria_arreglo_nodo_ruta(nodos);
+    liberar_memoria_arreglo_int(clientes_originales);
+
+    return factible;
 }
 
 
@@ -571,7 +572,6 @@ bool or_opt(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **ins
     return false;
 }
 
-
 // Cross-exchange - Intercambio de segmentos entre dos vehículos
 bool cross_exchange(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
@@ -700,7 +700,7 @@ bool cross_exchange(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
 }
 
 
-// Relocate-chain - Relocación de cadena de clientes consecutivos
+// Relocate-chain - Relocación de cadena de clientes consecutivos (VERSIÓN MEJORADA)
 bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
@@ -711,7 +711,8 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
     {
         vehiculo_origen = seleccionar_vehiculo_aleatorio(hormiga);
         if (vehiculo_origen && vehiculo_origen->vehiculo &&
-            vehiculo_origen->vehiculo->clientes_contados >= 2)
+            vehiculo_origen->vehiculo->clientes_contados >= 2 &&
+            vehiculo_origen->vehiculo->ruta && vehiculo_origen->vehiculo->ruta->cabeza)
             break;
     }
 
@@ -720,15 +721,16 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
 
     // Seleccionar vehículo destino (puede ser el mismo)
     vehiculo_destino = seleccionar_vehiculo_aleatorio(hormiga);
-    if (!vehiculo_destino || !vehiculo_destino->vehiculo)
+    if (!vehiculo_destino || !vehiculo_destino->vehiculo ||
+        !vehiculo_destino->vehiculo->ruta || !vehiculo_destino->vehiculo->ruta->cabeza)
         return false;
 
     int total_origen = vehiculo_origen->vehiculo->clientes_contados;
 
     // Determinar el tamaño máximo de la cadena a mover (máx 4 o mitad de la ruta)
-    int max_cadena = (total_origen / 2 > 4) ? 4 : total_origen / 2;
-    if (max_cadena < 2)
-        max_cadena = 2;
+    int max_cadena = total_origen / 2;
+    if (max_cadena > 4) max_cadena = 4;
+    if (max_cadena < 2) max_cadena = (total_origen >= 2) ? 2 : total_origen;
 
     // Si origen y destino son el mismo, no mover toda la ruta
     if (vehiculo_origen == vehiculo_destino && max_cadena >= total_origen)
@@ -751,11 +753,18 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
 
     int inicio_cadena = (rand() % max_inicio) + 1;
 
-    //  Reservar memoria para la cadena y sus posiciones originales
+    // Reservar memoria para la cadena y sus posiciones originales
     int *cadena_clientes = asignar_memoria_arreglo_int(tamanio_cadena);
     int *posiciones_originales = asignar_memoria_arreglo_int(tamanio_cadena);
 
-    //  Obtener puntero al nodo inicial de la cadena (navegar desde cabeza->siguiente)
+    if (!cadena_clientes || !posiciones_originales)
+    {
+        if(cadena_clientes) liberar_memoria_arreglo_int(cadena_clientes);
+        if(posiciones_originales) liberar_memoria_arreglo_int(posiciones_originales);
+        return false;
+    }
+
+    // Obtener puntero al nodo inicial de la cadena (navegar desde cabeza->siguiente)
     nodo_ruta *nodo_temp = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
     for (int i = 1; i < inicio_cadena && nodo_temp; i++)
         nodo_temp = nodo_temp->siguiente;
@@ -784,16 +793,16 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
 
     // Posición de inserción en el destino (1-based)
     int total_destino = vehiculo_destino->vehiculo->clientes_contados;
-    int pos_insercion = rand() % (total_destino + 1) + 1;
+    int pos_insercion = (total_destino == 0) ? 1 : (rand() % (total_destino + 1)) + 1;
 
-    // 11. Insertar la cadena uno por uno en orden
+    // Insertar la cadena uno por uno en orden
     bool factible = true;
     int clientes_insertados = 0;
     for (int i = 0; i < tamanio_cadena && factible; i++)
     {
         factible = inserta_cliente_en_posicion(vehiculo_destino->vehiculo, vrp,
-                                             cadena_clientes[i],
-                                             pos_insercion + i, instancia_distancias);
+                                               cadena_clientes[i],
+                                               pos_insercion + i, instancia_distancias);
         if (factible)
             clientes_insertados++;
     }
@@ -811,7 +820,7 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
             return true; // Movimiento exitoso
         }
 
-        // Si las restricciones fallan, revertir
+        // Si las restricciones fallan, revertir inserciones en destino
         for (int i = clientes_insertados - 1; i >= 0; i--)
         {
             eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp,
@@ -820,7 +829,7 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
     }
     else
     {
-        // Si falló al insertar parcialmente, revertir también
+        // Si falló al insertar parcialmente, revertir inserciones en destino
         for (int i = clientes_insertados - 1; i >= 0; i--)
         {
             eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp,
@@ -832,15 +841,15 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
     for (int i = 0; i < tamanio_cadena; i++)
     {
         bool restaurado = inserta_cliente_en_posicion(vehiculo_origen->vehiculo, vrp,
-                                                    cadena_clientes[i],
-                                                    posiciones_originales[i], instancia_distancias);
+                                                      cadena_clientes[i],
+                                                      posiciones_originales[i], instancia_distancias);
         if (!restaurado)
         {
             // Si no se puede en la posición exacta, insertarla al final
             inserta_cliente_en_posicion(vehiculo_origen->vehiculo, vrp,
-                                      cadena_clientes[i],
-                                      vehiculo_origen->vehiculo->clientes_contados + 1,
-                                      instancia_distancias);
+                                       cadena_clientes[i],
+                                       vehiculo_origen->vehiculo->clientes_contados + 1,
+                                       instancia_distancias);
         }
     }
 
