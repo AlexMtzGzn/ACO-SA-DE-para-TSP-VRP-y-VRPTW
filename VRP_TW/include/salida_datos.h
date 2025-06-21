@@ -29,7 +29,7 @@ void imprimir_flota(struct lista_vehiculos *flota,struct vrp_configuracion * vrp
 void imprimir_tabu(int *tabu, int num_clientes);
 
 // Función para imprimir el estado de un individuo, que representa una solución en el algoritmo
-void imprimir_individuo(individuo *ind);
+void imprimir_individuo(struct individuo *ind);
 
 // Función para imprimir la información de todas las hormigas en el sistema
 void imprimir_hormigas(struct hormiga *hormigas, struct vrp_configuracion *vrp, struct individuo * ind);

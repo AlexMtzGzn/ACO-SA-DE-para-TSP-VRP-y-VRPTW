@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-#include "../include/vrp_tw_sa.h"
 #include "../include/estructuras.h"
 #include "../include/lista_flota.h"
 #include "../include/lista_ruta.h"

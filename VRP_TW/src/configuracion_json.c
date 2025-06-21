@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <cjson/cJSON.h>
-#include "../include/configuracion_json.h"
+#include "../include/estructuras.h"
 
 // Crea un arreglo JSON con los detalles de cada cliente en la ruta
 cJSON *detalles_clientes_json(struct datos_cliente *datos_cliente, int numClientes)
@@ -22,13 +22,13 @@ cJSON *detalles_clientes_json(struct datos_cliente *datos_cliente, int numClient
 
         // Agregar los campos de tiempo y demanda
         cJSON_AddNumberToObject(detalle, "Demanda", datos_cliente[i].demanda_capacidad);
-        cJSON_AddNumberToObject(detalle, "Ventana Inicial", datos_cliente[i].ventana_inicial); 
-        cJSON_AddNumberToObject(detalle, "Ventana Final", datos_cliente[i].ventana_final);     
-        cJSON_AddNumberToObject(detalle, "Llegada", datos_cliente[i].tiempo_llegada);          
-        cJSON_AddNumberToObject(detalle, "Espera", datos_cliente[i].tiempo_espera);            
-        cJSON_AddNumberToObject(detalle, "Inicio Servicio", datos_cliente[i].inicio_servicio); 
-        cJSON_AddNumberToObject(detalle, "Duración", datos_cliente[i].duracion_servicio);      
-        cJSON_AddNumberToObject(detalle, "Salida", datos_cliente[i].tiempo_salida);            
+        cJSON_AddNumberToObject(detalle, "Ventana Inicial", datos_cliente[i].ventana_inicial);
+        cJSON_AddNumberToObject(detalle, "Ventana Final", datos_cliente[i].ventana_final);
+        cJSON_AddNumberToObject(detalle, "Llegada", datos_cliente[i].tiempo_llegada);
+        cJSON_AddNumberToObject(detalle, "Espera", datos_cliente[i].tiempo_espera);
+        cJSON_AddNumberToObject(detalle, "Inicio Servicio", datos_cliente[i].inicio_servicio);
+        cJSON_AddNumberToObject(detalle, "Duración", datos_cliente[i].duracion_servicio);
+        cJSON_AddNumberToObject(detalle, "Salida", datos_cliente[i].tiempo_salida);
 
         // Añadir al array
         cJSON_AddItemToArray(json_detalle, detalle);
@@ -37,9 +37,8 @@ cJSON *detalles_clientes_json(struct datos_cliente *datos_cliente, int numClient
     return json_detalle;
 }
 
-
 // Convierte la ruta del vehículo en una lista de coordenadas JSON
-cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes)
+cJSON *generar_ruta_coordenadas(struct lista_ruta *ruta, struct cliente *clientes)
 {
     cJSON *json_ruta = cJSON_CreateArray();
     nodo_ruta *actual = ruta->cabeza;
@@ -54,9 +53,8 @@ cJSON *generar_ruta_coordenadas(lista_ruta *ruta, cliente *clientes)
     return json_ruta;
 }
 
-
 // Convierte un vehículo a un objeto JSON completo con su ruta, detalles y coordenadas
-cJSON *vehiculo_a_json(vehiculo *vehiculo, cliente *clientes)
+cJSON *vehiculo_a_json(struct vehiculo *vehiculo, struct cliente *clientes)
 {
     cJSON *json_vehiculo = cJSON_CreateObject();
 
@@ -89,9 +87,8 @@ cJSON *vehiculo_a_json(vehiculo *vehiculo, cliente *clientes)
     return json_vehiculo;
 }
 
-
 // Convierte un individuo (solución completa) a JSON
-cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *clientes)
+cJSON *individuo_a_json(struct individuo *ind, struct vrp_configuracion *vrp, struct cliente *clientes)
 {
     cJSON *json_individuo = cJSON_CreateObject();
 
@@ -129,7 +126,6 @@ cJSON *individuo_a_json(individuo *ind, struct vrp_configuracion *vrp, cliente *
     return json_individuo;
 }
 
-
 // Cuenta los archivos JSON en un directorio con un cierto prefijo
 int contar_archivos_json(const char *directorio, const char *prefijo)
 {
@@ -152,11 +148,10 @@ void crear_directorio_si_no_existe(const char *ruta)
     if (access(ruta, F_OK) != 0)
         if (mkdir(ruta, 0777) != 0)
             perror("Error creando directorio");
-    
 }
 
 // Genera un archivo JSON con los datos del individuo y ejecuta un script de simulación
-void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archivo_instancia)
+void guardar_json_en_archivo(struct individuo *ind, struct vrp_configuracion *vrp, char *archivo_instancia)
 {
     // Crear JSON del individuo
     cJSON *json_individuo = individuo_a_json(ind, vrp, vrp->clientes);
@@ -229,5 +224,4 @@ void guardar_json_en_archivo(individuo *ind, vrp_configuracion *vrp, char *archi
     int ret = system(comando_py);
     if (ret == -1)
         fprintf(stderr, "Error al ejecutar el comando Python\n");
-    
 }

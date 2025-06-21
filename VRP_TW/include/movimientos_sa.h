@@ -2,8 +2,6 @@
 #define MOVIMIENTOS_SA_H
 
 #include <stdbool.h>
-
-// Incluimos las bibliotecas necesarias para trabajar con las estructuras de datos del VRPTW
 #include "../include/estructuras.h"
 
 // Funcion que intercambia dos clientes dentro de la misma ruta

@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include "../include/aed.h"
 #include "../include/estructuras.h"
 #include "../include/vrp_tw_aco.h"
 #include "../include/configuracion_vrp_tw.h"

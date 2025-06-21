@@ -4,6 +4,7 @@
 #include "../include/lista_flota.h"
 #include "../include/salida_datos.h"
 
+// Funcion que asigna memoria a una instancia
 double **asignar_memoria_instancia(int tamanio_instancia)
 {
     double **instancia = (double **)malloc(tamanio_instancia * sizeof(double *));
@@ -29,6 +30,7 @@ double **asignar_memoria_instancia(int tamanio_instancia)
     return instancia;
 }
 
+// Funcion que libera memoria de una instancia
 void liberar_instancia(double **instancia, int tamanio_instancia)
 {
     for (int i = 0; i < tamanio_instancia; i++)
@@ -36,6 +38,7 @@ void liberar_instancia(double **instancia, int tamanio_instancia)
     free(instancia);
 }
 
+// Funcion que asigna memoria a un arreglo entero
 int *asignar_memoria_arreglo_int(int tamanio_arreglo)
 {
     int *arreglo = (int *)calloc(tamanio_arreglo, sizeof(int));
@@ -47,11 +50,13 @@ int *asignar_memoria_arreglo_int(int tamanio_arreglo)
     return arreglo;
 }
 
+// Funcion que libera memoria de un arrelgo de enteros
 void liberar_memoria_arreglo_int(int *arreglo)
 {
     free(arreglo);
 }
 
+// Funcion que asigna memoria a un arreglo de dobles
 double *asignar_memoria_arreglo_double(int tamanio_arreglo)
 {
     double *arreglo = (double *)calloc(tamanio_arreglo, sizeof(double));
@@ -63,12 +68,13 @@ double *asignar_memoria_arreglo_double(int tamanio_arreglo)
     return arreglo;
 }
 
+// Funcion que libera memoria de un arreglo de dobles
 void liberar_memoria_arreglo_double(double *arreglo)
 {
     free(arreglo);
 }
 
-
+// Funcion que asigna memoria a rangos
 struct rangos *asignar_memoria_rangos()
 {
     struct rangos *rango = (struct rangos *)malloc(sizeof(struct rangos));
@@ -80,33 +86,13 @@ struct rangos *asignar_memoria_rangos()
     return rango;
 }
 
+// Funcion que libera memoria de rangos
 void liberar_rangos(struct rangos *rango)
 {
     free(rango);
 }
 
-struct vrp_configuracion *asignar_memoria_vrp_configuracion()
-{
-    struct vrp_configuracion *vrp = (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion));
-    if (vrp == NULL)
-    {
-        imprimir_mensaje("No se pudo asignar memoria para la configuración VRP");
-        exit(EXIT_FAILURE);
-    }
-    return vrp;
-}
-
-void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
-{
-    if (vrp)
-    {
-        if (vrp->clientes)
-            free(vrp->clientes);
-        free(vrp);
-    }
-}
-
-
+// Función que asigna memoria al arreglo de clientes
 struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
 {
     struct cliente *cliente = (struct cliente *)malloc(vrp->num_clientes * sizeof(struct cliente));
@@ -118,6 +104,37 @@ struct cliente *asignar_memoria_clientes(struct vrp_configuracion *vrp)
     return cliente;
 }
 
+// Función que liberar memoria al arreglo de clientes
+void liberar_memoria_clientes(struct cliente *clientes)
+{
+    if (clientes)
+        free(clientes);
+}
+
+// Funcion que asigna memoria a vrp_configuracion
+struct vrp_configuracion *asignar_memoria_vrp_configuracion()
+{
+    struct vrp_configuracion *vrp = (struct vrp_configuracion *)malloc(sizeof(struct vrp_configuracion));
+    if (vrp == NULL)
+    {
+        imprimir_mensaje("No se pudo asignar memoria para la configuración VRP");
+        exit(EXIT_FAILURE);
+    }
+    return vrp;
+}
+
+// Funcion que libera memoria a vrp_configuracion
+void liberar_memoria_vrp_configuracion(struct vrp_configuracion *vrp)
+{
+    if (vrp)
+    {
+        if (vrp->clientes)
+            liberar_memoria_clientes(vrp->clientes);
+        free(vrp);
+    }
+}
+
+// Función que asigna memoria a los datos de clientes
 struct datos_cliente *asignar_memoria_datos_clientes(int numClientes)
 {
     struct datos_cliente *datos_cliente = (struct datos_cliente *)malloc(numClientes * sizeof(struct datos_cliente));
@@ -129,11 +146,13 @@ struct datos_cliente *asignar_memoria_datos_clientes(int numClientes)
     return datos_cliente;
 }
 
+// Función que libera la memoria de los datos de clientes
 void liberar_memoria_datos_cliente(struct datos_cliente *datos_cliente)
 {
     free(datos_cliente);
 }
 
+// Función que asigna memoria a una lista de ruta
 struct lista_ruta *asignar_memoria_lista_ruta()
 {
     struct lista_ruta *nueva_lista = (struct lista_ruta *)malloc(sizeof(struct lista_ruta));
@@ -149,6 +168,7 @@ struct lista_ruta *asignar_memoria_lista_ruta()
     return nueva_lista;
 }
 
+// Función que asigna memoria a un nodo de ruta
 struct nodo_ruta *asignar_memoria_nodo_ruta()
 {
     struct nodo_ruta *nodo_nuevo = (struct nodo_ruta *)malloc(sizeof(struct nodo_ruta));
@@ -160,6 +180,7 @@ struct nodo_ruta *asignar_memoria_nodo_ruta()
     return nodo_nuevo;
 }
 
+// Función que asigna memoria a un arreglo de punteros a nodos de ruta
 struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes)
 {
     struct nodo_ruta **arreglo_nodos = malloc(total_clientes * sizeof(nodo_ruta *));
@@ -171,18 +192,21 @@ struct nodo_ruta **asignar_memoria_arreglo_nodo_ruta(int total_clientes)
     return arreglo_nodos;
 }
 
+// Función que libera la memoria de un arreglo de punteros a nodos de ruta
 void liberar_memoria_arreglo_nodo_ruta(struct nodo_ruta **arreglo)
 {
     if (arreglo)
         free(arreglo);
 }
 
+// Función que libera la memoria de un nodo de ruta
 void liberar_memoria_nodo_ruta(struct nodo_ruta *nodo_ruta)
 {
     if (nodo_ruta)
         free(nodo_ruta);
 }
 
+// Función que libera la memoria de una lista de ruta completa
 void liberar_lista_ruta(struct lista_ruta *ruta)
 {
     struct nodo_ruta *cliente_actual = ruta->cabeza;
@@ -197,6 +221,7 @@ void liberar_lista_ruta(struct lista_ruta *ruta)
     free(ruta);
 }
 
+// Función que asigna memoria a una lista de vehículos
 struct lista_vehiculos *asignar_memoria_lista_vehiculos()
 {
     struct lista_vehiculos *nueva_lista = (struct lista_vehiculos *)malloc(sizeof(struct lista_vehiculos));
@@ -212,6 +237,7 @@ struct lista_vehiculos *asignar_memoria_lista_vehiculos()
     return nueva_lista;
 }
 
+// Función que asigna memoria a un vehículo
 struct vehiculo *asignar_memoria_vehiculo()
 {
     struct vehiculo *vehiculo = (struct vehiculo *)malloc(sizeof(struct vehiculo));
@@ -223,6 +249,7 @@ struct vehiculo *asignar_memoria_vehiculo()
     return vehiculo;
 }
 
+// Función que asigna memoria a un nodo de vehículo
 struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
 {
     struct nodo_vehiculo *nodo_vehiculo = (struct nodo_vehiculo *)malloc(sizeof(struct nodo_vehiculo));
@@ -234,11 +261,13 @@ struct nodo_vehiculo *asignar_memoria_nodo_vehiculo()
     return nodo_vehiculo;
 }
 
+// Función que libera la memoria de un nodo de vehículo
 void liberar_memoria_nodo_vehiculo(struct nodo_vehiculo *nodo_vehiculo)
 {
     free(nodo_vehiculo);
 }
 
+// Función que libera la memoria de un vehículo
 void liberar_vehiculo(struct vehiculo *vehiculo)
 {
     if (vehiculo->ruta)
@@ -248,6 +277,7 @@ void liberar_vehiculo(struct vehiculo *vehiculo)
     free(vehiculo);
 }
 
+// Función que vacía la lista de vehículos (sin liberar la lista)
 void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
 {
     struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
@@ -266,6 +296,7 @@ void vaciar_lista_vehiculos(struct lista_vehiculos *flota)
     flota->cola = NULL;
 }
 
+// Función que libera la memoria de la lista completa de vehículos
 void liberar_lista_vehiculos(struct lista_vehiculos *flota)
 {
     struct nodo_vehiculo *vehiculo_actual = flota->cabeza;
@@ -282,6 +313,7 @@ void liberar_lista_vehiculos(struct lista_vehiculos *flota)
     free(flota);
 }
 
+// Función que asigna memoria para un conjunto de hormigas
 struct hormiga *asignar_memoria_hormigas(int numHormigas)
 {
     struct hormiga *hormiga = (struct hormiga *)calloc(numHormigas, sizeof(struct hormiga));
@@ -293,6 +325,7 @@ struct hormiga *asignar_memoria_hormigas(int numHormigas)
     return hormiga;
 }
 
+// Función que libera la memoria de un conjunto de hormigas
 void liberar_memoria_hormiga(struct hormiga *hormiga, int numHormigas)
 {
     for (int i = 0; i < numHormigas; i++)
@@ -309,6 +342,7 @@ void liberar_memoria_hormiga(struct hormiga *hormiga, int numHormigas)
     free(hormiga);
 }
 
+// Función que reinicia el estado de una hormiga
 void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 {
     for (int i = 0; i < vrp->num_clientes; i++)
@@ -331,6 +365,7 @@ void reiniciar_hormiga(struct hormiga *hormiga, struct vrp_configuracion *vrp)
 }
 
 
+// Función que asigna memoria para una población de individuos
 struct individuo *asignar_memoria_individuos(int poblacion)
 {
     struct individuo *individuo = (struct individuo *)calloc(poblacion, sizeof(struct individuo));
@@ -342,6 +377,7 @@ struct individuo *asignar_memoria_individuos(int poblacion)
     return individuo;
 }
 
+// Función que libera la memoria de los individuos (según tipo de datos)
 void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
 {
     if (tipo)
@@ -351,6 +387,7 @@ void liberar_individuos(struct individuo *ind, int num_poblacion, bool tipo)
     free(ind);
 }
 
+// Función que asigna memoria para almacenar las mejores hormigas
 struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas)
 {
     struct mejores_hormigas *mejores_hormigas = (struct mejores_hormigas *)calloc(numHormigas, sizeof(struct mejores_hormigas));
@@ -362,6 +399,7 @@ struct mejores_hormigas *asignar_memoria_mejores_hormigas(int numHormigas)
     return mejores_hormigas;
 }
 
+// Función que libera la memoria de las mejores hormigas
 void liberar_memoria_mejores_hormigas(struct mejores_hormigas *mejores_hormigas)
 {
     free(mejores_hormigas);
