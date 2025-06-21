@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-
-// Includes de headers propios, que contienen estructuras y funciones del VRP, SA, etc.
 #include "../include/vrp_tw_sa.h"
 #include "../include/estructuras.h"
 #include "../include/lista_flota.h"
@@ -568,7 +566,7 @@ void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
     hormiga_mejor_solucion->vehiculos_necesarios = eliminar_vehiculos_vacios(hormiga_mejor_solucion->flota);
 }
 
-// Función principal que ejecuta SA sobre un individuo del VRP con ventanas de tiempo
+// Función principal que ejecuta SA sobre un individuo del VRP_TW con ventanas de tiempo
 void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_original, struct individuo *ind, double **instancia_distancias)
 {
     // Asignación de memoria para soluciones vecinas, actuales y mejores

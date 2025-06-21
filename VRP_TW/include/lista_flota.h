@@ -5,10 +5,10 @@
 #include "../include/estructuras.h"
 
 // Función para crear un nuevo nodo de vehículo en la flota de una hormiga
-struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id);
+struct nodo_vehiculo *crear_nodo_vehiculo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id);
 
 // Función que verifica si una lista de vehículos está vacía
-bool es_Vacia_Lista(struct lista_vehiculos *flota);
+bool es_vacia_lista_vehiculos(struct lista_vehiculos *flota);
 
 // Función para insertar un vehículo en la flota de una hormiga
 void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id);

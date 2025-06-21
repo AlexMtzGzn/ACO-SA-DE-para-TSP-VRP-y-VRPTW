@@ -5,7 +5,7 @@
 // Imprime un mensaje de error en stderr
 void imprimir_mensaje(char *texto_instancia)
 {
-    fprintf(stderr, "\n[ERROR] %s\n", texto_instancia);
+    printf("\n[ERROR] %s\n", texto_instancia);
 }
 
 // Imprime una matriz (por ejemplo, matriz de distancias) con encabezado

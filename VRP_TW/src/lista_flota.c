@@ -8,7 +8,7 @@
 #include "../include/salida_datos.h"
 
 // Función para crear un nuevo nodo de vehículo
-struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)
+struct nodo_vehiculo *crear_nodo_vehiculo(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)
 {
     // Asignar memoria para el nodo del vehículo
     struct nodo_vehiculo *vehiculo_nuevo = asignar_memoria_nodo_vehiculo();
@@ -35,7 +35,7 @@ struct nodo_vehiculo *crearNodo(struct hormiga *hormiga, struct vrp_configuracio
 }
 
 // Función que verifica si la lista de vehículos está vacía
-bool es_Vacia_Lista(struct lista_vehiculos *flota)
+bool es_vacia_lista_vehiculos(struct lista_vehiculos *flota)
 {
     return flota->cabeza == NULL;
 }
@@ -44,12 +44,12 @@ bool es_Vacia_Lista(struct lista_vehiculos *flota)
 void inserta_vehiculo_flota(struct hormiga *hormiga, struct vrp_configuracion *vrp, int id)
 {
     // Crear un nuevo nodo de vehículo
-    struct nodo_vehiculo *vehiculo_nuevo = crearNodo(hormiga, vrp, id);
+    struct nodo_vehiculo *vehiculo_nuevo = crear_nodo_vehiculo(hormiga, vrp, id);
 
     if (vehiculo_nuevo != NULL)
     {
         // Si la flota está vacía, establecer el nuevo vehículo como cabeza y cola
-        if (es_Vacia_Lista(hormiga->flota))
+        if (es_vacia_lista_vehiculos(hormiga->flota))
         {
             hormiga->flota->cabeza = hormiga->flota->cola = vehiculo_nuevo;
         }

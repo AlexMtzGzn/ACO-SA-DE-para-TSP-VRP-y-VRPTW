@@ -104,7 +104,7 @@ void liberar_ruta(struct lista_ruta *ruta)
     free(ruta); // Se libera la estructura de la lista de ruta
 }
 
-bool verificarRestricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias)
+bool verificar_restricciones(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
     struct nodo_ruta *clienteAnterior = NULL;
@@ -376,7 +376,7 @@ void llenar_datos_clientes(struct lista_vehiculos *flota, struct vrp_configuraci
 }
 
 // Funcion que inserta un cliente en una posición específica dentro de la ruta de un vehículo.
-bool insertarClienteEnPosicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias)
+bool inserta_cliente_en_posicion(struct vehiculo *vehiculo, struct vrp_configuracion *vrp, int cliente, int posicion, double **instancia_distancias)
 {
     struct nodo_ruta *nuevo = asignar_memoria_nodo_ruta(); // Crear nuevo nodo para el cliente
     if (!nuevo)                                            // Si la asignación falla, retorna false

@@ -86,7 +86,7 @@ bool swap_intra(struct hormiga *hormiga, struct vrp_configuracion *vrp, double *
     nodo2->cliente = temp;
 
     // Verifica si las restricciones se siguen cumpliendo después del intercambio
-    if (!verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
+    if (!verificar_restricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
     {
         // Si no se cumple, revierte el cambio
         temp = nodo1->cliente;
@@ -162,7 +162,7 @@ bool opt_2(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **inst
     }
 
     // Verificar si la ruta sigue siendo válida tras el cambio
-    bool factible = verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias);
+    bool factible = verificar_restricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias);
 
     // Si no se cumple alguna restricción, revertir el cambio
     if (!factible)
@@ -240,8 +240,8 @@ bool swap_inter(struct hormiga *hormiga, struct vrp_configuracion *vrp, double *
     nodo2->cliente = temp;
 
     // Se verifica que el intercambio mantenga las restricciones válidas en ambas rutas
-    bool factible = verificarRestricciones(primer_vehiculo->vehiculo, vrp, instancia_distancias) &&
-                    verificarRestricciones(segundo_vehiculo->vehiculo, vrp, instancia_distancias);
+    bool factible = verificar_restricciones(primer_vehiculo->vehiculo, vrp, instancia_distancias) &&
+                    verificar_restricciones(segundo_vehiculo->vehiculo, vrp, instancia_distancias);
 
     if (!factible)
     {
@@ -317,14 +317,14 @@ bool reinsercion_intra_inter(struct hormiga *hormiga, struct vrp_configuracion *
     int pos_destino = rand() % (total_destino_actual + 1); // puede insertarse al final
 
     // Se intenta insertar el cliente en la nueva posición (ajustado a base 1 si es necesario)
-    bool factible = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, cliente,
+    bool factible = inserta_cliente_en_posicion(vehiculo_destino->vehiculo, vrp, cliente,
                                               pos_destino + 1, instancia_distancias);
 
     if (factible)
     {
         // Se verifica que ambas rutas, origen y destino, sean viables tras el cambio
-        bool restricciones_ok = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
-                                verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
+        bool restricciones_ok = verificar_restricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
+                                verificar_restricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
 
         if (restricciones_ok)
         {
@@ -337,7 +337,7 @@ bool reinsercion_intra_inter(struct hormiga *hormiga, struct vrp_configuracion *
     }
 
     // Si no fue factible o se violaron restricciones, se intenta restaurar el cliente en su posición original
-    insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp, cliente, pos_origen + 1, instancia_distancias);
+    inserta_cliente_en_posicion(vehiculo_origen->vehiculo, vrp, cliente, pos_origen + 1, instancia_distancias);
     return false;
 }
 
@@ -414,15 +414,15 @@ bool opt_2_5(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **in
     bool factible = true;
     for (int i = 0; i < tamanio_segmento && factible; i++)
     {
-        factible = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp,
+        factible = inserta_cliente_en_posicion(vehiculo_destino->vehiculo, vrp,
                                              clientes_segmento[i], pos_insercion + i + 1, instancia_distancias);
     }
 
     // Si la inserción fue exitosa, verifica las restricciones de ambos vehículos
     if (factible)
     {
-        bool restricciones_ok = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
-                                verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
+        bool restricciones_ok = verificar_restricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
+                                verificar_restricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
 
         // Si ambas rutas cumplen restricciones, se completa la operación
         if (restricciones_ok)
@@ -441,7 +441,7 @@ bool opt_2_5(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **in
     // Si la inserción no fue factible o las restricciones fallaron, se restaura el segmento en el origen
     for (int i = 0; i < tamanio_segmento; i++)
     {
-        insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp,
+        inserta_cliente_en_posicion(vehiculo_origen->vehiculo, vrp,
                                   clientes_segmento[i], inicio_segmento + i + 1, instancia_distancias);
     }
 
@@ -535,7 +535,7 @@ bool or_opt(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **ins
     bool factible = true;
     for (int i = 0; i < tamanio_segmento && factible; i++)
     {
-        factible = insertarClienteEnPosicion(vehiculo_actual->vehiculo, vrp,
+        factible = inserta_cliente_en_posicion(vehiculo_actual->vehiculo, vrp,
                                              clientes_segmento[i],
                                              nueva_posicion + i + 1, instancia_distancias);
     }
@@ -543,7 +543,7 @@ bool or_opt(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **ins
     if (factible)
     {
         // Se verifican las restricciones del vehículo después del movimiento
-        bool restricciones_ok = verificarRestricciones(vehiculo_actual->vehiculo,
+        bool restricciones_ok = verificar_restricciones(vehiculo_actual->vehiculo,
                                                        vrp, instancia_distancias);
         if (restricciones_ok)
         {
@@ -562,7 +562,7 @@ bool or_opt(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **ins
     // Si no fue factible o las restricciones no se cumplieron, se restaura el segmento en la posición original
     for (int i = 0; i < tamanio_segmento; i++)
     {
-        insertarClienteEnPosicion(vehiculo_actual->vehiculo, vrp,
+        inserta_cliente_en_posicion(vehiculo_actual->vehiculo, vrp,
                                   clientes_segmento[i],
                                   inicio_segmento + i + 1, instancia_distancias);
     }
@@ -660,17 +660,17 @@ bool cross_exchange(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
 
     // Insertar el segundo segmento en la ruta del primer vehículo
     for (int i = 0; i < tamanio2 && factible; i++)
-        factible = insertarClienteEnPosicion(primer_vehiculo->vehiculo, vrp, segmento2[i], inicio1 + i, instancia_distancias);
+        factible = inserta_cliente_en_posicion(primer_vehiculo->vehiculo, vrp, segmento2[i], inicio1 + i, instancia_distancias);
 
     // Insertar el primer segmento en la ruta del segundo vehículo
     for (int i = 0; i < tamanio1 && factible; i++)
-        factible = insertarClienteEnPosicion(segundo_vehiculo->vehiculo, vrp, segmento1[i], inicio2 + i, instancia_distancias);
+        factible = inserta_cliente_en_posicion(segundo_vehiculo->vehiculo, vrp, segmento1[i], inicio2 + i, instancia_distancias);
 
     // Si ambas inserciones fueron exitosas, verificar restricciones
     if (factible)
     {
-        bool restricciones_ok = verificarRestricciones(primer_vehiculo->vehiculo, vrp, instancia_distancias) &&
-                                verificarRestricciones(segundo_vehiculo->vehiculo, vrp, instancia_distancias);
+        bool restricciones_ok = verificar_restricciones(primer_vehiculo->vehiculo, vrp, instancia_distancias) &&
+                                verificar_restricciones(segundo_vehiculo->vehiculo, vrp, instancia_distancias);
 
         if (restricciones_ok)
         {
@@ -689,10 +689,10 @@ bool cross_exchange(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
 
     // Restaurar los segmentos originales en sus posiciones iniciales
     for (int i = 0; i < tamanio1; i++)
-        insertarClienteEnPosicion(primer_vehiculo->vehiculo, vrp, segmento1[i], inicio1 + i, instancia_distancias);
+        inserta_cliente_en_posicion(primer_vehiculo->vehiculo, vrp, segmento1[i], inicio1 + i, instancia_distancias);
 
     for (int i = 0; i < tamanio2; i++)
-        insertarClienteEnPosicion(segundo_vehiculo->vehiculo, vrp, segmento2[i], inicio2 + i, instancia_distancias);
+        inserta_cliente_en_posicion(segundo_vehiculo->vehiculo, vrp, segmento2[i], inicio2 + i, instancia_distancias);
 
     liberar_memoria_arreglo_int(segmento1);
     liberar_memoria_arreglo_int(segmento2);
@@ -791,7 +791,7 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
     int clientes_insertados = 0;
     for (int i = 0; i < tamanio_cadena && factible; i++)
     {
-        factible = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp,
+        factible = inserta_cliente_en_posicion(vehiculo_destino->vehiculo, vrp,
                                              cadena_clientes[i],
                                              pos_insercion + i, instancia_distancias);
         if (factible)
@@ -801,8 +801,8 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
     // Verificar restricciones en ambas rutas
     if (factible)
     {
-        bool restricciones_ok = verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
-                                verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
+        bool restricciones_ok = verificar_restricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
+                                verificar_restricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias);
 
         if (restricciones_ok)
         {
@@ -831,13 +831,13 @@ bool relocate_chain(struct hormiga *hormiga, struct vrp_configuracion *vrp, doub
     // Restaurar la cadena original en el vehículo de origen
     for (int i = 0; i < tamanio_cadena; i++)
     {
-        bool restaurado = insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp,
+        bool restaurado = inserta_cliente_en_posicion(vehiculo_origen->vehiculo, vrp,
                                                     cadena_clientes[i],
                                                     posiciones_originales[i], instancia_distancias);
         if (!restaurado)
         {
             // Si no se puede en la posición exacta, insertarla al final
-            insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp,
+            inserta_cliente_en_posicion(vehiculo_origen->vehiculo, vrp,
                                       cadena_clientes[i],
                                       vehiculo_origen->vehiculo->clientes_contados + 1,
                                       instancia_distancias);
