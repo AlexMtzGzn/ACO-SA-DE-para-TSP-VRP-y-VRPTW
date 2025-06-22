@@ -322,19 +322,26 @@ El objetivo principal de este proyecto es encontrar las mejores rutas para el **
    - Se genera un archivo `.json` que contiene todos los parámetros utilizados en la ejecución, tales como:
      - Nombre del archivo de entrada
      - Tiempo de ejecución en minutos
-     - α (alpha), β (beta), γ (gamma), ρ (rho)
+     - Poblacion y Generaciones
+     - α (alpha), β (beta), γ (gamma), ρ (rho) 
      - Número de hormigas
      - Número de iteraciones
+     - T.ini, T.fin, Factor enfriamiento, Numero de iteraciones
      - Valor de fitness de la solución
      - Flota:
        - ID_Vehiculo
+       - Velocidad
        - Capacidad Maxima
        - Capacidad Acumulada
-       - Tiempo Consumido
-       - Tiempo Maximo
+       - Tiempo Salida
+       - Tiempo Llegada
+       - Venta Inicial
+       - Ventana Final
        - Numero Clientes
        - Fitness Vehiculo
        - Rutas generada(listas de clientes)
+       - Rutas coordenadas(listas de coordenadas clientes)
+       - Tiempos de clientes
 
 4. **Imagen simulada**
 
