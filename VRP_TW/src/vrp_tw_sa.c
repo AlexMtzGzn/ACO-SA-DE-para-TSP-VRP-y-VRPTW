@@ -2,33 +2,53 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-
-#include "../include/vrp_tw_sa.h"
 #include "../include/estructuras.h"
 #include "../include/lista_flota.h"
 #include "../include/lista_ruta.h"
 #include "../include/control_memoria.h"
 #include "../include/salida_datos.h"
+#include "../include/movimientos_sa.h"
 
+// Función que copia una hormiga (solución) para usar en SA
+struct hormiga *copiar_hormiga_sa(struct hormiga *hormiga_original)
+{
+    // Asigna memoria para una hormiga (1)
+    struct hormiga *hormiga_copia = asignar_memoria_hormigas(1);
+
+    // Copia atributos simples
+    hormiga_copia->id_hormiga = hormiga_original->id_hormiga;
+    hormiga_copia->fitness_global = hormiga_original->fitness_global;
+    hormiga_copia->vehiculos_maximos = hormiga_original->vehiculos_maximos;
+    hormiga_copia->vehiculos_necesarios = hormiga_original->vehiculos_necesarios;
+
+    // Copia profunda de la lista de vehículos (flota)
+    hormiga_copia->flota = copiar_lista_vehiculos(hormiga_original->flota);
+
+    return hormiga_copia;
+}
+
+// Calcula ventanas de tiempo y capacidad acumulada para cada vehículo de la flota
 void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
     struct nodo_vehiculo *nodoVehiculo = flota->cabeza;
 
+    // Itera sobre cada vehículo en la flota
     while (nodoVehiculo != NULL)
     {
         struct vehiculo *vehiculo = nodoVehiculo->vehiculo;
         struct nodo_ruta *clienteActual = vehiculo->ruta->cabeza;
         struct nodo_ruta *clienteAnterior = NULL;
 
-        double tiempo = 0.0;
-        double capacidad = 0.0;
-        double inicio = 0.0;
-        double fin = 0.0;
+        double tiempo = 0.0;    // Tiempo acumulado para la ruta
+        double capacidad = 0.0; // Capacidad acumulada
+        double inicio = 0.0;    // Tiempo de inicio para el vehículo
+        double fin = 0.0;       // Tiempo de llegada al final de la ruta
 
         if (vehiculo->clientes_contados > 0)
         {
             int clientesReales = 0;
 
+            // Cuenta clientes diferentes del depósito (cliente 0)
             struct nodo_ruta *temp = vehiculo->ruta->cabeza;
             while (temp != NULL)
             {
@@ -39,26 +59,30 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                 temp = temp->siguiente;
             }
 
+            // Si hay clientes reales, calcula tiempos y capacidades
             if (clientesReales > 0)
             {
                 while (clienteActual != NULL)
                 {
                     int id_actual = clienteActual->cliente;
 
-                    if (clienteAnterior == NULL)
+                    if (clienteAnterior == NULL) // Primer cliente
                     {
                         if (id_actual != 0)
                         {
+                            // Tiempo desde depósito hasta el primer cliente dividido por velocidad
                             tiempo += instancia_distancias[0][id_actual] / vehiculo->velocidad;
 
+                            // Si se llega antes de la ventana, se espera
                             if (tiempo < vrp->clientes[id_actual].vt_inicial)
                             {
                                 tiempo = vrp->clientes[id_actual].vt_inicial;
                             }
 
-                            inicio = tiempo;
-                            capacidad += vrp->clientes[id_actual].demanda_capacidad;
+                            inicio = tiempo;                                         // Tiempo inicio ruta
+                            capacidad += vrp->clientes[id_actual].demanda_capacidad; // Suma demanda
 
+                            // Verifica violación ventana tiempo
                             if (tiempo > vrp->clientes[id_actual].vt_final)
                             {
                                 printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
@@ -70,11 +94,14 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                     {
                         if (clienteAnterior->cliente != 0)
                         {
+                            // Se añade el tiempo de servicio del cliente anterior
                             tiempo += vrp->clientes[clienteAnterior->cliente].tiempo_servicio;
                         }
 
+                        // Tiempo entre cliente anterior y actual dividido por velocidad
                         tiempo += instancia_distancias[clienteAnterior->cliente][id_actual] / vehiculo->velocidad;
 
+                        // Espera si llega antes de la ventana inicial
                         if (tiempo < vrp->clientes[id_actual].vt_inicial)
                         {
                             tiempo = vrp->clientes[id_actual].vt_inicial;
@@ -84,6 +111,7 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                         {
                             capacidad += vrp->clientes[id_actual].demanda_capacidad;
 
+                            // Verifica violación ventana tiempo
                             if (tiempo > vrp->clientes[id_actual].vt_final)
                             {
                                 printf("Violación de ventana de tiempo: Cliente %d, llegada %.2f > ventana final %.2f\n",
@@ -92,6 +120,7 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                         }
                     }
 
+                    // Si es el último cliente o el siguiente es depósito (fin ruta)
                     if (clienteActual->siguiente == NULL || clienteActual->siguiente->cliente == 0)
                     {
                         if (id_actual != 0)
@@ -99,9 +128,11 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
                             tiempo += vrp->clientes[id_actual].tiempo_servicio;
                         }
 
+                        // Tiempo regreso a depósito
                         tiempo += instancia_distancias[id_actual][0] / vehiculo->velocidad;
                         fin = tiempo;
 
+                        // Si el siguiente es depósito, avanzamos para terminar
                         if (clienteActual->siguiente != NULL && clienteActual->siguiente->cliente == 0)
                         {
                             clienteActual = clienteActual->siguiente;
@@ -114,11 +145,12 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
             }
         }
 
+        // Guardamos resultados en el vehículo
         vehiculo->capacidad_acumulada = capacidad;
         vehiculo->tiempo_salida_vehiculo = inicio;
         vehiculo->tiempo_llegada_vehiculo = fin;
 
-        // Verificación de restricción de capacidad
+        // Verifica restricción de capacidad
         if (capacidad > vehiculo->capacidad_maxima)
         {
             printf("Violación de capacidad en Vehículo ID %d: %.2f > %.2f\n",
@@ -129,24 +161,25 @@ void calculamosVentanasCapacidad(struct lista_vehiculos *flota, struct vrp_confi
     }
 }
 
-void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+// Evalúa la función objetivo (fitness) para la hormiga en base a la distancia total de la solución
+void evaluaFO_SA(struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_distancias)
 {
-    ind->metal->fitness_solucion_vecina = 0.0;
+    hormiga->fitness_global = 0.0;
 
     struct lista_ruta *ruta;
-    nodo_ruta *nodo_actual;
+    struct nodo_ruta *nodo_actual;
     double fitness_vehiculo;
     int cliente_actual, cliente_siguiente;
-    struct nodo_vehiculo *vehiculo_actual = ind->metal->solucion_vecina->cabeza;
+    struct nodo_vehiculo *vehiculo_actual = hormiga->flota->cabeza;
 
-    // Recorre todos los vehículos de la solución vecina
+    // Para cada vehículo en la flota
     while (vehiculo_actual != NULL)
     {
         fitness_vehiculo = 0.0;
         ruta = vehiculo_actual->vehiculo->ruta;
         nodo_actual = ruta->cabeza;
 
-        // Suma la distancia entre pares consecutivos de clientes
+        // Suma la distancia entre clientes consecutivos en la ruta
         while (nodo_actual->siguiente != NULL)
         {
             cliente_actual = nodo_actual->cliente;
@@ -157,508 +190,427 @@ void evaluaFO_SA(struct individuo *ind, struct vrp_configuracion *vrp, double **
         }
 
         vehiculo_actual->vehiculo->fitness_vehiculo = fitness_vehiculo;
-        ind->metal->fitness_solucion_vecina += fitness_vehiculo;
+        hormiga->fitness_global += fitness_vehiculo;
         vehiculo_actual = vehiculo_actual->siguiente;
     }
 }
 
-bool moverDosClientesVehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
+// Función principal de recocido simulado (Simulated Annealing) optimizado para el VRPTW
+void sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_solucion_vecina,
+        struct hormiga *hormiga_solucion_actual, struct hormiga *hormiga_mejor_solucion,
+        struct individuo *ind, double **instancia_distancias)
 {
-    nodo_vehiculo *primer_vehiculo = NULL, *segundo_vehiculo = NULL;
-    nodo_ruta *primer_nodo_cliente = NULL, *segundo_nodo_cliente = NULL;
-    int primer_cliente, segundo_cliente;
-    int primer_posicion, segunda_posicion;
-    bool factible = false;
-
-    for (int i = 0; i < 10; i++)
+    // Validaciones iniciales
+    if (!vrp || !hormiga_solucion_vecina || !hormiga_solucion_actual ||
+        !hormiga_mejor_solucion || !ind || !instancia_distancias)
     {
-        bool vehiculos_validos = false;
-        for (int j = 0; j < 10; j++)
-        {
-            primer_vehiculo = seleccionar_vehiculo_aleatorio(ind);
-            segundo_vehiculo = seleccionar_vehiculo_aleatorio(ind);
-
-            if (!primer_vehiculo || !segundo_vehiculo || !primer_vehiculo->vehiculo || !segundo_vehiculo->vehiculo)
-                continue;
-
-            if (primer_vehiculo->vehiculo->clientes_contados > 2 &&
-                segundo_vehiculo->vehiculo->clientes_contados > 2)
-            {
-                vehiculos_validos = true;
-                break;
-            }
-        }
-        if (!vehiculos_validos)
-            return false;
-
-        // Selección de posiciones
-        bool posiciones_validas = false;
-        for (int j = 0; j < 10; j++)
-        {
-            primer_posicion = rand() % (primer_vehiculo->vehiculo->clientes_contados - 2) + 1;
-            segunda_posicion = rand() % (segundo_vehiculo->vehiculo->clientes_contados - 2) + 1;
-
-            // Si es el mismo vehículo, no permitir misma posición
-            if (primer_vehiculo != segundo_vehiculo || primer_posicion != segunda_posicion)
-            {
-                posiciones_validas = true;
-                break;
-            }
-        }
-        if (!posiciones_validas)
-            return false;
-
-        // Obtener los nodos
-        primer_nodo_cliente = primer_vehiculo->vehiculo->ruta->cabeza->siguiente;
-        for (int k = 0; k < primer_posicion && primer_nodo_cliente; k++)
-            primer_nodo_cliente = primer_nodo_cliente->siguiente;
-
-        segundo_nodo_cliente = segundo_vehiculo->vehiculo->ruta->cabeza->siguiente;
-        for (int k = 0; k < segunda_posicion && segundo_nodo_cliente; k++)
-            segundo_nodo_cliente = segundo_nodo_cliente->siguiente;
-
-        if (!primer_nodo_cliente || !segundo_nodo_cliente)
-            continue;
-
-        // Clientes
-        primer_cliente = primer_nodo_cliente->cliente;
-        segundo_cliente = segundo_nodo_cliente->cliente;
-
-        // Si es el mismo vehículo, hacer swap
-        if (primer_vehiculo == segundo_vehiculo)
-        {
-            int temp = primer_nodo_cliente->cliente;
-            primer_nodo_cliente->cliente = segundo_nodo_cliente->cliente;
-            segundo_nodo_cliente->cliente = temp;
-
-            factible = verificarRestricciones(primer_vehiculo->vehiculo, vrp, instancia_distancias);
-
-            if (!factible)
-            {
-                // Revertir el swap
-                temp = primer_nodo_cliente->cliente;
-                primer_nodo_cliente->cliente = segundo_nodo_cliente->cliente;
-                segundo_nodo_cliente->cliente = temp;
-            }
-
-            return factible;
-        }
-        else
-        {
-            // Vehículos distintos → eliminación e inserción cruzada
-            eliminar_cliente_ruta(primer_vehiculo->vehiculo, vrp, primer_cliente, instancia_distancias);
-            eliminar_cliente_ruta(segundo_vehiculo->vehiculo, vrp, segundo_cliente, instancia_distancias);
-
-            bool insercion1 = insertarClienteEnPosicion(primer_vehiculo->vehiculo, vrp, segundo_cliente, primer_posicion, instancia_distancias);
-            bool insercion2 = insertarClienteEnPosicion(segundo_vehiculo->vehiculo, vrp, primer_cliente, segunda_posicion, instancia_distancias);
-
-            factible = insercion1 && insercion2 &&
-                       verificarRestricciones(primer_vehiculo->vehiculo, vrp, instancia_distancias) &&
-                       verificarRestricciones(segundo_vehiculo->vehiculo, vrp, instancia_distancias);
-
-            if (!factible)
-            {
-                eliminar_cliente_ruta(primer_vehiculo->vehiculo, vrp, segundo_cliente, instancia_distancias);
-                eliminar_cliente_ruta(segundo_vehiculo->vehiculo, vrp, primer_cliente, instancia_distancias);
-
-                insertarClienteEnPosicion(primer_vehiculo->vehiculo, vrp, primer_cliente, primer_posicion, instancia_distancias);
-                insertarClienteEnPosicion(segundo_vehiculo->vehiculo, vrp, segundo_cliente, segunda_posicion, instancia_distancias);
-            }
-            else
-            {
-                return factible;
-            }
-        }
+        return;
     }
 
-    return factible;
-}
-
-bool moverClienteEntreVehiculos(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
-{
-    nodo_vehiculo *vehiculo_origen = NULL, *vehiculo_destino = NULL;
-    nodo_ruta *nodo_cliente = NULL;
-    int cliente, posicion_origen;
-
-    for (int intento = 0; intento < 10; intento++)
-    {
-        // Intentar seleccionar vehículos válidos
-        bool vehiculos_validos = false;
-        for (int j = 0; j < 10; j++)
-        {
-            vehiculo_origen = seleccionar_vehiculo_aleatorio(ind);
-            vehiculo_destino = seleccionar_vehiculo_aleatorio(ind);
-
-            if (!vehiculo_origen || !vehiculo_destino ||
-                !vehiculo_origen->vehiculo || !vehiculo_destino->vehiculo)
-                continue;
-
-            if (vehiculo_origen == vehiculo_destino)
-                continue;
-
-            if (vehiculo_origen->vehiculo->clientes_contados > 2) // debe tener al menos un cliente
-            {
-                vehiculos_validos = true;
-                break;
-            }
-        }
-
-        if (!vehiculos_validos)
-            continue;
-
-        int total_clientes_origen = vehiculo_origen->vehiculo->clientes_contados;
-
-        if (total_clientes_origen <= 2)
-            continue;
-
-        posicion_origen = rand() % (total_clientes_origen - 2) + 1;
-
-        nodo_cliente = vehiculo_origen->vehiculo->ruta->cabeza->siguiente;
-        for (int k = 0; k < posicion_origen && nodo_cliente; k++)
-            nodo_cliente = nodo_cliente->siguiente;
-
-        if (!nodo_cliente)
-            continue;
-
-        cliente = nodo_cliente->cliente;
-
-        // Eliminar cliente del vehículo origen
-        eliminar_cliente_ruta(vehiculo_origen->vehiculo, vrp, cliente, instancia_distancias);
-
-        int posiciones_destino = vehiculo_destino->vehiculo->clientes_contados - 1; // evitar depósito final
-
-        for (int pos = 1; pos < posiciones_destino; pos++)
-        {
-            bool insertado = insertarClienteEnPosicion(vehiculo_destino->vehiculo, vrp, cliente, pos, instancia_distancias);
-
-            if (insertado &&
-                verificarRestricciones(vehiculo_origen->vehiculo, vrp, instancia_distancias) &&
-                verificarRestricciones(vehiculo_destino->vehiculo, vrp, instancia_distancias))
-            {
-                return true; // Movimiento exitoso
-            }
-
-            if (insertado)
-            {
-                // Revertir si no fue factible
-                eliminar_cliente_ruta(vehiculo_destino->vehiculo, vrp, cliente, instancia_distancias);
-            }
-        }
-
-        // Reinsertar en origen si no se logró insertar en el destino
-        insertarClienteEnPosicion(vehiculo_origen->vehiculo, vrp, cliente, posicion_origen, instancia_distancias);
-    }
-
-    return false; // No se logró mover el cliente
-}
-
-// Intercambia dos clientes aleatorios dentro de un mismo vehículo
-bool intercambiarClienteRuta(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
-{
-    int vehiculo_aleatorio, intentos = 10, cliente1_idx, cliente2_idx, temp;
-    nodo_vehiculo *vehiculo_actual = NULL;
-    nodo_ruta *nodo1 = NULL, *nodo2 = NULL;
-
-    while (intentos--)
-    {
-        vehiculo_aleatorio = (rand() % ind->hormiga->vehiculos_necesarios) + 1;
-
-        vehiculo_actual = ind->metal->solucion_vecina->cabeza;
-        while (vehiculo_actual != NULL)
-        {
-            if (vehiculo_actual->vehiculo->id_vehiculo == vehiculo_aleatorio)
-                break;
-            vehiculo_actual = vehiculo_actual->siguiente;
-        }
-
-        if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 2)
-            continue;
-
-        break;
-    }
-
-    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 2)
-        return false;
-
-    do
-    {
-        cliente1_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
-        cliente2_idx = rand() % vehiculo_actual->vehiculo->clientes_contados;
-    } while (cliente1_idx == cliente2_idx);
-
-    nodo1 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-    nodo2 = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-
-    for (int i = 0; i < cliente1_idx; i++)
-        nodo1 = nodo1->siguiente;
-    for (int i = 0; i < cliente2_idx; i++)
-        nodo2 = nodo2->siguiente;
-
-    if (nodo1 == NULL || nodo2 == NULL)
-        return false;
-
-    // Intercambio tentativo
-    temp = nodo1->cliente;
-    nodo1->cliente = nodo2->cliente;
-    nodo2->cliente = temp;
-    // Verificamos si sigue siendo factible con respecto a la ventana de tiempo y capacidad
-    if (!verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
-    {
-        // Revertimos el intercambio si viola las restricciones
-        temp = nodo1->cliente;
-        nodo1->cliente = nodo2->cliente;
-        nodo2->cliente = temp;
-
-        return false;
-    }
-
-    return true;
-}
-
-// Invierte el orden de un segmento de la ruta
-bool invertirSegmentoRuta(struct individuo *ind, struct vrp_configuracion *vrp, double **instancia_distancias)
-{
-
-    nodo_vehiculo *vehiculo_actual = NULL;
-    nodo_ruta *inicio = NULL, *fin = NULL;
-    int idx1, idx2, total_clientes;
-    int i;
-    int intentos_maximos = 10; // Limitamos el número de intentos para evitar recursión infinita
-
-    // Seleccionamos un vehículo aleatorio que tenga al menos 3 clientes
-    for (int intento = 0; intento < 10; intento++)
-    {
-        vehiculo_actual = seleccionar_vehiculo_aleatorio(ind);
-
-        if (vehiculo_actual && vehiculo_actual->vehiculo->clientes_contados >= 3)
-            break;
-    }
-
-    if (vehiculo_actual == NULL || vehiculo_actual->vehiculo->clientes_contados < 3)
-        return false;
-
-    // Iteramos hasta encontrar una inversión válida o agotar intentos
-    for (int intento = 0; intento < intentos_maximos; intento++)
-    {
-        total_clientes = vehiculo_actual->vehiculo->clientes_contados;
-
-        // Elegimos dos posiciones distintas idx1 < idx2 dentro de la ruta del vehículo
-        idx1 = rand() % total_clientes;
-        idx2 = rand() % total_clientes;
-
-        while (idx1 == idx2)
-            idx2 = rand() % total_clientes;
-
-        if (idx1 > idx2)
-        {
-            int tmp = idx1;
-            idx1 = idx2;
-            idx2 = tmp;
-        }
-
-        // Guardamos el orden original de los clientes para poder revertir si es necesario
-        int *clientes_originales = asignar_memoria_arreglo_int(idx2 - idx1 + 1);
-
-        nodo_ruta *nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            nodo_temp = nodo_temp->siguiente;
-
-        for (i = 0; i <= idx2 - idx1; i++)
-        {
-            clientes_originales[i] = nodo_temp->cliente;
-            nodo_temp = nodo_temp->siguiente;
-        }
-
-        // Obtenemos punteros a los nodos en las posiciones idx1 e idx2
-        inicio = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            inicio = inicio->siguiente;
-
-        fin = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx2; i++)
-            fin = fin->siguiente;
-
-        if (inicio == NULL || fin == NULL)
-        {
-            free(clientes_originales);
-            return false;
-        }
-
-        // Invertimos el segmento entre idx1 e idx2
-        int left = idx1;
-        int right = idx2;
-
-        while (left < right)
-        {
-            nodo_ruta *nodo_left = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-            for (i = 0; i < left; i++)
-                nodo_left = nodo_left->siguiente;
-
-            nodo_ruta *nodo_right = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-            for (i = 0; i < right; i++)
-                nodo_right = nodo_right->siguiente;
-
-            int temp = nodo_left->cliente;
-            nodo_left->cliente = nodo_right->cliente;
-            nodo_right->cliente = temp;
-
-            left++;
-            right--;
-        }
-
-        // Verificamos que las restricciones sigan válidas
-        if (verificarRestricciones(vehiculo_actual->vehiculo, vrp, instancia_distancias))
-        {
-            free(clientes_originales);
-            return true; // Inversión exitosa y factible
-        }
-
-        // Si no es válido, revertimos a la configuración original
-        nodo_temp = vehiculo_actual->vehiculo->ruta->cabeza->siguiente;
-        for (i = 0; i < idx1; i++)
-            nodo_temp = nodo_temp->siguiente;
-
-        for (i = 0; i <= idx2 - idx1; i++)
-        {
-            nodo_temp->cliente = clientes_originales[i];
-            nodo_temp = nodo_temp->siguiente;
-        }
-
-        free(clientes_originales);
-        // Continuamos al siguiente intento
-    }
-
-    return false; // No se encontró una inversión válida después de varios intentos
-}
-
-// Copia la solución actual como base para generar un vecino
-void generar_vecino(struct individuo *ind, struct vrp_configuracion *vrp)
-{
-    if (ind->metal->solucion_vecina)
-        liberar_lista_vehiculos(ind->metal->solucion_vecina);
-
-    ind->metal->solucion_vecina = copiar_lista_vehiculos(ind->metal->solucion_actual);
-}
-
-// Algoritmo de Recocido Simulado (SA)
-void sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
-{
-    double temperatura = ind->temperatura_inicial, delta, prob, factor;
+    double temperatura = ind->temperatura_inicial;
+    double delta, prob;
     bool aceptado = false;
-
-    // Inicialización de soluciones
-    ind->metal->mejor_solucion = copiar_lista_vehiculos(ind->metal->solucion_inicial);
-    ind->metal->fitness_mejor_solucion = ind->metal->fitness_solucion_inicial;
-    ind->metal->solucion_actual = copiar_lista_vehiculos(ind->metal->solucion_inicial);
-    ind->metal->fitness_solucion_actual = ind->metal->fitness_solucion_inicial;
+    int operador_usado = -1;
 
     // Ciclo de enfriamiento
     while (temperatura > ind->temperatura_final)
     {
-        // >>> Imprime la temperatura y los valores de fitness en cada paso del enfriamiento
-        // printf("Temp: %.4f | Fitness actual: %.4f | Mejor: %.4f\n",
-        //        temperatura,
-        //        ind->metal->fitness_solucion_actual,
-        //        ind->metal->fitness_mejor_solucion);
-        // <<<
-
         for (int i = 0; i < ind->numIteracionesSA; i++)
         {
-            generar_vecino(ind, vrp);
+            // Preparar solución vecina
+            if (hormiga_solucion_vecina->flota)
+                liberar_lista_vehiculos(hormiga_solucion_vecina->flota);
 
-            prob = (double)rand() / RAND_MAX;
-            factor = ind->factor_control * (1.0 - (temperatura / ind->temperatura_inicial));
-            aceptado = false;
+            hormiga_solucion_vecina->fitness_global = hormiga_solucion_actual->fitness_global;
+            hormiga_solucion_vecina->vehiculos_necesarios = hormiga_solucion_actual->vehiculos_necesarios;
+            hormiga_solucion_vecina->flota = copiar_lista_vehiculos(hormiga_solucion_actual->flota);
 
-            if (ind->hormiga->vehiculos_necesarios > 1)
+            // Validar que la copia fue exitosa
+            if (!hormiga_solucion_vecina->flota)
             {
-                // Distribuye el factor entre los tres movimientos, puedes ajustar los pesos si lo deseas
-                if (prob < factor / 3.0)
-                    aceptado = moverClienteEntreVehiculos(ind, vrp, instancia_distancias);
-                else if (prob < 2.0 * factor / 3.0)
-                    aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
+                continue;
+            }
 
+            // Selección de operador basada en tamaño de instancia
+            prob = (double)rand() / RAND_MAX;
+            aceptado = false;
+            operador_usado = -1;
+
+            // Determinar configuración según tamaño de instancia
+            if (vrp->num_clientes <= 26)
+            {
+                // INSTANCIAS PEQUEÑAS
+                if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
+                {
+                    // Múltiples vehículos - priorizar operadores inter-ruta
+                    if (prob < 0.25)
+                    {
+                        aceptado = cross_exchange(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 7;
+                    }
+                    else if (prob < 0.45)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < 0.65)
+                    {
+                        aceptado = swap_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 4;
+                    }
+                    else if (prob < 0.8)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < 0.9)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < 0.95)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else if (prob < 0.98)
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                    else
+                    {
+                        aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 3;
+                    }
+                }
                 else
-                    aceptado = moverDosClientesVehiculos(ind, vrp, instancia_distancias);
+                {
+                    // Un solo vehículo - priorizar operadores intra-ruta
+                    if (prob < 0.30)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < 0.55)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < 0.75)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < 0.90)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                }
+            }
+            else if (vrp->num_clientes <= 51)
+            {
+                // INSTANCIAS MEDIANAS
+                if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
+                {
+                    if (prob < 0.30)
+                    {
+                        aceptado = cross_exchange(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 7;
+                    }
+                    else if (prob < 0.55)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < 0.75)
+                    {
+                        aceptado = swap_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 4;
+                    }
+                    else if (prob < 0.87)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < 0.95)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < 0.98)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else if (prob < 0.99)
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                    else
+                    {
+                        aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 3;
+                    }
+                }
+                else
+                {
+                    if (prob < 0.35)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < 0.65)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < 0.85)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < 0.95)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                }
             }
             else
             {
-                // Si solo hay un vehículo, 50% para cada operador
-                if (prob < factor / 2.0)
-                    aceptado = intercambiarClienteRuta(ind, vrp, instancia_distancias);
-                else if (prob < factor)
-                    aceptado = invertirSegmentoRuta(ind, vrp, instancia_distancias);
+                // INSTANCIAS GRANDES (>51 clientes)
+                if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
+                {
+                    if (prob < 0.35)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < 0.65)
+                    {
+                        aceptado = cross_exchange(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 7;
+                    }
+                    else if (prob < 0.85)
+                    {
+                        aceptado = swap_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 4;
+                    }
+                    else if (prob < 0.95)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < 0.98)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < 0.99)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else if (prob < 0.995)
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                    else
+                    {
+                        aceptado = swap_intra(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 3;
+                    }
+                }
+                else
+                {
+                    if (prob < 0.40)
+                    {
+                        aceptado = relocate_chain(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 8;
+                    }
+                    else if (prob < 0.75)
+                    {
+                        aceptado = opt_2_5(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 6;
+                    }
+                    else if (prob < 0.95)
+                    {
+                        aceptado = reinsercion_intra_inter(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 5;
+                    }
+                    else if (prob < 0.98)
+                    {
+                        aceptado = opt_2(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 1;
+                    }
+                    else
+                    {
+                        aceptado = or_opt(hormiga_solucion_vecina, vrp, instancia_distancias);
+                        operador_usado = 2;
+                    }
+                }
             }
 
+            // Si no se aceptó el movimiento, continuar
             if (!aceptado)
+            {
                 continue;
+            }
 
-            evaluaFO_SA(ind, vrp, instancia_distancias);
-            delta = ind->metal->fitness_solucion_vecina - ind->metal->fitness_solucion_actual;
+            // Limpieza de vehículos vacíos
+            bool necesita_limpieza = false;
+            if (hormiga_solucion_vecina->vehiculos_necesarios > 1)
+            {
+                // Operadores que pueden dejar vehículos vacíos
+                if (operador_usado == 4 || operador_usado == 5 ||
+                    operador_usado == 7 || operador_usado == 8)
+                {
+                    necesita_limpieza = true;
+                }
 
+                // Limpieza periódica
+                if (i % 20 == 0)
+                {
+                    necesita_limpieza = true;
+                }
+            }
+
+            if (necesita_limpieza)
+            {
+                int vehiculos_anteriores = hormiga_solucion_vecina->vehiculos_necesarios;
+                hormiga_solucion_vecina->vehiculos_necesarios = eliminar_vehiculos_vacios(hormiga_solucion_vecina->flota);
+
+                // Si se eliminaron vehículos, re-evaluar
+                if (vehiculos_anteriores != hormiga_solucion_vecina->vehiculos_necesarios)
+                {
+                    evaluaFO_SA(hormiga_solucion_vecina, vrp, instancia_distancias);
+                }
+            }
+
+            // Evaluar función objetivo
+            if (!necesita_limpieza || hormiga_solucion_vecina->vehiculos_necesarios ==
+                                          hormiga_solucion_actual->vehiculos_necesarios)
+            {
+                evaluaFO_SA(hormiga_solucion_vecina, vrp, instancia_distancias);
+            }
+
+            delta = hormiga_solucion_vecina->fitness_global - hormiga_solucion_actual->fitness_global;
+
+            // 5. Criterio de aceptación
             bool aceptar = false;
-            if (delta < 0 || (double)rand() / RAND_MAX < exp(-delta / temperatura * factor))
+            if (delta < -1e-6)
+            { // Usar epsilon para comparación de flotantes
                 aceptar = true;
+            }
+            else if (delta > 1e-6 && temperatura > 1e-10)
+            {
+                double prob_aceptacion = exp(-delta / temperatura);
+                if ((double)rand() / RAND_MAX < prob_aceptacion)
+                {
+                    aceptar = true;
+                }
+            }
 
+            //  Actualizar soluciones
             if (aceptar)
             {
-                liberar_lista_vehiculos(ind->metal->solucion_actual);
-                ind->metal->solucion_actual = copiar_lista_vehiculos(ind->metal->solucion_vecina);
-                ind->metal->fitness_solucion_actual = ind->metal->fitness_solucion_vecina;
-
-                if (ind->metal->fitness_solucion_actual < ind->metal->fitness_mejor_solucion)
+                // Liberar memoria de la solución actual
+                if (hormiga_solucion_actual->flota)
                 {
-                    liberar_lista_vehiculos(ind->metal->mejor_solucion);
-                    ind->metal->mejor_solucion = copiar_lista_vehiculos(ind->metal->solucion_actual);
-                    ind->metal->fitness_mejor_solucion = ind->metal->fitness_solucion_actual;
+                    liberar_lista_vehiculos(hormiga_solucion_actual->flota);
+                }
+
+                // Actualizar solución actual
+                hormiga_solucion_actual->fitness_global = hormiga_solucion_vecina->fitness_global;
+                hormiga_solucion_actual->vehiculos_necesarios = hormiga_solucion_vecina->vehiculos_necesarios;
+                hormiga_solucion_actual->flota = copiar_lista_vehiculos(hormiga_solucion_vecina->flota);
+
+                // Verificar si es mejor solución global
+                if (hormiga_solucion_vecina->fitness_global < hormiga_mejor_solucion->fitness_global - 1e-6)
+                {
+                    if (hormiga_mejor_solucion->flota)
+                    {
+                        liberar_lista_vehiculos(hormiga_mejor_solucion->flota);
+                    }
+
+                    hormiga_mejor_solucion->fitness_global = hormiga_solucion_vecina->fitness_global;
+                    hormiga_mejor_solucion->vehiculos_necesarios = hormiga_solucion_vecina->vehiculos_necesarios;
+                    hormiga_mejor_solucion->flota = copiar_lista_vehiculos(hormiga_solucion_vecina->flota);
                 }
             }
         }
 
-        temperatura *= ind->factor_enfriamiento; // Disminuye temperatura
+        // Reducir temperatura
+        temperatura *= ind->factor_enfriamiento;
+
+        // Protección contra temperatura muy baja
+        if (temperatura < 1e-10)
+        {
+            break;
+        }
     }
 
-    liberar_lista_vehiculos(ind->metal->solucion_actual);
-}
-
-// Inicializa la estructura metal de un individuo
-void inicializar_metal(struct individuo *ind)
-{
-    ind->metal = asignar_memoria_metal();
-    ind->metal->solucion_vecina = NULL;
-    ind->metal->solucion_actual = NULL;
-    ind->metal->mejor_solucion = NULL;
-    ind->metal->fitness_solucion_actual = 0.0;
-    ind->metal->fitness_solucion_vecina = 0.0;
-    ind->metal->fitness_mejor_solucion = 0.0;
-    ind->metal->solucion_inicial = copiar_lista_vehiculos(ind->hormiga->flota);
-    ind->metal->fitness_solucion_inicial = ind->hormiga->fitness_global;
-}
-
-// Función principal que ejecuta SA sobre un individuo del VRP
-void vrp_tw_sa(struct vrp_configuracion *vrp, struct individuo *ind, double **instancia_distancias)
-{
-
-    inicializar_metal(ind);
-    sa(vrp, ind, instancia_distancias);
-    calculamosVentanasCapacidad(ind->metal->mejor_solucion, vrp, instancia_distancias);
-
-    // Si se mejora la solución global, se guarda
-    if (ind->metal->fitness_mejor_solucion < ind->hormiga->fitness_global)
+    // Limpieza final
+    if (hormiga_mejor_solucion->vehiculos_necesarios > 1)
     {
-        printf("\nMejoro de %.2lf a %.2lf", ind->hormiga->fitness_global, ind->metal->fitness_mejor_solucion);
-        ind->fitness = ind->metal->fitness_mejor_solucion;
-        ind->hormiga->fitness_global = ind->metal->fitness_mejor_solucion;
+        int vehiculos_antes = hormiga_mejor_solucion->vehiculos_necesarios;
+        hormiga_mejor_solucion->vehiculos_necesarios = eliminar_vehiculos_vacios(hormiga_mejor_solucion->flota);
 
-        if (ind->hormiga->flota)
-            liberar_lista_vehiculos(ind->hormiga->flota);
-
-        ind->hormiga->flota = copiar_lista_vehiculos(ind->metal->mejor_solucion);
+        // Si se eliminaron vehículos, re-evaluar
+        if (vehiculos_antes != hormiga_mejor_solucion->vehiculos_necesarios)
+        {
+            evaluaFO_SA(hormiga_mejor_solucion, vrp, instancia_distancias);
+        }
     }
-    else
+}
+// Función principal que ejecuta SA sobre un individuo del VRP_TW con ventanas de tiempo
+void vrp_tw_sa(struct vrp_configuracion *vrp, struct hormiga *hormiga_original, struct individuo *ind, double **instancia_distancias)
+{
+    // Asignación de memoria para soluciones vecinas, actuales y mejores
+    struct hormiga *hormiga_solucion_vecina = asignar_memoria_hormigas(1);
+    struct hormiga *hormiga_solucion_actual = asignar_memoria_hormigas(1);
+    struct hormiga *hormiga_mejor_solucion = asignar_memoria_hormigas(1);
+    struct hormiga *hormiga_solucion_inicial = asignar_memoria_hormigas(1);
+
+    // Copia la solución original para iniciar el proceso de SA
+    hormiga_solucion_inicial = copiar_hormiga_sa(hormiga_original);
+    hormiga_solucion_vecina = copiar_hormiga_sa(hormiga_solucion_inicial);
+    hormiga_solucion_actual = copiar_hormiga_sa(hormiga_solucion_inicial);
+    hormiga_mejor_solucion = copiar_hormiga_sa(hormiga_solucion_inicial);
+
+    // Ejecuta el algoritmo de recocido simulado
+    sa(vrp, hormiga_solucion_vecina, hormiga_solucion_actual, hormiga_mejor_solucion, ind, instancia_distancias);
+
+    // Si la mejor solución obtenida es mejor que la original, actualiza la solución original
+    if (hormiga_mejor_solucion->fitness_global < hormiga_original->fitness_global)
     {
-        printf("\nNo mejora %.2lf", ind->hormiga->fitness_global);
+        hormiga_original->fitness_global = hormiga_mejor_solucion->fitness_global;
+        hormiga_original->vehiculos_necesarios = hormiga_mejor_solucion->vehiculos_necesarios;
+
+        // Libera la memoria de la flota original antes de copiar la nueva solución
+        if (hormiga_original->flota)
+            liberar_lista_vehiculos(hormiga_original->flota);
+
+        hormiga_original->flota = copiar_lista_vehiculos(hormiga_mejor_solucion->flota);
     }
 
-    liberar_memoria_metal(ind); // Limpieza final
+    // Libera la memoria de las soluciones temporales usadas en SA
+    liberar_memoria_hormiga(hormiga_solucion_inicial, 1);
+    liberar_memoria_hormiga(hormiga_solucion_vecina, 1);
+    liberar_memoria_hormiga(hormiga_solucion_actual, 1);
+    liberar_memoria_hormiga(hormiga_mejor_solucion, 1);
 }

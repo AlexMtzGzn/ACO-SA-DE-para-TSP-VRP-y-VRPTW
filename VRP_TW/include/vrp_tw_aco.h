@@ -11,7 +11,7 @@ void recuperamos_mejor_hormiga(struct individuo *ind, struct hormiga *hormiga);
 void refuerzo_feromona_mejor_ruta(struct hormiga *hormiga, double **instancia_feromona, double delta);
 
 // Función para actualizar la feromona en el sistema
-void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga, struct vrp_configuracion *vrp, double **instancia_feromona, double delta);
+void actualizar_feromona(struct individuo *ind, struct hormiga *hormiga,struct mejores_hormigas *mejores_hormigas, struct vrp_configuracion *vrp, double **instancia_feromona, double delta);
 
 // Función para calcular el fitness de una hormiga basado en las distancias
 void evaluaFO_ACO(struct hormiga *hormiga, double **instancia_distancias);

@@ -1,4 +1,4 @@
-# 🚚 "Optimización del Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
+# 🚚 "Resolución del Problema de Rutas Vehiculares con Ventanas de Tiempo Mediante un Algoritmo Híbrido Entre Colonia de Hormigas y Recocido Simulado."
 
 Este proyecto implementa una solución híbrida para el Problema de Rutas de Vehículos con Ventanas de Tiempo (VRPTW), combinando el algoritmo de Optimización por Colonias de Hormigas (**ACO**) con Recocido Simulado (**SA**) como refinador local, y ajustando automáticamente sus parámetros mediante un Algoritmo Evolutivo Diferencial (**DE**).
 
@@ -27,7 +27,7 @@ Si un vehículo llega antes del tiempo más temprano, debe esperar. Si no puede 
 
 ACO (Ant Colony Optimization) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
 
-En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromona. Cuanto mejor sea el camino (más corto), más feromona se acumulan, y más probable es que otras hormigas lo sigan, reforzando así la solución.
+En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromona. Cuanto mejor sea el camino (más corto), más feromona se acumula, y más probable es que otras hormigas lo sigan, reforzando así la solución.
 
 En el VRPTW, simulamos este comportamiento:
 
@@ -36,7 +36,7 @@ En el VRPTW, simulamos este comportamiento:
   - **Cantidad de feromona** (lo aprendido)
   - **Visibilidad** (inverso de la distancia)
   - **Factibilidad temporal** (ventanas de tiempo)
-- Después de cada iteración, se actualizan las feromonas, favoreciendo los caminos más cortos y temporalmente viables.
+- Después de cada iteración, se actualiza la feromona, favoreciendo los caminos más cortos y temporalmente viables.
 - Se respetan las **restricciones de capacidad y tiempo** de cada vehículo.
 
 ## 🔥 ¿Qué es el Recocido Simulado (SA)?
@@ -53,33 +53,86 @@ En optimización:
 
 ---
 
-## 🔄 Movimientos de Vecindad del Recocido Simulado (SA)
+### ⚙️ Descripción de Operadores Utilizados en el Recocido Simulado (SA)
 
-Durante la optimización local con SA, se generan **soluciones vecinas** a partir de la solución actual mediante uno de los siguientes tres movimientos aleatorios:
+Este algoritmo aplica distintos operadores de vecindad para explorar nuevas soluciones del problema de ruteo de vehículos (VRP_TW). A continuación, se describen los operadores utilizados:
 
-1. **Mover dos clientes entre vehículos:**  
-   Se seleccionan dos clientes pertenecientes a vehículos distintos y se intercambian. Este cambio solo se acepta si, luego del intercambio, ambas rutas continúan siendo factibles en términos de capacidad y tiempos de llegada a cada cliente.
+### Operador 1: `opt_2`
+- **Descripción:** Elimina dos aristas y reconecta las rutas invirtiendo el segmento intermedio.
+- **Ejemplo:**  
+  Ruta: `[0, 2, 4, 5, 3, 1, 0]`  
+  → Elimina `(4-5)` y `(3-1)`  
+  → Resultado: `[0, 2, 4, 3, 5, 1, 0]`
 
-2. **Mover un cliente a otro vehículo:**  
-   Se toma un cliente de una ruta y se intenta insertarlo en una posición aleatoria dentro de otra ruta. Este movimiento permite reequilibrar la carga de trabajo entre vehículos, siempre respetando la capacidad máxima y el cumplimiento de las ventanas de tiempo en la nueva ruta.
 
-3. **Intercambiar dos clientes dentro de una misma ruta:**  
-   Se seleccionan dos clientes de la misma ruta y se intercambian de posición. Este cambio modifica el orden de visita y puede mejorar la eficiencia temporal o reducir la distancia, sin afectar la asignación de vehículos.
 
-La elección del movimiento se realiza aleatoriamente con igual probabilidad, usando el siguiente criterio:
+### Operador 2: `or_opt`
+- **Descripción:** Mueve uno o más clientes consecutivos a otra posición en la misma o en otra ruta.
+- **Ejemplo:**  
+  De: `[1, 3, 4, 5]`  
+  Mueve `[3,4]` detrás de 5 → `[1, 5, 3, 4]`
 
-```bash
-if (prob < factor / 3.0)
-    aceptado = moverDosClientesVehiculos(...);
-else if (prob < 2.0 * factor / 3.0)
-    aceptado = moverClienteEntreVehiculos(...);
-else
-    aceptado = intercambiarClienteRuta(...);
-```
 
-Donde prob es un número aleatorio entre 0 y 1, y factor es calibrado por DE.
 
-Este conjunto de movimientos permite que SA explore diversas configuraciones vecinas, ayudando a escapar de óptimos locales y mejorando la calidad de las rutas generadas por ACO.
+### Operador 3: `swap_intra`
+- **Descripción:** Intercambia dos clientes dentro de la misma ruta.
+- **Ejemplo:**  
+  `[0, 1, 2, 3, 0]` → Intercambia 1 y 3 → `[0, 3, 2, 1, 0]`
+
+
+
+### Operador 4: `swap_inter`
+- **Descripción:** Intercambia clientes entre dos rutas distintas.
+- **Ejemplo:**  
+  Ruta 1: `[0, 2, 4, 0]`  
+  Ruta 2: `[0, 3, 5, 0]`  
+  Intercambia 4 y 5 →  
+  Ruta 1: `[0, 2, 5, 0]`  
+  Ruta 2: `[0, 3, 4, 0]`
+
+
+### Operador 5: `reinsercion_intra_inter`
+- **Descripción:** Reubica un cliente en otra posición dentro de la misma ruta o en otra.
+- **Ejemplo:**  
+  Ruta 1: `[0, 1, 4, 0]`  
+  Ruta 2: `[0, 2, 3, 0]`  
+  Mueve 4 a Ruta 2 →  
+  Ruta 1: `[0, 1, 0]`  
+  Ruta 2: `[0, 2, 3, 4, 0]`
+
+
+### Operador 6: `opt_2_5`
+- **Descripción:** Variante extendida del 2-opt que permite múltiples cortes y reconexiones.
+- **Ejemplo:**  
+  `[0, 1, 2, 3, 4, 0]` → `[0, 1, 4, 3, 2, 0]`
+
+
+### Operador 7: `cross_exchange`
+- **Descripción:** Intercambia subsecuencias entre dos rutas.
+- **Ejemplo:**  
+  Ruta 1: `[0, 1, 2, 0]`  
+  Ruta 2: `[0, 3, 4, 0]`  
+  Intercambia `[1,2]` con `[3,4]` →  
+  Ruta 1: `[0, 3, 4, 0]`  
+  Ruta 2: `[0, 1, 2, 0]`
+
+
+### Operador 8: `relocate_chain`
+- **Descripción:** Mueve una cadena de clientes (por ejemplo: `[2,3,4]`) a otra posición.
+- **Ejemplo:**  
+  Ruta 1: `[0, 1, 2, 3, 4, 0]`  
+  Ruta 2: `[0, 5, 6, 0]`  
+  Mueve `[2,3,4]` a Ruta 2 →  
+  Ruta 1: `[0, 1, 0]`  
+  Ruta 2: `[0, 5, 6, 2, 3, 4, 0]`
+
+
+### Observaciones
+- Los operadores **1, 2, 3 y 6** son **intra-ruta** (actúan dentro de una sola ruta).
+- Los operadores **4, 5, 7 y 8** son **inter-ruta** (actúan entre distintas rutas).
+- La elección del operador se adapta dinámicamente según:
+  - Tamaño de la instancia (`num_clientes`)
+  - Número de vehículos en la solución actual
 
 ---
 
@@ -128,49 +181,52 @@ Esto permite que los algoritmos se ajusten de forma dinámica, dependiendo de la
 
 | Parámetro                | Mínimo | Máximo |
 | ------------------------ | ------ | ------ |
-| `alpha`                  | 1.0    | 2.5    |
-| `beta`                   | 1.0    | 5.0    |
-| `gamma`                  | 0.5    | 2.0    |
-| `rho`                    | 0.4    | 0.6    |
-| `número de hormigas`     | 10     | 20     |
-| `iteraciones ACO`        | 50     | 100    |
-| `temperatura inicial`    | 1000.0 | 2000.0 |
-| `temperatura final`      | 0.1    | 0.05   |
-| `factor de enfriamiento` | 0.95   | 0.999  |
-| `factor de control`      | 0.6    | 0.8    |
-| `iteraciones SA`         | 100    | 150    |
-
-#### 🔸 Instancia Mediana (`50 clientes`)
-
-| Parámetro                | Mínimo | Máximo |
-| ------------------------ | ------ | ------ |
-| `alpha`                  | 2.0    | 4.0    |
-| `beta`                   | 4.0    | 6.0    |
-| `gamma`                  | 1.0    | 3.0    |
+| `alpha`                  | 2.0    | 3.5    |
+| `beta`                   | 2.5    | 4.0    |
+| `gamma`                  | 2.5    | 1.0    |
 | `rho`                    | 0.3    | 0.5    |
-| `número de hormigas`     | 20     | 35     |
-| `iteraciones ACO`        | 100    | 150    |
-| `temperatura inicial`    | 1800.0 | 2500.0 |
-| `temperatura final`      | 0.1    | 0.02   |
-| `factor de enfriamiento` | 0.96   | 0.999  |
-| `factor de control`      | 0.7    | 0.9    |
-| `iteraciones SA`         | 150    | 200    |
+| `número de hormigas`     | 6      | 6      |
+| `porcentaje hormigas`    | 0.30   | 0.60   |
+| `iteraciones ACO`        | 60     | 80     |
+| `temperatura inicial`    | 1200.0 | 1800.0 |
+| `temperatura final`      | 0.01   | 0.1    |
+| `factor de enfriamiento` | 0.95   | 0.98   |
+| `iteraciones SA`         | 80     | 120    |
 
-#### 🔸 Instancia Grande (`100 clientes`)
+
+#### 🔸 Instancia Mediana (`27–51 clientes`)
 
 | Parámetro                | Mínimo | Máximo |
 | ------------------------ | ------ | ------ |
-| `alpha`                  | 3.0    | 6.0    |
-| `beta`                   | 5.0    | 8.0    |
-| `gamma`                  | 2.0    | 6.0    |
-| `rho`                    | 0.1    | 0.4    |
-| `número de hormigas`     | 35     | 50     |
-| `iteraciones ACO`        | 150    | 200    |
-| `temperatura inicial`    | 2000.0 | 3000.0 |
-| `temperatura final`      | 0.0001 | 0.05   |
-| `factor de enfriamiento` | 0.97   | 0.999  |
-| `factor de control`      | 0.7    | 0.9    |
+| `alpha`                  | 2.5    | 4.0    |
+| `beta`                   | 3.5    | 5.0    |
+| `gamma`                  | 1.5    | 3.0    |
+| `rho`                    | 0.25   | 0.45   |
+| `número de hormigas`     | 6      | 12     |
+| `porcentaje hormigas`    | 0.20   | 0.50   |
+| `iteraciones ACO`        | 100    | 150    |
+| `temperatura inicial`    | 1600.0 | 2200.0 |
+| `temperatura final`      | 0.005  | 0.05   |
+| `factor de enfriamiento` | 0.97   | 0.99   |
+| `iteraciones SA`         | 120    | 200    |
+
+
+#### 🔸 Instancia Grande (`52–101 clientes`)
+
+| Parámetro                | Mínimo | Máximo |
+| ------------------------ | ------ | ------ |
+| `alpha`                  | 3.0    | 5.0    |
+| `beta`                   | 4.0    | 6.0    |
+| `gamma`                  | 2.0    | 4.0    |
+| `rho`                    | 0.10   | 0.30   |
+| `número de hormigas`     | 10     | 20     |
+| `porcentaje hormigas`    | 0.15   | 0.35   |
+| `iteraciones ACO`        | 120    | 180    |
+| `temperatura inicial`    | 2500.0 | 4000.0 |
+| `temperatura final`      | 0.001  | 0.01   |
+| `factor de enfriamiento` | 0.97   | 0.995  |
 | `iteraciones SA`         | 200    | 300    |
+
 
 ### 🧠 ¿Por qué definir rangos diferentes?
 
@@ -266,19 +322,26 @@ El objetivo principal de este proyecto es encontrar las mejores rutas para el **
    - Se genera un archivo `.json` que contiene todos los parámetros utilizados en la ejecución, tales como:
      - Nombre del archivo de entrada
      - Tiempo de ejecución en minutos
-     - α (alpha), β (beta), γ (gamma), ρ (rho)
+     - Poblacion y Generaciones
+     - α (alpha), β (beta), γ (gamma), ρ (rho) 
      - Número de hormigas
      - Número de iteraciones
+     - T.ini, T.fin, Factor enfriamiento, Numero de iteraciones
      - Valor de fitness de la solución
      - Flota:
        - ID_Vehiculo
+       - Velocidad
        - Capacidad Maxima
        - Capacidad Acumulada
-       - Tiempo Consumido
-       - Tiempo Maximo
+       - Tiempo Salida
+       - Tiempo Llegada
+       - Venta Inicial
+       - Ventana Final
        - Numero Clientes
        - Fitness Vehiculo
        - Rutas generada(listas de clientes)
+       - Rutas coordenadas(listas de coordenadas clientes)
+       - Tiempos de clientes
 
 4. **Imagen simulada**
 
@@ -302,47 +365,465 @@ El archivo `JSON` generado tendrá la siguiente estructura:
 
 ```json
 {
-  "Archivo": "C101_(25)",
-  "Tiempo Ejecucion en Minutos": 1,
-  "Alpha": 2.01145185926531,
-  "Beta": 1.1645681097472869,
-  "Gamma": 1.1346780471665217,
-  "Rho": 0.14182290064255842,
-  "Numero Hormigas": 62,
-  "Numero Iteraciones": 175,
-  "Fitness Global": 191.8136197786562,
-  "flota": [
-    {
-      "Id_vehiculo": 1,
-      "Capacidad Maxima": 200,
-      "Capacidad Acumulada": 160,
-      "Tiempo Consumido": 1236,
-      "Tiempo Maximo": 1236,
-      "Numero Clientes": 11,
-      "Fitness Vehiculo": 59.488230933533082,
-      "Ruta Clientes": [0, 5, 3, 7, 8, 10, 11, 9, 6, 4, 2, 1, 0]
-    },
-    {
-      "Id_vehiculo": 2,
-      "Capacidad Maxima": 200,
-      "Capacidad Acumulada": 190,
-      "Tiempo Consumido": 1236,
-      "Tiempo Maximo": 1236,
-      "Numero Clientes": 8,
-      "Fitness Vehiculo": 95.884709130818266,
-      "Ruta Clientes": [0, 13, 17, 18, 19, 15, 16, 14, 12, 0]
-    },
-    {
-      "Id_vehiculo": 3,
-      "Capacidad Maxima": 200,
-      "Capacidad Acumulada": 110,
-      "Tiempo Consumido": 1007.2426406871193,
-      "Tiempo Maximo": 1236,
-      "Numero Clientes": 6,
-      "Fitness Vehiculo": 36.440679714304849,
-      "Ruta Clientes": [0, 20, 24, 25, 23, 22, 21, 0]
-    }
-  ]
+	"Archivo":	"C104_(25)",
+	"Tiempo Ejecucion en Minutos":	2,
+	"Poblacion":	3,
+	"Generaciones":	5,
+	"Alpha":	2.8141023790529474,
+	"Beta":	3.8692335087662717,
+	"Gamma":	1.247727090375371,
+	"Rho":	0.477554173198321,
+	"Numero Hormigas":	4,
+	"Porcentaje Hormigas":	0.31966146059318512,
+	"Numero Iteraciones ACO":	71,
+	"Temperatura Inicial":	1783.5621627902437,
+	"Temperatura Final":	0.01050384173193194,
+	"Factor de Enfriamiento":	0.9645347308574872,
+	"Numero Iteraciones SA":	105,
+	"Fitness Global":	187.44945538505974,
+	"Flota":	[{
+			"Id_vehiculo":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	150,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1202.3438485013496,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	10,
+			"Fitness Vehiculo":	54.968966901432061,
+			"Ruta Clientes":	[0, 7, 8, 11, 9, 6, 4, 2, 1, 3, 5, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	40,
+					"Y":	66
+				}, {
+					"X":	38,
+					"Y":	68
+				}, {
+					"X":	35,
+					"Y":	69
+				}, {
+					"X":	38,
+					"Y":	70
+				}, {
+					"X":	40,
+					"Y":	69
+				}, {
+					"X":	42,
+					"Y":	68
+				}, {
+					"X":	45,
+					"Y":	70
+				}, {
+					"X":	45,
+					"Y":	68
+				}, {
+					"X":	42,
+					"Y":	66
+				}, {
+					"X":	42,
+					"Y":	65
+				}, {
+					"X":	40,
+					"Y":	50
+				}],
+			"Detalles Cliente":	[{
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	0,
+					"Espera":	0,
+					"Inicio Servicio":	0,
+					"Duración":	0,
+					"Salida":	0
+				}, {
+					"Cliente":	7,
+					"Demanda":	20,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1130,
+					"Llegada":	16,
+					"Espera":	0,
+					"Inicio Servicio":	16,
+					"Duración":	90,
+					"Salida":	106
+				}, {
+					"Cliente":	8,
+					"Demanda":	20,
+					"Ventana Inicial":	255,
+					"Ventana Final":	324,
+					"Llegada":	108.82842712474618,
+					"Espera":	146.17157287525382,
+					"Inicio Servicio":	255,
+					"Duración":	90,
+					"Salida":	345
+				}, {
+					"Cliente":	11,
+					"Demanda":	10,
+					"Ventana Inicial":	448,
+					"Ventana Final":	505,
+					"Llegada":	348.1622776601684,
+					"Espera":	99.8377223398316,
+					"Inicio Servicio":	448,
+					"Duración":	90,
+					"Salida":	538
+				}, {
+					"Cliente":	9,
+					"Demanda":	10,
+					"Ventana Inicial":	534,
+					"Ventana Final":	605,
+					"Llegada":	541.16227766016834,
+					"Espera":	0,
+					"Inicio Servicio":	541.16227766016834,
+					"Duración":	90,
+					"Salida":	631.16227766016834
+				}, {
+					"Cliente":	6,
+					"Demanda":	20,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1127,
+					"Llegada":	633.39834563766817,
+					"Espera":	0,
+					"Inicio Servicio":	633.39834563766817,
+					"Duración":	90,
+					"Salida":	723.39834563766817
+				}, {
+					"Cliente":	4,
+					"Demanda":	10,
+					"Ventana Inicial":	727,
+					"Ventana Final":	782,
+					"Llegada":	725.634413615168,
+					"Espera":	1.3655863848319996,
+					"Inicio Servicio":	727,
+					"Duración":	90,
+					"Salida":	817
+				}, {
+					"Cliente":	2,
+					"Demanda":	30,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1125,
+					"Llegada":	820.605551275464,
+					"Espera":	0,
+					"Inicio Servicio":	820.605551275464,
+					"Duración":	90,
+					"Salida":	910.605551275464
+				}, {
+					"Cliente":	1,
+					"Demanda":	10,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1127,
+					"Llegada":	912.605551275464,
+					"Espera":	0,
+					"Inicio Servicio":	912.605551275464,
+					"Duración":	90,
+					"Salida":	1002.605551275464
+				}, {
+					"Cliente":	3,
+					"Demanda":	10,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1129,
+					"Llegada":	1006.211102550928,
+					"Espera":	0,
+					"Inicio Servicio":	1006.211102550928,
+					"Duración":	90,
+					"Salida":	1096.211102550928
+				}, {
+					"Cliente":	5,
+					"Demanda":	10,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1130,
+					"Llegada":	1097.211102550928,
+					"Espera":	0,
+					"Inicio Servicio":	1097.211102550928,
+					"Duración":	90,
+					"Salida":	1187.211102550928
+				}, {
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	1202.3438485013496,
+					"Espera":	0,
+					"Inicio Servicio":	1202.3438485013496,
+					"Duración":	0,
+					"Salida":	1202.3438485013496
+				}]
+		}, {
+			"Id_vehiculo":	2,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	200,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	906.0398087693228,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	9,
+			"Fitness Vehiculo":	96.039808769322832,
+			"Ruta Clientes":	[0, 13, 17, 18, 19, 15, 16, 14, 12, 10, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	22,
+					"Y":	75
+				}, {
+					"X":	18,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	85
+				}, {
+					"X":	22,
+					"Y":	85
+				}, {
+					"X":	25,
+					"Y":	85
+				}, {
+					"X":	35,
+					"Y":	66
+				}, {
+					"X":	40,
+					"Y":	50
+				}],
+			"Detalles Cliente":	[{
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	0,
+					"Espera":	0,
+					"Inicio Servicio":	0,
+					"Duración":	0,
+					"Salida":	0
+				}, {
+					"Cliente":	13,
+					"Demanda":	30,
+					"Ventana Inicial":	30,
+					"Ventana Final":	92,
+					"Llegada":	30.805843601498726,
+					"Espera":	0,
+					"Inicio Servicio":	30.805843601498726,
+					"Duración":	90,
+					"Salida":	120.80584360149872
+				}, {
+					"Cliente":	17,
+					"Demanda":	20,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1112,
+					"Llegada":	124.80584360149872,
+					"Espera":	0,
+					"Inicio Servicio":	124.80584360149872,
+					"Duración":	90,
+					"Salida":	214.80584360149874
+				}, {
+					"Cliente":	18,
+					"Demanda":	20,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1110,
+					"Llegada":	217.80584360149874,
+					"Espera":	0,
+					"Inicio Servicio":	217.80584360149874,
+					"Duración":	90,
+					"Salida":	307.80584360149874
+				}, {
+					"Cliente":	19,
+					"Demanda":	10,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1106,
+					"Llegada":	312.80584360149874,
+					"Espera":	0,
+					"Inicio Servicio":	312.80584360149874,
+					"Duración":	90,
+					"Salida":	402.80584360149874
+				}, {
+					"Cliente":	15,
+					"Demanda":	40,
+					"Ventana Inicial":	384,
+					"Ventana Final":	429,
+					"Llegada":	407.80584360149874,
+					"Espera":	0,
+					"Inicio Servicio":	407.80584360149874,
+					"Duración":	90,
+					"Salida":	497.80584360149874
+				}, {
+					"Cliente":	16,
+					"Demanda":	40,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1105,
+					"Llegada":	502.80584360149874,
+					"Espera":	0,
+					"Inicio Servicio":	502.80584360149874,
+					"Duración":	90,
+					"Salida":	592.80584360149874
+				}, {
+					"Cliente":	14,
+					"Demanda":	10,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1106,
+					"Llegada":	594.80584360149874,
+					"Espera":	0,
+					"Inicio Servicio":	594.80584360149874,
+					"Duración":	90,
+					"Salida":	684.80584360149874
+				}, {
+					"Cliente":	12,
+					"Demanda":	20,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1107,
+					"Llegada":	687.80584360149874,
+					"Espera":	0,
+					"Inicio Servicio":	687.80584360149874,
+					"Duración":	90,
+					"Salida":	777.80584360149874
+				}, {
+					"Cliente":	10,
+					"Demanda":	10,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1129,
+					"Llegada":	799.27675415508259,
+					"Espera":	0,
+					"Inicio Servicio":	799.27675415508259,
+					"Duración":	90,
+					"Salida":	889.27675415508259
+				}, {
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	906.0398087693228,
+					"Espera":	0,
+					"Inicio Servicio":	906.0398087693228,
+					"Duración":	0,
+					"Salida":	906.0398087693228
+				}]
+		}, {
+			"Id_vehiculo":	3,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	110,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1017.1980390271856,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	6,
+			"Fitness Vehiculo":	36.440679714304849,
+			"Ruta Clientes":	[0, 20, 24, 25, 23, 22, 21, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	30,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	52
+				}, {
+					"X":	28,
+					"Y":	55
+				}, {
+					"X":	28,
+					"Y":	52
+				}, {
+					"X":	30,
+					"Y":	52
+				}, {
+					"X":	40,
+					"Y":	50
+				}],
+			"Detalles Cliente":	[{
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	0,
+					"Espera":	0,
+					"Inicio Servicio":	0,
+					"Duración":	0,
+					"Salida":	0
+				}, {
+					"Cliente":	20,
+					"Demanda":	10,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1136,
+					"Llegada":	10,
+					"Espera":	0,
+					"Inicio Servicio":	10,
+					"Duración":	90,
+					"Salida":	100
+				}, {
+					"Cliente":	24,
+					"Demanda":	10,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1131,
+					"Llegada":	105,
+					"Espera":	0,
+					"Inicio Servicio":	105,
+					"Duración":	90,
+					"Salida":	195
+				}, {
+					"Cliente":	25,
+					"Demanda":	40,
+					"Ventana Inicial":	169,
+					"Ventana Final":	224,
+					"Llegada":	197,
+					"Espera":	0,
+					"Inicio Servicio":	197,
+					"Duración":	90,
+					"Salida":	287
+				}, {
+					"Cliente":	23,
+					"Demanda":	10,
+					"Ventana Inicial":	732,
+					"Ventana Final":	777,
+					"Llegada":	291.24264068711926,
+					"Espera":	440.75735931288074,
+					"Inicio Servicio":	732,
+					"Duración":	90,
+					"Salida":	822
+				}, {
+					"Cliente":	22,
+					"Demanda":	20,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1133,
+					"Llegada":	825,
+					"Espera":	0,
+					"Inicio Servicio":	825,
+					"Duración":	90,
+					"Salida":	915
+				}, {
+					"Cliente":	21,
+					"Demanda":	20,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1135,
+					"Llegada":	917,
+					"Espera":	0,
+					"Inicio Servicio":	917,
+					"Duración":	90,
+					"Salida":	1007
+				}, {
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	1017.1980390271856,
+					"Espera":	0,
+					"Inicio Servicio":	1017.1980390271856,
+					"Duración":	0,
+					"Salida":	1017.1980390271856
+				}]
+		}]
 }
 ```
 ---
@@ -424,13 +905,15 @@ make clean
 ├── include/                  # Archivos de cabecera (.h)
 │   ├── aed.h
 │   ├── configuracion_json.h
-│   ├── configuracion_vrp_tw.h  # Modificado para VRPTW
+│   ├── configuracion_vrp_tw.h  
 │   ├── control_memoria.h
 │   ├── estructuras.h
 │   ├── lista_flota.h
 │   ├── lista_ruta.h
+│   ├── movimientos_sa.h
 │   ├── salida_datos.h
-│   └── vrp_tw_aco.h            # Modificado para VRPTW
+│   ├── vrp_tw_aco.h
+│   └── vrp_tw_sa.h           
 ├── Instancias/               # Instancias CSV utilizadas en la ejecución
 │   ├── Instancias_25/
 │   ├── Instancias_50/
@@ -454,14 +937,16 @@ make clean
 ├── src/                      # Código fuente del proyecto en C y Python
 │   ├── aed.c
 │   ├── configuracion_json.c
-│   ├── configuracion_vrp_tw.c  # Modificado para VRPTW
+│   ├── configuracion_vrp_tw.c  
 │   ├── control_memoria.c
 │   ├── lista_flota.c
 │   ├── lista_ruta.c
 │   ├── main.c
+│   ├── movimientos_sa.c
 │   ├── salida_datos.c
-│   ├── vrp_tw_aco.c           # Modificado para VRPTW
-│   └── Simulador_VRP_TW/      # Modificado para VRPTW
+│   ├── vrp_tw_aco.c
+│   ├── vrp_tw_sa.c          
+│   └── Simulador_VRP_TW/      
 │       └── simulador_vrp_tw.py
 └── VRP_Solomon/              # Instancias del benchmark Solomon para VRPTW
     ├── VRP_Solomon_25/
