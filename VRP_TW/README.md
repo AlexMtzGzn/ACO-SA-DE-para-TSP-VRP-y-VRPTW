@@ -27,7 +27,7 @@ Si un vehículo llega antes del tiempo más temprano, debe esperar. Si no puede 
 
 ACO (Ant Colony Optimization) es una metaheurística inspirada en el comportamiento colectivo de las colonias de hormigas.
 
-En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromona. Cuanto mejor sea el camino (más corto), más feromona se acumulan, y más probable es que otras hormigas lo sigan, reforzando así la solución.
+En la naturaleza, las hormigas encuentran caminos cortos entre su nido y las fuentes de comida dejando feromona. Cuanto mejor sea el camino (más corto), más feromona se acumula, y más probable es que otras hormigas lo sigan, reforzando así la solución.
 
 En el VRPTW, simulamos este comportamiento:
 
@@ -36,7 +36,7 @@ En el VRPTW, simulamos este comportamiento:
   - **Cantidad de feromona** (lo aprendido)
   - **Visibilidad** (inverso de la distancia)
   - **Factibilidad temporal** (ventanas de tiempo)
-- Después de cada iteración, se actualizan las feromonas, favoreciendo los caminos más cortos y temporalmente viables.
+- Después de cada iteración, se actualiza la feromona, favoreciendo los caminos más cortos y temporalmente viables.
 - Se respetan las **restricciones de capacidad y tiempo** de cada vehículo.
 
 ## 🔥 ¿Qué es el Recocido Simulado (SA)?
