@@ -202,8 +202,8 @@ void construye_ruidosos(struct individuo *objetivo, struct individuo *ruidoso, s
       if (ruidoso[i].porcentajeHormigas > rango->maxPorcentajeHormigas)
          ruidoso[i].porcentajeHormigas = rango->maxPorcentajeHormigas;
 
-      if (ruidoso[i].porcentajeHormigas < rango->minPorcenjateHormigas)
-         ruidoso[i].porcentajeHormigas = rango->minPorcenjateHormigas;
+      if (ruidoso[i].porcentajeHormigas < rango->minPorcentajeHormigas)
+         ruidoso[i].porcentajeHormigas = rango->minPorcentajeHormigas;
 
       // Limita 'numIteracionesACO' a estar dentro de los valores mínimos y máximos
       if (ruidoso[i].numIteracionesACO > rango->maxNumIteracionesACO)
@@ -294,7 +294,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
       rango->minNumHormigas = 3; // Asignamos 3 a minNumHormigas
 
       rango->maxPorcentajeHormigas = 0.60; // Asignamos 0.60 a maxPorcentajeHormigas
-      rango->minPorcenjateHormigas = 0.30; // Asignamos 0.30 a minPorcenjateHormigas
+      rango->minPorcentajeHormigas = 0.30; // Asignamos 0.30 a minPorcentateHormigas
 
       rango->maxNumIteracionesACO = 80; // Asignamos 80 a maxNumIteracionesACO
       rango->minNumIteracionesACO = 60; // Asignamos 60 a minNumIteracionesACO
@@ -330,7 +330,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
       rango->minNumHormigas = 6;  // Asignamos 6 a minNumHormigas
 
       rango->maxPorcentajeHormigas = 0.50; // Asignamos 0.50 a maxPorcentajeHormigas
-      rango->minPorcenjateHormigas = 0.20; // Asignamos 0.20 a minPorcentajeHormigas
+      rango->minPorcentajeHormigas = 0.20; // Asignamos 0.20 a minPorcentajeHormigas
 
       rango->maxNumIteracionesACO = 150; // Asignamos 150 a maxNumIteracionesACO
       rango->minNumIteracionesACO = 100; // Asignamos 100 a minNumIteracionesACO
@@ -366,7 +366,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
       rango->minNumHormigas = 10; // Asignamos 10 a minNumHormigas
 
       rango->maxPorcentajeHormigas = 0.35; // Asignamos 0.35 a maxPorcentajeHormigas
-      rango->minPorcenjateHormigas = 0.15; // Asignamos 0.15 a minPorcentajeHormigas
+      rango->minPorcentajeHormigas = 0.15; // Asignamos 0.15 a minPorcentajeHormigas
 
       rango->maxNumIteracionesACO = 180; // Asignamos 180 a maxNumIteracionesACO
       rango->minNumIteracionesACO = 120; // Asignamos 120 a minNumIteracionesACO
@@ -378,7 +378,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
       rango->minTemperatura_final = 0.001; // Asignamos 0.001 a minTemperatura_final
 
       rango->maxFactor_enfriamiento = 0.995; // Asignamos 0.995 a maxFactor_enfriamiento
-      rango->minFactor_enfriamiento = 0.98;  // Asignamos 0.98 a minFactor_enfriamiento
+      rango->minFactor_enfriamiento = 0.97;  // Asignamos 0.98 a minFactor_enfriamiento
 
       rango->maxIteracionesSA = 300; // Asignamos 300 a maxIteracionesSA
       rango->minIteracionesSA = 200; // Asignamos 200 a minIteracionesSA
@@ -394,7 +394,7 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
       objetivo[i].gamma = genera_aleatorio(rango->minGamma, rango->maxGamma);
       objetivo[i].rho = genera_aleatorio(rango->minRho, rango->maxRho);
       objetivo[i].numHormigas = (int)genera_aleatorio(rango->minNumHormigas, rango->maxNumHormigas);
-      objetivo[i].porcentajeHormigas = genera_aleatorio(rango->minPorcenjateHormigas, rango->maxPorcentajeHormigas);
+      objetivo[i].porcentajeHormigas = genera_aleatorio(rango->minPorcentajeHormigas, rango->maxPorcentajeHormigas);
       objetivo[i].numIteracionesACO = (int)genera_aleatorio(rango->minNumIteracionesACO, rango->maxNumIteracionesACO);
       objetivo[i].temperatura_inicial = genera_aleatorio(rango->minTemperatura_inicial, rango->maxTemperatura_inicial);
       objetivo[i].temperatura_final = genera_aleatorio(rango->minTemperatura_final, rango->maxTemperatura_final);

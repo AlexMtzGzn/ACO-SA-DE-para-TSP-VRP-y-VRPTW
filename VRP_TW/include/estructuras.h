@@ -155,7 +155,7 @@ typedef struct rangos
     double maxNumHormigas;         // Número máximo de hormigas
     double minNumHormigas;         // Número mínimo de hormigas
     double maxPorcentajeHormigas;  // Porcentaje máximo de hormigas
-    double minPorcenjateHormigas;  // Porcentaje mínimo de hormigas
+    double minPorcentajeHormigas;  // Porcentaje mínimo de hormigas
     int maxNumIteracionesACO;      // Número máximo de iteraciones ACO
     int minNumIteracionesACO;      // Número mínimo de iteraciones ACO
     double maxTemperatura_inicial; // Temperatura inicial máxima

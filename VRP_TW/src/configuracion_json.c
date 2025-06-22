@@ -15,7 +15,7 @@ cJSON *detalles_clientes_json(struct datos_cliente *datos_cliente, int numClient
     for (int i = 0; i < numClientes; i++)
     {
         cJSON *detalle = cJSON_CreateObject();
-        if (i == 0)
+        if (datos_cliente[i].cliente == 0)
             cJSON_AddStringToObject(detalle, "Cliente", "Depósito");
         else
             cJSON_AddNumberToObject(detalle, "Cliente", datos_cliente[i].cliente);
