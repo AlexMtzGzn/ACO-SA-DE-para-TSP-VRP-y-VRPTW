@@ -1,4 +1,4 @@
-# 🚚 "Optimización del Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW) mediante una Metaheurística Híbrida ACO-SA con Calibración de Parámetros por Evolución Diferencial"
+# 🚚 "Resolución del Problema de Rutas Vehiculares con Ventanas de Tiempo Mediante un Algoritmo Híbrido Entre Colonia de Hormigas y Recocido Simulado."
 
 Este proyecto implementa una solución híbrida para el Problema de Rutas de Vehículos con Ventanas de Tiempo (VRPTW), combinando el algoritmo de Optimización por Colonias de Hormigas (**ACO**) con Recocido Simulado (**SA**) como refinador local, y ajustando automáticamente sus parámetros mediante un Algoritmo Evolutivo Diferencial (**DE**).
 
