@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  30 MAY 2025 00:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  23 JUN 2025 22:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -626,7 +626,7 @@ LaTeX Info: Redefining \% on input line 8.
 Here is how much of TeX's memory you used:
  12306 strings out of 480247
  212103 string characters out of 5896151
- 525853 words of memory out of 5000000
+ 525855 words of memory out of 5000000
  30087 multiletter control sequences out of 15000+600000
  477630 words of font info for 58 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
