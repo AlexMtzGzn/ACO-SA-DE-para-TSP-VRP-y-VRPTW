@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex main"] 1750728632 "main.aux" "main.bbl" "main" 1750728635
+["bibtex main"] 1750736598 "main.aux" "main.bbl" "main" 1750736624
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1750728634 3819 e05628a4bc15c879aa08a80cfdaee8ca "pdflatex"
-  "referencias.bib" 1750723632 821 b71f212e806d3c20a9e9bdf713b6fc09 ""
+  "main.aux" 1750736623 5317 1c9110ec021490da5e13e57d91e219be "pdflatex"
+  "referencias.bib" 1750736050 1945 d3d0e4608c39bacfaffd1192d38f9018 ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1750728632 "/home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex" "main.pdf" "main" 1750728635
+["pdflatex"] 1750736622 "/home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex" "main.pdf" "main" 1750736624
   "/etc/texmf/web2c/texmf.cnf" 1748552964 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/amg/.texlive2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1748569784 1405656 1b1523ec9d2243f713995ed8ccc59fec ""
-  "/home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex" 1750728630 8557 5288644d24d2805c7908697be8d25a01 ""
+  "/home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex" 1750736622 18805 8f38655ff4e8ff4dac61b0436c1811ce ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -143,6 +143,7 @@
   "/usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb" 1254938640 30635 833ec815d446ec453a4913fc26d24cbc ""
   "/usr/share/texmf/fonts/type1/public/lm/lmr12.pfb" 1254938640 113634 f99c44d58bae0863375faf0e1d74d612 ""
   "/usr/share/texmf/fonts/type1/public/lm/lmr17.pfb" 1254938640 119752 1bd8d06e4079df624bf59ce3ad7c9aa6 ""
+  "/usr/share/texmf/fonts/type1/public/lm/lmr8.pfb" 1254938640 122174 a7a08406857c9530a0320a2517f60370 ""
   "/usr/share/texmf/fonts/type1/public/lm/lmri12.pfb" 1254938640 109265 32320cb6133d4d76bf83e27b5eb4009b ""
   "/usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb" 1254938640 27863 09ce3735688ffde955e72da27c95b61a ""
   "/usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb" 1254938640 110323 92daea7ca7b4120bd2b54b047c93be27 ""
@@ -155,14 +156,14 @@
   "/usr/share/texmf/tex/latex/lm/t1lmtt.fd" 1256929440 2681 354015af3b61e7be30009f084986375a ""
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1749154869 128079 8307b05160bf39a2fd341a004bf1a4b3 ""
-  "main.aux" 1750728634 3819 e05628a4bc15c879aa08a80cfdaee8ca "pdflatex"
-  "main.bbl" 1750728632 655 c90dbfb1c695ec48626a83e06b887b31 "bibtex main"
-  "main.lof" 1750728634 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
-  "main.lot" 1750728634 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
-  "main.out" 1750728634 1776 470f42ee081be5b5eedc8940f631f8f5 "pdflatex"
-  "main.tex" 1750728630 8557 5288644d24d2805c7908697be8d25a01 ""
-  "main.toc" 1750728634 1207 4e61f60cbb4fe654de735e1a2288f907 "pdflatex"
-  "uamlogo.png" 1750563970 103636 d0360ba3eff246fafe1638a7dce8227b ""
+  "Imagnes/uamlogo.png" 1750563970 103636 d0360ba3eff246fafe1638a7dce8227b ""
+  "main.aux" 1750736623 5317 1c9110ec021490da5e13e57d91e219be "pdflatex"
+  "main.bbl" 1750736598 1334 d9d4a992f247b7532ca860715df800fd "bibtex main"
+  "main.lof" 1750736623 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
+  "main.lot" 1750736623 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
+  "main.out" 1750736623 2495 50ab90fd987c819e9341cf74c48647c1 "pdflatex"
+  "main.tex" 1750736622 18805 8f38655ff4e8ff4dac61b0436c1811ce ""
+  "main.toc" 1750736623 2017 4954dc16bb9fcf0074882afd6a452edb "pdflatex"
   (generated)
   "main.aux"
   "main.lof"

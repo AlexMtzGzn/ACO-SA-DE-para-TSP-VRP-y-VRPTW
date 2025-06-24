@@ -1,5 +1,11 @@
 \begin{thebibliography}{1}
 
+\bibitem{antonioSuarez2014}
+Orlando de~Antonio~Suárez.
+\newblock Una aproximación a la heurística y metaheurísticas.
+\newblock {\em INGE@UAN – Tendencias en la Ingeniería}, 1(2):–, 2014.
+\newblock Publicado el 4 de marzo de 2014.
+
 \bibitem{cobos2010}
 Sergio~Gerardo de~los Cobos~Silva, John~Goddard Close, Miguel Ángel
   Gutiérrez~Andrade, and Alma Edith~Martínez Licona.
@@ -7,6 +13,18 @@ Sergio~Gerardo de~los Cobos~Silva, John~Goddard Close, Miguel Ángel
 \newblock Libros CBI, Universidad Autónoma Metropolitana Iztapalapa, México,
   2010.
 \newblock Disponible en línea.
+
+\bibitem{madiPvsNP}
+{Madi}.
+\newblock Reducciones entre problemas p y np.
+\newblock \url{https://madi.nekomath.com/P5/ReduccionesPvsNP.html}.
+\newblock Recuperado el 23 de junio de 2025.
+
+\bibitem{palace_postrand2025}
+George~Palace T. and Mary~Postrand G.
+\newblock Computational complexity: Time and space.
+\newblock {\em Trinity College Dublin \& Maynooth University}, 2025.
+\newblock \texttt{george.palace@tcd.ie}, \texttt{mpg@mu.ie}.
 
 \bibitem{canek2008}
 Unidad~Azcapotzalco Universidad Autónoma~Metropolitana.

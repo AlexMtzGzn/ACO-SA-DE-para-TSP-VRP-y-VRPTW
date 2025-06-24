@@ -18,10 +18,18 @@
 
 % Encabezados
 \usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{} % Limpia encabezados
+\fancyfoot{} % Limpia pies
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
 
 % Hipervínculos y URLs
 \usepackage{hyperref}
-\usepackage{url}
+% \usepackage{url} % Opcional, puedes quitarlo porque hyperref ya maneja URLs
 
 % Márgenes
 \usepackage{geometry}
@@ -46,7 +54,7 @@
     pdfauthor={Alejandro Martínez Guzmán}
 }
 
-% Hacer que las páginas en blanco (por cleardoublepage) no tengan número ni encabezado
+% Páginas en blanco sin número ni encabezado
 \makeatletter
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
 \hbox{}
@@ -65,7 +73,11 @@
 \newtheorem{prop}{Proposición}[chapter]
 \newtheorem{ejemplo}{Ejemplo}[chapter]
 \newtheorem{obs}{Observación}[chapter]
-\newenvironment{demo}{\noindent\textbf{Demostración:}\ }{\hfill$\square$}
+\newenvironment{demo}{
+  \par\noindent\textbf{Demostración:}\quad
+}{
+  \hfill$\square$\par
+}
 
 % Comandos para portada
 \newcommand{\titulo}[1]{\def\eltitulo{#1}}
@@ -100,14 +112,14 @@
 			\vspace{.5cm}\hrule height2pt\vspace{.1cm}\hrule height1pt
 			\vspace{.5cm}{\scshape UNIDAD CUAJIMALPA}\vspace{.5cm}
 			\\
-			\includegraphics[width=3cm]{uamlogo.png}\vspace{.5cm}
+			\includegraphics[width=3cm]{Imagnes/uamlogo.png}\vspace{.5cm}
 			\\
 			{\Large \textsc{\eltitulo}}\vspace{1cm}
 			\makebox[8cm][c]{\Large Proyecto Terminal}\vspace{1cm}
 			\makebox[6cm]{QUE PRESENTA:}\\[3pt]\elnombre\vspace{1cm}
 			{\textsc{\large \lacarrera}}\vspace{1cm}\\
 			Departamento de Matemáticas Aplicadas e Ingeniería\\[13pt]
-			División de Ciencias Naturales e Ingeniería\vspace{1cm}
+			División de Ciencias Naturales e Ingeniería\vspace{.5cm}
 			\\
 			Asesor:\\ \eldirector\vfill
 			\begin{flushright}\lafecha\end{flushright}
@@ -206,13 +218,13 @@ La optimización continua se refiere a la búsqueda de soluciones óptimas en un
 Formalmente, para problemas de minimización, la solución óptima global \( x_{opt} \) satisface:
 
 \[
-f(x_{opt}) \leq f(x), \quad \forall x \in S,
+	f(x_{opt}) \leq f(x), \quad \forall x \in S,
 \]
 
 mientras que para maximización, se cumple que:
 
 \[
-f(x_{opt}) \geq f(x), \quad \forall x \in S.
+	f(x_{opt}) \geq f(x), \quad \forall x \in S.
 \]
 
 El valor \( f(x_{opt}) \) representa el costo o beneficio óptimo, y el conjunto de todas las soluciones óptimas se denota como \( S_{opt} \) \citep{cobos2010}.
@@ -224,16 +236,166 @@ Un problema de optimización combinatoria se formaliza mediante una pareja \((S,
 El objetivo es encontrar una solución óptima global \(i_{opt} \in S\) que cumpla:
 
 \[
-f(i_{opt}) \leq f(i), \quad \forall i \in S,
+	f(i_{opt}) \leq f(i), \quad \forall i \in S,
 \]
 
 para problemas de minimización, o bien:
 
 \[
-f(i_{opt}) \geq f(i), \quad \forall i \in S,
+	f(i_{opt}) \geq f(i), \quad \forall i \in S,
 \]
 
 en el caso de maximización.
+
+\subsection{Complejidad Computacional y el Problema P vs NP}
+
+La teoría de la complejidad computacional estudia los recursos necesarios para resolver problemas mediante algoritmos, principalmente el tiempo de ejecución y el espacio de memoria. Aunque muchos problemas pueden resolverse computacionalmente, algunos requieren cantidades de tiempo o espacio tan grandes que resultan impracticables para instancias de tamaño significativo.
+
+Se reconoce comúnmente que los algoritmos con tiempo de ejecución acotado por una función polinómica del tamaño de entrada son eficientes y prácticos. Por ejemplo, un algoritmo con tiempo lineal \(O(n)\) es más eficiente que uno cuadrático \(O(n^2)\), y ambos son preferibles a algoritmos exponenciales como \(O(2^n)\), que crecen demasiado rápido para ser utilizados en la práctica con valores grandes de \(n\).
+
+Para ilustrar esta diferencia: si una computadora realiza un millón de operaciones por segundo, un algoritmo cuadrático procesaría una entrada de tamaño 500 en pocos segundos, mientras que un algoritmo exponencial podría requerir décadas para una entrada apenas mayor \citep{palace_postrand2025}.
+
+Entonces podemos definir que la \textbf{complejidad computacional} clasifica los problemas algorítmicos según el tiempo requerido para resolverlos en función del tamaño de la entrada. Esta clasificación se realiza mediante clases de complejidad, que agrupan problemas con características similares en términos de dificultad computacional \citep{madiPvsNP}.
+
+\subsubsection{Clases de Complejidad Básicas}
+
+\textbf{Clase P:} Incluye los problemas que pueden resolverse en tiempo polinomial, es decir, mediante algoritmos cuyo tiempo de ejecución está acotado por una función polinómica del tamaño de la entrada.
+
+\textbf{Clase NP:} Comprende los problemas cuya solución puede \textit{verificarse} en tiempo polinomial, aunque no necesariamente pueda encontrarse eficientemente. Para estos problemas, si se proporciona una solución candidata (certificado o testigo), esta puede comprobarse rápidamente.
+
+Es importante destacar que todo problema en P está contenido en NP, pero se desconoce si todos los problemas en NP pertenecen a P \citep{madiPvsNP}.
+
+\subsubsection{Reducciones y Problemas NP-Completo y NP-Difícil}
+
+Una \textbf{reducción} es una transformación algorítmica que permite resolver un problema utilizando la solución de otro. Si existe una reducción polinomial de un problema \(A\) a un problema \(B\), entonces resolver \(B\) eficientemente implica que \(A\) también puede resolverse eficientemente.
+
+La clase \textbf{NP-difícil} contiene problemas a los cuales cualquier problema en NP puede reducirse en tiempo polinomial. La clase \textbf{NP-completo} es la intersección de NP y NP-difícil; es decir, problemas que están en NP y que son tan difíciles como cualquier otro problema en NP.
+
+\subsubsection{El Problema P vs NP}
+
+El problema central en teoría computacional consiste en determinar si:
+
+\[
+	P = NP,
+\]
+
+es decir, si todo problema cuya solución puede verificarse rápidamente (NP) también puede resolverse rápidamente (P).
+
+Si algún problema NP-completo pudiera resolverse en tiempo polinomial, entonces todos los problemas en NP podrían hacerlo, lo que implicaría que \(P = NP\). Hasta ahora, no se ha encontrado ningún algoritmo de tiempo polinomial para problemas NP-completos, ni se ha demostrado que no existan \citep{madiPvsNP}.
+
+\subsection{Algoritmos Exactos}
+\section{Heurísticas}
+
+Una heurística es un procedimiento de resolución de problemas que proviene del término griego \textit{heuriskein}, que significa ``encontrar o descubrir''. En el contexto de la investigación operacional, se define como:
+
+\begin{quote}
+    ``Un procedimiento para el que se tiene un alto grado de confianza en que encuentra soluciones de alta calidad con un coste computacional razonable, aunque no se garantice su optimalidad ni su factibilidad.'' \citep{antonioSuarez2014}
+\end{quote}
+
+
+Las heurísticas son métodos aproximados que se utilizan cuando:
+
+\begin{itemize}
+    \item No existe un método exacto conocido para resolver el problema.
+    \item Los métodos exactos son computacionalmente muy costosos o inviables.
+    \item Se requiere mayor flexibilidad en el modelado del problema.
+    \item El problema presenta características de alta complejidad, no linealidad o gran dimensionalidad.
+\end{itemize}
+
+\subsection*{Características de una Buena Heurística}
+
+Para que un algoritmo heurístico sea considerado de calidad, debe cumplir con tres propiedades fundamentales:
+
+\subsubsection*{1. Eficiencia}
+\begin{itemize}
+    \item El esfuerzo computacional debe ser realista y proporcional al problema a resolver.
+    \item Debe ejecutarse en un tiempo computacional razonable.
+\end{itemize}
+
+\subsubsection*{2. Calidad de la Solución}
+\begin{itemize}
+    \item La solución obtenida debe estar, en promedio, próxima al óptimo global.
+    \item Debe proporcionar consistentemente soluciones de alta calidad.
+\end{itemize}
+
+\subsubsection*{3. Robustez}
+\begin{itemize}
+    \item La probabilidad de obtener soluciones de baja calidad (distantes del óptimo) debe ser mínima.
+    \item Debe mantener un rendimiento estable ante variaciones en los parámetros del problema.
+\end{itemize}
+
+\subsection*{Ventajas de los Métodos Heurísticos}
+
+Los métodos heurísticos ofrecen mayor flexibilidad y adaptabilidad que las técnicas exactas para abordar las características complejas de los problemas del mundo real. Su principal valor radica en la capacidad de encontrar soluciones de buena calidad en tiempos computacionales breves, constituyendo una alternativa viable cuando los métodos exactos resultan impracticables.
+
+En síntesis, una heurística representa un enfoque inteligente de resolución que equilibra la calidad de la solución con la eficiencia computacional, siendo especialmente útil para problemas de optimización combinatoria donde los métodos exactos no son factibles debido a su complejidad computacional.
+
+\section{Metaheurísticas}
+
+Esta sección se basa en la exposición realizada por \citep{antonioSuarez2014}, quien describe las metaheurísticas como una evolución natural de los métodos heurísticos, desarrolladas para superar las limitaciones de las heurísticas tradicionales. El término fue introducido por Fred Glover en 1986 y se define como:
+
+\begin{quote}
+    ``Una clase de métodos aproximados diseñados para resolver problemas de difícil optimización combinatoria, en los que los heurísticos clásicos no son efectivos.''
+\end{quote}
+
+\subsection*{Características Fundamentales}
+
+Las metaheurísticas se caracterizan por:
+
+\begin{itemize}
+    \item \textbf{Marco conceptual general:} Proporcionan estrategias de alto nivel que pueden aplicarse a diversos problemas de optimización con modificaciones mínimas.
+    \item \textbf{Hibridación:} Combinan conceptos de diferentes campos como genética, biología, física, inteligencia artificial y neurología.
+    \item \textbf{Flexibilidad:} Pueden adaptarse a distintos tipos de problemas manteniendo su estructura básica.
+    \item \textbf{Mejora iterativa:} Evolucionan las soluciones a través de procesos iterativos guiados.
+\end{itemize}
+
+\subsection*{Propiedades Deseables de una Metaheurística}
+
+Una metaheurística de calidad debe poseer las siguientes características:
+
+\paragraph{Propiedades Básicas}
+\begin{itemize}
+    \item \textbf{Simplicidad:} Basada en principios claros y comprensibles.
+    \item \textbf{Precisión:} Pasos y fases formulados en términos concretos.
+    \item \textbf{Coherencia:} Elementos que se derivan naturalmente de sus principios.
+\end{itemize}
+
+\paragraph{Propiedades de Rendimiento}
+\begin{itemize}
+    \item \textbf{Eficacia:} Alta probabilidad de alcanzar soluciones óptimas en casos realistas.
+    \item \textbf{Eficiencia:} Aprovechamiento óptimo de recursos computacionales (tiempo y memoria).
+    \item \textbf{Robustez:} Comportamiento estable ante alteraciones del modelo.
+\end{itemize}
+
+\paragraph{Propiedades de Aplicabilidad}
+\begin{itemize}
+    \item \textbf{Generalidad:} Utilizable con buen rendimiento en una amplia variedad de problemas.
+    \item \textbf{Adaptabilidad:} Capacidad de adaptación a diferentes contextos de aplicación.
+    \item \textbf{Interactividad:} Permite la incorporación de conocimiento del usuario.
+\end{itemize}
+
+\subsection*{Clasificación de Metaheurísticas}
+
+Las metaheurísticas pueden clasificarse según su inspiración:
+
+\begin{itemize}
+    \item \textbf{Inspiradas en la Física:} \textit{Recocido Simulado (Simulated Annealing)}, basado en el proceso de calentamiento y enfriamiento de metales para obtener estados de baja energía.
+    \item \textbf{Inspiradas en la Evolución:} \textit{Algoritmos Genéticos}, desarrollados por John Holland, basados en los mecanismos de selección natural y reproducción sexual.
+    \item \textbf{Inspiradas en la Biología:} \textit{Optimización por Colonias de Hormigas (Ant Colony Optimization)}, que simula el comportamiento de comunicación de las hormigas mediante feromonas para encontrar caminos óptimos.
+\end{itemize}
+
+\subsection*{Ventajas de las Metaheurísticas}
+
+Las metaheurísticas representan una de las mejores aproximaciones para abordar problemas de optimización combinatoria debido a:
+
+\begin{itemize}
+    \item Su capacidad de escapar de óptimos locales.
+    \item La posibilidad de manejar espacios de solución complejos.
+    \item Su adaptabilidad a problemas del mundo real.
+    \item El equilibrio entre exploración y explotación del espacio de búsqueda.
+\end{itemize}
+
+En resumen, las metaheurísticas constituyen marcos de trabajo de propósito general que guían el diseño de algoritmos de optimización, ofreciendo estrategias sofisticadas para la resolución de problemas complejos donde las heurísticas tradicionales resultan insuficientes.
 
 
 \section{Referencias Relevantes}
