@@ -77,8 +77,6 @@ void imprimir_ruta_cordenadas(struct lista_ruta *ruta, int vehiculo_id, struct v
         actual = actual->siguiente;
     }
 
-    // Retorno al depósito
-    printf(" -> (%.2lf, %.2lf)\n", vrp->clientes[0].coordenada_x, vrp->clientes[0].coordenada_y);
 }
 
 // Imprime la ruta en formato de clientes (solo IDs)
