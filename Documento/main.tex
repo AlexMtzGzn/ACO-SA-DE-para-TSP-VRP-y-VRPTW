@@ -1,450 +1,266 @@
 \documentclass[12pt,titlepage,twoside,openright]{book}
-\usepackage{color}
-\usepackage{pstricks, pst-node}
-\usepackage{graphics,graphicx,graphpap}
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
+
+% Codificación y lenguaje
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
+\addto\captionsspanish{\renewcommand{\listtablename}{Índice de tablas}}%
+\addto\captionsspanish{\renewcommand{\listfigurename}{Índice de figuras}}%
+
+% Tipografía
+\usepackage{lmodern}
+
+% Paquetes gráficos y matemáticos
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{pstricks, pst-node}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+
+% Encabezados
 \usepackage{fancyhdr}
-\pagestyle{empty}
 
+% Hipervínculos y URLs
+\usepackage{hyperref}
+\usepackage{url}
 
+% Márgenes
+\usepackage{geometry}
+\geometry{
+    left=3cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+\setlength{\headheight}{15pt}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Plantilla elaborada por Alma Rocío Sagaceta Mejía (2010) y modificada por Julián Alberto Fresán Figueroa (2011-2020) %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliografía
+\usepackage{natbib}
 
+% Configuración hipervínculos
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=blue,
+    urlcolor=blue,
+    pdftitle={VRPTW: Proyecto Terminal},
+    pdfauthor={Alejandro Martínez Guzmán}
+}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Aqui se pueden agregar palabras que Latex separa de forma incorrecta al haber saltos de linea. Al escribir fa-mi-lia se le esta indicando que puede separar la palabra solo en los guiones
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hacer que las páginas en blanco (por cleardoublepage) no tengan número ni encabezado
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+\hbox{}
+\thispagestyle{empty}
+\newpage
+\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
 
 \hyphenation{Colores fa-mi-lia caracte-rizarlos}
 
+% Entornos matemáticos
+\newtheorem{teo}{Teorema}[chapter]
+\newtheorem{defi}{Definición}[chapter]
+\newtheorem{coro}{Corolario}[chapter]
+\newtheorem{lema}{Lema}[chapter]
+\newtheorem{prop}{Proposición}[chapter]
+\newtheorem{ejemplo}{Ejemplo}[chapter]
+\newtheorem{obs}{Observación}[chapter]
+\newenvironment{demo}{\noindent\textbf{Demostración:}\ }{\hfill$\square$}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%              UAM-Logo                   	 %%%
-%%%         Por Ismael Velázquez Ramírez         %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand{\uamlogo}[3][2pt]{
-    \psset{unit=#2,linewidth=#1 }
-    \psline*[linearc=.25,linecolor=#3](2.8,2)(2,2)(1.8,0)(2.8,2)(3.8,0)(3.6,2)(2,2)(1.8,0)
-    \psline*[linecolor=#3](0,0)(.8,0)(1.8,2)(1,2)(0,0)
-    \psline*[linecolor=#3](4.8,0)(3.8,2)(4.6,2)(5.6,0)(4.8,0)
-    \psline*[linearc=.25,linecolor=#3](3.8,0)(2.8,2)(3.6,2)(4.6,0)(3.8,0)
-    \psline*[linearc=.25,linecolor=#3](4.6,0)(3.8,0)(2.8,2)(3.6,2)(4.6,0)
-    \rput{180}(5.6,2){%
-    \psline*[linearc=.25,linecolor=white](2.8,2)(2,2)(1.8,0)(2.8,2)(3.8,0)(3.6,2)(2,2)(1.8,0)
-    \psline*[linearc=.25,linecolor=white](1,0)(1.8,0)(2.8,2)(2,2)(1,0)
-    \psline*[linearc=.25,linecolor=white](1.8,0)(1,0)(2,2)(2.8,2)(1.8,0)
-    \psline*[linearc=.25,linecolor=white](3.8,0)(2.8,2)(3.6,2)(4.6,0)(3.8,0)
-    \psline*[linearc=.25,linecolor=white](4.6,0)(3.8,0)(2.8,2)(3.6,2)(4.6,0)
-    \psline[linearc=.25,linecolor=#3](1,0)(2,2)(3.6,2)(4.6,0)
-    \psline[linecolor=#3](1,0)(1.8,0)
-    \psline[linearc=.25,linecolor=#3](4.6,0)(3.8,0)
-    \psline[linearc=.25,linecolor=#3](1.8,0)(2.8,2)(3.8,0)}
-    \psline*[linearc=.25,linecolor=#3](1,0)(1.8,0)(2.8,2)(2,2)(1,0)
-    \psline*[linearc=.25,linecolor=#3](1.8,0)(1,0)(2,2)(2.8,2)(1.8,0)}
-    
-    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Aqui se definen los entornos en español.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newtheorem{teo}{Teorema}
-\newtheorem{defi}{Definici\'on}
-\newtheorem{coro}{Corolario}
-
-
-%Ejemplo de uso:
-%\begin{teo}[Teorema de Completitud] 
-%Sea...
-%\end{teo}
-
-
-
+% Comandos para portada
 \newcommand{\titulo}[1]{\def\eltitulo{#1}}
 \newcommand{\carrera}[1]{\def\lacarrera{#1}}
-\newcommand{\nombre}[1]{\def\elnombre{#1}}    %* Del alumno
-\newcommand{\director}[1]{\def\eldirector{#1}}  %* De tesis
+\newcommand{\nombre}[1]{\def\elnombre{#1}}
+\newcommand{\director}[1]{\def\eldirector{#1}}
 \newcommand{\fecha}[1]{\def\lafecha{#1}}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Se deben llenar los siguientes datos
-%Estos datos apareceran en la portada y los encabezados
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\titulo{Optimización del TSP, VRP y VRPTW mediante una metaheurística híbrida ACO-SA con calibración de parámetros por Evolución Diferencial}
-\nombre{\uppercase{alejandro martínez guzmán}}
+\titulo{Resolución del Problema de Rutas Vehiculares con Ventanas de Tiempo mediante un Algoritmo Híbrido entre Colonia de Hormigas y Recocido Simulado}
+\nombre{\uppercase{Alejandro Martínez Guzmán}}
 \carrera{Licenciatura en Ingeniería en Computación}
-\director{\uppercase{edwin montes orozco}}
-\fecha{Mayo de 2025}
-
-
+\director{\uppercase{Edwin Montes Orozco}}
+\fecha{Junio 2025}
 
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Portada
+% PORTADA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+	\thispagestyle{empty}
+	\hskip-1.5cm
+	\begin{minipage}[c][5cm][s]{4cm}
+		\begin{center}
+			\hskip2pt \vrule width2pt height16cm\hskip1mm
+			\vrule width1pt height16cm\\[10pt]
+		\end{center}
+	\end{minipage}\quad
+	\begin{minipage}[c][9.5cm][s]{10cm}
+		\begin{center}
+			{\Large \scshape Universidad Autónoma Metropolitana}
+			\vspace{.5cm}\hrule height2pt\vspace{.1cm}\hrule height1pt
+			\vspace{.5cm}{\scshape UNIDAD CUAJIMALPA}\vspace{.5cm}
+			\\
+			\includegraphics[width=3cm]{uamlogo.png}\vspace{.5cm}
+			\\
+			{\Large \textsc{\eltitulo}}\vspace{1cm}
+			\makebox[8cm][c]{\Large Proyecto Terminal}\vspace{1cm}
+			\makebox[6cm]{QUE PRESENTA:}\\[3pt]\elnombre\vspace{1cm}
+			{\textsc{\large \lacarrera}}\vspace{1cm}\\
+			Departamento de Matemáticas Aplicadas e Ingeniería\\[13pt]
+			División de Ciencias Naturales e Ingeniería\vspace{1cm}
+			\\
+			Asesor:\\ \eldirector\vfill
+			\begin{flushright}\lafecha\end{flushright}
+		\end{center}
+	\end{minipage}
+\end{titlepage}
+\cleardoublepage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PÁGINAS PRELIMINARES SIN NÚMERO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+
+\chapter*{Declaración}
 \thispagestyle{empty}
+Yo, \elnombre, declaro que este trabajo titulado
+\textit{«\eltitulo»} es de mi autoría. Asimismo, confirmo que:
+\begin{itemize}
+	\item Este trabajo fue realizado en su totalidad para la obtención de grado en esta Universidad.
+	\item Ninguna parte de esta tesis ha sido previamente sometida a un examen de grado o titulación en esta u otra institución.
+	\item Todas las citas han sido debidamente referenciadas y atribuidas a sus autores.
+\end{itemize}
+\vfill
+\begin{flushright}
+	Firma: \underline{\hspace{5cm}}\\[0.5cm]
+	Fecha: \underline{\hspace{5cm}}
+\end{flushright}
+\cleardoublepage
 
-\hskip-1.5cm
+\chapter*{Resumen}
+\addcontentsline{toc}{chapter}{Resumen}
+Aquí va el resumen en español. Este apartado debe sintetizar brevemente el objetivo del trabajo, la metodología empleada y los resultados más relevantes.
+\cleardoublepage
 
-% Barra derecha - Títulos
-\begin{minipage}[c][9.5cm][s]{10cm}
-	\begin{center}
-		% Barra superior
-		{\Large \scshape Universidad Autónoma Metropolitana}
-		\vspace{0.3cm}
-		\hrule height2pt
-		\vspace{0.1cm}
-		\hrule height1pt
-		\vspace{0.3cm}
-		{\scshape Unidad Cuajimalpa}
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+Here goes the abstract in English. Briefly describe the goal of your project, methodology, and key results.
+\cleardoublepage
 
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		% Título del trabajo (ajustar acentos y mayúsculas)
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		\vspace{2cm}
+\chapter*{Dedicatoria}
+\addcontentsline{toc}{chapter}{Dedicatoria}
+\begin{flushright}
+	\textit{A mis padres y profesores, por su apoyo incondicional.}
+\end{flushright}
+\cleardoublepage
 
-		{\large \textbf{Optimización del TSP, VRP y VRPTW mediante una metaheurística híbrida ACO-SA con calibración de parámetros por Evolución Diferencial}}
+\chapter*{Agradecimientos}
+\addcontentsline{toc}{chapter}{Agradecimientos}
+Aquí van los agradecimientos a las personas e instituciones que contribuyeron al desarrollo de este proyecto.
+\cleardoublepage
 
-		\vspace{2cm}
-		\makebox[8cm][c]{\Large Proyecto Terminal}\\[8pt]
-
-		\makebox[6cm]{QUE PRESENTA:}\\[3pt]
-		\elnombre\\[0.5cm]
-
-		{\textsc{\large \lacarrera}}\\[3pt]
-		\makebox[10cm]{Departamento de Matemáticas Aplicadas e Ingeniería}\\[13pt]
-		\makebox[10cm]{División de Ciencias Naturales e Ingeniería}\\[13pt]
-
-		\vspace{2cm}
-
-		{Asesor y Responsable de la tesis:\\ \eldirector}
-
-		\vspace{2cm}
-		\begin{flushright}
-			\lafecha
-		\end{flushright}
-
-	\end{center}
-\end{minipage}
-
-
-
-\frontmatter{}
-
-
-
-\pagestyle{plain}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ÍNDICES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
-\newpage
+\cleardoublepage
 \listoffigures
+\cleardoublepage
+\listoftables
+\cleardoublepage
 
-
-
-
-\mainmatter{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CUERPO PRINCIPAL (ya numerado)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
 \pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{%
-	\markboth{\chaptername
-		\ \thechapter.\ #1}{}}
+\fancyhf{}
 \fancyhead[RO,LE]{\bfseries \thepage}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RE]{\nouppercase{\leftmark}}
 \fancyfoot{}
+
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1.5ex}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Aquí se empieza a colocar la información del trabajo
-% El documento deberá contener al menos los  capítulos que aparecen a continuación.
-% Cada capitulo puede tener secciones y subsecciones
-% Las imágenes deben ser incluidas en formato .eps
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\chapter{Resumen}
-
-%Uno o dos párrafos de que se hizo en el proyecto terminal
-
-
 \chapter{Introducción}
-%una o dos p\'aginas, escrita para ser comprensible por cualquier persona
-\chapter{Conocimientos preliminares}
-%En este capítulo deberán incluir todos los conocimientos necesarios para poder entender los temas que se trataron en el proyecto. 
-\section{Problema de Optimización}
+\label{cap:introduccion}
+% Contenido...
 
-La optimización es una rama de las matemáticas aplicadas que se enfoca en el desarrollo de principios y métodos para resolver problemas cuantitativos en diversas disciplinas como la f\'isica, biolog\'ia, ingenier\'ia o econom\'ia, as\'i como en cualquier campo donde sea necesaria la toma de decisiones dentro de un conjunto de opciones, con el objetivo de encontrar la mejor o una de las mejores soluciones de manera eficiente,
+\chapter{Marco Teórico / Estado del Arte}
+\label{cap:marco-teorico}
+\section{Antencedentes}
+\section{Conceptos Clave}
+\subsection{El Problema en Optimización}
 
-en términos formales, consideramos una función \( f : S \rightarrow \mathbb{R} \), donde \( S \subseteq \mathbb{R}^n \). Denominaremos a \( f \) como funci\'on objetivo, y a \( S \) lo llamaremos conjunto factible o conjunto de soluciones posibles.
+La optimización es una rama de las matemáticas aplicadas que se ocupa de \textbf{determinar el valor máximo o mínimo de una función} que depende de una o más variables \citep{canek2008}.
 
-\subsection{Tipos de Optimización}
+Formalmente, un problema de optimización se define como la búsqueda de un vector \( x \) en un conjunto factible \( S \subseteq \mathbb{R}^n \) que minimice o maximice una función objetivo \( f: S \to \mathbb{R} \), también denominada función costo o beneficio \citep{cobos2010}.
 
-Dentro de la optimizaci\'on, existen dos tipos principales: la optimizaci\'on discreta y la optimizaci\'on continua.
+Esta disciplina se clasifica principalmente en dos tipos: la \textit{optimización continua}, que trabaja con variables que pueden tomar valores dentro de un rango continuo, y la \textit{optimización discreta}, que se enfoca en problemas donde las variables sólo pueden asumir valores discretos o enteros \citep{cobos2010}.
 
-La optimizaci\'on discreta se aplica cuando el dominio \( S \) de la funci\'on objetivo es un conjunto discreto. En este contexto, el conjunto de soluciones posibles es finito o numerablemente infinito. La optimizaci\'on discreta a menudo involucra la b\'usqueda de soluciones en combinaciones espec\'ificas y puede involucrar problemas como la programaci\'on lineal entera o los problemas de asignaci\'on. Las soluciones \'optimas pueden ser dif\'iciles de encontrar debido a la naturaleza combinatoria del problema.
+\subsubsection{Optimización Continua}
 
-Por otro lado, la optimizaci\'on continua se refiere a situaciones en las que el conjunto \( S \) de la funci\'on objetivo es un conjunto continuo. En este caso, el dominio es un intervalo o un subconjunto de \( \mathbb{R}^n \) que no es discreto. Aqu\'i se buscan soluciones que maximizan o minimizan la funci\'on objetivo sobre un espacio continuo, y los m\'etodos comunes incluyen la programaci\'on lineal, la programaci\'on no lineal y el c\'alculo de variaciones. La optimizaci\'on continua suele implicar el uso de t\'ecnicas de c\'alculo y an\'alisis matem\'atico.
+La optimización continua se refiere a la búsqueda de soluciones óptimas en un conjunto factible \( S \subseteq \mathbb{R}^n \), donde las variables pueden tomar valores dentro de un intervalo continuo. En este contexto, el objetivo es encontrar un vector \( x_{opt} \in S \) que minimice o maximice una función objetivo \( f: S \to \mathbb{R} \).
 
-\subsubsection{Optimizaci\'on Discreta}
-\subsubsection{Optimizaci\'on Continua}
-
-\section{Heur\'istica y Metaheur\'istica}
-
-La palabra ``heur\'istica" proviene del t\'ermino griego ``euriskein", que significa ``encontrar".
-En el contexto de la optimizaci\'on, se refiere a t\'ecnicas dise\~nadas para mejorar o resolver problemas que, de otra manera, no tendr\'ian una soluci\'on eficiente. Los algoritmos heur\'isticos ayudan a encontrar soluciones aproximadas para problemas cuyas soluciones exactas no son factibles en tiempos polinomiales.
-Muchos algoritmos de inteligencia artificial son heur\'isticos o se basan en sus principios para resolver problemas.
-
-El prefijo ``meta" otorga un sentido de mayor nivel a la palabra heur\'istica, lo que permite abordar problemas de mayor complejidad mediante soluciones factibles.
-
-Tanto las heur\'isticas como las metaheur\'isticas se pueden utilizar de manera intercambiable para resolver problemas de optimizaci\'on combinatoria.
-
-\section{Complejidad P, NP, NP-completo y NP-dif\'icil}
-
-En computaci\'on, un algoritmo es un procedimiento que resuelve un problema paso a paso, generando una salida a partir de una entrada en un n\'umero finito de pasos. La eficiencia de un algoritmo se eval\'ua a trav\'es de su complejidad temporal, la cual se mide en funci\'on del tama\~no de la entrada. Esto nos permite clasificar los problemas en diferentes clases de complejidad, como P, NP, NP-completo y NP-dif\'icil.
-
-La clase P contiene problemas que pueden resolverse eficientemente (en tiempo polinomial), mientras que la clase NP contiene aquellos problemas cuyas soluciones pueden verificarse eficientemente. Las clases NP-completo y NP-dif\'icil incluyen problemas m\'as complejos; resolver uno de estos de manera eficiente significar\'ia resolver eficientemente cualquier problema en NP. Esto nos lleva al problema fundamental en teor\'ia de la computaci\'on: P vs NP.
-
-\subsection{Complejidad P}
-
-En la teor\'ia de la complejidad, nos enfocamos principalmente en problemas de decisi\'on, aquellos donde la respuesta es un simple "s\'i" o "no". La clase P est\'a compuesta por problemas que pueden ser resueltos en tiempo polinomial. Esto significa que existe un algoritmo que, dado un problema de tama\~no $n$, puede resolverlo en un tiempo que crece a lo sumo como un polinomio de $n$.
-
-\subsubsection{Ejemplo: Algoritmo de Ordenamiento por Selecci\'on}
-
-El algoritmo de ordenamiento por selecci\'on es un m\'etodo simple para ordenar una lista de elementos, aunque no es el m\'as eficiente para listas grandes. A continuaci\'on, se presenta una explicaci\'on detallada del algoritmo, su funcionamiento, complejidad y caracter\'isticas.
-
-\paragraph{Descripci\'on del algoritmo}
-El algoritmo selecciona repetidamente el elemento m\'inimo de la lista y lo coloca en su posici\'on correcta. Consideremos la lista (3 1 6 8 2). El proceso de ordenamiento ser\'ia:
-
-\begin{enumerate}
-	\item (3 1 6 8 2) - Estado inicial
-	\item (1 3 6 8 2) - Se intercambia 1 (m\'inimo) con 3
-	\item (1 2 6 8 3) - Se intercambia 2 con 3
-	\item (1 2 3 8 6) - Se intercambia 3 con 6
-	\item (1 2 3 6 8) - Se intercambia 6 con 8
-	\item (1 2 3 6 8) - La lista est\'a ordenada
-\end{enumerate}
-
-\paragraph{Representaci\'on matem\'atica:}
-Para una lista de $n$ elementos:
-\begin{itemize}
-	\item Primera pasada: $n-1$ comparaciones
-	\item Segunda pasada: $n-2$ comparaciones
-	\item $\vdots$
-	\item \'Ultima pasada: 1 comparaci\'on
-\end{itemize}
-
-\paragraph{Complejidad:}
-El n\'umero total de comparaciones es $(n-1) + (n-2) + \dots + 2 + 1 = \frac{n(n-1)}{2}$, lo que da una complejidad de $O(n^2)$.
-
-El algoritmo de ordenamiento por selecci\'on, aunque simple de entender e implementar, no es eficiente para listas grandes debido a su complejidad cuadr\'atica. Sin embargo, su tiempo de ejecuci\'on es polinomial, por lo que pertenece a la clase P.
-
-\subsection{Clase de complejidad NP}
-
-La clase NP abarca problemas donde una soluci\'on afirmativa ("s\i") puede verificarse en tiempo polinomial. En estos problemas, existe un testigo o certificado que sirve como prueba de la validez de la respuesta, y un algoritmo verificador que puede validar este testigo eficientemente.
-
-Un ejemplo cl\'asico es el problema de la suma de subconjuntos: dado un conjunto de $n$ n\'umeros, se busca si existe un subconjunto cuya suma sea $S$. Para verificar una soluci\'on afirmativa, bastar\'ia con que nos dieran el subconjunto en cuesti\'on, y en tiempo lineal podr\'iamos sumar sus elementos para comprobar que la suma es correcta.
-
-Al igual que en P, los problemas en NP pueden incluir aquellos que ya mencionamos, pero con una importante distinci\'on: aunque podemos verificar soluciones en tiempo polinomial, no necesariamente podemos encontrarlas r\'apidamente. De hecho, uno de los grandes interrogantes en teor\'ia de la complejidad es si todos los problemas en NP pueden ser tambi\'en resueltos en tiempo polinomial.
-
-\subsubsection{Ejemplo de problema NP: El Problema del Agente Viajero}
-
-El Problema del Agente Viajero (TSP, por sus siglas en ingl\'es) es un ejemplo claro de un problema NP. El objetivo es encontrar una trayectoria que visite todas las $n$ ciudades exactamente una vez y regrese a la ciudad de origen, minimizando el costo total del recorrido.
-
-\paragraph{Datos del problema:}
-\begin{itemize}
-	\item Un entero $n > 0$, que representa el n\'umero de ciudades.
-	\item Una matriz de distancias $(d_{ij})$ de dimensi\'on $n \times n$, donde $d_{ij}$ es un entero mayor o igual a cero que representa la distancia entre la ciudad $i$ y la ciudad $j$.
-\end{itemize}
-
-\paragraph{Representaci\'on matem\'atica:}
-Una permutaci\'on $\pi$ c\'iclica representa un recorrido, donde $\pi(j)$ se interpreta como la ciudad que sigue a la ciudad $j$ para $j = 1, 2, \dots, n$.
-
-\paragraph{Costo del recorrido:}
-El costo del recorrido se calcula mediante la siguiente f\'ormula:
+Formalmente, para problemas de minimización, la solución óptima global \( x_{opt} \) satisface:
 
 \[
-	\sum_{j=1}^n d_{j,\pi(j)}
+f(x_{opt}) \leq f(x), \quad \forall x \in S,
 \]
 
-Donde:
-\begin{itemize}
-	\item $j$ recorre todas las ciudades de 1 a $n$.
-	\item $d_{j,\pi(j)}$ representa la distancia entre la ciudad $j$ y la ciudad que le sigue en el recorrido seg\'un la permutaci\'on $\pi$.
-\end{itemize}
-
-\paragraph{Complejidad:}
-El Problema del Agente Viajero pertenece a la clase NP. Si nos dieran una soluci\'on (un recorrido), podr\'iamos verificar si es v\'alida y calcular su costo en tiempo polinomial. Sin embargo, encontrar la soluci\'on \'optima no se conoce como un problema que pueda resolverse en tiempo polinomial para todos los casos.
-
-\subsection{Reducciones y las clases NP-completo y NP-dif\'icil}
-
-Para profundizar en las clases de NP-completo y NP-dif\'icil, es esencial introducir el concepto de reducci\'on. Una reducci\'on entre problemas significa que si podemos resolver un problema de manera eficiente, entonces tambi\'en podemos resolver el otro. Esto es clave para entender la relaci\'on entre los problemas de estas clases.
-
-\subsubsection{Definici\'on de Reducci\'on Polinomial}
-
-Dado un problema A y un problema B, diremos que existe una reducci\'on polinomial de A a B si cualquier instancia de A puede ser transformada en una instancia de B en tiempo polinomial, de manera que resolver B implica resolver A.
-
-Esto nos lleva a la clase de complejidad NP-dif\'icil, que est\'a compuesta por problemas a los cuales cualquier problema en NP puede ser reducido. NP-completo, por otro lado, incluye aquellos problemas que son tanto NP-dif\'iciles como pertenecientes a NP. Si alguna vez encontr\'aramos un algoritmo eficiente para resolver un problema NP-completo, entonces podr\'iamos resolver todos los problemas en NP de manera eficiente.
-
-En resumen las clases de complejidad P, NP, NP-completo y NP-dif\'icil son fundamentales para comprender la eficiencia de los algoritmos. El problema abierto m\'as importante de la teor\'ia de la computaci\'on, P vs NP, sigue siendo una pregunta sin respuesta: ¿Podemos resolver todos los problemas que podemos verificar eficientemente? Resolver esta pregunta tendr\'ia implicaciones profundas no solo en la teor\'ia, sino en muchas \'areas pr\'acticas de la computaci\'on.
-
-\section{Computación Evolutiva}
-
-La computación evolutiva es una rama de las Ciencias de la Computación que se inspira en la evolución natural para resolver problemas mediante un enfoque de prueba y error. Este proceso se basa en una población de individuos (soluciones candidatas) que compiten por recursos, donde su calidad (aptitud) determina su capacidad para sobrevivir y reproducirse.
-
-\subsection{Esquema General de un Algoritmo Evolutivo}
-\begin{enumerate}
-	\item \textbf{Inicio}
-	\item INICIALIZAR la población con soluciones candidatas aleatorias.
-	\item EVALUAR cada candidato.
-	\item Mientras no se cumpla la condición de paro:
-	      \begin{enumerate}
-		      \item SELECCIONAR padres.
-		      \item RECOMBINAR padres.
-		      \item MUTAR la descendencia.
-		      \item SELECCIONAR individuos para la siguiente generación.
-	      \end{enumerate}
-	\item \textbf{Fin}
-\end{enumerate}
-
-\section{Evolución Diferencial}
-
-El algoritmo de Evolución Diferencial (DE) fue desarrollado por Price y Storn en 1995 como un método de optimización versátil y fácil de usar. DE utiliza una población de vectores (soluciones) y genera nuevas soluciones mediante mutaciones y recombinaciones.
-
-\subsection{Inicialización}
-Se inicia con una población \(P_x\) de \(N_P\) vectores \(D\)-dimensionales. Los vectores se crean aleatoriamente dentro de límites predefinidos.
-
-\subsection{Mutación}
-La mutación se realiza sumando una diferencia escalada de dos vectores aleatorios a un tercer vector:
+mientras que para maximización, se cumple que:
 
 \[
-	v_{i,g} = x_{r_0,g} + F(x_{r_1,g} - x_{r_2,g})
+f(x_{opt}) \geq f(x), \quad \forall x \in S.
 \]
 
-Donde \(F\) es un factor de escala, y \(r_0\), \(r_1\), y \(r_2\) son índices aleatorios de la población.
+El valor \( f(x_{opt}) \) representa el costo o beneficio óptimo, y el conjunto de todas las soluciones óptimas se denota como \( S_{opt} \) \citep{cobos2010}.
 
-\subsection{Recombinación}
-Los vectores trial se generan al intercambiar elementos entre el vector mutante y el vector padre:
+\subsubsection{Optimización Discreta o Combinatoria}
+
+Un problema de optimización combinatoria se formaliza mediante una pareja \((S, f)\), donde \(S\) es un conjunto finito de soluciones posibles y \(f: S \to \mathbb{R}\) es la función objetivo o función costo que asigna un valor real a cada solución \citep{cobos2010}.
+
+El objetivo es encontrar una solución óptima global \(i_{opt} \in S\) que cumpla:
 
 \[
-	u_{i,g} =
-	\begin{cases}
-		v_{j,g} & \text{si } r_j \leq CR \\
-		x_{i,g} & \text{si } r_j > CR
-	\end{cases}
+f(i_{opt}) \leq f(i), \quad \forall i \in S,
 \]
 
-Donde \(CR\) es la tasa de recombinación.
-
-\subsection{Selección}
-Finalmente, se elige el vector que tenga el menor valor de la función objetivo:
+para problemas de minimización, o bien:
 
 \[
-	x_{i,g+1} =
-	\begin{cases}
-		u_{i,g} & \text{si } f(u_{i,g}) < f(x_{i,g}) \\
-		x_{i,g} & \text{en caso contrario}
-	\end{cases}
+f(i_{opt}) \geq f(i), \quad \forall i \in S,
 \]
 
-Este proceso se repite hasta que se alcanza un criterio de parada, como encontrar una solución aceptable o alcanzar un límite computacional.
-
-\section{El Problema del Agente Viajero (TSP)}
-El problema del agente viajero (Travelling Salesman Problem - TSP) es uno de los problemas más estudiados en el campo de la optimización y la planificación de rutas. El TSP consiste en encontrar un recorrido de longitud mínima que permita a un agente visitar un conjunto de $n$ ciudades, pasando por cada una exactamente una vez y regresando a la ciudad de origen. Este problema es de gran importancia en aplicaciones como la logística, la distribución de productos y el diseño de circuitos.
+en el caso de maximización.
 
 
-\subsection{Función Objetivo}
+\section{Referencias Relevantes}
 
-La función objetivo del TSP tiene como meta minimizar la distancia total recorrida entre las ciudades. Matemáticamente, se expresa de la siguiente forma:
+\chapter{Materiales y Métodos}
+\label{cap:materialesymetodos}
+% Contenido...
 
-\[
-	\min \sum_{i=1}^{n} \sum_{j=1}^{n} d_{ij} X_{ij}
-\]
+\chapter{Resultados}
+\label{cap:resultados}
+% Contenido...
 
-Donde:
-\begin{itemize}
-	\item $d_{ij}$ representa la distancia entre la ciudad $i$ y la ciudad $j$.
-	\item $X_{ij}$ es una variable binaria que toma el valor 1 si la ciudad $i$ es visitada justo antes de la ciudad $j$, y 0 en caso contrario.
-\end{itemize}
-
-El objetivo es minimizar la suma total de las distancias $d_{ij}$ de todas las transiciones $i \to j$, asegurando que cada ciudad sea visitada solo una vez.
-
-\subsection{Restricciones}
-
-Para garantizar que el recorrido cumpla con las condiciones del problema, se deben cumplir las siguientes restricciones:
-
-\begin{enumerate}
-	\item \textbf{Restricción de unicidad de salida:} Cada ciudad $i$ debe tener exactamente una ciudad sucesora (una ciudad $j$ a la que viajar):
-	      \[
-		      \sum_{j=1}^{n} X_{ij} = 1, \quad \forall i = 1, 2, \dots, n
-	      \]
-	      Esta restricción asegura que cada ciudad tenga exactamente una ciudad siguiente en el recorrido.
-
-	\item \textbf{Restricción de unicidad de entrada:} Cada ciudad $j$ debe ser visitada exactamente una vez por alguna ciudad anterior $i$:
-	      \[
-		      \sum_{i=1}^{n} X_{ij} = 1, \quad \forall j = 1, 2, \dots, n
-	      \]
-	      Esta restricción asegura que cada ciudad sea visitada por exactamente una ciudad anterior.
-
-	\item \textbf{Restricciones de subciclo:} Para evitar subciclos (recorridos más cortos que no incluyan todas las ciudades), se introducen variables auxiliares $u_i$ que controlan el orden en el que se visitan las ciudades. Estas variables deben cumplir la siguiente restricción:
-	      \[
-		      u_i - u_j + n X_{ij} \leq n - 1, \quad \forall i, j = 2, 3, \dots, n, \, i \neq j
-	      \]
-	      Donde $u_i$ y $u_j$ son variables auxiliares que ayudan a eliminar los subciclos. Estas restricciones aseguran que no se generen ciclos más pequeños que el recorrido completo.
-
-	\item \textbf{Restricción binaria:} Las variables $X_{ij}$ son binarias, es decir, pueden tomar solo los valores 0 o 1, indicando si una ciudad $i$ es seguida por la ciudad $j$ en el recorrido:
-	      \[
-		      X_{ij} \in \{0,1\}, \quad \forall i,j = 1, 2, \dots, n
-	      \]
-\end{enumerate}
-
-\subsection{Ejemplo}
-
-Consideremos un problema con $n = 4$ ciudades. La matriz de distancias $d_{ij}$ podría ser:
-
-\[
-	d_{ij} =
-	\begin{pmatrix}
-		0  & 10 & 15 & 20 \\
-		10 & 0  & 35 & 25 \\
-		15 & 35 & 0  & 30 \\
-		20 & 25 & 30 & 0
-	\end{pmatrix}
-\]
-
-El objetivo es encontrar un recorrido que minimice la suma de las distancias entre las ciudades, cumpliendo con las restricciones mencionadas anteriormente.
-
-\subsection{Complejidad Computacional: TSP es NP-completo}
-
-Una de las características más importantes del TSP es que pertenece a la clase de problemas NP-completos. Esto significa que no existe un algoritmo eficiente conocido que pueda resolver el TSP de manera óptima en tiempo polinomial para todos los casos posibles. Dado que el número de posibles recorridos crece factorialmente con el número de ciudades ($n!$), resolver el TSP para grandes instancias no es computacionalmente eficiente.
-
-
-\chapter{Desarrollo del proyecto}
-%En Este capítulo se incluirán los resultados obtenidos durante el proyecto
-
-\chapter{Conclusiones y trabajo futuro}
-%En este capítulo se incluirán las conclusiones y posibles líneas de trabajo que podrían surgir a partir de este proyecto
-
+\chapter{Conclusiones}
+\label{cap:conclusiones}
+% Contenido...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% La bibliografía debe aparecer de manera homologada
+% APÉNDICES Y REFERENCIAS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
 
-\begin{thebibliography}{0}
-	%\bibitem{}
+\bibliographystyle{plain}
+\bibliography{referencias}
 
-\end{thebibliography}
+\appendix
+\chapter{Apéndices}
+\label{ap:apendices}
+% Contenido...
 
 \end{document}
-
-
