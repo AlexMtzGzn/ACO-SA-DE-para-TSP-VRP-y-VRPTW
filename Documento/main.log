@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  23 JUN 2025 21:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  25 JUN 2025 23:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -624,7 +624,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Overfull \vbox (312.9803pt too high) detected at line 108
  []
 
-<Imagnes/uamlogo.png, id=76, 127.33974pt x 52.0344pt>
+<Imagnes/uamlogo.png, id=80, 127.33974pt x 52.0344pt>
 File: Imagnes/uamlogo.png Graphic file (type png)
 <use Imagnes/uamlogo.png>
 Package pdftex.def Info: Imagnes/uamlogo.png  used on input line 115.
@@ -751,27 +751,31 @@ l.202 \chapter
 ]
 Cap\'{\i }tulo 2.
 [3]
-LaTeX Info: Redefining \. on input line 259.
-LaTeX Info: Redefining \% on input line 259.
+LaTeX Info: Redefining \. on input line 262.
+LaTeX Info: Redefining \% on input line 262.
  [4]
-LaTeX Info: Redefining \. on input line 290.
-LaTeX Info: Redefining \% on input line 290.
- [5]
-Overfull \hbox (17.58023pt too wide) in paragraph at lines 307--308
+Overfull \hbox (0.99974pt too wide) in paragraph at lines 272--273
+[]\T1/lmr/m/n/12 Dentro de NP, al-gunos prob-le-mas desta-can por su com-ple-ji-dad: los \T1/lmr/m/it/12 prob-le-mas NP-completos
+ []
+
+LaTeX Info: Redefining \. on input line 291.
+LaTeX Info: Redefining \% on input line 291.
+[5]
+Overfull \hbox (17.58023pt too wide) in paragraph at lines 299--300
 []\T1/lmr/m/n/12 Para que un al-go-rit-mo heurís-ti-co sea con-sid-er-a-do de cal-i-dad, debe cumplir con tres propiedades
  []
 
-LaTeX Info: Redefining \. on input line 325.
-LaTeX Info: Redefining \% on input line 325.
+LaTeX Info: Redefining \. on input line 324.
+LaTeX Info: Redefining \% on input line 324.
 [6]
-LaTeX Info: Redefining \. on input line 349.
-LaTeX Info: Redefining \% on input line 349.
+LaTeX Info: Redefining \. on input line 357.
+LaTeX Info: Redefining \% on input line 357.
  [7]
-LaTeX Info: Redefining \. on input line 384.
-LaTeX Info: Redefining \% on input line 384.
+LaTeX Info: Redefining \. on input line 391.
+LaTeX Info: Redefining \% on input line 391.
  [8]
-LaTeX Info: Redefining \. on input line 403.
-LaTeX Info: Redefining \% on input line 403.
+LaTeX Info: Redefining \. on input line 395.
+LaTeX Info: Redefining \% on input line 395.
  [9] [10
 
 ]
@@ -786,11 +790,7 @@ Cap\'{\i }tulo 4.
 Cap\'{\i }tulo 5.
 [15] [16
 
-] (./main.bbl
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 20.
- (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)) [17
+] (./main.bbl) [17
 
 ] [18
 
@@ -802,21 +802,21 @@ LaTeX Info: Redefining \% on input line 25.
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 50AB90FD987C819E9341CF74C48647C1;2495.
+(rerunfilecheck)             Checksum: 8B68D2B36901DBB783B155013135E701;2536.
  ) 
 Here is how much of TeX's memory you used:
- 20323 strings out of 480247
- 336235 string characters out of 5896151
- 648939 words of memory out of 5000000
- 37874 multiletter control sequences out of 15000+600000
- 522561 words of font info for 60 fonts, out of 8000000 for 9000
+ 20292 strings out of 480247
+ 335932 string characters out of 5896151
+ 648969 words of memory out of 5000000
+ 37844 multiletter control sequences out of 15000+600000
+ 522243 words of font info for 59 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
- 60i,11n,63p,648b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (37 pages, 316528 bytes).
+ 60i,11n,63p,648b,513s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (37 pages, 291695 bytes).
 PDF statistics:
- 387 PDF objects out of 1000 (max. 8388607)
- 317 compressed objects within 4 object streams
- 81 named destinations out of 1000 (max. 500000)
- 150 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 388 PDF objects out of 1000 (max. 8388607)
+ 320 compressed objects within 4 object streams
+ 84 named destinations out of 1000 (max. 500000)
+ 158 words of extra memory for PDF output out of 10000 (max. 10000000)
 

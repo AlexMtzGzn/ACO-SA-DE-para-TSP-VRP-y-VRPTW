@@ -205,7 +205,7 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \section{Conceptos Clave}
 \subsection{El Problema en Optimización}
 
-La optimización es una rama de las matemáticas aplicadas que se ocupa de \textbf{determinar el valor máximo o mínimo de una función} que depende de una o más variables \citep{canek2008}.
+\textit{La optimización} se refiere al proceso de buscar, dentro de un conjunto de soluciones factibles, aquella que maximice o minimice una función objetivo determinada \citep{bazaraa2006nonlinear}.
 
 Formalmente, un problema de optimización se define como la búsqueda de un vector \( x \) en un conjunto factible \( S \subseteq \mathbb{R}^n \) que minimice o maximice una función objetivo \( f: S \to \mathbb{R} \), también denominada función costo o beneficio \citep{cobos2010}.
 
@@ -246,44 +246,36 @@ para problemas de minimización, o bien:
 \]
 
 en el caso de maximización.
+\subsection{Complejidad Computacional}
 
-\subsection{Complejidad Computacional y el Problema P vs NP}
+La complejidad computacional estudia los recursos necesarios para resolver un problema, independientemente del algoritmo utilizado. A diferencia de la complejidad algorítmica, que se enfoca en el tiempo o espacio que un algoritmo específico consume, la complejidad computacional analiza la dificultad inherente del problema desde una perspectiva teórica, considerando el trabajo, la estructura matemática y lógica implicada en su resolución \citep{maldonado2013problema}.
 
-La teoría de la complejidad computacional estudia los recursos necesarios para resolver problemas mediante algoritmos, principalmente el tiempo de ejecución y el espacio de memoria. Aunque muchos problemas pueden resolverse computacionalmente, algunos requieren cantidades de tiempo o espacio tan grandes que resultan impracticables para instancias de tamaño significativo.
+\subsection{El Problema P vs NP}
 
-Se reconoce comúnmente que los algoritmos con tiempo de ejecución acotado por una función polinómica del tamaño de entrada son eficientes y prácticos. Por ejemplo, un algoritmo con tiempo lineal \(O(n)\) es más eficiente que uno cuadrático \(O(n^2)\), y ambos son preferibles a algoritmos exponenciales como \(O(2^n)\), que crecen demasiado rápido para ser utilizados en la práctica con valores grandes de \(n\).
+En teoría de la computación, los problemas pueden clasificarse en dos grandes grupos: decidibles e indecidibles. Un problema se considera \textit{decidible} si existe un algoritmo que puede resolverlo en un número finito de pasos. Por el contrario, un problema es \textit{indecidible} si no existe un algoritmo general que permita resolverlo, incluso con recursos ilimitados \citep{maldonado2013problema}.
 
-Para ilustrar esta diferencia: si una computadora realiza un millón de operaciones por segundo, un algoritmo cuadrático procesaría una entrada de tamaño 500 en pocos segundos, mientras que un algoritmo exponencial podría requerir décadas para una entrada apenas mayor \citep{palace_postrand2025}.
-
-Entonces podemos definir que la \textbf{complejidad computacional} clasifica los problemas algorítmicos según el tiempo requerido para resolverlos en función del tamaño de la entrada. Esta clasificación se realiza mediante clases de complejidad, que agrupan problemas con características similares en términos de dificultad computacional \citep{madiPvsNP}.
+Desde otro enfoque, esta clasificación también puede asociarse con la noción de compresibilidad: un problema decidible puede expresarse o condensarse en una forma computacional comprensible, mientras que los indecidibles son inherentemente incompresibles \citep{maldonado2013problema}.
 
 \subsubsection{Clases de Complejidad Básicas}
 
-\textbf{Clase P:} Incluye los problemas que pueden resolverse en tiempo polinomial, es decir, mediante algoritmos cuyo tiempo de ejecución está acotado por una función polinómica del tamaño de la entrada.
+\textbf{Clase P:} incluye todos los problemas que pueden resolverse en tiempo polinomial por una máquina determinista. Es decir, existe un algoritmo eficiente que resuelve cualquier instancia del problema en un tiempo acotado por una función polinomial respecto al tamaño de entrada \citep{sipser2012introduction}.
 
-\textbf{Clase NP:} Comprende los problemas cuya solución puede \textit{verificarse} en tiempo polinomial, aunque no necesariamente pueda encontrarse eficientemente. Para estos problemas, si se proporciona una solución candidata (certificado o testigo), esta puede comprobarse rápidamente.
+\textbf{Clase NP:} contiene problemas para los cuales una solución puede verificarse (no necesariamente encontrarse) en tiempo polinomial por una máquina determinista. Se desconoce si todos los problemas de NP pueden resolverse también en tiempo polinomial, lo que da origen al famoso problema abierto en computación: 
+\begin{equation}
+P \stackrel{?}{=} NP
+\end{equation}
 
-Es importante destacar que todo problema en P está contenido en NP, pero se desconoce si todos los problemas en NP pertenecen a P \citep{madiPvsNP}.
+Este dilema ha sido objeto de extensas investigaciones. Una de las formulaciones más comunes consiste en preguntarse si todo problema cuya solución puede verificarse eficientemente (NP) también puede resolverse eficientemente (P), es decir, si $P = NP$, o si, por el contrario, $P \neq NP$ \citep{lipton2010p}.
 
-\subsubsection{Reducciones y Problemas NP-Completo y NP-Difícil}
+\subsubsection{NP-Completo y NP-Difícil}
 
-Una \textbf{reducción} es una transformación algorítmica que permite resolver un problema utilizando la solución de otro. Si existe una reducción polinomial de un problema \(A\) a un problema \(B\), entonces resolver \(B\) eficientemente implica que \(A\) también puede resolverse eficientemente.
+Dentro de NP, algunos problemas destacan por su complejidad: los \textit{problemas NP-completos} son aquellos que, además de pertenecer a NP, son al menos tan difíciles como cualquier otro problema en NP. Si se encontrara un algoritmo polinomial para resolver un solo problema NP-completo, todos los problemas en NP también podrían resolverse eficientemente \citep{garey1979computers}.
 
-La clase \textbf{NP-difícil} contiene problemas a los cuales cualquier problema en NP puede reducirse en tiempo polinomial. La clase \textbf{NP-completo} es la intersección de NP y NP-difícil; es decir, problemas que están en NP y que son tan difíciles como cualquier otro problema en NP.
+Por otro lado, los \textit{problemas NP-difíciles} (NP-hard) son aún más generales: no necesariamente pertenecen a NP, pero cualquier problema en NP puede reducirse a ellos en tiempo polinomial. Como menciona Maldonado (2013), los problemas NP-duros implican un tratamiento en tiempo polinomial no determinista, mientras que los NP-completos son una subcategoría de aquellos que además pertenecen a NP \citep{maldonado2013problema}.
 
-\subsubsection{El Problema P vs NP}
-
-El problema central en teoría computacional consiste en determinar si:
-
-\[
-	P = NP,
-\]
-
-es decir, si todo problema cuya solución puede verificarse rápidamente (NP) también puede resolverse rápidamente (P).
-
-Si algún problema NP-completo pudiera resolverse en tiempo polinomial, entonces todos los problemas en NP podrían hacerlo, lo que implicaría que \(P = NP\). Hasta ahora, no se ha encontrado ningún algoritmo de tiempo polinomial para problemas NP-completos, ni se ha demostrado que no existan \citep{madiPvsNP}.
 
 \subsection{Algoritmos Exactos}
+
 \section{Heurísticas}
 
 Una heurística es un procedimiento de resolución de problemas que proviene del término griego \textit{heuriskein}, que significa ``encontrar o descubrir''. En el contexto de la investigación operacional, se define como:
