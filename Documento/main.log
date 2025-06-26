@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  25 JUN 2025 23:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  26 JUN 2025 00:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -739,14 +739,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
 <to be read again> 
                    \relax 
 l.202 \chapter
-              {Marco Teórico / Estado del Arte} [1
+              {Marco Teórico} [1
 
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.202 \chapter
-              {Marco Teórico / Estado del Arte} [2
+              {Marco Teórico} [2
 
 ]
 Cap\'{\i }tulo 2.
@@ -802,18 +802,18 @@ LaTeX Info: Redefining \% on input line 25.
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8B68D2B36901DBB783B155013135E701;2536.
+(rerunfilecheck)             Checksum: B3E0D3F75703A3BD09083A8E8C950370;2434.
  ) 
 Here is how much of TeX's memory you used:
  20292 strings out of 480247
  335932 string characters out of 5896151
- 648969 words of memory out of 5000000
+ 648948 words of memory out of 5000000
  37844 multiletter control sequences out of 15000+600000
  522243 words of font info for 59 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
  60i,11n,63p,648b,513s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (37 pages, 291695 bytes).
+Output written on main.pdf (37 pages, 291388 bytes).
 PDF statistics:
  388 PDF objects out of 1000 (max. 8388607)
  320 compressed objects within 4 object streams
