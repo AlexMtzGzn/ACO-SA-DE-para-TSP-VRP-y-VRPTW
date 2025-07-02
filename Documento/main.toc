@@ -8,20 +8,24 @@
 \contentsline {section}{\numberline {2.1}Antencedentes}{3}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Conceptos Clave}{3}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}El Problema en Optimización}{3}{subsection.2.2.1}%
-\contentsline {subsubsection}{Optimización Continua}{3}{section*.9}%
-\contentsline {subsubsection}{Optimización Discreta o Combinatoria}{4}{section*.10}%
-\contentsline {subsection}{\numberline {2.2.2}Complejidad Computacional}{4}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}El Problema P vs NP}{4}{subsection.2.2.3}%
-\contentsline {subsubsection}{Clases de Complejidad Básicas}{5}{section*.11}%
-\contentsline {subsubsection}{NP-Completo y NP-Difícil}{5}{section*.12}%
-\contentsline {subsection}{\numberline {2.2.4}Algoritmos Exactos}{5}{subsection.2.2.4}%
-\contentsline {section}{\numberline {2.3}Heurísticas}{5}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Metaheurísticas}{7}{section.2.4}%
-\contentsline {paragraph}{Propiedades Básicas}{7}{section*.20}%
-\contentsline {paragraph}{Propiedades de Rendimiento}{8}{section*.21}%
-\contentsline {paragraph}{Propiedades de Aplicabilidad}{8}{section*.22}%
-\contentsline {section}{\numberline {2.5}Referencias Relevantes}{9}{section.2.5}%
+\contentsline {subsubsection}{Optimización Continua}{4}{section*.6}%
+\contentsline {subsubsection}{Optimización Discreta o Combinatoria}{4}{section*.7}%
+\contentsline {subsection}{\numberline {2.2.2}Complejidad Computacional y Algorítmica}{4}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}El Problema P vs NP}{5}{subsection.2.2.3}%
+\contentsline {subsubsection}{Clases de Complejidad Básicas}{5}{section*.8}%
+\contentsline {subsubsection}{NP-Completo y NP-Difícil}{6}{section*.9}%
+\contentsline {subsection}{\numberline {2.2.4}Problemas de Optimización Combinatoria}{7}{subsection.2.2.4}%
+\contentsline {subsubsection}{Problema del Agente Viajero (TSP)}{7}{section*.10}%
+\contentsline {subsubsection}{Problema de Ruteo de Vehículos con Capacidades (CVRP)}{7}{section*.11}%
+\contentsline {subsubsection}{Problema de Ruteo de Vehículos con Capacidades y Ventanas de Tiempo (CVRPTW)}{7}{section*.12}%
+\contentsline {subsection}{\numberline {2.2.5}Algoritmos Exactos}{7}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.6}Heurísticas}{7}{subsection.2.2.6}%
+\contentsline {subsubsection}{Motivos para emplear métodos heurísticos}{8}{section*.13}%
+\contentsline {subsubsection}{Características de un buen algoritmo heurístico}{8}{section*.14}%
+\contentsline {subsection}{\numberline {2.2.7}Matehurísticas}{9}{subsection.2.2.7}%
+\contentsline {subsubsection}{Criterios de Evaluación para Métodos Metaheurísticos}{9}{section*.15}%
+\contentsline {section}{\numberline {2.3}Referencias Relevantes}{10}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Materiales y Métodos}{11}{chapter.3}%
 \contentsline {chapter}{\numberline {4}Resultados}{13}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Conclusiones}{15}{chapter.5}%
-\contentsline {chapter}{Apéndices}{19}{appendix*.26}%
+\contentsline {chapter}{Apéndices}{19}{appendix*.17}%

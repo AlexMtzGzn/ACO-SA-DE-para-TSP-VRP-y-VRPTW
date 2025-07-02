@@ -1,15 +1,9 @@
 \begin{thebibliography}{1}
 
-\bibitem{bazaraa2006nonlinear}
-Mokhtar~S. Bazaraa, Hanif~D. Sherali, and C.~M. Shetty.
-\newblock {\em Nonlinear Programming: Theory and Algorithms}.
-\newblock Wiley, 3rd edition, 2006.
-
 \bibitem{antonioSuarez2014}
-Orlando de~Antonio~Suárez.
+Orlando Antonio~Suárez.
 \newblock Una aproximación a la heurística y metaheurísticas.
-\newblock {\em INGE@UAN – Tendencias en la Ingeniería}, 1(2):–, 2014.
-\newblock Publicado el 4 de marzo de 2014.
+\newblock {\em INGE@UAN -- Tendencias en la Ingeniería}, 1(2), 2014.
 
 \bibitem{cobos2010}
 Sergio~Gerardo de~los Cobos~Silva, John~Goddard Close, Miguel Ángel
@@ -18,25 +12,25 @@ Sergio~Gerardo de~los Cobos~Silva, John~Goddard Close, Miguel Ángel
 \newblock Libros CBI, Universidad Autónoma Metropolitana Iztapalapa, México,
   2010.
 
-\bibitem{garey1979computers}
-Michael~R. Garey and David~S. Johnson.
-\newblock {\em Computers and Intractability: A Guide to the Theory of
-  NP-Completeness}.
-\newblock W. H. Freeman, 1979.
-
-\bibitem{lipton2010p}
-Richard~J. Lipton.
-\newblock {\em The P = NP Question and Gödel's Lost Letter}.
-\newblock Springer, 2010.
+\bibitem{Flores2014}
+Xavier~Alejandro Flores~Cabezas.
+\newblock Problemas del milenio: P vs np.
+\newblock {\em Revista de Divulgación Amarun}, 1:1--15, 2014.
 
 \bibitem{maldonado2013problema}
 Carlos Maldonado.
 \newblock Un problema fundamental en la investigación: Los problemas p vs. np.
 \newblock {\em Revista Logos, Ciencia \& Tecnología}, 4(2):10--20, 2013.
 
-\bibitem{sipser2012introduction}
-Michael Sipser.
-\newblock {\em Introduction to the Theory of Computation}.
-\newblock Cengage Learning, 3rd edition, 2012.
+\bibitem{duarte2007metaheuristicas}
+Abraham~Duarte Muñoz, Juan José~Pantrigo Fernández, and Micael~Gallego
+  Carrillo.
+\newblock {\em Metaheurísticas}.
+\newblock Dykinson, Madrid, España, 2007.
+
+\bibitem{papadimitriou1998}
+Christos~H. Papadimitriou and Kenneth Steiglitz.
+\newblock {\em Combinatorial Optimization: Algorithms and Complexity}.
+\newblock Dover Publications, New York, 1998.
 
 \end{thebibliography}

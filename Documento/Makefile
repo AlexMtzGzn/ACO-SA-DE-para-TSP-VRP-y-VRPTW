@@ -1,7 +1,7 @@
-TEXFILE=tesis
+TEXFILE=main
 PDF=$(TEXFILE).pdf
 
-all: $(PDF)
+all: clean $(PDF)
 
 $(PDF): $(TEXFILE).tex
 	@pdflatex $(TEXFILE)
@@ -11,7 +11,7 @@ $(PDF): $(TEXFILE).tex
 	@echo "Compilación completada: $(PDF)"
 
 clean:
-	@rm -f *.aux *.log *.toc *.out *.bbl *.blg *.lof *.lot *.nav *.snm *.vrb *.fls *.fdb_latexmk
+	@rm -f *.aux *.log *.toc *.out *.bbl *.blg *.lof *.lot *.nav *.snm *.vrb *.fls *.fdb_latexmk *.synctex.gz $(PDF)
+	@echo "Archivos temporales y PDF viejo borrados."
 
-cleanall: clean
-	@rm -f $(PDF)
+.PHONY: all clean

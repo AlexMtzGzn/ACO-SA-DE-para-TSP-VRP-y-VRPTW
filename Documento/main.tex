@@ -4,8 +4,13 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\addto\captionsspanish{\renewcommand{\listtablename}{Índice de tablas}}%
-\addto\captionsspanish{\renewcommand{\listfigurename}{Índice de figuras}}%
+\usepackage{enumitem}
+\usepackage{tocloft}
+\newcommand{\listequationsname}{Índice de fórmulas}
+\newlistof{myequations}{eq}{\listequationsname}
+\addto\captionsspanish{\renewcommand{\listtablename}{Índice de tablas}}
+\addto\captionsspanish{\renewcommand{\listfigurename}{Índice de figuras}}
+\addto\captionsspanish{\renewcommand{\listequationsname}{Índice de fórmulas}}
 
 % Tipografía
 \usepackage{lmodern}
@@ -29,7 +34,7 @@
 
 % Hipervínculos y URLs
 \usepackage{hyperref}
-% \usepackage{url} % Opcional, puedes quitarlo porque hyperref ya maneja URLs
+% \usepackage{url} % Opcional, hyperref ya maneja URLs
 
 % Márgenes
 \usepackage{geometry}
@@ -48,8 +53,8 @@
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
-    citecolor=blue,
-    urlcolor=blue,
+    citecolor=black,
+    urlcolor=black,
     pdftitle={VRPTW: Proyecto Terminal},
     pdfauthor={Alejandro Martínez Guzmán}
 }
@@ -86,7 +91,7 @@
 \newcommand{\director}[1]{\def\eldirector{#1}}
 \newcommand{\fecha}[1]{\def\lafecha{#1}}
 
-\titulo{Resolución del Problema de Rutas Vehiculares con Ventanas de Tiempo mediante un Algoritmo Híbrido entre Colonia de Hormigas y Recocido Simulado}
+\titulo{Resolución del Problema de Rutas Vehiculares con Capacidades y Ventanas de Tiempo mediante un Algoritmo Híbrido entre Colonia de Hormigas y Recocido Simulado}
 \nombre{\uppercase{Alejandro Martínez Guzmán}}
 \carrera{Licenciatura en Ingeniería en Computación}
 \director{\uppercase{Edwin Montes Orozco}}
@@ -180,6 +185,9 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \cleardoublepage
 \listoftables
 \cleardoublepage
+\listofmyequations
+\cleardoublepage
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CUERPO PRINCIPAL (ya numerado)
@@ -195,6 +203,8 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1.5ex}
 
+\newcommand{\tab}{\hspace*{1cm}}
+
 \chapter{Introducción}
 \label{cap:introduccion}
 % Contenido...
@@ -205,190 +215,225 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \section{Conceptos Clave}
 \subsection{El Problema en Optimización}
 
-\textit{La optimización} se refiere al proceso de buscar, dentro de un conjunto de soluciones factibles, aquella que maximice o minimice una función objetivo determinada \citep{bazaraa2006nonlinear}.
+Los problemas de optimización se dividen de manera natural en dos categorías: problemas de optimización con variables continuas y problemas de optimización con variables discretas. A estos últimos se les llama problemas de optimización combinatoria \citep{cobos2010}.
 
-Formalmente, un problema de optimización se define como la búsqueda de un vector \( x \) en un conjunto factible \( S \subseteq \mathbb{R}^n \) que minimice o maximice una función objetivo \( f: S \to \mathbb{R} \), también denominada función costo o beneficio \citep{cobos2010}.
+La función \(f : S \to \mathbb{R}\), donde el conjunto \(S\) es un subconjunto de \(\mathbb{R}^n\), se denomina función objetivo, función de costo o beneficio, mientras que el conjunto \(S\) se identifica como el conjunto factible o el conjunto de soluciones posibles.
 
-Esta disciplina se clasifica principalmente en dos tipos: la \textit{optimización continua}, que trabaja con variables que pueden tomar valores dentro de un rango continuo, y la \textit{optimización discreta}, que se enfoca en problemas donde las variables sólo pueden asumir valores discretos o enteros \citep{cobos2010}.
+Como definición formal, se puede decir que el problema general de optimización consiste en encontrar un elemento \(x \in S\) que optimice la función objetivo. En el caso de un problema de minimización, se expresa de la siguiente manera:
+
+\[
+	\min_{x \in S} f(x).
+\]
+
+Por su parte, en un problema de maximización, se utiliza la notación:
+
+\[
+	\max_{x \in S} f(x).
+\]
+
+\citep{cobos2010}
+
 
 \subsubsection{Optimización Continua}
 
-La optimización continua se refiere a la búsqueda de soluciones óptimas en un conjunto factible \( S \subseteq \mathbb{R}^n \), donde las variables pueden tomar valores dentro de un intervalo continuo. En este contexto, el objetivo es encontrar un vector \( x_{opt} \in S \) que minimice o maximice una función objetivo \( f: S \to \mathbb{R} \).
-
-Formalmente, para problemas de minimización, la solución óptima global \( x_{opt} \) satisface:
+La optimización continua para problemas de minimización, el objetivo es encontrar un punto \( x_{opt} \) dentro del conjunto factible \( S \) tal que el valor de la función objetivo en ese punto sea menor o igual que el valor en cualquier otro punto del conjunto, es decir,
 
 \[
-	f(x_{opt}) \leq f(x), \quad \forall x \in S,
+	f(x_{opt}) \leq f(x), \quad \forall x \in S.
 \]
 
-mientras que para maximización, se cumple que:
+Para problemas de maximización, se busca un punto \( x_{opt} \) en \( S \) donde la función objetivo tome un valor mayor o igual al de cualquier otro punto factible, esto es,
 
 \[
 	f(x_{opt}) \geq f(x), \quad \forall x \in S.
 \]
 
-El valor \( f(x_{opt}) \) representa el costo o beneficio óptimo, y el conjunto de todas las soluciones óptimas se denota como \( S_{opt} \) \citep{cobos2010}.
+A este punto se le denomina solución óptima global, y el valor correspondiente \( f(x_{opt}) \) se conoce como costo óptimo. Además, el conjunto de todas las soluciones óptimas se representa por \( S_{opt} \) \citep{cobos2010}.
+
 
 \subsubsection{Optimización Discreta o Combinatoria}
+\label{subsec:opt_discreta}
 
-Un problema de optimización combinatoria se formaliza mediante una pareja \((S, f)\), donde \(S\) es un conjunto finito de soluciones posibles y \(f: S \to \mathbb{R}\) es la función objetivo o función costo que asigna un valor real a cada solución \citep{cobos2010}.
+Una instancia de un problema de optimización combinatoria puede representarse mediante una pareja \((S, f)\), donde \(S\) es un conjunto finito que contiene todas las soluciones posibles, y \(f\) es una función real, denominada función objetivo o función costo, definida como
 
-El objetivo es encontrar una solución óptima global \(i_{opt} \in S\) que cumpla:
+\[
+	f: S \to \mathbb{R}.
+\]
+
+Para problemas de minimización, se busca una solución \(i_{opt} \in S\) tal que
 
 \[
 	f(i_{opt}) \leq f(i), \quad \forall i \in S,
 \]
 
-para problemas de minimización, o bien:
+mientras que para problemas de maximización, se requiere que
 
 \[
-	f(i_{opt}) \geq f(i), \quad \forall i \in S,
+	f(i_{opt}) \geq f(i), \quad \forall i \in S.
 \]
 
-en el caso de maximización.
-\subsection{Complejidad Computacional}
+La solución \(i_{opt}\) se denomina solución óptima global, y el valor \(f(i_{opt})\) representa el costo óptimo. El conjunto de todas las soluciones óptimas se denota como \(S_{opt}\). Un problema de optimización combinatoria se define entonces como el conjunto de todas sus instancias \citep{cobos2010}.
 
-La complejidad computacional estudia los recursos necesarios para resolver un problema, independientemente del algoritmo utilizado. A diferencia de la complejidad algorítmica, que se enfoca en el tiempo o espacio que un algoritmo específico consume, la complejidad computacional analiza la dificultad inherente del problema desde una perspectiva teórica, considerando el trabajo, la estructura matemática y lógica implicada en su resolución \citep{maldonado2013problema}.
+
+
+\subsection{Complejidad Computacional y Algorítmica}
+
+La complejidad computacional estudia los recursos necesarios para resolver un problema, independientemente del algoritmo utilizado. A diferencia de la complejidad algorítmica, que se enfoca en el tiempo o espacio que un algoritmo específico consume \citep{maldonado2013problema}.
 
 \subsection{El Problema P vs NP}
 
-En teoría de la computación, los problemas pueden clasificarse en dos grandes grupos: decidibles e indecidibles. Un problema se considera \textit{decidible} si existe un algoritmo que puede resolverlo en un número finito de pasos. Por el contrario, un problema es \textit{indecidible} si no existe un algoritmo general que permita resolverlo, incluso con recursos ilimitados \citep{maldonado2013problema}.
+Todos los problemas, tanto en la vida como en la ciencia, pueden clasificarse en dos grupos principales: problemas decidibles y problemas indecidibles \citep{maldonado2013problema}.
 
-Desde otro enfoque, esta clasificación también puede asociarse con la noción de compresibilidad: un problema decidible puede expresarse o condensarse en una forma computacional comprensible, mientras que los indecidibles son inherentemente incompresibles \citep{maldonado2013problema}.
+Se dice que un problema es \emph{indecidible} cuando no existe ningún algoritmo que permita resolverlo, incluso si se dispusiera de tiempo y recursos ilimitados. En consecuencia, no es posible determinar si dicho problema se detendrá ni en qué momento lo hará \citep{maldonado2013problema}.
+
+Por contraste, un problema es \emph{decidible} cuando existe, o al menos podría existir, algún algoritmo capaz de resolverlo. En otras palabras, un problema indecidible es aquel respecto al cual no se sabe, ni se puede llegar a saber, si se detendrá o cuándo se detendrá \citep{maldonado2013problema}.
+
+Un problema es decidible cuando es compresible; la compresibilidad se refiere a la existencia de un algoritmo o una fórmula mediante los cuales un problema, un lenguaje o un programa pueden ser condensados, reducidos, comprimidos o expresados. Por el contrario, los problemas indecidibles son incompresibles \citep{maldonado2013problema}.
 
 \subsubsection{Clases de Complejidad Básicas}
 
-\textbf{Clase P:} incluye todos los problemas que pueden resolverse en tiempo polinomial por una máquina determinista. Es decir, existe un algoritmo eficiente que resuelve cualquier instancia del problema en un tiempo acotado por una función polinomial respecto al tamaño de entrada \citep{sipser2012introduction}.
+Los problemas decidibles se dividen en dos categorías: los problemas \emph{P} y los problemas \emph{NP} \citep{maldonado2013problema}.
 
-\textbf{Clase NP:} contiene problemas para los cuales una solución puede verificarse (no necesariamente encontrarse) en tiempo polinomial por una máquina determinista. Se desconoce si todos los problemas de NP pueden resolverse también en tiempo polinomial, lo que da origen al famoso problema abierto en computación: 
-\begin{equation}
-P \stackrel{?}{=} NP
-\end{equation}
+\textbf{Clase P:}
 
-Este dilema ha sido objeto de extensas investigaciones. Una de las formulaciones más comunes consiste en preguntarse si todo problema cuya solución puede verificarse eficientemente (NP) también puede resolverse eficientemente (P), es decir, si $P = NP$, o si, por el contrario, $P \neq NP$ \citep{lipton2010p}.
+Se dice que un problema \(D\) pertenece a la clase de complejidad \(P\) si cumple con los siguientes criterios:
+
+\begin{itemize}
+	\item \(D\) es un problema de decisión.
+	\item \(D\) se puede resolver en tiempo polinomial.
+\end{itemize}
+
+El término “tiempo polinomial” indica que el problema puede resolverse mediante un algoritmo que se ejecuta en un tiempo relativamente rápido. De manera formal, que un algoritmo para \(D\), cuyo comportamiento depende del tamaño de la entrada \(n\), corra en tiempo polinomial significa que:
+
+\[
+	(\exists\,\alpha > 0)\,(\exists\,n_0 > 0)\;:\; D(n) \leq \alpha \cdot p(n) \quad (\forall\,n \geq n_0),
+\]
+
+donde \(p(n)\) es un polinomio.
+
+Esto puede expresarse utilizando la notación habitual:
+
+\[
+	D = O\bigl(n^k\bigr).
+\]
+
+Así, se dice que un algoritmo \(D\) corre en tiempo polinomial.
+
+Se considera que un algoritmo que se ejecuta en tiempo polinomial es “eficiente”; sin embargo, un proceso limitado por un polinomio de grado muy elevado (por ejemplo, 10,000) difícilmente puede considerarse rápido o eficiente. En general, los problemas que se resuelven en tiempo polinomial lo hacen con un grado relativamente pequeño. Un ejemplo de este tipo de problema es la multiplicación de dos números naturales, que se abordó previamente en este artículo, donde el tiempo de ejecución estaba acotado por un polinomio de grado uno \citep{Flores2014}.
+
+\textbf{Clase NP:}
+
+Se dice que un problema \(E\) pertenece a la clase de complejidad \(NP\) si cumple con los siguientes criterios:
+
+\begin{itemize}
+	\item \(E\) es un problema de decisión.
+	\item \(E\) es verificable en tiempo polinomial.
+\end{itemize}
+
+El término “verificar” se refiere a comprobar si el certificado emitido por el algoritmo satisface los requisitos del problema. Un problema se encuentra en la clase \(NP\) si el algoritmo utilizado para verificar su certificado se ejecuta en tiempo polinomial.
+
+Como ejemplo de un problema que pertenece a la clase de complejidad \(NP\) se puede mencionar el problema de ordenamiento tratado anteriormente, en el que se mostró que la verificación del resultado está acotada por un polinomio de grado uno.
+
+Por otra parte, entre todos los algoritmos de ordenamiento, se observa que mientras algunos se ejecutan en tiempo polinomial, como el conocido \emph{bubble sort}, en principio podría definirse un algoritmo de ordenamiento que opere en tiempo exponencial. Sin embargo, basta con que exista al menos un algoritmo que lo resuelva en tiempo eficiente para que dicho problema pertenezca a la clase \(P\) \citep{Flores2014}.
+
+Surge aquí una dificultad fundamental relacionada con los problemas \(P\) y \(NP\). Esta cuestión puede plantearse de varias formas: ¿existen más problemas en \(P\) que en \(NP\), o sucede lo contrario? Es decir, ¿puede decirse que \(P \geq NP\) o que \(NP \geq P\)? También se ha propuesto pensar esta relación en términos de pertenencia o inclusión: si los problemas \(P\) están contenidos en \(NP\), como en \(P \in NP\) o \(P \subseteq NP\), o si la relación inversa podría ser cierta, es decir, \(NP \in P\). De manera más radical, la cuestión se resume en determinar si ambos conjuntos son iguales o distintos: \(P = NP\) o bien \(P \neq NP\) \citep{maldonado2013problema}.
+
 
 \subsubsection{NP-Completo y NP-Difícil}
 
-Dentro de NP, algunos problemas destacan por su complejidad: los \textit{problemas NP-completos} son aquellos que, además de pertenecer a NP, son al menos tan difíciles como cualquier otro problema en NP. Si se encontrara un algoritmo polinomial para resolver un solo problema NP-completo, todos los problemas en NP también podrían resolverse eficientemente \citep{garey1979computers}.
+Es importante señalar que la clase de problemas \(NP\) incluye todos aquellos que pueden resolverse en tiempo polinomial. Sin embargo, los problemas denominados \emph{NP-difíciles} (o \emph{NP-hard}) son aquellos que se abordan y se resuelven en un tiempo polinomial no determinista. A su vez, los problemas \emph{NP-completos} son aquellos que pertenecen a \(NP\) y que, al mismo tiempo, son NP-difíciles.
 
-Por otro lado, los \textit{problemas NP-difíciles} (NP-hard) son aún más generales: no necesariamente pertenecen a NP, pero cualquier problema en NP puede reducirse a ellos en tiempo polinomial. Como menciona Maldonado (2013), los problemas NP-duros implican un tratamiento en tiempo polinomial no determinista, mientras que los NP-completos son una subcategoría de aquellos que además pertenecen a NP \citep{maldonado2013problema}.
+En este caso, si bien es posible encontrar soluciones a los problemas NP-completos, no se pueden ubicar con precisión en términos de una solución rápida. De manera más exacta, el tiempo necesario para resolver este tipo de problemas crece tan rápidamente como lo hace el tamaño del propio problema. En términos simplificados, a diferencia de otros casos, el análisis general no resulta posible, y a medida que el problema crece, también aumenta proporcionalmente el tiempo requerido para su solución.
+
+Los problemas NP-difíciles pueden presentarse como problemas de decisión, problemas de búsqueda o problemas de optimización \citep{maldonado2013problema}.
+
+
+\subsection{Problemas de Optimización Combinatoria}
+
+De manera complementaria a la definición formal presentada en la \autoref{subsec:opt_discreta} por \citep{cobos2010}, Papadimitriou y Steiglitz \citep{papadimitriou1998} definen la optimización combinatoria como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto o puede hacerse discreto mediante un proceso de enumeración, y en los que se busca una solución que optimice una función objetivo definida sobre ese conjunto.
+
+\subsubsection{Problema del Agente Viajero (TSP)}
+\subsubsection{Problema de Ruteo de Vehículos con Capacidades (CVRP)}
+
+\subsubsection{Problema de Ruteo de Vehículos con Capacidades y Ventanas de Tiempo (CVRPTW)}
+
+
 
 
 \subsection{Algoritmos Exactos}
 
-\section{Heurísticas}
+\subsection{Heurísticas}
 
-Una heurística es un procedimiento de resolución de problemas que proviene del término griego \textit{heuriskein}, que significa ``encontrar o descubrir''. En el contexto de la investigación operacional, se define como:
+Heurística es un concepto cuyo origen se remonta a la Grecia clásica, derivado de la palabra griega \textit{heuriskein}, que significa encontrar o descubrir. Según la historia, se asocia con \textit{eureka}, la famosa exclamación atribuida a Arquímedes \citep{antonioSuarez2014}.
 
-\begin{quote}
-    ``Un procedimiento para el que se tiene un alto grado de confianza en que encuentra soluciones de alta calidad con un coste computacional razonable, aunque no se garantice su optimalidad ni su factibilidad.'' \citep{antonioSuarez2014}
-\end{quote}
-
-
-Las heurísticas son métodos aproximados que se utilizan cuando:
-
-\begin{itemize}
-    \item No existe un método exacto conocido para resolver el problema.
-    \item Los métodos exactos son computacionalmente muy costosos o inviables.
-    \item Se requiere mayor flexibilidad en el modelado del problema.
-    \item El problema presenta características de alta complejidad, no linealidad o gran dimensionalidad.
-\end{itemize}
-
-\subsection*{Características de una Buena Heurística}
-
-Para que un algoritmo heurístico sea considerado de calidad, debe cumplir con tres propiedades fundamentales:
-
-\subsubsection*{1. Eficiencia}
-\begin{itemize}
-    \item El esfuerzo computacional debe ser realista y proporcional al problema a resolver.
-    \item Debe ejecutarse en un tiempo computacional razonable.
-\end{itemize}
-
-\subsubsection*{2. Calidad de la Solución}
-\begin{itemize}
-    \item La solución obtenida debe estar, en promedio, próxima al óptimo global.
-    \item Debe proporcionar consistentemente soluciones de alta calidad.
-\end{itemize}
-
-\subsubsection*{3. Robustez}
-\begin{itemize}
-    \item La probabilidad de obtener soluciones de baja calidad (distantes del óptimo) debe ser mínima.
-    \item Debe mantener un rendimiento estable ante variaciones en los parámetros del problema.
-\end{itemize}
-
-\subsection*{Ventajas de los Métodos Heurísticos}
-
-Los métodos heurísticos ofrecen mayor flexibilidad y adaptabilidad que las técnicas exactas para abordar las características complejas de los problemas del mundo real. Su principal valor radica en la capacidad de encontrar soluciones de buena calidad en tiempos computacionales breves, constituyendo una alternativa viable cuando los métodos exactos resultan impracticables.
-
-En síntesis, una heurística representa un enfoque inteligente de resolución que equilibra la calidad de la solución con la eficiencia computacional, siendo especialmente útil para problemas de optimización combinatoria donde los métodos exactos no son factibles debido a su complejidad computacional.
-
-\section{Metaheurísticas}
-
-Esta sección se basa en la exposición realizada por \citep{antonioSuarez2014}, quien describe las metaheurísticas como una evolución natural de los métodos heurísticos, desarrolladas para superar las limitaciones de las heurísticas tradicionales. El término fue introducido por Fred Glover en 1986 y se define como:
+Para ejemplificar este concepto, se expone la siguiente definición:
 
 \begin{quote}
-    ``Una clase de métodos aproximados diseñados para resolver problemas de difícil optimización combinatoria, en los que los heurísticos clásicos no son efectivos.''
+	Según Zanakis et al.\ (citado en \citep{duarte2007metaheuristicas}), las heurísticas son \textit{``procedimientos simples, a menudo basados en el sentido común, que se supone que obtendrán una buena solución (no necesariamente óptima) a problemas difíciles de un modo sencillo y rápido''}.
 \end{quote}
 
-\subsection*{Características Fundamentales}
+\subsubsection{Motivos para emplear métodos heurísticos}
 
-Las metaheurísticas se caracterizan por:
+Los problemas de decisión que pertenecen a la clase NP corresponden a aquellos para los que no se puede garantizar encontrar una mejor solución en un tiempo polinómico razonable.
+
+En este contexto, los métodos heurísticos se convierten en procedimientos eficientes para hallar buenas soluciones, aunque no se pueda demostrar que estas sean óptimas. En estos métodos, la rapidez con que se obtiene el resultado (\textit{que siempre es menor que el tiempo requerido por otros métodos}) es tan relevante como la calidad de la solución encontrada.
+
+Según \citep{antonioSuarez2014}, es posible emplear métodos heurísticos cuando un problema de optimización, sea determinístico o no, presenta alguna de las siguientes características:
+
+
+\begin{enumerate}[label=\alph*.]
+	\item El problema tiene una naturaleza tal que no se conoce ningún método exacto para resolverlo.
+	\item Aunque exista un método exacto para su resolución, su uso resulta computacionalmente muy costoso o inviable.
+	\item El método heurístico posee mayor flexibilidad que un método exacto, permitiendo, por ejemplo, incorporar condiciones de difícil modelización.
+	\item El modelo matemático es demasiado extenso, excesivamente no lineal o muy complejo desde el punto de vista lógico.
+	\item Realizar suposiciones o aproximaciones para simplificar el problema tiende a destruir estructuras del modelo que son esenciales en el contexto real, haciendo que la solución obtenida no sea viable.
+	\item El método heurístico se emplea como parte de un procedimiento global que garantiza el óptimo de un problema. Existen dos posibilidades:
+	      \begin{itemize}
+		      \item El método heurístico proporciona una buena solución inicial de partida.
+		      \item El método heurístico interviene en una etapa intermedia del procedimiento; un ejemplo de esto son las reglas que determinan la selección de la variable que entra en la base en el método Simplex.
+	      \end{itemize}
+\end{enumerate}
+
+\subsubsection{Características de un buen algoritmo heurístico}
+
+Según \citep{antonioSuarez2014}, un buen algoritmo heurístico debe poseer las siguientes propiedades:
+
+\begin{enumerate}[label=\alph*.]
+	\item \textbf{Ser eficiente}. Que el esfuerzo computacional sea realista y adecuado para obtener la solución.
+	\item \textbf{Ser bueno}. La solución debe estar, en promedio, cerca del óptimo.
+	\item \textbf{Ser robusto}. La probabilidad de obtener una mala solución (lejos del óptimo) debe ser baja.
+\end{enumerate}
+
+\subsection{Matehurísticas}
+
+El término \textit{metaheurística} fue introducido por Fred Glover en 1986 \citep{antonioSuarez2014}. Etimológicamente, deriva de la composición de dos palabras de origen griego, que son “meta” y “heurística”. El segundo término ha sido descrito en la sección anterior, mientras que el prefijo meta puede traducirse como “más allá de” o “en un nivel superior” \citep{duarte2007metaheuristicas}.
+
+Con este término, Glover pretendía definir un \textit{procedimiento maestro de alto nivel que guía y modifica otras heurísticas para explorar soluciones más allá de la simple optimalidad local} \citep{duarte2007metaheuristicas}.
+
+Para ilustrar este concepto, cabe mencionar la definición propuesta por J.P. Kelly et al., quien es citado por \citep{duarte2007metaheuristicas}:
+
+\begin{quote}
+	\textit{Las metaheurísticas son métodos aproximados especialmente diseñados para abordar problemas complejos de optimización combinatoria donde los heurísticos tradicionales resultan ineficaces. Estas técnicas ofrecen un marco flexible para desarrollar algoritmos híbridos que integran conceptos provenientes de la inteligencia artificial, la evolución biológica y procesos estadísticos.}
+\end{quote}
+
+Las metaheurísticas constituyen un enfoque metodológico que permite el desarrollo de algoritmos híbridos innovadores mediante la integración de principios provenientes de múltiples disciplinas, incluyendo la genética, biología, inteligencia artificial, matemáticas, física y neurología \citep{antonioSuarez2014}.
+
+\subsubsection{Criterios de Evaluación para Métodos Metaheurísticos}
+
+La valoración del desempeño de las metaheurísticas se fundamenta en propiedades específicas que determinan su utilidad tanto práctica como teórica. Es importante reconocer que la optimización simultánea de todas estas características no es factible debido a la naturaleza contradictoria de algunas de ellas \citep{antonioSuarez2014}:
 
 \begin{itemize}
-    \item \textbf{Marco conceptual general:} Proporcionan estrategias de alto nivel que pueden aplicarse a diversos problemas de optimización con modificaciones mínimas.
-    \item \textbf{Hibridación:} Combinan conceptos de diferentes campos como genética, biología, física, inteligencia artificial y neurología.
-    \item \textbf{Flexibilidad:} Pueden adaptarse a distintos tipos de problemas manteniendo su estructura básica.
-    \item \textbf{Mejora iterativa:} Evolucionan las soluciones a través de procesos iterativos guiados.
+	\item \textbf{Simplicidad:} La metodología debe fundamentarse en principios claros y accesibles que faciliten su comprensión.
+	\item \textbf{Precisión:} Cada etapa y procedimiento debe estar definido mediante términos específicos y concretos.
+	\item \textbf{Coherencia:} Los componentes metodológicos deben derivarse lógicamente de los principios fundamentales.
+	\item \textbf{Eficiencia:} Debe optimizar el uso de recursos computacionales, tanto en tiempo de procesamiento como en memoria.
+	\item \textbf{Generalidad:} La aplicabilidad debe extenderse a diversos tipos de problemas manteniendo un rendimiento satisfactorio.
+	\item \textbf{Adaptabilidad:} Capacidad de ajustarse a diferentes escenarios de aplicación y modificaciones sustanciales del modelo.
+	\item \textbf{Robustez:} El comportamiento debe mantenerse estable ante variaciones menores en el modelo o contexto.
+	\item \textbf{Interactividad:} Debe facilitar la incorporación del conocimiento del usuario para optimizar el rendimiento.
+	\item \textbf{Multiplicidad:} Capacidad de generar múltiples alternativas de solución de alta calidad para la selección del usuario.
+	\item \textbf{Autonomía:} Funcionamiento independiente con parámetros mínimos o autoconfiguración.
 \end{itemize}
-
-\subsection*{Propiedades Deseables de una Metaheurística}
-
-Una metaheurística de calidad debe poseer las siguientes características:
-
-\paragraph{Propiedades Básicas}
-\begin{itemize}
-    \item \textbf{Simplicidad:} Basada en principios claros y comprensibles.
-    \item \textbf{Precisión:} Pasos y fases formulados en términos concretos.
-    \item \textbf{Coherencia:} Elementos que se derivan naturalmente de sus principios.
-\end{itemize}
-
-\paragraph{Propiedades de Rendimiento}
-\begin{itemize}
-    \item \textbf{Eficacia:} Alta probabilidad de alcanzar soluciones óptimas en casos realistas.
-    \item \textbf{Eficiencia:} Aprovechamiento óptimo de recursos computacionales (tiempo y memoria).
-    \item \textbf{Robustez:} Comportamiento estable ante alteraciones del modelo.
-\end{itemize}
-
-\paragraph{Propiedades de Aplicabilidad}
-\begin{itemize}
-    \item \textbf{Generalidad:} Utilizable con buen rendimiento en una amplia variedad de problemas.
-    \item \textbf{Adaptabilidad:} Capacidad de adaptación a diferentes contextos de aplicación.
-    \item \textbf{Interactividad:} Permite la incorporación de conocimiento del usuario.
-\end{itemize}
-
-\subsection*{Clasificación de Metaheurísticas}
-
-Las metaheurísticas pueden clasificarse según su inspiración:
-
-\begin{itemize}
-    \item \textbf{Inspiradas en la Física:} \textit{Recocido Simulado (Simulated Annealing)}, basado en el proceso de calentamiento y enfriamiento de metales para obtener estados de baja energía.
-    \item \textbf{Inspiradas en la Evolución:} \textit{Algoritmos Genéticos}, desarrollados por John Holland, basados en los mecanismos de selección natural y reproducción sexual.
-    \item \textbf{Inspiradas en la Biología:} \textit{Optimización por Colonias de Hormigas (Ant Colony Optimization)}, que simula el comportamiento de comunicación de las hormigas mediante feromonas para encontrar caminos óptimos.
-\end{itemize}
-
-\subsection*{Ventajas de las Metaheurísticas}
-
-Las metaheurísticas representan una de las mejores aproximaciones para abordar problemas de optimización combinatoria debido a:
-
-\begin{itemize}
-    \item Su capacidad de escapar de óptimos locales.
-    \item La posibilidad de manejar espacios de solución complejos.
-    \item Su adaptabilidad a problemas del mundo real.
-    \item El equilibrio entre exploración y explotación del espacio de búsqueda.
-\end{itemize}
-
-En resumen, las metaheurísticas constituyen marcos de trabajo de propósito general que guían el diseño de algoritmos de optimización, ofreciendo estrategias sofisticadas para la resolución de problemas complejos donde las heurísticas tradicionales resultan insuficientes.
-
 
 \section{Referencias Relevantes}
 
