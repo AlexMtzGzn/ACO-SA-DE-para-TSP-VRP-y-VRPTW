@@ -17,6 +17,13 @@ Xavier~Alejandro Flores~Cabezas.
 \newblock Problemas del milenio: P vs np.
 \newblock {\em Revista de Divulgación Amarun}, 1:1--15, 2014.
 
+\bibitem{lopez2014tabu}
+Erasmo López, Óscar Salas, and Álex Murillo.
+\newblock El problema del agente viajero: Un algoritmo determinístico usando
+  búsqueda tabú.
+\newblock {\em Revista de Matemática: Teoría y Aplicaciones}, 21(1):127--144,
+  2014.
+
 \bibitem{maldonado2013problema}
 Carlos Maldonado.
 \newblock Un problema fundamental en la investigación: Los problemas p vs. np.
@@ -32,5 +39,12 @@ Abraham~Duarte Muñoz, Juan José~Pantrigo Fernández, and Micael~Gallego
 Christos~H. Papadimitriou and Kenneth Steiglitz.
 \newblock {\em Combinatorial Optimization: Algorithms and Complexity}.
 \newblock Dover Publications, New York, 1998.
+
+\bibitem{torres2018}
+J.~Torres-Jiménez, A.~Aguilar-Melendéz, and M.~G. Cedillo-Campos.
+\newblock El problema del agente viajero con restricciones de ventanas de
+  tiempo: revisión y clasificación de métodos de solución.
+\newblock {\em Revista Iberoamericana de Automática e Informática
+  Industrial}, 15(4):440--452, 2018.
 
 \end{thebibliography}
