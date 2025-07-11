@@ -222,17 +222,19 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \section{Conceptos Clave}
 \subsection{El Problema en Optimización}
 
-Los problemas de optimización se dividen de manera natural en dos categorías: problemas de optimización con variables continuas y problemas de optimización con variables discretas. A estos últimos se les llama problemas de optimización combinatoria \citep{cobos2010}.
+Los \textbf{problemas de optimización} constituyen una herramienta fundamental en ciencias computacionales, ingeniería, logística y muchas otras disciplinas. En el contexto de esta investigación, resultan especialmente relevantes porque permiten modelar situaciones en las que se busca obtener el \textbf{mejor resultado posible} bajo ciertas restricciones, como \textbf{minimizar costos}, \textbf{distancias} o \textbf{tiempos}.
 
-La función \(f : S \to \mathbb{R}\), donde el conjunto \(S\) es un subconjunto de \(\mathbb{R}^n\), se denomina función objetivo, función de costo o beneficio, mientras que el conjunto \(S\) se identifica como el conjunto factible o el conjunto de soluciones posibles.
+De acuerdo con \citep{cobos2010}, los problemas de optimización se dividen de manera natural en dos categorías: problemas con \textbf{variables continuas} y problemas con \textbf{variables discretas}. A estos últimos se les conoce como problemas de \textbf{optimización combinatoria}.
 
-Como definición formal, se puede decir que el problema general de optimización consiste en encontrar un elemento \(x \in S\) que optimice la función objetivo. En el caso de un problema de minimización, se expresa de la siguiente manera:
+La función \(f : S \to \mathbb{R}\), donde el conjunto \(S\) es un subconjunto de \(\mathbb{R}^n\), se denomina \textbf{función objetivo}, \textbf{función de costo} o \textbf{beneficio}, mientras que el conjunto \(S\) se identifica como el \textbf{conjunto factible} o el conjunto de \textbf{soluciones posibles} \citep{cobos2010}.
+
+Como definición formal, se puede decir que el problema general de optimización consiste en encontrar un elemento \(x \in S\) que \textbf{optimice} la función objetivo. En el caso de un problema de \textbf{minimización}, se expresa de la siguiente manera:
 
 \[
 	\min_{x \in S} f(x).
 \]
 
-Por su parte, en un problema de maximización, se utiliza la notación:
+Por su parte, en un problema de \textbf{maximización}, se utiliza la notación:
 
 \[
 	\max_{x \in S} f(x).
@@ -241,9 +243,10 @@ Por su parte, en un problema de maximización, se utiliza la notación:
 \citep{cobos2010}
 
 
+
 \subsubsection{Optimización Continua}
 
-La optimización continua para problemas de minimización, el objetivo es encontrar un punto \( x_{opt} \) dentro del conjunto factible \( S \) tal que el valor de la función objetivo en ese punto sea menor o igual que el valor en cualquier otro punto del conjunto, es decir,
+En la \textbf{optimización continua} para problemas de minimización, el objetivo es encontrar un punto \( x_{opt} \) dentro del conjunto factible \( S \) tal que el valor de la función objetivo en ese punto sea menor o igual que el valor en cualquier otro punto del conjunto, es decir,
 
 \[
 	f(x_{opt}) \leq f(x), \quad \forall x \in S.
@@ -255,13 +258,13 @@ Para problemas de maximización, se busca un punto \( x_{opt} \) en \( S \) dond
 	f(x_{opt}) \geq f(x), \quad \forall x \in S.
 \]
 
-A este punto se le denomina solución óptima global, y el valor correspondiente \( f(x_{opt}) \) se conoce como costo óptimo. Además, el conjunto de todas las soluciones óptimas se representa por \( S_{opt} \) \citep{cobos2010}.
+A este punto se le denomina \textbf{solución óptima global}, y el valor correspondiente \( f(x_{opt}) \) se conoce como \textbf{costo óptimo}. Además, el conjunto de todas las soluciones óptimas se representa por \( S_{opt} \) \citep{cobos2010}.
 
 
 \subsubsection{Optimización Discreta o Combinatoria}
 \label{subsec:opt_discreta}
 
-Una instancia de un problema de optimización combinatoria puede representarse mediante una pareja \((S, f)\), donde \(S\) es un conjunto finito que contiene todas las soluciones posibles, y \(f\) es una función real, denominada función objetivo o función costo, definida como
+Una instancia de un problema de \textbf{optimización combinatoria} puede representarse mediante una pareja \((S, f)\), donde \(S\) es un conjunto \textbf{finito} que contiene todas las soluciones posibles, y \(f\) es una función real, denominada \textbf{función objetivo} o \textbf{función costo}, definida como
 
 \[
 	f: S \to \mathbb{R}.
@@ -279,90 +282,73 @@ mientras que para problemas de maximización, se requiere que
 	f(i_{opt}) \geq f(i), \quad \forall i \in S.
 \]
 
-La solución \(i_{opt}\) se denomina solución óptima global, y el valor \(f(i_{opt})\) representa el costo óptimo. El conjunto de todas las soluciones óptimas se denota como \(S_{opt}\). Un problema de optimización combinatoria se define entonces como el conjunto de todas sus instancias \citep{cobos2010}.
+La solución \(i_{opt}\) se denomina \textbf{solución óptima global}, y el valor \(f(i_{opt})\) representa el \textbf{costo óptimo}. El conjunto de todas las soluciones óptimas se denota como \(S_{opt}\). Un problema de optimización combinatoria se define entonces como el conjunto de todas sus instancias \citep{cobos2010}.
 
+Comprender esta distinción es esencial para abordar el problema central de este trabajo, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es \textbf{finito}, y el desafío consiste en identificar cuál de ellas representa la \textbf{mejor opción} según un criterio específico. 
 
+Esta base teórica permite introducir los problemas clásicos de enrutamiento, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Enrutamiento de Vehículos (VRP)} y sus variantes, como el \textbf{Problema de Enrutamiento de Vehículos con Ventanas de Tiempo (VRPTW)}, los cuales serán analizados más adelante por su relación directa con la planificación eficiente de rutas en contextos reales.
 
 \subsection{Complejidad Computacional y Algorítmica}
 
 La complejidad computacional estudia los recursos necesarios para resolver un problema, independientemente del algoritmo utilizado. A diferencia de la complejidad algorítmica, que se enfoca en el tiempo o espacio que un algoritmo específico consume \citep{maldonado2013problema}.
 
+Comprender esta distinción es especialmente relevante al abordar problemas de optimización combinatoria como el Problema del Agente Viajero (TSP) o el Problema de Ruteo de Vehículos (VRP), que presentan un número exponencial de soluciones posibles conforme aumenta el número de nodos o clientes. En este contexto, la complejidad computacional permite determinar si existen algoritmos que puedan resolver tales problemas en un tiempo razonable, o si por el contrario, es necesario recurrir a estrategias aproximadas como las metaheurísticas. Esta clasificación es clave para justificar el tipo de enfoques empleados en este trabajo y para entender las limitaciones inherentes de los algoritmos exactos cuando se enfrentan a instancias de gran tamaño.
+
 \subsection{El Problema P vs NP}
 
-Todos los problemas, tanto en la vida como en la ciencia, pueden clasificarse en dos grupos principales: problemas decidibles y problemas indecidibles \citep{maldonado2013problema}.
+Todos los problemas, tanto en la vida como en la ciencia, pueden clasificarse en dos grupos principales: \textbf{problemas decidibles} y \textbf{problemas indecidibles}. Se dice que un problema es \textbf{\emph{indecidible}} cuando no existe ningún algoritmo que permita resolverlo, incluso si se dispusiera de tiempo y recursos ilimitados. En consecuencia, no es posible determinar si dicho problema se detendrá ni en qué momento lo hará. Por contraste, un problema es \textbf{\emph{decidible}} cuando existe, o al menos podría existir, algún algoritmo capaz de resolverlo \citep{maldonado2013problema}.
 
-Se dice que un problema es \emph{indecidible} cuando no existe ningún algoritmo que permita resolverlo, incluso si se dispusiera de tiempo y recursos ilimitados. En consecuencia, no es posible determinar si dicho problema se detendrá ni en qué momento lo hará \citep{maldonado2013problema}.
-
-Por contraste, un problema es \emph{decidible} cuando existe, o al menos podría existir, algún algoritmo capaz de resolverlo. En otras palabras, un problema indecidible es aquel respecto al cual no se sabe, ni se puede llegar a saber, si se detendrá o cuándo se detendrá \citep{maldonado2013problema}.
-
-Un problema es decidible cuando es compresible; la compresibilidad se refiere a la existencia de un algoritmo o una fórmula mediante los cuales un problema, un lenguaje o un programa pueden ser condensados, reducidos, comprimidos o expresados. Por el contrario, los problemas indecidibles son incompresibles \citep{maldonado2013problema}.
+Además, un problema se considera decidible cuando es compresible; es decir, cuando existe una fórmula o algoritmo que permite condensarlo o expresarlo de forma finita. Por el contrario, los problemas indecidibles se consideran incompresibles debido a que no se pueden reducir a una descripción finita ni predecir su comportamiento computacional \citep{maldonado2013problema}.
 
 \subsubsection{Clases de Complejidad Básicas}
 
-Los problemas decidibles se dividen en dos categorías: los problemas \emph{P} y los problemas \emph{NP} \citep{maldonado2013problema}.
+Dentro de los problemas decidibles, se distinguen dos categorías fundamentales en la teoría de la complejidad: los problemas \textbf{\emph{P}} y los problemas \textbf{\emph{NP}} \citep{maldonado2013problema}.
 
-\textbf{Clase P:}
+\paragraph{Clase P}
 
-Se dice que un problema \(D\) pertenece a la clase de complejidad \(P\) si cumple con los siguientes criterios:
-
-\begin{itemize}
-	\item \(D\) es un problema de decisión.
-	\item \(D\) se puede resolver en tiempo polinomial.
-\end{itemize}
-
-El término “tiempo polinomial” indica que el problema puede resolverse mediante un algoritmo que se ejecuta en un tiempo relativamente rápido. De manera formal, que un algoritmo para \(D\), cuyo comportamiento depende del tamaño de la entrada \(n\), corra en tiempo polinomial significa que:
+Un problema pertenece a la clase \emph{P} si puede resolverse mediante un algoritmo que se ejecuta en tiempo polinomial con respecto al tamaño de la entrada. Es decir, el número de pasos que requiere el algoritmo está acotado por un polinomio de grado \(k\). De manera formal:
 
 \[
 	(\exists\,\alpha > 0)\,(\exists\,n_0 > 0)\;:\; D(n) \leq \alpha \cdot p(n) \quad (\forall\,n \geq n_0),
 \]
 
-donde \(p(n)\) es un polinomio.
-
-Esto puede expresarse utilizando la notación habitual:
+donde \(p(n)\) es un polinomio. En notación asintótica, esto se expresa como:
 
 \[
-	D = O\bigl(n^k\bigr).
+	D = O(n^k).
 \]
 
-Así, se dice que un algoritmo \(D\) corre en tiempo polinomial.
+Aunque se dice que un algoritmo que se ejecuta en tiempo polinomial es “eficiente”, si el grado del polinomio es muy alto (por ejemplo, \(n^{10000}\)), su aplicabilidad práctica puede verse limitada. En general, se espera que los algoritmos eficientes tengan un grado bajo. Un ejemplo típico de problema en \emph{P} es la multiplicación de dos números naturales, cuyo algoritmo básico opera en tiempo lineal \citep{Flores2014}.
 
-Se considera que un algoritmo que se ejecuta en tiempo polinomial es “eficiente”; sin embargo, un proceso limitado por un polinomio de grado muy elevado (por ejemplo, 10,000) difícilmente puede considerarse rápido o eficiente. En general, los problemas que se resuelven en tiempo polinomial lo hacen con un grado relativamente pequeño. Un ejemplo de este tipo de problema es la multiplicación de dos números naturales, que se abordó previamente en este artículo, donde el tiempo de ejecución estaba acotado por un polinomio de grado uno \citep{Flores2014}.
+\paragraph{Clase NP}
 
-\textbf{Clase NP:}
+Por otro lado, un problema pertenece a la clase \emph{NP} si, aunque no se sepa cómo resolverlo eficientemente, sí puede \emph{verificarse} en tiempo polinomial. Es decir, si se proporciona una posible solución (llamada certificado), puede comprobarse su validez en un tiempo razonable. Un ejemplo clásico es el ordenamiento de elementos: si bien existen algoritmos polinómicos para ordenarlos, el proceso de verificar si una secuencia está ordenada también toma tiempo lineal \citep{Flores2014}.
 
-Se dice que un problema \(E\) pertenece a la clase de complejidad \(NP\) si cumple con los siguientes criterios:
+A pesar de que algunos algoritmos de ordenamiento, como el \emph{bubble sort}, operan en tiempo polinomial, en teoría podría existir un algoritmo de ordenamiento con tiempo exponencial. Sin embargo, si al menos uno de los algoritmos conocidos resuelve el problema en tiempo polinomial, el problema pertenece a la clase \emph{P} \citep{Flores2014}.
 
-\begin{itemize}
-	\item \(E\) es un problema de decisión.
-	\item \(E\) es verificable en tiempo polinomial.
-\end{itemize}
+\paragraph{La gran incógnita: ¿P = NP?}
 
-El término “verificar” se refiere a comprobar si el certificado emitido por el algoritmo satisface los requisitos del problema. Un problema se encuentra en la clase \(NP\) si el algoritmo utilizado para verificar su certificado se ejecuta en tiempo polinomial.
-
-Como ejemplo de un problema que pertenece a la clase de complejidad \(NP\) se puede mencionar el problema de ordenamiento tratado anteriormente, en el que se mostró que la verificación del resultado está acotada por un polinomio de grado uno.
-
-Por otra parte, entre todos los algoritmos de ordenamiento, se observa que mientras algunos se ejecutan en tiempo polinomial, como el conocido \emph{bubble sort}, en principio podría definirse un algoritmo de ordenamiento que opere en tiempo exponencial. Sin embargo, basta con que exista al menos un algoritmo que lo resuelva en tiempo eficiente para que dicho problema pertenezca a la clase \(P\) \citep{Flores2014}.
-
-Surge aquí una dificultad fundamental relacionada con los problemas \(P\) y \(NP\). Esta cuestión puede plantearse de varias formas: ¿existen más problemas en \(P\) que en \(NP\), o sucede lo contrario? Es decir, ¿puede decirse que \(P \geq NP\) o que \(NP \geq P\)? También se ha propuesto pensar esta relación en términos de pertenencia o inclusión: si los problemas \(P\) están contenidos en \(NP\), como en \(P \in NP\) o \(P \subseteq NP\), o si la relación inversa podría ser cierta, es decir, \(NP \in P\). De manera más radical, la cuestión se resume en determinar si ambos conjuntos son iguales o distintos: \(P = NP\) o bien \(P \neq NP\) \citep{maldonado2013problema}.
-
+Una de las cuestiones abiertas más fundamentales en ciencias computacionales es determinar si \(\mathbf{P = NP}\) o \(\mathbf{P \neq NP}\). Esta pregunta implica saber si todo problema cuya solución puede verificarse rápidamente, también puede resolverse rápidamente. Es decir, si los problemas que se pueden verificar en tiempo polinomial también pueden resolverse en ese mismo tipo de tiempo. Este dilema sigue sin resolverse y tiene profundas implicaciones teóricas y prácticas \citep{maldonado2013problema}.
 
 \subsubsection{NP-Completo y NP-Difícil}
 
-Es importante señalar que la clase de problemas \(NP\) incluye todos aquellos que pueden resolverse en tiempo polinomial. Sin embargo, los problemas denominados \emph{NP-difíciles} (o \emph{NP-hard}) son aquellos que se abordan y se resuelven en un tiempo polinomial no determinista. A su vez, los problemas \emph{NP-completos} son aquellos que pertenecen a \(NP\) y que, al mismo tiempo, son NP-difíciles.
+Dentro de los problemas de clase \emph{NP}, existe una subcategoría especialmente importante: los problemas \textbf{NP-completos}. Estos son problemas que pertenecen a \emph{NP} y que, además, son al menos tan difíciles como cualquier otro problema en \emph{NP}. En otras palabras, si se lograra resolver uno de estos problemas de forma eficiente, también podrían resolverse todos los demás problemas en \emph{NP} \citep{maldonado2013problema}.
 
-En este caso, si bien es posible encontrar soluciones a los problemas NP-completos, no se pueden ubicar con precisión en términos de una solución rápida. De manera más exacta, el tiempo necesario para resolver este tipo de problemas crece tan rápidamente como lo hace el tamaño del propio problema. En términos simplificados, a diferencia de otros casos, el análisis general no resulta posible, y a medida que el problema crece, también aumenta proporcionalmente el tiempo requerido para su solución.
+Por otra parte, los \textbf{problemas NP-difíciles (NP-hard)} son aquellos que pueden ser incluso más complejos que los \emph{NP-completos}, ya que no necesariamente pertenecen a \emph{NP} (es decir, podrían no tener soluciones verificables en tiempo polinomial), pero son al menos tan difíciles como los problemas más complicados de \emph{NP}. Este tipo de problemas puede presentarse como problemas de decisión, de búsqueda o de optimización \citep{maldonado2013problema}.
 
-Los problemas NP-difíciles pueden presentarse como problemas de decisión, problemas de búsqueda o problemas de optimización \citep{maldonado2013problema}.
+El crecimiento exponencial del tiempo requerido para resolver este tipo de problemas, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}, con respecto al tamaño de la entrada, hace que su solución exacta sea impráctica en muchos casos. 
 
+Por esta razón, en la práctica se recurre al uso de \textbf{algoritmos exactos} o \textbf{métodos de aproximación}, los cuales permiten encontrar soluciones suficientemente buenas en tiempos razonables, especialmente cuando se trata de instancias grandes o de elevada complejidad.
 
 \subsection{Problemas de Optimización Combinatoria}
 
 De manera complementaria a la definición formal presentada en la \autoref{subsec:opt_discreta} por \citep{cobos2010}, Papadimitriou y Steiglitz \citep{papadimitriou1998} indica la optimización combinatoria como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto o puede hacerse discreto mediante un proceso de enumeración, y en los que se busca una solución que optimice una función objetivo definida sobre ese conjunto.
 
-Los problemas de optimización combinatoria constituyen una clase amplia de modelos que encuentran aplicación en numerosas áreas, especialmente en la planificación y enrutamiento de vehículos. Dentro de este campo, destacan el \textbf{Problema del Agente Viajero (TSP)}, que representa la forma más básica de la optimización de rutas, y distintas extensiones que incorporan restricciones adicionales propias de entornos reales, tales como las limitaciones de capacidad de los vehículos o las ventanas de tiempo en las que debe efectuarse la entrega de los productos. En este contexto, el \textbf{Problema de Ruteo de Vehículos con Capacidades y Ventanas de Tiempo (CVRPTW)} se ha consolidado como uno de los desafíos más estudiados por su relevancia práctica y su elevada dificultad computacional. A continuación, se describen estos problemas en detalle:
+Los problemas de optimización combinatoria constituyen una clase amplia de modelos que encuentran aplicación en numerosas áreas, especialmente en la planificación y enrutamiento de vehículos. Dentro de este campo, destacan el \textbf{Problema del Agente Viajero (TSP)}, que representa la forma más básica de la optimización de rutas, y distintas extensiones que incorporan restricciones adicionales propias de entornos reales, tales como las limitaciones de capacidad de los vehículos o las ventanas de tiempo en las que debe efectuarse la entrega de los productos. En este contexto, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} se ha consolidado como uno de los desafíos más estudiados por su relevancia práctica y su elevada dificultad computacional. A continuación, se describen estos problemas en detalle:
 
 
 \subsubsection{Problema del Agente Viajero (TSP)}
+\label{subsec:problem_tsp}
 El Problema del Agente Viajero, conocido por sus siglas en inglés como TSP (Travelling Salesman Problem), es uno de los problemas más reconocidos y complejos dentro de las ciencias computacionales. Ha sido estudiado desde diversas ramas de la ingeniería y por múltiples motivos. Su aplicación principal consiste en determinar rutas desde diferentes enfoques, ya sea en procesos que requieren una secuencia específica o en operaciones logísticas relacionadas con el transporte, con el objetivo de encontrar la ruta óptima considerando criterios de minimización de distancia o de costo \citep{lopez2014tabu}.
 
 Según \citep{torres2018}, el Problema del Agente Viajero se define sobre una red \(G = [N,A,C]\), donde \(N\) es el conjunto de nodos, \(A\) es el conjunto de arcos y \(C = [c_{ij}]\) la matriz de costos (distancias) entre nodos \(i\) y \(j\). El objetivo es encontrar un ciclo hamiltoniano de costo mínimo, que recorra todos los nodos una sola vez y regrese al punto de partida.
@@ -410,9 +396,53 @@ La función objetivo~\eqref{eq:TSP_obj} proporciona la distancia total de los ar
 
 Como se explica en \cite{papadimitriou1998}, el Problema del Agente Viajero es NP-hard, y su versión de decisión es NP-completa. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo es un desafío fundamental en la teoría de la computación, pues una solución polinomial para el TSP resolvería eficientemente toda la clase NP. Este carácter NP-hard justifica la utilización de algoritmos aproximados y metaheurísticos en su resolución, dado que las técnicas exactas sólo resultan prácticas para instancias de tamaño reducido.
 
-\subsubsection{Problema de Ruteo de Vehículos con Capacidades (CVRP)}
+\subsubsection{Problema del Problema Ruteo de Vehículos (VRP)}
+El problema de ruteo de vehículos (VRP, por sus siglas en inglés) fue planteado por primera vez en 1959 por Dantzig y Ramser, quienes abordaron una aplicación práctica relacionada con la distribución de gasolina a estaciones de servicio, proponiendo además una formulación matemática del problema. Posteriormente, Clarke y Wright desarrollaron el primer algoritmo que demostró ser eficaz para resolverlo. A partir de ahí, se iniciaron numerosas investigaciones en el área del ruteo de vehículos. Este problema puede interpretarse como la convergencia de dos problemas clásicos de optimización combinatoria: el problema del agente viajero (TSP) mencionado en \autoref{subsec:problem_tsp}, en el que se asume una capacidad infinita de los vehículos, y el problema de empaquetamiento en compartimentos (BPP) \cite{daza2009}.
 
-\subsubsection{Problema de Ruteo de Vehículos con Capacidades y Ventanas de Tiempo (CVRPTW)}
+El Problema de Enrutamiento de Vehículos (VRP) se define como el problema de diseñar un conjunto óptimo de rutas para una flota de vehículos que parte desde un depósito central para servir a un conjunto dado de clientes, cada uno con una demanda específica. Cada ruta debe iniciarse y finalizar en el depósito, y cada cliente debe ser atendido exactamente una vez por un solo vehículo. El objetivo es minimizar el costo total del transporte, normalmente expresado como la distancia total recorrida por los vehículos \cite{toth2014}.
+
+\paragraph{Modelo Matemático del Ruteo de Vehiculos (VRP)} A continuación, se describe la formulación matemática más común:
+
+\subsection{Modelo matemático del Problema de Enrutamiento de Vehículos (VRP)}
+
+Sea un grafo completo \( G = (V, E) \) donde \( V = \{0, 1, \ldots, n\} \) es el conjunto de nodos, con \(0\) representando el depósito y los nodos \(1, \ldots, n\) representando a los clientes. Se definen los parámetros y variables de decisión como sigue:
+
+\begin{itemize}
+    \item \( c_{ij} \geq 0 \): costo (distancia o tiempo) de ir del nodo \(i\) al nodo \(j\), para \(i,j \in V, i \neq j\).
+    \item \( d_i \): demanda del cliente \(i\), para \(i=1,\ldots,n\).
+    \item \( Q \): capacidad máxima de cada vehículo.
+    \item \( K \): número máximo de vehículos disponibles.
+    \item \( x_{ij} = \begin{cases} 1 & \text{si el arco } (i,j) \text{ es usado en la solución}\\ 0 & \text{en caso contrario} \end{cases} \), para \(i,j \in V, i \neq j\).
+    \item \( u_i \): variable auxiliar para eliminación de subciclos y control de carga acumulada, para \(i=1,\ldots,n\).
+\end{itemize}
+
+\medskip
+
+\textbf{Función objetivo:}
+
+\begin{equation}
+    \min \sum_{i \in V} \sum_{\substack{j \in V \\ j \neq i}} c_{ij} x_{ij}
+\end{equation}
+
+\medskip
+
+\textbf{Sujeto a:}
+
+\begin{align}
+    & \sum_{\substack{j \in V \\ j \neq i}} x_{ij} = 1, && \forall i = 1, \ldots, n \quad \text{(cada cliente es visitado una vez)} \\
+    & \sum_{\substack{i \in V \\ i \neq j}} x_{ij} = \sum_{\substack{k \in V \\ k \neq j}} x_{jk}, && \forall j = 1, \ldots, n \quad \text{(flujo conservado en clientes)} \\
+    & \sum_{j \in V \setminus \{0\}} x_{0j} \leq K, && \text{(número máximo de vehículos que salen del depósito)} \\
+    & u_i - u_j + Q x_{ij} \leq Q - d_j, && \forall i,j \in V \setminus \{0\}, i \neq j \quad \text{(restricción de capacidad y eliminación de subciclos)} \\
+    & d_i \leq u_i \leq Q, && \forall i=1, \ldots, n \\
+    & u_0 = 0 \\
+    & x_{ij} \in \{0,1\}, && \forall i,j \in V, i \neq j
+\end{align}
+
+
+\paragraph{Complejidad del VRP}
+Desde el enfoque de la complejidad computacional, el Problema de Enrutamiento de Vehículos (VRP) se considera altamente complejo, ya que pertenece a la clase de problemas NP-Completos. En el caso específico que se analiza, se han considerado diversas variantes del problema, ya que se busca cumplir múltiples objetivos en el proceso de enrutamiento y, adicionalmente, el modelo operativo del problema no es el más habitual, pues los repartos suelen organizarse de manera centralizada. Por esta razón, se ha llevado a cabo una revisión en la literatura enfocada en variantes como el MDVRP (VRP con múltiples depósitos), el VRPTW (VRP con ventanas de tiempo) y el CVRP (VRP con restricciones de capacidad), las cuales incorporan aspectos como la existencia de varios depósitos y restricciones temporales para la realización de las entregas correspondientes \cite{pino2011}.
+
+\subsubsection{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}
 
 
 

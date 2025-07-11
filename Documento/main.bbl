@@ -1,9 +1,16 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{antonioSuarez2014}
 Orlando Antonio~Suárez.
 \newblock Una aproximación a la heurística y metaheurísticas.
 \newblock {\em INGE@UAN -- Tendencias en la Ingeniería}, 1(2), 2014.
+
+\bibitem{daza2009}
+Julio~Mario Daza, Jairo~R. Montoya, and Francesco Narducci.
+\newblock Resolución del problema de enrutamiento de vehículos con
+  limitaciones de capacidad utilizando un procedimiento metaheurístico de dos
+  fases.
+\newblock {\em Revista EIA}, (12):23--38, diciembre 2009.
 
 \bibitem{cobos2010}
 Sergio~Gerardo de~los Cobos~Silva, John~Goddard Close, Miguel Ángel
@@ -40,11 +47,25 @@ Christos~H. Papadimitriou and Kenneth Steiglitz.
 \newblock {\em Combinatorial Optimization: Algorithms and Complexity}.
 \newblock Dover Publications, New York, 1998.
 
+\bibitem{pino2011}
+Raúl Pino, Jesús Lozano, Carlos Martínez, and Verónica Villanueva.
+\newblock Estado del arte para la resolución de enrutamiento de vehículos con
+  restricciones de capacidad.
+\newblock In {\em Actas del 5th International Conference on Industrial
+  Engineering and Industrial Management y XV Congreso de Ingeniería de
+  Organización}, pages 847--856, Cartagena, España, 2011.
+
 \bibitem{torres2018}
 J.~Torres-Jiménez, A.~Aguilar-Melendéz, and M.~G. Cedillo-Campos.
 \newblock El problema del agente viajero con restricciones de ventanas de
   tiempo: revisión y clasificación de métodos de solución.
 \newblock {\em Revista Iberoamericana de Automática e Informática
   Industrial}, 15(4):440--452, 2018.
+
+\bibitem{toth2014}
+Paolo Toth and Daniele Vigo.
+\newblock {\em Vehicle Routing: Problems, Methods, and Applications}.
+\newblock SIAM (Society for Industrial and Applied Mathematics), 2nd edition,
+  2014.
 
 \end{thebibliography}
