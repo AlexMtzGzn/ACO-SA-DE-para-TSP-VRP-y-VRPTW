@@ -24,6 +24,12 @@ Xavier~Alejandro Flores~Cabezas.
 \newblock Problemas del milenio: P vs np.
 \newblock {\em Revista de Divulgación Amarun}, 1:1--15, 2014.
 
+\bibitem{garey1979computers}
+Michael~R. Garey and David~S. Johnson.
+\newblock {\em Computers and Intractability: A Guide to the Theory of
+  NP-Completeness}.
+\newblock W. H. Freeman, 1979.
+
 \bibitem{lopez2014tabu}
 Erasmo López, Óscar Salas, and Álex Murillo.
 \newblock El problema del agente viajero: Un algoritmo determinístico usando
@@ -41,6 +47,11 @@ Abraham~Duarte Muñoz, Juan José~Pantrigo Fernández, and Micael~Gallego
   Carrillo.
 \newblock {\em Metaheurísticas}.
 \newblock Dykinson, Madrid, España, 2007.
+
+\bibitem{papadimitriou1994}
+Christos~H. Papadimitriou.
+\newblock {\em Computational Complexity}.
+\newblock Addison-Wesley, 1994.
 
 \bibitem{papadimitriou1998}
 Christos~H. Papadimitriou and Kenneth Steiglitz.

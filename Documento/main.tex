@@ -284,15 +284,17 @@ mientras que para problemas de maximización, se requiere que
 
 La solución \(i_{opt}\) se denomina \textbf{solución óptima global}, y el valor \(f(i_{opt})\) representa el \textbf{costo óptimo}. El conjunto de todas las soluciones óptimas se denota como \(S_{opt}\). Un problema de optimización combinatoria se define entonces como el conjunto de todas sus instancias \citep{cobos2010}.
 
-Comprender esta distinción es esencial para abordar el problema central de este trabajo, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es \textbf{finito}, y el desafío consiste en identificar cuál de ellas representa la \textbf{mejor opción} según un criterio específico. 
+Comprender esta distinción es esencial para abordar el problema central de este trabajo, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es \textbf{finito}, y el desafío consiste en identificar cuál de ellas representa la \textbf{mejor opción} según un criterio específico.
 
 Esta base teórica permite introducir los problemas clásicos de enrutamiento, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Enrutamiento de Vehículos (VRP)} y sus variantes, como el \textbf{Problema de Enrutamiento de Vehículos con Ventanas de Tiempo (VRPTW)}, los cuales serán analizados más adelante por su relación directa con la planificación eficiente de rutas en contextos reales.
 
 \subsection{Complejidad Computacional y Algorítmica}
 
-La complejidad computacional estudia los recursos necesarios para resolver un problema, independientemente del algoritmo utilizado. A diferencia de la complejidad algorítmica, que se enfoca en el tiempo o espacio que un algoritmo específico consume \citep{maldonado2013problema}.
+El estudio de la complejidad en ciencias computacionales busca comprender qué tan difícil es resolver un problema, tanto desde su estructura teórica como desde los recursos requeridos para su solución. Esta dificultad se aborda desde dos enfoques: la \textbf{complejidad computacional}, que clasifica los problemas según el crecimiento de recursos necesarios en función del tamaño de la entrada, y la \textbf{complejidad algorítmica}, que evalúa el desempeño de algoritmos específicos al aplicarse sobre dichas entradas \citep{garey1979computers, papadimitriou1994}.
 
-Comprender esta distinción es especialmente relevante al abordar problemas de optimización combinatoria como el Problema del Agente Viajero (TSP) o el Problema de Ruteo de Vehículos (VRP), que presentan un número exponencial de soluciones posibles conforme aumenta el número de nodos o clientes. En este contexto, la complejidad computacional permite determinar si existen algoritmos que puedan resolver tales problemas en un tiempo razonable, o si por el contrario, es necesario recurrir a estrategias aproximadas como las metaheurísticas. Esta clasificación es clave para justificar el tipo de enfoques empleados en este trabajo y para entender las limitaciones inherentes de los algoritmos exactos cuando se enfrentan a instancias de gran tamaño.
+De forma simplificada, la complejidad computacional se refiere al análisis general del problema sin importar el algoritmo, mientras que la algorítmica se enfoca en el tiempo y espacio consumido por un algoritmo concreto \citep{maldonado2013problema}.
+
+Esta distinción es clave al abordar problemas de optimización combinatoria como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante principal en este trabajo: el \textbf{Problema de Enrutamiento de Vehículos con Ventanas de Tiempo (VRPTW)}. Estos problemas presentan una explosión combinatoria de soluciones conforme crece el número de clientes.
 
 \subsection{El Problema P vs NP}
 
@@ -336,7 +338,7 @@ Dentro de los problemas de clase \emph{NP}, existe una subcategoría especialmen
 
 Por otra parte, los \textbf{problemas NP-difíciles (NP-hard)} son aquellos que pueden ser incluso más complejos que los \emph{NP-completos}, ya que no necesariamente pertenecen a \emph{NP} (es decir, podrían no tener soluciones verificables en tiempo polinomial), pero son al menos tan difíciles como los problemas más complicados de \emph{NP}. Este tipo de problemas puede presentarse como problemas de decisión, de búsqueda o de optimización \citep{maldonado2013problema}.
 
-El crecimiento exponencial del tiempo requerido para resolver este tipo de problemas, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}, con respecto al tamaño de la entrada, hace que su solución exacta sea impráctica en muchos casos. 
+El crecimiento exponencial del tiempo requerido para resolver este tipo de problemas, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}, con respecto al tamaño de la entrada, hace que su solución exacta sea impráctica en muchos casos.
 
 Por esta razón, en la práctica se recurre al uso de \textbf{algoritmos exactos} o \textbf{métodos de aproximación}, los cuales permiten encontrar soluciones suficientemente buenas en tiempos razonables, especialmente cuando se trata de instancias grandes o de elevada complejidad.
 
@@ -358,31 +360,31 @@ Según \citep{torres2018}, el Problema del Agente Viajero se define sobre una re
 A continuación, se describe la formulación matemática más común:
 
 \begin{equation}
-\min \sum_{i=1}^N \sum_{j=1}^N c_{ij}\,x_{ij}
-\label{eq:TSP_obj}
+	\min \sum_{i=1}^N \sum_{j=1}^N c_{ij}\,x_{ij}
+	\label{eq:TSP_obj}
 \end{equation}
 \addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Función objetivo TSP: minimizar el costo total del recorrido}
 
 sujeto a:
 
 \begin{equation}
-\sum_{j=1}^N x_{ij} = 1 \quad \forall i = 1,\dots,N
-\label{eq:TSP_out}
+	\sum_{j=1}^N x_{ij} = 1 \quad \forall i = 1,\dots,N
+	\label{eq:TSP_out}
 \end{equation}
 \addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de salida única de cada nodo para TSP}
 
 \begin{equation}
-\sum_{i=1}^N x_{ij} = 1 \quad \forall j = 1,\dots,N
-\label{eq:TSP_in}
+	\sum_{i=1}^N x_{ij} = 1 \quad \forall j = 1,\dots,N
+	\label{eq:TSP_in}
 \end{equation}
 \addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de entrada única a cada nodo para TSP}
 
 \begin{equation}
-\begin{cases}
-u_i - u_j + N x_{ij} \le N-1 & \forall i \neq j,\; i,j=2,\dots,N \\
-x_{ij} \in \{0,1\} & \forall i,j
-\end{cases}
-\label{eq:TSP_subtour_bin}
+	\begin{cases}
+		u_i - u_j + N x_{ij} \le N-1 & \forall i \neq j,\; i,j=2,\dots,N \\
+		x_{ij} \in \{0,1\}           & \forall i,j
+	\end{cases}
+	\label{eq:TSP_subtour_bin}
 \end{equation}
 \addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de eliminación de subciclos y variables binarias para TSP}
 
@@ -408,12 +410,12 @@ El Problema de Enrutamiento de Vehículos (VRP) se define como el problema de di
 Sea un grafo completo \( G = (V, E) \) donde \( V = \{0, 1, \ldots, n\} \) es el conjunto de nodos, con \(0\) representando el depósito y los nodos \(1, \ldots, n\) representando a los clientes. Se definen los parámetros y variables de decisión como sigue:
 
 \begin{itemize}
-    \item \( c_{ij} \geq 0 \): costo (distancia o tiempo) de ir del nodo \(i\) al nodo \(j\), para \(i,j \in V, i \neq j\).
-    \item \( d_i \): demanda del cliente \(i\), para \(i=1,\ldots,n\).
-    \item \( Q \): capacidad máxima de cada vehículo.
-    \item \( K \): número máximo de vehículos disponibles.
-    \item \( x_{ij} = \begin{cases} 1 & \text{si el arco } (i,j) \text{ es usado en la solución}\\ 0 & \text{en caso contrario} \end{cases} \), para \(i,j \in V, i \neq j\).
-    \item \( u_i \): variable auxiliar para eliminación de subciclos y control de carga acumulada, para \(i=1,\ldots,n\).
+	\item \( c_{ij} \geq 0 \): costo (distancia o tiempo) de ir del nodo \(i\) al nodo \(j\), para \(i,j \in V, i \neq j\).
+	\item \( d_i \): demanda del cliente \(i\), para \(i=1,\ldots,n\).
+	\item \( Q \): capacidad máxima de cada vehículo.
+	\item \( K \): número máximo de vehículos disponibles.
+	\item \( x_{ij} = \begin{cases} 1 & \text{si el arco } (i,j) \text{ es usado en la solución}\\ 0 & \text{en caso contrario} \end{cases} \), para \(i,j \in V, i \neq j\).
+	\item \( u_i \): variable auxiliar para eliminación de subciclos y control de carga acumulada, para \(i=1,\ldots,n\).
 \end{itemize}
 
 \medskip
@@ -421,7 +423,7 @@ Sea un grafo completo \( G = (V, E) \) donde \( V = \{0, 1, \ldots, n\} \) es el
 \textbf{Función objetivo:}
 
 \begin{equation}
-    \min \sum_{i \in V} \sum_{\substack{j \in V \\ j \neq i}} c_{ij} x_{ij}
+	\min \sum_{i \in V} \sum_{\substack{j \in V \\ j \neq i}} c_{ij} x_{ij}
 \end{equation}
 
 \medskip
@@ -429,13 +431,13 @@ Sea un grafo completo \( G = (V, E) \) donde \( V = \{0, 1, \ldots, n\} \) es el
 \textbf{Sujeto a:}
 
 \begin{align}
-    & \sum_{\substack{j \in V \\ j \neq i}} x_{ij} = 1, && \forall i = 1, \ldots, n \quad \text{(cada cliente es visitado una vez)} \\
-    & \sum_{\substack{i \in V \\ i \neq j}} x_{ij} = \sum_{\substack{k \in V \\ k \neq j}} x_{jk}, && \forall j = 1, \ldots, n \quad \text{(flujo conservado en clientes)} \\
-    & \sum_{j \in V \setminus \{0\}} x_{0j} \leq K, && \text{(número máximo de vehículos que salen del depósito)} \\
-    & u_i - u_j + Q x_{ij} \leq Q - d_j, && \forall i,j \in V \setminus \{0\}, i \neq j \quad \text{(restricción de capacidad y eliminación de subciclos)} \\
-    & d_i \leq u_i \leq Q, && \forall i=1, \ldots, n \\
-    & u_0 = 0 \\
-    & x_{ij} \in \{0,1\}, && \forall i,j \in V, i \neq j
+	 & \sum_{\substack{j \in V                                                                                                                                           \\ j \neq i}} x_{ij} = 1, && \forall i = 1, \ldots, n \quad \text{(cada cliente es visitado una vez)} \\
+	 & \sum_{\substack{i \in V                                                                                                                                           \\ i \neq j}} x_{ij} = \sum_{\substack{k \in V \\ k \neq j}} x_{jk}, && \forall j = 1, \ldots, n \quad \text{(flujo conservado en clientes)} \\
+	 & \sum_{j \in V \setminus \{0\}} x_{0j} \leq K, &  & \text{(número máximo de vehículos que salen del depósito)}                                                     \\
+	 & u_i - u_j + Q x_{ij} \leq Q - d_j,            &  & \forall i,j \in V \setminus \{0\}, i \neq j \quad \text{(restricción de capacidad y eliminación de subciclos)} \\
+	 & d_i \leq u_i \leq Q,                          &  & \forall i=1, \ldots, n                                                                                         \\
+	 & u_0 = 0                                                                                                                                                           \\
+	 & x_{ij} \in \{0,1\},                           &  & \forall i,j \in V, i \neq j
 \end{align}
 
 
