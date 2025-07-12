@@ -300,7 +300,9 @@ Esta distinción es clave al abordar problemas de optimización combinatoria com
 
 Todos los problemas, tanto en la vida como en la ciencia, pueden clasificarse en dos grupos principales: \textbf{problemas decidibles} y \textbf{problemas indecidibles}. Se dice que un problema es \textbf{\emph{indecidible}} cuando no existe ningún algoritmo que permita resolverlo, incluso si se dispusiera de tiempo y recursos ilimitados. En consecuencia, no es posible determinar si dicho problema se detendrá ni en qué momento lo hará. Por contraste, un problema es \textbf{\emph{decidible}} cuando existe, o al menos podría existir, algún algoritmo capaz de resolverlo \citep{maldonado2013problema}.
 
-Además, un problema se considera decidible cuando es compresible; es decir, cuando existe una fórmula o algoritmo que permite condensarlo o expresarlo de forma finita. Por el contrario, los problemas indecidibles se consideran incompresibles debido a que no se pueden reducir a una descripción finita ni predecir su comportamiento computacional \citep{maldonado2013problema}.
+Además, un problema se considera decidible cuando es compresible; es decir, cuando existe una fórmula o algoritmo que permite condensarlo o expresarlo de forma finita. Por el contrario, los problemas indecidibles se consideran incompresibles, ya que no pueden reducirse a una descripción finita ni predecirse computacionalmente \citep{maldonado2013problema}.
+
+En el contexto de este trabajo, los problemas abordados —el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante con restricciones temporales, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}— son considerados \textbf{problemas decidibles}. A continuación, se analizan las clases de complejidad que resultan relevantes para comprender con mayor profundidad la dificultad computacional asociada a su resolución.
 
 \subsubsection{Clases de Complejidad Básicas}
 
@@ -326,7 +328,7 @@ Aunque se dice que un algoritmo que se ejecuta en tiempo polinomial es “eficie
 
 Por otro lado, un problema pertenece a la clase \emph{NP} si, aunque no se sepa cómo resolverlo eficientemente, sí puede \emph{verificarse} en tiempo polinomial. Es decir, si se proporciona una posible solución (llamada certificado), puede comprobarse su validez en un tiempo razonable. Un ejemplo clásico es el ordenamiento de elementos: si bien existen algoritmos polinómicos para ordenarlos, el proceso de verificar si una secuencia está ordenada también toma tiempo lineal \citep{Flores2014}.
 
-A pesar de que algunos algoritmos de ordenamiento, como el \emph{bubble sort}, operan en tiempo polinomial, en teoría podría existir un algoritmo de ordenamiento con tiempo exponencial. Sin embargo, si al menos uno de los algoritmos conocidos resuelve el problema en tiempo polinomial, el problema pertenece a la clase \emph{P} \citep{Flores2014}.
+Aunque algunos algoritmos de ordenamiento, como el \emph{bubble sort}, operan en tiempo polinomial, en teoría podría existir un algoritmo con tiempo exponencial. Sin embargo, si al menos uno de los algoritmos conocidos resuelve el problema en tiempo polinomial, el problema pertenece a la clase \emph{P} \citep{Flores2014}.
 
 \paragraph{La gran incógnita: ¿P = NP?}
 
@@ -338,26 +340,23 @@ Dentro de los problemas de clase \emph{NP}, existe una subcategoría especialmen
 
 Por otra parte, los \textbf{problemas NP-difíciles (NP-hard)} son aquellos que pueden ser incluso más complejos que los \emph{NP-completos}, ya que no necesariamente pertenecen a \emph{NP} (es decir, podrían no tener soluciones verificables en tiempo polinomial), pero son al menos tan difíciles como los problemas más complicados de \emph{NP}. Este tipo de problemas puede presentarse como problemas de decisión, de búsqueda o de optimización \citep{maldonado2013problema}.
 
-El crecimiento exponencial del tiempo requerido para resolver este tipo de problemas, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}, con respecto al tamaño de la entrada, hace que su solución exacta sea impráctica en muchos casos.
-
-Por esta razón, en la práctica se recurre al uso de \textbf{algoritmos exactos} o \textbf{métodos de aproximación}, los cuales permiten encontrar soluciones suficientemente buenas en tiempos razonables, especialmente cuando se trata de instancias grandes o de elevada complejidad.
+El crecimiento exponencial del tiempo requerido para resolver este tipo de problemas, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}, en función del tamaño de la entrada, los ubica dentro de la clase \emph{NP}. Más adelante se explicará con mayor detalle a qué subcategoría pertenece cada uno de estos problemas.
 
 \subsection{Problemas de Optimización Combinatoria}
 
-De manera complementaria a la definición formal presentada en la \autoref{subsec:opt_discreta} por \citep{cobos2010}, Papadimitriou y Steiglitz \citep{papadimitriou1998} indica la optimización combinatoria como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto o puede hacerse discreto mediante un proceso de enumeración, y en los que se busca una solución que optimice una función objetivo definida sobre ese conjunto.
+De manera complementaria a la definición formal presentada en la \autoref{subsec:opt_discreta} por \citep{cobos2010}, Papadimitriou y Steiglitz \citep{papadimitriou1998} indican que la optimización combinatoria como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto o puede hacerse discreto mediante un proceso de enumeración, y en los que se busca una solución que optimice una función objetivo definida sobre ese conjunto.
 
 Los problemas de optimización combinatoria constituyen una clase amplia de modelos que encuentran aplicación en numerosas áreas, especialmente en la planificación y enrutamiento de vehículos. Dentro de este campo, destacan el \textbf{Problema del Agente Viajero (TSP)}, que representa la forma más básica de la optimización de rutas, y distintas extensiones que incorporan restricciones adicionales propias de entornos reales, tales como las limitaciones de capacidad de los vehículos o las ventanas de tiempo en las que debe efectuarse la entrega de los productos. En este contexto, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} se ha consolidado como uno de los desafíos más estudiados por su relevancia práctica y su elevada dificultad computacional. A continuación, se describen estos problemas en detalle:
 
 
 \subsubsection{Problema del Agente Viajero (TSP)}
 \label{subsec:problem_tsp}
-El Problema del Agente Viajero, conocido por sus siglas en inglés como TSP (Travelling Salesman Problem), es uno de los problemas más reconocidos y complejos dentro de las ciencias computacionales. Ha sido estudiado desde diversas ramas de la ingeniería y por múltiples motivos. Su aplicación principal consiste en determinar rutas desde diferentes enfoques, ya sea en procesos que requieren una secuencia específica o en operaciones logísticas relacionadas con el transporte, con el objetivo de encontrar la ruta óptima considerando criterios de minimización de distancia o de costo \citep{lopez2014tabu}.
 
-Según \citep{torres2018}, el Problema del Agente Viajero se define sobre una red \(G = [N,A,C]\), donde \(N\) es el conjunto de nodos, \(A\) es el conjunto de arcos y \(C = [c_{ij}]\) la matriz de costos (distancias) entre nodos \(i\) y \(j\). El objetivo es encontrar un ciclo hamiltoniano de costo mínimo, que recorra todos los nodos una sola vez y regrese al punto de partida.
+El \textbf{Problema del Agente Viajero}, conocido por sus siglas en inglés como \textit{TSP} (Travelling Salesman Problem), es uno de los problemas más reconocidos y complejos dentro de las ciencias computacionales. Ha sido estudiado desde diversas ramas de la ingeniería y por múltiples motivos. Su aplicación principal consiste en determinar rutas desde diferentes enfoques, ya sea en procesos que requieren una secuencia específica o en operaciones logísticas relacionadas con el transporte, con el objetivo de encontrar la ruta óptima considerando criterios de minimización de distancia o de costo \citep{lopez2014tabu}.
+
+Según \citep{torres2018}, el Problema del Agente Viajero se define sobre una red \(G = [N,A,C]\), donde \(N\) es el conjunto de nodos, \(A\) es el conjunto de arcos y \(C = [c_{ij}]\) es la matriz de costos (distancias) entre nodos \(i\) y \(j\). El objetivo es encontrar un ciclo hamiltoniano de costo mínimo que recorra todos los nodos una sola vez y regrese al punto de partida.
 
 \paragraph{Modelo Matemático del Agente Viajero (TSP)}
-
-A continuación, se describe la formulación matemática más común:
 
 \begin{equation}
 	\min \sum_{i=1}^N \sum_{j=1}^N c_{ij}\,x_{ij}
@@ -368,35 +367,42 @@ A continuación, se describe la formulación matemática más común:
 sujeto a:
 
 \begin{equation}
-	\sum_{j=1}^N x_{ij} = 1 \quad \forall i = 1,\dots,N
+	\sum_{j=1}^N x_{ij} = 1, \quad \forall i = 1,\dots,N
 	\label{eq:TSP_out}
 \end{equation}
 \addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de salida única de cada nodo para TSP}
 
 \begin{equation}
-	\sum_{i=1}^N x_{ij} = 1 \quad \forall j = 1,\dots,N
+	\sum_{i=1}^N x_{ij} = 1, \quad \forall j = 1,\dots,N
 	\label{eq:TSP_in}
 \end{equation}
 \addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de entrada única a cada nodo para TSP}
 
 \begin{equation}
-	\begin{cases}
-		u_i - u_j + N x_{ij} \le N-1 & \forall i \neq j,\; i,j=2,\dots,N \\
-		x_{ij} \in \{0,1\}           & \forall i,j
-	\end{cases}
-	\label{eq:TSP_subtour_bin}
+	u_i - u_j + N x_{ij} \leq N - 1, \quad \forall i,j = 2,\dots,N, \; i \neq j
+	\label{eq:TSP_subtour}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de eliminación de subciclos y variables binarias para TSP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de eliminación de subciclos para TSP}
 
-donde:
-- \(x_{ij} = 1\) si la ruta va de \(i\) a \(j\), y 0 en caso contrario;
-- \(u_i\) son variables auxiliares usadas para eliminar subciclos \citep{torres2018}.
+\begin{equation}
+	x_{ij} \in \{0,1\}, \quad \forall i,j = 1,\dots,N
+	\label{eq:TSP_bin}
+\end{equation}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Variables binarias que indican si la ruta va de \(i\) a \(j\) para TSP}
 
-La función objetivo~\eqref{eq:TSP_obj} proporciona la distancia total de los arcos que conforman un tour. Las restricciones en~\eqref{eq:TSP_out} garantizan que, al salir de una ciudad, sólo sea posible dirigirse a un único nodo. Las restricciones en~\eqref{eq:TSP_in} aseguran que a cada ciudad únicamente se llegue una sola vez. La restricción~\eqref{eq:TSP_subtour_bin} es fundamental en el planteamiento, pues mediante ella se evita que cualquier conjunto de \(x_{ij}\) que forme una subruta sea factible, de modo que sólo los conjuntos que constituyen un recorrido completo sean viables \citep{torres2018}.
+\medskip
+
+\noindent donde:
+\begin{itemize}
+    \item \(x_{ij} = 1\) si la ruta va de \(i\) a \(j\), y 0 en caso contrario;
+    \item \(u_i\) son variables auxiliares usadas para eliminar subciclos, con \(i=2,\dots,N\) \citep{torres2018}.
+\end{itemize}
+
+La \textbf{función objetivo}~\eqref{eq:TSP_obj} representa la suma total de los costos (o distancias) de los arcos que conforman el recorrido. Las \textbf{restricciones} en~\eqref{eq:TSP_out} garantizan que, al salir de cada nodo, sólo se dirija a un único nodo siguiente. Las restricciones en~\eqref{eq:TSP_in} aseguran que a cada nodo únicamente se llegue una vez. La restricción~\eqref{eq:TSP_subtour} es fundamental, ya que previene la formación de subciclos que no incluyan a todos los nodos, asegurando así un recorrido único y completo.Finalmente, la restricción~\eqref{eq:TSP_bin} indica que las variables \(x_{ij}\) son \textbf{binarias}, es decir, sólo pueden tomar los valores 0 o 1, lo que permite representar la inclusión o exclusión de una ruta entre nodos \citep{torres2018}.
 
 \paragraph{Complejidad del TSP}
 
-Como se explica en \cite{papadimitriou1998}, el Problema del Agente Viajero es NP-hard, y su versión de decisión es NP-completa. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo es un desafío fundamental en la teoría de la computación, pues una solución polinomial para el TSP resolvería eficientemente toda la clase NP. Este carácter NP-hard justifica la utilización de algoritmos aproximados y metaheurísticos en su resolución, dado que las técnicas exactas sólo resultan prácticas para instancias de tamaño reducido.
+Como explica \cite{papadimitriou1998}, el \textbf{Problema del Agente Viajero} es \textit{NP-hard} (NP-difícil), y su versión de decisión es \textit{NP-completa}. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo representa un desafío fundamental en la teoría de la computación, pues encontrar una solución polinomial para el TSP permitiría resolver eficientemente toda la clase \textit{NP}. Esta dificultad justifica la utilización de algoritmos aproximados y metaheurísticos, dado que las técnicas exactas sólo resultan prácticas para instancias
 
 \subsubsection{Problema del Problema Ruteo de Vehículos (VRP)}
 El problema de ruteo de vehículos (VRP, por sus siglas en inglés) fue planteado por primera vez en 1959 por Dantzig y Ramser, quienes abordaron una aplicación práctica relacionada con la distribución de gasolina a estaciones de servicio, proponiendo además una formulación matemática del problema. Posteriormente, Clarke y Wright desarrollaron el primer algoritmo que demostró ser eficaz para resolverlo. A partir de ahí, se iniciaron numerosas investigaciones en el área del ruteo de vehículos. Este problema puede interpretarse como la convergencia de dos problemas clásicos de optimización combinatoria: el problema del agente viajero (TSP) mencionado en \autoref{subsec:problem_tsp}, en el que se asume una capacidad infinita de los vehículos, y el problema de empaquetamiento en compartimentos (BPP) \cite{daza2009}.
