@@ -17,6 +17,7 @@
 
 % Paquetes gráficos y matemáticos
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{color}
 \usepackage{pstricks, pst-node}
 \usepackage{amsfonts, amsmath, amssymb, amsthm}
@@ -237,15 +238,15 @@ Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optim
 \subsection{Objetivos Específicos}
 
 \begin{enumerate}
-    \item Estudiar y analizar los problemas TSP, VRP y VRPTW para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal (VRPTW).
-    
-    \item Diseñar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO) para la construcción de soluciones iniciales, el Recocido Simulado (SA) con distintas heurísticas de búsqueda local para la mejora de dichas soluciones, y un Algoritmo Evolutivo Diferencial (ADE) para intensificar la exploración del espacio de búsqueda.
-    
-    \item Implementar computacionalmente el enfoque híbrido propuesto, asegurando su modularidad y capacidad de adaptación para resolver los tres problemas (TSP, VRP y VRPTW).
-    
-    \item Evaluar el rendimiento del enfoque híbrido en términos de calidad de la solución, tiempo de ejecución y robustez, utilizando instancias de prueba estándar y métricas aceptadas en la literatura.
-    
-    \item Analizar el impacto individual y combinado de las técnicas ACO, SA y ADE en el rendimiento del sistema, y proponer recomendaciones para su aplicación práctica en problemas logísticos reales.
+	\item Estudiar y analizar los problemas TSP, VRP y VRPTW para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal (VRPTW).
+
+	\item Diseñar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO) para la construcción de soluciones iniciales, el Recocido Simulado (SA) con distintas heurísticas de búsqueda local para la mejora de dichas soluciones, y un Algoritmo Evolutivo Diferencial (ADE) para intensificar la exploración del espacio de búsqueda.
+
+	\item Implementar computacionalmente el enfoque híbrido propuesto, asegurando su modularidad y capacidad de adaptación para resolver los tres problemas (TSP, VRP y VRPTW).
+
+	\item Evaluar el rendimiento del enfoque híbrido en términos de calidad de la solución, tiempo de ejecución y robustez, utilizando instancias de prueba estándar y métricas aceptadas en la literatura.
+
+	\item Analizar el impacto individual y combinado de las técnicas ACO, SA y ADE en el rendimiento del sistema, y proponer recomendaciones para su aplicación práctica en problemas logísticos reales.
 \end{enumerate}
 
 
@@ -254,29 +255,29 @@ Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optim
 \subsection*{Alcances}
 
 \begin{itemize}
-    \item El trabajo se centra en la resolución de los problemas TSP, VRP y VRPTW, siendo este último el problema principal de estudio.
-    
-    \item Se desarrolla un enfoque híbrido que integra tres técnicas metaheurísticas: Optimización por Colonia de Hormigas (ACO), Recocido Simulado (SA) con múltiples heurísticas locales, y un Algoritmo Evolutivo Diferencial (ADE), aplicadas de manera complementaria.
-    
-    \item La implementación incluye una arquitectura modular que permite la reutilización de componentes entre los tres problemas, facilitando la comparación y evolución de los modelos.
-    
-    \item El enfoque es probado con instancias benchmark conocidas en la literatura, permitiendo una validación objetiva y reproducible de los resultados obtenidos.
-    
-    \item Se analizan métricas relevantes como la calidad de la solución, el tiempo de ejecución y la estabilidad del algoritmo ante múltiples ejecuciones.
+	\item El trabajo se centra en la resolución de los problemas TSP, VRP y VRPTW, siendo este último el problema principal de estudio.
+
+	\item Se desarrolla un enfoque híbrido que integra tres técnicas metaheurísticas: Optimización por Colonia de Hormigas (ACO), Recocido Simulado (SA) con múltiples heurísticas locales, y un Algoritmo Evolutivo Diferencial (ADE), aplicadas de manera complementaria.
+
+	\item La implementación incluye una arquitectura modular que permite la reutilización de componentes entre los tres problemas, facilitando la comparación y evolución de los modelos.
+
+	\item El enfoque es probado con instancias benchmark conocidas en la literatura, permitiendo una validación objetiva y reproducible de los resultados obtenidos.
+
+	\item Se analizan métricas relevantes como la calidad de la solución, el tiempo de ejecución y la estabilidad del algoritmo ante múltiples ejecuciones.
 \end{itemize}
 
 \subsection*{Limitaciones}
 
 \begin{itemize}
-    \item El enfoque propuesto está diseñado para instancias estáticas de los problemas de ruteo; no se contempla el tratamiento de versiones dinámicas o en tiempo real.
-    
-    \item La calidad de los resultados depende en gran medida de la correcta calibración de los parámetros de ACO, SA y ADE, lo cual puede implicar un proceso costoso de ajuste manual o semiautomático.
-    
-    \item No se consideran restricciones adicionales como múltiples depósitos, flotas heterogéneas, restricciones de carga o prioridades diferenciadas entre clientes.
-    
-    \item Las pruebas están limitadas a conjuntos de datos artificiales y benchmarks académicos, sin validación en entornos productivos reales.
-    
-    \item Al tratarse de métodos metaheurísticos, no se garantiza la obtención del óptimo global, sino soluciones cercanas al óptimo dentro de un tiempo razonable.
+	\item El enfoque propuesto está diseñado para instancias estáticas de los problemas de ruteo; no se contempla el tratamiento de versiones dinámicas o en tiempo real.
+
+	\item La calidad de los resultados depende en gran medida de la correcta calibración de los parámetros de ACO, SA y ADE, lo cual puede implicar un proceso costoso de ajuste manual o semiautomático.
+
+	\item No se consideran restricciones adicionales como múltiples depósitos, flotas heterogéneas, restricciones de carga o prioridades diferenciadas entre clientes.
+
+	\item Las pruebas están limitadas a conjuntos de datos artificiales y benchmarks académicos, sin validación en entornos productivos reales.
+
+	\item Al tratarse de métodos metaheurísticos, no se garantiza la obtención del óptimo global, sino soluciones cercanas al óptimo dentro de un tiempo razonable.
 \end{itemize}
 
 
@@ -421,6 +422,17 @@ Los problemas de optimización combinatoria constituyen una clase amplia de mode
 
 El \textbf{Problema del Agente Viajero}, conocido por sus siglas en inglés como \textit{TSP} (\emph{Travelling Salesman Problem}), es uno de los problemas más reconocidos y complejos dentro de las ciencias computacionales. Ha sido estudiado desde diversas ramas de la ingeniería y por múltiples motivos. Su aplicación principal consiste en determinar rutas desde diferentes enfoques, ya sea en procesos que requieren una secuencia específica o en operaciones logísticas relacionadas con el transporte, con el objetivo de encontrar la ruta óptima considerando criterios de minimización de distancia o de costo \citep{lopez2014tabu}.
 
+En la Figura~\ref{fig:tsp} se presenta una representación gráfica de una posible solución al Problema del Agente Viajero (TSP, por sus siglas en inglés). En ella, un vehículo parte de un nodo inicial, recorre una serie de ciudades o puntos de entrega siguiendo una secuencia determinada, y regresa al punto de partida, completando así un circuito cerrado que minimiza la distancia total recorrida.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figuras/TSP.pdf}
+	\caption{Ejemplificación de una solución al Problema del Agente Viajero (TSP).}
+	\label{fig:tsp}
+\end{figure}
+
+
+
 Según \citep{torres2018}, el \textbf{Problema del Agente Viajero} se define sobre un grafo \(G = [N,A,C]\), donde \(N\) es el conjunto de nodos, \(A\) es el conjunto de arcos y \(C = [c_{ij}]\) es la matriz de costos (distancias) entre nodos \(i\) y \(j\). El objetivo es encontrar un ciclo hamiltoniano de costo mínimo que recorra todos los nodos una sola vez y regrese al punto de partida.
 
 \paragraph{Modelo Matemático del Agente Viajero (TSP)}
@@ -437,32 +449,32 @@ sujeto a:
 	\sum_{j=1}^N x_{ij} = 1, \quad \forall i = 1,\dots,N
 	\label{eq:TSP_out}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de salida única de cada nodo para TSP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de salida única de cada nodo}
 
 \begin{equation}
 	\sum_{i=1}^N x_{ij} = 1, \quad \forall j = 1,\dots,N
 	\label{eq:TSP_in}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de entrada única a cada nodo para TSP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de entrada única a cada nodo}
 
 \begin{equation}
 	u_i - u_j + N x_{ij} \leq N - 1, \quad \forall i,j = 2,\dots,N, \; i \neq j
 	\label{eq:TSP_subtour}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de eliminación de subciclos para TSP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de eliminación de subciclos}
 
 \begin{equation}
 	x_{ij} \in \{0,1\}, \quad \forall i,j = 1,\dots,N
 	\label{eq:TSP_bin}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Variables binarias que indican si la ruta va de \(i\) a \(j\) para TSP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Variables binarias que indican si la ruta va de \(i\) a \(j\)}
 
 \medskip
 
 \noindent donde:
 \begin{itemize}
-    \item \(x_{ij} = 1\) si la ruta va de \(i\) a \(j\), y 0 en caso contrario;
-    \item \(u_i\) son variables auxiliares usadas para eliminar subciclos, con \(i=2,\dots,N\) \citep{torres2018}.
+	\item \(x_{ij} = 1\) si la ruta va de \(i\) a \(j\), y 0 en caso contrario;
+	\item \(u_i\) son variables auxiliares usadas para eliminar subciclos, con \(i=2,\dots,N\) \citep{torres2018}.
 \end{itemize}
 
 La \textbf{función objetivo}~\eqref{eq:TSP_obj} representa la suma total de los costos (o distancias) de los arcos que conforman el recorrido. La restricción en~\eqref{eq:TSP_out} garantizan que, al salir de cada nodo, sólo se dirija a un único nodo siguiente. La restricción en~\eqref{eq:TSP_in} aseguran que a cada nodo únicamente se llegue una vez. La restricción~\eqref{eq:TSP_subtour} es fundamental, ya que previene la formación de subciclos que no incluyan a todos los nodos, asegurando así un recorrido único y completo.Finalmente, la restricción~\eqref{eq:TSP_bin} indica que las variables \(x_{ij}\) son \textbf{binarias}, es decir, sólo pueden tomar los valores 0 o 1, lo que permite representar la inclusión o exclusión de una ruta entre nodos \citep{torres2018}.
@@ -477,62 +489,70 @@ El \textbf{Problema del Agente Viajero (TSP)} ha sido tradicionalmente considera
 \label{subsec:problem_vrp}
 El problema de ruteo de vehículos, conocido por sus siglas en inglés como \textit{VRP} (Vehicle Routing Problem). Este problema puede interpretarse como la convergencia de dos problemas clásicos de optimización combinatoria: el problema del agente viajero (TSP) mencionado en \autoref{subsec:problem_tsp}, en el que se asume una capacidad infinita de los vehículos, y el problema de empaquetamiento en compartimentos (BPP) \cite{daza2009}.
 
+En la Figura~\ref{fig:vrp} se ilustra una solución típica al Problema de Ruteo de Vehículos (VRP). En este caso, múltiples vehículos parten desde un único depósito para atender a diferentes clientes, cada uno con una demanda específica. La figura muestra cómo las rutas se distribuyen entre los vehículos, buscando minimizar la distancia total recorrida sin exceder la capacidad de carga asignada a cada unidad.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figuras/VRP.pdf}
+	\caption{Ejemplificación de una solución al Problema de Ruteo de Vehículos (VRP).}
+	\label{fig:vrp}
+\end{figure}
+
 Según \citep{toth2014}, el Problema de Ruteo de Vehículos (VRP) se define sobre un grafo $G = (V, A)$, donde $V = \{0, 1, \dots, n\}$ representa el conjunto de nodos, con el nodo $0$ correspondiente al depósito y los nodos restantes a los clientes, $A$ es el conjunto de arcos, y $C = [c_{ij}]$ es la matriz de costos asociados a los arcos $(i, j)$. El objetivo es determinar un conjunto de rutas de costo mínimo para una flota de vehículos idénticos, de modo que: cada cliente sea visitado exactamente una vez por un solo vehículo, cada ruta comience y termine en el depósito, y la demanda total de los clientes en cada ruta no exceda la capacidad del vehículo.
 
 \paragraph{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}
 
 \begin{equation}
-    \min \sum_{i \in V} \sum_{j \in V} c_{ij} x_{ij}
-    \label{eq:VRP_obj}
+	\min \sum_{i \in V} \sum_{j \in V} c_{ij} x_{ij}
+	\label{eq:VRP_obj}
 \end{equation}
 \addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Función objetivo VRP: minimizar el costo total del recorrido}
 
 sujeto a:
 
 \begin{equation}
-    \sum_{i \in V} x_{ij} = 1, \quad \forall j \in V \setminus \{0\}
-    \label{eq:VRP_in}
+	\sum_{i \in V} x_{ij} = 1, \quad \forall j \in V \setminus \{0\}
+	\label{eq:VRP_in}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: entrada única a cada cliente para VRP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: entrada única a cada cliente}
 
 \begin{equation}
-    \sum_{j \in V} x_{ij} = 1, \quad \forall i \in V \setminus \{0\}
-    \label{eq:VRP_out}
+	\sum_{j \in V} x_{ij} = 1, \quad \forall i \in V \setminus \{0\}
+	\label{eq:VRP_out}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: salida única desde cada cliente para VRP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: salida única desde cada cliente}
 
 \begin{equation}
-    \sum_{i \in V} x_{i0} = K
-    \label{eq:VRP_into_depot}
+	\sum_{i \in V} x_{i0} = K
+	\label{eq:VRP_into_depot}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: número de vehículos que regresan al depósito para VRP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: número de vehículos que regresan al depósito}
 
 \begin{equation}
-    \sum_{j \in V} x_{0j} = K
-    \label{eq:VRP_from_depot}
+	\sum_{j \in V} x_{0j} = K
+	\label{eq:VRP_from_depot}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: número de vehículos que salen del depósito para VRP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: número de vehículos que salen del depósito}
 
 \begin{equation}
-    \sum_{i \in S} \sum_{j \in S} x_{ij} \geq r(S), \quad \forall S \subseteq V \setminus \{0\},\; S \neq \emptyset
-    \label{eq:VRP_subtour}
+	\sum_{i \in S} \sum_{j \in S} x_{ij} \geq r(S), \quad \forall S \subseteq V \setminus \{0\},\; S \neq \emptyset
+	\label{eq:VRP_subtour}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción de conectividad: eliminación de subrutas para VRP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción de conectividad: eliminación de subrutas}
 
 \begin{equation}
-    x_{ij} \in \{0, 1\}, \quad \forall i,j \in V
-    \label{eq:VRP_bin}
+	x_{ij} \in \{0, 1\}, \quad \forall i,j \in V
+	\label{eq:VRP_bin}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Variables binarias: decisión de ruta entre nodos para VRP}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Variables binarias: decisión de ruta entre nodos}
 \medskip
 
 \noindent donde:
 \begin{itemize}
-    \item \(V\) es el conjunto de nodos (clientes más depósito), con el depósito representado por el nodo 0;
-    \item \(c_{ij}\) es el costo (o distancia) de viajar del nodo \(i\) al nodo \(j\);
-    \item \(x_{ij} = 1\) si se viaja directamente del nodo \(i\) al nodo \(j\), 0 en otro caso;
-    \item \(K\) es el número de vehículos disponibles en el depósito;
-    \item \(S\) es un subconjunto de clientes, y \(r(S)\) representa el número mínimo de vehículos necesarios para satisfacer la demanda total de los clientes en \(S\) \citep{toth2014}.
+	\item \(V\) es el conjunto de nodos (clientes más depósito), con el depósito representado por el nodo 0;
+	\item \(c_{ij}\) es el costo (o distancia) de viajar del nodo \(i\) al nodo \(j\);
+	\item \(x_{ij} = 1\) si se viaja directamente del nodo \(i\) al nodo \(j\), 0 en otro caso;
+	\item \(K\) es el número de vehículos disponibles en el depósito;
+	\item \(S\) es un subconjunto de clientes, y \(r(S)\) representa el número mínimo de vehículos necesarios para satisfacer la demanda total de los clientes en \(S\) \citep{toth2014}.
 \end{itemize}
 
 La \textbf{función objetivo}~\eqref{eq:VRP_obj} minimiza el costo total de todas las rutas. Las restricciones~\eqref{eq:VRP_in} y~\eqref{eq:VRP_out} aseguran que cada cliente sea visitado exactamente una vez. Las restricciones~\eqref{eq:VRP_into_depot} y~\eqref{eq:VRP_from_depot} controlan el número de vehículos que entran y salen del depósito. La restricción~\eqref{eq:VRP_subtour} evita la formación de subrutas que no incluyan al depósito, garantizando conectividad. Finalmente, la restricción~\eqref{eq:VRP_bin} indica que las variables de decisión son binarias \citep{toth2014}.
@@ -549,80 +569,88 @@ El \textbf{Problema de Ruteo de Vehículos (VRP)} representa la extensión natur
 
 El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} es una extensión del VRP descrito en \autoref{subsec:problem_vrp}, donde cada cliente debe ser atendido dentro de una ventana temporal específica. Además, el vehículo debe permanecer en la ubicación del cliente durante el tiempo de servicio requerido. Las ventanas pueden ser rígidas, donde no se permite iniciar el servicio fuera del intervalo definido, o flexibles, admitiendo retrasos con penalización. Si el vehículo llega antes del inicio de la ventana, debe esperar hasta el comienzo del servicio \citep{toth2014}.
 
+La Figura~\ref{fig:vrptw} presenta una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW), una extensión del VRP clásico. En este escenario, además de considerar las restricciones de capacidad de los vehículos, se imponen ventanas de tiempo en las que cada cliente debe ser atendido. La solución gráfica muestra rutas que cumplen con ambas restricciones, optimizando tanto la logística como el cumplimiento de los intervalos de servicio.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figuras/VRPTW.pdf}
+	\caption{Ejemplificación de una solución al VRP con ventanas de tiempo (VRPTW).}
+	\label{fig:vrptw}
+\end{figure}
+
 \paragraph{Modelo Matemático del VRPTW}
 
 \begin{equation}
-    \min \sum_{k \in K} \sum_{i \in V} \sum_{j \in V} c_{ij} x_{ijk}
-    \label{eq:VRPTW_obj}
+	\min \sum_{k \in K} \sum_{i \in V} \sum_{j \in V} c_{ij} x_{ijk}
+	\label{eq:VRPTW_obj}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Función objetivo VRPTW: minimizar el costo total del recorrido}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Función objetivo VRPTW: minimizar el costo total del recorrido}
 
 Sujeto a:
 
 \begin{equation}
-    \sum_{k \in K} \sum_{j \in V} x_{ijk} = 1, \quad \forall i \in N
-    \label{eq:VRPTW_visit_once}
+	\sum_{k \in K} \sum_{j \in V} x_{ijk} = 1, \quad \forall i \in N
+	\label{eq:VRPTW_visit_once}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Cada cliente es visitado exactamente una vez}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cada cliente es visitado exactamente una vez}
 
 \begin{equation}
-    \sum_{j \in V} x_{0jk} = 1, \quad \forall k \in K
-    \label{eq:VRPTW_start_depot}
+	\sum_{j \in V} x_{0jk} = 1, \quad \forall k \in K
+	\label{eq:VRPTW_start_depot}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Cada vehículo inicia su ruta en el depósito}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cada vehículo inicia su ruta en el depósito}
 
 \begin{equation}
-    \sum_{i \in V} x_{i,n+1,k} = 1, \quad \forall k \in K
-    \label{eq:VRPTW_end_depot}
+	\sum_{i \in V} x_{i,n+1,k} = 1, \quad \forall k \in K
+	\label{eq:VRPTW_end_depot}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Cada vehículo termina su ruta en el depósito}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cada vehículo termina su ruta en el depósito}
 
 \begin{equation}
-    \sum_{j \in V} x_{ijk} - \sum_{j \in V} x_{jik} = 0, \quad \forall k \in K, \forall i \in N
-    \label{eq:VRPTW_flow_balance}
+	\sum_{j \in V} x_{ijk} - \sum_{j \in V} x_{jik} = 0, \quad \forall k \in K, \forall i \in N
+	\label{eq:VRPTW_flow_balance}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Conservación de flujo en cada cliente para cada vehículo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Conservación de flujo en cada cliente para cada vehículo}
 
 \begin{equation}
-    w_{jk} \geq w_{ik} + s_i + t_{ij} - M (1 - x_{ijk}), \quad \forall k \in K, \forall i,j \in V
-    \label{eq:VRPTW_time_window}
+	w_{jk} \geq w_{ik} + s_i + t_{ij} - M (1 - x_{ijk}), \quad \forall k \in K, \forall i,j \in V
+	\label{eq:VRPTW_time_window}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de precedencia temporal y ventanas de tiempo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción de precedencia temporal y ventanas de tiempo}
 
 \begin{equation}
-    a_i \leq w_{ik} \leq b_i, \quad \forall k \in K, \forall i \in V
-    \label{eq:VRPTW_time_bounds}
+	a_i \leq w_{ik} \leq b_i, \quad \forall k \in K, \forall i \in V
+	\label{eq:VRPTW_time_bounds}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de límites de ventanas de tiempo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción de límites de ventanas de tiempo}
 
 \begin{equation}
-    \sum_{i \in V} \sum_{j \in V} d_i x_{ijk} \leq C, \quad \forall k \in K
-    \label{eq:VRPTW_capacity}
+	\sum_{i \in V} \sum_{j \in V} d_i x_{ijk} \leq C, \quad \forall k \in K
+	\label{eq:VRPTW_capacity}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de capacidad máxima por vehículo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción de capacidad máxima por vehículo}
 
 \begin{equation}
-    x_{ijk} \in \{0,1\}, \quad w_{ik} \geq 0, \quad \forall k \in K, \forall i,j \in V
-    \label{eq:VRPTW_domains}
+	x_{ijk} \in \{0,1\}, \quad w_{ik} \geq 0, \quad \forall k \in K, \forall i,j \in V
+	\label{eq:VRPTW_domains}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Variables binarias y no negatividad de variables de tiempo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Variables binarias y no negatividad de variables de tiempo}
 
 \medskip
 \noindent donde:
 \begin{itemize}
-    \item \(V = \{0, 1, \ldots, n, n+1\}\) es el conjunto de nodos, donde \(0\) y \(n+1\) representan el depósito inicial y final;
-    \item \(N = V \setminus \{0, n+1\}\) es el conjunto de clientes;
-    \item \(K\) es el conjunto de vehículos disponibles;
-    \item \(A\) es el conjunto de arcos permitidos entre nodos;
-    \item \(c_{ij}\) es el costo o distancia de viajar del nodo \(i\) al nodo \(j\);
-    \item \(x_{ijk}\) es variable binaria, igual a 1 si el vehículo \(k\) viaja directamente del nodo \(i\) al nodo \(j\), 0 en otro caso;
-    \item \(w_{ik}\) es el tiempo de inicio del servicio del vehículo \(k\) en el nodo \(i\);
-    \item \(s_i\) es el tiempo de servicio requerido en el nodo \(i\);
-    \item \(t_{ij}\) es el tiempo de viaje del nodo \(i\) al nodo \(j\);
-    \item \([a_i, b_i]\) es la ventana de tiempo para el nodo \(i\);
-    \item \(d_i\) es la demanda del cliente \(i\);
-    \item \(C\) es la capacidad máxima del vehículo;
-    \item \(M\) es un número grande usado para linearizar las restricciones condicionales.
+	\item \(V = \{0, 1, \ldots, n, n+1\}\) es el conjunto de nodos, donde \(0\) y \(n+1\) representan el depósito inicial y final;
+	\item \(N = V \setminus \{0, n+1\}\) es el conjunto de clientes;
+	\item \(K\) es el conjunto de vehículos disponibles;
+	\item \(A\) es el conjunto de arcos permitidos entre nodos;
+	\item \(c_{ij}\) es el costo o distancia de viajar del nodo \(i\) al nodo \(j\);
+	\item \(x_{ijk}\) es variable binaria, igual a 1 si el vehículo \(k\) viaja directamente del nodo \(i\) al nodo \(j\), 0 en otro caso;
+	\item \(w_{ik}\) es el tiempo de inicio del servicio del vehículo \(k\) en el nodo \(i\);
+	\item \(s_i\) es el tiempo de servicio requerido en el nodo \(i\);
+	\item \(t_{ij}\) es el tiempo de viaje del nodo \(i\) al nodo \(j\);
+	\item \([a_i, b_i]\) es la ventana de tiempo para el nodo \(i\);
+	\item \(d_i\) es la demanda del cliente \(i\);
+	\item \(C\) es la capacidad máxima del vehículo;
+	\item \(M\) es un número grande usado para linearizar las restricciones condicionales.
 \end{itemize}
 
 La \textbf{función objetivo} \eqref{eq:VRPTW_obj} busca minimizar el costo total de las rutas. La restricción \eqref{eq:VRPTW_visit_once} garantiza que cada cliente sea visitado exactamente una vez por algún vehículo. Las restricciones \eqref{eq:VRPTW_start_depot} y \eqref{eq:VRPTW_end_depot} aseguran que cada vehículo comience y termine su ruta en el depósito. La restricción \eqref{eq:VRPTW_flow_balance} mantiene el balance de flujo en cada cliente para cada vehículo. La restricción \eqref{eq:VRPTW_time_window} impone el orden y respeto a las ventanas de tiempo mediante la relación entre tiempos de servicio y viajes, usando el parámetro \(M\). La restricción \eqref{eq:VRPTW_time_bounds} asegura que el servicio comience dentro de la ventana permitida. La restricción \eqref{eq:VRPTW_capacity} controla la capacidad máxima que puede transportar cada vehículo. Finalmente, la restricción \eqref{eq:VRPTW_domains} define los dominios de las variables de decisión \citep{toth2014}.
@@ -634,7 +662,7 @@ Sabemos que la complejidad del \textbf{Problema de Ruteo de Vehículos (VRP)} es
 
 El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} representa una evolución del VRP orientada a entornos donde las restricciones temporales son determinantes para la calidad del servicio. Esta variante refleja de forma más precisa los desafíos logísticos actuales, donde los clientes no solo deben ser visitados, sino también atendidos dentro de intervalos de tiempo específicos, lo cual impone una coordinación precisa entre la planificación de rutas, la gestión de recursos y el cumplimiento de niveles de servicio.
 
-\subsection{Algoritmos Exactos} 
+\subsection{Algoritmos Exactos}
 
 \subsection{Heurísticas}
 
