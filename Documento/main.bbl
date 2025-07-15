@@ -5,6 +5,12 @@ Orlando Antonio~Suárez.
 \newblock Una aproximación a la heurística y metaheurísticas.
 \newblock {\em INGE@UAN -- Tendencias en la Ingeniería}, 1(2), 2014.
 
+\bibitem{braysy2005}
+Olli Bräysy and Michel Gendreau.
+\newblock Vehicle routing problem with time windows, part i: Route construction
+  and local search algorithms.
+\newblock {\em Transportation Science}, 39(1):104--118, 2005.
+
 \bibitem{daza2009}
 Julio~Mario Daza, Jairo~R. Montoya, and Francesco Narducci.
 \newblock Resolución del problema de enrutamiento de vehículos con
@@ -29,6 +35,11 @@ Michael~R. Garey and David~S. Johnson.
 \newblock {\em Computers and Intractability: A Guide to the Theory of
   NP-Completeness}.
 \newblock W. H. Freeman, 1979.
+
+\bibitem{laporte1987}
+Gilbert Laporte and Yves Nobert.
+\newblock Exact algorithms for the vehicle routing problem.
+\newblock {\em Annals of Discrete Mathematics}, 31:147--184, 1987.
 
 \bibitem{lopez2014tabu}
 Erasmo López, Óscar Salas, and Álex Murillo.
@@ -57,14 +68,6 @@ Christos~H. Papadimitriou.
 Christos~H. Papadimitriou and Kenneth Steiglitz.
 \newblock {\em Combinatorial Optimization: Algorithms and Complexity}.
 \newblock Dover Publications, New York, 1998.
-
-\bibitem{pino2011}
-Raúl Pino, Jesús Lozano, Carlos Martínez, and Verónica Villanueva.
-\newblock Estado del arte para la resolución de enrutamiento de vehículos con
-  restricciones de capacidad.
-\newblock In {\em Actas del 5th International Conference on Industrial
-  Engineering and Industrial Management y XV Congreso de Ingeniería de
-  Organización}, pages 847--856, Cartagena, España, 2011.
 
 \bibitem{torres2018}
 J.~Torres-Jiménez, A.~Aguilar-Melendéz, and M.~G. Cedillo-Campos.

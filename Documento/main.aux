@@ -89,58 +89,98 @@
 \citation{toth2014}
 \@writefile{toc}{\contentsline {paragraph}{Complejidad del TSP}{9}{section*.10}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{9}{subsubsection.2.2.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Modelo Matemático del Ruteo de Vehiculos (VRP)}{10}{section*.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.5}Modelo matemático del Problema de Enrutamiento de Vehículos (VRP)}{10}{subsection.2.2.5}\protected@file@percent }
-\citation{pino2011}
-\citation{antonioSuarez2014}
-\citation{duarte2007metaheuristicas}
+\newlabel{subsec:problem_vrp}{{2.2.4.2}{9}{Problema del Problema Ruteo de Vehículos (VRP)}{subsubsection.2.2.4.2}{}}
+\citation{toth2014}
+\citation{toth2014}
+\@writefile{toc}{\contentsline {paragraph}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{10}{section*.11}\protected@file@percent }
+\newlabel{eq:VRP_obj}{{2.6}{10}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.6}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.6}Función objetivo VRP: minimizar el costo total del recorrido}{10}{equation.2.2.6}\protected@file@percent }
+\newlabel{eq:VRP_in}{{2.7}{10}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.7}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.7}Restricción: entrada única a cada cliente para VRP}{10}{equation.2.2.7}\protected@file@percent }
+\newlabel{eq:VRP_out}{{2.8}{10}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.8}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.8}Restricción: salida única desde cada cliente para VRP}{10}{equation.2.2.8}\protected@file@percent }
+\newlabel{eq:VRP_into_depot}{{2.9}{10}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.9}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.9}Restricción: número de vehículos que regresan al depósito para VRP}{10}{equation.2.2.9}\protected@file@percent }
+\newlabel{eq:VRP_from_depot}{{2.10}{10}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.10}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.10} Restricción: número de vehículos que salen del depósito para VRP}{10}{equation.2.2.10}\protected@file@percent }
+\newlabel{eq:VRP_subtour}{{2.11}{10}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.11}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.11} Restricción de conectividad: eliminación de subrutas para VRP}{10}{equation.2.2.11}\protected@file@percent }
+\newlabel{eq:VRP_bin}{{2.12}{10}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.12}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.12} Variables binarias: decisión de ruta entre nodos para VRP}{10}{equation.2.2.12}\protected@file@percent }
+\citation{laporte1987}
+\citation{toth2014}
 \@writefile{toc}{\contentsline {paragraph}{Complejidad del VRP}{11}{section*.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5.1}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{11}{subsubsection.2.2.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.6}Algoritmos Exactos}{11}{subsection.2.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.7}Heurísticas}{11}{subsection.2.2.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{11}{subsubsection.2.2.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Modelo Matemático del VRPTW}{11}{section*.13}\protected@file@percent }
+\newlabel{eq:VRPTW_obj}{{2.13}{11}{Modelo Matemático del VRPTW}{equation.2.2.13}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.13}Función objetivo VRPTW: minimizar el costo total del recorrido}{11}{equation.2.2.13}\protected@file@percent }
+\newlabel{eq:VRPTW_visit_once}{{2.14}{12}{Modelo Matemático del VRPTW}{equation.2.2.14}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.14}Cada cliente es visitado exactamente una vez}{12}{equation.2.2.14}\protected@file@percent }
+\newlabel{eq:VRPTW_start_depot}{{2.15}{12}{Modelo Matemático del VRPTW}{equation.2.2.15}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.15}Cada vehículo inicia su ruta en el depósito}{12}{equation.2.2.15}\protected@file@percent }
+\newlabel{eq:VRPTW_end_depot}{{2.16}{12}{Modelo Matemático del VRPTW}{equation.2.2.16}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.16}Cada vehículo termina su ruta en el depósito}{12}{equation.2.2.16}\protected@file@percent }
+\newlabel{eq:VRPTW_flow_balance}{{2.17}{12}{Modelo Matemático del VRPTW}{equation.2.2.17}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.17}Conservación de flujo en cada cliente para cada vehículo}{12}{equation.2.2.17}\protected@file@percent }
+\newlabel{eq:VRPTW_time_window}{{2.18}{12}{Modelo Matemático del VRPTW}{equation.2.2.18}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.18}Restricción de precedencia temporal y ventanas de tiempo}{12}{equation.2.2.18}\protected@file@percent }
+\newlabel{eq:VRPTW_time_bounds}{{2.19}{12}{Modelo Matemático del VRPTW}{equation.2.2.19}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.19}Restricción de límites de ventanas de tiempo}{12}{equation.2.2.19}\protected@file@percent }
+\newlabel{eq:VRPTW_capacity}{{2.20}{12}{Modelo Matemático del VRPTW}{equation.2.2.20}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.20}Restricción de capacidad máxima por vehículo}{12}{equation.2.2.20}\protected@file@percent }
+\newlabel{eq:VRPTW_domains}{{2.21}{12}{Modelo Matemático del VRPTW}{equation.2.2.21}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.21}Variables binarias y no negatividad de variables de tiempo}{12}{equation.2.2.21}\protected@file@percent }
+\citation{toth2014}
+\citation{braysy2005}
+\@writefile{toc}{\contentsline {paragraph}{Complejidad del VRPTW}{13}{section*.14}\protected@file@percent }
 \citation{antonioSuarez2014}
+\citation{duarte2007metaheuristicas}
 \citation{antonioSuarez2014}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.7.1}Motivos para emplear métodos heurísticos}{12}{subsubsection.2.2.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.7.2}Características de un buen algoritmo heurístico}{12}{subsubsection.2.2.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.5}Algoritmos Exactos}{14}{subsection.2.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.6}Heurísticas}{14}{subsection.2.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.6.1}Motivos para emplear métodos heurísticos}{14}{subsubsection.2.2.6.1}\protected@file@percent }
+\citation{antonioSuarez2014}
 \citation{antonioSuarez2014}
 \citation{duarte2007metaheuristicas}
 \citation{duarte2007metaheuristicas}
 \citation{duarte2007metaheuristicas}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.6.2}Características de un buen algoritmo heurístico}{15}{subsubsection.2.2.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.7}Matehurísticas}{15}{subsection.2.2.7}\protected@file@percent }
 \citation{antonioSuarez2014}
 \citation{antonioSuarez2014}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.8}Matehurísticas}{13}{subsection.2.2.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.8.1}Criterios de Evaluación para Métodos Metaheurísticos}{13}{subsubsection.2.2.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Referencias Relevantes}{14}{section.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Materiales y Métodos}{15}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.7.1}Criterios de Evaluación para Métodos Metaheurísticos}{16}{subsubsection.2.2.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Referencias Relevantes}{17}{section.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Materiales y Métodos}{19}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap:materialesymetodos}{{3}{15}{Materiales y Métodos}{chapter.3}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Resultados}{17}{chapter.4}\protected@file@percent }
+\newlabel{cap:materialesymetodos}{{3}{19}{Materiales y Métodos}{chapter.3}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Resultados}{21}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap:resultados}{{4}{17}{Resultados}{chapter.4}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusiones}{19}{chapter.5}\protected@file@percent }
+\newlabel{cap:resultados}{{4}{21}{Resultados}{chapter.4}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusiones}{23}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap:conclusiones}{{5}{19}{Conclusiones}{chapter.5}{}}
+\newlabel{cap:conclusiones}{{5}{23}{Conclusiones}{chapter.5}{}}
 \bibstyle{plain}
 \bibdata{referencias}
 \bibcite{antonioSuarez2014}{{1}{}{{}}{{}}}
-\bibcite{daza2009}{{2}{}{{}}{{}}}
-\bibcite{cobos2010}{{3}{}{{}}{{}}}
-\bibcite{Flores2014}{{4}{}{{}}{{}}}
-\bibcite{garey1979computers}{{5}{}{{}}{{}}}
-\bibcite{lopez2014tabu}{{6}{}{{}}{{}}}
-\bibcite{maldonado2013problema}{{7}{}{{}}{{}}}
-\bibcite{duarte2007metaheuristicas}{{8}{}{{}}{{}}}
-\bibcite{papadimitriou1994}{{9}{}{{}}{{}}}
-\bibcite{papadimitriou1998}{{10}{}{{}}{{}}}
-\bibcite{pino2011}{{11}{}{{}}{{}}}
-\bibcite{torres2018}{{12}{}{{}}{{}}}
-\bibcite{toth2014}{{13}{}{{}}{{}}}
+\bibcite{braysy2005}{{2}{}{{}}{{}}}
+\bibcite{daza2009}{{3}{}{{}}{{}}}
+\bibcite{cobos2010}{{4}{}{{}}{{}}}
+\bibcite{Flores2014}{{5}{}{{}}{{}}}
+\bibcite{garey1979computers}{{6}{}{{}}{{}}}
+\bibcite{laporte1987}{{7}{}{{}}{{}}}
+\bibcite{lopez2014tabu}{{8}{}{{}}{{}}}
+\bibcite{maldonado2013problema}{{9}{}{{}}{{}}}
+\bibcite{duarte2007metaheuristicas}{{10}{}{{}}{{}}}
+\bibcite{papadimitriou1994}{{11}{}{{}}{{}}}
+\bibcite{papadimitriou1998}{{12}{}{{}}{{}}}
+\bibcite{torres2018}{{13}{}{{}}{{}}}
+\bibcite{toth2014}{{14}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\@writefile{toc}{\contentsline {chapter}{Apéndices}{23}{appendix*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Apéndices}{27}{appendix*.16}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ap:apendices}{{5}{23}{Apéndices}{appendix*.14}{}}
-\gdef \@abspage@last{43}
+\newlabel{ap:apendices}{{5}{27}{Apéndices}{appendix*.16}{}}
+\gdef \@abspage@last{47}
