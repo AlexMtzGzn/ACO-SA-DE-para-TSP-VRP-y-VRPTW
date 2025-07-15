@@ -214,15 +214,26 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 
 \chapter{Introducción}
 \label{cap:introduccion}
-% Contenido...
 
-\chapter{Marco Teórico}
+\section{Planteamiento del Problema}
+\section{Justificación}
+
+\section{Objetivos}
+\subsection{Objetivo General}
+\subsection{Objetivos Específicos}
+
+\section{Alcances y Limitaciones}
+
+\section{Estructura del Documento}
+
+
+\chapter{Marco Teórico / Estado del Arte}
 \label{cap:marco-teorico}
 \section{Antencedentes}
 \section{Conceptos Clave}
 \subsection{El Problema en Optimización}
 
-Los \textbf{problemas de optimización} constituyen una herramienta fundamental en ciencias computacionales, ingeniería, logística y muchas otras disciplinas. En el contexto de esta investigación, resultan especialmente relevantes porque permiten modelar situaciones en las que se busca obtener el \textbf{mejor resultado posible} bajo ciertas restricciones, como \textbf{minimizar costos}, \textbf{distancias} o \textbf{tiempos}.
+Los \textbf{problemas de optimización} constituyen una herramienta fundamental en ciencias computacionales, ingeniería, logística y muchas otras disciplinas. En el contexto de este trabajo de investigación, resultan especialmente relevantes porque permiten modelar situaciones en las que se busca obtener el \textbf{mejor resultado posible} bajo ciertas restricciones, como \textbf{minimizar costos}, \textbf{distancias} o \textbf{tiempos}.
 
 De acuerdo con \citep{cobos2010}, los problemas de optimización se dividen de manera natural en dos categorías: problemas con \textbf{variables continuas} y problemas con \textbf{variables discretas}. A estos últimos se les conoce como problemas de \textbf{optimización combinatoria}.
 
@@ -284,7 +295,7 @@ mientras que para problemas de maximización, se requiere que
 
 La solución \(i_{opt}\) se denomina \textbf{solución óptima global}, y el valor \(f(i_{opt})\) representa el \textbf{costo óptimo}. El conjunto de todas las soluciones óptimas se denota como \(S_{opt}\). Un problema de optimización combinatoria se define entonces como el conjunto de todas sus instancias \citep{cobos2010}.
 
-Comprender esta distinción es esencial para abordar el problema central de este trabajo, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es \textbf{finito}, y el desafío consiste en identificar cuál de ellas representa la \textbf{mejor opción} según un criterio específico.
+Comprender esta distinción es esencial para abordar el problema central de este trabajo \textbf{(VRPTW)}, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es \textbf{finito}, y el desafío consiste en identificar cuál de ellas representa la \textbf{mejor opción} según un criterio específico.
 
 Esta base teórica permite introducir los problemas clásicos de enrutamiento, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Enrutamiento de Vehículos (VRP)} y sus variantes, como el \textbf{Problema de Enrutamiento de Vehículos con Ventanas de Tiempo (VRPTW)}, los cuales serán analizados más adelante por su relación directa con la planificación eficiente de rutas en contextos reales.
 
@@ -472,6 +483,7 @@ La \textbf{función objetivo}~\eqref{eq:VRP_obj} minimiza el costo total de toda
 
 
 \paragraph{Complejidad del VRP}
+\label{subsec:complejidad_vrp}
 
 Como señalan Laporte y Nobert \cite{laporte1987}, el \textbf{Problema de Ruteo de Vehículos (VRP)} es \textit{NP-hard}, incluso en su versión más simple con un solo vehículo (es decir, el TSP). Esto significa que no se conoce ningún algoritmo que lo resuelva de forma exacta en tiempo polinomial, y su complejidad crece exponencialmente con el número de clientes. Por ello, la mayoría de las instancias prácticas requieren el uso de técnicas heurísticas o metaheurísticas, ya que los métodos exactos son computacionalmente inviables para problemas de tamaño medio o grande.
 
@@ -557,18 +569,14 @@ Sujeto a:
     \item \(M\) es un número grande usado para linearizar las restricciones condicionales.
 \end{itemize}
 
-La función objetivo \eqref{eq:VRPTW_obj} busca minimizar el costo total de las rutas. La restricción \eqref{eq:VRPTW_visit_once} garantiza que cada cliente sea visitado exactamente una vez por algún vehículo. Las restricciones \eqref{eq:VRPTW_start_depot} y \eqref{eq:VRPTW_end_depot} aseguran que cada vehículo comience y termine su ruta en el depósito. La restricción \eqref{eq:VRPTW_flow_balance} mantiene el balance de flujo en cada cliente para cada vehículo. La restricción \eqref{eq:VRPTW_time_window} impone el orden y respeto a las ventanas de tiempo mediante la relación entre tiempos de servicio y viajes, usando el parámetro \(M\). La restricción \eqref{eq:VRPTW_time_bounds} asegura que el servicio comience dentro de la ventana permitida. La restricción \eqref{eq:VRPTW_capacity} controla la capacidad máxima que puede transportar cada vehículo. Finalmente, la restricción \eqref{eq:VRPTW_domains} define los dominios de las variables de decisión \citep{toth2014}.
+La \textbf{función objetivo} \eqref{eq:VRPTW_obj} busca minimizar el costo total de las rutas. La restricción \eqref{eq:VRPTW_visit_once} garantiza que cada cliente sea visitado exactamente una vez por algún vehículo. Las restricciones \eqref{eq:VRPTW_start_depot} y \eqref{eq:VRPTW_end_depot} aseguran que cada vehículo comience y termine su ruta en el depósito. La restricción \eqref{eq:VRPTW_flow_balance} mantiene el balance de flujo en cada cliente para cada vehículo. La restricción \eqref{eq:VRPTW_time_window} impone el orden y respeto a las ventanas de tiempo mediante la relación entre tiempos de servicio y viajes, usando el parámetro \(M\). La restricción \eqref{eq:VRPTW_time_bounds} asegura que el servicio comience dentro de la ventana permitida. La restricción \eqref{eq:VRPTW_capacity} controla la capacidad máxima que puede transportar cada vehículo. Finalmente, la restricción \eqref{eq:VRPTW_domains} define los dominios de las variables de decisión \citep{toth2014}.
 
 \paragraph{Complejidad del VRPTW}
 
-El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} es una generalización del VRP clásico, y también pertenece a la clase de problemas \textit{NP-hard}. De hecho, incluso si se ignoran las ventanas de tiempo, el problema sigue siendo difícil de resolver. Al incorporar restricciones temporales, el VRPTW se vuelve aún más complejo, tanto desde el punto de vista computacional como algorítmico. Según Bräysy y Gendreau \cite{braysy2005}, la inclusión de ventanas de tiempo rígidas hace que muchas instancias reales del problema sean intratables mediante métodos exactos, por lo que es común recurrir a aproximaciones heurísticas y metaheurísticas para obtener soluciones de buena calidad en un tiempo razonable.
+Sabemos que la complejidad del \textbf{Problema de Ruteo de Vehículos (VRP)} es \textit{NP-hard}, como se señala en la \autoref{subsec:problem_vrp} y en \citep{laporte1987}. El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} es una generalización del VRP clásico, y también pertenece a la clase de problemas \textit{NP-hard}. De hecho, incluso si se ignoran las ventanas de tiempo, el problema sigue siendo difícil de resolver. Al incorporar restricciones temporales, el VRPTW se vuelve aún más complejo, tanto desde el punto de vista computacional como algorítmico. Según Bräysy y Gendreau \citep{braysy2005} y Toth y Vigo \citep{toth2014}, las ventanas de tiempo reducen significativamente el conjunto de soluciones viables, aumentando así la dificultad del problema.
 
 
 El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} representa una evolución del VRP orientada a entornos donde las restricciones temporales son determinantes para la calidad del servicio. Esta variante refleja de forma más precisa los desafíos logísticos actuales, donde los clientes no solo deben ser visitados, sino también atendidos dentro de intervalos de tiempo específicos, lo cual impone una coordinación precisa entre la planificación de rutas, la gestión de recursos y el cumplimiento de niveles de servicio.
-
-El \textbf{VRPTW} se encuentra en el núcleo de aplicaciones críticas como la entrega de última milla, la logística farmacéutica, los servicios técnicos domiciliarios o la distribución de productos perecederos, donde las ventanas de tiempo rígidas o flexibles condicionan fuertemente la viabilidad y eficiencia operativa. Su estudio permite entender cómo la dimensión temporal altera significativamente la estructura del problema, volviéndolo más restrictivo y costoso, pero también más realista.
-
-Analizar el \textbf{VRPTW} permite modelar escenarios en los que el tiempo no es simplemente una métrica de distancia, sino un recurso finito que debe ser gestionado estratégicamente. Esta perspectiva habilita el diseño de soluciones logísticas más precisas, equilibrando el cumplimiento de horarios con la optimización de rutas, la reducción de costos y el uso eficiente de la flota, lo cual resulta clave en contextos donde la puntualidad y la satisfacción del cliente son factores diferenciadores.
 
 \subsection{Algoritmos Exactos} 
 

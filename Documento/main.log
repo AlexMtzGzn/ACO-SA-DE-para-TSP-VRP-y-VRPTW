@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  14 JUL 2025 19:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  14 JUL 2025 23:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -680,7 +680,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Overfull \vbox (312.9803pt too high) detected at line 113
  []
 
-<Imagnes/uamlogo.png, id=124, 127.33974pt x 52.0344pt>
+<Imagnes/uamlogo.png, id=152, 127.33974pt x 52.0344pt>
 File: Imagnes/uamlogo.png Graphic file (type png)
 <use Imagnes/uamlogo.png>
 Package pdftex.def Info: Imagnes/uamlogo.png  used on input line 120.
@@ -759,11 +759,10 @@ Package spanish Warning: Replacing `T1/lmr/bx/sc' by
 Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
 (spanish)                faked small caps on input line 5.
 
-)
+[11])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [11]
 LaTeX Info: Redefining \. on input line 190.
 LaTeX Info: Redefining \% on input line 190.
 
@@ -865,15 +864,15 @@ Cap\'{\i }tulo 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.219 \chapter
-              {Marco Te贸rico} [1
+l.230 \chapter
+              {Marco Te贸rico / Estado del Arte} [1
 
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.219 \chapter
-              {Marco Te贸rico} [2
+l.230 \chapter
+              {Marco Te贸rico / Estado del Arte} [2
 
 ]
 Cap\'{\i }tulo 2.
@@ -881,71 +880,68 @@ Cap\'{\i }tulo 2.
 Underfull \vbox (badness 5064) has occurred while \output is active []
 
  [3]
-LaTeX Info: Redefining \. on input line 287.
-LaTeX Info: Redefining \% on input line 287.
+LaTeX Info: Redefining \. on input line 298.
+LaTeX Info: Redefining \% on input line 298.
  [4]
-LaTeX Info: Redefining \. on input line 304.
-LaTeX Info: Redefining \% on input line 304.
+LaTeX Info: Redefining \. on input line 315.
+LaTeX Info: Redefining \% on input line 315.
  [5]
-LaTeX Info: Redefining \. on input line 336.
-LaTeX Info: Redefining \% on input line 336.
+LaTeX Info: Redefining \. on input line 347.
+LaTeX Info: Redefining \% on input line 347.
  [6]
-LaTeX Info: Redefining \. on input line 350.
-LaTeX Info: Redefining \% on input line 350.
+LaTeX Info: Redefining \. on input line 361.
+LaTeX Info: Redefining \% on input line 361.
  [7]
-LaTeX Info: Redefining \. on input line 399.
-LaTeX Info: Redefining \% on input line 399.
+LaTeX Info: Redefining \. on input line 410.
+LaTeX Info: Redefining \% on input line 410.
  [8]
-LaTeX Info: Redefining \. on input line 420.
-LaTeX Info: Redefining \% on input line 420.
+LaTeX Info: Redefining \. on input line 431.
+LaTeX Info: Redefining \% on input line 431.
  [9]
-Overfull \hbox (0.58519pt too wide) in paragraph at lines 471--472
+Overfull \hbox (0.58519pt too wide) in paragraph at lines 482--483
 []\T1/lmr/m/n/12 La \T1/lmr/bx/sc/12 fun-ci髇 ob-je-ti-vo [] \T1/lmr/m/n/12 min-i-miza el cos-to to-tal de to-das las ru-tas. Las re-stric-ciones []
  []
 
-LaTeX Info: Redefining \. on input line 472.
-LaTeX Info: Redefining \% on input line 472.
+LaTeX Info: Redefining \. on input line 483.
+LaTeX Info: Redefining \% on input line 483.
 [10]
-LaTeX Info: Redefining \. on input line 497.
-LaTeX Info: Redefining \% on input line 497.
+LaTeX Info: Redefining \. on input line 509.
+LaTeX Info: Redefining \% on input line 509.
  [11]
-LaTeX Info: Redefining \. on input line 553.
-LaTeX Info: Redefining \% on input line 553.
+LaTeX Info: Redefining \. on input line 565.
+LaTeX Info: Redefining \% on input line 565.
  [12]
-LaTeX Info: Redefining \. on input line 570.
-LaTeX Info: Redefining \% on input line 570.
+LaTeX Info: Redefining \. on input line 586.
+LaTeX Info: Redefining \% on input line 586.
  [13]
-LaTeX Info: Redefining \. on input line 597.
-LaTeX Info: Redefining \% on input line 597.
+LaTeX Info: Redefining \. on input line 611.
+LaTeX Info: Redefining \% on input line 611.
  [14]
-LaTeX Info: Redefining \. on input line 627.
-LaTeX Info: Redefining \% on input line 627.
+LaTeX Info: Redefining \. on input line 642.
+LaTeX Info: Redefining \% on input line 642.
  [15]
-LaTeX Info: Redefining \. on input line 650.
-LaTeX Info: Redefining \% on input line 650.
+LaTeX Info: Redefining \. on input line 658.
+LaTeX Info: Redefining \% on input line 658.
  [16]
-LaTeX Info: Redefining \. on input line 650.
-LaTeX Info: Redefining \% on input line 650.
- [17] [18
-
-]
 Cap\'{\i }tulo 3.
-[19] [20
+[17
+
+] [18
 
 ]
 Cap\'{\i }tulo 4.
-[21] [22
+[19] [20
 
 ]
 Cap\'{\i }tulo 5.
-[23] [24
+[21] [22
 
-] (./main.bbl [25
+] (./main.bbl [23
 
 ])
-LaTeX Info: Redefining \. on input line 671.
-LaTeX Info: Redefining \% on input line 671.
- [26] [27
+LaTeX Info: Redefining \. on input line 679.
+LaTeX Info: Redefining \% on input line 679.
+ [24] [25
 
 ] (./main.aux
 LaTeX Info: Redefining \. on input line 25.
@@ -955,21 +951,21 @@ LaTeX Info: Redefining \% on input line 25.
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 747DE2718FE0BC3F0F1B13720D5EEF76;5634.
+(rerunfilecheck)             Checksum: 5055D474079F8D3DC47ED015F7F44A90;6825.
  ) 
 Here is how much of TeX's memory you used:
- 21068 strings out of 480247
- 348789 string characters out of 5896151
- 667567 words of memory out of 5000000
- 38558 multiletter control sequences out of 15000+600000
+ 21081 strings out of 480247
+ 348987 string characters out of 5896151
+ 667642 words of memory out of 5000000
+ 38566 multiletter control sequences out of 15000+600000
  535342 words of font info for 63 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
- 60i,12n,63p,1092b,591s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,63p,1105b,691s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (47 pages, 351542 bytes).
+Output written on main.pdf (45 pages, 352132 bytes).
 PDF statistics:
- 613 PDF objects out of 1000 (max. 8388607)
- 526 compressed objects within 6 object streams
- 131 named destinations out of 1000 (max. 500000)
- 246 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 644 PDF objects out of 1000 (max. 8388607)
+ 559 compressed objects within 6 object streams
+ 136 named destinations out of 1000 (max. 500000)
+ 302 words of extra memory for PDF output out of 10000 (max. 10000000)
 
