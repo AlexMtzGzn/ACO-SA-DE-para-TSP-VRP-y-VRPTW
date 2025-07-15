@@ -1,9 +1,11 @@
 \babel@toc {spanish}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Ejemplificación de una solución al Problema del Agente Viajero (TSP).}}{10}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos (VRP).}}{12}{figure.2.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Ejemplificación de una solución al VRP con ventanas de tiempo (VRPTW).}}{15}{figure.2.3}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Clasificación de los problemas computacionales en decidibles e indecidibles~\citep {maldonado2013problema}.}}{8}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Relación entre las clases de complejidad: P, NP, NP-completo y NP-difícil.}}{10}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Ejemplificación de una solución al Problema del Agente Viajero (TSP).}}{11}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos (VRP).}}{13}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Ejemplificación de una solución al VRP con ventanas de tiempo (VRPTW).}}{16}{figure.2.5}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

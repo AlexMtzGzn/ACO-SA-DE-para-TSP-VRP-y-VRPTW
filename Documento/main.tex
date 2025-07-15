@@ -118,7 +118,7 @@
 			\vspace{.5cm}\hrule height2pt\vspace{.1cm}\hrule height1pt
 			\vspace{.5cm}{\scshape UNIDAD CUAJIMALPA}\vspace{.5cm}
 			\\
-			\includegraphics[width=3cm]{Imagnes/uamlogo.png}\vspace{.5cm}
+			\includegraphics[width=3cm]{Imagenes/uamlogo.png}\vspace{.5cm}
 			\\
 			{\Large \textsc{\eltitulo}}\vspace{1cm}
 			\makebox[8cm][c]{\Large Proyecto Terminal}\vspace{1cm}
@@ -370,7 +370,15 @@ Todos los problemas, tanto en la vida como en la ciencia, pueden clasificarse en
 
 Además, un problema se considera decidible cuando es compresible; es decir, cuando existe una fórmula o algoritmo que permite condensarlo o expresarlo de forma finita. Por el contrario, los problemas indecidibles se consideran incompresibles, ya que no pueden reducirse a una descripción finita ni predecirse computacionalmente \citep{maldonado2013problema}.
 
-En el contexto de este trabajo, los problemas abordados —el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante con restricciones temporales, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}— son considerados \textbf{problemas decidibles}. A continuación, se analizan las clases de complejidad que resultan relevantes para comprender con mayor profundidad la dificultad computacional asociada a su resolución.
+En la Figura~\ref{fig:decidibilidad} se ilustra la clasificación de los problemas desde el punto de vista computacional, dividiéndolos en decidibles e indecidibles.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figuras/Diagrama.pdf}
+	\caption{Clasificación de los problemas computacionales en decidibles e indecidibles~\citep{maldonado2013problema}.}
+	\label{fig:decidibilidad}
+\end{figure}
+
+En el contexto de este trabajo, los problemas abordados —el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante con restricciones temporales, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}— son considerados \textbf{problemas decidibles}. A continuación, se analizan las clases de complejidad que resultan relevantes para comprender la dificultad computacional asociada a su resolución.
 
 \subsubsection{Clases de Complejidad Básicas}
 
@@ -407,6 +415,14 @@ Una de las cuestiones abiertas más fundamentales en ciencias computacionales es
 Dentro de los problemas de clase \emph{NP}, existe una subcategoría especialmente importante: los problemas \textbf{NP-completos}. Estos son problemas que pertenecen a \emph{NP} y que, además, son al menos tan difíciles como cualquier otro problema en \emph{NP}. En otras palabras, si se lograra resolver uno de estos problemas de forma eficiente, también podrían resolverse todos los demás problemas en \emph{NP} \citep{maldonado2013problema}.
 
 Por otra parte, los \textbf{problemas NP-difíciles (NP-hard)} son aquellos que pueden ser incluso más complejos que los \emph{NP-completos}, ya que no necesariamente pertenecen a \emph{NP} (es decir, podrían no tener soluciones verificables en tiempo polinomial), pero son al menos tan difíciles como los problemas más complicados de \emph{NP}. Este tipo de problemas puede presentarse como problemas de decisión, de búsqueda o de optimización \citep{maldonado2013problema}.
+
+En la Figura~\ref{fig:p_vs_np} se muestra la relación entre las clases de complejidad computacional: P, NP, NP-completo y NP-difícil.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Figuras/P _vs_NP.pdf}
+\caption{Relación entre las clases de complejidad: P, NP, NP-completo y NP-difícil.}
+\label{fig:p_vs_np}
+\end{figure}
 
 El crecimiento exponencial del tiempo requerido para resolver este tipo de problemas, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}, en función del tamaño de la entrada, los ubica dentro de la clase \emph{NP}. Más adelante se explicará con mayor detalle a qué subcategoría pertenece cada uno de estos problemas.
 

@@ -24,30 +24,30 @@
 \contentsline {subsection}{\numberline {2.2.3}El Problema P vs NP}{7}{subsection.2.2.3}%
 \contentsline {subsubsection}{\numberline {2.2.3.1}Clases de Complejidad Básicas}{8}{subsubsection.2.2.3.1}%
 \contentsline {paragraph}{Clase P}{8}{section*.8}%
-\contentsline {paragraph}{Clase NP}{8}{section*.9}%
+\contentsline {paragraph}{Clase NP}{9}{section*.9}%
 \contentsline {paragraph}{La gran incógnita: ¿P = NP?}{9}{section*.10}%
 \contentsline {subsubsection}{\numberline {2.2.3.2}NP-Completo y NP-Difícil}{9}{subsubsection.2.2.3.2}%
-\contentsline {subsection}{\numberline {2.2.4}Problemas de Optimización Combinatoria}{9}{subsection.2.2.4}%
-\contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero (TSP)}{10}{subsubsection.2.2.4.1}%
-\contentsline {paragraph}{Modelo Matemático del Agente Viajero (TSP)}{10}{section*.11}%
-\contentsline {paragraph}{Complejidad del TSP}{11}{section*.12}%
-\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{12}{subsubsection.2.2.4.2}%
-\contentsline {paragraph}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{13}{section*.13}%
-\contentsline {paragraph}{Complejidad del VRP}{14}{section*.14}%
-\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{14}{subsubsection.2.2.4.3}%
-\contentsline {paragraph}{Modelo Matemático del VRPTW}{15}{section*.15}%
-\contentsline {paragraph}{Complejidad del VRPTW}{17}{section*.16}%
-\contentsline {subsection}{\numberline {2.2.5}Algoritmos Exactos}{17}{subsection.2.2.5}%
-\contentsline {subsection}{\numberline {2.2.6}Heurísticas}{17}{subsection.2.2.6}%
-\contentsline {subsubsection}{\numberline {2.2.6.1}Motivos para emplear métodos heurísticos}{17}{subsubsection.2.2.6.1}%
-\contentsline {subsubsection}{\numberline {2.2.6.2}Características de un buen algoritmo heurístico}{18}{subsubsection.2.2.6.2}%
-\contentsline {subsection}{\numberline {2.2.7}Matehurísticas}{18}{subsection.2.2.7}%
-\contentsline {subsubsection}{\numberline {2.2.7.1}Criterios de Evaluación para Métodos Metaheurísticos}{19}{subsubsection.2.2.7.1}%
-\contentsline {section}{\numberline {2.3}Referencias Relevantes}{20}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Materiales y Métodos}{21}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Materiales}{21}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Métodos}{21}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Resultados}{23}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones}{25}{chapter.5}%
-\contentsline {chapter}{Bibliografía}{27}{chapter*.17}%
-\contentsline {chapter}{Apéndices}{31}{appendix*.19}%
+\contentsline {subsection}{\numberline {2.2.4}Problemas de Optimización Combinatoria}{10}{subsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero (TSP)}{11}{subsubsection.2.2.4.1}%
+\contentsline {paragraph}{Modelo Matemático del Agente Viajero (TSP)}{11}{section*.11}%
+\contentsline {paragraph}{Complejidad del TSP}{12}{section*.12}%
+\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{13}{subsubsection.2.2.4.2}%
+\contentsline {paragraph}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{14}{section*.13}%
+\contentsline {paragraph}{Complejidad del VRP}{15}{section*.14}%
+\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{15}{subsubsection.2.2.4.3}%
+\contentsline {paragraph}{Modelo Matemático del VRPTW}{16}{section*.15}%
+\contentsline {paragraph}{Complejidad del VRPTW}{18}{section*.16}%
+\contentsline {subsection}{\numberline {2.2.5}Algoritmos Exactos}{18}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.6}Heurísticas}{18}{subsection.2.2.6}%
+\contentsline {subsubsection}{\numberline {2.2.6.1}Motivos para emplear métodos heurísticos}{18}{subsubsection.2.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.2.6.2}Características de un buen algoritmo heurístico}{19}{subsubsection.2.2.6.2}%
+\contentsline {subsection}{\numberline {2.2.7}Matehurísticas}{19}{subsection.2.2.7}%
+\contentsline {subsubsection}{\numberline {2.2.7.1}Criterios de Evaluación para Métodos Metaheurísticos}{20}{subsubsection.2.2.7.1}%
+\contentsline {section}{\numberline {2.3}Referencias Relevantes}{21}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Materiales y Métodos}{23}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Materiales}{23}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Métodos}{23}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Resultados}{25}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusiones}{27}{chapter.5}%
+\contentsline {chapter}{Bibliografía}{29}{chapter*.17}%
+\contentsline {chapter}{Apéndices}{33}{appendix*.19}%

@@ -824,11 +824,11 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr17.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmcsc10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmcsc10.tfm
-INPUT ./Imagnes/uamlogo.png
-INPUT ./Imagnes/uamlogo.png
-INPUT Imagnes/uamlogo.png
-INPUT ./Imagnes/uamlogo.png
-INPUT ./Imagnes/uamlogo.png
+INPUT ./Imagenes/uamlogo.png
+INPUT ./Imagenes/uamlogo.png
+INPUT Imagenes/uamlogo.png
+INPUT ./Imagenes/uamlogo.png
+INPUT ./Imagenes/uamlogo.png
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmcsc10.tfm
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr17.tfm
@@ -856,9 +856,19 @@ INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
+INPUT ./Figuras/Diagrama.pdf
+INPUT ./Figuras/Diagrama.pdf
+INPUT Figuras/Diagrama.pdf
+INPUT ./Figuras/Diagrama.pdf
+INPUT ./Figuras/Diagrama.pdf
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx8.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx6.tfm
+INPUT ./Figuras/P _vs_NP.pdf
+INPUT ./Figuras/P _vs_NP.pdf
+INPUT Figuras/P _vs_NP.pdf
+INPUT ./Figuras/P _vs_NP.pdf
+INPUT ./Figuras/P _vs_NP.pdf
 INPUT ./Figuras/TSP.pdf
 INPUT ./Figuras/TSP.pdf
 INPUT Figuras/TSP.pdf
