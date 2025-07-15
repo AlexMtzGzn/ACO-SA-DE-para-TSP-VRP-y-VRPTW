@@ -189,10 +189,13 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \tableofcontents
 \cleardoublepage
 \listoffigures
+\addcontentsline{toc}{chapter}{Índice de Figuras}
 \cleardoublepage
 \listoftables
+\addcontentsline{toc}{chapter}{Índice de Tablas}
 \cleardoublepage
 \listofmyequations
+\addcontentsline{toc}{chapter}{Índice de Fórmulas}
 \cleardoublepage
 
 
@@ -220,9 +223,53 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 
 \section{Objetivos}
 \subsection{Objetivo General}
+
+Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO), el Recocido Simulado (SA) con múltiples heurísticas locales y un Algoritmo Evolutivo Diferencial (ADE), con el objetivo de resolver de manera eficiente el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW), utilizando el TSP y el VRP como base introductoria y estructural para la construcción progresiva del modelo.
 \subsection{Objetivos Específicos}
 
+\begin{enumerate}
+    \item Estudiar y analizar los problemas TSP, VRP y VRPTW para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal (VRPTW).
+    
+    \item Diseñar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO) para la construcción de soluciones iniciales, el Recocido Simulado (SA) con distintas heurísticas de búsqueda local para la mejora de dichas soluciones, y un Algoritmo Evolutivo Diferencial (ADE) para intensificar la exploración del espacio de búsqueda.
+    
+    \item Implementar computacionalmente el enfoque híbrido propuesto, asegurando su modularidad y capacidad de adaptación para resolver los tres problemas (TSP, VRP y VRPTW).
+    
+    \item Evaluar el rendimiento del enfoque híbrido en términos de calidad de la solución, tiempo de ejecución y robustez, utilizando instancias de prueba estándar y métricas aceptadas en la literatura.
+    
+    \item Analizar el impacto individual y combinado de las técnicas ACO, SA y ADE en el rendimiento del sistema, y proponer recomendaciones para su aplicación práctica en problemas logísticos reales.
+\end{enumerate}
+
+
 \section{Alcances y Limitaciones}
+
+\subsection*{Alcances}
+
+\begin{itemize}
+    \item El trabajo se centra en la resolución de los problemas TSP, VRP y VRPTW, siendo este último el problema principal de estudio.
+    
+    \item Se desarrolla un enfoque híbrido que integra tres técnicas metaheurísticas: Optimización por Colonia de Hormigas (ACO), Recocido Simulado (SA) con múltiples heurísticas locales, y un Algoritmo Evolutivo Diferencial (ADE), aplicadas de manera complementaria.
+    
+    \item La implementación incluye una arquitectura modular que permite la reutilización de componentes entre los tres problemas, facilitando la comparación y evolución de los modelos.
+    
+    \item El enfoque es probado con instancias benchmark conocidas en la literatura, permitiendo una validación objetiva y reproducible de los resultados obtenidos.
+    
+    \item Se analizan métricas relevantes como la calidad de la solución, el tiempo de ejecución y la estabilidad del algoritmo ante múltiples ejecuciones.
+\end{itemize}
+
+\subsection*{Limitaciones}
+
+\begin{itemize}
+    \item El enfoque propuesto está diseñado para instancias estáticas de los problemas de ruteo; no se contempla el tratamiento de versiones dinámicas o en tiempo real.
+    
+    \item La calidad de los resultados depende en gran medida de la correcta calibración de los parámetros de ACO, SA y ADE, lo cual puede implicar un proceso costoso de ajuste manual o semiautomático.
+    
+    \item No se consideran restricciones adicionales como múltiples depósitos, flotas heterogéneas, restricciones de carga o prioridades diferenciadas entre clientes.
+    
+    \item Las pruebas están limitadas a conjuntos de datos artificiales y benchmarks académicos, sin validación en entornos productivos reales.
+    
+    \item Al tratarse de métodos metaheurísticos, no se garantiza la obtención del óptimo global, sino soluciones cercanas al óptimo dentro de un tiempo razonable.
+\end{itemize}
+
 
 \section{Estructura del Documento}
 
@@ -657,7 +704,10 @@ La valoración del desempeño de las metaheurísticas se fundamenta en propiedad
 
 \chapter{Materiales y Métodos}
 \label{cap:materialesymetodos}
-% Contenido...
+
+\section{Materiales}
+
+\section{Métodos}
 
 \chapter{Resultados}
 \label{cap:resultados}
@@ -672,6 +722,8 @@ La valoración del desempeño de las metaheurísticas se fundamenta en propiedad
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
 
+\chapter{Bibliografía}
+\label{cap:bibleografia}
 \bibliographystyle{plain}
 \bibliography{referencias}
 

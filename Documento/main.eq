@@ -1,21 +1,21 @@
-\contentsline {myequations}{\numberline {2.1}Función objetivo TSP: minimizar el costo total del recorrido}{8}{equation.2.2.1}%
-\contentsline {myequations}{\numberline {2.2}Restricción de salida única de cada nodo para TSP}{8}{equation.2.2.2}%
-\contentsline {myequations}{\numberline {2.3}Restricción de entrada única a cada nodo para TSP}{8}{equation.2.2.3}%
-\contentsline {myequations}{\numberline {2.4}Restricción de eliminación de subciclos para TSP}{8}{equation.2.2.4}%
-\contentsline {myequations}{\numberline {2.5}Variables binarias que indican si la ruta va de \(i\) a \(j\) para TSP}{8}{equation.2.2.5}%
-\contentsline {myequations}{\numberline {2.6}Función objetivo VRP: minimizar el costo total del recorrido}{10}{equation.2.2.6}%
-\contentsline {myequations}{\numberline {2.7}Restricción: entrada única a cada cliente para VRP}{10}{equation.2.2.7}%
-\contentsline {myequations}{\numberline {2.8}Restricción: salida única desde cada cliente para VRP}{10}{equation.2.2.8}%
-\contentsline {myequations}{\numberline {2.9}Restricción: número de vehículos que regresan al depósito para VRP}{10}{equation.2.2.9}%
-\contentsline {myequations}{\numberline {2.10} Restricción: número de vehículos que salen del depósito para VRP}{10}{equation.2.2.10}%
-\contentsline {myequations}{\numberline {2.11} Restricción de conectividad: eliminación de subrutas para VRP}{10}{equation.2.2.11}%
-\contentsline {myequations}{\numberline {2.12} Variables binarias: decisión de ruta entre nodos para VRP}{10}{equation.2.2.12}%
-\contentsline {myequations}{\numberline {2.13}Función objetivo VRPTW: minimizar el costo total del recorrido}{11}{equation.2.2.13}%
-\contentsline {myequations}{\numberline {2.14}Cada cliente es visitado exactamente una vez}{12}{equation.2.2.14}%
-\contentsline {myequations}{\numberline {2.15}Cada vehículo inicia su ruta en el depósito}{12}{equation.2.2.15}%
-\contentsline {myequations}{\numberline {2.16}Cada vehículo termina su ruta en el depósito}{12}{equation.2.2.16}%
-\contentsline {myequations}{\numberline {2.17}Conservación de flujo en cada cliente para cada vehículo}{12}{equation.2.2.17}%
-\contentsline {myequations}{\numberline {2.18}Restricción de precedencia temporal y ventanas de tiempo}{12}{equation.2.2.18}%
-\contentsline {myequations}{\numberline {2.19}Restricción de límites de ventanas de tiempo}{12}{equation.2.2.19}%
-\contentsline {myequations}{\numberline {2.20}Restricción de capacidad máxima por vehículo}{12}{equation.2.2.20}%
-\contentsline {myequations}{\numberline {2.21}Variables binarias y no negatividad de variables de tiempo}{12}{equation.2.2.21}%
+\contentsline {myequations}{\numberline {2.1}Función objetivo TSP: minimizar el costo total del recorrido}{10}{equation.2.2.1}%
+\contentsline {myequations}{\numberline {2.2}Restricción de salida única de cada nodo para TSP}{10}{equation.2.2.2}%
+\contentsline {myequations}{\numberline {2.3}Restricción de entrada única a cada nodo para TSP}{10}{equation.2.2.3}%
+\contentsline {myequations}{\numberline {2.4}Restricción de eliminación de subciclos para TSP}{10}{equation.2.2.4}%
+\contentsline {myequations}{\numberline {2.5}Variables binarias que indican si la ruta va de \(i\) a \(j\) para TSP}{10}{equation.2.2.5}%
+\contentsline {myequations}{\numberline {2.6}Función objetivo VRP: minimizar el costo total del recorrido}{12}{equation.2.2.6}%
+\contentsline {myequations}{\numberline {2.7}Restricción: entrada única a cada cliente para VRP}{12}{equation.2.2.7}%
+\contentsline {myequations}{\numberline {2.8}Restricción: salida única desde cada cliente para VRP}{12}{equation.2.2.8}%
+\contentsline {myequations}{\numberline {2.9}Restricción: número de vehículos que regresan al depósito para VRP}{12}{equation.2.2.9}%
+\contentsline {myequations}{\numberline {2.10} Restricción: número de vehículos que salen del depósito para VRP}{12}{equation.2.2.10}%
+\contentsline {myequations}{\numberline {2.11} Restricción de conectividad: eliminación de subrutas para VRP}{12}{equation.2.2.11}%
+\contentsline {myequations}{\numberline {2.12} Variables binarias: decisión de ruta entre nodos para VRP}{12}{equation.2.2.12}%
+\contentsline {myequations}{\numberline {2.13}Función objetivo VRPTW: minimizar el costo total del recorrido}{13}{equation.2.2.13}%
+\contentsline {myequations}{\numberline {2.14}Cada cliente es visitado exactamente una vez}{14}{equation.2.2.14}%
+\contentsline {myequations}{\numberline {2.15}Cada vehículo inicia su ruta en el depósito}{14}{equation.2.2.15}%
+\contentsline {myequations}{\numberline {2.16}Cada vehículo termina su ruta en el depósito}{14}{equation.2.2.16}%
+\contentsline {myequations}{\numberline {2.17}Conservación de flujo en cada cliente para cada vehículo}{14}{equation.2.2.17}%
+\contentsline {myequations}{\numberline {2.18}Restricción de precedencia temporal y ventanas de tiempo}{14}{equation.2.2.18}%
+\contentsline {myequations}{\numberline {2.19}Restricción de límites de ventanas de tiempo}{14}{equation.2.2.19}%
+\contentsline {myequations}{\numberline {2.20}Restricción de capacidad máxima por vehículo}{14}{equation.2.2.20}%
+\contentsline {myequations}{\numberline {2.21}Variables binarias y no negatividad de variables de tiempo}{14}{equation.2.2.21}%
