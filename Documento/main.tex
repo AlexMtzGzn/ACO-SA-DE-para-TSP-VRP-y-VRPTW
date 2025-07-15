@@ -219,6 +219,15 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \label{cap:introduccion}
 
 \section{Planteamiento del Problema}
+
+La optimización de rutas ha sido históricamente uno de los problemas más relevantes dentro de la investigación operativa y la logística. Modelos clásicos como el Problema del Agente Viajero (TSP, por sus siglas en inglés) y el Problema de Ruteo de Vehículos (VRP) representan el fundamento para entender y abordar problemáticas logísticas reales. Sin embargo, en entornos modernos donde existen restricciones temporales estrictas para la atención de clientes, se requiere de modelos más complejos, como el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW).
+
+El VRPTW consiste en planificar rutas para una flota de vehículos, de manera que se minimice el costo total (distancia, tiempo, o recursos), asegurando que cada cliente sea atendido dentro de un intervalo de tiempo predefinido, sin violar las capacidades de los vehículos. Este problema pertenece a la clase NP-difícil y presenta una alta complejidad combinatoria, lo que hace inviable resolverlo mediante algoritmos exactos cuando se trata de instancias de gran tamaño.
+
+En este contexto, las metaheurísticas se presentan como una alternativa viable para encontrar soluciones de buena calidad en tiempos razonables. Entre ellas, la Optimización por Colonia de Hormigas (ACO) ha demostrado ser eficaz en la construcción de rutas iniciales, mientras que el Recocido Simulado (SA), apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. Aun así, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda, por lo que se propone incorporar un Algoritmo Evolutivo Diferencial (ADE) como componente global de refinamiento.
+
+El problema a resolver, por tanto, se centra en cómo diseñar e implementar un enfoque híbrido que combine ACO, SA y ADE de manera coordinada y efectiva, para abordar el VRPTW, partiendo de modelos más simples como el TSP y el VRP, y considerando tanto la calidad de la solución como su robustez y eficiencia computacional.
+
 \section{Justificación}
 
 \section{Objetivos}
