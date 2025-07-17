@@ -4,45 +4,45 @@ The top-level auxiliary file: main.aux
 The style file: plain.bst
 Database file #1: referencias.bib
 Warning--there's a number but no volume in daza2009
-You've used 14 entries,
+You've used 23 entries,
             2118 wiz_defined-function locations,
-            586 strings with 6427 characters,
-and the built_in function-call counts, 4101 in all, are:
-= -- 399
-> -- 188
+            645 strings with 7878 characters,
+and the built_in function-call counts, 6936 in all, are:
+= -- 692
+> -- 297
 < -- 0
-+ -- 74
-- -- 60
-* -- 280
-:= -- 715
-add.period$ -- 42
-call.type$ -- 14
-change.case$ -- 67
++ -- 122
+- -- 94
+* -- 484
+:= -- 1186
+add.period$ -- 71
+call.type$ -- 23
+change.case$ -- 111
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 159
-empty$ -- 331
-format.name$ -- 60
-if$ -- 836
+cite$ -- 24
+duplicate$ -- 258
+empty$ -- 570
+format.name$ -- 94
+if$ -- 1420
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 20
-newline$ -- 73
-num.names$ -- 28
-pop$ -- 77
+int.to.str$ -- 23
+missing$ -- 28
+newline$ -- 119
+num.names$ -- 46
+pop$ -- 115
 preamble$ -- 1
-purify$ -- 58
+purify$ -- 93
 quote$ -- 0
-skip$ -- 95
+skip$ -- 159
 stack$ -- 0
-substring$ -- 224
-swap$ -- 14
+substring$ -- 449
+swap$ -- 23
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 44
+type$ -- 80
 warning$ -- 1
-while$ -- 42
-width$ -- 16
-write$ -- 154
+while$ -- 74
+width$ -- 25
+write$ -- 254
 (There was 1 warning)

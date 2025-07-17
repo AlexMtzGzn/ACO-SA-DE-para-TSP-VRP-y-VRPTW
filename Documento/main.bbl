@@ -11,6 +11,24 @@ Olli Bräysy and Michel Gendreau.
   and local search algorithms.
 \newblock {\em Transportation Science}, 39(1):104--118, 2005.
 
+\bibitem{clarke1964scheduling}
+G~Clarke and J~W Wright.
+\newblock Scheduling of vehicles from a central depot to a number of delivery
+  points.
+\newblock {\em Operations research}, 12(4):568--581, 1964.
+
+\bibitem{cordeau2002}
+Jean-Fran{\c{c}}ois Cordeau and Gilbert Laporte.
+\newblock A unified tabu search heuristic for vehicle routing problems with
+  time windows.
+\newblock {\em Journal of the operational research society}, 53(5):528--536,
+  2002.
+
+\bibitem{dantzig1959truck}
+George~B Dantzig and John~H Ramser.
+\newblock The truck dispatching problem.
+\newblock {\em Management science}, 6(1):80--91, 1959.
+
 \bibitem{daza2009}
 Julio~Mario Daza, Jairo~R. Montoya, and Francesco Narducci.
 \newblock Resolución del problema de enrutamiento de vehículos con
@@ -25,6 +43,17 @@ Sergio~Gerardo de~los Cobos~Silva, John~Goddard Close, Miguel Ángel
 \newblock Libros CBI, Universidad Autónoma Metropolitana Iztapalapa, México,
   2010.
 
+\bibitem{desrochers1992}
+Martin Desrochers, Jacques Desrosiers, and Marius~M Solomon.
+\newblock A new optimization algorithm for the vehicle routing problem with
+  time windows.
+\newblock {\em Operations research}, 40(2):342--354, 1992.
+
+\bibitem{eksioglu2009}
+Burak Eksioglu, Arif~Volkan Vural, and Arnold Reisman.
+\newblock The vehicle routing problem: A taxonomic review.
+\newblock {\em Computers \& Industrial Engineering}, 57(4):1472--1483, 2009.
+
 \bibitem{Flores2014}
 Xavier~Alejandro Flores~Cabezas.
 \newblock Problemas del milenio: P vs np.
@@ -35,6 +64,18 @@ Michael~R. Garey and David~S. Johnson.
 \newblock {\em Computers and Intractability: A Guide to the Theory of
   NP-Completeness}.
 \newblock W. H. Freeman, 1979.
+
+\bibitem{golden1988}
+Bruce~L. Golden and Arjang~A. Assad.
+\newblock Vehicle routing: Methods and studies.
+\newblock In {\em Studies in Management Science and Systems}. North-Holland,
+  1988.
+
+\bibitem{laporte1992}
+Gilbert Laporte.
+\newblock The vehicle routing problem: An overview of exact and approximate
+  algorithms.
+\newblock {\em European Journal of Operational Research}, 59(3):345--358, 1992.
 
 \bibitem{laporte1987}
 Gilbert Laporte and Yves Nobert.
@@ -59,6 +100,14 @@ Abraham~Duarte Muñoz, Juan José~Pantrigo Fernández, and Micael~Gallego
 \newblock {\em Metaheurísticas}.
 \newblock Dykinson, Madrid, España, 2007.
 
+\bibitem{numerentur2019}
+Numerentur.
+\newblock Gráfico de complejidad computacional.
+\newblock
+  \url{https://numerentur.org/wp-content/uploads/2019/08/grafico-complejidad-computacionala3.png},
+  2019.
+\newblock Imagen descargada el 15 de julio de 2025.
+
 \bibitem{papadimitriou1994}
 Christos~H. Papadimitriou.
 \newblock {\em Computational Complexity}.
@@ -68,6 +117,12 @@ Christos~H. Papadimitriou.
 Christos~H. Papadimitriou and Kenneth Steiglitz.
 \newblock {\em Combinatorial Optimization: Algorithms and Complexity}.
 \newblock Dover Publications, New York, 1998.
+
+\bibitem{solomon1987algorithms}
+Marius~M. Solomon.
+\newblock Algorithms for the vehicle routing and scheduling problems with time
+  window constraints.
+\newblock {\em Operations Research}, 35(2):254--265, 1987.
 
 \bibitem{torres2018}
 J.~Torres-Jiménez, A.~Aguilar-Melendéz, and M.~G. Cedillo-Campos.

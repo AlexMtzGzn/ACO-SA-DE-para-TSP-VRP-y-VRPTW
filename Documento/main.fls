@@ -83,6 +83,28 @@ INPUT /usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
 INPUT /usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
 INPUT /usr/share/texmf/tex/latex/lm/lmodern.sty
 INPUT /usr/share/texmf/tex/latex/lm/lmodern.sty
 INPUT /usr/share/texmf/tex/latex/lm/lmodern.sty
@@ -855,6 +877,11 @@ OUTPUT main.eq
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
+INPUT ./Figuras/grafico-complejidad-computacionala3.png
+INPUT ./Figuras/grafico-complejidad-computacionala3.png
+INPUT Figuras/grafico-complejidad-computacionala3.png
+INPUT ./Figuras/grafico-complejidad-computacionala3.png
+INPUT ./Figuras/grafico-complejidad-computacionala3.png
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT ./Figuras/Diagrama.pdf
 INPUT ./Figuras/Diagrama.pdf
@@ -864,11 +891,11 @@ INPUT ./Figuras/Diagrama.pdf
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx8.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/rm-lmbx6.tfm
-INPUT ./Figuras/P _vs_NP.pdf
-INPUT ./Figuras/P _vs_NP.pdf
-INPUT Figuras/P _vs_NP.pdf
-INPUT ./Figuras/P _vs_NP.pdf
-INPUT ./Figuras/P _vs_NP.pdf
+INPUT ./Figuras/P_vs_NP.pdf
+INPUT ./Figuras/P_vs_NP.pdf
+INPUT Figuras/P_vs_NP.pdf
+INPUT ./Figuras/P_vs_NP.pdf
+INPUT ./Figuras/P_vs_NP.pdf
 INPUT ./Figuras/TSP.pdf
 INPUT ./Figuras/TSP.pdf
 INPUT Figuras/TSP.pdf
@@ -888,12 +915,17 @@ INPUT ./main.bbl
 INPUT main.bbl
 INPUT ./main.bbl
 INPUT main.bbl
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/tex/latex/lm/t1lmtt.fd
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtt12.tfm
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out
+INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
-INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb
@@ -909,4 +941,5 @@ INPUT /usr/share/texmf/fonts/type1/public/lm/lmr8.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmri12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb

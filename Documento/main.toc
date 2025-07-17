@@ -6,6 +6,7 @@
 \contentsline {chapter}{Índice de Figuras}{\es@scroman {xiii}}{chapter*.5}%
 \contentsline {chapter}{Índice de Tablas}{\es@scroman {xv}}{chapter*.5}%
 \contentsline {chapter}{Índice de Fórmulas}{\es@scroman {xvii}}{chapter*.5}%
+\contentsline {chapter}{Lista de Abreviaciones}{\es@scroman {xix}}{chapter*.6}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Planteamiento del Problema}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Justificación}{2}{section.1.2}%
@@ -15,39 +16,31 @@
 \contentsline {section}{\numberline {1.4}Alcances y Limitaciones}{2}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Estructura del Documento}{3}{section.1.5}%
 \contentsline {chapter}{\numberline {2}Marco Teórico / Estado del Arte}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Antencedentes}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Conceptos Clave}{5}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}El Problema en Optimización}{5}{subsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.1.1}Optimización Continua}{6}{subsubsection.2.2.1.1}%
-\contentsline {subsubsection}{\numberline {2.2.1.2}Optimización Discreta o Combinatoria}{6}{subsubsection.2.2.1.2}%
-\contentsline {subsection}{\numberline {2.2.2}Complejidad Computacional y Algorítmica}{7}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}El Problema P vs NP}{7}{subsection.2.2.3}%
-\contentsline {subsubsection}{\numberline {2.2.3.1}Clases de Complejidad Básicas}{8}{subsubsection.2.2.3.1}%
-\contentsline {paragraph}{Clase P}{8}{section*.8}%
-\contentsline {paragraph}{Clase NP}{9}{section*.9}%
-\contentsline {paragraph}{La gran incógnita: ¿P = NP?}{9}{section*.10}%
-\contentsline {subsubsection}{\numberline {2.2.3.2}NP-Completo y NP-Difícil}{9}{subsubsection.2.2.3.2}%
-\contentsline {subsection}{\numberline {2.2.4}Problemas de Optimización Combinatoria}{10}{subsection.2.2.4}%
-\contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero (TSP)}{11}{subsubsection.2.2.4.1}%
-\contentsline {paragraph}{Modelo Matemático del Agente Viajero (TSP)}{11}{section*.11}%
-\contentsline {paragraph}{Complejidad del TSP}{12}{section*.12}%
-\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{13}{subsubsection.2.2.4.2}%
-\contentsline {paragraph}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{14}{section*.13}%
-\contentsline {paragraph}{Complejidad del VRP}{15}{section*.14}%
-\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{15}{subsubsection.2.2.4.3}%
-\contentsline {paragraph}{Modelo Matemático del VRPTW}{16}{section*.15}%
-\contentsline {paragraph}{Complejidad del VRPTW}{18}{section*.16}%
-\contentsline {subsection}{\numberline {2.2.5}Algoritmos Exactos}{18}{subsection.2.2.5}%
-\contentsline {subsection}{\numberline {2.2.6}Heurísticas}{18}{subsection.2.2.6}%
-\contentsline {subsubsection}{\numberline {2.2.6.1}Motivos para emplear métodos heurísticos}{18}{subsubsection.2.2.6.1}%
-\contentsline {subsubsection}{\numberline {2.2.6.2}Características de un buen algoritmo heurístico}{19}{subsubsection.2.2.6.2}%
-\contentsline {subsection}{\numberline {2.2.7}Matehurísticas}{19}{subsection.2.2.7}%
-\contentsline {subsubsection}{\numberline {2.2.7.1}Criterios de Evaluación para Métodos Metaheurísticos}{20}{subsubsection.2.2.7.1}%
-\contentsline {section}{\numberline {2.3}Referencias Relevantes}{21}{section.2.3}%
+\contentsline {section}{\numberline {2.1}Antecedentes}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Conceptos Clave}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}El Problema en Optimización}{6}{subsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.1}Optimización Continua}{7}{subsubsection.2.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.2}Optimización Discreta o Combinatoria}{7}{subsubsection.2.2.1.2}%
+\contentsline {subsection}{\numberline {2.2.2}Complejidad Computacional y Algorítmica}{8}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}El Problema P vs NP}{9}{subsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.3.1}Clases P y NP}{9}{subsubsection.2.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.2.3.2}NP-Completo y NP-Difícil}{10}{subsubsection.2.2.3.2}%
+\contentsline {subsection}{\numberline {2.2.4}Problemas de Optimización Combinatoria}{11}{subsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero (TSP)}{12}{subsubsection.2.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{14}{subsubsection.2.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{16}{subsubsection.2.2.4.3}%
+\contentsline {section}{\numberline {2.3}Métodos de Solución para el VRPTW / Estado del Arte}{20}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Algoritmos Exactos}{20}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Heurísticas}{20}{subsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.2.1}Motivos para emplear métodos heurísticos}{20}{subsubsection.2.3.2.1}%
+\contentsline {subsubsection}{\numberline {2.3.2.2}Características de un buen algoritmo heurístico}{21}{subsubsection.2.3.2.2}%
+\contentsline {subsection}{\numberline {2.3.3}Matehurísticas}{21}{subsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.3.1}Criterios de Evaluación para Métodos Metaheurísticos}{22}{subsubsection.2.3.3.1}%
+\contentsline {section}{\numberline {2.4}Referencias Relevantes}{22}{section.2.4}%
 \contentsline {chapter}{\numberline {3}Materiales y Métodos}{23}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Materiales}{23}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Métodos}{23}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Resultados}{25}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Conclusiones}{27}{chapter.5}%
-\contentsline {chapter}{Bibliografía}{29}{chapter*.17}%
-\contentsline {chapter}{Apéndices}{33}{appendix*.19}%
+\contentsline {chapter}{Bibliografía}{29}{chapter*.18}%
+\contentsline {chapter}{Apéndices}{33}{appendix*.20}%

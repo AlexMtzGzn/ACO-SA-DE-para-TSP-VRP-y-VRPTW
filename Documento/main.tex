@@ -6,6 +6,7 @@
 \usepackage[spanish]{babel}
 \usepackage{enumitem}
 \usepackage{tocloft}
+\usepackage{tabularx}
 \newcommand{\listequationsname}{Índice de fórmulas}
 \newlistof{myequations}{eq}{\listequationsname}
 \addto\captionsspanish{\renewcommand{\listtablename}{Índice de tablas}}
@@ -15,9 +16,11 @@
 % Tipografía
 \usepackage{lmodern}
 
+
 % Paquetes gráficos y matemáticos
 \usepackage{graphicx}
 \usepackage{float}
+\raggedbottom
 \usepackage{color}
 \usepackage{pstricks, pst-node}
 \usepackage{amsfonts, amsmath, amssymb, amsthm}
@@ -45,6 +48,7 @@
     bottom=2.5cm
 }
 \setlength{\headheight}{15pt}
+
 
 % Bibliografía
 \usepackage{natbib}
@@ -198,7 +202,21 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \listofmyequations
 \addcontentsline{toc}{chapter}{Índice de Fórmulas}
 \cleardoublepage
+\chapter*{Lista de Abreviaciones}
+\addcontentsline{toc}{chapter}{Lista de Abreviaciones}
 
+\vspace{0.5cm}
+\begin{tabularx}{\textwidth}{>{\bfseries}l X}
+	ACO    & Ant Colony Optimization (\textit{Optimización por Colonias de Hormigas})                                   \\
+	DE     & Differential Evolution (\textit{Algoritmo de Evolución Diferencial})                                       \\
+	NP     & Nondeterministic Polynomial Time (\textit{Tiempo Polinomial No Determinista})                              \\
+	P      & Polynomial Time (\textit{Tiempo Polinomial})                                                               \\
+	SA     & Simulated Annealing (\textit{Recocido Simulado})                                                           \\
+	TSP    & Travelling Salesman Problem (\textit{Problema del Agente Viajero})                                         \\
+	VRP    & Vehicle Routing Problem (\textit{Problema de Ruteo de Vehículos})                                          \\
+	VRP-TW & Vehicle Routing Problem with Time Windows (\textit{Problema de Ruteo de Vehículos con Ventanas de Tiempo}) \\
+\end{tabularx}
+\vspace{0.5cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CUERPO PRINCIPAL (ya numerado)
@@ -211,8 +229,10 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \fancyhead[RE]{\nouppercase{\leftmark}}
 \fancyfoot{}
 
-\setlength{\parindent}{0pt}
+\setlength{\parindent}{2em}
 \setlength{\parskip}{1.5ex}
+
+% Reducir espacio extra después de subsubsection
 
 \newcommand{\tab}{\hspace*{1cm}}
 
@@ -234,19 +254,18 @@ El problema a resolver, por tanto, se centra en cómo diseñar e implementar un 
 \section{Objetivos}
 \subsection{Objetivo General}
 
-Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO), el Recocido Simulado (SA) con múltiples heurísticas locales y un Algoritmo Evolutivo Diferencial (ADE), con el objetivo de resolver de manera eficiente el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW), utilizando el TSP y el VRP como base introductoria y estructural para la construcción progresiva del modelo.
+Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO), el Recocido Simulado (SA) con múltiples heurísticas locales y un Algoritmo Evolutivo Diferencial (ADE), con el objetivo de resolver de manera eficiente el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW), utilizando el Problema del Agente Viajero (TSP)y el Problema de Ruteo de Vehículos (VRP) como base introductoria y estructural para la construcción progresiva del modelo.
 \subsection{Objetivos Específicos}
 
 \begin{enumerate}
-	\item Estudiar y analizar los problemas TSP, VRP y VRPTW para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal (VRPTW).
+	\item Estudiar y analizar los problemas TSP, VRP y VRP-TW para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal (VRP-TW).
 
 	\item Diseñar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO) para la construcción de soluciones iniciales, el Recocido Simulado (SA) con distintas heurísticas de búsqueda local para la mejora de dichas soluciones, y un Algoritmo Evolutivo Diferencial (ADE) para intensificar la exploración del espacio de búsqueda.
 
-	\item Implementar computacionalmente el enfoque híbrido propuesto, asegurando su modularidad y capacidad de adaptación para resolver los tres problemas (TSP, VRP y VRPTW).
+	\item Implementar computacionalmente el enfoque híbrido propuesto, asegurando su modularidad y capacidad de adaptación para resolver los tres problemas (TSP, VRP y VRP-TW).
 
-	\item Evaluar el rendimiento del enfoque híbrido en términos de calidad de la solución, tiempo de ejecución y robustez, utilizando instancias de prueba estándar y métricas aceptadas en la literatura.
+	\item Evaluar el rendimiento del enfoque híbrido en términos de calidad de la solución, tiempo de ejecución y robustez, utilizando instancias de prueba estándar aceptadas en la literatura.
 
-	\item Analizar el impacto individual y combinado de las técnicas ACO, SA y ADE en el rendimiento del sistema, y proponer recomendaciones para su aplicación práctica en problemas logísticos reales.
 \end{enumerate}
 
 
@@ -255,7 +274,7 @@ Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optim
 \subsection*{Alcances}
 
 \begin{itemize}
-	\item El trabajo se centra en la resolución de los problemas TSP, VRP y VRPTW, siendo este último el problema principal de estudio.
+	\item El trabajo se centra en la resolución de los problemas TSP, VRP y VRP-TW, siendo este último el problema principal de estudio.
 
 	\item Se desarrolla un enfoque híbrido que integra tres técnicas metaheurísticas: Optimización por Colonia de Hormigas (ACO), Recocido Simulado (SA) con múltiples heurísticas locales, y un Algoritmo Evolutivo Diferencial (ADE), aplicadas de manera complementaria.
 
@@ -286,8 +305,26 @@ Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optim
 
 \chapter{Marco Teórico / Estado del Arte}
 \label{cap:marco-teorico}
-\section{Antencedentes}
+\section{Antecedentes}
+
+El estudio de problemas de optimización en rutas se remonta al desarrollo del \textbf{Problema del Agente Viajero (TSP)}, formulado a principios del siglo XX, cuyo objetivo es encontrar la ruta de costo mínimo que recorra un conjunto de ciudades exactamente una vez, regresando al punto de partida. A lo largo de las décadas, este problema se ha consolidado como uno de los pilares de la optimización combinatoria \citep{toth2014}.
+
+Más adelante, se propuso el \textbf{Problema de Ruteo de Vehículos (VRP)} como una generalización del TSP, considerando una flota de vehículos que deben atender a múltiples clientes desde un depósito central. Este problema fue introducido por primera vez por Dantzig y Ramser en 1959 para optimizar rutas de distribución de gasolina \citep{dantzig1959truck}.
+
+Durante la década de 1970, el interés por resolver variantes del VRP aumentó significativamente, y surgieron métodos heurísticos como el algoritmo de Clarke y Wright (1964), el cual se convirtió en un referente para aproximaciones iniciales \citep{clarke1964scheduling}.
+
+Entre la década de 1970 y la de 1980, se desarrollaron versiones especializadas como el \textit{Fleet Routing Problem}, sistemas \textit{Dial-a-Bus} y el diseño de redes de transporte, así como enfoques probabilísticos y la incorporación de incertidumbre \citep{eksioglu2009, golden1988, laporte1992}.
+
+Dentro de estas variantes, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} surgió como una extensión crítica que incorpora restricciones temporales para reflejar mejor las condiciones reales de operación, como horarios de entrega y recogida. Este problema fue estudiado ampliamente a partir del trabajo de Solomon en 1987, quien introdujo instancias benchmark y algoritmos heurísticos clásicos \citep{solomon1987algorithms}.
+
+Durante la década de 1990, se desarrollaron enfoques exactos basados en programación entera y técnicas como \textit{branch-and-bound}, \textit{branch-and-cut} y \textit{column generation}, los cuales fueron aplicados con éxito a instancias pequeñas \citep{desrochers1992, cordeau2002}. Sin embargo, la elevada complejidad del VRPTW motivó el uso creciente de heurísticas y metaheurísticas como algoritmos genéticos, colonias de hormigas, recocido simulado y búsqueda tabú, que han demostrado ser eficaces para obtener soluciones cercanas al óptimo en tiempos razonables \citep{eksioglu2009}.
+
+En las últimas dos décadas, la investigación se ha enfocado en algoritmos híbridos, técnicas de aprendizaje automático aplicadas al VRP, optimización robusta y modelos dinámicos, buscando mejorar la eficiencia y adaptabilidad de las soluciones en contextos logísticos cada vez más complejos y cambiantes \citep{toth2014}.
+
+El presente trabajo se inscribe en esta línea de investigación, proponiendo un modelo basado en metaheurísticas para abordar el VRPTW bajo condiciones específicas de [mencionar contexto logístico particular: por ejemplo, restricciones de capacidad, tiempos estrictos o escenarios dinámicos], con el objetivo de mejorar la calidad y eficiencia de las rutas generadas.
+
 \section{Conceptos Clave}
+
 \subsection{El Problema en Optimización}
 
 Los \textbf{problemas de optimización} constituyen una herramienta fundamental en ciencias computacionales, ingeniería, logística y muchas otras disciplinas. En el contexto de este trabajo de investigación, resultan especialmente relevantes porque permiten modelar situaciones en las que se busca obtener el \textbf{mejor resultado posible} bajo ciertas restricciones, como \textbf{minimizar costos}, \textbf{distancias} o \textbf{tiempos}.
@@ -358,19 +395,24 @@ Esta base teórica permite introducir los problemas clásicos de enrutamiento, c
 
 \subsection{Complejidad Computacional y Algorítmica}
 
-El estudio de la complejidad en ciencias computacionales busca comprender qué tan difícil es resolver un problema, tanto desde su estructura teórica como desde los recursos requeridos para su solución. Esta dificultad se aborda desde dos enfoques: la \textbf{complejidad computacional}, que clasifica los problemas según el crecimiento de recursos necesarios en función del tamaño de la entrada, y la \textbf{complejidad algorítmica}, que evalúa el desempeño de algoritmos específicos al aplicarse sobre dichas entradas \citep{garey1979computers, papadimitriou1994}.
+El estudio de la \textbf{complejidad} en ciencias computacionales busca comprender qué tan difícil es resolver un problema, tanto desde su estructura teórica como desde los recursos requeridos para su solución. Esta dificultad se aborda desde dos enfoques: la \textbf{complejidad computacional}, que clasifica los problemas según el crecimiento de recursos necesarios en función del tamaño de la entrada, y la \textbf{complejidad algorítmica}, que evalúa el desempeño de algoritmos específicos al aplicarse sobre dichas entradas \citep{garey1979computers, papadimitriou1994}.
 
 De forma simplificada, la complejidad computacional se refiere al análisis general del problema sin importar el algoritmo, mientras que la algorítmica se enfoca en el tiempo y espacio consumido por un algoritmo concreto \citep{maldonado2013problema}.
 
-Esta distinción es clave al abordar problemas de optimización combinatoria como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante principal en este trabajo: el \textbf{Problema de Enrutamiento de Vehículos con Ventanas de Tiempo (VRPTW)}. Estos problemas presentan una explosión combinatoria de soluciones conforme crece el número de clientes.
+Esta distinción es clave al abordar problemas de optimización combinatoria como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante principal en este trabajo: el \textbf{Problema de Enrutamiento de Vehículos con Ventanas de Tiempo (VRPTW)}, que presentan una explosión combinatoria (crecimiento factorial) de soluciones conforme crece el número de clientes.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figuras/grafico-complejidad-computacionala3.png}
+	\caption{Tasa de crecimiento de varias funciones en análisis de algoritmos \cite{numerentur2019}.}
+	\label{fig:figura_complejidad_computacional}
+\end{figure}
+
+En la Figura~\ref{fig:figura_complejidad_computacional} se observa cómo las funciones constantes $\mathcal{O}(1)$ y logarítmicas $\mathcal{O}(\log n)$ crecen lentamente, incluso para entradas de gran tamaño. Las funciones polinomiales, como $\mathcal{O}(n)$ y $\mathcal{O}(n \log n)$, presentan un crecimiento más acelerado pero aún manejable. En contraste, las funciones exponenciales $\mathcal{O}(2^n)$ y factoriales $\mathcal{O}(n!)$ crecen de manera extremadamente rápida, lo que vuelve intratables los problemas asociados a medida que aumenta el tamaño de la entrada. Por esta razón, problemas como el \textbf{TSP}, \textbf{VRP} y \textbf{VRP-TW} se consideran de alta complejidad computacional, ya que su espacio de búsqueda crece factorialmente.
 \subsection{El Problema P vs NP}
 
-Todos los problemas, tanto en la vida como en la ciencia, pueden clasificarse en dos grupos principales: \textbf{problemas decidibles} y \textbf{problemas indecidibles}. Se dice que un problema es \textbf{\emph{indecidible}} cuando no existe ningún algoritmo que permita resolverlo, incluso si se dispusiera de tiempo y recursos ilimitados. En consecuencia, no es posible determinar si dicho problema se detendrá ni en qué momento lo hará. Por contraste, un problema es \textbf{\emph{decidible}} cuando existe, o al menos podría existir, algún algoritmo capaz de resolverlo \citep{maldonado2013problema}.
+En ciencias de la computación, todos los problemas pueden clasificarse en dos grupos principales: \textbf{problemas decidibles} y \textbf{problemas indecidibles}. Un problema es \textbf{\emph{indecidible}} cuando no existe ningún algoritmo que pueda resolverlo, incluso si se dispone de tiempo y recursos ilimitados. En consecuencia, no es posible determinar si dicho problema terminará su ejecución. Por contraste, un problema es \textbf{\emph{decidible}} cuando existe (o podría existir) un algoritmo capaz de resolverlo \citep{maldonado2013problema}.
 
-Además, un problema se considera decidible cuando es compresible; es decir, cuando existe una fórmula o algoritmo que permite condensarlo o expresarlo de forma finita. Por el contrario, los problemas indecidibles se consideran incompresibles, ya que no pueden reducirse a una descripción finita ni predecirse computacionalmente \citep{maldonado2013problema}.
-
-En la Figura~\ref{fig:decidibilidad} se ilustra la clasificación de los problemas desde el punto de vista computacional, dividiéndolos en decidibles e indecidibles.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figuras/Diagrama.pdf}
@@ -378,61 +420,57 @@ En la Figura~\ref{fig:decidibilidad} se ilustra la clasificación de los problem
 	\label{fig:decidibilidad}
 \end{figure}
 
-En el contexto de este trabajo, los problemas abordados —el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante con restricciones temporales, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}— son considerados \textbf{problemas decidibles}. A continuación, se analizan las clases de complejidad que resultan relevantes para comprender la dificultad computacional asociada a su resolución.
+En este trabajo, los problemas abordados —el \textbf{TSP}, el \textbf{VRP} y el \textbf{VRPTW}— son considerados \textbf{problemas decidibles}. A continuación, se presenta una clasificación más detallada dentro de esta categoría, basada en la teoría de la complejidad computacional.
 
-\subsubsection{Clases de Complejidad Básicas}
+% [Sigue tu sección de Clases P y NP...]
 
-Dentro de los problemas decidibles, se distinguen dos categorías fundamentales en la teoría de la complejidad: los problemas \textbf{\emph{P}} y los problemas \textbf{\emph{NP}} \citep{maldonado2013problema}.
+\subsubsection{Clases P y NP}
 
-\paragraph{Clase P}
+Dentro de los problemas decidibles, las clases \textbf{P} y \textbf{NP} juegan un papel fundamental \citep{maldonado2013problema}.
 
-Un problema pertenece a la clase \emph{P} si puede resolverse mediante un algoritmo que se ejecuta en tiempo polinomial con respecto al tamaño de la entrada. Es decir, el número de pasos que requiere el algoritmo está acotado por un polinomio de grado \(k\). De manera formal:
+\subsubsection*{Clase P}
+Un problema pertenece a la clase \emph{P} si puede resolverse mediante un algoritmo cuyo tiempo de ejecución está acotado por una función polinomial respecto al tamaño de la entrada. Formalmente, existe un polinomio \(p(n)\) y constantes \(\alpha, n_0 > 0\) tales que:
 
 \[
-	(\exists\,\alpha > 0)\,(\exists\,n_0 > 0)\;:\; D(n) \leq \alpha \cdot p(n) \quad (\forall\,n \geq n_0),
+	D(n) \leq \alpha \cdot p(n) \quad \forall n \geq n_0,
 \]
 
-donde \(p(n)\) es un polinomio. En notación asintótica, esto se expresa como:
+lo que se expresa en notación asintótica como
 
 \[
 	D = O(n^k).
 \]
 
-Aunque se dice que un algoritmo que se ejecuta en tiempo polinomial es “eficiente”, si el grado del polinomio es muy alto (por ejemplo, \(n^{10000}\)), su aplicabilidad práctica puede verse limitada. En general, se espera que los algoritmos eficientes tengan un grado bajo. Un ejemplo típico de problema en \emph{P} es la multiplicación de dos números naturales, cuyo algoritmo básico opera en tiempo lineal \citep{Flores2014}.
+Aunque se considera que algoritmos con tiempo polinomial son “eficientes”, en la práctica el grado del polinomio importa, ya que un polinomio de grado muy alto puede ser inviable. Un ejemplo clásico de problema en \emph{P} es la multiplicación de números naturales \citep{Flores2014}.
 
-\paragraph{Clase NP}
+\subsubsection*{Clase NP}
+Un problema pertenece a la clase \emph{NP} si, dado un candidato a solución (certificado), es posible verificar su validez en tiempo polinomial. Es importante notar que esto no implica necesariamente que exista un algoritmo eficiente para encontrar la solución, sino que su validación es eficiente. Un ejemplo típico es el \textbf{Problema del Agente Viajero (TSP)}: si se proporciona una ruta candidata, es fácil comprobar en tiempo polinomial la longitud total de la ruta para verificar si cumple cierta condición \citep{Flores2014}.
 
-Por otro lado, un problema pertenece a la clase \emph{NP} si, aunque no se sepa cómo resolverlo eficientemente, sí puede \emph{verificarse} en tiempo polinomial. Es decir, si se proporciona una posible solución (llamada certificado), puede comprobarse su validez en un tiempo razonable. Un ejemplo clásico es el ordenamiento de elementos: si bien existen algoritmos polinómicos para ordenarlos, el proceso de verificar si una secuencia está ordenada también toma tiempo lineal \citep{Flores2014}.
-
-Aunque algunos algoritmos de ordenamiento, como el \emph{bubble sort}, operan en tiempo polinomial, en teoría podría existir un algoritmo con tiempo exponencial. Sin embargo, si al menos uno de los algoritmos conocidos resuelve el problema en tiempo polinomial, el problema pertenece a la clase \emph{P} \citep{Flores2014}.
-
-\paragraph{La gran incógnita: ¿P = NP?}
-
-Una de las cuestiones abiertas más fundamentales en ciencias computacionales es determinar si \(\mathbf{P = NP}\) o \(\mathbf{P \neq NP}\). Esta pregunta implica saber si todo problema cuya solución puede verificarse rápidamente, también puede resolverse rápidamente. Es decir, si los problemas que se pueden verificar en tiempo polinomial también pueden resolverse en ese mismo tipo de tiempo. Este dilema sigue sin resolverse y tiene profundas implicaciones teóricas y prácticas \citep{maldonado2013problema}.
+\subsubsection*{La gran incógnita: ¿P = NP?} 
+Una de las preguntas abiertas más importantes en ciencias de la computación es si \(\mathbf{P = NP}\) o \(\mathbf{P \neq NP}\), es decir, si todo problema cuya solución puede verificarse rápidamente también puede resolverse rápidamente. Esta cuestión tiene profundas implicaciones teóricas y prácticas \citep{maldonado2013problema}.
 
 \subsubsection{NP-Completo y NP-Difícil}
 
-Dentro de los problemas de clase \emph{NP}, existe una subcategoría especialmente importante: los problemas \textbf{NP-completos}. Estos son problemas que pertenecen a \emph{NP} y que, además, son al menos tan difíciles como cualquier otro problema en \emph{NP}. En otras palabras, si se lograra resolver uno de estos problemas de forma eficiente, también podrían resolverse todos los demás problemas en \emph{NP} \citep{maldonado2013problema}.
+Dentro de la clase \emph{NP} existe una subclase de problemas llamados \textbf{NP-completos}, que son los problemas más difíciles en \emph{NP}. Si se encontrara un algoritmo eficiente para cualquiera de ellos, entonces todos los problemas en \emph{NP} podrían resolverse eficientemente \citep{maldonado2013problema}.
 
-Por otra parte, los \textbf{problemas NP-difíciles (NP-hard)} son aquellos que pueden ser incluso más complejos que los \emph{NP-completos}, ya que no necesariamente pertenecen a \emph{NP} (es decir, podrían no tener soluciones verificables en tiempo polinomial), pero son al menos tan difíciles como los problemas más complicados de \emph{NP}. Este tipo de problemas puede presentarse como problemas de decisión, de búsqueda o de optimización \citep{maldonado2013problema}.
+Por otro lado, los problemas \textbf{NP-difíciles (NP-hard)} pueden ser incluso más complejos que los NP-completos, ya que no requieren pertenecer a \emph{NP} (es decir, su solución no tiene por qué ser verificable en tiempo polinomial), pero son al menos tan difíciles como los problemas NP-completos. Pueden incluir problemas de decisión, búsqueda u optimización \citep{maldonado2013problema}.
 
-En la Figura~\ref{fig:p_vs_np} se muestra la relación entre las clases de complejidad computacional: P, NP, NP-completo y NP-difícil.
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{Figuras/P _vs_NP.pdf}
-\caption{Relación entre las clases de complejidad: P, NP, NP-completo y NP-difícil.}
-\label{fig:p_vs_np}
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figuras/P_vs_NP.pdf}
+	\caption{Relación entre las clases de complejidad: P, NP, NP-completo y NP-difícil.}
+	\label{fig:p_vs_np}
 \end{figure}
 
-El crecimiento exponencial del tiempo requerido para resolver este tipo de problemas, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}, en función del tamaño de la entrada, los ubica dentro de la clase \emph{NP}. Más adelante se explicará con mayor detalle a qué subcategoría pertenece cada uno de estos problemas.
+El crecimiento exponencial del tiempo requerido para resolver problemas como el \textbf{TSP}, el \textbf{VRP} y el \textbf{VRPTW} los ubica dentro de la clase \emph{NP}. Estos problemas, aunque decidibles, presentan una complejidad tan elevada que no se conoce ningún algoritmo exacto que los resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de \emph{NP}, así como las estrategias metaheurísticas empleadas para aproximar soluciones en tiempos razonables.
 
 \subsection{Problemas de Optimización Combinatoria}
 
-De manera complementaria a la definición formal presentada en la \autoref{subsec:opt_discreta} por \citep{cobos2010}, Papadimitriou y Steiglitz \citep{papadimitriou1998} indican que la optimización combinatoria como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto o puede hacerse discreto mediante un proceso de enumeración, y en los que se busca una solución que optimice una función objetivo definida sobre ese conjunto.
+De manera complementaria a la definición formal presentada en la Subsubsección 2.2.1.2, Papadimitriou y Steiglitz \citep{papadimitriou1998} definen la \textbf{optimización combinatoria} como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto, o puede discretizarse mediante un proceso de enumeración, y donde se busca una solución que optimice una función objetivo definida sobre dicho conjunto.
 
-Los problemas de optimización combinatoria constituyen una clase amplia de modelos que encuentran aplicación en numerosas áreas, especialmente en la planificación y enrutamiento de vehículos. Dentro de este campo, destacan el \textbf{Problema del Agente Viajero (TSP)}, que representa la forma más básica de la optimización de rutas, y distintas extensiones que incorporan restricciones adicionales propias de entornos reales, tales como las limitaciones de capacidad de los vehículos o las ventanas de tiempo en las que debe efectuarse la entrega de los productos. En este contexto, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo  (VRPTW)}  se han consolidado los desafíos más estudiados por su relevancia práctica y su elevada dificultad computacional. A continuación, se describen estos problemas en detalle:
+Los problemas de optimización combinatoria constituyen una clase amplia de modelos aplicables a diversas áreas, especialmente en la planificación y el enrutamiento de vehículos. Dentro de este campo destacan el \textbf{Problema del Agente Viajero (TSP)}, que representa la forma más básica de optimización de rutas, y sus extensiones, que incorporan restricciones adicionales propias de escenarios reales, como la capacidad limitada de los vehículos o las ventanas de tiempo en las que deben realizarse las entregas.
 
-
+En este contexto, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} se han consolidado como dos de los desafíos más estudiados, debido a su relevancia práctica y su elevada complejidad computacional. A continuación, se describen estos problemas en detalle.
 \subsubsection{Problema del Agente Viajero (TSP)}
 \label{subsec:problem_tsp}
 
@@ -451,7 +489,7 @@ En la Figura~\ref{fig:tsp} se presenta una representación gráfica de una posib
 
 Según \citep{torres2018}, el \textbf{Problema del Agente Viajero} se define sobre un grafo \(G = [N,A,C]\), donde \(N\) es el conjunto de nodos, \(A\) es el conjunto de arcos y \(C = [c_{ij}]\) es la matriz de costos (distancias) entre nodos \(i\) y \(j\). El objetivo es encontrar un ciclo hamiltoniano de costo mínimo que recorra todos los nodos una sola vez y regrese al punto de partida.
 
-\paragraph{Modelo Matemático del Agente Viajero (TSP)}
+\subsubsection*{Modelo Matemático del Problema del Agente Viajero (TSP)}
 
 \begin{equation}
 	\min \sum_{i=1}^N \sum_{j=1}^N c_{ij}\,x_{ij}
@@ -495,7 +533,7 @@ sujeto a:
 
 La \textbf{función objetivo}~\eqref{eq:TSP_obj} representa la suma total de los costos (o distancias) de los arcos que conforman el recorrido. La restricción en~\eqref{eq:TSP_out} garantizan que, al salir de cada nodo, sólo se dirija a un único nodo siguiente. La restricción en~\eqref{eq:TSP_in} aseguran que a cada nodo únicamente se llegue una vez. La restricción~\eqref{eq:TSP_subtour} es fundamental, ya que previene la formación de subciclos que no incluyan a todos los nodos, asegurando así un recorrido único y completo.Finalmente, la restricción~\eqref{eq:TSP_bin} indica que las variables \(x_{ij}\) son \textbf{binarias}, es decir, sólo pueden tomar los valores 0 o 1, lo que permite representar la inclusión o exclusión de una ruta entre nodos \citep{torres2018}.
 
-\paragraph{Complejidad del TSP}
+\subsubsection*{Complejidad del TSP}
 
 Como explica \cite{papadimitriou1998}, el \textbf{Problema del Agente Viajero} es \textit{NP-hard} (NP-difícil), y su versión de decisión es \textit{NP-completa}. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo representa un desafío fundamental en la teoría de la computación, pues encontrar una solución polinomial para el \textbf{TSP} permitiría resolver eficientemente toda la clase \textit{NP}. Esta dificultad justifica la utilización de algoritmos aproximados y metaheurísticos, dado que las técnicas exactas sólo resultan prácticas para instancias
 
@@ -515,7 +553,7 @@ En la Figura~\ref{fig:vrp} se ilustra una solución típica al Problema de Ruteo
 
 Según \citep{toth2014}, el Problema de Ruteo de Vehículos (VRP) se define sobre un grafo $G = (V, A)$, donde $V = \{0, 1, \dots, n\}$ representa el conjunto de nodos, con el nodo $0$ correspondiente al depósito y los nodos restantes a los clientes, $A$ es el conjunto de arcos, y $C = [c_{ij}]$ es la matriz de costos asociados a los arcos $(i, j)$. El objetivo es determinar un conjunto de rutas de costo mínimo para una flota de vehículos idénticos, de modo que: cada cliente sea visitado exactamente una vez por un solo vehículo, cada ruta comience y termine en el depósito, y la demanda total de los clientes en cada ruta no exceda la capacidad del vehículo.
 
-\paragraph{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}
+\subsubsection*{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}
 
 \begin{equation}
 	\min \sum_{i \in V} \sum_{j \in V} c_{ij} x_{ij}
@@ -574,7 +612,7 @@ sujeto a:
 La \textbf{función objetivo}~\eqref{eq:VRP_obj} minimiza el costo total de todas las rutas. Las restricciones~\eqref{eq:VRP_in} y~\eqref{eq:VRP_out} aseguran que cada cliente sea visitado exactamente una vez. Las restricciones~\eqref{eq:VRP_into_depot} y~\eqref{eq:VRP_from_depot} controlan el número de vehículos que entran y salen del depósito. La restricción~\eqref{eq:VRP_subtour} evita la formación de subrutas que no incluyan al depósito, garantizando conectividad. Finalmente, la restricción~\eqref{eq:VRP_bin} indica que las variables de decisión son binarias \citep{toth2014}.
 
 
-\paragraph{Complejidad del VRP}
+\subsubsection*{Complejidad del VRP}
 \label{subsec:complejidad_vrp}
 
 Como señalan Laporte y Nobert \cite{laporte1987}, el \textbf{Problema de Ruteo de Vehículos (VRP)} es \textit{NP-hard}, incluso en su versión más simple con un solo vehículo (es decir, el TSP). Esto significa que no se conoce ningún algoritmo que lo resuelva de forma exacta en tiempo polinomial, y su complejidad crece exponencialmente con el número de clientes. Por ello, la mayoría de las instancias prácticas requieren el uso de técnicas heurísticas o metaheurísticas, ya que los métodos exactos son computacionalmente inviables para problemas de tamaño medio o grande.
@@ -582,102 +620,109 @@ Como señalan Laporte y Nobert \cite{laporte1987}, el \textbf{Problema de Ruteo 
 El \textbf{Problema de Ruteo de Vehículos (VRP)} representa la extensión natural del TSP hacia escenarios logísticos más realistas y complejos, incorporando restricciones operativas que reflejan las limitaciones del mundo real. Su estudio es fundamental para comprender cómo las restricciones de capacidad, múltiples vehículos y la gestión de flotas impactan en la optimización de rutas. El \textbf{VRP} sirve como base conceptual para abordar problemas logísticos avanzados como la distribución con ventanas de tiempo, el ruteo con múltiples depósitos y la optimización de última milla en el comercio electrónico. Analizar el \textbf{VRP} permite desarrollar una comprensión profunda de los trade-offs entre minimización de costos, utilización eficiente de recursos y satisfacción de restricciones operativas, estableciendo los fundamentos teóricos necesarios para abordar las complejidades de los sistemas de distribución modernos.
 
 \subsubsection{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}
+\label{subsec:problem_vrptw}
 
-El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} es una extensión del VRP descrito en \autoref{subsec:problem_vrp}, donde cada cliente debe ser atendido dentro de una ventana temporal específica. Además, el vehículo debe permanecer en la ubicación del cliente durante el tiempo de servicio requerido. Las ventanas pueden ser rígidas, donde no se permite iniciar el servicio fuera del intervalo definido, o flexibles, admitiendo retrasos con penalización. Si el vehículo llega antes del inicio de la ventana, debe esperar hasta el comienzo del servicio \citep{toth2014}.
+El Problema de Ruteo de Vehículos con Ventanas de Tiempo, conocido por sus siglas en inglés como \textit{VRPTW} (Vehicle Routing Problem with Time Windows), es una extensión del VRP que incorpora restricciones temporales. En este problema, además de atender a los clientes con demandas específicas, cada visita debe realizarse dentro de una ventana de tiempo predefinida para cada cliente \citep{toth2014}.
 
-La Figura~\ref{fig:vrptw} presenta una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW), una extensión del VRP clásico. En este escenario, además de considerar las restricciones de capacidad de los vehículos, se imponen ventanas de tiempo en las que cada cliente debe ser atendido. La solución gráfica muestra rutas que cumplen con ambas restricciones, optimizando tanto la logística como el cumplimiento de los intervalos de servicio.
+En la Figura~\ref{fig:vrptw} se muestra una solución típica al Problema de Ruteo de Vehículos con Ventanas de Tiempo. En este caso, las rutas de múltiples vehículos parten desde un único depósito, deben cumplir con las capacidades máximas y además respetar las ventanas temporales de atención en cada cliente, optimizando el recorrido total.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figuras/VRPTW.pdf}
-	\caption{Ejemplificación de una solución al VRP con ventanas de tiempo (VRPTW).}
+	\caption{Ejemplificación de una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW).}
 	\label{fig:vrptw}
 \end{figure}
 
-\paragraph{Modelo Matemático del VRPTW}
+Según \citep{toth2014}, el VRPTW se define sobre un grafo dirigido \(G = (V, A)\), donde \(V = \{0, 1, \dots, n, n+1\}\) representa el conjunto de nodos, siendo \(0\) y \(n+1\) el depósito (nodos origen y destino, respectivamente), y \(N = V \setminus \{0, n+1\}\) el conjunto de clientes. Cada arco \((i, j) \in A\) tiene asociado un costo \(c_{ij}\) y un tiempo de viaje \(t_{ij}\). Además, cada cliente \(i\) tiene una demanda \(d_i\), un tiempo de servicio \(s_i\), y una ventana de tiempo \([a_i, b_i]\) dentro de la cual debe iniciarse su servicio.
+
+El objetivo es determinar un conjunto de rutas para una flota de vehículos homogéneos que partan y regresen al depósito, visiten cada cliente exactamente una vez dentro de su ventana temporal y sin exceder la capacidad \(C\) de los vehículos, minimizando el costo total del recorrido.
+
+\subsubsection*{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}
 
 \begin{equation}
 	\min \sum_{k \in K} \sum_{i \in V} \sum_{j \in V} c_{ij} x_{ijk}
 	\label{eq:VRPTW_obj}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Función objetivo VRPTW: minimizar el costo total del recorrido}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Función objetivo VRPTW: minimizar el costo total del recorrido}
 
-Sujeto a:
+sujeto a:
 
 \begin{equation}
 	\sum_{k \in K} \sum_{j \in V} x_{ijk} = 1, \quad \forall i \in N
 	\label{eq:VRPTW_visit_once}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cada cliente es visitado exactamente una vez}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: cada cliente es visitado exactamente una vez}
 
 \begin{equation}
 	\sum_{j \in V} x_{0jk} = 1, \quad \forall k \in K
 	\label{eq:VRPTW_start_depot}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cada vehículo inicia su ruta en el depósito}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: cada vehículo inicia su ruta en el depósito}
 
 \begin{equation}
 	\sum_{i \in V} x_{i,n+1,k} = 1, \quad \forall k \in K
 	\label{eq:VRPTW_end_depot}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cada vehículo termina su ruta en el depósito}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: cada vehículo termina su ruta en el depósito}
 
 \begin{equation}
 	\sum_{j \in V} x_{ijk} - \sum_{j \in V} x_{jik} = 0, \quad \forall k \in K, \forall i \in N
 	\label{eq:VRPTW_flow_balance}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Conservación de flujo en cada cliente para cada vehículo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: conservación de flujo para cada vehículo y cliente}
 
 \begin{equation}
 	w_{jk} \geq w_{ik} + s_i + t_{ij} - M (1 - x_{ijk}), \quad \forall k \in K, \forall i,j \in V
 	\label{eq:VRPTW_time_window}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción de precedencia temporal y ventanas de tiempo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: respeto a la ventana de tiempo y orden de servicio}
 
 \begin{equation}
 	a_i \leq w_{ik} \leq b_i, \quad \forall k \in K, \forall i \in V
 	\label{eq:VRPTW_time_bounds}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción de límites de ventanas de tiempo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: inicio del servicio dentro de la ventana de tiempo}
 
 \begin{equation}
 	\sum_{i \in V} \sum_{j \in V} d_i x_{ijk} \leq C, \quad \forall k \in K
 	\label{eq:VRPTW_capacity}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción de capacidad máxima por vehículo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: capacidad máxima del vehículo}
 
 \begin{equation}
-	x_{ijk} \in \{0,1\}, \quad w_{ik} \geq 0, \quad \forall k \in K, \forall i,j \in V
-	\label{eq:VRPTW_domains}
+	x_{ijk} \in \{0, 1\}, \quad w_{ik} \geq 0, \quad \forall k \in K, \forall i,j \in V
+	\label{eq:VRPTW_bin}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Variables binarias y no negatividad de variables de tiempo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Variables binarias y tiempos no negativos}
 
 \medskip
 \noindent donde:
 \begin{itemize}
-	\item \(V = \{0, 1, \ldots, n, n+1\}\) es el conjunto de nodos, donde \(0\) y \(n+1\) representan el depósito inicial y final;
+	\item \(V = \{0, 1, \ldots, n, n+1\}\) es el conjunto de nodos, donde \(0\) y \(n+1\) representan el depósito;
 	\item \(N = V \setminus \{0, n+1\}\) es el conjunto de clientes;
 	\item \(K\) es el conjunto de vehículos disponibles;
 	\item \(A\) es el conjunto de arcos permitidos entre nodos;
 	\item \(c_{ij}\) es el costo o distancia de viajar del nodo \(i\) al nodo \(j\);
-	\item \(x_{ijk}\) es variable binaria, igual a 1 si el vehículo \(k\) viaja directamente del nodo \(i\) al nodo \(j\), 0 en otro caso;
+	\item \(x_{ijk}\) es variable binaria que indica si el vehículo \(k\) viaja directamente del nodo \(i\) al nodo \(j\);
 	\item \(w_{ik}\) es el tiempo de inicio del servicio del vehículo \(k\) en el nodo \(i\);
 	\item \(s_i\) es el tiempo de servicio requerido en el nodo \(i\);
-	\item \(t_{ij}\) es el tiempo de viaje del nodo \(i\) al nodo \(j\);
+	\item \(t_{ij}\) es el tiempo de viaje entre los nodos \(i\) y \(j\);
 	\item \([a_i, b_i]\) es la ventana de tiempo para el nodo \(i\);
 	\item \(d_i\) es la demanda del cliente \(i\);
-	\item \(C\) es la capacidad máxima del vehículo;
-	\item \(M\) es un número grande usado para linearizar las restricciones condicionales.
+	\item \(C\) es la capacidad máxima de cada vehículo;
+	\item \(M\) es un número grande usado para activar o desactivar restricciones condicionales.
 \end{itemize}
 
-La \textbf{función objetivo} \eqref{eq:VRPTW_obj} busca minimizar el costo total de las rutas. La restricción \eqref{eq:VRPTW_visit_once} garantiza que cada cliente sea visitado exactamente una vez por algún vehículo. Las restricciones \eqref{eq:VRPTW_start_depot} y \eqref{eq:VRPTW_end_depot} aseguran que cada vehículo comience y termine su ruta en el depósito. La restricción \eqref{eq:VRPTW_flow_balance} mantiene el balance de flujo en cada cliente para cada vehículo. La restricción \eqref{eq:VRPTW_time_window} impone el orden y respeto a las ventanas de tiempo mediante la relación entre tiempos de servicio y viajes, usando el parámetro \(M\). La restricción \eqref{eq:VRPTW_time_bounds} asegura que el servicio comience dentro de la ventana permitida. La restricción \eqref{eq:VRPTW_capacity} controla la capacidad máxima que puede transportar cada vehículo. Finalmente, la restricción \eqref{eq:VRPTW_domains} define los dominios de las variables de decisión \citep{toth2014}.
+La \textbf{función objetivo}~\eqref{eq:VRPTW_obj} minimiza el costo total de todas las rutas. Las restricciones~\eqref{eq:VRPTW_visit_once} garantizan que cada cliente sea visitado exactamente una vez. Las restricciones~\eqref{eq:VRPTW_start_depot} y \eqref{eq:VRPTW_end_depot} aseguran que cada vehículo comience y termine su ruta en el depósito. La restricción~\eqref{eq:VRPTW_flow_balance} mantiene el balance de flujo para cada vehículo y cliente. La restricción~\eqref{eq:VRPTW_time_window} impone el orden y respeto a las ventanas temporales mediante los tiempos de servicio y de viaje, con ayuda del parámetro \(M\). La restricción~\eqref{eq:VRPTW_time_bounds} asegura que el servicio inicie dentro de la ventana asignada. La restricción~\eqref{eq:VRPTW_capacity} limita la capacidad máxima que puede transportar cada vehículo. Finalmente, la restricción~\eqref{eq:VRPTW_bin} define los dominios de las variables de decisión \citep{toth2014}.
 
-\paragraph{Complejidad del VRPTW}
+\subsubsection*{Complejidad del VRPTW}
 
 Sabemos que la complejidad del \textbf{Problema de Ruteo de Vehículos (VRP)} es \textit{NP-hard}, como se señala en la \autoref{subsec:problem_vrp} y en \citep{laporte1987}. El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} es una generalización del VRP clásico, y también pertenece a la clase de problemas \textit{NP-hard}. De hecho, incluso si se ignoran las ventanas de tiempo, el problema sigue siendo difícil de resolver. Al incorporar restricciones temporales, el VRPTW se vuelve aún más complejo, tanto desde el punto de vista computacional como algorítmico. Según Bräysy y Gendreau \citep{braysy2005} y Toth y Vigo \citep{toth2014}, las ventanas de tiempo reducen significativamente el conjunto de soluciones viables, aumentando así la dificultad del problema.
 
 
 El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} representa una evolución del VRP orientada a entornos donde las restricciones temporales son determinantes para la calidad del servicio. Esta variante refleja de forma más precisa los desafíos logísticos actuales, donde los clientes no solo deben ser visitados, sino también atendidos dentro de intervalos de tiempo específicos, lo cual impone una coordinación precisa entre la planificación de rutas, la gestión de recursos y el cumplimiento de niveles de servicio.
 
+\section{Métodos de Solución para el VRPTW / Estado del Arte}
 \subsection{Algoritmos Exactos}
 
 \subsection{Heurísticas}
