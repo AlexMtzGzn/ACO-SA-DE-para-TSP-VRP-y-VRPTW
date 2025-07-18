@@ -76,6 +76,7 @@ void inicializar_distancias(double **instancia_distancias, struct vrp_configurac
          if (i != j)
          {
             distancia = calcular_distancia(vrp, i, j);
+            distancia = floor(distancia * pow(10.0,1.0)) /pow(10.0,1.0);
             instancia_distancias[i][j] = distancia;
             instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
          }
