@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  16 JUL 2025 21:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  17 JUL 2025 17:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -902,8 +902,8 @@ Overfull \hbox (3.26825pt too wide) detected at line 21
  [17] [18
 
 ]
-Overfull \hbox (17.62482pt too wide) in paragraph at lines 218--220
-[][]
+Overfull \hbox (17.62482pt too wide) in paragraph at lines 218--219
+[][] 
  []
 
 [19
@@ -915,135 +915,141 @@ Cap\'{\i }tulo 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.258 \subsection
-                 {Objetivos EspecÃ­ficos} [1
+l.256 
+       [1
 
 ]
-LaTeX Info: Redefining \. on input line 280.
-LaTeX Info: Redefining \% on input line 280.
+LaTeX Info: Redefining \. on input line 273.
+LaTeX Info: Redefining \% on input line 273.
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.280 
+l.273 
        [2]
-Overfull \hbox (12.51675pt too wide) in paragraph at lines 295--296
-[]\T1/lmr/m/n/12 No se con-sid-er-an re-stric-ciones adi-cionales co-mo múlti-ples de-pósi-tos, flotas het-erogéneas,
+Overfull \hbox (9.25276pt too wide) in paragraph at lines 298--299
+[]\T1/lmr/m/n/12 No se con-sid-er-an re-stric-ciones adi-cionales co-mo múlti-ples de-pósi-tos, flotas het-erogéneas
  []
 
-LaTeX Info: Redefining \. on input line 306.
-LaTeX Info: Redefining \% on input line 306.
-[3] [4
+LaTeX Info: Redefining \. on input line 307.
+LaTeX Info: Redefining \% on input line 307.
+[3]
+LaTeX Info: Redefining \. on input line 307.
+LaTeX Info: Redefining \% on input line 307.
+ [4]
+Cap\'{\i }tulo 2.
+[5
 
 ]
-Cap\'{\i }tulo 2.
-[5]
-LaTeX Info: Redefining \. on input line 355.
-LaTeX Info: Redefining \% on input line 355.
+LaTeX Info: Redefining \. on input line 353.
+LaTeX Info: Redefining \% on input line 353.
  [6]
-LaTeX Info: Redefining \. on input line 395.
-LaTeX Info: Redefining \% on input line 395.
+LaTeX Info: Redefining \. on input line 394.
+LaTeX Info: Redefining \% on input line 394.
  [7]
 <Figuras/grafico-complejidad-computacionala3.png, id=458, 813.0375pt x 638.385pt>
 File: Figuras/grafico-complejidad-computacionala3.png Graphic file (type png)
 <use Figuras/grafico-complejidad-computacionala3.png>
-Package pdftex.def Info: Figuras/grafico-complejidad-computacionala3.png  used on input line 406.
+Package pdftex.def Info: Figuras/grafico-complejidad-computacionala3.png  used on input line 407.
 (pdftex.def)             Requested size: 274.6857pt x 215.67455pt.
-LaTeX Info: Redefining \. on input line 412.
-LaTeX Info: Redefining \% on input line 412.
- [8 <./Figuras/grafico-complejidad-computacionala3.png>]
+LaTeX Info: Redefining \. on input line 411.
+LaTeX Info: Redefining \% on input line 411.
+ [8]
 
 pdfTeX warning: pdflatex (file ./Figuras/Diagrama.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<Figuras/Diagrama.pdf, id=470, 1003.75pt x 702.625pt>
+<Figuras/Diagrama.pdf, id=468, 1003.75pt x 702.625pt>
 File: Figuras/Diagrama.pdf Graphic file (type pdf)
 <use Figuras/Diagrama.pdf>
-Package pdftex.def Info: Figuras/Diagrama.pdf  used on input line 418.
+Package pdftex.def Info: Figuras/Diagrama.pdf  used on input line 419.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 433.
-LaTeX Info: Redefining \% on input line 433.
-[9 <./Figuras/Diagrama.pdf>]
-LaTeX Info: Redefining \. on input line 457.
-LaTeX Info: Redefining \% on input line 457.
- [10]
+LaTeX Info: Redefining \. on input line 423.
+LaTeX Info: Redefining \% on input line 423.
+[9 <./Figuras/grafico-complejidad-computacionala3.png>]
+LaTeX Info: Redefining \. on input line 449.
+LaTeX Info: Redefining \% on input line 449.
+ [10 <./Figuras/Diagrama.pdf>]
 
 pdfTeX warning: pdflatex (file ./Figuras/P_vs_NP.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<Figuras/P_vs_NP.pdf, id=598, 1003.75pt x 702.625pt>
+<Figuras/P_vs_NP.pdf, id=594, 1003.75pt x 702.625pt>
 File: Figuras/P_vs_NP.pdf Graphic file (type pdf)
 <use Figuras/P_vs_NP.pdf>
-Package pdftex.def Info: Figuras/P_vs_NP.pdf  used on input line 460.
+Package pdftex.def Info: Figuras/P_vs_NP.pdf  used on input line 461.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 474.
-LaTeX Info: Redefining \% on input line 474.
+LaTeX Info: Redefining \. on input line 467.
+LaTeX Info: Redefining \% on input line 467.
 [11 <./Figuras/P_vs_NP.pdf>]
-<Figuras/TSP.pdf, id=709, 1003.75pt x 702.625pt>
+<Figuras/TSP.pdf, id=707, 1003.75pt x 702.625pt>
 File: Figuras/TSP.pdf Graphic file (type pdf)
 <use Figuras/TSP.pdf>
-Package pdftex.def Info: Figuras/TSP.pdf  used on input line 483.
+Package pdftex.def Info: Figuras/TSP.pdf  used on input line 484.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 497.
-LaTeX Info: Redefining \% on input line 497.
- [12 <./Figuras/TSP.pdf>]
-LaTeX Info: Redefining \. on input line 539.
-LaTeX Info: Redefining \% on input line 539.
- [13]
-<Figuras/VRP.pdf, id=868, 1003.75pt x 702.625pt>
+LaTeX Info: Redefining \. on input line 488.
+LaTeX Info: Redefining \% on input line 488.
+ [12]
+LaTeX Info: Redefining \. on input line 528.
+LaTeX Info: Redefining \% on input line 528.
+ [13 <./Figuras/TSP.pdf>]
+<Figuras/VRP.pdf, id=866, 1003.75pt x 702.625pt>
 File: Figuras/VRP.pdf Graphic file (type pdf)
 <use Figuras/VRP.pdf>
-Package pdftex.def Info: Figuras/VRP.pdf  used on input line 549.
+Package pdftex.def Info: Figuras/VRP.pdf  used on input line 550.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 555.
-LaTeX Info: Redefining \% on input line 555.
- [14 <./Figuras/VRP.pdf>]
-LaTeX Info: Redefining \. on input line 609.
-LaTeX Info: Redefining \% on input line 609.
- [15]
-LaTeX Info: Redefining \. on input line 628.
-LaTeX Info: Redefining \% on input line 628.
+LaTeX Info: Redefining \. on input line 553.
+LaTeX Info: Redefining \% on input line 553.
+ [14]
+LaTeX Info: Redefining \. on input line 582.
+LaTeX Info: Redefining \% on input line 582.
+ [15 <./Figuras/VRP.pdf>]
+LaTeX Info: Redefining \. on input line 621.
+LaTeX Info: Redefining \% on input line 621.
  [16]
-<Figuras/VRPTW.pdf, id=1031, 1003.75pt x 702.625pt>
+<Figuras/VRPTW.pdf, id=1030, 1003.75pt x 702.625pt>
 File: Figuras/VRPTW.pdf Graphic file (type pdf)
 <use Figuras/VRPTW.pdf>
-Package pdftex.def Info: Figuras/VRPTW.pdf  used on input line 631.
+Package pdftex.def Info: Figuras/VRPTW.pdf  used on input line 632.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 653.
-LaTeX Info: Redefining \% on input line 653.
+LaTeX Info: Redefining \. on input line 638.
+LaTeX Info: Redefining \% on input line 638.
  [17 <./Figuras/VRPTW.pdf>]
-LaTeX Info: Redefining \. on input line 709.
-LaTeX Info: Redefining \% on input line 709.
+LaTeX Info: Redefining \. on input line 690.
+LaTeX Info: Redefining \% on input line 690.
  [18]
-LaTeX Info: Redefining \. on input line 731.
-LaTeX Info: Redefining \% on input line 731.
+LaTeX Info: Redefining \. on input line 722.
+LaTeX Info: Redefining \% on input line 722.
  [19]
-Overfull \hbox (1.42726pt too wide) in paragraph at lines 744--745
+LaTeX Info: Redefining \. on input line 744.
+LaTeX Info: Redefining \% on input line 744.
+ [20]
+Overfull \hbox (1.42726pt too wide) in paragraph at lines 745--746
 []\T1/lmr/m/n/12 Según [[]], es posi-ble em-plear méto-dos heurís-ti-cos cuan-do un prob-le-ma de op-ti-mización,
  []
 
-LaTeX Info: Redefining \. on input line 753.
-LaTeX Info: Redefining \% on input line 753.
-[20]
-LaTeX Info: Redefining \. on input line 783.
-LaTeX Info: Redefining \% on input line 783.
- [21]
-LaTeX Info: Redefining \. on input line 803.
-LaTeX Info: Redefining \% on input line 803.
+LaTeX Info: Redefining \. on input line 774.
+LaTeX Info: Redefining \% on input line 774.
+[21]
+LaTeX Info: Redefining \. on input line 796.
+LaTeX Info: Redefining \% on input line 796.
  [22]
-Cap\'{\i }tulo 3.
-[23
-
-] [24
+LaTeX Info: Redefining \. on input line 804.
+LaTeX Info: Redefining \% on input line 804.
+ [23] [24
 
 ]
-Cap\'{\i }tulo 4.
+Cap\'{\i }tulo 3.
 [25] [26
 
 ]
-Cap\'{\i }tulo 5.
+Cap\'{\i }tulo 4.
 [27] [28
 
-] (./main.bbl [29
+]
+Cap\'{\i }tulo 5.
+[29] [30
 
-] [30
+] (./main.bbl [31
 
-] [31]
+] [32
+
+] [33]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 107.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1053,9 +1059,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--110
  []
 
 )
-LaTeX Info: Redefining \. on input line 829.
-LaTeX Info: Redefining \% on input line 829.
- [32] [33
+LaTeX Info: Redefining \. on input line 830.
+LaTeX Info: Redefining \% on input line 830.
+ [34] [35
 
 ] (./main.aux
 LaTeX Info: Redefining \. on input line 25.
@@ -1065,21 +1071,21 @@ LaTeX Info: Redefining \% on input line 25.
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CEAD7A707FBE408BB0930D2A49983616;7968.
+(rerunfilecheck)             Checksum: D2A37B4E33D90DFA65610E4978267696;7866.
  ) 
 Here is how much of TeX's memory you used:
- 21448 strings out of 480247
- 355410 string characters out of 5896151
- 672733 words of memory out of 5000000
+ 21449 strings out of 480247
+ 355417 string characters out of 5896151
+ 673720 words of memory out of 5000000
  38876 multiletter control sequences out of 15000+600000
  535660 words of font info for 64 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
- 60i,12n,63p,1063b,691s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,63p,1065b,691s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (55 pages, 30173956 bytes).
+Output written on main.pdf (57 pages, 30176692 bytes).
 PDF statistics:
- 1393 PDF objects out of 1440 (max. 8388607)
- 801 compressed objects within 9 object streams
- 172 named destinations out of 1000 (max. 500000)
+ 1400 PDF objects out of 1440 (max. 8388607)
+ 806 compressed objects within 9 object streams
+ 173 named destinations out of 1000 (max. 500000)
  396 words of extra memory for PDF output out of 10000 (max. 10000000)
 

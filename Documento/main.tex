@@ -95,7 +95,7 @@
 \newcommand{\director}[1]{\def\eldirector{#1}}
 \newcommand{\fecha}[1]{\def\lafecha{#1}}
 
-\titulo{Resolución del Problema de Rutas Vehiculares con Capacidades y Ventanas de Tiempo mediante un Algoritmo Híbrido entre Colonia de Hormigas y Recocido Simulado}
+\titulo{Resolución del Problema de Rutas Vehiculares con Ventanas de Tiempo mediante un Algoritmo Híbrido entre Colonia de Hormigas y Recocido Simulado}
 \nombre{\uppercase{Alejandro Martínez Guzmán}}
 \carrera{Licenciatura en Ingeniería en Computación}
 \director{\uppercase{Edwin Montes Orozco}}
@@ -207,15 +207,16 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 
 \vspace{0.5cm}
 \begin{tabularx}{\textwidth}{>{\bfseries}l X}
-	ACO    & Ant Colony Optimization (\textit{Optimización por Colonias de Hormigas})                                   \\
-	DE     & Differential Evolution (\textit{Algoritmo de Evolución Diferencial})                                       \\
-	NP     & Nondeterministic Polynomial Time (\textit{Tiempo Polinomial No Determinista})                              \\
-	P      & Polynomial Time (\textit{Tiempo Polinomial})                                                               \\
-	SA     & Simulated Annealing (\textit{Recocido Simulado})                                                           \\
-	TSP    & Travelling Salesman Problem (\textit{Problema del Agente Viajero})                                         \\
-	VRP    & Vehicle Routing Problem (\textit{Problema de Ruteo de Vehículos})                                          \\
-	VRP-TW & Vehicle Routing Problem with Time Windows (\textit{Problema de Ruteo de Vehículos con Ventanas de Tiempo}) \\
+	ACO   & \textbf{A}nt \textbf{C}olony \textbf{O}ptimization (\textit{Optimización por Colonias de Hormigas})                                                     \\
+	ADE   & \textbf{A}lgoritmo \textbf{E}volutivo \textbf{D}iferencial (\textit{Differential Evolution Algorithm})                                                  \\
+	NP    & \textbf{N}ondeterministic \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial No Determinista})                                                \\
+	P     & \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial})                                                                                          \\
+	SA    & \textbf{S}imulated \textbf{A}nnealing (\textit{Recocido Simulado})                                                                                      \\
+	TSP   & \textbf{T}ravelling \textbf{S}alesman \textbf{P}roblem (\textit{Problema del Agente Viajero})                                                           \\
+	VRP   & \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem (\textit{Problema de Ruteo de Vehículos})                                                            \\
+	VRPTW & \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem with \textbf{T}ime \textbf{W}indows (\textit{Problema de Ruteo de Vehículos con Ventanas de Tiempo}) \\
 \end{tabularx}
+
 \vspace{0.5cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -241,46 +242,48 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 
 \section{Planteamiento del Problema}
 
-La optimización de rutas ha sido históricamente uno de los problemas más relevantes dentro de la investigación operativa y la logística. Modelos clásicos como el Problema del Agente Viajero (TSP, por sus siglas en inglés) y el Problema de Ruteo de Vehículos (VRP) representan el fundamento para entender y abordar problemáticas logísticas reales. Sin embargo, en entornos modernos donde existen restricciones temporales estrictas para la atención de clientes, se requiere de modelos más complejos, como el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW).
+Dentro de la investigación operativa y la logística, modelos clásicos como el \textbf{Problema del Agente Viajero (TSP)} y el \textbf{Problema de Ruteo de Vehículos (VRP)} representan el fundamento para entender y abordar problemáticas logísticas reales. Sin embargo, en entornos modernos donde existen restricciones temporales estrictas para la atención de clientes, se requieren modelos más complejos, como el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo} (\textbf{VRPTW}).
 
-El VRPTW consiste en planificar rutas para una flota de vehículos, de manera que se minimice el costo total (distancia, tiempo, o recursos), asegurando que cada cliente sea atendido dentro de un intervalo de tiempo predefinido, sin violar las capacidades de los vehículos. Este problema pertenece a la clase NP-difícil y presenta una alta complejidad combinatoria, lo que hace inviable resolverlo mediante algoritmos exactos cuando se trata de instancias de gran tamaño.
+El \textbf{VRPTW} consiste en planificar rutas para una flota de vehículos, de manera que se minimice el costo total (distancia, tiempo o recursos), asegurando que cada cliente sea atendido dentro de un intervalo de tiempo predefinido, sin violar las capacidades de los vehículos. Este problema pertenece a la clase \textbf{NP-difícil} y presenta una alta complejidad combinatoria, lo que hace inviable resolverlo mediante algoritmos exactos cuando se trata de instancias de gran tamaño.
 
-En este contexto, las metaheurísticas se presentan como una alternativa viable para encontrar soluciones de buena calidad en tiempos razonables. Entre ellas, la Optimización por Colonia de Hormigas (ACO) ha demostrado ser eficaz en la construcción de rutas iniciales, mientras que el Recocido Simulado (SA), apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. Aun así, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda, por lo que se propone incorporar un Algoritmo Evolutivo Diferencial (ADE) como componente global de refinamiento.
+En este contexto, las \textbf{metaheurísticas} se presentan como una alternativa viable para encontrar soluciones de buena calidad en tiempos razonables. Entre ellas, la \textbf{Optimización por Colonia de Hormigas} (\textbf{ACO}) ha demostrado ser eficaz en la construcción de rutas iniciales, mientras que el \textbf{Recocido Simulado} (\textbf{SA}), apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. Aun así, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda, por lo que se propone incorporar un \textbf{Algoritmo Evolutivo Diferencial} (\textbf{AED}) como componente global de refinamiento.
 
-El problema a resolver, por tanto, se centra en cómo diseñar e implementar un enfoque híbrido que combine ACO, SA y ADE de manera coordinada y efectiva, para abordar el VRPTW, partiendo de modelos más simples como el TSP y el VRP, y considerando tanto la calidad de la solución como su robustez y eficiencia computacional.
+El problema a resolver, por tanto, se centra en cómo diseñar e implementar un enfoque híbrido que combine \textbf{ACO}, \textbf{SA} y \textbf{AED} de manera coordinada y efectiva, para abordar el \textbf{VRPTW}, partiendo de modelos más simples como el \textbf{TSP} y el \textbf{VRP}, y considerando tanto la calidad de la solución como su robustez y eficiencia computacional.
 
 \section{Justificación}
 
+El Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW) es un problema fundamental en la logística moderna, con aplicaciones directas en la optimización de rutas de distribución y transporte, lo que impacta significativamente en la reducción de costos operativos y la mejora del servicio al cliente. Sin embargo, debido a su complejidad combinatoria y pertenencia a la clase NP-difícil, las técnicas exactas resultan impracticables para resolver instancias de tamaño realista.
+
+Las soluciones basadas en metaheurísticas han mostrado ser una alternativa eficiente; sin embargo, la mayoría de los enfoques existentes se enfocan en una sola técnica, limitando la exploración y explotación del espacio de soluciones. La integración de métodos híbridos como la combinación de Optimización por Colonias de Hormigas (ACO), Recocido Simulado (SA) y Algoritmo Evolutivo Diferencial (AED) puede potenciar las capacidades de búsqueda y refinamiento, mejorando la calidad y robustez de las soluciones obtenidas.
+
+Este trabajo justifica su realización en la necesidad de desarrollar un método que aporte mayor eficiencia y calidad para resolver el VRPTW, utilizando instancias benchmark clásicas ampliamente reconocidas en la literatura, como las de Solomon, y así contribuir al avance de las técnicas metaheurísticas aplicadas en problemas logísticos complejos.
+
 \section{Objetivos}
+
 \subsection{Objetivo General}
 
-Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO), el Recocido Simulado (SA) con múltiples heurísticas locales y un Algoritmo Evolutivo Diferencial (ADE), con el objetivo de resolver de manera eficiente el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW), utilizando el Problema del Agente Viajero (TSP)y el Problema de Ruteo de Vehículos (VRP) como base introductoria y estructural para la construcción progresiva del modelo.
+Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO), el Recocido Simulado (SA) con múltiples heurísticas locales y un Algoritmo Evolutivo Diferencial (AED), con el objetivo de resolver de manera eficiente el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW), utilizando el Problema del Agente Viajero (TSP) y el Problema de Ruteo de Vehículos (VRP) como base introductoria y estructural para la construcción progresiva del modelo.
+
 \subsection{Objetivos Específicos}
 
 \begin{enumerate}
-	\item Estudiar y analizar los problemas TSP, VRP y VRP-TW para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal (VRP-TW).
+	\item Estudiar y analizar los problemas TSP, VRP y VRPTW para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal (VRPTW).
 
-	\item Diseñar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO) para la construcción de soluciones iniciales, el Recocido Simulado (SA) con distintas heurísticas de búsqueda local para la mejora de dichas soluciones, y un Algoritmo Evolutivo Diferencial (ADE) para intensificar la exploración del espacio de búsqueda.
-
-	\item Implementar computacionalmente el enfoque híbrido propuesto, asegurando su modularidad y capacidad de adaptación para resolver los tres problemas (TSP, VRP y VRP-TW).
+	\item Diseñar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO) para la construcción de soluciones iniciales, el Recocido Simulado (SA) con distintas heurísticas de búsqueda local para la mejora de dichas soluciones, y un Algoritmo Evolutivo Diferencial (AED) para intensificar la exploración del espacio de búsqueda.
 
 	\item Evaluar el rendimiento del enfoque híbrido en términos de calidad de la solución, tiempo de ejecución y robustez, utilizando instancias de prueba estándar aceptadas en la literatura.
-
 \end{enumerate}
-
 
 \section{Alcances y Limitaciones}
 
 \subsection*{Alcances}
 
 \begin{itemize}
-	\item El trabajo se centra en la resolución de los problemas TSP, VRP y VRP-TW, siendo este último el problema principal de estudio.
+	\item El trabajo se centra en la resolución de los problemas TSP, VRP y VRPTW, siendo este último el problema principal de estudio.
 
-	\item Se desarrolla un enfoque híbrido que integra tres técnicas metaheurísticas: Optimización por Colonia de Hormigas (ACO), Recocido Simulado (SA) con múltiples heurísticas locales, y un Algoritmo Evolutivo Diferencial (ADE), aplicadas de manera complementaria.
+	\item Se desarrolla un enfoque híbrido que integra tres técnicas metaheurísticas: Optimización por Colonia de Hormigas (ACO), Recocido Simulado (SA) con múltiples heurísticas locales, y un Algoritmo Evolutivo Diferencial (AED), aplicadas de manera complementaria.
 
-	\item La implementación incluye una arquitectura modular que permite la reutilización de componentes entre los tres problemas, facilitando la comparación y evolución de los modelos.
-
-	\item El enfoque es probado con instancias benchmark conocidas en la literatura, permitiendo una validación objetiva y reproducible de los resultados obtenidos.
+	\item El enfoque es probado con instancias clásicas propuestas por Solomon, ampliamente reconocidas en la literatura, lo que permite una validación objetiva y reproducible de los resultados obtenidos.
 
 	\item Se analizan métricas relevantes como la calidad de la solución, el tiempo de ejecución y la estabilidad del algoritmo ante múltiples ejecuciones.
 \end{itemize}
@@ -290,24 +293,22 @@ Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optim
 \begin{itemize}
 	\item El enfoque propuesto está diseñado para instancias estáticas de los problemas de ruteo; no se contempla el tratamiento de versiones dinámicas o en tiempo real.
 
-	\item La calidad de los resultados depende en gran medida de la correcta calibración de los parámetros de ACO, SA y ADE, lo cual puede implicar un proceso costoso de ajuste manual o semiautomático.
+	\item La calidad de los resultados depende en gran medida de la correcta calibración de los parámetros de ACO y SA; sin embargo, esta calibración no se realiza manualmente, sino que es llevada a cabo automáticamente por el Algoritmo Evolutivo Diferencial (AED), lo que reduce el esfuerzo humano y mejora la eficiencia del proceso.
 
-	\item No se consideran restricciones adicionales como múltiples depósitos, flotas heterogéneas, restricciones de carga o prioridades diferenciadas entre clientes.
+	\item No se consideran restricciones adicionales como múltiples depósitos, flotas heterogéneas o prioridades diferenciadas entre clientes.
 
 	\item Las pruebas están limitadas a conjuntos de datos artificiales y benchmarks académicos, sin validación en entornos productivos reales.
 
 	\item Al tratarse de métodos metaheurísticos, no se garantiza la obtención del óptimo global, sino soluciones cercanas al óptimo dentro de un tiempo razonable.
 \end{itemize}
 
-
 \section{Estructura del Documento}
-
 
 \chapter{Marco Teórico / Estado del Arte}
 \label{cap:marco-teorico}
 \section{Antecedentes}
 
-El estudio de problemas de optimización en rutas se remonta al desarrollo del \textbf{Problema del Agente Viajero (TSP)}, formulado a principios del siglo XX, cuyo objetivo es encontrar la ruta de costo mínimo que recorra un conjunto de ciudades exactamente una vez, regresando al punto de partida. A lo largo de las décadas, este problema se ha consolidado como uno de los pilares de la optimización combinatoria \citep{toth2014}.
+El estudio de problemas de optimización en rutas se remonta al desarrollo del \textbf{Problema del Agente Viajero (TSP)}, formulado a principios del siglo XX, cuyo objetivo es encontrar la ruta de costo mínimo que recorra un conjunto de ciudades exactamente una vez, regresando al punto de partida. A lo largo de las décadas, este problema se ha consolidado como uno de los pilares de la optimización combinatoria \citep{papadimitriou1994}.
 
 Más adelante, se propuso el \textbf{Problema de Ruteo de Vehículos (VRP)} como una generalización del TSP, considerando una flota de vehículos que deben atender a múltiples clientes desde un depósito central. Este problema fue introducido por primera vez por Dantzig y Ramser en 1959 para optimizar rutas de distribución de gasolina \citep{dantzig1959truck}.
 
@@ -321,7 +322,7 @@ Durante la década de 1990, se desarrollaron enfoques exactos basados en program
 
 En las últimas dos décadas, la investigación se ha enfocado en algoritmos híbridos, técnicas de aprendizaje automático aplicadas al VRP, optimización robusta y modelos dinámicos, buscando mejorar la eficiencia y adaptabilidad de las soluciones en contextos logísticos cada vez más complejos y cambiantes \citep{toth2014}.
 
-El presente trabajo se inscribe en esta línea de investigación, proponiendo un modelo basado en metaheurísticas para abordar el VRPTW bajo condiciones específicas de [mencionar contexto logístico particular: por ejemplo, restricciones de capacidad, tiempos estrictos o escenarios dinámicos], con el objetivo de mejorar la calidad y eficiencia de las rutas generadas.
+El presente trabajo se inscribe en esta línea de investigación, proponiendo un modelo basado en metaheurísticas para abordar el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW), considerando específicamente restricciones operativas como la capacidad limitada de los vehículos y los intervalos estrictos de servicio establecidos para cada cliente. Con el objetivo de mejorar la calidad y eficiencia de las rutas generadas, se implementaron tres enfoques metaheurísticos: el Algoritmo Evolutivo Diferencial (AED), el Algoritmo de Colonias de Hormigas (ACO) y el Recocido Simulado (SA), este último complementado con heurísticas diseñadas para guiar la generación de soluciones factibles y de buena calidad.
 
 \section{Conceptos Clave}
 
@@ -446,7 +447,7 @@ Aunque se considera que algoritmos con tiempo polinomial son “eficientes”, e
 \subsubsection*{Clase NP}
 Un problema pertenece a la clase \emph{NP} si, dado un candidato a solución (certificado), es posible verificar su validez en tiempo polinomial. Es importante notar que esto no implica necesariamente que exista un algoritmo eficiente para encontrar la solución, sino que su validación es eficiente. Un ejemplo típico es el \textbf{Problema del Agente Viajero (TSP)}: si se proporciona una ruta candidata, es fácil comprobar en tiempo polinomial la longitud total de la ruta para verificar si cumple cierta condición \citep{Flores2014}.
 
-\subsubsection*{La gran incógnita: ¿P = NP?} 
+\subsubsection*{La gran incógnita: ¿P = NP?}
 Una de las preguntas abiertas más importantes en ciencias de la computación es si \(\mathbf{P = NP}\) o \(\mathbf{P \neq NP}\), es decir, si todo problema cuya solución puede verificarse rápidamente también puede resolverse rápidamente. Esta cuestión tiene profundas implicaciones teóricas y prácticas \citep{maldonado2013problema}.
 
 \subsubsection{NP-Completo y NP-Difícil}
@@ -643,7 +644,7 @@ El objetivo es determinar un conjunto de rutas para una flota de vehículos homo
 	\min \sum_{k \in K} \sum_{i \in V} \sum_{j \in V} c_{ij} x_{ijk}
 	\label{eq:VRPTW_obj}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Función objetivo VRPTW: minimizar el costo total del recorrido}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Función objetivo VRPTW: minimizar el costo total del recorrido}
 
 sujeto a:
 
@@ -651,49 +652,49 @@ sujeto a:
 	\sum_{k \in K} \sum_{j \in V} x_{ijk} = 1, \quad \forall i \in N
 	\label{eq:VRPTW_visit_once}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: cada cliente es visitado exactamente una vez}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: cada cliente es visitado exactamente una vez}
 
 \begin{equation}
 	\sum_{j \in V} x_{0jk} = 1, \quad \forall k \in K
 	\label{eq:VRPTW_start_depot}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: cada vehículo inicia su ruta en el depósito}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: cada vehículo inicia su ruta en el depósito}
 
 \begin{equation}
 	\sum_{i \in V} x_{i,n+1,k} = 1, \quad \forall k \in K
 	\label{eq:VRPTW_end_depot}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: cada vehículo termina su ruta en el depósito}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: cada vehículo termina su ruta en el depósito}
 
 \begin{equation}
 	\sum_{j \in V} x_{ijk} - \sum_{j \in V} x_{jik} = 0, \quad \forall k \in K, \forall i \in N
 	\label{eq:VRPTW_flow_balance}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: conservación de flujo para cada vehículo y cliente}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: conservación de flujo para cada vehículo y cliente}
 
 \begin{equation}
 	w_{jk} \geq w_{ik} + s_i + t_{ij} - M (1 - x_{ijk}), \quad \forall k \in K, \forall i,j \in V
 	\label{eq:VRPTW_time_window}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: respeto a la ventana de tiempo y orden de servicio}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: respeto a la ventana de tiempo y orden de servicio}
 
 \begin{equation}
 	a_i \leq w_{ik} \leq b_i, \quad \forall k \in K, \forall i \in V
 	\label{eq:VRPTW_time_bounds}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: inicio del servicio dentro de la ventana de tiempo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: inicio del servicio dentro de la ventana de tiempo}
 
 \begin{equation}
 	\sum_{i \in V} \sum_{j \in V} d_i x_{ijk} \leq C, \quad \forall k \in K
 	\label{eq:VRPTW_capacity}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: capacidad máxima del vehículo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Restricción: capacidad máxima del vehículo}
 
 \begin{equation}
 	x_{ijk} \in \{0, 1\}, \quad w_{ik} \geq 0, \quad \forall k \in K, \forall i,j \in V
 	\label{eq:VRPTW_bin}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Variables binarias y tiempos no negativos}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Variables binarias y tiempos no negativos}
 
 \medskip
 \noindent donde:
@@ -722,7 +723,7 @@ Sabemos que la complejidad del \textbf{Problema de Ruteo de Vehículos (VRP)} es
 
 El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} representa una evolución del VRP orientada a entornos donde las restricciones temporales son determinantes para la calidad del servicio. Esta variante refleja de forma más precisa los desafíos logísticos actuales, donde los clientes no solo deben ser visitados, sino también atendidos dentro de intervalos de tiempo específicos, lo cual impone una coordinación precisa entre la planificación de rutas, la gestión de recursos y el cumplimiento de niveles de servicio.
 
-\section{Métodos de Solución para el VRPTW / Estado del Arte}
+\section{Métodos de Solución para el VRPTW}
 \subsection{Algoritmos Exactos}
 
 \subsection{Heurísticas}
