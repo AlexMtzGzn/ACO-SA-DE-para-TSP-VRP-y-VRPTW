@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{aarts1988local}
+Emile Aarts and Jan~K Lenstra.
+\newblock {\em Local Search in Combinatorial Optimization}.
+\newblock John Wiley \& Sons, 1988.
+
 \bibitem{antonioSuarez2014}
 Orlando Antonio~Suárez.
 \newblock Una aproximación a la heurística y metaheurísticas.
@@ -49,6 +54,11 @@ Martin Desrochers, Jacques Desrosiers, and Marius~M Solomon.
   time windows.
 \newblock {\em Operations research}, 40(2):342--354, 1992.
 
+\bibitem{dorigo1992}
+Marco Dorigo.
+\newblock {\em Optimization, Learning and Natural Algorithms}.
+\newblock Phd thesis, Politecnico di Milano, Milán, Italia, 1992.
+
 \bibitem{eksioglu2009}
 Burak Eksioglu, Arif~Volkan Vural, and Arnold Reisman.
 \newblock The vehicle routing problem: A taxonomic review.
@@ -70,6 +80,16 @@ Bruce~L. Golden and Arjang~A. Assad.
 \newblock Vehicle routing: Methods and studies.
 \newblock In {\em Studies in Management Science and Systems}. North-Holland,
   1988.
+
+\bibitem{holland1975adaptation}
+John~H Holland.
+\newblock {\em Adaptation in Natural and Artificial Systems}.
+\newblock University of Michigan Press, 1975.
+
+\bibitem{kirkpatrick1983}
+Scott Kirkpatrick, C.~Daniel~Gelatt Jr., and Mario~P. Vecchi.
+\newblock Optimization by simulated annealing.
+\newblock {\em Science}, 220(4598):671--680, 1983.
 
 \bibitem{laporte1992}
 Gilbert Laporte.
@@ -107,6 +127,13 @@ Numerentur.
   \url{https://numerentur.org/wp-content/uploads/2019/08/grafico-complejidad-computacionala3.png},
   2019.
 \newblock Imagen descargada el 15 de julio de 2025.
+
+\bibitem{montes2017}
+Edwin~Montes Orozco.
+\newblock Metaheurísticas para el problema de ruteo de vehículos con ventanas
+  de tiempo (vrp-tw), 2017.
+\newblock Idónea Comunicación de Resultados para obtener el grado de Maestro
+  en Optimización.
 
 \bibitem{papadimitriou1994}
 Christos~H. Papadimitriou.

@@ -875,6 +875,7 @@ INPUT main.eq
 INPUT main.eq
 OUTPUT main.eq
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmr12.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT ./Figuras/grafico-complejidad-computacionala3.png
@@ -882,7 +883,6 @@ INPUT ./Figuras/grafico-complejidad-computacionala3.png
 INPUT Figuras/grafico-complejidad-computacionala3.png
 INPUT ./Figuras/grafico-complejidad-computacionala3.png
 INPUT ./Figuras/grafico-complejidad-computacionala3.png
-INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT ./Figuras/Diagrama.pdf
 INPUT ./Figuras/Diagrama.pdf
 INPUT Figuras/Diagrama.pdf

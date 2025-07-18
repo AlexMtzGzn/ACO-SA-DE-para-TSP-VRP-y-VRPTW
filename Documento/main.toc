@@ -14,7 +14,7 @@
 \contentsline {subsection}{\numberline {1.3.1}Objetivo General}{2}{subsection.1.3.1}%
 \contentsline {subsection}{\numberline {1.3.2}Objetivos Específicos}{2}{subsection.1.3.2}%
 \contentsline {section}{\numberline {1.4}Alcances y Limitaciones}{3}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Estructura del Documento}{4}{section.1.5}%
+\contentsline {section}{\numberline {1.5}Estructura del Documento}{3}{section.1.5}%
 \contentsline {chapter}{\numberline {2}Marco Teórico / Estado del Arte}{5}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Antecedentes}{5}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Conceptos Clave}{6}{section.2.2}%
@@ -29,18 +29,14 @@
 \contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero (TSP)}{12}{subsubsection.2.2.4.1}%
 \contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{14}{subsubsection.2.2.4.2}%
 \contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{17}{subsubsection.2.2.4.3}%
-\contentsline {section}{\numberline {2.3}Métodos de Solución para el VRPTW}{20}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Algoritmos Exactos}{20}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Heurísticas}{20}{subsection.2.3.2}%
-\contentsline {subsubsection}{\numberline {2.3.2.1}Motivos para emplear métodos heurísticos}{20}{subsubsection.2.3.2.1}%
-\contentsline {subsubsection}{\numberline {2.3.2.2}Características de un buen algoritmo heurístico}{21}{subsubsection.2.3.2.2}%
-\contentsline {subsection}{\numberline {2.3.3}Matehurísticas}{22}{subsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.3.1}Criterios de Evaluación para Métodos Metaheurísticos}{22}{subsubsection.2.3.3.1}%
-\contentsline {section}{\numberline {2.4}Referencias Relevantes}{23}{section.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRPTW}{21}{subsection.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.5.1}Algoritmos Exactos}{21}{subsubsection.2.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.2.5.2}Heurísticas}{21}{subsubsection.2.2.5.2}%
+\contentsline {subsubsection}{\numberline {2.2.5.3}Matehurísticas}{22}{subsubsection.2.2.5.3}%
+\contentsline {section}{\numberline {2.3}Referencias Relevantes}{23}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Materiales y Métodos}{25}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Materiales}{25}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Métodos}{25}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Resultados}{27}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Conclusiones}{29}{chapter.5}%
-\contentsline {chapter}{Bibliografía}{31}{chapter*.18}%
-\contentsline {chapter}{Apéndices}{35}{appendix*.20}%
+\contentsline {chapter}{Apéndices}{35}{appendix*.22}%

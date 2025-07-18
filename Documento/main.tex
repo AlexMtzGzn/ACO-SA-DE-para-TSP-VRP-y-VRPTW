@@ -209,6 +209,8 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \begin{tabularx}{\textwidth}{>{\bfseries}l X}
 	ACO   & \textbf{A}nt \textbf{C}olony \textbf{O}ptimization (\textit{Optimización por Colonias de Hormigas})                                                     \\
 	ADE   & \textbf{A}lgoritmo \textbf{E}volutivo \textbf{D}iferencial (\textit{Differential Evolution Algorithm})                                                  \\
+	AG    & \textbf{A}lgoritmo \textbf{G}enético (\textit{Genetic Algorithm})                                                                                    \\
+	BT    & \textbf{B}úsqueda \textbf{T}abú (\textit{Tabu Search})                                                                                            \\
 	NP    & \textbf{N}ondeterministic \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial No Determinista})                                                \\
 	P     & \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial})                                                                                          \\
 	SA    & \textbf{S}imulated \textbf{A}nnealing (\textit{Recocido Simulado})                                                                                      \\
@@ -216,6 +218,7 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 	VRP   & \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem (\textit{Problema de Ruteo de Vehículos})                                                            \\
 	VRPTW & \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem with \textbf{T}ime \textbf{W}indows (\textit{Problema de Ruteo de Vehículos con Ventanas de Tiempo}) \\
 \end{tabularx}
+
 
 \vspace{0.5cm}
 
@@ -242,36 +245,37 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 
 \section{Planteamiento del Problema}
 
-Dentro de la investigación operativa y la logística, modelos clásicos como el \textbf{Problema del Agente Viajero (TSP)} y el \textbf{Problema de Ruteo de Vehículos (VRP)} representan el fundamento para entender y abordar problemáticas logísticas reales. Sin embargo, en entornos modernos donde existen restricciones temporales estrictas para la atención de clientes, se requieren modelos más complejos, como el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo} (\textbf{VRPTW}).
+Dentro de la investigación operativa y la logística, modelos clásicos como el \textbf{Problema del Agente Viajero} \textbf{(TSP, \emph{Traveling Salesman Problem})} y el \textbf{Problema de Ruteo de Vehículos} \textbf{(VRP, \emph{Vehicle Routing Problem})} representan el fundamento para entender y abordar problemáticas logísticas reales. Sin embargo, en entornos modernos donde existen restricciones temporales estrictas para la atención de clientes, se requieren modelos más complejos, como el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo} \textbf{(VRP-TW, \emph{Vehicle Routing Problem with Time Windows})}.
 
-El \textbf{VRPTW} consiste en planificar rutas para una flota de vehículos, de manera que se minimice el costo total (distancia, tiempo o recursos), asegurando que cada cliente sea atendido dentro de un intervalo de tiempo predefinido, sin violar las capacidades de los vehículos. Este problema pertenece a la clase \textbf{NP-difícil} y presenta una alta complejidad combinatoria, lo que hace inviable resolverlo mediante algoritmos exactos cuando se trata de instancias de gran tamaño.
+El \textbf{VRP-TW} consiste en planificar rutas para una flota de vehículos, de manera que se minimice el costo total (distancia, tiempo o recursos), asegurando que cada cliente sea atendido dentro de un intervalo de tiempo predefinido, sin violar las capacidades de los vehículos. Este problema pertenece a la clase \textbf{NP-difícil} y presenta una alta complejidad combinatoria, lo que hace inviable resolverlo mediante algoritmos exactos cuando se trata de instancias de gran tamaño.
 
-En este contexto, las \textbf{metaheurísticas} se presentan como una alternativa viable para encontrar soluciones de buena calidad en tiempos razonables. Entre ellas, la \textbf{Optimización por Colonia de Hormigas} (\textbf{ACO}) ha demostrado ser eficaz en la construcción de rutas iniciales, mientras que el \textbf{Recocido Simulado} (\textbf{SA}), apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. Aun así, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda, por lo que se propone incorporar un \textbf{Algoritmo Evolutivo Diferencial} (\textbf{AED}) como componente global de refinamiento.
+En este contexto, las \textbf{metaheurísticas} se presentan como una alternativa viable para encontrar soluciones de buena calidad en tiempos razonables. Entre ellas, la \textbf{Optimización por Colonia de Hormigas} \textbf{(ACO, \emph{Ant Colony Optimization})} ha demostrado ser eficaz en la construcción de rutas iniciales, mientras que el \textbf{Recocido Simulado} \textbf{(SA, \emph{Simulated Annealing})}, apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. Aun así, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda, por lo que se propone incorporar un \textbf{Algoritmo Evolutivo Diferencial} \textbf{(ADE, \emph{Differential Evolution Algorithm})} como componente global de refinamiento.
 
-El problema a resolver, por tanto, se centra en cómo diseñar e implementar un enfoque híbrido que combine \textbf{ACO}, \textbf{SA} y \textbf{AED} de manera coordinada y efectiva, para abordar el \textbf{VRPTW}, partiendo de modelos más simples como el \textbf{TSP} y el \textbf{VRP}, y considerando tanto la calidad de la solución como su robustez y eficiencia computacional.
+El problema a resolver, por tanto, se centra en diseñar e implementar un algoritmo híbrido que combine de manera coordinada y efectiva la \textbf{ACO}, el \textbf{SA} y el \textbf{ADE}. En este esquema, el \textbf{ADE} se emplea para calibrar los parámetros de los otros métodos, permitiendo así abordar el \textbf{VRP-TW}  partiendo de modelos más simples como el \textbf{TSP}  y el \textbf{VRP} , considerando tanto la calidad de la solución como su robustez y eficiencia computacional.
 
 \section{Justificación}
 
-El Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW) es un problema fundamental en la logística moderna, con aplicaciones directas en la optimización de rutas de distribución y transporte, lo que impacta significativamente en la reducción de costos operativos y la mejora del servicio al cliente. Sin embargo, debido a su complejidad combinatoria y pertenencia a la clase NP-difícil, las técnicas exactas resultan impracticables para resolver instancias de tamaño realista.
+El \textbf{VRP-TW} es un problema fundamental en la logística moderna, con aplicaciones directas en la optimización de rutas de distribución y transporte, lo que impacta significativamente en la reducción de costos operativos y la mejora del servicio al cliente. Sin embargo, debido a su complejidad combinatoria y a su pertenencia a la clase NP-difícil, las técnicas exactas resultan impracticables para resolver instancias de tamaño realista.
 
-Las soluciones basadas en metaheurísticas han mostrado ser una alternativa eficiente; sin embargo, la mayoría de los enfoques existentes se enfocan en una sola técnica, limitando la exploración y explotación del espacio de soluciones. La integración de métodos híbridos como la combinación de Optimización por Colonias de Hormigas (ACO), Recocido Simulado (SA) y Algoritmo Evolutivo Diferencial (AED) puede potenciar las capacidades de búsqueda y refinamiento, mejorando la calidad y robustez de las soluciones obtenidas.
+Las soluciones basadas en metaheurísticas han demostrado ser una alternativa eficiente; sin embargo, la mayoría de los enfoques existentes se centran en una sola técnica, lo que limita la exploración y explotación del espacio de soluciones. La integración de métodos híbridos, como la combinación de \textbf{ACO}, \textbf{SA} y \textbf{AED}, puede potenciar las capacidades de búsqueda y refinamiento, mejorando la calidad y robustez de las soluciones obtenidas.
 
-Este trabajo justifica su realización en la necesidad de desarrollar un método que aporte mayor eficiencia y calidad para resolver el VRPTW, utilizando instancias benchmark clásicas ampliamente reconocidas en la literatura, como las de Solomon, y así contribuir al avance de las técnicas metaheurísticas aplicadas en problemas logísticos complejos.
+Este trabajo se justifica en la necesidad de desarrollar un método que aporte mayor eficiencia y calidad para resolver el \textbf{VRP-TW}, utilizando instancias benchmark clásicas ampliamente reconocidas en la literatura, como las propuestas por Solomon, y así contribuir al avance de las técnicas metaheurísticas aplicadas en problemas logísticos complejos.
 
 \section{Objetivos}
 
 \subsection{Objetivo General}
 
-Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO), el Recocido Simulado (SA) con múltiples heurísticas locales y un Algoritmo Evolutivo Diferencial (AED), con el objetivo de resolver de manera eficiente el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW), utilizando el Problema del Agente Viajero (TSP) y el Problema de Ruteo de Vehículos (VRP) como base introductoria y estructural para la construcción progresiva del modelo.
+
+Diseñar, implementar, probar y evaluar un algoritmo híbrido que combine la \textbf{ACO}, el \textbf{SA} con múltiples heurísticas locales y un \textbf{ADE}, con el objetivo de resolver de manera eficiente el \textbf{VRP-TW}.
 
 \subsection{Objetivos Específicos}
 
 \begin{enumerate}
-	\item Estudiar y analizar los problemas TSP, VRP y VRPTW para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal (VRPTW).
+\item Estudiar y analizar los problemas \textbf{TSP}, \textbf{VRP} y \textbf{VRP-TW} para identificar sus similitudes estructurales y diferencias, estableciendo así una base conceptual que permita abordar de forma progresiva el problema principal \textbf{VRP-TW}.
 
-	\item Diseñar un enfoque híbrido que combine la Optimización por Colonia de Hormigas (ACO) para la construcción de soluciones iniciales, el Recocido Simulado (SA) con distintas heurísticas de búsqueda local para la mejora de dichas soluciones, y un Algoritmo Evolutivo Diferencial (AED) para intensificar la exploración del espacio de búsqueda.
+\item Diseñar un algoritmo híbrido que combine el \textbf{ACO} para la construcción de soluciones iniciales y el \textbf{SA} para la mejora de dichas soluciones, integrando el \textbf{AED} como un componente de autoajuste de parámetros o como mecanismo para generar configuraciones óptimas que guíen el comportamiento de las otras metaheurísticas.
 
-	\item Evaluar el rendimiento del enfoque híbrido en términos de calidad de la solución, tiempo de ejecución y robustez, utilizando instancias de prueba estándar aceptadas en la literatura.
+\item Evaluar el rendimiento del algoritmo híbrido en términos de calidad de la solución y eficiencia computacional, utilizando instancias de prueba estándar aceptadas en la literatura, y comparando los resultados con enfoques clásicos y metaheurísticos individuales.
 \end{enumerate}
 
 \section{Alcances y Limitaciones}
@@ -279,9 +283,9 @@ Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optim
 \subsection*{Alcances}
 
 \begin{itemize}
-	\item El trabajo se centra en la resolución de los problemas TSP, VRP y VRPTW, siendo este último el problema principal de estudio.
+	\item El trabajo se centra en la resolución de los problemas  \textbf{TSP}, \textbf{VRP} y \textbf{VRP-TW}, siendo este último el problema principal de estudio.
 
-	\item Se desarrolla un enfoque híbrido que integra tres técnicas metaheurísticas: Optimización por Colonia de Hormigas (ACO), Recocido Simulado (SA) con múltiples heurísticas locales, y un Algoritmo Evolutivo Diferencial (AED), aplicadas de manera complementaria.
+	\item Se desarrolla un enfoque híbrido que integra tres técnicas metaheurísticas: \textbf{ACO}, \textbf{SA} y un \textbf{ADE}, aplicadas de manera complementaria.
 
 	\item El enfoque es probado con instancias clásicas propuestas por Solomon, ampliamente reconocidas en la literatura, lo que permite una validación objetiva y reproducible de los resultados obtenidos.
 
@@ -293,7 +297,7 @@ Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optim
 \begin{itemize}
 	\item El enfoque propuesto está diseñado para instancias estáticas de los problemas de ruteo; no se contempla el tratamiento de versiones dinámicas o en tiempo real.
 
-	\item La calidad de los resultados depende en gran medida de la correcta calibración de los parámetros de ACO y SA; sin embargo, esta calibración no se realiza manualmente, sino que es llevada a cabo automáticamente por el Algoritmo Evolutivo Diferencial (AED), lo que reduce el esfuerzo humano y mejora la eficiencia del proceso.
+	\item La calidad de los resultados depende en gran medida de la correcta calibración de los parámetros de \textbf{ACO} y \textbf{SA}; sin embargo, esta calibración no se realiza manualmente, sino que es llevada a cabo automáticamente por el \textbf{ADE}.
 
 	\item No se consideran restricciones adicionales como múltiples depósitos, flotas heterogéneas o prioridades diferenciadas entre clientes.
 
@@ -308,21 +312,30 @@ Diseñar, implementar, probar y evaluar un enfoque híbrido que combine la Optim
 \label{cap:marco-teorico}
 \section{Antecedentes}
 
-El estudio de problemas de optimización en rutas se remonta al desarrollo del \textbf{Problema del Agente Viajero (TSP)}, formulado a principios del siglo XX, cuyo objetivo es encontrar la ruta de costo mínimo que recorra un conjunto de ciudades exactamente una vez, regresando al punto de partida. A lo largo de las décadas, este problema se ha consolidado como uno de los pilares de la optimización combinatoria \citep{papadimitriou1994}.
+El estudio de problemas de optimización en rutas se remonta al desarrollo del \textbf{Problema del Agente Viajero} (\textbf{TSP}), formulado a principios del siglo XX, cuyo objetivo es encontrar la ruta de costo mínimo que recorra un conjunto de ciudades exactamente una vez, regresando al punto de partida. A lo largo de las décadas, este problema se ha consolidado como uno de los pilares de la optimización combinatoria \citep{papadimitriou1994}.
 
-Más adelante, se propuso el \textbf{Problema de Ruteo de Vehículos (VRP)} como una generalización del TSP, considerando una flota de vehículos que deben atender a múltiples clientes desde un depósito central. Este problema fue introducido por primera vez por Dantzig y Ramser en 1959 para optimizar rutas de distribución de gasolina \citep{dantzig1959truck}.
+Más adelante, se propuso el \textbf{Problema de Ruteo de Vehículos} (\textbf{VRP}) como una generalización del \textbf{TSP}, considerando una flota de vehículos que deben atender a múltiples clientes desde un depósito central. Este problema fue introducido por primera vez por Dantzig y Ramser en 1959 para optimizar rutas de distribución de gasolina \citep{dantzig1959truck}.
 
-Durante la década de 1970, el interés por resolver variantes del VRP aumentó significativamente, y surgieron métodos heurísticos como el algoritmo de Clarke y Wright (1964), el cual se convirtió en un referente para aproximaciones iniciales \citep{clarke1964scheduling}.
+Durante la década de 1970, el interés por resolver variantes del \textbf{VRP} aumentó significativamente, y surgieron métodos heurísticos como el algoritmo de Clarke y Wright (1964), que se convirtió en un referente para aproximaciones iniciales \citep{clarke1964scheduling}.
 
 Entre la década de 1970 y la de 1980, se desarrollaron versiones especializadas como el \textit{Fleet Routing Problem}, sistemas \textit{Dial-a-Bus} y el diseño de redes de transporte, así como enfoques probabilísticos y la incorporación de incertidumbre \citep{eksioglu2009, golden1988, laporte1992}.
 
-Dentro de estas variantes, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} surgió como una extensión crítica que incorpora restricciones temporales para reflejar mejor las condiciones reales de operación, como horarios de entrega y recogida. Este problema fue estudiado ampliamente a partir del trabajo de Solomon en 1987, quien introdujo instancias benchmark y algoritmos heurísticos clásicos \citep{solomon1987algorithms}.
+Dentro de estas variantes, el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo} (\textbf{VRP-TW}) surgió como una extensión crítica que incorpora restricciones temporales para reflejar mejor las condiciones reales de operación, tales como horarios de entrega y recogida. Este problema fue estudiado ampliamente a partir del trabajo de Solomon en 1987, quien introdujo instancias benchmark y algoritmos heurísticos clásicos \citep{solomon1987algorithms}.
 
-Durante la década de 1990, se desarrollaron enfoques exactos basados en programación entera y técnicas como \textit{branch-and-bound}, \textit{branch-and-cut} y \textit{column generation}, los cuales fueron aplicados con éxito a instancias pequeñas \citep{desrochers1992, cordeau2002}. Sin embargo, la elevada complejidad del VRPTW motivó el uso creciente de heurísticas y metaheurísticas como algoritmos genéticos, colonias de hormigas, recocido simulado y búsqueda tabú, que han demostrado ser eficaces para obtener soluciones cercanas al óptimo en tiempos razonables \citep{eksioglu2009}.
+Durante la década de 1990, se desarrollaron enfoques exactos basados en programación entera y técnicas como \textit{branch-and-bound}, \textit{branch-and-cut} y \textit{column generation}, aplicados con éxito a instancias pequeñas \citep{desrochers1992, cordeau2002}. Sin embargo, la elevada complejidad del \textbf{VRP-TW} motivó el uso creciente de heurísticas y metaheurísticas, tales como:
 
-En las últimas dos décadas, la investigación se ha enfocado en algoritmos híbridos, técnicas de aprendizaje automático aplicadas al VRP, optimización robusta y modelos dinámicos, buscando mejorar la eficiencia y adaptabilidad de las soluciones en contextos logísticos cada vez más complejos y cambiantes \citep{toth2014}.
+\begin{itemize}
+    \item \textbf{Algoritmos Genéticos (AG)}, inspirados en la evolución natural, propuestos por Holland en 1975, que utilizan operadores genéticos para evolucionar una población de soluciones \citep{holland1975adaptation}.
+    \item \textbf{Algoritmo de Colonias de Hormigas (ACO)}, propuesto inicialmente por Dorigo en 1992, basado en el comportamiento colectivo de las hormigas para resolver problemas combinatorios \citep{dorigo1992}.
+    \item \textbf{Recocido Simulado (SA)}, inspirado en el proceso físico de enfriamiento de metales, introducido por Kirkpatrick, Gelatt y Vecchi en 1983, que permite escapar de óptimos locales mediante la aceptación controlada de soluciones peores \citep{kirkpatrick1983}.
+    \item \textbf{Búsqueda Tabú (BT)}, una técnica heurística que explora iterativamente soluciones vecinas para mejorar la calidad de la solución, evitando ciclos mediante la prohibición temporal de movimientos \citep{aarts1988local}.
+\end{itemize}
 
-El presente trabajo se inscribe en esta línea de investigación, proponiendo un modelo basado en metaheurísticas para abordar el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW), considerando específicamente restricciones operativas como la capacidad limitada de los vehículos y los intervalos estrictos de servicio establecidos para cada cliente. Con el objetivo de mejorar la calidad y eficiencia de las rutas generadas, se implementaron tres enfoques metaheurísticos: el Algoritmo Evolutivo Diferencial (AED), el Algoritmo de Colonias de Hormigas (ACO) y el Recocido Simulado (SA), este último complementado con heurísticas diseñadas para guiar la generación de soluciones factibles y de buena calidad.
+Estas metaheurísticas han demostrado ser eficaces para obtener soluciones cercanas al óptimo en tiempos razonables \citep{eksioglu2009}.
+
+En las últimas dos décadas, la investigación se ha enfocado en algoritmos híbridos, técnicas de aprendizaje automático aplicadas al \textbf{VRP}, optimización robusta y modelos dinámicos, buscando mejorar la eficiencia y adaptabilidad de las soluciones en contextos logísticos cada vez más complejos y cambiantes \citep{toth2014}.
+
+El presente trabajo se inscribe en esta línea de investigación, proponiendo un modelo basado en un algoritmo híbrido con metaheurísticas para abordar el \textbf{VRP-TW}, considerando específicamente restricciones operativas como la capacidad limitada de los vehículos y los intervalos estrictos de tiempo de servicio asignados a cada cliente. Con el objetivo de mejorar la calidad y eficiencia de las rutas generadas, se implementaron tres enfoques metaheurísticos: el Algoritmo Evolutivo Diferencial (\textbf{AED}), el Algoritmo de Optimización por Colonias de Hormigas (\textbf{ACO}) y el Recocido Simulado (\textbf{SA}).
 
 \section{Conceptos Clave}
 
@@ -390,9 +403,9 @@ mientras que para problemas de maximización, se requiere que
 
 La solución \(i_{opt}\) se denomina \textbf{solución óptima global}, y el valor \(f(i_{opt})\) representa el \textbf{costo óptimo}. El conjunto de todas las soluciones óptimas se denota como \(S_{opt}\). Un problema de optimización combinatoria se define entonces como el conjunto de todas sus instancias \citep{cobos2010}.
 
-Comprender esta distinción es esencial para abordar el problema central de este trabajo \textbf{(VRPTW)}, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es \textbf{finito}, y el desafío consiste en identificar cuál de ellas representa la \textbf{mejor opción} según un criterio específico.
+Comprender esta distinción es esencial para abordar el problema central de este trabajo \textbf{VRP-TW}, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es \textbf{finito}, y el desafío consiste en identificar cuál de ellas representa la \textbf{mejor opción} según un criterio específico.
 
-Esta base teórica permite introducir los problemas clásicos de enrutamiento, como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Enrutamiento de Vehículos (VRP)} y sus variantes, como el \textbf{Problema de Enrutamiento de Vehículos con Ventanas de Tiempo (VRPTW)}, los cuales serán analizados más adelante por su relación directa con la planificación eficiente de rutas en contextos reales.
+Esta base teórica permite introducir los problemas clásicos de enrutamiento, como el \textbf{TSP}, el \textbf{VRP} y sus variantes, como el \textbf{VRP-TW}, los cuales serán analizados más adelante por su relación directa con la planificación eficiente de rutas en contextos reales.
 
 \subsection{Complejidad Computacional y Algorítmica}
 
@@ -400,7 +413,7 @@ El estudio de la \textbf{complejidad} en ciencias computacionales busca comprend
 
 De forma simplificada, la complejidad computacional se refiere al análisis general del problema sin importar el algoritmo, mientras que la algorítmica se enfoca en el tiempo y espacio consumido por un algoritmo concreto \citep{maldonado2013problema}.
 
-Esta distinción es clave al abordar problemas de optimización combinatoria como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante principal en este trabajo: el \textbf{Problema de Enrutamiento de Vehículos con Ventanas de Tiempo (VRPTW)}, que presentan una explosión combinatoria (crecimiento factorial) de soluciones conforme crece el número de clientes.
+Esta distinción es clave al abordar problemas de optimización combinatoria como el \textbf{TSP}, el \textbf{VRP} y su variante principal en este trabajo: el \textbf{VRP-TW}, que presentan una explosión combinatoria (crecimiento factorial) de soluciones conforme crece el número de clientes.
 
 \begin{figure}[H]
 	\centering
@@ -421,7 +434,7 @@ En ciencias de la computación, todos los problemas pueden clasificarse en dos g
 	\label{fig:decidibilidad}
 \end{figure}
 
-En este trabajo, los problemas abordados —el \textbf{TSP}, el \textbf{VRP} y el \textbf{VRPTW}— son considerados \textbf{problemas decidibles}. A continuación, se presenta una clasificación más detallada dentro de esta categoría, basada en la teoría de la complejidad computacional.
+En este trabajo, los problemas abordados —el \textbf{TSP}, el \textbf{VRP} y el \textbf{VRP-TW}— son considerados \textbf{problemas decidibles}. A continuación, se presenta una clasificación más detallada dentro de esta categoría, basada en la teoría de la complejidad computacional.
 
 % [Sigue tu sección de Clases P y NP...]
 
@@ -430,7 +443,7 @@ En este trabajo, los problemas abordados —el \textbf{TSP}, el \textbf{VRP} y e
 Dentro de los problemas decidibles, las clases \textbf{P} y \textbf{NP} juegan un papel fundamental \citep{maldonado2013problema}.
 
 \subsubsection*{Clase P}
-Un problema pertenece a la clase \emph{P} si puede resolverse mediante un algoritmo cuyo tiempo de ejecución está acotado por una función polinomial respecto al tamaño de la entrada. Formalmente, existe un polinomio \(p(n)\) y constantes \(\alpha, n_0 > 0\) tales que:
+Un problema pertenece a la clase \emph{\textbf{P}} si puede resolverse mediante un algoritmo cuyo tiempo de ejecución está acotado por una función polinomial respecto al tamaño de la entrada. Formalmente, existe un polinomio \(p(n)\) y constantes \(\alpha, n_0 > 0\) tales que:
 
 \[
 	D(n) \leq \alpha \cdot p(n) \quad \forall n \geq n_0,
@@ -442,19 +455,19 @@ lo que se expresa en notación asintótica como
 	D = O(n^k).
 \]
 
-Aunque se considera que algoritmos con tiempo polinomial son “eficientes”, en la práctica el grado del polinomio importa, ya que un polinomio de grado muy alto puede ser inviable. Un ejemplo clásico de problema en \emph{P} es la multiplicación de números naturales \citep{Flores2014}.
+Aunque se considera que algoritmos con tiempo polinomial son “eficientes”, en la práctica el grado del polinomio importa, ya que un polinomio de grado muy alto puede ser inviable. Un ejemplo clásico de problema en \emph{\textbf{P}} es la multiplicación de números naturales \citep{Flores2014}.
 
 \subsubsection*{Clase NP}
-Un problema pertenece a la clase \emph{NP} si, dado un candidato a solución (certificado), es posible verificar su validez en tiempo polinomial. Es importante notar que esto no implica necesariamente que exista un algoritmo eficiente para encontrar la solución, sino que su validación es eficiente. Un ejemplo típico es el \textbf{Problema del Agente Viajero (TSP)}: si se proporciona una ruta candidata, es fácil comprobar en tiempo polinomial la longitud total de la ruta para verificar si cumple cierta condición \citep{Flores2014}.
+Un problema pertenece a la clase \emph{\textbf{NP}} si, dado un candidato a solución (certificado), es posible verificar su validez en tiempo polinomial. Es importante notar que esto no implica necesariamente que exista un algoritmo eficiente para encontrar la solución, sino que su validación es eficiente. Un ejemplo típico es el \textbf{TSP}: si se proporciona una ruta candidata, es fácil comprobar en tiempo polinomial la longitud total de la ruta para verificar si cumple cierta condición \citep{Flores2014}.
 
 \subsubsection*{La gran incógnita: ¿P = NP?}
 Una de las preguntas abiertas más importantes en ciencias de la computación es si \(\mathbf{P = NP}\) o \(\mathbf{P \neq NP}\), es decir, si todo problema cuya solución puede verificarse rápidamente también puede resolverse rápidamente. Esta cuestión tiene profundas implicaciones teóricas y prácticas \citep{maldonado2013problema}.
 
 \subsubsection{NP-Completo y NP-Difícil}
 
-Dentro de la clase \emph{NP} existe una subclase de problemas llamados \textbf{NP-completos}, que son los problemas más difíciles en \emph{NP}. Si se encontrara un algoritmo eficiente para cualquiera de ellos, entonces todos los problemas en \emph{NP} podrían resolverse eficientemente \citep{maldonado2013problema}.
+Dentro de la clase \emph{\textbf{NP}} existe una subclase de problemas llamados \textbf{NP-completos}, que son los problemas más difíciles en \emph{\textbf{NP}}. Si se encontrara un algoritmo eficiente para cualquiera de ellos, entonces todos los problemas en \emph{NP} podrían resolverse eficientemente \citep{maldonado2013problema}.
 
-Por otro lado, los problemas \textbf{NP-difíciles (NP-hard)} pueden ser incluso más complejos que los NP-completos, ya que no requieren pertenecer a \emph{NP} (es decir, su solución no tiene por qué ser verificable en tiempo polinomial), pero son al menos tan difíciles como los problemas NP-completos. Pueden incluir problemas de decisión, búsqueda u optimización \citep{maldonado2013problema}.
+Por otro lado, los problemas \textbf{NP-difíciles} pueden ser incluso más complejos que los \textbf{NP-completos}, ya que no requieren pertenecer a \emph{\textbf{NP}} (es decir, su solución no tiene por qué ser verificable en tiempo polinomial), pero son al menos tan difíciles como los problemas \textbf{NP-completos}. Pueden incluir problemas de decisión, búsqueda u optimización \citep{maldonado2013problema}.
 
 \begin{figure}[H]
 	\centering
@@ -463,21 +476,21 @@ Por otro lado, los problemas \textbf{NP-difíciles (NP-hard)} pueden ser incluso
 	\label{fig:p_vs_np}
 \end{figure}
 
-El crecimiento exponencial del tiempo requerido para resolver problemas como el \textbf{TSP}, el \textbf{VRP} y el \textbf{VRPTW} los ubica dentro de la clase \emph{NP}. Estos problemas, aunque decidibles, presentan una complejidad tan elevada que no se conoce ningún algoritmo exacto que los resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de \emph{NP}, así como las estrategias metaheurísticas empleadas para aproximar soluciones en tiempos razonables.
+El crecimiento exponencial del tiempo requerido para resolver problemas como el \textbf{TSP}, el \textbf{VRP} y el \textbf{VRP-TW} los ubica dentro de la clase \emph{\textbf{NP}}. Estos problemas, aunque decidibles, presentan una complejidad tan elevada que no se conoce ningún algoritmo exacto que los resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de \emph{\textbf{NP}}, así como las estrategias metaheurísticas empleadas para aproximar soluciones en tiempos razonables.
 
 \subsection{Problemas de Optimización Combinatoria}
 
 De manera complementaria a la definición formal presentada en la Subsubsección 2.2.1.2, Papadimitriou y Steiglitz \citep{papadimitriou1998} definen la \textbf{optimización combinatoria} como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto, o puede discretizarse mediante un proceso de enumeración, y donde se busca una solución que optimice una función objetivo definida sobre dicho conjunto.
 
-Los problemas de optimización combinatoria constituyen una clase amplia de modelos aplicables a diversas áreas, especialmente en la planificación y el enrutamiento de vehículos. Dentro de este campo destacan el \textbf{Problema del Agente Viajero (TSP)}, que representa la forma más básica de optimización de rutas, y sus extensiones, que incorporan restricciones adicionales propias de escenarios reales, como la capacidad limitada de los vehículos o las ventanas de tiempo en las que deben realizarse las entregas.
+Los problemas de optimización combinatoria constituyen una clase amplia de modelos aplicables a diversas áreas, especialmente en la planificación y el enrutamiento de vehículos. Dentro de este campo destacan el \textbf{TSP}, que representa la forma más básica de optimización de rutas, y sus extensiones, que incorporan restricciones adicionales propias de escenarios reales, como la capacidad limitada de los vehículos o las ventanas de tiempo en las que deben realizarse las entregas.
 
-En este contexto, el \textbf{Problema de Ruteo de Vehículos (VRP)} y el \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} se han consolidado como dos de los desafíos más estudiados, debido a su relevancia práctica y su elevada complejidad computacional. A continuación, se describen estos problemas en detalle.
+En este contexto, el \textbf{VRP} y el \textbf{VRP-TW} se han consolidado como dos de los desafíos más estudiados, debido a su relevancia práctica y su elevada complejidad computacional. A continuación, se describen estos problemas en detalle.
 \subsubsection{Problema del Agente Viajero (TSP)}
 \label{subsec:problem_tsp}
 
-El \textbf{Problema del Agente Viajero}, conocido por sus siglas en inglés como \textit{TSP} (\emph{Travelling Salesman Problem}), es uno de los problemas más reconocidos y complejos dentro de las ciencias computacionales. Ha sido estudiado desde diversas ramas de la ingeniería y por múltiples motivos. Su aplicación principal consiste en determinar rutas desde diferentes enfoques, ya sea en procesos que requieren una secuencia específica o en operaciones logísticas relacionadas con el transporte, con el objetivo de encontrar la ruta óptima considerando criterios de minimización de distancia o de costo \citep{lopez2014tabu}.
+El \textbf{Problema del Agente Viajero}, conocido por sus siglas en inglés como \textbf{\textit{TSP} (\emph{Travelling Salesman Problem})}, es uno de los problemas más reconocidos y complejos dentro de las ciencias computacionales. Ha sido estudiado desde diversas ramas de la ingeniería y por múltiples motivos. Su aplicación principal consiste en determinar rutas desde diferentes enfoques, ya sea en procesos que requieren una secuencia específica o en operaciones logísticas relacionadas con el transporte, con el objetivo de encontrar la ruta óptima considerando criterios de minimización de distancia o de costo \citep{lopez2014tabu}.
 
-En la Figura~\ref{fig:tsp} se presenta una representación gráfica de una posible solución al Problema del Agente Viajero (TSP, por sus siglas en inglés). En ella, un vehículo parte de un nodo inicial, recorre una serie de ciudades o puntos de entrega siguiendo una secuencia determinada, y regresa al punto de partida, completando así un circuito cerrado que minimiza la distancia total recorrida.
+En la Figura~\ref{fig:tsp} se presenta una representación gráfica de una posible solución al \textbf{TSP}. En ella, un vehículo parte de un nodo inicial, recorre una serie de ciudades o puntos de entrega siguiendo una secuencia determinada, y regresa al punto de partida, completando así un circuito cerrado que minimiza la distancia total recorrida.
 
 \begin{figure}[H]
 	\centering
@@ -488,7 +501,7 @@ En la Figura~\ref{fig:tsp} se presenta una representación gráfica de una posib
 
 
 
-Según \citep{torres2018}, el \textbf{Problema del Agente Viajero} se define sobre un grafo \(G = [N,A,C]\), donde \(N\) es el conjunto de nodos, \(A\) es el conjunto de arcos y \(C = [c_{ij}]\) es la matriz de costos (distancias) entre nodos \(i\) y \(j\). El objetivo es encontrar un ciclo hamiltoniano de costo mínimo que recorra todos los nodos una sola vez y regrese al punto de partida.
+Según \citep{torres2018}, el \textbf{TSP} se define sobre un grafo \(G = [N,A,C]\), donde \(N\) es el conjunto de nodos, \(A\) es el conjunto de arcos y \(C = [c_{ij}]\) es la matriz de costos (distancias) entre nodos \(i\) y \(j\). El objetivo es encontrar un ciclo hamiltoniano de costo mínimo que recorra todos los nodos una sola vez y regrese al punto de partida.
 
 \subsubsection*{Modelo Matemático del Problema del Agente Viajero (TSP)}
 
@@ -536,16 +549,17 @@ La \textbf{función objetivo}~\eqref{eq:TSP_obj} representa la suma total de los
 
 \subsubsection*{Complejidad del TSP}
 
-Como explica \cite{papadimitriou1998}, el \textbf{Problema del Agente Viajero} es \textit{NP-hard} (NP-difícil), y su versión de decisión es \textit{NP-completa}. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo representa un desafío fundamental en la teoría de la computación, pues encontrar una solución polinomial para el \textbf{TSP} permitiría resolver eficientemente toda la clase \textit{NP}. Esta dificultad justifica la utilización de algoritmos aproximados y metaheurísticos, dado que las técnicas exactas sólo resultan prácticas para instancias
+Como explica \cite{papadimitriou1998}, el \textbf{Problema del Agente Viajero} es \textit{NP-difícil}, y su versión de decisión es \textit{NP-completa}. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo representa un desafío fundamental en la teoría de la computación, pues encontrar una solución polinomial para el \textbf{TSP} permitiría resolver eficientemente toda la clase \textit{NP}. Esta dificultad justifica la utilización de algoritmos heurísticos y metaheurísticos, dado que las técnicas exactas sólo resultan prácticas para instancias
 
-El \textbf{Problema del Agente Viajero (TSP)} ha sido tradicionalmente considerado como el punto de partida para el estudio de problemas más complejos de enrutamiento, como el \textit{Problema de Ruteo de Vehículos (VRP)} y sus variantes. Su análisis proporciona una base conceptual sólida para comprender aspectos fundamentales como la construcción de rutas, la minimización de costos y las restricciones operativas. Estudiar el \textbf{TSP} permite introducir gradualmente nuevas variables y condiciones, lo que lo convierte en un buen comienzo para abordar modelos más realistas en logística.
+El \textbf{TSP} ha sido tradicionalmente considerado como el punto de partida para el estudio de problemas más complejos de enrutamiento, como el \textbf{VRP} y sus variantes, entre ellas el  \textbf{VRP-TW}. Su análisis proporciona una base conceptual sólida para comprender aspectos fundamentales como la construcción de rutas, la minimización de costos y el manejo de restricciones operativas. Estudiar el TSP permite introducir de forma gradual nuevas variables y condiciones, lo que lo convierte en un modelo introductorio ideal para el desarrollo de enfoques logísticos más realistas.
 
 \subsubsection{Problema del Problema Ruteo de Vehículos (VRP)}
 \label{subsec:problem_vrp}
-El problema de ruteo de vehículos, conocido por sus siglas en inglés como \textit{VRP} (Vehicle Routing Problem). Este problema puede interpretarse como la convergencia de dos problemas clásicos de optimización combinatoria: el problema del agente viajero (TSP) mencionado en \autoref{subsec:problem_tsp}, en el que se asume una capacidad infinita de los vehículos, y el problema de empaquetamiento en compartimentos (BPP) \cite{daza2009}.
 
-En la Figura~\ref{fig:vrp} se ilustra una solución típica al Problema de Ruteo de Vehículos (VRP). En este caso, múltiples vehículos parten desde un único depósito para atender a diferentes clientes, cada uno con una demanda específica. La figura muestra cómo las rutas se distribuyen entre los vehículos, buscando minimizar la distancia total recorrida sin exceder la capacidad de carga asignada a cada unidad.
-\begin{figure}[H]
+
+El \textbf{Problema del Ruteo de Vehículos}, conocido por sus siglas en inglés como \textbf{\textit{VRP} (\emph{Vehicle Routing Problem})}, puede interpretarse como la convergencia de dos problemas clásicos de optimización combinatoria: el Problema del Agente Viajero (\textbf{TSP}), en el que se asume una capacidad infinita de los vehículos, y el Problema de Empaquetamiento en Compartimentos (\textbf{BPP}) \cite{daza2009}. En su formulación más básica, el VRP considera un depósito central desde donde parte una flota de vehículos para atender a un conjunto de clientes distribuidos geográficamente. Cada vehículo debe visitar un subconjunto de clientes exactamente una vez, respetando su capacidad de carga y satisfaciendo la demanda de los clientes asignados. El objetivo es minimizar el costo total asociado a las rutas, las cuales inician y finalizan en el depósito \cite{montes2017}.
+
+La Figura~\ref{fig:vrp} muestra una representación esquemática de una solución al Problema de Ruteo de Vehículos (VRP). En este ejemplo, varios vehículos parten desde un depósito central para atender a distintos clientes distribuidos geográficamente. Cada ruta ha sido asignada de manera que se respeten las restricciones de capacidad de carga de los vehículos, y se minimice la distancia total recorrida, cumpliendo así con los objetivos del problema.\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figuras/VRP.pdf}
 	\caption{Ejemplificación de una solución al Problema de Ruteo de Vehículos (VRP).}
@@ -616,14 +630,14 @@ La \textbf{función objetivo}~\eqref{eq:VRP_obj} minimiza el costo total de toda
 \subsubsection*{Complejidad del VRP}
 \label{subsec:complejidad_vrp}
 
-Como señalan Laporte y Nobert \cite{laporte1987}, el \textbf{Problema de Ruteo de Vehículos (VRP)} es \textit{NP-hard}, incluso en su versión más simple con un solo vehículo (es decir, el TSP). Esto significa que no se conoce ningún algoritmo que lo resuelva de forma exacta en tiempo polinomial, y su complejidad crece exponencialmente con el número de clientes. Por ello, la mayoría de las instancias prácticas requieren el uso de técnicas heurísticas o metaheurísticas, ya que los métodos exactos son computacionalmente inviables para problemas de tamaño medio o grande.
+Como señalan Laporte y Nobert \cite{laporte1987}, el \textbf{Problema de Ruteo de Vehículos (VRP)} es \textit{NP-difícil}, incluso en su versión más simple con un solo vehículo (es decir, el TSP). Esto significa que no se conoce ningún algoritmo que lo resuelva de forma exacta en tiempo polinomial, y su complejidad crece exponencialmente con el número de clientes. Por ello, la mayoría de las instancias prácticas requieren el uso de técnicas heurísticas o metaheurísticas, ya que los métodos exactos son computacionalmente inviables para problemas de tamaño medio o grande.
 
 El \textbf{Problema de Ruteo de Vehículos (VRP)} representa la extensión natural del TSP hacia escenarios logísticos más realistas y complejos, incorporando restricciones operativas que reflejan las limitaciones del mundo real. Su estudio es fundamental para comprender cómo las restricciones de capacidad, múltiples vehículos y la gestión de flotas impactan en la optimización de rutas. El \textbf{VRP} sirve como base conceptual para abordar problemas logísticos avanzados como la distribución con ventanas de tiempo, el ruteo con múltiples depósitos y la optimización de última milla en el comercio electrónico. Analizar el \textbf{VRP} permite desarrollar una comprensión profunda de los trade-offs entre minimización de costos, utilización eficiente de recursos y satisfacción de restricciones operativas, estableciendo los fundamentos teóricos necesarios para abordar las complejidades de los sistemas de distribución modernos.
 
 \subsubsection{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}
 \label{subsec:problem_vrptw}
 
-El Problema de Ruteo de Vehículos con Ventanas de Tiempo, conocido por sus siglas en inglés como \textit{VRPTW} (Vehicle Routing Problem with Time Windows), es una extensión del VRP que incorpora restricciones temporales. En este problema, además de atender a los clientes con demandas específicas, cada visita debe realizarse dentro de una ventana de tiempo predefinida para cada cliente \citep{toth2014}.
+El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo}, conocido por sus siglas en inglés como \textbf{\textit{VRPTW}} (\textit{Vehicle Routing Problem with Time Windows}), es una extensión del VRP que incorpora restricciones temporales. En este problema, además de satisfacer las demandas específicas de cada cliente, las visitas deben realizarse dentro de una franja horaria determinada para cada uno de ellos \citep{toth2014}. Específicamente, el servicio a un cliente debe comenzar en un instante mayor o igual al inicio de su ventana de tiempo, y el arribo al punto de servicio no puede exceder el límite superior de dicha ventana. En caso de que un vehículo llegue antes de que inicie la ventana de servicio, debe esperar hasta el momento indicado para poder atender al cliente \citep{montes2017}.
 
 En la Figura~\ref{fig:vrptw} se muestra una solución típica al Problema de Ruteo de Vehículos con Ventanas de Tiempo. En este caso, las rutas de múltiples vehículos parten desde un único depósito, deben cumplir con las capacidades máximas y además respetar las ventanas temporales de atención en cada cliente, optimizando el recorrido total.
 
@@ -718,15 +732,15 @@ La \textbf{función objetivo}~\eqref{eq:VRPTW_obj} minimiza el costo total de to
 
 \subsubsection*{Complejidad del VRPTW}
 
-Sabemos que la complejidad del \textbf{Problema de Ruteo de Vehículos (VRP)} es \textit{NP-hard}, como se señala en la \autoref{subsec:problem_vrp} y en \citep{laporte1987}. El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} es una generalización del VRP clásico, y también pertenece a la clase de problemas \textit{NP-hard}. De hecho, incluso si se ignoran las ventanas de tiempo, el problema sigue siendo difícil de resolver. Al incorporar restricciones temporales, el VRPTW se vuelve aún más complejo, tanto desde el punto de vista computacional como algorítmico. Según Bräysy y Gendreau \citep{braysy2005} y Toth y Vigo \citep{toth2014}, las ventanas de tiempo reducen significativamente el conjunto de soluciones viables, aumentando así la dificultad del problema.
+Sabemos que la complejidad del \textbf{Problema de Ruteo de Vehículos (VRP)} es \textit{NP-difícil}, como se señala en la \autoref{subsec:problem_vrp} y en \citep{laporte1987}. El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} es una generalización del VRP clásico, y también pertenece a la clase de problemas \textit{NP-difícil}. De hecho, incluso si se ignoran las ventanas de tiempo, el problema sigue siendo difícil de resolver. Al incorporar restricciones temporales, el VRPTW se vuelve aún más complejo, tanto desde el punto de vista computacional como algorítmico. Según Bräysy y Gendreau \citep{braysy2005} y Toth y Vigo \citep{toth2014}, las ventanas de tiempo reducen significativamente el conjunto de soluciones viables, aumentando así la dificultad del problema.
 
 
 El \textbf{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)} representa una evolución del VRP orientada a entornos donde las restricciones temporales son determinantes para la calidad del servicio. Esta variante refleja de forma más precisa los desafíos logísticos actuales, donde los clientes no solo deben ser visitados, sino también atendidos dentro de intervalos de tiempo específicos, lo cual impone una coordinación precisa entre la planificación de rutas, la gestión de recursos y el cumplimiento de niveles de servicio.
 
-\section{Métodos de Solución para el VRPTW}
-\subsection{Algoritmos Exactos}
+\subsection{Métodos de Solución para el VRPTW}
+\subsubsection{Algoritmos Exactos}
 
-\subsection{Heurísticas}
+\subsubsection{Heurísticas}
 
 Heurística es un concepto cuyo origen se remonta a la Grecia clásica, derivado de la palabra griega \textit{heuriskein}, que significa encontrar o descubrir. Según la historia, se asocia con \textit{eureka}, la famosa exclamación atribuida a Arquímedes \citep{antonioSuarez2014}.
 
@@ -736,7 +750,7 @@ Para ejemplificar este concepto, se expone la siguiente definición:
 	Según Zanakis et al.\ (citado en \citep{duarte2007metaheuristicas}), las heurísticas son \textit{``procedimientos simples, a menudo basados en el sentido común, que se supone que obtendrán una buena solución (no necesariamente óptima) a problemas difíciles de un modo sencillo y rápido''}.
 \end{quote}
 
-\subsubsection{Motivos para emplear métodos heurísticos}
+\subsubsection*{Motivos para emplear métodos heurísticos}
 
 Los problemas de decisión que pertenecen a la clase NP corresponden a aquellos para los que no se puede garantizar encontrar una mejor solución en un tiempo polinómico razonable.
 
@@ -758,7 +772,7 @@ Según \citep{antonioSuarez2014}, es posible emplear métodos heurísticos cuand
 	      \end{itemize}
 \end{enumerate}
 
-\subsubsection{Características de un buen algoritmo heurístico}
+\subsubsection*{Características de un buen algoritmo heurístico}
 
 Según \citep{antonioSuarez2014}, un buen algoritmo heurístico debe poseer las siguientes propiedades:
 
@@ -768,7 +782,7 @@ Según \citep{antonioSuarez2014}, un buen algoritmo heurístico debe poseer las 
 	\item \textbf{Ser robusto}. La probabilidad de obtener una mala solución (lejos del óptimo) debe ser baja.
 \end{enumerate}
 
-\subsection{Matehurísticas}
+\subsubsection{Matehurísticas}
 
 El término \textit{metaheurística} fue introducido por Fred Glover en 1986 \citep{antonioSuarez2014}. Etimológicamente, deriva de la composición de dos palabras de origen griego, que son “meta” y “heurística”. El segundo término ha sido descrito en la sección anterior, mientras que el prefijo meta puede traducirse como “más allá de” o “en un nivel superior” \citep{duarte2007metaheuristicas}.
 
@@ -782,7 +796,7 @@ Para ilustrar este concepto, cabe mencionar la definición propuesta por J.P. Ke
 
 Las metaheurísticas constituyen un enfoque metodológico que permite el desarrollo de algoritmos híbridos innovadores mediante la integración de principios provenientes de múltiples disciplinas, incluyendo la genética, biología, inteligencia artificial, matemáticas, física y neurología \citep{antonioSuarez2014}.
 
-\subsubsection{Criterios de Evaluación para Métodos Metaheurísticos}
+\subsubsection*{Criterios de Evaluación para Métodos Metaheurísticos}
 
 La valoración del desempeño de las metaheurísticas se fundamenta en propiedades específicas que determinan su utilidad tanto práctica como teórica. Es importante reconocer que la optimización simultánea de todas estas características no es factible debido a la naturaleza contradictoria de algunas de ellas \citep{antonioSuarez2014}:
 
@@ -821,10 +835,11 @@ La valoración del desempeño de las metaheurísticas se fundamenta en propiedad
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
 
-\chapter{Bibliografía}
-\label{cap:bibleografia}
+
 \bibliographystyle{plain}
 \bibliography{referencias}
+
+
 
 \appendix
 \chapter{Apéndices}
