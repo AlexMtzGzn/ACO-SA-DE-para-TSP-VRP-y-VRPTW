@@ -109,6 +109,13 @@ Erasmo López, Óscar Salas, and Álex Murillo.
 \newblock {\em Revista de Matemática: Teoría y Aplicaciones}, 21(1):127--144,
   2014.
 
+\bibitem{luer2009}
+Armin Lüer, Magdalena Benavente, Jaime Bustos, and Bárbara Venegas.
+\newblock El problema de rutas de vehículos: Extensiones y métodos de
+  resolución, estado del arte.
+\newblock In {\em Workshop Internacional EIG2009}, Temuco, Chile, 2009.
+  Universidad de La Frontera, Departamento de Ingeniería de Sistemas.
+
 \bibitem{maldonado2013problema}
 Carlos Maldonado.
 \newblock Un problema fundamental en la investigación: Los problemas p vs. np.
@@ -132,8 +139,6 @@ Numerentur.
 Edwin~Montes Orozco.
 \newblock Metaheurísticas para el problema de ruteo de vehículos con ventanas
   de tiempo (vrp-tw), 2017.
-\newblock Idónea Comunicación de Resultados para obtener el grado de Maestro
-  en Optimización.
 
 \bibitem{papadimitriou1994}
 Christos~H. Papadimitriou.

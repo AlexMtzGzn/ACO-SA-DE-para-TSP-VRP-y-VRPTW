@@ -28,15 +28,16 @@
 \contentsline {subsection}{\numberline {2.2.4}Problemas de Optimización Combinatoria}{12}{subsection.2.2.4}%
 \contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero (TSP)}{12}{subsubsection.2.2.4.1}%
 \contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{14}{subsubsection.2.2.4.2}%
-\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{17}{subsubsection.2.2.4.3}%
-\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRPTW}{21}{subsection.2.2.5}%
-\contentsline {subsubsection}{\numberline {2.2.5.1}Algoritmos Exactos}{21}{subsubsection.2.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW)}{17}{subsubsection.2.2.4.3}%
+\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRPTW}{20}{subsection.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.5.1}Métodos Exactos}{21}{subsubsection.2.2.5.1}%
 \contentsline {subsubsection}{\numberline {2.2.5.2}Heurísticas}{21}{subsubsection.2.2.5.2}%
 \contentsline {subsubsection}{\numberline {2.2.5.3}Matehurísticas}{22}{subsubsection.2.2.5.3}%
-\contentsline {section}{\numberline {2.3}Referencias Relevantes}{23}{section.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.5.4}Algoritmos Híbridos}{24}{subsubsection.2.2.5.4}%
+\contentsline {section}{\numberline {2.3}Referencias Relevantes}{24}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Materiales y Métodos}{25}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Materiales}{25}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Métodos}{25}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Resultados}{27}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Conclusiones}{29}{chapter.5}%
-\contentsline {chapter}{Apéndices}{35}{appendix*.22}%
+\contentsline {chapter}{Apéndices}{35}{appendix*.21}%

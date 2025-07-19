@@ -90,6 +90,7 @@
 \citation{maldonado2013problema}
 \citation{maldonado2013problema}
 \citation{maldonado2013problema}
+\newlabel{subsec: clase_np}{{2.2.3.1}{11}{Clase NP}{section*.10}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3.2}NP-Completo y NP-Difícil}{11}{subsubsection.2.2.3.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Relación entre las clases de complejidad: P, NP, NP-completo y NP-difícil.}}{11}{figure.2.3}\protected@file@percent }
 \newlabel{fig:p_vs_np}{{2.3}{11}{Relación entre las clases de complejidad: P, NP, NP-completo y NP-difícil}{figure.2.3}{}}
@@ -123,10 +124,10 @@
 \newlabel{fig:vrp}{{2.5}{15}{Ejemplificación de una solución al Problema de Ruteo de Vehículos (VRP)}{figure.2.5}{}}
 \newlabel{eq:VRP_obj}{{2.6}{15}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.6}{}}
 \@writefile{eq}{\contentsline {myequations}{\numberline {2.6}Función objetivo VRP: minimizar el costo total del recorrido}{15}{equation.2.2.6}\protected@file@percent }
+\newlabel{eq:VRP_in}{{2.7}{15}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.7}{}}
 \citation{toth2014}
 \citation{toth2014}
 \citation{laporte1987}
-\newlabel{eq:VRP_in}{{2.7}{16}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.7}{}}
 \@writefile{eq}{\contentsline {myequations}{\numberline {2.7}Restricción: entrada única a cada cliente}{16}{equation.2.2.7}\protected@file@percent }
 \newlabel{eq:VRP_out}{{2.8}{16}{Modelo Matemático del Problema de Ruteo de Vehículos (VRP)}{equation.2.2.8}{}}
 \@writefile{eq}{\contentsline {myequations}{\numberline {2.8}Restricción: salida única desde cada cliente}{16}{equation.2.2.8}\protected@file@percent }
@@ -140,49 +141,56 @@
 \@writefile{eq}{\contentsline {myequations}{\numberline {2.12} Variables binarias: decisión de ruta entre nodos}{16}{equation.2.2.12}\protected@file@percent }
 \citation{toth2014}
 \citation{montes2017}
+\citation{solomon1987algorithms}
 \newlabel{subsec:complejidad_vrp}{{2.2.4.2}{17}{Complejidad del VRP}{section*.15}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{17}{subsubsection.2.2.4.3}\protected@file@percent }
-\newlabel{subsec:problem_vrptw}{{2.2.4.3}{17}{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{subsubsection.2.2.4.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW)}{17}{subsubsection.2.2.4.3}\protected@file@percent }
+\newlabel{subsec:problem_vrptw}{{2.2.4.3}{17}{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW)}{subsubsection.2.2.4.3}{}}
 \citation{toth2014}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW).}}{18}{figure.2.6}\protected@file@percent }
-\newlabel{fig:vrptw}{{2.6}{18}{Ejemplificación de una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRPTW)}{figure.2.6}{}}
-\newlabel{eq:VRPTW_obj}{{2.13}{18}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW).}}{18}{figure.2.6}\protected@file@percent }
+\newlabel{fig:vrptw}{{2.6}{18}{Ejemplificación de una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW)}{figure.2.6}{}}
+\newlabel{eq:VRPTW_obj}{{2.13}{18}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.13}{}}
 \@writefile{eq}{\contentsline {myequations}{\numberline {2.13} Función objetivo VRPTW: minimizar el costo total del recorrido}{18}{equation.2.2.13}\protected@file@percent }
-\newlabel{eq:VRPTW_visit_once}{{2.14}{18}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.14}{}}
+\newlabel{eq:VRPTW_visit_once}{{2.14}{18}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.14}{}}
 \@writefile{eq}{\contentsline {myequations}{\numberline {2.14} Restricción: cada cliente es visitado exactamente una vez}{18}{equation.2.2.14}\protected@file@percent }
-\newlabel{eq:VRPTW_start_depot}{{2.15}{18}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.15}{}}
-\@writefile{eq}{\contentsline {myequations}{\numberline {2.15} Restricción: cada vehículo inicia su ruta en el depósito}{19}{equation.2.2.15}\protected@file@percent }
-\newlabel{eq:VRPTW_end_depot}{{2.16}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.16}{}}
-\@writefile{eq}{\contentsline {myequations}{\numberline {2.16} Restricción: cada vehículo termina su ruta en el depósito}{19}{equation.2.2.16}\protected@file@percent }
-\newlabel{eq:VRPTW_flow_balance}{{2.17}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.17}{}}
-\@writefile{eq}{\contentsline {myequations}{\numberline {2.17} Restricción: conservación de flujo para cada vehículo y cliente}{19}{equation.2.2.17}\protected@file@percent }
-\newlabel{eq:VRPTW_time_window}{{2.18}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.18}{}}
-\@writefile{eq}{\contentsline {myequations}{\numberline {2.18} Restricción: respeto a la ventana de tiempo y orden de servicio}{19}{equation.2.2.18}\protected@file@percent }
-\newlabel{eq:VRPTW_time_bounds}{{2.19}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.19}{}}
-\@writefile{eq}{\contentsline {myequations}{\numberline {2.19} Restricción: inicio del servicio dentro de la ventana de tiempo}{19}{equation.2.2.19}\protected@file@percent }
-\newlabel{eq:VRPTW_capacity}{{2.20}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.20}{}}
-\@writefile{eq}{\contentsline {myequations}{\numberline {2.20} Restricción: capacidad máxima del vehículo}{19}{equation.2.2.20}\protected@file@percent }
-\newlabel{eq:VRPTW_bin}{{2.21}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-tw)}{equation.2.2.21}{}}
-\@writefile{eq}{\contentsline {myequations}{\numberline {2.21} Variables binarias y tiempos no negativos}{19}{equation.2.2.21}\protected@file@percent }
+\newlabel{eq:VRPTW_start_depot}{{2.15}{18}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.15}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.15} Restricción: cada vehículo inicia su ruta en el depósito}{18}{equation.2.2.15}\protected@file@percent }
+\newlabel{eq:VRPTW_end_depot}{{2.16}{18}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.16}{}}
 \citation{toth2014}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.16} Restricción: cada vehículo termina su ruta en el depósito}{19}{equation.2.2.16}\protected@file@percent }
+\newlabel{eq:VRPTW_flow_balance}{{2.17}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.17}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.17} Restricción: conservación de flujo para cada vehículo y cliente}{19}{equation.2.2.17}\protected@file@percent }
+\newlabel{eq:VRPTW_time_window}{{2.18}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.18}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.18} Restricción: respeto a la ventana de tiempo y orden de servicio}{19}{equation.2.2.18}\protected@file@percent }
+\newlabel{eq:VRPTW_time_bounds}{{2.19}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.19}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.19} Restricción: inicio del servicio dentro de la ventana de tiempo}{19}{equation.2.2.19}\protected@file@percent }
+\newlabel{eq:VRPTW_capacity}{{2.20}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.20}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.20} Restricción: capacidad máxima del vehículo}{19}{equation.2.2.20}\protected@file@percent }
+\newlabel{eq:VRPTW_bin}{{2.21}{19}{Modelo Matemático del Problema de Ruteo de Vehículos con Ventanas de Tiempo(VRP-TW)}{equation.2.2.21}{}}
+\@writefile{eq}{\contentsline {myequations}{\numberline {2.21} Variables binarias y tiempos no negativos}{19}{equation.2.2.21}\protected@file@percent }
 \citation{laporte1987}
 \citation{braysy2005}
 \citation{toth2014}
+\citation{papadimitriou1998,laporte1987,toth2014}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRPTW}{20}{subsection.2.2.5}\protected@file@percent }
+\citation{luer2009}
+\citation{montes2017}
+\citation{montes2017}
+\citation{montes2017}
 \citation{antonioSuarez2014}
 \citation{duarte2007metaheuristicas}
-\citation{antonioSuarez2014}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRPTW}{21}{subsection.2.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5.1}Algoritmos Exactos}{21}{subsubsection.2.2.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5.1}Métodos Exactos}{21}{subsubsection.2.2.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5.2}Heurísticas}{21}{subsubsection.2.2.5.2}\protected@file@percent }
 \citation{antonioSuarez2014}
 \citation{antonioSuarez2014}
 \citation{duarte2007metaheuristicas}
 \citation{duarte2007metaheuristicas}
 \citation{duarte2007metaheuristicas}
-\citation{antonioSuarez2014}
-\citation{antonioSuarez2014}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5.3}Matehurísticas}{22}{subsubsection.2.2.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Referencias Relevantes}{23}{section.2.3}\protected@file@percent }
+\citation{garey1979computers}
+\citation{toth2014}
+\citation{antonioSuarez2014}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5.4}Algoritmos Híbridos}{24}{subsubsection.2.2.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Referencias Relevantes}{24}{section.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Materiales y Métodos}{25}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -218,18 +226,19 @@
 \bibcite{laporte1992}{{17}{}{{}}{{}}}
 \bibcite{laporte1987}{{18}{}{{}}{{}}}
 \bibcite{lopez2014tabu}{{19}{}{{}}{{}}}
-\bibcite{maldonado2013problema}{{20}{}{{}}{{}}}
-\bibcite{duarte2007metaheuristicas}{{21}{}{{}}{{}}}
-\bibcite{numerentur2019}{{22}{}{{}}{{}}}
-\bibcite{montes2017}{{23}{}{{}}{{}}}
-\bibcite{papadimitriou1994}{{24}{}{{}}{{}}}
-\bibcite{papadimitriou1998}{{25}{}{{}}{{}}}
-\bibcite{solomon1987algorithms}{{26}{}{{}}{{}}}
-\bibcite{torres2018}{{27}{}{{}}{{}}}
-\bibcite{toth2014}{{28}{}{{}}{{}}}
+\bibcite{luer2009}{{20}{}{{}}{{}}}
+\bibcite{maldonado2013problema}{{21}{}{{}}{{}}}
+\bibcite{duarte2007metaheuristicas}{{22}{}{{}}{{}}}
+\bibcite{numerentur2019}{{23}{}{{}}{{}}}
+\bibcite{montes2017}{{24}{}{{}}{{}}}
+\bibcite{papadimitriou1994}{{25}{}{{}}{{}}}
+\bibcite{papadimitriou1998}{{26}{}{{}}{{}}}
+\bibcite{solomon1987algorithms}{{27}{}{{}}{{}}}
+\bibcite{torres2018}{{28}{}{{}}{{}}}
+\bibcite{toth2014}{{29}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\@writefile{toc}{\contentsline {chapter}{Apéndices}{35}{appendix*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Apéndices}{35}{appendix*.21}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ap:apendices}{{5}{35}{Apéndices}{appendix*.22}{}}
+\newlabel{ap:apendices}{{5}{35}{Apéndices}{appendix*.21}{}}
 \gdef \@abspage@last{57}

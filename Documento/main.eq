@@ -12,7 +12,7 @@
 \contentsline {myequations}{\numberline {2.12} Variables binarias: decisión de ruta entre nodos}{16}{equation.2.2.12}%
 \contentsline {myequations}{\numberline {2.13} Función objetivo VRPTW: minimizar el costo total del recorrido}{18}{equation.2.2.13}%
 \contentsline {myequations}{\numberline {2.14} Restricción: cada cliente es visitado exactamente una vez}{18}{equation.2.2.14}%
-\contentsline {myequations}{\numberline {2.15} Restricción: cada vehículo inicia su ruta en el depósito}{19}{equation.2.2.15}%
+\contentsline {myequations}{\numberline {2.15} Restricción: cada vehículo inicia su ruta en el depósito}{18}{equation.2.2.15}%
 \contentsline {myequations}{\numberline {2.16} Restricción: cada vehículo termina su ruta en el depósito}{19}{equation.2.2.16}%
 \contentsline {myequations}{\numberline {2.17} Restricción: conservación de flujo para cada vehículo y cliente}{19}{equation.2.2.17}%
 \contentsline {myequations}{\numberline {2.18} Restricción: respeto a la ventana de tiempo y orden de servicio}{19}{equation.2.2.18}%
