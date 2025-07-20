@@ -780,19 +780,8 @@ En este contexto, los métodos heurísticos se convierten en herramientas valios
 
 Así, las heurísticas permiten encontrar soluciones satisfactorias de forma eficiente, priorizando tanto la calidad del resultado como la rapidez con que se obtiene. Aunque no garantizan optimalidad, su uso es especialmente útil en escenarios donde las soluciones exactas son computacionalmente inviables.
 
-\subsubsection*{Características de un buen algoritmo heurístico}
-
-Según \citep{antonioSuarez2014}, un buen algoritmo heurístico debe poseer las siguientes propiedades:
-
-\begin{enumerate}[label=\alph*.]
-	\item \textbf{Ser eficiente}. Que el esfuerzo computacional sea realista y adecuado para obtener la solución.
-	\item \textbf{Ser bueno}. La solución debe estar, en promedio, cerca del óptimo.
-	\item \textbf{Ser robusto}. La probabilidad de obtener una mala solución (lejos del óptimo) debe ser baja.
-\end{enumerate}
 
 \subsubsection{Matehurísticas}
-
-
 
 El término \textit{metaheurística} fue introducido por Fred Glover en 1986 \citep{antonioSuarez2014}. Etimológicamente, deriva de la composición de dos palabras de origen griego, que son “meta” y “heurística”. El segundo término ha sido descrito en la sección anterior, mientras que el prefijo meta puede traducirse como “más allá de” o “en un nivel superior” \citep{duarte2007metaheuristicas}.
 
@@ -803,27 +792,25 @@ Para ilustrar este concepto, cabe mencionar la definición propuesta por J.P. Ke
 \begin{quote}
 	\textit{Las metaheurísticas son métodos aproximados especialmente diseñados para abordar problemas complejos de optimización combinatoria donde los heurísticos tradicionales resultan ineficaces. Estas técnicas ofrecen un marco flexible para desarrollar algoritmos híbridos que integran conceptos provenientes de la inteligencia artificial, la evolución biológica y procesos estadísticos.}
 \end{quote}
+Para los problemas \textbf{TSP}, \textbf{VRP} y \textbf{VRP-TW} se han implementado diversas metaheurísticas. Según \citep{antonioSuarez2014}, estas son estrategias de búsqueda diseñadas para mejorar procedimientos heurísticos, y se clasifican de acuerdo con la fuente de inspiración que las fundamenta. A continuación, se describen brevemente tres categorías relevantes:
 
-Los problemas de optimización combinatoria como el \textbf{Problema del Agente Viajero} (TSP), el \textbf{Problema de Ruteo de Vehículos} (VRP) y su extensión con ventanas de tiempo (\textbf{VRPTW}) son fundamentales en la investigación operativa debido a su relevancia práctica y su elevada complejidad computacional. Estos problemas pertenecen a la clase de problemas \textit{NP-hard}, lo que implica que no existe un algoritmo que los resuelva de forma exacta en tiempo polinomial a medida que crece el tamaño de la instancia \citep{garey1979computers}. En particular, el VRPTW agrega restricciones adicionales a las ya presentes en el VRP, como las ventanas de tiempo para atender a cada cliente, lo que incrementa aún más su dificultad \citep{toth2014}. 
+\subsubsection*{Metaheurísticas inspiradas en la física}
+Este tipo de metaheurísticas toma como referencia principios y fenómenos de la física para guiar el proceso de búsqueda de soluciones óptimas. Un ejemplo representativo, es el \textbf{Recocido Simulado} (\textit{Simulated Annealing, SA}) \citep{antonioSuarez2014}. 
 
-Para enfrentar este tipo de problemas, se han desarrollado diversos enfoques de solución que pueden agruparse en tres grandes categorías: los \textit{métodos exactos}, que garantizan la obtención de la solución óptima; las \textit{heurísticas}, que proporcionan soluciones aproximadas de forma rápida; y las \textit{metaheurísticas}, que son técnicas de búsqueda más sofisticadas inspiradas en procesos naturales o sociales y que han mostrado gran efectividad en la resolución de instancias complejas. A continuación, se describen cada uno de estos enfoques, junto con ejemplos representativos de su aplicación al VRPTW.
+\subsubsection*{Recocido Simulado} 
+El recocido simulado (\textit{Simulated Annealing, SA}) es una metaheurística inspirada en el proceso físico de recocido de los metales, donde se calienta un sólido a altas temperaturas y luego se enfría de manera controlada, permitiendo que sus partículas se reorganicen y alcancen una estructura de mínima energía.
 
-\subsubsection*{Criterios de Evaluación para Métodos Metaheurísticos}
+De forma análoga, en el contexto de la optimización combinatoria, cada solución posible del problema se considera un “estado” del sistema, y su calidad se mide como si fuera una “energía”. El objetivo es encontrar el estado (solución) con la menor energía (mejor valor de la función objetivo).
 
-La valoración del desempeño de las metaheurísticas se fundamenta en propiedades específicas que determinan su utilidad tanto práctica como teórica. Es importante reconocer que la optimización simultánea de todas estas características no es factible debido a la naturaleza contradictoria de algunas de ellas \citep{antonioSuarez2014}:
+El algoritmo comienza con una solución inicial y, en cada iteración, genera una nueva solución vecina. Si la nueva solución es mejor, se acepta; si es peor, puede ser aceptada con una cierta probabilidad que depende de un parámetro llamado “temperatura”. A medida que el algoritmo avanza, la temperatura disminuye, reduciendo así la probabilidad de aceptar soluciones peores. Este mecanismo permite escapar de óptimos locales y explorar mejor el espacio de soluciones \citep{cobos2010}.
 
-\begin{itemize}
-	\item \textbf{Simplicidad:} La metodología debe fundamentarse en principios claros y accesibles que faciliten su comprensión.
-	\item \textbf{Precisión:} Cada etapa y procedimiento debe estar definido mediante términos específicos y concretos.
-	\item \textbf{Coherencia:} Los componentes metodológicos deben derivarse lógicamente de los principios fundamentales.
-	\item \textbf{Eficiencia:} Debe optimizar el uso de recursos computacionales, tanto en tiempo de procesamiento como en memoria.
-	\item \textbf{Generalidad:} La aplicabilidad debe extenderse a diversos tipos de problemas manteniendo un rendimiento satisfactorio.
-	\item \textbf{Adaptabilidad:} Capacidad de ajustarse a diferentes escenarios de aplicación y modificaciones sustanciales del modelo.
-	\item \textbf{Robustez:} El comportamiento debe mantenerse estable ante variaciones menores en el modelo o contexto.
-	\item \textbf{Interactividad:} Debe facilitar la incorporación del conocimiento del usuario para optimizar el rendimiento.
-	\item \textbf{Multiplicidad:} Capacidad de generar múltiples alternativas de solución de alta calidad para la selección del usuario.
-	\item \textbf{Autonomía:} Funcionamiento independiente con parámetros mínimos o autoconfiguración.
-\end{itemize}
+\subsubsection*{Metaheurísticas inspiradas en la evolución: Algoritmos Genéticos (Genetic Algorithms, GA)}
+Los Algoritmos Genéticos, propuestos por John Holland en los años 60, están inspirados en los procesos de evolución natural y selección biológica. Estas técnicas trabajan con una población de soluciones codificadas genéticamente, que evolucionan mediante operadores como la selección, el cruce (recombinación) y la mutación. La idea principal es que las soluciones más aptas tienen mayor probabilidad de reproducirse y transmitir sus características a las siguientes generaciones, guiando así la búsqueda hacia soluciones cada vez más óptimas.
+
+\subsubsection*{Metaheurísticas inspiradas en la biología: Optimización basada en Colonias de Hormigas (Ant Colony Optimization, ACO)}
+
+La Optimización basada en Colonias de Hormigas es una metaheurística bioinspirada que simula el comportamiento colectivo de las hormigas reales al buscar rutas eficientes hacia fuentes de alimento. Estas se comunican de forma indirecta mediante el depósito de feromonas sobre los caminos recorridos. En su versión computacional, cada agente (hormiga) construye soluciones mediante un proceso probabilístico que se ve influenciado por la cantidad de feromona acumulada y por una heurística local (por ejemplo, la cercanía entre nodos). Las rutas exitosas refuerzan la feromona, favoreciendo su reutilización en iteraciones posteriores.
+
 
 \subsubsection{Algoritmos Híbridos}
 
