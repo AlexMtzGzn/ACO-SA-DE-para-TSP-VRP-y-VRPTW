@@ -3,10 +3,10 @@
 \contentsline {chapter}{Abstract}{\es@scroman {v}}{chapter*.3}%
 \contentsline {chapter}{Dedicatoria}{\es@scroman {vii}}{chapter*.4}%
 \contentsline {chapter}{Agradecimientos}{\es@scroman {ix}}{chapter*.5}%
-\contentsline {chapter}{Índice de Figuras}{\es@scroman {xiii}}{chapter*.5}%
-\contentsline {chapter}{Índice de Tablas}{\es@scroman {xv}}{chapter*.5}%
-\contentsline {chapter}{Índice de Fórmulas}{\es@scroman {xvii}}{chapter*.5}%
-\contentsline {chapter}{Lista de Abreviaciones}{\es@scroman {xix}}{chapter*.6}%
+\contentsline {chapter}{Índice de Figuras}{\es@scroman {v}}{chapter*.5}%
+\contentsline {chapter}{Índice de Tablas}{\es@scroman {vii}}{chapter*.5}%
+\contentsline {chapter}{Índice de Fórmulas}{\es@scroman {ix}}{chapter*.5}%
+\contentsline {chapter}{Lista de Abreviaciones}{\es@scroman {xi}}{chapter*.6}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Planteamiento del Problema}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Justificación}{2}{section.1.2}%
@@ -32,12 +32,18 @@
 \contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRPTW}{20}{subsection.2.2.5}%
 \contentsline {subsubsection}{\numberline {2.2.5.1}Métodos Exactos}{21}{subsubsection.2.2.5.1}%
 \contentsline {subsubsection}{\numberline {2.2.5.2}Heurísticas}{21}{subsubsection.2.2.5.2}%
-\contentsline {subsubsection}{\numberline {2.2.5.3}Matehurísticas}{22}{subsubsection.2.2.5.3}%
-\contentsline {subsubsection}{\numberline {2.2.5.4}Algoritmos Híbridos}{24}{subsubsection.2.2.5.4}%
-\contentsline {section}{\numberline {2.3}Referencias Relevantes}{24}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Materiales y Métodos}{25}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Materiales}{25}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Métodos}{25}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Resultados}{27}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones}{29}{chapter.5}%
-\contentsline {chapter}{Apéndices}{35}{appendix*.23}%
+\contentsline {subsubsection}{\numberline {2.2.5.3}Metaheurísticas}{23}{subsubsection.2.2.5.3}%
+\contentsline {subsubsection}{\numberline {2.2.5.4}Algoritmos Híbridos}{28}{subsubsection.2.2.5.4}%
+\contentsline {section}{\numberline {2.3}Referencias Relevantes}{29}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Materiales y Métodos}{31}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Materiales}{31}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Datos e instancias del problema}{31}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Software}{32}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Hardware}{33}{subsection.3.1.3}%
+\contentsline {paragraph}{Computadora 1:}{33}{section*.27}%
+\contentsline {paragraph}{Computadora 2:}{34}{section*.28}%
+\contentsline {subsection}{\numberline {3.1.4}Herramientas de apoyo}{34}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}Métodos}{34}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Resultados}{35}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusiones}{37}{chapter.5}%
+\contentsline {chapter}{Apéndices}{43}{appendix*.30}%

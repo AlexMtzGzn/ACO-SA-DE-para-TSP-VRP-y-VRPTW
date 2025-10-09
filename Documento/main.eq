@@ -19,3 +19,5 @@
 \contentsline {myequations}{\numberline {2.19} Restricción: inicio del servicio dentro de la ventana de tiempo}{19}{equation.2.2.19}%
 \contentsline {myequations}{\numberline {2.20} Restricción: capacidad máxima del vehículo}{19}{equation.2.2.20}%
 \contentsline {myequations}{\numberline {2.21} Variables binarias y tiempos no negativos}{19}{equation.2.2.21}%
+\contentsline {myequations}{\numberline {2.22} Distribución de Boltzmann}{25}{equation.2.2.22}%
+\contentsline {myequations}{\numberline {2.23} Regla de transición en ACO}{28}{equation.2.2.23}%
