@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex main"] 1759979232 "main.aux" "main.bbl" "main" 1759980021
+["bibtex main"] 1760226872 "main.aux" "main.bbl" "main" 1760227916
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "main.aux" 1759980021 22737 091880770e1f8c4e9d488d2241b464cb "pdflatex"
+  "main.aux" 1760227916 25136 f8d7a3e71544487f831e8c090c37cbf4 "pdflatex"
   "referencias.bib" 1759977349 17604 6b9c5e3f67b1d78434018e53bfd7c853 ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1759980020 "/home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex" "main.pdf" "main" 1759980021
+["pdflatex"] 1760227915 "/home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex" "main.pdf" "main" 1760227916
   "/etc/texmf/web2c/texmf.cnf" 1748552964 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/amg/.texlive2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1748569784 1405656 1b1523ec9d2243f713995ed8ccc59fec ""
-  "/home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex" 1759980019 88327 9ecc10ecc1703b44b402ba769958055a ""
+  "/home/amg/Documentos/ACO-SA-DE-para-TSP-VRP-y-VRPTW/Documento/main.tex" 1760227914 101171 d4d4246ead730879c4daf97156f7bd40 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -188,14 +188,14 @@
   "Figuras/VRPTW.pdf" 1752808675 6273891 344e31677bfe8732477d9d79b06c38fa ""
   "Figuras/grafico-complejidad-computacionala3.png" 1752808675 28301 23c9731e9433cfd7e9d854ebc7d64ecc ""
   "Imagenes/uamlogo.png" 1752808675 103636 d0360ba3eff246fafe1638a7dce8227b ""
-  "main.aux" 1759980021 22737 091880770e1f8c4e9d488d2241b464cb "pdflatex"
-  "main.bbl" 1759979232 11949 8c5e0ef05308a65482ef31077ee5e7cf "bibtex main"
-  "main.eq" 1759980021 2799 86824493d952747c6ce038788e170e18 "pdflatex"
-  "main.lof" 1759980021 1120 bea6f3ede414349595e71317848350a0 "pdflatex"
-  "main.lot" 1759980021 150 3a6ad1353bb13c43205b8c09ae5230e4 "pdflatex"
-  "main.out" 1759980021 7597 8045ef1d70af31d5defc4c21058d616c "pdflatex"
-  "main.tex" 1759980019 88327 9ecc10ecc1703b44b402ba769958055a ""
-  "main.toc" 1759980021 4153 6ae3987d33104e44293259722314d103 "pdflatex"
+  "main.aux" 1760227916 25136 f8d7a3e71544487f831e8c090c37cbf4 "pdflatex"
+  "main.bbl" 1760226872 11949 8c5e0ef05308a65482ef31077ee5e7cf "bibtex main"
+  "main.eq" 1760227916 2799 86824493d952747c6ce038788e170e18 "pdflatex"
+  "main.lof" 1760227916 1120 bea6f3ede414349595e71317848350a0 "pdflatex"
+  "main.lot" 1760227916 953 8bd21342d07847b66f8c98f77a3e2623 "pdflatex"
+  "main.out" 1760227916 10010 56164b9af65967688d3d9d1496f2bce7 "pdflatex"
+  "main.tex" 1760227914 101171 d4d4246ead730879c4daf97156f7bd40 ""
+  "main.toc" 1760227916 5134 47d4d9c6d5aee6a62107405653e46e8c "pdflatex"
   (generated)
   "main.aux"
   "main.eq"

@@ -194,8 +194,8 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \vspace{1cm} % espacio entre frases
 
 \begin{flushright}
-\textit{"God used beautiful mathematics in creating the world."} \\
-— Paul Dirac
+\textit{"Tu talento es un regalo de Dios para ti. Lo que haces con él es tu regalo de regreso a Dios."} \\
+— Leo Buscaglia
 \end{flushright}
 
 \vspace*{\fill} % relleno vertical abajo
@@ -229,10 +229,10 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 \vspace{0.5cm}
 \begin{tabularx}{\textwidth}{>{\bfseries}l X}
 	ACO   & \textbf{A}nt \textbf{C}olony \textbf{O}ptimization (\textit{Optimización por Colonias de Hormigas})                                                     \\
-	ADE   & \textbf{A}lgoritmo \textbf{D}iferencial \textbf{E}volutivo (\textit{Differential Evolution Algorithm})                                                  \\
-	AE    & \textbf{A}lgoritmos \textbf{E}volutivos (\textit{Evolutionary Algorithms})                                                                              \\
-	AG    & \textbf{A}lgoritmo \textbf{G}enético (\textit{Genetic Algorithm})                                                                                       \\
-	BT    & \textbf{B}úsqueda \textbf{T}abú (\textit{Tabu Search})                                                                                                  \\
+	ADE   & \textbf{D}ifferential \textbf{E}volutionary \textbf{A}lgorithm (\textit{Algoritmo Evolutivo Diferencial})                                              \\
+	AE    & \textbf{E}volutionary \textbf{A}lgorithms (\textit{Algoritmos Evolutivos})                                                                              \\
+	AG    & \textbf{G}enetic \textbf{A}lgorithm (\textit{Algoritmo Genético})                                                                                       \\
+	BT    & \textbf{T}abu \textbf{S}earch (\textit{Búsqueda Tabú})                                                                                                  \\
 	NP    & \textbf{N}ondeterministic \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial No Determinista})                                                \\
 	P     & \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial})                                                                                          \\
 	SA    & \textbf{S}imulated \textbf{A}nnealing (\textit{Recocido Simulado})                                                                                      \\
@@ -240,6 +240,7 @@ Aquí van los agradecimientos a las personas e instituciones que contribuyeron a
 	VRP   & \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem (\textit{Problema de Ruteo de Vehículos})                                                            \\
 	VRPTW & \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem with \textbf{T}ime \textbf{W}indows (\textit{Problema de Ruteo de Vehículos con Ventanas de Tiempo}) \\
 \end{tabularx}
+
 
 
 
@@ -763,10 +764,10 @@ Sabemos que la complejidad del \textbf{VRP} es \textit{NP-difícil}, como se se�
 
 El \textbf{VRP-TW} representa una evolución del \textbf{VRP} orientada a entornos donde las restricciones temporales son determinantes para la calidad del servicio. Esta variante refleja de forma más precisa los desafíos logísticos actuales, donde los clientes no solo deben ser visitados, sino también atendidos dentro de intervalos de tiempo específicos, lo cual impone una coordinación precisa entre la planificación de rutas, la gestión de recursos y el cumplimiento de niveles de servicio.
 
-\subsection{Métodos de Solución para el VRPTW}
+\subsection{Métodos de Solución para el VRP-TW}
 Los problemas de enrutamiento como el \textbf{TSP}, el \textbf{VRP} y su extensión con ventanas de tiempo, el \textbf{VRP-TW}, mencionados en secciones anteriores, pertenecen a la clase de problemas \textit{NP-difíciles} \citep{papadimitriou1998, laporte1987, toth2014}. Esta clasificación se debe al crecimiento exponencial del tiempo requerido para resolverlos a medida que aumenta el número de nodos o clientes en la instancia.
 
-Dada su complejidad computacional, estos problemas han sido abordados mediante diversas estrategias de solución que tienen como objetivo minimizar el costo total del recorrido, respetando las restricciones impuestas. Entre ellos se incluyen los \textit{métodos exactos}, así como las técnicas \textit{técnicas heurísticas y metaheurísticas}.
+Dada su complejidad computacional, estos problemas han sido abordados mediante diversas estrategias de solución que tienen como objetivo minimizar el costo total del recorrido, respetando las restricciones impuestas. Entre ellos se incluyen los \textit{métodos exactos}, así como las \textit{técnicas heurísticas y metaheurísticas}.
 
 A continuación, se describen estos enfoques, junto con ejemplos representativos aplicados en los problemas mencionados.
 
@@ -843,7 +844,7 @@ Para ilustrar este concepto, cabe mencionar la definición propuesta por J.P. Ke
 	\textit{Las metaheurísticas son métodos aproximados especialmente diseñados para abordar problemas complejos de optimización combinatoria donde los heurísticos tradicionales resultan ineficaces. Estas técnicas ofrecen un marco flexible para desarrollar algoritmos híbridos que integran conceptos provenientes de la inteligencia artificial, la evolución biológica y procesos estadísticos.}
 \end{quote}
 
-Para los problemas clásicos como el \textbf{Problema del Agente Viajero (TSP)}, el \textbf{Problema de Ruteo de Vehículos (VRP)} y su variante con ventanas de tiempo \textbf{(VRP-TW)}, se han implementado diversas metaheurísticas debido a su capacidad para ofrecer soluciones de buena calidad en tiempos razonables, especialmente cuando las técnicas exactas se vuelven ineficaces por la complejidad combinatoria del espacio de búsqueda.
+Para los problemas clásicos como el \textbf{TSP}, \textbf{VRP} y \textbf{VRP-TW}, mencionados previamente, se han implementado diversas metaheurísticas debido a su capacidad para ofrecer soluciones de buena calidad en tiempos razonables, especialmente cuando las técnicas exactas se vuelven ineficaces por la complejidad combinatoria del espacio de búsqueda.
 
 Según \citep{antonioSuarez2014}, las metaheurísticas se clasifican de acuerdo con la fuente de inspiración que las fundamenta. A continuación, se describen brevemente tres categorías relevantes:
 
@@ -851,13 +852,13 @@ Según \citep{antonioSuarez2014}, las metaheurísticas se clasifican de acuerdo 
 Este tipo de metaheurísticas toma como referencia principios y fenómenos de la física para guiar el proceso de búsqueda de soluciones óptimas. Un ejemplo representativo, es el \textbf{Recocido Simulado} \citep{antonioSuarez2014}.
 
 \subsubsection*{Recocido Simulado}
-El recocido simulado (\textit{Simulated Annealing, SA}) es una metaheurística inspirada en el proceso físico de recocido de los metales, donde se calienta un sólido a altas temperaturas y luego se enfría de manera controlada, permitiendo que sus partículas se reorganicen y alcancen una estructura de mínima energía \citep{cobos2010}.
+El recocido simulado (\textbf{\textit{Simulated Annealing, SA}}) es una metaheurística inspirada en el proceso físico de recocido de los metales, donde se calienta un sólido a altas temperaturas y luego se enfría de manera controlada, permitiendo que sus partículas se reorganicen y alcancen una estructura de mínima energía \citep{cobos2010}.
 
 De forma análoga, en el contexto de la optimización combinatoria, cada solución posible del problema se considera un “estado” del sistema, y su calidad se mide como si fuera una “energía”. El objetivo es encontrar el estado (solución) con la menor energía (mejor valor de la función objetivo) \citep{cobos2010}.
 
-Este enfoque resulta particularmente útil en problemas como el TSP, VRP y VRP-TW, donde el objetivo es minimizar una función de costo (por ejemplo, distancia total recorrida, tiempo, o penalizaciones por restricciones de ventanas de tiempo). Al permitir aceptar soluciones subóptimas con cierta probabilidad, el algoritmo puede evitar quedar atrapado en mínimos locales y explorar regiones más prometedoras del espacio de soluciones.
-
 El algoritmo comienza con una solución inicial y, en cada iteración, genera una nueva solución vecina. Si la nueva solución es mejor, se acepta; si es peor, puede ser aceptada con una cierta probabilidad que depende de un parámetro llamado “temperatura”. A medida que el algoritmo avanza, la temperatura disminuye, reduciendo así la probabilidad de aceptar soluciones peores. Este mecanismo permite escapar de óptimos locales y explorar mejor el espacio de soluciones \citep{cobos2010}.
+
+Este enfoque resulta particularmente útil en problemas de optimización combinatoria, donde el objetivo es minimizar una función de costo (por ejemplo, distancia total recorrida, tiempo o penalizaciones por restricciones de ventanas de tiempo). Al incorporar una aceptación probabilística de soluciones no óptimas, el algoritmo equilibra la exploración y la explotación, favoreciendo una búsqueda más efectiva del óptimo global.
 
 \subsubsection*{Modelo de distribución de Maxwell-Boltzmann aplicado al Recocido Simulado}
 
@@ -880,19 +881,16 @@ donde:
 
 Este modelo permite explicar cómo se distribuyen los estados energéticos en sistemas en equilibrio térmico, y es ampliamente utilizado como base probabilística en algoritmos como el \textbf{SA} para justificar la aceptación de soluciones peores durante las fases iniciales del proceso de enfriamiento \citep{kirkpatrick1983optimization}.
 
-En la siguiente sección se detallará cómo fue utilizada esta metaheurística, qué funciones específicas se implementaron y los beneficios que aporta su uso en la resolución de problemas como el TSP, VRP y VRPTW.
-
+Más adelante se detallará cómo fue empleada esta metaheurística, qué funciones específicas se implementaron y los beneficios que aporta su uso en la resolución del problema \textbf{VRP-TW}.
 \subsubsection*{Metaheurísticas inspiradas en la evolución}
 
-Este tipo de técnicas metaheurísticas se basan en procesos de evolución, ya que hacen evolucionar de forma simultánea los valores de un conjunto de soluciones, de manera que cada iteración nos acerca al óptimo del problema \cite{vargas2016}.
+Este tipo de técnicas metaheurísticas se basan en procesos evolutivos, ya que hacen evolucionar de forma simultánea los valores de un conjunto de soluciones, de manera que cada iteración aproxima el resultado al óptimo del problema \cite{vargas2016}.
 
-Los ejemplos más representativos en este campo son los \textbf{algoritmos evolutivos} y los \textbf{algoritmos genéticos}, los cuales se explican brevemente a continuación.
+Los ejemplos más representativos en este campo son los \textbf{algoritmos evolutivos} y los \textbf{algoritmos genéticos}, los cuales se describen brevemente a continuación.
 
 \subsubsection*{Algoritmos Evolutivos}
 
 Los algoritmos evolutivos (AE) constituyen una familia de técnicas inspiradas en los principios de la evolución biológica propuestos por Charles Darwin, principalmente la selección natural y la supervivencia del más apto. Su objetivo es buscar soluciones óptimas o cercanas al óptimo mediante un proceso iterativo que simula la evolución de una población de individuos \cite{eiben2003introduction}.
-
-Cada individuo representa una posible solución al problema y se evalúa mediante una función de aptitud o \textit{fitness}, que mide qué tan buena es la solución respecto al objetivo. A partir de esta población inicial, se aplican operadores evolutivos que imitan la reproducción y la mutación biológica, generando nuevas soluciones.
 
 El procedimiento general de un algoritmo evolutivo puede describirse de la siguiente manera \cite{back1997handbook}:
 
@@ -905,6 +903,9 @@ El procedimiento general de un algoritmo evolutivo puede describirse de la sigui
 	\item \textbf{Criterio de parada:} El proceso se repite hasta alcanzar un número máximo de iteraciones o una solución satisfactoria.
 \end{enumerate}
 
+Cada individuo representa una posible solución al problema y se evalúa mediante una función de aptitud o \textit{fitness}, que mide qué tan buena es la solución respecto al objetivo. A partir de esta población inicial, se aplican operadores evolutivos que imitan la reproducción y la mutación biológica, generando nuevas soluciones.
+
+
 \subsubsection*{Algoritmos Genéticos}
 
 Los algoritmos genéticos (AG) son una de las técnicas más representativas dentro de los algoritmos evolutivos. Propuestos inicialmente por John Holland en la década de 1970 \cite{holland1975adaptation}, estos algoritmos utilizan una representación basada en \textit{cromosomas}, los cuales codifican posibles soluciones al problema. Los operadores principales que utilizan son \cite{goldberg1989genetic}:
@@ -915,8 +916,9 @@ Los algoritmos genéticos (AG) son una de las técnicas más representativas den
 	\item \textbf{Selección:} elige los individuos más aptos para reproducirse, simulando la presión evolutiva.
 \end{itemize}
 
-En particular, estos algoritmos son especialmente valiosos en problemas como el TSP, VRP y VRPTW, ya que permiten manejar de manera eficiente la gran complejidad del espacio de soluciones, facilitando la obtención de soluciones cercanas al óptimo cuando los métodos exactos resultan computacionalmente inviables. Gracias a su capacidad para evolucionar múltiples soluciones simultáneamente, los algoritmos evolutivos y genéticos contribuyen significativamente a mejorar la eficiencia y calidad de las rutas y estrategias generadas en estos contextos.
+Estos algoritmos destacan por su capacidad para explorar de manera eficiente grandes espacios de búsqueda y adaptarse a distintas configuraciones del problema. Gracias a la combinación de operadores genéticos y mecanismos de selección, los AG permiten generar soluciones robustas y competitivas incluso en escenarios de alta complejidad combinatoria.
 
+En particular, estas metaheurísticas resultan especialmente valiosas en problemas de optimización combinatoria y, en especial, en el \textbf{VRP-TW}, ya que permiten manejar de manera eficiente la gran complejidad del espacio de soluciones, facilitando la obtención de resultados cercanos al óptimo cuando los métodos exactos resultan computacionalmente inviables. Gracias a su capacidad para evolucionar múltiples soluciones de forma simultánea, los algoritmos evolutivos y genéticos contribuyen significativamente a mejorar la eficiencia y la calidad de las rutas y estrategias generadas en estos contextos.
 
 \subsubsection*{Metaheurísticas inspiradas en la biología}
 
@@ -1128,11 +1130,240 @@ Para complementar el desarrollo de esta investigación y facilitar la presentaci
 \begin{itemize}
 	\item \textbf{Redacción y documentación:} Se utilizó \LaTeX{} como principal herramienta para la escritura de la tesis y la documentación del proyecto. Esto permitió generar un documento con formato profesional, manejo automático de referencias bibliográficas, índices, tablas, figuras y ecuaciones, asegurando uniformidad y claridad en la presentación de los resultados.
 
-	\item \textbf{Control de versiones y organización:} Se utilizó Git como sistema de control de versiones para mantener un registro completo de los cambios realizados en el código fuente, asegurando trazabilidad y facilitando la colaboración eficiente durante la recolección y análisis de datos.
+	\item \textbf{Control de versiones y organización:} Se utilizó Git como sistema de control de versiones para mantener un registro completo de los cambios realizados en el código fuente, asegurando trazabilidad y facilitando la colaboración eficiente durante la recolección.
 \end{itemize}
 
 
 \section{Métodos}
+
+\subsection{Descripción general del enfoque}
+
+Para resolver el problema de \textbf{VRP-TW}, se propone un \textbf{algoritmo híbrido} que combina tres técnicas metaheurísticas: \textbf{\textit{Algoritmo Evolutivo Diferencial (ADE)}}, \textbf{\textit{Optimización por Colonia de Hormigas (ACO)}} y \textbf{\textit{Recocido Simulado (SA)}}.  
+Este enfoque aprovecha la capacidad de exploración global del ACO, la explotación local del SA y la calibración automática de parámetros mediante DE, con el objetivo de generar soluciones de alta calidad de manera eficiente.
+
+El flujo jerárquico del método híbrido es el siguiente:
+
+\begin{enumerate}
+    \item \textbf{Algoritmo Evolutivo Diferencial (ADE):} se encarga de calibrar los parámetros de ACO y SA para optimizar la búsqueda de soluciones.  
+    \item \textbf{Optimización por Colonia de Hormigas (ACO):} genera rutas iniciales factibles, cumpliendo las restricciones de capacidad y ventanas de tiempo de los vehículos o clientes.  
+    \item \textbf{Recocido Simulado (SA):} refina las rutas iniciales aplicando heurísticas de mejora local sin violas las restricciones mecionadas con aterioridasd y aceptando soluciones subóptimas bajo un criterio probabilístico, lo que permite escapar de óptimos locales.
+\end{enumerate}
+
+La combinación de estas técnicas se justifica de la siguiente manera:
+
+\begin{itemize}
+    \item \textbf{ADE} permite ajustar los parámetros de forma sistemática y adaptable, mejorando la eficiencia del algoritmo.  
+    \item \textbf{ACO} explora el espacio de soluciones globalmente y genera rutas iniciales factibles.  
+    \item \textbf{SA} realiza explotación local para mejorar la calidad de las soluciones y evitar quedar atrapado en mínimos locales.
+\end{itemize}
+
+El objetivo principal del enfoque propuesto es generar soluciones de alta calidad para instancias de \textbf{VRP-TW}, cumpliendo con las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes, y optimizando la eficiencia y robustez del método a través de la calibración automática de parámetros y el refinamiento de rutas.
+
+
+Meter un diagrama de flujo general
+\subsection{Etapa 1: Calibración de parámetros mediante Algoritmo Evolutivo Diferencial (ADE)}
+
+Como primera etapa del enfoque híbrido, se emplea el \textbf{Algoritmo Evolutivo Diferencial (ADE)} con el objetivo de calibrar los parámetros de las metaheurísticas \textbf{ACO} y \textbf{SA} de manera automatica. Esta calibración permite maximizar la calidad de las solu-
+ciones obtenidas por ACO y SA para el VRP-TW.
+
+Como se hizo mencion en la seccion anterior, cada instancia fue segametada en 3 partes la cual se especifica en la siguiente tabla:
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|c|}
+		\hline
+		\textbf{Tamaño del problema} & \textbf{Número de clientes} \\
+		\hline
+		Pequeña                      & 25                          \\
+		\hline
+		Mediana                      & 50                          \\
+		\hline
+		Grande                       & 100                         \\
+		\hline
+	\end{tabular}
+	\caption{Clasificación de instancias según número de clientes}
+\end{table}
+
+
+
+El proceso de calibración optimiza simultáneamente los siguientes parámetros:
+
+\begin{itemize}
+    \item \textbf{Para ACO:}
+    \begin{itemize}
+        \item $\alpha$: influencia de la información de feromonas
+        \item $\beta$: influencia de la información heurística (distancia)
+        \item $\gamma$: peso de las restricciones de ventanas de tiempo
+        \item $\rho$: tasa de evaporación de feromonas
+        \item Número de hormigas
+        \item Porcentaje de hormigas
+        \item Número de iteraciones
+    \end{itemize}
+    
+    \item \textbf{Para SA:}
+    \begin{itemize}
+        \item Temperatura inicial ($T_0$)
+        \item Temperatura final ($T_f$)
+        \item Factor de enfriamiento ($\alpha_{cool}$)
+        \item Número de iteraciones
+    \end{itemize}
+\end{itemize}
+
+Para ambas heurísticas, es necesario definir rangos mínimos y máximos de los parámetros, y ajustar estos rangos según el tamaño específico de la instancia (pequeña, mediana o grande). Esto asegura que el algoritmo pueda adaptarse dinámicamente a la complejidad del problema.
+
+
+
+\subsubsection{Parámetros ACO para Instancias Pequeñas}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|c|c|}
+		\hline
+		\textbf{Parámetro ACO} & \textbf{Mínimo} & \textbf{Máximo} \\
+		\hline
+		$\alpha$               & 2.0             & 3.5             \\
+		\hline
+		$\beta$                & 2.5             & 4.0             \\
+		\hline
+		$\gamma$               & 2.5             & 1.0             \\
+		\hline
+		$\rho$                 & 0.3             & 0.5             \\
+		\hline
+		Número de hormigas     & 3               & 6               \\
+		\hline
+		Porcentaje hormigas    & 0.30            & 0.60            \\
+		\hline
+		Iteraciones ACO        & 60              & 80              \\
+		\hline
+	\end{tabular}
+	\caption{Parámetros ACO para instancias pequeñas}
+\end{table}
+
+Para instancias pequeñas de 25 clientes, se establecen valores moderados de $\alpha$ (2.0--3.5) y $\beta$ (2.5--4.0) que permiten un balance equilibrado entre la explotación de feromonas y la información heurística de distancia. El parámetro $\rho$ (0.3--0.5) favorece una evaporación moderada de feromonas, evitando la convergencia prematura al mantener diversidad en la exploración del espacio de búsqueda. Entre 3--6 hormigas y entre 60--80 iteraciones, se logra una exploración eficiente sin incurrir en costos computacionales innecesarios para problemas de baja complejidad. El parámetro $\gamma$ (2.5--1.0) otorga mayor importancia a la factibilidad temporal en las primeras iteraciones, garantizando el cumplimiento de las ventanas de tiempo desde el inicio de la búsqueda.
+
+\subsubsection{Parámetros ACO para Instancias Medianas}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|c|c|}
+		\hline
+		\textbf{Parámetro ACO} & \textbf{Mínimo} & \textbf{Máximo} \\
+		\hline
+		$\alpha$               & 2.5             & 4.0             \\
+		\hline
+		$\beta$                & 3.5             & 5.0             \\
+		\hline
+		$\gamma$               & 1.5             & 3.0             \\
+		\hline
+		$\rho$                 & 0.25            & 0.45            \\
+		\hline
+		Número de hormigas     & 6               & 12              \\
+		\hline
+		Porcentaje hormigas    & 0.20            & 0.50            \\
+		\hline
+		Iteraciones ACO        & 100             & 150             \\
+		\hline
+	\end{tabular}
+	\caption{Parámetros ACO para instancias medianas}
+\end{table}
+
+En instancias medianas de 50 clientes, se incrementan los valores de $\alpha$ (2.5--4.0) y $\beta$ (3.5--5.0) para fortalecer la influencia tanto de las feromonas acumuladas como de la información heurística, lo cual resulta crucial en espacios de búsqueda más amplios. La tasa de evaporación $\rho$ (0.25--0.45) se reduce ligeramente para permitir que las buenas soluciones persistan más tiempo en la memoria colectiva del algoritmo. Se incrementa el número de hormigas (6--12) y las iteraciones (100--150) para explorar de manera más exhaustiva el espacio de soluciones, manteniendo un balance entre calidad de solución y tiempo de cómputo. El rango de $\gamma$ (1.5--3.0) se ajusta para mantener flexibilidad en la ponderación de restricciones temporales conforme aumenta la complejidad del problema.
+
+\subsubsection{Parámetros ACO para Instancias Grandes}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Parámetro ACO} & \textbf{Mínimo} & \textbf{Máximo} \\
+\hline
+$\alpha$ & 3.0 & 5.0 \\
+\hline
+$\beta$ & 4.0 & 6.0 \\
+\hline
+$\gamma$ & 2.0 & 4.0 \\
+\hline
+$\rho$ & 0.10 & 0.30 \\
+\hline
+Número de hormigas & 10 & 20 \\
+\hline
+Porcentaje hormigas & 0.15 & 0.35 \\
+\hline
+Iteraciones ACO & 120 & 180 \\
+\hline
+\end{tabular}
+\caption{Parámetros ACO para instancias grandes}
+\end{table}
+
+Para instancias grandes de 100 clientes, se emplean valores elevados de $\alpha$ (3.0--5.0) y $\beta$ (4.0--6.0) que intensifican la explotación de buenas soluciones encontradas, permitiendo una convergencia más dirigida en espacios de búsqueda altamente complejos. La tasa de evaporación $\rho$ (0.10--0.30) se reduce considerablemente para preservar el conocimiento acumulado durante más tiempo, evitando la pérdida de información valiosa en problemas con múltiples óptimos locales. Se incrementa significativamente el número de hormigas (10--20) y las iteraciones (120--180) para garantizar una exploración robusta del espacio de soluciones. El parámetro $\gamma$ (2.0--4.0) alcanza sus valores máximos, reforzando la importancia del cumplimiento de las ventanas de tiempo en problemas de mayor escala donde las restricciones temporales se vuelven más críticas.
+
+\subsubsection{Parámetros SA para Instancias Pequeñas}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Parámetro SA} & \textbf{Mínimo} & \textbf{Máximo} \\
+\hline
+Temperatura inicial & 1200.0 & 1800.0 \\
+\hline
+Temperatura final & 0.01 & 0.1 \\
+\hline
+Factor de enfriamiento & 0.95 & 0.98 \\
+\hline
+Iteraciones SA & 80 & 120 \\
+\hline
+\end{tabular}
+\caption{Parámetros SA para instancias pequeñas}
+\end{table}
+
+En instancias pequeñas, la temperatura inicial (1200.0--1800.0) se establece en un rango moderado que permite escapar de óptimos locales sin realizar exploraciones excesivamente aleatorias que no aporten valor en espacios de búsqueda reducidos. La temperatura final (0.01--0.1) relativamente alta permite una convergencia más rápida, aprovechando que el espacio de soluciones es limitado. El factor de enfriamiento (0.95--0.98) genera un descenso moderado de temperatura, permitiendo que el algoritmo transite gradualmente de exploración a explotación. Con 80--120 iteraciones, se logra un refinamiento adecuado de las soluciones iniciales proporcionadas por ACO, sin invertir recursos computacionales innecesarios en problemas de baja complejidad.
+
+\subsubsection{Parámetros SA para Instancias Medianas}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Parámetro SA} & \textbf{Mínimo} & \textbf{Máximo} \\
+\hline
+Temperatura inicial & 1600.0 & 2200.0 \\
+\hline
+Temperatura final & 0.005 & 0.05 \\
+\hline
+Factor de enfriamiento & 0.97 & 0.99 \\
+\hline
+Iteraciones SA & 120 & 200 \\
+\hline
+\end{tabular}
+\caption{Parámetros SA para instancias medianas}
+\end{table}
+
+Para instancias medianas, se incrementa la temperatura inicial (1600.0--2200.0) para permitir una mayor capacidad de escape de óptimos locales en espacios de búsqueda más complejos. La temperatura final (0.005--0.05) disminuye para permitir una convergencia más fina hacia soluciones de alta calidad. El factor de enfriamiento (0.97--0.99) se eleva para generar un descenso más lento y controlado de la temperatura, permitiendo una exploración más exhaustiva en cada nivel térmico. El incremento en las iteraciones (120--200) asegura que el algoritmo tenga suficiente tiempo para refinar las soluciones, equilibrando la calidad final con el tiempo de ejecución en problemas de complejidad intermedia.
+
+\subsubsection{Parámetros SA para Instancias Grandes}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Parámetro SA} & \textbf{Mínimo} & \textbf{Máximo} \\
+\hline
+Temperatura inicial & 2500.0 & 4000.0 \\
+\hline
+Temperatura final & 0.001 & 0.01 \\
+\hline
+Factor de enfriamiento & 0.97 & 0.995 \\
+\hline
+Iteraciones SA & 200 & 300 \\
+\hline
+\end{tabular}
+\caption{Parámetros SA para instancias grandes}
+\end{table}
+
+En instancias grandes, se emplean temperaturas iniciales elevadas (2500.0--4000.0) que proporcionan una alta capacidad de aceptar movimientos deteriorantes al inicio, lo cual es esencial para escapar de múltiples óptimos locales presentes en espacios de búsqueda de alta dimensionalidad. La temperatura final (0.001--0.01) muy baja garantiza una convergencia precisa hacia soluciones de calidad superior. El factor de enfriamiento (0.97--0.995) alcanza sus valores máximos, generando un descenso muy gradual que permite explorar exhaustivamente cada región del espacio de soluciones antes de enfriar. Con 200--300 iteraciones, se asegura un refinamiento intensivo de las soluciones, justificando el mayor costo computacional mediante la obtención de soluciones significativamente mejores en problemas de gran escala donde la calidad es crítica.
+
+
 
 \chapter{Resultados}
 \label{cap:resultados}

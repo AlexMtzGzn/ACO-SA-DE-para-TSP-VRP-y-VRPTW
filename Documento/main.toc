@@ -29,7 +29,7 @@
 \contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero (TSP)}{12}{subsubsection.2.2.4.1}%
 \contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{14}{subsubsection.2.2.4.2}%
 \contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW)}{17}{subsubsection.2.2.4.3}%
-\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRPTW}{20}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRP-TW}{20}{subsection.2.2.5}%
 \contentsline {subsubsection}{\numberline {2.2.5.1}Métodos Exactos}{21}{subsubsection.2.2.5.1}%
 \contentsline {subsubsection}{\numberline {2.2.5.2}Heurísticas}{21}{subsubsection.2.2.5.2}%
 \contentsline {subsubsection}{\numberline {2.2.5.3}Metaheurísticas}{23}{subsubsection.2.2.5.3}%
@@ -44,6 +44,14 @@
 \contentsline {paragraph}{Computadora 2:}{34}{section*.28}%
 \contentsline {subsection}{\numberline {3.1.4}Herramientas de apoyo}{34}{subsection.3.1.4}%
 \contentsline {section}{\numberline {3.2}Métodos}{34}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Resultados}{35}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones}{37}{chapter.5}%
-\contentsline {chapter}{Apéndices}{43}{appendix*.30}%
+\contentsline {subsection}{\numberline {3.2.1}Descripción general del enfoque}{34}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Etapa 1: Calibración de parámetros mediante Algoritmo Evolutivo Diferencial (ADE)}{35}{subsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2.1}Parámetros ACO para Instancias Pequeñas}{36}{subsubsection.3.2.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2.2}Parámetros ACO para Instancias Medianas}{37}{subsubsection.3.2.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2.3}Parámetros ACO para Instancias Grandes}{37}{subsubsection.3.2.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.2.4}Parámetros SA para Instancias Pequeñas}{38}{subsubsection.3.2.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.2.5}Parámetros SA para Instancias Medianas}{38}{subsubsection.3.2.2.5}%
+\contentsline {subsubsection}{\numberline {3.2.2.6}Parámetros SA para Instancias Grandes}{39}{subsubsection.3.2.2.6}%
+\contentsline {chapter}{\numberline {4}Resultados}{41}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusiones}{43}{chapter.5}%
+\contentsline {chapter}{Apéndices}{49}{appendix*.30}%
