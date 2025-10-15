@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  14 OCT 2025 20:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  15 OCT 2025 02:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -130,40 +130,9 @@ Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
 \c@eqdepth=\count269
 \cftbeforeeqtitleskip=\skip89
 \cftaftereqtitleskip=\skip90
- (/usr/share/texmf/tex/latex/lm/lmodern.sty
-Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
-(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
-(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
-(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
-(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
-(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathpazo.sty
+Package: mathpazo 2020/03/25 PSNFSS-v9.3 Palatino w/ Pazo Math (D.Puga, WaS) 
+\symupright=\mathgroup4
 ) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
  (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
@@ -351,8 +320,8 @@ File: pst-node.tex 2022/01/31 1.43 `pst-node' (tvz,hv)
 ) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks40
-\symAMSa=\mathgroup4
-\symAMSb=\mathgroup5
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
@@ -423,17 +392,67 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@postskip=\skip97
 \thm@headsep=\skip98
 \dth@everypar=\toks51
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count321
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\algocf@hangindent=\skip99
+ (/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count322
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+) (/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+\skiptotal=\skip100
+\skiplinenumber=\skip101
+\skiprule=\skip102
+\skiphlne=\skip103
+\skiptext=\skip104
+\skiplength=\skip105
+\algomargin=\skip106
+\skipalgocfslide=\skip107
+\algowidth=\dimen199
+\inoutsize=\dimen256
+\inoutindent=\dimen257
+\interspacetitleruled=\dimen258
+\interspacealgoruled=\dimen259
+\interspacetitleboxruled=\dimen260
+\algocf@ruledwidth=\skip108
+\algocf@inoutbox=\box61
+\algocf@inputbox=\box62
+\AlCapSkip=\skip109
+\AlCapHSkip=\skip110
+\algoskipindent=\skip111
+\algocf@nlbox=\box63
+\algocf@hangingbox=\box64
+\algocf@untilbox=\box65
+\algocf@skipuntil=\skip112
+\algocf@capbox=\box66
+\algocf@lcaptionbox=\skip113
+\algoheightruledefault=\skip114
+\algoheightrule=\skip115
+\algotitleheightruledefault=\skip116
+\algotitleheightrule=\skip117
+\c@algocfline=\count323
+\c@algocfproc=\count324
+\c@algocf=\count325
+\algocf@algoframe=\box67
+\algocf@algobox=\box68
 ) (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2021/01/28 v4.0.1 Extensive control of page headers and footers
-\f@nch@headwidth=\skip99
-\f@nch@O@elh=\skip100
-\f@nch@O@erh=\skip101
-\f@nch@O@olh=\skip102
-\f@nch@O@orh=\skip103
-\f@nch@O@elf=\skip104
-\f@nch@O@erf=\skip105
-\f@nch@O@olf=\skip106
-\f@nch@O@orf=\skip107
+\f@nch@headwidth=\skip118
+\f@nch@O@elh=\skip119
+\f@nch@O@erh=\skip120
+\f@nch@O@olh=\skip121
+\f@nch@O@orh=\skip122
+\f@nch@O@elf=\skip123
+\f@nch@O@erf=\skip124
+\f@nch@O@olf=\skip125
+\f@nch@O@orf=\skip126
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
  (/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
@@ -461,9 +480,9 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 ) (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
-\@linkdim=\dimen199
-\Hy@linkcounter=\count321
-\Hy@pagecounter=\count322
+\@linkdim=\dimen261
+\Hy@linkcounter=\count326
+\Hy@pagecounter=\count327
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -475,7 +494,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count323
+\Hy@SavedSpaceFactor=\count328
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -488,21 +507,21 @@ Package hyperref Info: Plain pages OFF on input line 4207.
 Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count324
+\c@Hy@tempcnt=\count329
  (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen256
+\XeTeXLinkMargin=\dimen262
  (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count325
-\Field@Width=\dimen257
-\Fld@charsize=\dimen258
+\Fld@menulength=\count330
+\Field@Width=\dimen263
+\Fld@charsize=\dimen264
 Package hyperref Info: Hyper figures OFF on input line 6076.
 Package hyperref Info: Link nesting OFF on input line 6081.
 Package hyperref Info: Hyper index ON on input line 6084.
@@ -516,9 +535,9 @@ LaTeX Info: Redefining \pageref on input line 6150.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count326
-\c@Item=\count327
-\c@Hfootnote=\count328
+\Hy@abspage=\count331
+\c@Item=\count332
+\c@Hfootnote=\count333
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
@@ -527,8 +546,8 @@ File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
-\Fld@listcount=\count329
-\c@bookmark@seq@number=\count330
+\Fld@listcount=\count334
+\c@bookmark@seq@number=\count335
  (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
  (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
@@ -536,84 +555,84 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
 )
-\Hy@SectionHShift=\skip108
+\Hy@SectionHShift=\skip127
 ) (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count331
-\Gm@cntv=\count332
-\c@Gm@tempcnt=\count333
-\Gm@bindingoffset=\dimen259
-\Gm@wd@mp=\dimen260
-\Gm@odd@mp=\dimen261
-\Gm@even@mp=\dimen262
-\Gm@layoutwidth=\dimen263
-\Gm@layoutheight=\dimen264
-\Gm@layouthoffset=\dimen265
-\Gm@layoutvoffset=\dimen266
+\Gm@cnth=\count336
+\Gm@cntv=\count337
+\c@Gm@tempcnt=\count338
+\Gm@bindingoffset=\dimen265
+\Gm@wd@mp=\dimen266
+\Gm@odd@mp=\dimen267
+\Gm@even@mp=\dimen268
+\Gm@layoutwidth=\dimen269
+\Gm@layoutheight=\dimen270
+\Gm@layouthoffset=\dimen271
+\Gm@layoutvoffset=\dimen272
 \Gm@dimlist=\toks52
 ) (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip109
-\bibsep=\skip110
+\bibhang=\skip128
+\bibsep=\skip129
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count334
+\c@NAT@ctr=\count339
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 64.
-\c@teo=\count335
-\c@defi=\count336
-\c@coro=\count337
-\c@lema=\count338
-\c@prop=\count339
-\c@ejemplo=\count340
-\c@obs=\count341
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 105.
- (/usr/share/texmf/tex/latex/lm/t1lmr.fd
-File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+Package hyperref Info: Option `colorlinks' set `true' on input line 70.
+\c@teo=\count340
+\c@defi=\count341
+\c@coro=\count342
+\c@lema=\count343
+\c@prop=\count344
+\c@ejemplo=\count345
+\c@obs=\count346
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 111.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ppl.fd
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count342
-\l__pdf_internal_box=\box61
+\l__color_backend_stack_int=\count347
+\l__pdf_internal_box=\box69
 ) (./main.aux
-LaTeX Info: Redefining \. on input line 25.
-LaTeX Info: Redefining \% on input line 25.
+LaTeX Info: Redefining \. on input line 26.
+LaTeX Info: Redefining \% on input line 26.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 105.
-LaTeX Font Info:    ... okay on input line 105.
-LaTeX Info: Redefining \. on input line 105.
-LaTeX Info: Redefining \% on input line 105.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count343
-\scratchdimen=\dimen267
-\scratchbox=\box62
-\nofMPsegments=\count344
-\nofMParguments=\count345
+\scratchcounter=\count348
+\scratchdimen=\dimen273
+\scratchbox=\box70
+\nofMPsegments=\count349
+\nofMParguments=\count350
 \everyMPshowfont=\toks53
-\MPscratchCnt=\count346
-\MPscratchDim=\dimen268
-\MPnumerator=\count347
-\makeMPintoPDFobject=\count348
+\MPscratchCnt=\count351
+\MPscratchDim=\dimen274
+\MPnumerator=\count352
+\makeMPintoPDFobject=\count353
 \everyMPtoPDFconversion=\toks54
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -621,7 +640,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 105.
+Package hyperref Info: Link coloring ON on input line 111.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -629,11 +648,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count349
+\c@section@level=\count354
 )
-LaTeX Info: Redefining \ref on input line 105.
-LaTeX Info: Redefining \pageref on input line 105.
-LaTeX Info: Redefining \nameref on input line 105.
+LaTeX Info: Redefining \ref on input line 111.
+LaTeX Info: Redefining \pageref on input line 111.
+LaTeX Info: Redefining \nameref on input line 111.
  (./main.out) (./main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
@@ -673,46 +692,49 @@ LaTeX Info: Redefining \nameref on input line 105.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 118.
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 124.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ppl.fd
+File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 118.
- (/usr/share/texmf/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 124.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlzplm.fd
+File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 118.
- (/usr/share/texmf/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 124.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omszplm.fd
+File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 118.
- (/usr/share/texmf/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 124.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxzplm.fd
+File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 118.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 118.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 118.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 118.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 124.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1zplm.fd
+File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 118.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Overfull \vbox (312.9803pt too high) detected at line 118
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 124.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 124.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 124.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 12.50409pt on input line 124.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 9.37807pt on input line 124.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 7.29405pt on input line 124.
+
+Overfull \vbox (312.9803pt too high) detected at line 124
  []
 
-<Imagenes/uamlogo.png, id=215, 127.33974pt x 52.0344pt>
+<Imagenes/uamlogo.png, id=203, 127.33974pt x 52.0344pt>
 File: Imagenes/uamlogo.png Graphic file (type png)
 <use Imagenes/uamlogo.png>
-Package pdftex.def Info: Imagenes/uamlogo.png  used on input line 125.
+Package pdftex.def Info: Imagenes/uamlogo.png  used on input line 131.
 (pdftex.def)             Requested size: 85.35826pt x 34.88031pt.
 
-Overfull \vbox (245.33577pt too high) detected at line 137
+Overfull \vbox (249.67319pt too high) detected at line 143
  []
 
 [1
@@ -758,8 +780,13 @@ Non-PDF special ignored!
 ] [8
 
 ]
-Overfull \hbox (8.28139pt too wide) in paragraph at lines 186--187
-[]\T1/lmr/m/n/12 Quiero ex-pre-sar mi pro-fun-do agradec-imien-to a la \T1/lmr/bx/n/12 Uni-ver-si-dad Autóno-ma Metropoli-
+Overfull \hbox (10.46408pt too wide) in paragraph at lines 192--193
+[]\T1/ppl/m/n/12 Quiero ex-pre-sar mi pro-fun-do agradec-imien-to a la \T1/ppl/b/n/12 Uni-ver-si-dad Autóno-ma Metropoli-
+ []
+
+
+Overfull \hbox (7.49065pt too wide) in paragraph at lines 192--193
+\T1/ppl/m/n/12 académi-ca de ex-ce-len-cia y las opor-tu-nidades nece-sarias para de-sar-rol-lar mis conocimien-
  []
 
 [9
@@ -769,55 +796,18 @@ Overfull \hbox (8.28139pt too wide) in paragraph at lines 186--187
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.I}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.213 \cleardoublepage
+l.219 \cleardoublepage
                        [1
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.II}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.213 \cleardoublepage
+l.219 \cleardoublepage
                        [2
 
 ] (./main.toc
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-
-
-LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 2.
-
-
-Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
-(spanish)                faked small caps on input line 2.
-
-
-Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
-(spanish)                faked small caps on input line 3.
-
-
-Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
-(spanish)                faked small caps on input line 4.
-
-
-Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
-(spanish)                faked small caps on input line 5.
-
-
-Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
-(spanish)                faked small caps on input line 6.
-
-
-Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
-(spanish)                faked small caps on input line 7.
-
-
-Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
-(spanish)                faked small caps on input line 8.
-
-
-Package spanish Warning: Replacing `T1/lmr/bx/sc' by 
-(spanish)                faked small caps on input line 9.
-
 pdfTeX warning (ext4): destination with the same identifier (name{page.III}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -826,20 +816,20 @@ l.31 ...iempo (VRP-TW)}{17}{subsubsection.2.2.4.3}
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
-LaTeX Info: Redefining \. on input line 226.
-LaTeX Info: Redefining \% on input line 226.
+LaTeX Info: Redefining \. on input line 232.
+LaTeX Info: Redefining \% on input line 232.
 
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
-(fancyhdr)                Make it at least 15.35403pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.35403pt}.
+(fancyhdr)                Make it at least 15.35402pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35402pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-0.35403pt}.
+(fancyhdr)                \addtolength{\topmargin}{-0.35402pt}.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.IV}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.226 \cleardoublepage
+l.232 \cleardoublepage
                        [4] (./main.lof
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
@@ -850,13 +840,13 @@ LaTeX Info: Redefining \% on input line 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.V}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.229 \cleardoublepage
+l.235 \cleardoublepage
                        [5
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.VI}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.229 \cleardoublepage
+l.235 \cleardoublepage
                        [6
 
 ] (./main.lot
@@ -869,81 +859,81 @@ LaTeX Info: Redefining \% on input line 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.VII}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.232 \cleardoublepage
+l.238 \cleardoublepage
                        [7]pdfTeX warning (ext4): destination with the same identifier (name{page.VIII}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.232 \cleardoublepage
+l.238 \cleardoublepage
                        [8
 
 ] (./main.eq
-Overfull \hbox (3.26825pt too wide) detected at line 10
-\T1/lmr/m/n/12 2.10 
+Overfull \hbox (3.3793pt too wide) detected at line 10
+\T1/ppl/m/n/12 2.10 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 11
-\T1/lmr/m/n/12 2.11 
+Overfull \hbox (3.3793pt too wide) detected at line 11
+\T1/ppl/m/n/12 2.11 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 12
-\T1/lmr/m/n/12 2.12 
+Overfull \hbox (3.3793pt too wide) detected at line 12
+\T1/ppl/m/n/12 2.12 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 13
-\T1/lmr/m/n/12 2.13 
+Overfull \hbox (3.3793pt too wide) detected at line 13
+\T1/ppl/m/n/12 2.13 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 14
-\T1/lmr/m/n/12 2.14 
+Overfull \hbox (3.3793pt too wide) detected at line 14
+\T1/ppl/m/n/12 2.14 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 15
-\T1/lmr/m/n/12 2.15 
+Overfull \hbox (3.3793pt too wide) detected at line 15
+\T1/ppl/m/n/12 2.15 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 16
-\T1/lmr/m/n/12 2.16 
+Overfull \hbox (3.3793pt too wide) detected at line 16
+\T1/ppl/m/n/12 2.16 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 17
-\T1/lmr/m/n/12 2.17 
+Overfull \hbox (3.3793pt too wide) detected at line 17
+\T1/ppl/m/n/12 2.17 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 18
-\T1/lmr/m/n/12 2.18 
+Overfull \hbox (3.3793pt too wide) detected at line 18
+\T1/ppl/m/n/12 2.18 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 19
-\T1/lmr/m/n/12 2.19 
+Overfull \hbox (3.3793pt too wide) detected at line 19
+\T1/ppl/m/n/12 2.19 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 20
-\T1/lmr/m/n/12 2.20 
+Overfull \hbox (3.3793pt too wide) detected at line 20
+\T1/ppl/m/n/12 2.20 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 21
-\T1/lmr/m/n/12 2.21 
+Overfull \hbox (3.3793pt too wide) detected at line 21
+\T1/ppl/m/n/12 2.21 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 22
-\T1/lmr/m/n/12 2.22 
+Overfull \hbox (3.3793pt too wide) detected at line 22
+\T1/ppl/m/n/12 2.22 
  []
 
 
-Overfull \hbox (3.26825pt too wide) detected at line 23
-\T1/lmr/m/n/12 2.23 
+Overfull \hbox (3.3793pt too wide) detected at line 23
+\T1/ppl/m/n/12 2.23 
  []
 
 )
@@ -953,15 +943,15 @@ Overfull \hbox (3.26825pt too wide) detected at line 23
 pdfTeX warning (ext4): destination with the same identifier (name{page.IX}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.235 \cleardoublepage
+l.241 \cleardoublepage
                        [9]pdfTeX warning (ext4): destination with the same identifier (name{page.X}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.235 \cleardoublepage
+l.241 \cleardoublepage
                        [10
 
 ]
-Overfull \hbox (17.62482pt too wide) in paragraph at lines 252--253
+Overfull \hbox (17.62482pt too wide) in paragraph at lines 258--259
 [][] 
  []
 
@@ -974,258 +964,331 @@ Cap\'{\i }tulo 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.290 \section
+l.295 \section
               {JustificaciÃ³n} [1
 
 ]
-LaTeX Info: Redefining \. on input line 313.
-LaTeX Info: Redefining \% on input line 313.
+LaTeX Info: Redefining \. on input line 315.
+LaTeX Info: Redefining \% on input line 315.
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.313 \end{enumerate}
-                      [2]
-Overfull \hbox (9.25276pt too wide) in paragraph at lines 336--337
-[]\T1/lmr/m/n/12 No se con-sid-er-an re-stric-ciones adi-cionales co-mo múlti-ples de-pósi-tos, flotas het-erogéneas
+l.315 
+       [2]
+Overfull \hbox (8.66582pt too wide) in paragraph at lines 342--343
+[]\T1/ppl/m/n/12 Las prue-bas es-tán lim-i-tadas a con-jun-tos de datos ar-ti-fi-ciales y bench-marks académi-
  []
 
-LaTeX Info: Redefining \. on input line 345.
-LaTeX Info: Redefining \% on input line 345.
+LaTeX Info: Redefining \. on input line 349.
+LaTeX Info: Redefining \% on input line 349.
 [3] [4
 
 ]
 Cap\'{\i }tulo 2.
 [5]
-LaTeX Info: Redefining \. on input line 383.
-LaTeX Info: Redefining \% on input line 383.
- [6]
-LaTeX Info: Redefining \. on input line 428.
-LaTeX Info: Redefining \% on input line 428.
+Overfull \hbox (6.59001pt too wide) in paragraph at lines 366--367
+\T1/ppl/m/n/12 Hol-land en 1975, que uti-lizan op-er-adores genéti-cos para evolu-cionar una población
+ []
+
+LaTeX Info: Redefining \. on input line 385.
+LaTeX Info: Redefining \% on input line 385.
+[6]
+LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 386.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ufplmbb.fd
+File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
+)
+LaTeX Info: Redefining \. on input line 425.
+LaTeX Info: Redefining \% on input line 425.
  [7]
-<Figuras/grafico-complejidad-computacionala3.png, id=527, 813.0375pt x 638.385pt>
+LaTeX Info: Redefining \. on input line 454.
+LaTeX Info: Redefining \% on input line 454.
+ [8]
+<Figuras/grafico-complejidad-computacionala3.png, id=507, 813.0375pt x 638.385pt>
 File: Figuras/grafico-complejidad-computacionala3.png Graphic file (type png)
 <use Figuras/grafico-complejidad-computacionala3.png>
-Package pdftex.def Info: Figuras/grafico-complejidad-computacionala3.png  used on input line 454.
+Package pdftex.def Info: Figuras/grafico-complejidad-computacionala3.png  used on input line 458.
 (pdftex.def)             Requested size: 274.6857pt x 215.67455pt.
-LaTeX Info: Redefining \. on input line 458.
-LaTeX Info: Redefining \% on input line 458.
- [8]
+
 
 pdfTeX warning: pdflatex (file ./Figuras/Diagrama.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<Figuras/Diagrama.pdf, id=536, 1003.75pt x 702.625pt>
+<Figuras/Diagrama.pdf, id=511, 1003.75pt x 702.625pt>
 File: Figuras/Diagrama.pdf Graphic file (type pdf)
 <use Figuras/Diagrama.pdf>
-Package pdftex.def Info: Figuras/Diagrama.pdf  used on input line 466.
+Package pdftex.def Info: Figuras/Diagrama.pdf  used on input line 470.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 470.
-LaTeX Info: Redefining \% on input line 470.
+LaTeX Info: Redefining \. on input line 474.
+LaTeX Info: Redefining \% on input line 474.
 [9 <./Figuras/grafico-complejidad-computacionala3.png>]
-LaTeX Info: Redefining \. on input line 497.
-LaTeX Info: Redefining \% on input line 497.
+LaTeX Info: Redefining \. on input line 498.
+LaTeX Info: Redefining \% on input line 498.
  [10 <./Figuras/Diagrama.pdf>]
 
 pdfTeX warning: pdflatex (file ./Figuras/P_vs_NP.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
-<Figuras/P_vs_NP.pdf, id=660, 1003.75pt x 702.625pt>
+<Figuras/P_vs_NP.pdf, id=635, 1003.75pt x 702.625pt>
 File: Figuras/P_vs_NP.pdf Graphic file (type pdf)
 <use Figuras/P_vs_NP.pdf>
-Package pdftex.def Info: Figuras/P_vs_NP.pdf  used on input line 509.
+Package pdftex.def Info: Figuras/P_vs_NP.pdf  used on input line 513.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 515.
-LaTeX Info: Redefining \% on input line 515.
-[11 <./Figuras/P_vs_NP.pdf>]
-<Figuras/TSP.pdf, id=774, 1003.75pt x 702.625pt>
+LaTeX Info: Redefining \. on input line 517.
+LaTeX Info: Redefining \% on input line 517.
+[11]
+Overfull \hbox (2.91869pt too wide) in paragraph at lines 524--525
+[]\T1/ppl/m/n/12 Los prob-le-mas de op-ti-mización com-bi-na-to-ria con-sti-tuyen una clase am-plia de mod-
+ []
+
+LaTeX Info: Redefining \. on input line 531.
+LaTeX Info: Redefining \% on input line 531.
+[12 <./Figuras/P_vs_NP.pdf>]
+<Figuras/TSP.pdf, id=755, 1003.75pt x 702.625pt>
 File: Figuras/TSP.pdf Graphic file (type pdf)
 <use Figuras/TSP.pdf>
-Package pdftex.def Info: Figuras/TSP.pdf  used on input line 532.
+Package pdftex.def Info: Figuras/TSP.pdf  used on input line 536.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 536.
-LaTeX Info: Redefining \% on input line 536.
- [12]
-LaTeX Info: Redefining \. on input line 576.
-LaTeX Info: Redefining \% on input line 576.
+LaTeX Info: Redefining \. on input line 558.
+LaTeX Info: Redefining \% on input line 558.
  [13 <./Figuras/TSP.pdf>]
-LaTeX Info: Redefining \. on input line 595.
-LaTeX Info: Redefining \% on input line 595.
+LaTeX Info: Redefining \. on input line 594.
+LaTeX Info: Redefining \% on input line 594.
  [14]
-<Figuras/VRP.pdf, id=941, 1003.75pt x 702.625pt>
+<Figuras/VRP.pdf, id=916, 1003.75pt x 702.625pt>
 File: Figuras/VRP.pdf Graphic file (type pdf)
 <use Figuras/VRP.pdf>
-Package pdftex.def Info: Figuras/VRP.pdf  used on input line 600.
+Package pdftex.def Info: Figuras/VRP.pdf  used on input line 604.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 626.
-LaTeX Info: Redefining \% on input line 626.
+LaTeX Info: Redefining \. on input line 610.
+LaTeX Info: Redefining \% on input line 610.
  [15 <./Figuras/VRP.pdf>]
-LaTeX Info: Redefining \. on input line 670.
-LaTeX Info: Redefining \% on input line 670.
+LaTeX Info: Redefining \. on input line 663.
+LaTeX Info: Redefining \% on input line 663.
  [16]
-<Figuras/VRPTW.pdf, id=1101, 1003.75pt x 702.625pt>
+LaTeX Info: Redefining \. on input line 681.
+LaTeX Info: Redefining \% on input line 681.
+ [17]
+<Figuras/VRPTW.pdf, id=1083, 1003.75pt x 702.625pt>
 File: Figuras/VRPTW.pdf Graphic file (type pdf)
 <use Figuras/VRPTW.pdf>
-Package pdftex.def Info: Figuras/VRPTW.pdf  used on input line 684.
+Package pdftex.def Info: Figuras/VRPTW.pdf  used on input line 688.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 688.
-LaTeX Info: Redefining \% on input line 688.
- [17]
-LaTeX Info: Redefining \. on input line 723.
-LaTeX Info: Redefining \% on input line 723.
- [18 <./Figuras/VRPTW.pdf>]
-LaTeX Info: Redefining \. on input line 769.
-LaTeX Info: Redefining \% on input line 769.
+
+Overfull \hbox (15.90472pt too wide) in paragraph at lines 696--696
+[][]\T1/ppl/b/n/12 Modelo Matemáti-co del Prob-le-ma de Ru-teo de Ve-hícu-los con Ven-tanas de Tiempo(VRP-
+ []
+
+LaTeX Info: Redefining \. on input line 701.
+LaTeX Info: Redefining \% on input line 701.
+[18 <./Figuras/VRPTW.pdf>]
+LaTeX Info: Redefining \. on input line 759.
+LaTeX Info: Redefining \% on input line 759.
  [19]
-LaTeX Info: Redefining \. on input line 783.
-LaTeX Info: Redefining \% on input line 783.
- [20]
-LaTeX Info: Redefining \. on input line 808.
-LaTeX Info: Redefining \% on input line 808.
+Overfull \hbox (7.82568pt too wide) in paragraph at lines 769--770
+[]$\OML/zplm/m/it/12 M$ \T1/ppl/m/n/12 es un número grande us-a-do para ac-ti-var o de-sac-ti-var re-stric-ciones condi-cionales. 
+ []
+
+LaTeX Info: Redefining \. on input line 779.
+LaTeX Info: Redefining \% on input line 779.
+[20]
+LaTeX Info: Redefining \. on input line 800.
+LaTeX Info: Redefining \% on input line 800.
  [21]
-LaTeX Info: Redefining \. on input line 833.
-LaTeX Info: Redefining \% on input line 833.
+LaTeX Info: Redefining \. on input line 826.
+LaTeX Info: Redefining \% on input line 826.
  [22]
-LaTeX Info: Redefining \. on input line 855.
-LaTeX Info: Redefining \% on input line 855.
+LaTeX Info: Redefining \. on input line 848.
+LaTeX Info: Redefining \% on input line 848.
  [23]
-LaTeX Info: Redefining \. on input line 876.
-LaTeX Info: Redefining \% on input line 876.
- [24]
-LaTeX Info: Redefining \. on input line 906.
-LaTeX Info: Redefining \% on input line 906.
+Overfull \hbox (2.38254pt too wide) in paragraph at lines 867--868
+\T1/ppl/m/n/12 que las fun-da-men-ta. A con-tin-uación, se de-scriben breve-mente tres cat-e-gorías rel-e-vantes: 
+ []
+
+LaTeX Info: Redefining \. on input line 871.
+LaTeX Info: Redefining \% on input line 871.
+[24]
+LaTeX Info: Redefining \. on input line 894.
+LaTeX Info: Redefining \% on input line 894.
  [25]
-LaTeX Info: Redefining \. on input line 932.
-LaTeX Info: Redefining \% on input line 932.
+LaTeX Info: Redefining \. on input line 920.
+LaTeX Info: Redefining \% on input line 920.
  [26]
-LaTeX Info: Redefining \. on input line 950.
-LaTeX Info: Redefining \% on input line 950.
+LaTeX Info: Redefining \. on input line 944.
+LaTeX Info: Redefining \% on input line 944.
  [27]
-LaTeX Info: Redefining \. on input line 983.
-LaTeX Info: Redefining \% on input line 983.
- [28]
-LaTeX Info: Redefining \. on input line 1002.
-LaTeX Info: Redefining \% on input line 1002.
- [29]
-LaTeX Info: Redefining \. on input line 1011.
-LaTeX Info: Redefining \% on input line 1011.
+Overfull \hbox (5.81194pt too wide) in paragraph at lines 949--950
+[]\T1/ppl/m/n/12 La Op-ti-mización basa-da en Colo-nias de Hormi-gas (Ant Colony Op-ti-miza-tion, ACO)
+ []
+
+LaTeX Info: Redefining \. on input line 962.
+LaTeX Info: Redefining \% on input line 962.
+[28]
+Overfull \hbox (5.24693pt too wide) in paragraph at lines 979--980
+[]\T1/ppl/m/n/12 Esta regla de tran-si-ción bal-ancea el conocimien-to apren-di-do (fer-omonas) y la heurís-
+ []
+
+LaTeX Info: Redefining \. on input line 992.
+LaTeX Info: Redefining \% on input line 992.
+[29]
+LaTeX Info: Redefining \. on input line 1012.
+LaTeX Info: Redefining \% on input line 1012.
  [30]
-Cap\'{\i }tulo 3.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1025.
-(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 1045.
- [31
-
-]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1070.
- (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Info: Redefining \. on input line 1088.
-LaTeX Info: Redefining \% on input line 1088.
+LaTeX Info: Redefining \. on input line 1022.
+LaTeX Info: Redefining \% on input line 1022.
+ [31]
+LaTeX Info: Redefining \. on input line 1023.
+LaTeX Info: Redefining \% on input line 1023.
  [32]
-LaTeX Info: Redefining \. on input line 1129.
-LaTeX Info: Redefining \% on input line 1129.
- [33]
-LaTeX Info: Redefining \. on input line 1159.
-LaTeX Info: Redefining \% on input line 1159.
- [34]
-LaTeX Info: Redefining \. on input line 1208.
-LaTeX Info: Redefining \% on input line 1208.
- [35]
+Cap\'{\i }tulo 3.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+Overfull \hbox (13.68237pt too wide) in paragraph at lines 1035--1037
+[]\T1/ppl/b/n/12 Instancias Solomon para VRP-TW: \T1/ppl/m/n/12 Se em-plearon las in-stan-cias clási-cas de Solomon,
+ []
 
-LaTeX Info: Redefining \. on input line 1273.
-LaTeX Info: Redefining \% on input line 1273.
-[36]
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1037.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ppl.fd
+File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
+)
+Overfull \hbox (1.38228pt too wide) in paragraph at lines 1043--1044
+\T1/ppl/m/n/12 máx-i-ma, uti-liza-da para ase-gu-rar que la asig-nación de clientes no ex-ce-da los límites
+ []
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-LaTeX Info: Redefining \. on input line 1323.
-LaTeX Info: Redefining \% on input line 1323.
-[37]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-LaTeX Info: Redefining \. on input line 1367.
-LaTeX Info: Redefining \% on input line 1367.
-[38]
-LaTeX Info: Redefining \. on input line 1370.
-LaTeX Info: Redefining \% on input line 1370.
- [39] [40
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 11.40997pt on input line 1057.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 1057.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 1057.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 11.40997pt on input line 1057.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 1057.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 1057.
+[33
 
 ]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1082.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Info: Redefining \. on input line 1100.
+LaTeX Info: Redefining \% on input line 1100.
+ [34]
+LaTeX Info: Redefining \. on input line 1134.
+LaTeX Info: Redefining \% on input line 1134.
+ [35]
+LaTeX Info: Redefining \. on input line 1165.
+LaTeX Info: Redefining \% on input line 1165.
+ [36]
+Overfull \hbox (5.12271pt too wide) in paragraph at lines 1177--1177
+[]\T1/ppl/b/n/14.4 Calibración de parámet-ros me-di-ante Al-go-rit-mo Evo-lu-ti-vo Difer-
+ []
+
+LaTeX Info: Redefining \. on input line 1206.
+LaTeX Info: Redefining \% on input line 1206.
+[37]
+LaTeX Info: Redefining \. on input line 1257.
+LaTeX Info: Redefining \% on input line 1257.
+ [38]
+LaTeX Info: Redefining \. on input line 1315.
+LaTeX Info: Redefining \% on input line 1315.
+ [39]
+LaTeX Info: Redefining \. on input line 1330.
+LaTeX Info: Redefining \% on input line 1330.
+ [40]
+Overfull \hbox (4.4191pt too wide) in paragraph at lines 1351--1352
+\T1/ppl/m/n/12 vec-tor de parámet-ros, me-di-ante la eje-cu-ción del al-go-rit-mo híbri-do ACO+SA. Su propósi-
+ []
+
+LaTeX Info: Redefining \. on input line 1359.
+LaTeX Info: Redefining \% on input line 1359.
+[41]
+Underfull \hbox (badness 10000) in paragraph at lines 1458--1459
+[]|\T1/ppl/m/n/12 Número de con-fig-u-ra-ciones de
+ []
+
+
+Underfull \hbox (badness 2393) in paragraph at lines 1458--1459
+\T1/ppl/m/n/12 la di-ver-si-dad pero in-cre-men-tan el
+ []
+
+
+Underfull \hbox (badness 2393) in paragraph at lines 1464--1465
+[]|\T1/ppl/m/n/12 Probabilidad de que ca-da com-po-
+ []
+
+
+Underfull \hbox (badness 1430) in paragraph at lines 1464--1465
+\T1/ppl/m/n/12 mu-tante du-rante la re-com-bi-nación.
+ []
+
+LaTeX Info: Redefining \. on input line 1469.
+LaTeX Info: Redefining \% on input line 1469.
+[42]
+LaTeX Info: Redefining \. on input line 1521.
+LaTeX Info: Redefining \% on input line 1521.
+ [43]
+LaTeX Info: Redefining \. on input line 1526.
+LaTeX Info: Redefining \% on input line 1526.
+ [44]
 Cap\'{\i }tulo 4.
-[41] [42
+[45
+
+] [46
 
 ]
 Cap\'{\i }tulo 5.
-[43] [44
+[47] [48
 
-] (./main.bbl
-Underfull \hbox (badness 2142) in paragraph at lines 55--62
-[]\T1/lmr/m/n/12 Carlos A. Coel-lo Coel-lo.  Meta-heurís-ti-cas bio-inspiradas para op-ti-mización:
- []
-
-
-Underfull \hbox (badness 1087) in paragraph at lines 55--62
-\T1/lmr/m/n/12 La úl-ti-ma fron-tera.  [][]$\T1/lmtt/m/n/12 https : / / www . math . cinvestav . mx / sites / default / files /
- []
-
-[45
+] (./main.bbl [49
 
 ]
-LaTeX Info: Redefining \. on input line 161.
-LaTeX Info: Redefining \% on input line 161.
- [46]
+LaTeX Info: Redefining \. on input line 149.
+LaTeX Info: Redefining \% on input line 149.
+ [50]
 Underfull \hbox (badness 10000) in paragraph at lines 233--239
-\T1/lmtt/m/n/12 wp-[]content / uploads / 2019 / 08 / grafico-[]complejidad-[]computacionala3 . png$[][]\T1/lmr/m/n/12 ,
+\T1/cmtt/m/n/12 wp-[]content / uploads / 2019 / 08 / grafico-[]complejidad-[]computacionala3 . png$[][]\T1/ppl/m/n/12 ,
  []
 
-LaTeX Info: Redefining \. on input line 247.
-LaTeX Info: Redefining \% on input line 247.
-[47]
-Underfull \hbox (badness 7486) in paragraph at lines 305--310
-[]\T1/lmr/m/n/12 Jhonny Var-gas Pare-des and Víc-tor Pen-it Grana-do.  Es-tu-dio y apli-
+LaTeX Info: Redefining \. on input line 239.
+LaTeX Info: Redefining \% on input line 239.
+[51]
+Underfull \hbox (badness 7759) in paragraph at lines 305--310
+[]\T1/ppl/m/n/12 Jhonny Var-gas Pare-des and Víc-tor Pen-it Grana-do.  Es-tu-dio y apli-
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 305--310
-\T1/lmr/m/n/12 cación de meta-heurís-ti-cas y com-para-ción con méto-dos ex-haus-tivos,
+\T1/ppl/m/n/12 cación de meta-heurís-ti-cas y com-para-ción con méto-dos ex-haus-tivos,
  []
 
 
-Underfull \hbox (badness 7064) in paragraph at lines 305--310
-\T1/lmr/m/n/12 2016.  Disponible en: [][]$\T1/lmtt/m/n/12 https : / / docta . ucm . es / rest / api / core / bitstreams /
+Underfull \hbox (badness 6110) in paragraph at lines 305--310
+\T1/ppl/m/n/12 2016.  Disponible en: [][]$\T1/cmtt/m/n/12 https : / / docta . ucm . es / rest / api / core / bitstreams /
  []
 
 )
-LaTeX Info: Redefining \. on input line 1389.
-LaTeX Info: Redefining \% on input line 1389.
- [48] [49
+LaTeX Info: Redefining \. on input line 1545.
+LaTeX Info: Redefining \% on input line 1545.
+ [52] [53
 
 ] (./main.aux
-LaTeX Info: Redefining \. on input line 25.
-LaTeX Info: Redefining \% on input line 25.
+LaTeX Info: Redefining \. on input line 26.
+LaTeX Info: Redefining \% on input line 26.
 )
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FE48B25D8C923535AB9DF2EB991E8B63;9728.
+(rerunfilecheck)             Checksum: BDC8FEEB218649FDACA5A428E70B5EFB;8988.
  ) 
 Here is how much of TeX's memory you used:
- 21689 strings out of 480247
- 360281 string characters out of 5896151
- 675463 words of memory out of 5000000
- 39030 multiletter control sequences out of 15000+600000
- 551971 words of font info for 74 fonts, out of 8000000 for 9000
+ 22880 strings out of 480247
+ 378986 string characters out of 5896151
+ 708114 words of memory out of 5000000
+ 40140 multiletter control sequences out of 15000+600000
+ 525186 words of font info for 143 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
- 60i,12n,63p,1126b,815s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (73 pages, 30304043 bytes).
+ 60i,12n,63p,1126b,817s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/amg/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on main.pdf (77 pages, 30118551 bytes).
 PDF statistics:
- 1687 PDF objects out of 1728 (max. 8388607)
- 1067 compressed objects within 11 object streams
- 249 named destinations out of 1000 (max. 500000)
- 460 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1727 PDF objects out of 1728 (max. 8388607)
+ 1079 compressed objects within 11 object streams
+ 290 named destinations out of 1000 (max. 500000)
+ 436 words of extra memory for PDF output out of 10000 (max. 10000000)
 
