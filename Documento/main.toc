@@ -47,11 +47,10 @@
 \contentsline {subsection}{\numberline {3.2.1}Descripción general del enfoque}{34}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Etapa 1: Calibración de parámetros mediante Algoritmo Evolutivo Diferencial (ADE)}{35}{subsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.2.1}Parámetros ACO para Instancias Pequeñas}{36}{subsubsection.3.2.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2.2}Parámetros ACO para Instancias Medianas}{37}{subsubsection.3.2.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.2.3}Parámetros ACO para Instancias Grandes}{37}{subsubsection.3.2.2.3}%
-\contentsline {subsubsection}{\numberline {3.2.2.4}Parámetros SA para Instancias Pequeñas}{38}{subsubsection.3.2.2.4}%
-\contentsline {subsubsection}{\numberline {3.2.2.5}Parámetros SA para Instancias Medianas}{38}{subsubsection.3.2.2.5}%
-\contentsline {subsubsection}{\numberline {3.2.2.6}Parámetros SA para Instancias Grandes}{39}{subsubsection.3.2.2.6}%
+\contentsline {subsubsection}{\numberline {3.2.2.2}Parámetros ACO para Instancias Grandes}{37}{subsubsection.3.2.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2.3}Parámetros SA para Instancias Pequeñas}{38}{subsubsection.3.2.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.2.4}Parámetros SA para Instancias Medianas}{38}{subsubsection.3.2.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.2.5}Parámetros SA para Instancias Grandes}{38}{subsubsection.3.2.2.5}%
 \contentsline {chapter}{\numberline {4}Resultados}{41}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Conclusiones}{43}{chapter.5}%
-\contentsline {chapter}{Apéndices}{49}{appendix*.31}%
+\contentsline {chapter}{Apéndices}{49}{appendix*.32}%

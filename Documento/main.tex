@@ -668,7 +668,7 @@ La \textbf{función objetivo}~\eqref{eq:VRP_obj} minimiza el costo total de toda
 
 Como señalan Laporte y Nobert \cite{laporte1987}, el \textbf{VRP} es \textit{NP-difícil}, incluso en su versión más simple con un solo vehículo (es decir, el \textbf{TSP}). Esto significa que no se conoce ningún algoritmo que lo resuelva de forma exacta en tiempo polinomial, y su complejidad crece exponencialmente con el número de clientes. Por ello, la mayoría de las instancias prácticas requieren el uso de técnicas heurísticas o metaheurísticas, ya que los métodos exactos son computacionalmente inviables para problemas de tamaño medio o grande.
 
-El \textbf{VRP} representa la extensión natural del \textbf{TSP} hacia escenarios logísticos más realistas y complejos, incorporando restricciones operativas que reflejan las limitaciones del mundo real. Su estudio es fundamental para comprender cómo las restricciones de capacidad, múltiples vehículos y la gestión de flotas impactan en la optimización de rutas. El \textbf{VRP} sirve como base conceptual para abordar problemas logísticos avanzados como la distribución con ventanas de tiempo, el ruteo con múltiples depósitos y la optimización de última milla en el comercio electrónico. Analizar el \textbf{VRP} permite desarrollar una comprensión profunda de los trade-offs entre minimización de costos, utilización eficiente de recursos y satisfacción de restricciones operativas, estableciendo los fundamentos teóricos necesarios para abordar las complejidades de los sistemas de distribución modernos.
+El \textbf{VRP} representa la extensión natural del \textbf{TSP} hacia escenarios logísticos más realistas y complejos, incorporando restricciones operativas que reflejan las limitaciones del mundo real. Su estudio es fundamental para comprender cómo las restricciones de capacidad, múltiples vehículos y la gestión de flotas impactan en la optimización de rutas. El \textbf{VRP} sirve como base conceptual para abordar problemas logísticos avanzados como la distribución con ventanas de tiempo, el ruteo con múltiples depósitos y la optimización de última milla en el comercio electrónico. Analizar el \textbf{VRP} permite desarrollar una comprensión profunda de los \textit{compromisos inherentes} entre la minimización de costos, la utilización eficiente de recursos y la satisfacción de restricciones operativas, estableciendo los fundamentos teóricos necesarios para abordar las complejidades de los sistemas de distribución modernos.
 
 \subsubsection{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW)}
 \label{subsec:problem_vrptw}
@@ -1159,14 +1159,6 @@ El flujo jerárquico del método híbrido es el siguiente:
     \item \textbf{Recocido Simulado (SA):} refina las rutas iniciales aplicando heurísticas de mejora local sin violas las restricciones mecionadas con aterioridasd y aceptando soluciones subóptimas bajo un criterio probabilístico, lo que permite escapar de óptimos locales.
 \end{enumerate}
 
-La combinación de estas técnicas se justifica de la siguiente manera:
-
-\begin{itemize}
-    \item \textbf{ADE} permite ajustar los parámetros de forma sistemática y adaptable, mejorando la eficiencia del algoritmo.  
-    \item \textbf{ACO} explora el espacio de soluciones globalmente y genera rutas iniciales factibles.  
-    \item \textbf{SA} realiza explotación local para mejorar la calidad de las soluciones y evitar quedar atrapado en mínimos locales.
-\end{itemize}
-
 El objetivo principal del enfoque propuesto es generar soluciones de alta calidad para instancias de \textbf{VRP-TW}, cumpliendo con las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes, y optimizando la eficiencia y robustez del método a través de la calibración automática de parámetros y el refinamiento de rutas.
 
 
@@ -1251,7 +1243,7 @@ Para ambas heurísticas, es necesario definir rangos mínimos y máximos de los 
 
 Para instancias pequeñas de 25 clientes, se establecen valores moderados de $\alpha$ (2.0--3.5) y $\beta$ (2.5--4.0) que permiten un balance equilibrado entre la explotación de feromonas y la información heurística de distancia. El parámetro $\rho$ (0.3--0.5) favorece una evaporación moderada de feromonas, evitando la convergencia prematura al mantener diversidad en la exploración del espacio de búsqueda. Entre 3--6 hormigas y entre 60--80 iteraciones, se logra una exploración eficiente sin incurrir en costos computacionales innecesarios para problemas de baja complejidad. El parámetro $\gamma$ (2.5--1.0) otorga mayor importancia a la factibilidad temporal en las primeras iteraciones, garantizando el cumplimiento de las ventanas de tiempo desde el inicio de la búsqueda.
 
-\subsubsection{Parámetros ACO para Instancias Medianas}
+\subsubsection*{Parámetros ACO para Instancias Medianas}
 
 \begin{table}[h]
 	\centering
