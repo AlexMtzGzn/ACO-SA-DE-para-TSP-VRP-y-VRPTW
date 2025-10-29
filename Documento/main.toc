@@ -32,21 +32,40 @@
 \contentsline {subsubsection}{\numberline {2.2.5.1}Métodos Exactos}{21}{subsubsection.2.2.5.1}%
 \contentsline {subsubsection}{\numberline {2.2.5.2}Heurísticas}{22}{subsubsection.2.2.5.2}%
 \contentsline {subsubsection}{\numberline {2.2.5.3}Metaheurísticas}{24}{subsubsection.2.2.5.3}%
-\contentsline {subsubsection}{\numberline {2.2.5.4}Algoritmos Híbridos}{29}{subsubsection.2.2.5.4}%
-\contentsline {section}{\numberline {2.3}Referencias Relevantes}{30}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Materiales y Métodos}{33}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Materiales}{33}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Datos e instancias del problema}{33}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Software}{34}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Hardware}{35}{subsection.3.1.3}%
-\contentsline {paragraph}{Computadora 1:}{36}{section*.26}%
-\contentsline {paragraph}{Computadora 2:}{36}{section*.27}%
-\contentsline {subsection}{\numberline {3.1.4}Herramientas de apoyo}{36}{subsection.3.1.4}%
-\contentsline {section}{\numberline {3.2}Métodos}{36}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Descripción general del algortimo híbrido}{36}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Calibración de parámetros mediante Algoritmo Evolutivo Diferencial (DE)}{37}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Construcción de rutas iniciales mediante ACO}{44}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado SA}{44}{subsection.3.2.4}%
-\contentsline {chapter}{\numberline {4}Resultados}{45}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones}{47}{chapter.5}%
-\contentsline {chapter}{Apéndices}{53}{appendix*.39}%
+\contentsline {subsubsection}{\numberline {2.2.5.4}Algoritmos Híbridos}{30}{subsubsection.2.2.5.4}%
+\contentsline {section}{\numberline {2.3}Referencias Relevantes}{31}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Materiales y Métodos}{35}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Materiales}{35}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Datos e instancias del problema}{35}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Software}{36}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Hardware}{37}{subsection.3.1.3}%
+\contentsline {paragraph}{Computadora 1:}{38}{section*.27}%
+\contentsline {paragraph}{Computadora 2:}{38}{section*.28}%
+\contentsline {subsection}{\numberline {3.1.4}Herramientas de apoyo}{38}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}Métodos}{38}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Descripción general del algortimo híbrido}{38}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Calibración de parámetros mediante Evolucion Diferencial}{39}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Construcción de rutas iniciales mediante ACO}{46}{subsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.3.1}Fundamentos del algoritmo ACO}{47}{subsubsection.3.2.3.1}%
+\contentsline {subsubsection}{\numberline {3.2.3.2}Construcción probabilística de rutas}{47}{subsubsection.3.2.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.3.3}Gestión de restricciones temporales}{48}{subsubsection.3.2.3.3}%
+\contentsline {subsubsection}{\numberline {3.2.3.4}Actualización de feromonas}{48}{subsubsection.3.2.3.4}%
+\contentsline {paragraph}{Evaporación de feromonas:}{48}{section*.39}%
+\contentsline {paragraph}{Depósito de feromonas:}{48}{section*.40}%
+\contentsline {subsubsection}{\numberline {3.2.3.5}Criterio de factibilidad y penalización}{49}{subsubsection.3.2.3.5}%
+\contentsline {subsubsection}{\numberline {3.2.3.6}Pseudocódigo del algoritmo ACO}{51}{subsubsection.3.2.3.6}%
+\contentsline {subsubsection}{\numberline {3.2.3.7}Integración con el enfoque híbrido}{52}{subsubsection.3.2.3.7}%
+\contentsline {subsection}{\numberline {3.2.4}Etapa 3: Refinamiento de Rutas mediante Recocido Simulado (SA)}{52}{subsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo SA}{52}{subsubsection.3.2.4.1}%
+\contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad}{53}{subsubsection.3.2.4.2}%
+\contentsline {paragraph}{Operador Swap (Intercambio):}{53}{section*.41}%
+\contentsline {paragraph}{Operador Insert (Reinserción):}{53}{section*.42}%
+\contentsline {paragraph}{Operador 2-opt (Inversión de subruta):}{53}{section*.43}%
+\contentsline {subsubsection}{\numberline {3.2.4.3}Criterio de aceptación de Metropolis}{53}{subsubsection.3.2.4.3}%
+\contentsline {subsubsection}{\numberline {3.2.4.4}Esquema de enfriamiento}{54}{subsubsection.3.2.4.4}%
+\contentsline {subsubsection}{\numberline {3.2.4.5}Manejo de factibilidad}{54}{subsubsection.3.2.4.5}%
+\contentsline {subsubsection}{\numberline {3.2.4.6}Pseudocódigo del algoritmo SA}{56}{subsubsection.3.2.4.6}%
+\contentsline {subsubsection}{\numberline {3.2.4.7}Integración con el enfoque híbrido}{57}{subsubsection.3.2.4.7}%
+\contentsline {subsubsection}{\numberline {3.2.4.8}Complejidad computacional}{57}{subsubsection.3.2.4.8}%
+\contentsline {chapter}{\numberline {4}Resultados}{59}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusiones}{61}{chapter.5}%

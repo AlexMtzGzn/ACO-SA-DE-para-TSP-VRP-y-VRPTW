@@ -78,6 +78,12 @@ George~B Dantzig and John~H Ramser.
 \newblock The truck dispatching problem.
 \newblock {\em Management science}, 6(1):80--91, 1959.
 
+\bibitem{das2011differential}
+Swagatam Das and Ponnuthurai~Nagaratnam Suganthan.
+\newblock Differential evolution: A survey of the state-of-the-art.
+\newblock {\em IEEE Transactions on Evolutionary Computation}, 15(1):4--31,
+  2011.
+
 \bibitem{daza2009}
 Julio~Mario Daza, Jairo~R. Montoya, and Francesco Narducci.
 \newblock Resolución del problema de enrutamiento de vehículos con
@@ -270,11 +276,23 @@ Jean-Yves Potvin and Samy Bengio.
   search.
 \newblock {\em INFORMS Journal on Computing}, 8(2):165--172, 1996.
 
+\bibitem{price2005differential}
+Kenneth Price, Rainer Storn, and Jouni~A. Lampinen.
+\newblock {\em Differential Evolution: A Practical Approach to Global
+  Optimization}.
+\newblock Springer, Berlin, Heidelberg, 2005.
+
 \bibitem{solomon1987algorithms}
 Marius~M. Solomon.
 \newblock Algorithms for the vehicle routing and scheduling problems with time
   window constraints.
 \newblock {\em Operations Research}, 35(2):254--265, 1987.
+
+\bibitem{storn1997differential}
+Rainer Storn and Kenneth Price.
+\newblock Differential evolution – a simple and efficient heuristic for
+  global optimization over continuous spaces.
+\newblock {\em Journal of Global Optimization}, 11(4):341--359, 1997.
 
 \bibitem{taillard1997tabu}
 {\'E}ric Taillard, Philippe Badeau, Michel Gendreau, Fran{\c{c}}ois Guertin,

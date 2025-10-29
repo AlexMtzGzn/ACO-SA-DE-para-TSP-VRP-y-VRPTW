@@ -254,10 +254,10 @@ Here goes the abstract in English. Briefly describe the goal of your project, me
 \vspace{0.5cm}
 \begin{tabularx}{\textwidth}{>{\bfseries}l X}
 	ACO   & \textbf{A}nt \textbf{C}olony \textbf{O}ptimization (\textit{Optimización por Colonias de Hormigas})                                                     \\
-	DE    & \textbf{E}volutionary \textbf{A}lgorithm (\textit{Algoritmo Evolutivo Diferencial})                                                                     \\
-	AE    & \textbf{E}volutionary \textbf{A}lgorithms (\textit{Algoritmos Evolutivos})                                                                              \\
-	AG    & \textbf{G}enetic \textbf{A}lgorithm (\textit{Algoritmo Genético})                                                                                       \\
-	BT    & \textbf{T}abu \textbf{S}earch (\textit{Búsqueda Tabú})                                                                                                  \\
+	DE    & \textbf{D}ifferential \textbf{E}Evolution (\textit{Evolución Diferencial})                                                                              \\
+	EA    & \textbf{E}volutionary \textbf{A}																														\\
+	GA    & \textbf{G}enetic \textbf{A}lgorithm (\textit{Algoritmo Genético})                                                                                       \\
+	TB    & \textbf{T}abu \textbf{S}earch (\textit{Búsqueda Tabú})                                                                                                  \\
 	NP    & \textbf{N}ondeterministic \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial No Determinista})                                                \\
 	P     & \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial})                                                                                          \\
 	SA    & \textbf{S}imulated \textbf{A}nnealing (\textit{Recocido Simulado})                                                                                      \\
@@ -265,7 +265,6 @@ Here goes the abstract in English. Briefly describe the goal of your project, me
 	VRP   & \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem (\textit{Problema de Ruteo de Vehículos})                                                            \\
 	VRPTW & \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem with \textbf{T}ime \textbf{W}indows (\textit{Problema de Ruteo de Vehículos con Ventanas de Tiempo}) \\
 \end{tabularx}
-
 
 
 
@@ -294,13 +293,14 @@ Here goes the abstract in English. Briefly describe the goal of your project, me
 
 \section{Planteamiento del Problema}
 
-Dentro de la investigación operativa y la logística, modelos clásicos como el Problema del Agente Viajero (TSP, \emph{Traveling Salesman Problem}) y el Problema de Ruteo de Vehículos (VRP, \emph{Vehicle Routing Problem}) representan el fundamento para entender y abordar problemáticas logísticas reales. Sin embargo, en entornos modernos donde existen restricciones temporales estrictas para la atención de clientes, se requieren modelos más complejos, como el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW, \emph{Vehicle Routing Problem with Time Windows}).
+Dentro de la investigación operativa y la logística, modelos clásicos como el Problema del Agente Viajero (TSP, \emph{Traveling Salesman Problem}) y el Problema de Ruteo de Vehículos (VRP, \emph{Vehicle Routing Problem}) constituyen la base para entender y abordar problemáticas logísticas reales. Sin embargo, en entornos modernos donde existen restricciones temporales estrictas para la atención de clientes, se requieren modelos más complejos, como el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW, \emph{Vehicle Routing Problem with Time Windows}).
 
-El VRP-TW consiste en planificar rutas para una flota de vehículos, de manera que se minimice el costo total (distancia, tiempo o recursos), asegurando que cada cliente sea atendido dentro de un intervalo de tiempo predefinido, sin violar las capacidades de los vehículos. Este problema pertenece a la clase NP-difícil y presenta una alta complejidad combinatoria, lo que hace inviable resolverlo mediante algoritmos exactos cuando se trata de instancias de gran tamaño.
+El VRP-TW consiste en planificar rutas para una flota de vehículos de manera que se minimice el costo total (distancia, tiempo o recursos), asegurando que cada cliente sea atendido dentro de un intervalo de tiempo predefinido y sin violar las capacidades de los vehículos. Este problema pertenece a la clase NP-difícil y presenta una alta complejidad combinatoria, lo que hace inviable su resolución mediante algoritmos exactos para instancias de gran tamaño.
 
-En este contexto, las metaheurísticas se presentan como una alternativa viable para encontrar soluciones de buena calidad en tiempos razonables. Entre ellas, la Optimización por Colonia de Hormigas (ACO, \emph{Ant Colony Optimization}) ha demostrado ser eficaz en la construcción de rutas iniciales, mientras que el Recocido Simulado (SA, \emph{Simulated Annealing}), apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. Aun así, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda, por lo que se propone incorporar el algoritmo Evolutivo Diferencial (DE, \emph{Differential Evolution}) como componente global de refinamiento.
+En este contexto, las metaheurísticas se presentan como una alternativa eficaz para obtener soluciones de buena calidad en tiempos razonables. Entre ellas, la Optimización por Colonia de Hormigas (ACO, \emph{Ant Colony Optimization}) ha demostrado ser útil en la construcción de rutas iniciales, mientras que el Recocido Simulado (SA, \emph{Simulated Annealing}), apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. No obstante, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda; por ello, se propone incorporar el Algoritmo Evolutivo Diferencial (DE, \emph{Differential Evolution}) como componente global de refinamiento.
 
-El problema a resolver, por tanto, se centra en diseñar e implementar un algoritmo híbrido que combine de manera coordinada y efectiva la ACO, el SA y el DE. En este esquema, el DE se emplea para calibrar los parámetros de los otros métodos, permitiendo así abordar el VRP-TW partiendo de modelos más simples como el TSP y el VRP, considerando tanto la calidad de la solución como su robustez y eficiencia computacional.
+El problema a resolver, por tanto, se centra en diseñar e implementar un algoritmo híbrido que combine de manera coordinada y efectiva ACO, SA y DE. En este esquema, el DE se emplea para calibrar los parámetros de los otros métodos, permitiendo abordar el VRP-TW a partir de modelos más simples como el TSP y el VRP, considerando tanto la calidad de la solución como su robustez y eficiencia computacional.
+
 \section{Justificación}
 
 El VRP-TW es un problema fundamental en la logística moderna, con aplicaciones directas en la optimización de rutas de distribución y transporte, lo que impacta significativamente en la reducción de costos operativos y la mejora del servicio al cliente. Sin embargo, debido a su complejidad combinatoria y a su pertenencia a la clase NP-difícil, las técnicas exactas resultan impracticables para resolver instancias de tamaño realista.
@@ -313,7 +313,7 @@ Este trabajo se justifica en la necesidad de desarrollar un método que aporte m
 \subsection{Objetivo General}
 
 
-Diseñar, implementar, probar y evaluar un algoritmo híbrido que combine la ACO, el SA con múltiples heurísticas locales y un DE, con el objetivo de resolver de manera eficiente el VRP-TW.
+Diseñar, implementar, probar y evaluar un algoritmo híbrido que combine la ACO, el SA con múltiples heurísticas locales y el DE, con el objetivo de resolver de manera eficiente el VRP-TW.
 
 \subsection{Objetivos Específicos}
 
@@ -372,17 +372,17 @@ Dentro de estas variantes, el Problema de Ruteo de Vehículos con Ventanas de Ti
 Durante la década de 1990, se desarrollaron enfoques exactos basados en programación entera y técnicas como \textit{branch-and-bound}, \textit{branch-and-cut} y \textit{column generation}, aplicados con éxito a instancias pequeñas \citep{desrochers1992, cordeau2002}. Sin embargo, la elevada complejidad del VRP-TW motivó el uso creciente de heurísticas y metaheurísticas, tales como:
 
 \begin{itemize}
-	\item \textbf{Algoritmos Genéticos (AG)}, inspirados en la evolución natural, propuestos por Holland en 1975, que utilizan operadores genéticos para evolucionar una población de soluciones \citep{holland1975adaptation}.
+	\item \textbf{Algoritmos Genéticos (GA)}, inspirados en la evolución natural, propuestos por Holland en 1975, que utilizan operadores genéticos para evolucionar una población de soluciones \citep{holland1975adaptation}.
 	\item \textbf{Algoritmo de Colonias de Hormigas (ACO)}, propuesto inicialmente por Dorigo en 1992, basado en el comportamiento colectivo de las hormigas para resolver problemas combinatorios \citep{dorigo1992}.
 	\item \textbf{Recocido Simulado (SA)}, inspirado en el proceso físico de enfriamiento de metales, introducido por Kirkpatrick, Gelatt y Vecchi en 1983, que permite escapar de óptimos locales mediante la aceptación controlada de soluciones peores \citep{kirkpatrick1983}.
-	\item \textbf{Búsqueda Tabú (BT)}, una técnica heurística que explora iterativamente soluciones vecinas para mejorar la calidad de la solución, evitando ciclos mediante la prohibición temporal de movimientos \citep{aarts1988local}.
+	\item \textbf{Búsqueda Tabú (TB)}, una técnica heurística que explora iterativamente soluciones vecinas para mejorar la calidad de la solución, evitando ciclos mediante la prohibición temporal de movimientos \citep{aarts1988local}.
 \end{itemize}
 
 Estas metaheurísticas han demostrado ser eficaces para obtener soluciones cercanas al óptimo en tiempos razonables \citep{eksioglu2009}.
 
 En las últimas dos décadas, la investigación se ha enfocado en algoritmos híbridos, técnicas de aprendizaje automático aplicadas al VRP, optimización robusta y modelos dinámicos, buscando mejorar la eficiencia y adaptabilidad de las soluciones en contextos logísticos cada vez más complejos y cambiantes \citep{toth2014}.
 
-El presente trabajo se inscribe en esta línea de investigación, proponiendo un modelo basado en un algoritmo híbrido con metaheurísticas para abordar el VRP-TW, considerando específicamente restricciones operativas como la capacidad limitada de los vehículos y los intervalos estrictos de tiempo de servicio asignados a cada cliente. Con el objetivo de mejorar la calidad y eficiencia de las rutas generadas, se implementaron tres enfoques metaheurísticos: el \textit{Algoritmo Evolutivo Diferencial} (DE), el \textit{Algoritmo de Optimización por Colonias de Hormigas} (ACO) y el \textit{Recocido Simulado} (SA).
+El presente trabajo se inscribe en esta línea de investigación, proponiendo un modelo basado en un algoritmo híbrido con metaheurísticas para abordar el VRP-TW, considerando específicamente restricciones operativas como la capacidad limitada de los vehículos y los intervalos estrictos de tiempo de servicio asignados a cada cliente. Con el objetivo de mejorar la calidad y eficiencia de las rutas generadas, se implementaron tres enfoques metaheurísticos: el Algoritmo Evolutivo Diferencial (DE), el Algoritmo de Optimización por Colonias de Hormigas (ACO) y el Recocido Simulado (SA).
 
 \section{Conceptos Clave}
 
@@ -502,20 +502,20 @@ lo que se expresa en notación asintótica como
 	D = O(n^k).
 \]
 
-Aunque se considera que algoritmos con tiempo polinomial son “\textit{eficientes}”, en la práctica el grado del polinomio importa, ya que un polinomio de grado muy alto puede ser inviable. Un ejemplo clásico de problema en P es la multiplicación de números naturales \citep{Flores2014}.
+Aunque se considera que algoritmos con tiempo polinomial son “eficientes”, en la práctica el grado del polinomio importa, ya que un polinomio de grado muy alto puede ser inviable. Un ejemplo clásico de problema en P es la multiplicación de números naturales \citep{Flores2014}.
 
 \subsubsection*{Clase NP}
 \label{subsec: clase_np}
-Un problema pertenece a la clase NP si, dado un candidato a solución (\textit{certificado}), es posible verificar su validez en tiempo polinomial. Es importante notar que esto no implica necesariamente que exista un algoritmo eficiente para encontrar la solución, sino que su validación es eficiente. Un ejemplo típico es el TSP: si se proporciona una ruta candidata, es fácil comprobar en tiempo polinomial la longitud total de la ruta para verificar si cumple cierta condición \citep{Flores2014}.
+Un problema pertenece a la clase NP si, dado un candidato a solución certificado, es posible verificar su validez en tiempo polinomial. Es importante notar que esto no implica necesariamente que exista un algoritmo eficiente para encontrar la solución, sino que su validación es eficiente. Un ejemplo típico es el TSP: si se proporciona una ruta candidata, es fácil comprobar en tiempo polinomial la longitud total de la ruta para verificar si cumple cierta condición \citep{Flores2014}.
 
 \subsubsection*{La gran incógnita: ¿P = NP?}
 Una de las preguntas abiertas más importantes en ciencias de la computación es si \(\mathbf{P = NP}\) o \(\mathbf{P \neq NP}\), es decir, si todo problema cuya solución puede verificarse rápidamente también puede resolverse rápidamente. Esta cuestión tiene profundas implicaciones teóricas y prácticas \citep{maldonado2013problema}.
 
 \subsubsection{NP-Completo y NP-Difícil}
 
-Dentro de la clase \emph{\textbf{NP}} existe una subclase de problemas llamados \textbf{NP-completos}, que son los problemas más difíciles en \emph{\textbf{NP}}. Si se encontrara un algoritmo eficiente para cualquiera de ellos, entonces todos los problemas en \emph{NP} podrían resolverse eficientemente \citep{maldonado2013problema}.
+Dentro de la clase NP existe una subclase de problemas llamados NP-completos, que son los problemas más difíciles en NP. Si se encontrara un algoritmo eficiente para cualquiera de ellos, entonces todos los problemas en NP podrían resolverse eficientemente \citep{maldonado2013problema}.
 
-Por otro lado, los problemas \textbf{NP-difíciles} pueden ser incluso más complejos que los \textbf{NP-completos}, ya que no requieren pertenecer a \emph{\textbf{NP}} (es decir, su solución no tiene por qué ser verificable en tiempo polinomial), pero son al menos tan difíciles como los problemas \textbf{NP-completos}. Pueden incluir problemas de decisión, búsqueda u optimización \citep{maldonado2013problema}.
+Por otro lado, los problemas NP-difíciles pueden ser incluso más complejos que los NP-completos, ya que no requieren pertenecer a NP (es decir, su solución no tiene por qué ser verificable en tiempo polinomial), pero son al menos tan difíciles como los problemas NP-completos. Pueden incluir problemas de decisión, búsqueda u optimización \citep{maldonado2013problema}.
 
 \begin{figure}[H]
 	\centering
@@ -524,11 +524,11 @@ Por otro lado, los problemas \textbf{NP-difíciles} pueden ser incluso más comp
 	\label{fig:p_vs_np}
 \end{figure}
 
-El crecimiento exponencial del tiempo requerido para resolver problemas como el TSP, el VRP y el VRP-TW los ubica dentro de la clase \emph{\textbf{NP}}. Estos problemas, aunque decidibles, presentan una complejidad tan elevada que no se conoce ningún algoritmo exacto que los resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de \emph{\textbf{NP}}, así como las estrategias metaheurísticas empleadas para aproximar soluciones en tiempos razonables.
+El crecimiento exponencial del tiempo requerido para resolver problemas como el TSP, el VRP y el VRP-TW los ubica dentro de la clase NP. Estos problemas, aunque decidibles, presentan una complejidad tan elevada que no se conoce ningún algoritmo exacto que los resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de NP, así como las estrategias metaheurísticas empleadas para aproximar soluciones en tiempos razonables.
 
 \subsection{Problemas de Optimización Combinatoria}
 
-De manera complementaria a la definición formal presentada en la sección~\ref{subsec:opt_discreta}, Papadimitriou y Steiglitz \citep{papadimitriou1998} definen la \textbf{optimización combinatoria} como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto, o puede discretizarse mediante un proceso de enumeración, y donde se busca una solución que optimice una función objetivo definida sobre dicho conjunto.
+De manera complementaria a la definición formal presentada en la sección~\ref{subsec:opt_discreta}, Papadimitriou y Steiglitz \citep{papadimitriou1998} definen la optimización combinatoria como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto, o puede discretizarse mediante un proceso de enumeración, y donde se busca una solución que optimice una función objetivo definida sobre dicho conjunto.
 
 Los problemas de optimización combinatoria constituyen una clase amplia de modelos aplicables a diversas áreas, especialmente en la planificación y el enrutamiento de vehículos. Dentro de este campo destacan el TSP, que representa la forma más básica de optimización de rutas, y sus extensiones, que incorporan restricciones adicionales propias de escenarios reales, como la capacidad limitada de los vehículos o las ventanas de tiempo en las que deben realizarse las entregas.
 
@@ -536,7 +536,7 @@ En este contexto, el VRP y el VRP-TW se han consolidado como dos de los desafío
 \subsubsection{Problema del Agente Viajero (TSP)}
 \label{subsec:problem_tsp}
 
-El Problema del Agente Viajero, conocido por sus siglas en inglés como \textit{TSP} (\emph{Travelling Salesman Problem}), es uno de los problemas más reconocidos y complejos dentro de las ciencias computacionales. Ha sido estudiado desde diversas ramas de la ingeniería y por múltiples motivos. Su aplicación principal consiste en determinar rutas desde diferentes enfoques, ya sea en procesos que requieren una secuencia específica o en operaciones logísticas relacionadas con el transporte, con el objetivo de encontrar la ruta óptima considerando criterios de minimización de distancia o de costo \citep{lopez2014tabu}.
+El Problema del Agente Viajero, conocido por sus siglas en inglés como TSP (\emph{Travelling Salesman Problem}), es uno de los problemas más reconocidos y complejos dentro de las ciencias computacionales. Ha sido estudiado desde diversas ramas de la ingeniería y por múltiples motivos. Su aplicación principal consiste en determinar rutas desde diferentes enfoques, ya sea en procesos que requieren una secuencia específica o en operaciones logísticas relacionadas con el transporte, con el objetivo de encontrar la ruta óptima considerando criterios de minimización de distancia o de costo \citep{lopez2014tabu}.
 
 En la Figura~\ref{fig:tsp} se presenta una representación gráfica de una posible solución al TSP. En ella, un vehículo parte de un nodo inicial(depósito), recorre una serie de ciudades o puntos de entrega siguiendo una secuencia determinada, y regresa al punto de partida, completando así un circuito cerrado que minimiza la distancia total recorrida.
 
@@ -597,14 +597,14 @@ La función objetivo~\eqref{eq:TSP_obj} representa la suma total de los costos (
 
 \subsubsection*{Complejidad del TSP}
 
-Como explica \cite{papadimitriou1998}, el TSP es \textit{NP-difícil}, y su versión de decisión es \textit{NP-completa}. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo representa un desafío fundamental en la teoría de la computación, pues encontrar una solución polinomial para el TSP permitiría resolver eficientemente toda la clase \textit{NP}. Esta dificultad justifica la utilización de algoritmos heurísticos y metaheurísticos, dado que las técnicas exactas sólo resultan prácticas para instancias
+Como explica \cite{papadimitriou1998}, el TSP es NP-difícil, y su versión de decisión es NP-completa. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo representa un desafío fundamental en la teoría de la computación, pues encontrar una solución polinomial para el TSP permitiría resolver eficientemente toda la clase \textit{NP}. Esta dificultad justifica la utilización de algoritmos heurísticos y metaheurísticos, dado que las técnicas exactas sólo resultan prácticas para instancias
 
 El TSP ha sido tradicionalmente considerado como el punto de partida para el estudio de problemas más complejos de enrutamiento, como el VRP y sus variantes, entre ellas el  VRP-TW. Su análisis proporciona una base conceptual sólida para comprender aspectos fundamentales como la construcción de rutas, la minimización de costos y el manejo de restricciones operativas. Estudiar el TSP permite introducir de forma gradual nuevas variables y condiciones, lo que lo convierte en un modelo introductorio ideal para el desarrollo de enfoques logísticos más realistas.
 
 \subsubsection{Problema del Problema Ruteo de Vehículos (VRP)}
 \label{subsec:problem_vrp}
 
-El \textbf{Problema del Ruteo de Vehículos}, conocido por sus siglas en inglés como \textbf{\textit{VRP} (\emph{Vehicle Routing Problem})}, puede interpretarse como la convergencia de dos problemas clásicos de optimización combinatoria: el \textbf{Problema del Agente Viajero (TSP)} mencionado anteriormene en la sección~\ref{subsec:problem_tsp}, en el que se asume una capacidad infinita de los vehículos, y el \textbf{Problema de Empaquetamiento en Compartimentos (BPP)} \cite{daza2009}. En su formulación más básica, el VRP considera un depósito central desde donde parte una flota de vehículos para atender a un conjunto de clientes distribuidos geográficamente. Cada vehículo debe visitar un subconjunto de clientes exactamente una vez, respetando su capacidad de carga y satisfaciendo la demanda de los clientes asignados. El objetivo es minimizar el costo total asociado a las rutas, las cuales inician y finalizan en el depósito \cite{montes2017}.
+El Problema del Ruteo de Vehículos, conocido por sus siglas en inglés como VRP (\emph{Vehicle Routing Problem}), puede interpretarse como la convergencia de dos problemas clásicos de optimización combinatoria: el Problema del Agente Viajero (TSP) mencionado anteriormene en la sección~\ref{subsec:problem_tsp}, en el que se asume una capacidad infinita de los vehículos, y el Problema de Empaquetamiento en Compartimentos (BPP) \cite{daza2009}. En su formulación más básica, el VRP considera un depósito central desde donde parte una flota de vehículos para atender a un conjunto de clientes distribuidos geográficamente. Cada vehículo debe visitar un subconjunto de clientes exactamente una vez, respetando su capacidad de carga y satisfaciendo la demanda de los clientes asignados. El objetivo es minimizar el costo total asociado a las rutas, las cuales inician y finalizan en el depósito \cite{montes2017}.
 
 La Figura~\ref{fig:vrp} muestra una representación gráfica de una solución al VRP. En este ejemplo, varios vehículos parten desde un depósito central para atender a distintos clientes distribuidos geográficamente. Cada ruta ha sido asignada de manera que se respeten las restricciones de capacidad de carga de los vehículos, y se minimice la distancia total recorrida, cumpliendo así con los objetivos del problema.
 
@@ -673,20 +673,20 @@ sujeto a:
 	\item \(S\) es un subconjunto de clientes, y \(r(S)\) representa el número mínimo de vehículos necesarios para satisfacer la demanda total de los clientes en \(S\) \citep{toth2014}.
 \end{itemize}
 
-La \textbf{función objetivo}~\eqref{eq:VRP_obj} minimiza el costo total de todas las rutas. \textbf{Las restricciones}~\eqref{eq:VRP_in} y~\eqref{eq:VRP_out} aseguran que cada cliente sea visitado exactamente una vez. \textbf{Las restricciones}~\eqref{eq:VRP_into_depot} y~\eqref{eq:VRP_from_depot} controlan el número de vehículos que entran y salen del depósito. \textbf{La restricción}~\eqref{eq:VRP_subtour} evita la formación de subrutas que no incluyan al depósito, garantizando conectividad. Finalmente, \textbf{la restricción}~\eqref{eq:VRP_bin} indica que las variables de decisión son binarias \citep{toth2014}.
+La función objetivo~\eqref{eq:VRP_obj} minimiza el costo total de todas las rutas. Las restricciones~\eqref{eq:VRP_in} y~\eqref{eq:VRP_out} aseguran que cada cliente sea visitado exactamente una vez. Las restricciones~\eqref{eq:VRP_into_depot} y~\eqref{eq:VRP_from_depot} controlan el número de vehículos que entran y salen del depósito. La restricción~\eqref{eq:VRP_subtour} evita la formación de subrutas que no incluyan al depósito, garantizando conectividad. Finalmente, la restricción~\eqref{eq:VRP_bin} indica que las variables de decisión son binarias \citep{toth2014}.
 
 
 \subsubsection*{Complejidad del VRP}
 \label{subsec:complejidad_vrp}
 
-Como señalan Laporte y Nobert \cite{laporte1987}, el VRP es \textit{NP-difícil}, incluso en su versión más simple con un solo vehículo (es decir, el TSP). Esto significa que no se conoce ningún algoritmo que lo resuelva de forma exacta en tiempo polinomial, y su complejidad crece exponencialmente con el número de clientes. Por ello, la mayoría de las instancias prácticas requieren el uso de técnicas heurísticas o metaheurísticas, ya que los métodos exactos son computacionalmente inviables para problemas de tamaño medio o grande.
+Como señalan Laporte y Nobert \cite{laporte1987}, el VRP es NP-difícil, incluso en su versión más simple con un solo vehículo (es decir, el TSP). Esto significa que no se conoce ningún algoritmo que lo resuelva de forma exacta en tiempo polinomial, y su complejidad crece exponencialmente con el número de clientes. Por ello, la mayoría de las instancias prácticas requieren el uso de técnicas heurísticas o metaheurísticas, ya que los métodos exactos son computacionalmente inviables para problemas de tamaño medio o grande.
 
-El VRP representa la extensión natural del TSP hacia escenarios logísticos más realistas y complejos, incorporando restricciones operativas que reflejan las limitaciones del mundo real. Su estudio es fundamental para comprender cómo las restricciones de capacidad, múltiples vehículos y la gestión de flotas impactan en la optimización de rutas. El VRP sirve como base conceptual para abordar problemas logísticos avanzados como la distribución con ventanas de tiempo, el ruteo con múltiples depósitos y la optimización de última milla en el comercio electrónico. Analizar el VRP permite desarrollar una comprensión profunda de los \textit{compromisos inherentes} entre la minimización de costos, la utilización eficiente de recursos y la satisfacción de restricciones operativas, estableciendo los fundamentos teóricos necesarios para abordar las complejidades de los sistemas de distribución modernos.
+El VRP representa la extensión natural del TSP hacia escenarios logísticos más realistas y complejos, incorporando restricciones operativas que reflejan las limitaciones del mundo real. Su estudio es fundamental para comprender cómo las restricciones de capacidad, múltiples vehículos y la gestión de flotas impactan en la optimización de rutas. El VRP sirve como base conceptual para abordar problemas logísticos avanzados como la distribución con ventanas de tiempo, el ruteo con múltiples depósitos y la optimización de última milla en el comercio electrónico. Analizar el VRP permite desarrollar una comprensión profunda de los compromisos inherentes entre la minimización de costos, la utilización eficiente de recursos y la satisfacción de restricciones operativas, estableciendo los fundamentos teóricos necesarios para abordar las complejidades de los sistemas de distribución modernos.
 
 \subsubsection{Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW)}
 \label{subsec:problem_vrptw}
 
-El Problema de Ruteo de Vehículos con Ventanas de Tiempo, conocido por sus siglas en inglés como \textbf{VRP-TW (\textit{Vehicle Routing Problem with Time Windows})}, es una extensión del clásico VRP mencionado anteriormene en la sección~\ref{subsec:problem_vrp} que incorpora restricciones temporales. En este problema, además de satisfacer las demandas específicas de cada cliente, es imprescindible que las visitas se realicen dentro de una franja horaria determinada para cada uno de ellos \citep{toth2014}. Específicamente, el servicio a un cliente debe comenzar en un instante mayor o igual al inicio de su ventana de tiempo, y el arribo al punto de servicio no puede exceder el límite superior de dicha ventana. Asimismo, en caso de que un vehículo llegue antes del inicio de la ventana, deberá esperar hasta el momento indicado para poder atender al cliente \citep{montes2017}.
+El Problema de Ruteo de Vehículos con Ventanas de Tiempo, conocido por sus siglas en inglés como VRP-TW (\textit{Vehicle Routing Problem with Time Windows}), es una extensión del clásico VRP mencionado anteriormene en la sección~\ref{subsec:problem_vrp} que incorpora restricciones temporales. En este problema, además de satisfacer las demandas específicas de cada cliente, es imprescindible que las visitas se realicen dentro de una franja horaria determinada para cada uno de ellos \citep{toth2014}. Específicamente, el servicio a un cliente debe comenzar en un instante mayor o igual al inicio de su ventana de tiempo, y el arribo al punto de servicio no puede exceder el límite superior de dicha ventana. Asimismo, en caso de que un vehículo llegue antes del inicio de la ventana, deberá esperar hasta el momento indicado para poder atender al cliente \citep{montes2017}.
 
 En este contexto, el objetivo fundamental del VRP-TW es determinar un conjunto de rutas para una flota de vehículos homogéneos que partan y regresen al depósito, visiten cada cliente exactamente una vez dentro de su respectiva ventana temporal, y sin exceder la capacidad de los vehículos. Todo esto debe lograrse minimizando el costo total del recorrido, usualmente expresado en términos de distancia o tiempo \cite{solomon1987algorithms}.
 
@@ -778,11 +778,11 @@ sujeto a:
 	\item \(M\) es un número grande usado para activar o desactivar restricciones condicionales.
 \end{itemize}
 
-La \textbf{función objetivo}~\eqref{eq:VRPTW_obj} minimiza el costo total de todas las rutas. \textbf{Las restricciones}~\eqref{eq:VRPTW_visit_once} garantizan que cada cliente sea visitado exactamente una vez. \textbf{Las restricciones}~\eqref{eq:VRPTW_start_depot} y \eqref{eq:VRPTW_end_depot} aseguran que cada vehículo comience y termine su ruta en el depósito. \textbf{La restricción}~\eqref{eq:VRPTW_flow_balance} mantiene el balance de flujo para cada vehículo y cliente. \textbf{La restricción}~\eqref{eq:VRPTW_time_window} impone el orden y respeto a las ventanas temporales mediante los tiempos de servicio y de viaje, con ayuda del parámetro \(M\). \textbf{La restricción}~\eqref{eq:VRPTW_time_bounds} asegura que el servicio inicie dentro de la ventana asignada. \textbf{La restricción}~\eqref{eq:VRPTW_capacity} limita la capacidad máxima que puede transportar cada vehículo. Finalmente, \textbf{la restricción}~\eqref{eq:VRPTW_bin} define los dominios de las variables de decisión \citep{toth2014}.
+La función objetivo~\eqref{eq:VRPTW_obj} minimiza el costo total de todas las rutas. Las restricciones~\eqref{eq:VRPTW_visit_once} garantizan que cada cliente sea visitado exactamente una vez. Las restricciones~\eqref{eq:VRPTW_start_depot} y \eqref{eq:VRPTW_end_depot} aseguran que cada vehículo comience y termine su ruta en el depósito. La restricción~\eqref{eq:VRPTW_flow_balance} mantiene el balance de flujo para cada vehículo y cliente. La restricción~\eqref{eq:VRPTW_time_window} impone el orden y respeto a las ventanas temporales mediante los tiempos de servicio y de viaje, con ayuda del parámetro \(M\). La restricción~\eqref{eq:VRPTW_time_bounds} asegura que el servicio inicie dentro de la ventana asignada. La restricción~\eqref{eq:VRPTW_capacity} limita la capacidad máxima que puede transportar cada vehículo. Finalmente, la restricción~\eqref{eq:VRPTW_bin} define los dominios de las variables de decisión \citep{toth2014}.
 
 \subsubsection*{Complejidad del VRP-TW}
 
-Sabemos que la complejidad del VRP es \textit{NP-difícil}, como se señala en la \autoref{subsec:problem_vrp} y en \citep{laporte1987}. El VRP-TW es una generalización del VRP clásico, y también pertenece a la clase de problemas \textit{NP-difícil}. De hecho, incluso si se ignoran las ventanas de tiempo, el problema sigue siendo difícil de resolver. Al incorporar restricciones temporales, el VRP-TW se vuelve aún más complejo, tanto desde el punto de vista computacional como algorítmico. Según Bräysy y Gendreau \citep{braysy2005} y Toth y Vigo \citep{toth2014}, las ventanas de tiempo reducen significativamente el conjunto de soluciones viables, aumentando así la dificultad del problema.
+Sabemos que la complejidad del VRP es NP-difícil, como se señala en la \autoref{subsec:problem_vrp} y en \citep{laporte1987}. El VRP-TW es una generalización del VRP clásico, y también pertenece a la clase de problemas NP-difícil. De hecho, incluso si se ignoran las ventanas de tiempo, el problema sigue siendo difícil de resolver. Al incorporar restricciones temporales, el VRP-TW se vuelve aún más complejo, tanto desde el punto de vista computacional como algorítmico. Según Bräysy y Gendreau \citep{braysy2005} y Toth y Vigo \citep{toth2014}, las ventanas de tiempo reducen significativamente el conjunto de soluciones viables, aumentando así la dificultad del problema.
 
 El VRP-TW representa una evolución del VRP, el cual a su vez deriva del TSP. Estos problemas están orientados a entornos donde las restricciones temporales y operativas son determinantes para la calidad del servicio.
 
@@ -792,9 +792,9 @@ Por ello, resulta fundamental comprender los fundamentos del TSP y del VRP, ya q
 
 
 \subsection{Métodos de Solución para el VRP-TW}
-Los problemas de enrutamiento como el TSP, el VRP y su extensión con ventanas de tiempo, el VRP-TW, mencionados en secciones anteriores, pertenecen a la clase de problemas \textit{NP-difíciles} \citep{papadimitriou1998, laporte1987, toth2014}. Esta clasificación se debe al crecimiento exponencial del tiempo requerido para resolverlos a medida que aumenta el número de nodos o clientes en la instancia.
+Los problemas de enrutamiento como el TSP, el VRP y su extensión con ventanas de tiempo, el VRP-TW, mencionados en secciones anteriores, pertenecen a la clase de problemas NP-difíciles \citep{papadimitriou1998, laporte1987, toth2014}. Esta clasificación se debe al crecimiento exponencial del tiempo requerido para resolverlos a medida que aumenta el número de nodos o clientes en la instancia.
 
-Dada su complejidad computacional, estos problemas han sido abordados mediante diversas estrategias de solución que tienen como objetivo minimizar el costo total del recorrido, respetando las restricciones impuestas. Entre ellos se incluyen los \textit{métodos exactos}, así como las \textit{técnicas heurísticas y metaheurísticas}.
+Dada su complejidad computacional, estos problemas han sido abordados mediante diversas estrategias de solución que tienen como objetivo minimizar el costo total del recorrido, respetando las restricciones impuestas. Entre ellos se incluyen los métodos exactos, así como las técnicas heurísticas y metaheurísticas.
 
 A continuación, se describen estos enfoques, junto con ejemplos representativos aplicados en los problemas mencionados.
 
@@ -816,7 +816,7 @@ Dado que el presente trabajo se enfoca en técnicas heurísticas y metaheurísti
 \subsubsection{Heurísticas}
 \label{subsec:heuristica}
 
-Heurística es un concepto cuyo origen se remonta a la Grecia clásica, derivado de la palabra griega \textit{heuriskein}, que significa encontrar o descubrir. Según la historia, se asocia con \textit{eureka}, la famosa exclamación atribuida a Arquímedes \citep{antonioSuarez2014}.
+Heurística es un concepto cuyo origen se remonta a la Grecia clásica, derivado de la palabra griega heuriskein, que significa encontrar o descubrir. Según la historia, se asocia con eureka, la famosa exclamación atribuida a Arquímedes \citep{antonioSuarez2014}.
 
 Para ejemplificar este concepto, se expone la siguiente definición:
 
@@ -824,15 +824,15 @@ Para ejemplificar este concepto, se expone la siguiente definición:
 	Según Zanakis et al.\ (citado en \citep{duarte2007metaheuristicas}), las heurísticas son \textit{``procedimientos simples, a menudo basados en el sentido común, que se supone que obtendrán una buena solución (no necesariamente óptima) a problemas difíciles de un modo sencillo y rápido''}.
 \end{quote}
 
-El desarrollo de las técnicas heurísticas clásicas aplicadas al VRP-TW se llevó a cabo principalmente entre las décadas de 1960 y 1990. Estas pueden clasificarse en tres categorías generales: \textit{métodos constructivos}, \textit{métodos de dos fases} y \textit{heurísticas de mejora} \citep{montes2017}, las cuales se describen a continuación.
+El desarrollo de las técnicas heurísticas clásicas aplicadas al VRP-TW se llevó a cabo principalmente entre las décadas de 1960 y 1990. Estas pueden clasificarse en tres categorías generales: métodos constructivos, métodos de dos fases y heurísticas de mejora \citep{montes2017}, las cuales se describen a continuación.
 
 \textbf{Métodos constructivos:}
 Las heurísticas constructivas elaboran progresivamente una solución factible, considerando los costos asociados en cada paso del proceso. Sin embargo, este tipo de métodos no incorpora una fase de mejora posterior sobre la solución obtenida \citep{toth2014}.
 
 \textbf{Métodos de dos fases:}
-Las heurísticas de dos fases dividen el problema en dos componentes principales: la agrupación de vértices en rutas factibles y la construcción de dichas rutas, pudiendo existir retroalimentación entre ambas etapas. Estas técnicas se clasifican en dos enfoques: \textit{agrupación primero, ruta después} y \textit{ruta primero, agrupación después}. En el primer enfoque, los vértices se organizan inicialmente en grupos factibles y luego se construye una ruta vehicular para cada uno. En el segundo, se genera primero un recorrido global que abarca todos los vértices y posteriormente se segmenta en rutas factibles \citep{toth2014}.
+Las heurísticas de dos fases dividen el problema en dos componentes principales: la agrupación de vértices en rutas factibles y la construcción de dichas rutas, pudiendo existir retroalimentación entre ambas etapas. Estas técnicas se clasifican en dos enfoques: agrupación primero, ruta después y ruta primero, agrupación después. En el primer enfoque, los vértices se organizan inicialmente en grupos factibles y luego se construye una ruta vehicular para cada uno. En el segundo, se genera primero un recorrido global que abarca todos los vértices y posteriormente se segmenta en rutas factibles \citep{toth2014}.
 
-En el presente trabajo se emplearon heurísticas basadas en los \textbf{métodos de mejora}, por lo que no se profundizará en los demás enfoques. Para una descripción más detallada, se recomienda consultar \citep{montes2017, toth2014, olivera2004heur}.
+En el presente trabajo se emplearon heurísticas basadas en los métodos de mejora, por lo que no se profundizará en los demás enfoques. Para una descripción más detallada, se recomienda consultar \citep{montes2017, toth2014, olivera2004heur}.
 
 \textbf{Métodos de mejora:}
 Los métodos de mejora tienen como propósito optimizar una solución factible existente mediante una serie de intercambios o modificaciones de aristas y vértices, tanto dentro como entre rutas vehiculares, con el fin de disminuir el costo total del recorrido \citep{toth2014}.
@@ -850,18 +850,18 @@ Entre los operadores clásicos utilizados en los métodos de mejora para problem
 
 	\item \textbf{Algoritmos de transferencias cíclicas:} Son movimientos multi-ruta que intentan eliminar clientes de una ruta y reubicarlos en otra de manera cíclica. También existe un movimiento que consiste en mover clientes de una ruta a otra en la misma posición \citep{montes2017}.
 
-	\item \textbf{Operadores de Van Breedam:} El primero, denominado \textit{Cadena de Traslado (String Relocation)}, se define como una secuencia de $m$ nodos que es transferida de una ruta a otra manteniendo el orden en la ruta original. El segundo, denominado \textit{Cadena de Intercambio (String Exchange)}, intercambia una secuencia de $m$ clientes con una secuencia de $n$ clientes entre dos rutas  \citep{montes2017, toth2014, olivera2004heur}.
+	\item \textbf{Operadores de Van Breedam:} El primero, denominado Cadena de Traslado (\textit{String Relocation}), se define como una secuencia de $m$ nodos que es transferida de una ruta a otra manteniendo el orden en la ruta original. El segundo, denominado Cadena de Intercambio (\textit{String Exchange}), intercambia una secuencia de $m$ clientes con una secuencia de $n$ clientes entre dos rutas  \citep{montes2017, toth2014, olivera2004heur}.
 \end{enumerate}
 
-En relación con lo expuesto en la subsubsection~\ref{subsec: clase_np}, los problemas de decisión pertenecientes a la clase \textit{NP} presentan una complejidad tal que no es posible garantizar la obtención de una solución óptima en tiempo polinómico razonable.
+En relación con lo expuesto en la subsubsection~\ref{subsec: clase_np}, los problemas de decisión pertenecientes a la clase NP presentan una complejidad tal que no es posible garantizar la obtención de una solución óptima en tiempo polinómico razonable.
 
 En este contexto, los métodos heurísticos constituyen una alternativa eficaz para abordar el problema de optimización combinatoria VRP-TW, donde los métodos exactos resultan inviables a gran escala.
 
-Por lo tanto, las heurísticas permiten obtener soluciones satisfactorias en tiempos razonables, priorizando el equilibrio entre la calidad de la solución y la eficiencia computacional. Aunque no garantizan la optimalidad, su aplicación resulta esencial cuando las soluciones exactas son computacionalmente prohibitivas.
+Por lo tanto, las heurísticas permiten obtener soluciones satisfactorias en tiempos razonables, priorizando el equilibrio entre la calidad de la solución y la eficiencia computacional. Aunque no garantizan la optimalidad, su aplicación resulta esencial cuando las soluciones exactas son \ prohibitivas.
 
 \subsubsection{Metaheurísticas}
 
-El término \textit{metaheurística} fue introducido por Fred Glover en 1986 \citep{antonioSuarez2014}. Etimológicamente, deriva de la composición de dos palabras de origen griego, que son “meta” y “heurística”. El segundo término ha sido descrito en la subsección anterior~\ref{subsec:heuristica}, mientras que el prefijo meta puede traducirse como “más allá de” o “en un nivel superior” \citep{duarte2007metaheuristicas}.
+El término metaheurística fue introducido por Fred Glover en 1986 \citep{antonioSuarez2014}. Etimológicamente, deriva de la composición de dos palabras de origen griego, que son “meta” y “heurística”. El segundo término ha sido descrito en la subsección anterior~\ref{subsec:heuristica}, mientras que el prefijo meta puede traducirse como “más allá de” o “en un nivel superior” \citep{duarte2007metaheuristicas}.
 
 Con este término, Glover pretendía definir un \textit{procedimiento maestro de alto nivel que guía y modifica otras heurísticas para explorar soluciones más allá de la simple optimalidad local} \citep{duarte2007metaheuristicas}.
 
@@ -875,11 +875,134 @@ Para el problema clásico VRP-TW, se han implementado diversas metaheurísticas 
 
 Según \citep{antonioSuarez2014}, las metaheurísticas se clasifican de acuerdo con la fuente de inspiración que las fundamenta. A continuación, se describen brevemente tres categorías relevantes:
 
+\subsubsection*{Metaheurísticas inspiradas en la evolución}
+
+Este tipo de técnicas metaheurísticas se basan en procesos evolutivos, ya que hacen evolucionar de forma simultánea los valores de un conjunto de soluciones, de manera que cada iteración aproxima el resultado al óptimo del problema \cite{vargas2016}.
+
+Los ejemplos más representativos en este campo son los algoritmos evolutivos y los algoritmos genéticos, los cuales se describen brevemente a continuación como fundamento teórico para comprender el algoritmo empleado en esta investigación.
+
+\subsubsection*{Algoritmos Evolutivos}
+
+Los algoritmos evolutivos (EA, \emph{Evolutionary Algorithms})  constituyen una familia de técnicas inspiradas en los principios de la evolución biológica propuestos por Charles Darwin, principalmente en la selección natural y la supervivencia del más apto. Su objetivo es buscar soluciones óptimas o cercanas al óptimo mediante un proceso iterativo que simula la evolución de una población de individuos \cite{eiben2003introduction}.
+
+El procedimiento general de un algoritmo evolutivo puede describirse de la siguiente manera \cite{back1997handbook}:
+
+\begin{enumerate}
+	\item \textbf{Inicialización:} Se genera una población inicial de individuos de manera aleatoria o siguiendo algún criterio heurístico.
+	\item \textbf{Evaluación:} Cada individuo es evaluado mediante la función de aptitud.
+	\item \textbf{Selección:} Se eligen los individuos más aptos para reproducirse.
+	\item \textbf{Recombinación y mutación:} Se aplican operadores que combinan y modifican las soluciones seleccionadas para crear nuevas generaciones.
+	\item \textbf{Reemplazo:} Se forma una nueva población con los individuos más aptos de la generación actual y las nuevas soluciones.
+	\item \textbf{Criterio de parada:} El proceso se repite hasta alcanzar un número máximo de iteraciones o una solución satisfactoria.
+\end{enumerate}
+
+Cada individuo representa una posible solución al problema y se evalúa mediante una función de aptitud o \textit{fitness}, que mide qué tan buena es la solución respecto al objetivo. A partir de esta población inicial, se aplican operadores evolutivos que imitan la reproducción y la mutación biológica, generando nuevas soluciones.
+
+
+\subsubsection*{Algoritmos Genéticos}
+
+Los algoritmos genéticos (GA, \emph{Genetic Algorithms}) son una de las técnicas más representativas dentro de los algoritmos evolutivos. Propuestos inicialmente por John Holland en la década de 1970 \cite{holland1975adaptation}, estos algoritmos utilizan una representación basada en \textit{cromosomas}, los cuales codifican posibles soluciones al problema. Los operadores principales que utilizan son \cite{goldberg1989genetic}:
+
+\begin{itemize}
+	\item \textbf{Cruzamiento (crossover):} combina la información de dos individuos para generar descendencia con características de ambos.
+	\item \textbf{Mutación:} introduce pequeñas variaciones aleatorias para mantener la diversidad genética y evitar la convergencia prematura.
+	\item \textbf{Selección:} elige los individuos más aptos para reproducirse, simulando la presión evolutiva.
+\end{itemize}
+
+Estos algoritmos destacan por su capacidad para explorar de manera eficiente grandes espacios de búsqueda y adaptarse a distintas configuraciones del problema. Gracias a la combinación de operadores genéticos y mecanismos de selección, los AG permiten generar soluciones robustas y competitivas incluso en escenarios de alta complejidad combinatoria.
+
+
+\subsubsection*{Evolución Diferencial (DE)}
+
+Dentro de la familia de los algoritmos evolutivos, la Evolución Diferencial (\textit{Differential Evolution}, DE) se ha consolidado como una de las técnicas más eficaces para la optimización de problemas continuos, debido a su simplicidad conceptual, bajo número de parámetros de control y alta capacidad de exploración del espacio de búsqueda \cite{storn1997differential,price2005differential}. 
+
+El DE comparte los fundamentos biológicos de otras metaheurísticas evolutivas, como la selección natural y la supervivencia del más apto, pero se diferencia por su mecanismo basado en combinaciones vectoriales de diferencias entre individuos de la población, lo que le permite mantener un equilibrio adecuado entre exploración y explotación.
+
+Este algoritmo trabaja con una población de soluciones candidatas representadas como vectores de valores reales, que evolucionan a lo largo de varias generaciones mediante tres operadores principales: mutación, recombinación y selección. De manera general, su funcionamiento puede describirse así:
+
+\begin{itemize}
+	\item \textbf{Mutación:} Genera un vector mutante $v_i$ combinando individuos de la población. Una de las estrategias más utilizadas es \textbf{DE/rand/1}:
+	\begin{equation}
+		v_i = x_{r_1} + F \cdot (x_{r_2} - x_{r_3})
+	\end{equation}
+	\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Vector mutante en Evolución Diferencial (DE/rand/1)}
+	donde $r_1, r_2, r_3$ son índices aleatorios distintos entre sí y diferentes de $i$, y $F$ es el factor de mutación ($F \in [0, 2]$, típicamente entre 0.5 y 1). Este operador introduce diversidad y permite explorar nuevas regiones del espacio de búsqueda.
+	
+	\item \textbf{Recombinación:} Combina el vector mutante con el vector original $x_i$ para formar un vector de prueba $u_i$, siguiendo el esquema de cruce binomial:
+	\begin{equation}
+		u_{i,j} = 
+		\begin{cases}
+			v_{i,j} & \text{si } \text{rand}() \leq CR \\
+			x_{i,j} & \text{en otro caso}
+		\end{cases}
+	\end{equation}
+	\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cruce binomial en Evolución Diferencial}
+	donde $CR \in [0, 1]$ es la tasa de cruce o probabilidad de recombinación. Este operador combina información de distintas soluciones, favoreciendo la explotación de configuraciones prometedoras.
+	
+	\item \textbf{Selección:} Compara el vector de prueba $u_i$ con el individuo original $x_i$ mediante la función objetivo, conservando únicamente el de mejor aptitud para la siguiente generación:
+	\begin{equation}
+		x_i^{(t+1)} = 
+		\begin{cases}
+			u_i       & \text{si } f(u_i) < f(x_i^{(t)}) \\
+			x_i^{(t)} & \text{en otro caso}
+		\end{cases}
+	\end{equation}
+	\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Operador de selección en Evolución Diferencial}
+	Este mecanismo garantiza la mejora progresiva de la población, evitando el deterioro de soluciones de alta calidad.
+\end{itemize}
+
+El DE ha demostrado ser altamente competitivo frente a otras metaheurísticas por su balance entre simplicidad y rendimiento, además de requerir pocos parámetros de control \cite{das2011differential}. Aunque originalmente fue diseñado para problemas de optimización continua, el DE ha sido ampliamente empleado en la calibración de parámetros de otros algoritmos de optimización, aprovechando su capacidad para explorar eficientemente espacios de búsqueda de dimensión moderada.
+
+\subsubsection*{Metaheurísticas inspiradas en la biología}
+
+Una clase particular de metaheurísticas que ha ganado gran popularidad en los últimos años se basa en reglas inspiradas en conceptos biológicos, tales como la evolución natural, el comportamiento de las hormigas o los patrones de vuelo de las aves. A este conjunto de técnicas se le conoce como metaheurísticas bio-inspiradas \cite{coello2022metaheuristicas}.
+
+Un ejemplo representativo de este tipo de técnicas es la Optimización basada en Colonias de Hormigas, la cual es una metaheurística bio-inspirada y relativamente reciente \citep{antonioSuarez2014}.
+
+\subsubsection*{Optimización basada en Colonias de Hormigas}
+
+La Optimización basada en Colonias de Hormigas (Ant Colony Optimization, ACO) es una metaheurística bioinspirada que toma como referencia el comportamiento colectivo de las hormigas al buscar caminos eficientes entre su colonia y una fuente de alimento \citep{dorigo1997ant}.
+
+En la naturaleza, las hormigas depositan una sustancia química llamada feromona sobre el suelo al desplazarse. A mayor cantidad de feromona en un camino, mayor es la probabilidad de que otras hormigas lo sigan. Con el tiempo, los caminos más cortos tienden a concentrar más feromonas, ya que son recorridos con mayor frecuencia. Este mecanismo colectivo da lugar a la autoorganización y a la aparición de soluciones eficientes sin supervisión centralizada \citep{cobos2010,dorigo1997ant}.
+
+De forma análoga, en ACO cada hormiga representa una solución candidata al problema de optimización. Las decisiones de construcción de soluciones están guiadas por dos factores: la cantidad de feromona acumulada en cada componente de la solución y una medida heurística que representa la deseabilidad local. La selección del siguiente componente se realiza mediante una regla de transición estocástica que pondera ambos factores \citep{cobos2010}.
+
+Este enfoque es especialmente útil en problemas como el TSP, VRP y VRPTW, donde el objetivo es construir rutas eficientes bajo restricciones combinatorias. Gracias a su carácter probabilístico y a la retroalimentación positiva de las feromonas, ACO es capaz de explorar el espacio de soluciones evitando caer prematuramente en óptimos locales.
+
+El algoritmo opera iterativamente: un conjunto de hormigas construye soluciones, se evalúan los costos de las mismas, se actualiza la cantidad de feromona en función de la calidad de las rutas encontradas, y se repite el proceso durante un número determinado de iteraciones o hasta alcanzar una condición de parada. Con el tiempo, el sistema converge hacia soluciones de alta calidad \citep{dorigo1997ant}.
+
+\subsubsection*{Modelo de selección probabilística en Ant Colony Optimization}
+
+En el algoritmo de Optimización basada en Colonias de Hormigas (ACO), la probabilidad de que una hormiga en el nodo \( i \) seleccione el nodo \( j \) como siguiente destino se calcula utilizando la siguiente expresión \citep{dorigo1997ant}:
+
+\begin{equation}
+p_{ij}^k(t) =
+\begin{cases}
+\dfrac{[\tau_{ij}(t)]^{\alpha} \cdot [\eta_{ij}]^{\beta}}
+{\displaystyle\sum_{l \in \mathcal{N}_i^k} [\tau_{il}(t)]^{\alpha} \cdot [\eta_{il}]^{\beta}}, & \text{si } j \in \mathcal{N}_i^k, \\[1.2em]
+0, & \text{en otro caso.}
+\end{cases}
+\label{eq:prob_aco_dorigo}
+\end{equation}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Regla de transición en ACO (Dorigo, 1997)}
+
+donde:
+\begin{itemize}
+	\item \( p_{ij}^k(t) \): probabilidad de que la hormiga \( k \) se desplace del nodo \( i \) al nodo \( j \) en el tiempo \( t \),
+	\item \( \tau_{ij}(t) \): cantidad de feromona en el borde \( (i, j) \) en el tiempo \( t \),
+	\item \( \eta_{ij} = \frac{1}{d_{ij}} \): visibilidad heurística, usualmente el inverso de la distancia,
+	\item \( \alpha \): parámetro que regula la influencia de la feromona,
+	\item \( \beta \): parámetro que regula la influencia de la heurística,
+	\item \( \mathcal{N}_i^k \): conjunto de nodos aún no visitados por la hormiga \( k \) al estar en \( i \).
+\end{itemize}
+
+Esta regla de transición balancea el conocimiento aprendido (feromonas) y la heurística (visibilidad), dirigiendo la exploración de las hormigas a lo largo del espacio de soluciones. Fue propuesta originalmente por Dorigo, Maniezzo y Colorni en sus estudios sobre el TSP \citep{dorigo1997ant}.
+
 \subsubsection*{Metaheurísticas inspiradas en la física}
-Este tipo de metaheurísticas toma como referencia principios y fenómenos de la física para guiar el proceso de búsqueda de soluciones óptimas. Un ejemplo representativo, es el \textbf{Recocido Simulado} \citep{antonioSuarez2014}.
+Este tipo de metaheurísticas toma como referencia principios y fenómenos de la física para guiar el proceso de búsqueda de soluciones óptimas. Un ejemplo representativo, es el Recocido Simulado \citep{antonioSuarez2014}.
 
 \subsubsection*{Recocido Simulado}
-El recocido simulado (\textbf{\textit{Simulated Annealing, SA}}) es una metaheurística inspirada en el proceso físico de recocido de los metales, donde se calienta un sólido a altas temperaturas y luego se enfría de manera controlada, permitiendo que sus partículas se reorganicen y alcancen una estructura de mínima energía \citep{cobos2010}.
+El recocido simulado SA(\textit{Simulated Annealing}) es una metaheurística inspirada en el proceso físico de recocido de los metales, donde se calienta un sólido a altas temperaturas y luego se enfría de manera controlada, permitiendo que sus partículas se reorganicen y alcancen una estructura de mínima energía \citep{cobos2010}.
 
 De forma análoga, en el contexto de la optimización combinatoria, cada solución posible del problema se considera un “estado” del sistema, y su calidad se mide como si fuera una “energía”. El objetivo es encontrar el estado (solución) con la menor energía (mejor valor de la función objetivo) \citep{cobos2010}.
 
@@ -908,87 +1031,6 @@ donde:
 
 Este modelo permite explicar cómo se distribuyen los estados energéticos en sistemas en equilibrio térmico, y es ampliamente utilizado como base probabilística en algoritmos como el SA para justificar la aceptación de soluciones peores durante las fases iniciales del proceso de enfriamiento \citep{kirkpatrick1983optimization}.
 
-Más adelante se detallará cómo fue empleada esta metaheurística, qué funciones específicas se implementaron y los beneficios que aporta su uso en la resolución del problema VRP-TW.
-\subsubsection*{Metaheurísticas inspiradas en la evolución}
-
-Este tipo de técnicas metaheurísticas se basan en procesos evolutivos, ya que hacen evolucionar de forma simultánea los valores de un conjunto de soluciones, de manera que cada iteración aproxima el resultado al óptimo del problema \cite{vargas2016}.
-
-Los ejemplos más representativos en este campo son los \textbf{algoritmos evolutivos} y los \textbf{algoritmos genéticos}, los cuales se describen brevemente a continuación.
-
-\subsubsection*{Algoritmos Evolutivos}
-
-Los algoritmos evolutivos (AE) constituyen una familia de técnicas inspiradas en los principios de la evolución biológica propuestos por Charles Darwin, principalmente la selección natural y la supervivencia del más apto. Su objetivo es buscar soluciones óptimas o cercanas al óptimo mediante un proceso iterativo que simula la evolución de una población de individuos \cite{eiben2003introduction}.
-
-El procedimiento general de un algoritmo evolutivo puede describirse de la siguiente manera \cite{back1997handbook}:
-
-\begin{enumerate}
-	\item \textbf{Inicialización:} Se genera una población inicial de individuos de manera aleatoria o siguiendo algún criterio heurístico.
-	\item \textbf{Evaluación:} Cada individuo es evaluado mediante la función de aptitud.
-	\item \textbf{Selección:} Se eligen los individuos más aptos para reproducirse.
-	\item \textbf{Recombinación y mutación:} Se aplican operadores que combinan y modifican las soluciones seleccionadas para crear nuevas generaciones.
-	\item \textbf{Reemplazo:} Se forma una nueva población con los individuos más aptos de la generación actual y las nuevas soluciones.
-	\item \textbf{Criterio de parada:} El proceso se repite hasta alcanzar un número máximo de iteraciones o una solución satisfactoria.
-\end{enumerate}
-
-Cada individuo representa una posible solución al problema y se evalúa mediante una función de aptitud o \textit{fitness}, que mide qué tan buena es la solución respecto al objetivo. A partir de esta población inicial, se aplican operadores evolutivos que imitan la reproducción y la mutación biológica, generando nuevas soluciones.
-
-
-\subsubsection*{Algoritmos Genéticos}
-
-Los algoritmos genéticos (AG) son una de las técnicas más representativas dentro de los algoritmos evolutivos. Propuestos inicialmente por John Holland en la década de 1970 \cite{holland1975adaptation}, estos algoritmos utilizan una representación basada en \textit{cromosomas}, los cuales codifican posibles soluciones al problema. Los operadores principales que utilizan son \cite{goldberg1989genetic}:
-
-\begin{itemize}
-	\item \textbf{Cruzamiento (crossover):} combina la información de dos individuos para generar descendencia con características de ambos.
-	\item \textbf{Mutación:} introduce pequeñas variaciones aleatorias para mantener la diversidad genética y evitar la convergencia prematura.
-	\item \textbf{Selección:} elige los individuos más aptos para reproducirse, simulando la presión evolutiva.
-\end{itemize}
-
-Estos algoritmos destacan por su capacidad para explorar de manera eficiente grandes espacios de búsqueda y adaptarse a distintas configuraciones del problema. Gracias a la combinación de operadores genéticos y mecanismos de selección, los AG permiten generar soluciones robustas y competitivas incluso en escenarios de alta complejidad combinatoria.
-
-En particular, estas metaheurísticas resultan especialmente valiosas en problemas de optimización combinatoria y, en especial, en el VRP-TW, ya que permiten manejar de manera eficiente la gran complejidad del espacio de soluciones, facilitando la obtención de resultados cercanos al óptimo cuando los métodos exactos resultan computacionalmente inviables. Gracias a su capacidad para evolucionar múltiples soluciones de forma simultánea, los algoritmos evolutivos y genéticos contribuyen significativamente a mejorar la eficiencia y la calidad de las rutas y estrategias generadas en estos contextos.
-
-\subsubsection*{Metaheurísticas inspiradas en la biología}
-
-Una clase particular de metaheurísticas que ha ganado gran popularidad en los últimos años se basa en reglas inspiradas en conceptos biológicos, tales como la evolución natural, el comportamiento de las hormigas o los patrones de vuelo de las aves. A este conjunto de técnicas se le conoce como metaheurísticas bio-inspiradas \cite{coello2022metaheuristicas}.
-
-Un ejemplo representativo de este tipo de técnicas es la Optimización basada en Colonias de Hormigas, la cual es una metaheurística bio-inspirada y relativamente reciente \citep{antonioSuarez2014}.
-
-\subsubsection*{Optimización basada en Colonias de Hormigas}
-
-La Optimización basada en Colonias de Hormigas (Ant Colony Optimization, ACO) es una metaheurística bioinspirada que toma como referencia el comportamiento colectivo de las hormigas al buscar caminos eficientes entre su colonia y una fuente de alimento \citep{dorigo1997ant}.
-
-En la naturaleza, las hormigas depositan una sustancia química llamada feromona sobre el suelo al desplazarse. A mayor cantidad de feromona en un camino, mayor es la probabilidad de que otras hormigas lo sigan. Con el tiempo, los caminos más cortos tienden a concentrar más feromonas, ya que son recorridos más rápidamente y con mayor frecuencia. Este mecanismo colectivo da lugar a la autoorganización y a la aparición de soluciones eficientes sin supervisión centralizada.
-
-De forma análoga, en ACO cada hormiga representa una solución candidata al problema de optimización. Las decisiones de construcción de soluciones están guiadas por dos factores: la cantidad de feromona acumulada en cada componente de la solución, y una medida heurística que representa la deseabilidad local (por ejemplo, la inversa de la distancia en TSP y VRP). La probabilidad de elegir el siguiente componente se calcula mediante una regla de transición estocástica, que pondera ambos factores.
-
-Este enfoque es especialmente útil en problemas como el TSP, VRP y VRPTW, donde el objetivo es construir rutas eficientes bajo restricciones combinatorias. Gracias a su carácter probabilístico y a la retroalimentación positiva de las feromonas, ACO es capaz de explorar el espacio de soluciones evitando caer prematuramente en óptimos locales.
-
-El algoritmo opera iterativamente: un conjunto de hormigas construye soluciones, se evalúan los costos de las mismas, se actualiza la cantidad de feromona en función de la calidad de las rutas encontradas, y se repite el proceso durante un número determinado de iteraciones o hasta alcanzar una condición de parada. Con el tiempo, el sistema converge hacia soluciones de alta calidad \citep{dorigo1997ant}.
-
-\subsubsection*{Modelo de selección probabilística en Ant Colony Optimization}
-
-En el algoritmo de Optimización basada en Colonias de Hormigas (ACO), la probabilidad de que una hormiga en el nodo \( i \) seleccione el nodo \( j \) como siguiente destino se calcula utilizando la siguiente expresión:
-
-\begin{equation}
-	p_{ij}^k = \frac{[\tau_{ij}]^\alpha \cdot [\eta_{ij}]^\beta}{\sum_{l \in \mathcal{N}_i^k} [\tau_{il}]^\alpha \cdot [\eta_{il}]^\beta}
-	\label{eq:prob_aco}
-\end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Regla de transición en ACO}
-
-donde:
-\begin{itemize}
-	\item \( p_{ij}^k \): Probabilidad de que la hormiga \( k \) se desplace del nodo \( i \) al nodo \( j \),
-	\item \( \tau_{ij} \): Cantidad de feromona en el borde \( (i, j) \),
-	\item \( \eta_{ij} = \frac{1}{d_{ij}} \): Visibilidad heurística, usualmente el inverso de la distancia,
-	\item \( \alpha \): Parámetro que regula la influencia de la feromona,
-	\item \( \beta \): Parámetro que regula la influencia de la heurística,
-	\item \( \mathcal{N}_i^k \): Conjunto de nodos aún no visitados por la hormiga \( k \) al estar en \( i \).
-\end{itemize}
-
-Esta regla de transición balancea el conocimiento aprendido (feromonas) y la heurística (visibilidad), dirigiendo la exploración de las hormigas a lo largo del espacio de soluciones. Fue propuesta originalmente por Dorigo y sus colaboradores en sus estudios sobre el TSP \citep{dorigo1997ant}.
-
-
-
 \subsubsection{Algoritmos Híbridos}
 
 Los algoritmos híbridos combinan características de diferentes metaheurísticas con el objetivo de aprovechar las ventajas de cada una y superar las limitaciones individuales. Este tipo de enfoques surge de la necesidad de mejorar la eficiencia, precisión y robustez en la resolución de problemas de optimización complejos \cite{eiben2003introduction, blum2003metaheuristics}.
@@ -1004,14 +1046,14 @@ Los algoritmos híbridos son especialmente valiosos para el problema VRP-TW, don
 
 \textbf{Ejemplos de algoritmos híbridos:}
 \begin{itemize}
-	\item \textbf{AG + Búsqueda Local:} combina algoritmos genéticos con operadores de mejora local para refinar las soluciones generadas por la población; es útil en el TSP, el VRP y su variante con ventanas de tiempo, el VRP-TW.
+	\item \textbf{GA + Búsqueda Local:} combina algoritmos genéticos con operadores de mejora local para refinar las soluciones generadas por la población; es útil en el TSP, el VRP y su variante con ventanas de tiempo, el VRP-TW.
 	\item \textbf{DE + Recocido Simulado (SA):} integra Evolución Diferencial con recocido simulado, equilibrando exploración global y ajuste fino de soluciones.
 	\item \textbf{ACO + Algoritmo Genético:} emplea la información de feromonas generada por Colonias de Hormigas como semilla para un algoritmo genético, acelerando la convergencia en problemas VRP-TW.
 \end{itemize}
 
 Por estas razones, los algoritmos híbridos se han consolidado como herramientas poderosas para resolver problemas complejos en logística, planificación de rutas, diseño de redes y otras áreas donde las metaheurísticas puras podrían no ser suficientes \cite{blum2003metaheuristics, eiben2003introduction}.
 
-En este trabajo, se adopta un enfoque híbrido que integra el \textbf{Algoritmo Evolutivo Diferencial (DE)}, la \textbf{Optimización por Colonias de Hormigas (ACO)} y el \textbf{Recocido Simulado (SA)} para abordar el VRP-TW. Esta combinación busca aprovechar las fortalezas complementarias de cada técnica: el DE se emplea para la calibración adaptativa de parámetros, optimizando el rendimiento global del sistema; el ACO se encarga de la construcción de rutas factibles mediante el uso de información heurística y de feromonas; y el SA se aplica como mecanismo de refinamiento local, mejorando las soluciones generadas y evitando la convergencia prematura.
+En este trabajo, se adopta un enfoque híbrido que integra el Algoritmo Evolutivo Diferencial (DE), la Optimización por Colonias de Hormigas (ACO) y el Recocido Simulado (SA) para abordar el VRP-TW. Esta combinación busca aprovechar las fortalezas complementarias de cada técnica: el DE se emplea para la calibración adaptativa de parámetros, optimizando el rendimiento global del sistema; el ACO se encarga de la construcción de rutas factibles mediante el uso de información heurística y de feromonas; y el SA se aplica como mecanismo de refinamiento local, mejorando las soluciones generadas y evitando la convergencia prematura.
 
 La sinergia entre estos métodos permite equilibrar los procesos de exploración y explotación, logrando una búsqueda más robusta y eficiente en espacios de soluciones altamente complejos, como los que caracterizan al VRP-TW. De esta manera, el enfoque híbrido propuesto no solo mejora la calidad de las soluciones obtenidas, sino que también contribuye a reducir el tiempo de cómputo necesario para alcanzar resultados competitivos.
 
@@ -1169,7 +1211,7 @@ Para complementar el desarrollo de esta investigación y facilitar la presentaci
 
 \subsection{Descripción general del algortimo híbrido}
 
-Para resolver el problema de VRP-TW, se propone un algoritmo híbrido que combina tres técnicas metaheurísticas: Algoritmo \textit{Evolutivo Diferencial (DE)}, \textit{Optimización por Colonia de Hormigas (ACO)} y \textit{Recocido Simulado (SA)}.
+Para resolver el problema de VRP-TW, se propone un algoritmo híbrido que combina tres técnicas metaheurísticas: Algoritmo Evolutivo Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA).
 Este enfoque aprovecha la capacidad de exploración global del ACO, la explotación local del SA y la calibración automática de parámetros mediante DE, con el objetivo de generar soluciones de alta calidad de manera eficiente.
 
 El flujo jerárquico del método híbrido es el siguiente:
@@ -1183,7 +1225,7 @@ El flujo jerárquico del método híbrido es el siguiente:
 El objetivo principal del enfoque propuesto es generar soluciones de alta calidad para instancias de VRP-TW, cumpliendo con las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes, y optimizando la eficiencia y robustez del método a través de la calibración automática de parámetros y el refinamiento de rutas.
 
 
-\subsection{Calibración de parámetros mediante Algoritmo Evolutivo Diferencial (DE)}
+\subsection{Calibración de parámetros mediante Evolucion Diferencial}
 
 Como primera etapa del enfoque híbrido, se emplea el Algoritmo Evolutivo Diferencial (DE) con el objetivo de calibrar los parámetros de las metaheurísticas ACO y SA de manera automatica. Esta calibración permite maximizar la calidad de las soluciones obtenidas por ACO y SA para el VRP-TW.
 
@@ -1529,7 +1571,349 @@ A continuación se presenta el pseudocódigo del algoritmo DE implementado para 
 
 \subsection{Construcción de rutas iniciales mediante ACO}
 
-\subsection{Refinamiento de rutas mediante Recocido Simulado SA}
+Una vez calibrados los parámetros mediante DE, la segunda etapa del enfoque híbrido consiste en construir soluciones factibles para el VRP-TW utilizando \textbf{Optimización por Colonia de Hormigas (ACO)}. Este algoritmo bioinspirado simula el comportamiento de las hormigas reales al buscar alimento, utilizando rastros de feromonas para encontrar rutas eficientes que minimicen la distancia total recorrida mientras respetan las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes.
+
+\subsubsection{Fundamentos del algoritmo ACO}
+
+El algoritmo ACO se basa en tres componentes principales que guían la construcción probabilística de soluciones:
+
+\begin{enumerate}
+	\item \textbf{Información de feromonas ($\tau_{ij}$):} Representa el conocimiento acumulado sobre qué conexiones entre clientes han formado parte de buenas soluciones en iteraciones previas. Mayor nivel de feromona indica rutas prometedoras.
+
+	\item \textbf{Información heurística ($\eta_{ij}$):} Proporciona conocimiento a priori sobre la calidad de las conexiones, típicamente basado en la distancia euclidiana entre clientes. Se define como $\eta_{ij} = 1/d_{ij}$, favoreciendo clientes cercanos.
+
+	\item \textbf{Información de ventanas de tiempo ($\omega_{ij}$):} Componente adicional específico para VRP-TW que considera la factibilidad temporal de visitar el cliente $j$ después del cliente $i$. Se calcula como $\omega_{ij} = 1/e_j$, donde $e_j$ es el límite superior de la ventana de tiempo del cliente $j$.
+\end{enumerate}
+
+\subsubsection{Construcción probabilística de rutas}
+
+Cada hormiga artificial construye una solución completa siguiendo una estrategia constructiva voraz aleatorizada. El proceso inicia desde el depósito y en cada paso, la hormiga $k$ selecciona el siguiente cliente $j$ a visitar desde su posición actual $i$ con una probabilidad dada por:
+
+\begin{equation}
+	p_{ij}^k = \frac{[\tau_{ij}]^\alpha \cdot [\eta_{ij}]^\beta \cdot [\omega_{ij}]^\gamma}{\sum_{l \in N_i^k} [\tau_{il}]^\alpha \cdot [\eta_{il}]^\beta \cdot [\omega_{il}]^\gamma}
+\end{equation}
+
+donde:
+\begin{itemize}
+	\item $N_i^k$ es el conjunto de clientes factibles que la hormiga $k$ puede visitar desde $i$
+	\item $\alpha$ controla la influencia de la información de feromonas
+	\item $\beta$ controla la influencia de la información heurística (distancia)
+	\item $\gamma$ controla la influencia de las ventanas de tiempo
+\end{itemize}
+
+Un cliente $j$ se considera factible si cumple simultáneamente:
+\begin{itemize}
+	\item No ha sido visitado previamente en la ruta actual
+	\item La capacidad del vehículo no se excede: $q_{\text{actual}} + d_j \leq Q$
+	\item La ventana de tiempo puede satisfacerse: $t_{\text{llegada}} \leq l_j$
+\end{itemize}
+
+\subsubsection{Gestión de restricciones temporales}
+
+El manejo de las ventanas de tiempo es crítico en el VRP-TW. Para cada cliente $j$ visitado, se calculan:
+
+\begin{equation}
+	t_{\text{llegada}}^j = t_{\text{salida}}^i + t_{\text{viaje}}(i,j)
+\end{equation}
+
+\begin{equation}
+	t_{\text{inicio\_servicio}}^j = \max(t_{\text{llegada}}^j, e_j)
+\end{equation}
+
+\begin{equation}
+	t_{\text{salida}}^j = t_{\text{inicio\_servicio}}^j + s_j
+\end{equation}
+
+donde $e_j$ y $l_j$ son los límites inferior y superior de la ventana de tiempo del cliente $j$, y $s_j$ es el tiempo de servicio. Si el vehículo llega antes de $e_j$, debe esperar; si llega después de $l_j$, la ruta es infactible.
+
+\subsubsection{Actualización de feromonas}
+
+Al finalizar cada iteración, todas las hormigas han construido soluciones completas. Las feromonas se actualizan mediante dos mecanismos:
+
+\paragraph{Evaporación de feromonas:}
+Reduce uniformemente los niveles de feromona para evitar convergencia prematura y permitir exploración de nuevas rutas:
+
+\begin{equation}
+	\tau_{ij} \leftarrow (1-\rho) \cdot \tau_{ij}
+\end{equation}
+
+donde $\rho \in [0,1]$ es la tasa de evaporación.
+
+\paragraph{Depósito de feromonas:}
+Las hormigas que encontraron buenas soluciones depositan feromona en las aristas utilizadas:
+
+\begin{equation}
+	\tau_{ij} \leftarrow \tau_{ij} + \sum_{k=1}^{m} \Delta\tau_{ij}^k
+\end{equation}
+
+donde:
+\begin{equation}
+	\Delta\tau_{ij}^k = \begin{cases}
+		\frac{Q_0}{L_k} & \text{si la hormiga } k \text{ usó la arista } (i,j) \\
+		0               & \text{en otro caso}
+	\end{cases}
+\end{equation}
+
+siendo $L_k$ el costo total de la solución de la hormiga $k$ y $Q_0$ una constante de normalización.
+
+\subsubsection{Criterio de factibilidad y penalización}
+
+Una solución se considera factible si:
+\begin{itemize}
+	\item Todos los clientes son visitados exactamente una vez
+	\item Ninguna ruta excede la capacidad del vehículo
+	\item Todas las ventanas de tiempo se respetan estrictamente
+	\item Cada ruta inicia y termina en el depósito
+\end{itemize}
+
+En caso de generar soluciones infactibles (aunque se evita mediante la lista de candidatos factibles), se aplican penalizaciones al fitness para desincentivar estas configuraciones.
+
+\subsubsection{Pseudocódigo del algoritmo ACO}
+
+\begin{algorithm}[H]
+	\caption{Optimización por Colonia de Hormigas para VRP-TW}
+	\label{alg:aco_vrptw}
+	\SetAlgoLined
+	\SetAlFnt{\footnotesize}
+
+	\KwIn{Parámetros $\alpha, \beta, \gamma, \rho$, número de hormigas $m$, iteraciones $n_{iter}$}
+	\KwOut{Mejor solución de rutas encontrada}
+
+	\textbf{Inicialización:}\\
+	1: Inicializar matriz de feromonas $\tau_{ij} = 1/l_j$ para todo $i, j$.\\
+	2: Calcular matriz de visibilidad $\eta_{ij} = 1/d_{ij}$.\\
+	3: Calcular matriz de información temporal $\omega_{ij} = 1/l_j$.\\
+	4: MejorSolución $\gets$ NULL, MejorCosto $\gets \infty$.\\
+
+	\textbf{Construcción de soluciones:}\\
+	5: \textbf{para} $iter=1$ \textbf{hasta} $iter=n_{iter}$ \textbf{hacer}\\
+	6: \hspace{1em} \textbf{para} $k=1$ \textbf{hasta} $k=m$ \textbf{hacer}\\
+	7: \hspace{2em} Inicializar ruta$_k$ vacía; posición$_k$ $\gets$ depósito; carga$_k$ $\gets 0$; tiempo$_k$ $\gets 0$.\\
+	8: \hspace{2em} Inicializar conjunto de clientes no visitados.\\
+	9: \hspace{2em} \textbf{mientras} existan clientes no visitados \textbf{hacer}\\
+	10: \hspace{3em} Construir lista de candidatos factibles considerando capacidad y ventanas.\\
+	11: \hspace{3em} \textbf{si} lista de candidatos no está vacía \textbf{entonces}\\
+	12: \hspace{4em} Calcular probabilidades usando la fórmula con $\alpha, \beta, \gamma$.\\
+	13: \hspace{4em} Seleccionar siguiente cliente $j$ según distribución de probabilidad.\\
+	14: \hspace{4em} Agregar cliente $j$ a ruta$_k$; Actualizar carga$_k$ y tiempo$_k$.\\
+	15: \hspace{4em} Marcar cliente $j$ como visitado; posición$_k$ $\gets j$.\\
+	16: \hspace{3em} \textbf{si no} \textit{(necesario nuevo vehículo)}\\
+	17: \hspace{4em} Cerrar ruta actual regresando al depósito.\\
+	18: \hspace{4em} Iniciar nueva ruta desde el depósito con carga$_k$ $\gets 0$.\\
+	19: \hspace{3em} \textbf{fin si}\\
+	20: \hspace{2em} \textbf{fin mientras}\\
+	21: \hspace{2em} Cerrar última ruta regresando al depósito.\\
+	22: \hspace{2em} Calcular costo total de ruta$_k$.\\
+	23: \hspace{2em} \textbf{si} costo(ruta$_k$) $<$ MejorCosto \textbf{entonces}\\
+	24: \hspace{3em} MejorSolución $\gets$ ruta$_k$; MejorCosto $\gets$ costo(ruta$_k$).\\
+	25: \hspace{2em} \textbf{fin si}\\
+	26: \hspace{1em} \textbf{fin para}\\
+
+	\textbf{Actualización de feromonas:}\\
+	27: \hspace{1em} \textbf{para cada} arista $(i,j)$ \textbf{hacer} \textit{(Evaporación)}\\
+	28: \hspace{2em} $\tau_{ij} \gets (1-\rho) \cdot \tau_{ij}$.\\
+	29: \hspace{1em} \textbf{fin para}\\
+	30: \hspace{1em} \textbf{para} $k=1$ \textbf{hasta} $k=m$ \textbf{hacer} \textit{(Depósito)}\\
+	31: \hspace{2em} \textbf{para cada} arista $(i,j)$ en ruta$_k$ \textbf{hacer}\\
+	32: \hspace{3em} $\tau_{ij} \gets \tau_{ij} + Q_0/$costo(ruta$_k$).\\
+	33: \hspace{2em} \textbf{fin para}\\
+	34: \hspace{1em} \textbf{fin para}\\
+
+	35: \textbf{fin para}\\
+	36: Retornar MejorSolución.\\
+
+\end{algorithm}
+
+\subsubsection{Integración con el enfoque híbrido}
+
+Las rutas generadas por ACO sirven como soluciones iniciales de alta calidad para la siguiente etapa de refinamiento mediante Recocido Simulado. Los parámetros $\alpha, \beta, \gamma, \rho$, así como el número de hormigas y de iteraciones, son precisamente los valores óptimos encontrados por el algoritmo DE en la etapa anterior, garantizando que ACO opere con su mejor configuración posible para cada tamaño de instancia.
+
+\subsection{Etapa 3: Refinamiento de Rutas mediante Recocido Simulado (SA)}
+
+La tercera y última etapa del enfoque híbrido consiste en refinar las soluciones generadas por ACO mediante \textbf{Recocido Simulado (SA)}, una metaheurística de búsqueda local que permite escapar de óptimos locales a través de la aceptación probabilística de soluciones que empeoran temporalmente la función objetivo. SA recibe como entrada la mejor ruta construida por ACO y aplica operadores de vecindad para explorar sistemáticamente el espacio de soluciones cercanas, buscando mejoras incrementales que reduzcan el costo total de las rutas mientras se mantiene la factibilidad.
+
+\subsubsection{Fundamentos del algoritmo SA}
+
+El algoritmo SA está inspirado en el proceso metalúrgico de recocido, donde un metal se calienta a alta temperatura y luego se enfría gradualmente para alcanzar un estado de mínima energía. En el contexto de optimización, la \textit{temperatura} controla la probabilidad de aceptar soluciones deteriorantes, permitiendo escapar de óptimos locales en etapas tempranas (alta temperatura) y convergiendo hacia soluciones de alta calidad en etapas finales (baja temperatura).
+
+Los componentes principales del algoritmo son:
+
+\begin{itemize}
+	\item \textbf{Temperatura inicial ($T_0$):} Valor alto que permite gran exploración inicial, aceptando movimientos deteriorantes con alta probabilidad.
+
+	\item \textbf{Temperatura final ($T_f$):} Valor muy bajo que marca el fin del algoritmo, cuando prácticamente solo se aceptan mejoras.
+
+	\item \textbf{Factor de enfriamiento ($\alpha_{\text{cool}}$):} Parámetro $\in (0,1)$ que controla la velocidad de descenso de temperatura según $T_{t+1} = \alpha_{\text{cool}} \cdot T_t$.
+
+	\item \textbf{Factor de control ($f_c$):} Número de iteraciones a realizar en cada nivel de temperatura antes de enfriar.
+\end{itemize}
+
+\subsubsection{Operadores de vecindad}
+
+Para explorar el espacio de soluciones, SA aplica tres operadores de vecindad que modifican las rutas de manera controlada, generando soluciones vecinas que deben evaluarse para determinar si se aceptan o rechazan:
+
+\paragraph{Operador Swap (Intercambio):}
+Intercambia las posiciones de dos clientes dentro de una misma ruta o entre rutas diferentes. Este operador es útil para reordenar secuencias de visitas y potencialmente reducir distancias cruzadas.
+
+\begin{equation}
+	\text{ruta} = [\ldots, i, \ldots, j, \ldots] \rightarrow \text{ruta'} = [\ldots, j, \ldots, i, \ldots]
+\end{equation}
+
+\textbf{Ejemplo:} Si la ruta es $[0, 3, 5, 8, 2, 0]$, intercambiar clientes 5 y 2 produce $[0, 3, 2, 8, 5, 0]$.
+
+\paragraph{Operador Insert (Reinserción):}
+Remueve un cliente de su posición actual y lo reinserta en otra posición de la misma ruta o de una ruta diferente. Este operador es efectivo para mejorar la secuencia de visitas respetando ventanas de tiempo.
+
+\begin{equation}
+	\text{ruta} = [\ldots, i, \ldots, j, \ldots] \rightarrow \text{ruta'} = [\ldots, j, \ldots, i, \ldots]
+\end{equation}
+
+\textbf{Ejemplo:} Extraer cliente 8 de $[0, 3, 5, 8, 2, 0]$ e insertarlo después de 3 produce $[0, 3, 8, 5, 2, 0]$.
+
+\paragraph{Operador 2-opt (Inversión de subruta):}
+Invierte el orden de los clientes en un segmento de la ruta, eliminando cruces y acortando distancias. Es especialmente efectivo para rutas con patrones geométricos mejorables.
+
+\begin{equation}
+	\text{ruta} = [0, i_1, \ldots, i_k, \ldots, i_m, 0] \rightarrow \text{ruta'} = [0, i_1, \ldots, i_m, \ldots, i_k, 0]
+\end{equation}
+
+\textbf{Ejemplo:} Invertir el segmento entre posiciones 2 y 4 en $[0, 3, 5, 8, 2, 0]$ produce $[0, 3, 2, 8, 5, 0]$.
+
+\subsubsection{Criterio de aceptación de Metropolis}
+
+En cada iteración, SA genera una solución vecina $s'$ a partir de la solución actual $s$ aplicando aleatoriamente uno de los tres operadores de vecindad. La decisión de aceptar o rechazar $s'$ se basa en el \textbf{criterio de Metropolis}:
+
+\begin{equation}
+	\text{Aceptar } s' = \begin{cases}
+		\text{Sí} & \text{si } f(s') < f(s) \text{ (siempre aceptar mejoras)}                                         \\
+		\text{Sí} & \text{si } \text{rand}() < e^{-\Delta f / T} \text{ (aceptar empeoramientos probabilísticamente)} \\
+		\text{No} & \text{en otro caso}
+	\end{cases}
+\end{equation}
+
+donde:
+\begin{itemize}
+	\item $\Delta f = f(s') - f(s)$ es la diferencia de costo
+	\item $T$ es la temperatura actual
+	\item $\text{rand}()$ genera un número aleatorio uniforme en $[0,1]$
+\end{itemize}
+
+La probabilidad de aceptar un empeoramiento es mayor cuando:
+\begin{itemize}
+	\item La temperatura $T$ es alta (exploración inicial)
+	\item La diferencia de costo $\Delta f$ es pequeña (empeoramiento leve)
+\end{itemize}
+
+\subsubsection{Esquema de enfriamiento}
+
+La temperatura se reduce gradualmente siguiendo un esquema de \textbf{enfriamiento geométrico}:
+
+\begin{equation}
+	T_{t+1} = \alpha_{\text{cool}} \cdot T_t
+\end{equation}
+
+con $\alpha_{\text{cool}} \in [0.95, 0.995]$ según el tamaño de la instancia. En cada nivel de temperatura $T_t$, se realizan $f_c$ iteraciones (típicamente $f_c = 100$-$300$) antes de enfriar, permitiendo una exploración adecuada del vecindario antes de intensificar la búsqueda.
+
+El algoritmo finaliza cuando la temperatura alcanza $T_f$ o cuando no se observan mejoras durante un número consecutivo de niveles de temperatura (criterio de estancamiento).
+
+\subsubsection{Manejo de factibilidad}
+
+Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, es necesario implementar mecanismos de validación:
+
+\begin{enumerate}
+	\item \textbf{Validación de capacidad:} Después de aplicar un operador, verificar que ninguna ruta exceda $Q$ (capacidad del vehículo).
+
+	\item \textbf{Validación temporal:} Recalcular tiempos de llegada y verificar que todos los clientes se visiten dentro de sus ventanas $[e_j, l_j]$.
+
+	\item \textbf{Rechazo de infactibles:} Si la solución vecina es infactible, se rechaza automáticamente sin evaluar el criterio de Metropolis.
+\end{enumerate}
+
+Alternativamente, se pueden aplicar \textbf{penalizaciones} al costo de soluciones infactibles:
+
+\begin{equation}
+	f_{\text{penalizado}}(s') = f(s') + \lambda_1 \cdot V_{\text{capacidad}} + \lambda_2 \cdot V_{\text{tiempo}}
+\end{equation}
+
+donde $V_{\text{capacidad}}$ y $V_{\text{tiempo}}$ cuantifican el grado de violación de restricciones, y $\lambda_1, \lambda_2$ son pesos de penalización suficientemente grandes.
+
+\subsubsection{Pseudocódigo del algoritmo SA}
+
+\begin{algorithm}[H]
+	\caption{Recocido Simulado para Refinamiento de Rutas VRP-TW}
+	\label{alg:sa_vrptw}
+	\SetAlgoLined
+	\SetAlFnt{\footnotesize}
+
+	\KwIn{Solución inicial $s_0$ (de ACO), $T_0$, $T_f$, $\alpha_{\text{cool}}$, $f_c$}
+	\KwOut{Solución refinada $s^*$}
+
+	\textbf{Inicialización:}\\
+	1: $s_{\text{actual}} \gets s_0$; $s^* \gets s_0$; $T \gets T_0$.\\
+	2: Calcular costo inicial: $f_{\text{actual}} \gets f(s_{\text{actual}})$; $f^* \gets f_{\text{actual}}$.\\
+
+	\textbf{Búsqueda local con aceptación probabilística:}\\
+	3: \textbf{mientras} $T > T_f$ \textbf{hacer}\\
+	4: \hspace{1em} \textbf{para} $iter=1$ \textbf{hasta} $iter=f_c$ \textbf{hacer}\\
+
+	5: \hspace{2em} Seleccionar aleatoriamente un operador de vecindad (Swap, Insert o 2-opt).\\
+
+	6: \hspace{2em} \textbf{si} operador es Swap \textbf{entonces}\\
+	7: \hspace{3em} Seleccionar dos clientes $i, j$ aleatorios; Intercambiar posiciones.\\
+	8: \hspace{2em} \textbf{si no, si} operador es Insert \textbf{entonces}\\
+	9: \hspace{3em} Seleccionar cliente $i$ y posición destino; Reubicar cliente.\\
+	10: \hspace{2em} \textbf{si no} \textit{(operador es 2-opt)}\\
+	11: \hspace{3em} Seleccionar dos posiciones $k, m$; Invertir segmento entre ellas.\\
+	12: \hspace{2em} \textbf{fin si}\\
+
+	13: \hspace{2em} Generar solución vecina $s_{\text{vecina}}$ aplicando el operador.\\
+
+	14: \hspace{2em} \textbf{si} $s_{\text{vecina}}$ es factible (capacidad y ventanas) \textbf{entonces}\\
+	15: \hspace{3em} Calcular $f_{\text{vecina}} \gets f(s_{\text{vecina}})$.\\
+	16: \hspace{3em} Calcular $\Delta f \gets f_{\text{vecina}} - f_{\text{actual}}$.\\
+
+	17: \hspace{3em} \textbf{si} $\Delta f < 0$ \textbf{entonces} \textit{(mejora)}\\
+	18: \hspace{4em} $s_{\text{actual}} \gets s_{\text{vecina}}$; $f_{\text{actual}} \gets f_{\text{vecina}}$.\\
+	19: \hspace{4em} \textbf{si} $f_{\text{vecina}} < f^*$ \textbf{entonces}\\
+	20: \hspace{5em} $s^* \gets s_{\text{vecina}}$; $f^* \gets f_{\text{vecina}}$.\\
+	21: \hspace{4em} \textbf{fin si}\\
+
+	22: \hspace{3em} \textbf{si no} \textit{(empeoramiento)}\\
+	23: \hspace{4em} Generar número aleatorio $r \in [0,1]$.\\
+	24: \hspace{4em} Calcular probabilidad de aceptación: $p \gets e^{-\Delta f / T}$.\\
+	25: \hspace{4em} \textbf{si} $r < p$ \textbf{entonces}\\
+	26: \hspace{5em} $s_{\text{actual}} \gets s_{\text{vecina}}$; $f_{\text{actual}} \gets f_{\text{vecina}}$ \textit{(aceptar empeoramiento)}.\\
+	27: \hspace{4em} \textbf{fin si}\\
+	28: \hspace{3em} \textbf{fin si}\\
+
+	29: \hspace{2em} \textbf{fin si}\\
+
+	30: \hspace{1em} \textbf{fin para}\\
+
+	\textbf{Enfriamiento:}\\
+	31: \hspace{1em} $T \gets \alpha_{\text{cool}} \cdot T$ \textit{(reducir temperatura)}.\\
+
+	32: \textbf{fin mientras}\\
+
+	33: Retornar $s^*$ como solución refinada.\\
+
+\end{algorithm}
+
+\subsubsection{Integración con el enfoque híbrido}
+
+SA opera como la etapa final de refinamiento del algoritmo híbrido, recibiendo las mejores rutas construidas por ACO y aplicando mejoras locales iterativas. Los parámetros de SA ($T_0, T_f, \alpha_{\text{cool}}, f_c$) fueron calibrados previamente por el algoritmo DE, garantizando un balance óptimo entre capacidad de escape de óptimos locales (temperatura inicial alta, enfriamiento lento) y convergencia eficiente hacia soluciones de alta calidad (temperatura final baja, suficientes iteraciones por nivel).
+
+La combinación ACO+SA aprovecha las fortalezas complementarias de ambos algoritmos: ACO genera soluciones diversas y factibles explorando globalmente el espacio de búsqueda, mientras que SA refina intensivamente estas soluciones mediante búsqueda local guiada, escapando de óptimos locales gracias a la aceptación probabilística de empeoramientos controlados por la temperatura.
+
+\subsubsection{Complejidad computacional}
+
+La complejidad del algoritmo SA por iteración depende del operador aplicado:
+\begin{itemize}
+	\item \textbf{Swap:} $O(n)$ para validar factibilidad después del intercambio
+	\item \textbf{Insert:} $O(n)$ para recalcular tiempos en la ruta modificada
+	\item \textbf{2-opt:} $O(n)$ para invertir el segmento y validar
+\end{itemize}
+
+Con $G_T$ niveles de temperatura, $f_c$ iteraciones por nivel, y asumiendo $n$ clientes, la complejidad total es $O(G_T \cdot f_c \cdot n)$. En la práctica, $G_T \approx \log(T_0/T_f)/\log(\alpha_{\text{cool}})$, resultando en tiempos de ejecución manejables incluso para instancias grandes (100 clientes).
 
 
 \chapter{Resultados}
@@ -1540,7 +1924,7 @@ A continuación se presenta el pseudocódigo del algoritmo DE implementado para 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% APÉNDICES Y REFERENCIAS
+% REFERENCIAS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
 
@@ -1548,11 +1932,6 @@ A continuación se presenta el pseudocódigo del algoritmo DE implementado para 
 \bibliographystyle{plain}
 \bibliography{referencias}
 
-
-
-\appendix
-\chapter{Apéndices}
-\label{ap:apendices}
 
 
 \end{document}
