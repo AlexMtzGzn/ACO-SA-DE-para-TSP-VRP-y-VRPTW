@@ -5,45 +5,45 @@ The style file: plain.bst
 Database file #1: referencias.bib
 Warning--entry type for "vargas2016" isn't style-file defined
 --line 255 of file referencias.bib
-You've used 56 entries,
+You've used 55 entries,
             2118 wiz_defined-function locations,
-            826 strings with 13645 characters,
-and the built_in function-call counts, 17277 in all, are:
-= -- 1728
-> -- 765
+            819 strings with 13461 characters,
+and the built_in function-call counts, 16971 in all, are:
+= -- 1696
+> -- 752
 < -- 3
-+ -- 313
-- -- 244
-* -- 1203
-:= -- 2928
-add.period$ -- 174
-call.type$ -- 56
-change.case$ -- 279
++ -- 308
+- -- 240
+* -- 1180
+:= -- 2876
+add.period$ -- 171
+call.type$ -- 55
+change.case$ -- 274
 chr.to.int$ -- 0
-cite$ -- 56
-duplicate$ -- 637
-empty$ -- 1402
-format.name$ -- 244
-if$ -- 3558
+cite$ -- 55
+duplicate$ -- 626
+empty$ -- 1378
+format.name$ -- 240
+if$ -- 3496
 int.to.chr$ -- 0
-int.to.str$ -- 56
-missing$ -- 62
-newline$ -- 285
-num.names$ -- 113
-pop$ -- 293
+int.to.str$ -- 55
+missing$ -- 61
+newline$ -- 280
+num.names$ -- 111
+pop$ -- 290
 preamble$ -- 1
-purify$ -- 234
+purify$ -- 230
 quote$ -- 0
-skip$ -- 411
+skip$ -- 403
 stack$ -- 0
-substring$ -- 1102
-swap$ -- 70
+substring$ -- 1081
+swap$ -- 69
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 198
+type$ -- 194
 warning$ -- 0
-while$ -- 182
-width$ -- 58
-write$ -- 619
+while$ -- 178
+width$ -- 57
+write$ -- 608
 (There was 1 warning)
