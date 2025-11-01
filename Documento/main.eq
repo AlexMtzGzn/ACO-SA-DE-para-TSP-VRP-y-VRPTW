@@ -22,5 +22,5 @@
 \contentsline {myequations}{\numberline {2.22} Vector mutante en Evolución Diferencial (DE/rand/1)}{26}{equation.2.2.22}%
 \contentsline {myequations}{\numberline {2.23} Cruce binomial en Evolución Diferencial}{27}{equation.2.2.23}%
 \contentsline {myequations}{\numberline {2.24} Operador de selección en Evolución Diferencial}{27}{equation.2.2.24}%
-\contentsline {myequations}{\numberline {2.25} Regla de transición en ACO (Dorigo, 1997)}{28}{equation.2.2.25}%
-\contentsline {myequations}{\numberline {2.26} Distribución de Boltzmann}{30}{equation.2.2.26}%
+\contentsline {myequations}{\numberline {2.25} Regla de transición en ACO}{28}{equation.2.2.25}%
+\contentsline {myequations}{\numberline {2.26} Distribución de Boltzmann}{29}{equation.2.2.26}%
