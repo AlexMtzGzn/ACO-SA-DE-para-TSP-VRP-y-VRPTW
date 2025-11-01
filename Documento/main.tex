@@ -861,29 +861,23 @@ Por lo tanto, las heurísticas permiten obtener soluciones satisfactorias en tie
 
 \subsubsection{Metaheurísticas}
 
-El término metaheurística fue introducido por Fred Glover en 1986 \citep{antonioSuarez2014}. Etimológicamente, deriva de la composición de dos palabras de origen griego, que son “meta” y “heurística”. El segundo término ha sido descrito en la subsección anterior~\ref{subsec:heuristica}, mientras que el prefijo meta puede traducirse como “más allá de” o “en un nivel superior” \citep{duarte2007metaheuristicas}.
+El término metaheurística fue introducido por Fred Glover en 1986 \citep{antonioSuarez2014}. Etimológicamente, deriva de la composición de dos palabras de origen griego: “meta” y “heurística”. El segundo término ha sido descrito en la subsección anterior~\ref{subsec:heuristica}, mientras que el prefijo “meta” puede traducirse como “más allá de” o “en un nivel superior” \citep{duarte2007metaheuristicas}.
 
 Con este término, Glover pretendía definir un \textit{procedimiento maestro de alto nivel que guía y modifica otras heurísticas para explorar soluciones más allá de la simple optimalidad local} \citep{duarte2007metaheuristicas}.
 
-Para ilustrar este concepto, cabe mencionar la definición propuesta por J.P. Kelly et al., quien es citado por \citep{duarte2007metaheuristicas}:
+Para ilustrar este concepto, cabe mencionar la definición propuesta por J. P. Kelly et al., citado por \citep{duarte2007metaheuristicas}:
 
 \begin{quote}
-	\textit{Las metaheurísticas son métodos aproximados especialmente diseñados para abordar problemas complejos de optimización combinatoria donde los heurísticos tradicionales resultan ineficaces. Estas técnicas ofrecen un marco flexible para desarrollar algoritmos híbridos que integran conceptos provenientes de la inteligencia artificial, la evolución biológica y procesos estadísticos.}
+	\textit{Las metaheurísticas son métodos aproximados especialmente diseñados para abordar problemas complejos de optimización combinatoria, donde los heurísticos tradicionales resultan ineficaces. Estas técnicas ofrecen un marco flexible para desarrollar algoritmos híbridos que integran conceptos provenientes de la inteligencia artificial, la evolución biológica y procesos estadísticos.}
 \end{quote}
 
 Para el problema clásico VRP-TW, se han implementado diversas metaheurísticas debido a su capacidad para ofrecer soluciones de buena calidad en tiempos razonables, especialmente cuando las técnicas exactas se vuelven ineficaces por la complejidad combinatoria del espacio de búsqueda.
 
-Según \citep{antonioSuarez2014}, las metaheurísticas se clasifican de acuerdo con la fuente de inspiración que las fundamenta. A continuación, se describen brevemente tres categorías relevantes:
-
-\subsubsection*{Metaheurísticas inspiradas en la evolución}
-
-Este tipo de técnicas metaheurísticas se basan en procesos evolutivos, ya que hacen evolucionar de forma simultánea los valores de un conjunto de soluciones, de manera que cada iteración aproxima el resultado al óptimo del problema \cite{vargas2016}.
-
-Los ejemplos más representativos en este campo son los algoritmos evolutivos y los algoritmos genéticos, los cuales se describen brevemente a continuación como fundamento teórico para comprender el algoritmo empleado en esta investigación.
+Según \citep{antonioSuarez2014}, las metaheurísticas se clasifican de acuerdo con la fuente de inspiración que las fundamenta. A continuación, se describen brevemente tres categorías relevantes.
 
 \subsubsection*{Algoritmos Evolutivos}
 
-Los algoritmos evolutivos (EA, \emph{Evolutionary Algorithms})  constituyen una familia de técnicas inspiradas en los principios de la evolución biológica propuestos por Charles Darwin, principalmente en la selección natural y la supervivencia del más apto. Su objetivo es buscar soluciones óptimas o cercanas al óptimo mediante un proceso iterativo que simula la evolución de una población de individuos \cite{eiben2003introduction}.
+Los algoritmos evolutivos (EA, \emph{Evolutionary Algorithms}) constituyen una familia de técnicas inspiradas en los principios de la evolución biológica propuestos por Charles Darwin, principalmente en la selección natural y la supervivencia del más apto. Su objetivo es buscar soluciones óptimas o cercanas al óptimo mediante un proceso iterativo que simula la evolución de una población de individuos \cite{eiben2003introduction}.
 
 El procedimiento general de un algoritmo evolutivo puede describirse de la siguiente manera \cite{back1997handbook}:
 
@@ -898,10 +892,9 @@ El procedimiento general de un algoritmo evolutivo puede describirse de la sigui
 
 Cada individuo representa una posible solución al problema y se evalúa mediante una función de aptitud o \textit{fitness}, que mide qué tan buena es la solución respecto al objetivo. A partir de esta población inicial, se aplican operadores evolutivos que imitan la reproducción y la mutación biológica, generando nuevas soluciones.
 
-
 \subsubsection*{Algoritmos Genéticos}
 
-Los algoritmos genéticos (GA, \emph{Genetic Algorithms}) son una de las técnicas más representativas dentro de los algoritmos evolutivos. Propuestos inicialmente por John Holland en la década de 1970 \cite{holland1975adaptation}, estos algoritmos utilizan una representación basada en \textit{cromosomas}, los cuales codifican posibles soluciones al problema. Los operadores principales que utilizan son \cite{goldberg1989genetic}:
+Los algoritmos genéticos (GA, \emph{Genetic Algorithms}) son una de las técnicas más representativas dentro de los algoritmos evolutivos. Propuestos inicialmente por John Holland en la década de 1970 \cite{holland1975adaptation}, estos algoritmos utilizan una representación basada en \textit{cromosomas}, los cuales codifican posibles soluciones al problema. Los operadores principales que emplean son \cite{goldberg1989genetic}:
 
 \begin{itemize}
 	\item \textbf{Cruzamiento (crossover):} combina la información de dos individuos para generar descendencia con características de ambos.
@@ -911,24 +904,25 @@ Los algoritmos genéticos (GA, \emph{Genetic Algorithms}) son una de las técnic
 
 Estos algoritmos destacan por su capacidad para explorar de manera eficiente grandes espacios de búsqueda y adaptarse a distintas configuraciones del problema. Gracias a la combinación de operadores genéticos y mecanismos de selección, los GA permiten generar soluciones robustas y competitivas incluso en escenarios de alta complejidad combinatoria.
 
-Anque el EA y el GA fuenron explicacions con sencilles, es importante explicar una variante que se explica a continuacion, ya que sera fundamental para este tarabao de investiacion, debido a que sera implementado, este se eplica a cotinuacion.
+Aunque los algoritmos evolutivos (EA) y los algoritmos genéticos (GA) han sido descritos de manera general, a continuación se presenta una variante de especial relevancia para esta investigación. Dicha técnica será fundamental en el desarrollo del presente trabajo, ya que se implementará como parte del enfoque de optimización propuesto. En la siguiente sección se describe el funcionamiento del algoritmo de Evolución Diferencial (DE).
+
 \subsubsection*{Evolución Diferencial (DE)}
 
-Dentro de la familia de los algoritmos evolutivos, la Evolución Diferencial (\textit{Differential Evolution}, DE) se ha consolidado como una de las técnicas más eficaces para la optimización de problemas continuos, debido a su simplicidad conceptual, bajo número de parámetros de control y alta capacidad de exploración del espacio de búsqueda \cite{storn1997differential,price2005differential}. 
+Dentro de la familia de los algoritmos evolutivos, la Evolución Diferencial (\emph{Differential Evolution}, DE) se ha consolidado como una de las técnicas más eficaces para la optimización de problemas continuos, debido a su simplicidad conceptual, bajo número de parámetros de control y alta capacidad de exploración del espacio de búsqueda \cite{storn1997differential,price2005differential}. 
 
 El DE comparte los fundamentos biológicos de otras metaheurísticas evolutivas, como la selección natural y la supervivencia del más apto, pero se diferencia por su mecanismo basado en combinaciones vectoriales de diferencias entre individuos de la población, lo que le permite mantener un equilibrio adecuado entre exploración y explotación.
 
-Este algoritmo trabaja con una población de soluciones candidatas representadas como vectores de valores reales, que evolucionan a lo largo de varias generaciones mediante tres operadores principales: mutación, recombinación y selección. De manera general, su funcionamiento puede describirse así:
+Este algoritmo trabaja con una población de soluciones candidatas representadas como vectores de valores reales, que evolucionan a lo largo de varias generaciones mediante tres operadores principales: mutación, recombinación y selección. De manera general, su funcionamiento puede describirse de la siguiente forma:
 
 \begin{itemize}
-	\item \textbf{Mutación:} Genera un vector mutante $v_i$ combinando individuos de la población. Una de las estrategias más utilizadas es \textbf{DE/rand/1}:
+	\item \textbf{Mutación:} genera un vector mutante $v_i$ combinando individuos de la población. Una de las estrategias más utilizadas es \textbf{DE/rand/1}:
 	\begin{equation}
 		v_i = x_{r_1} + F \cdot (x_{r_2} - x_{r_3})
 	\end{equation}
 	\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Vector mutante en Evolución Diferencial (DE/rand/1)}
 	donde $r_1, r_2, r_3$ son índices aleatorios distintos entre sí y diferentes de $i$, y $F$ es el factor de mutación ($F \in [0, 2]$, típicamente entre 0.5 y 1). Este operador introduce diversidad y permite explorar nuevas regiones del espacio de búsqueda.
 	
-	\item \textbf{Recombinación:} Combina el vector mutante con el vector original $x_i$ para formar un vector de prueba $u_i$, siguiendo el esquema de cruce binomial:
+	\item \textbf{Recombinación:} combina el vector mutante con el vector original $x_i$ para formar un vector de prueba $u_i$, siguiendo el esquema de cruce binomial:
 	\begin{equation}
 		u_{i,j} = 
 		\begin{cases}
@@ -939,7 +933,7 @@ Este algoritmo trabaja con una población de soluciones candidatas representadas
 	\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cruce binomial en Evolución Diferencial}
 	donde $CR \in [0, 1]$ es la tasa de cruce o probabilidad de recombinación. Este operador combina información de distintas soluciones, favoreciendo la explotación de configuraciones prometedoras.
 	
-	\item \textbf{Selección:} Compara el vector de prueba $u_i$ con el individuo original $x_i$ mediante la función objetivo, conservando únicamente el de mejor aptitud para la siguiente generación:
+	\item \textbf{Selección:} compara el vector de prueba $u_i$ con el individuo original $x_i$ mediante la función objetivo, conservando únicamente el de mejor aptitud para la siguiente generación:
 	\begin{equation}
 		x_i^{(t+1)} = 
 		\begin{cases}
@@ -951,26 +945,23 @@ Este algoritmo trabaja con una población de soluciones candidatas representadas
 	Este mecanismo garantiza la mejora progresiva de la población, evitando el deterioro de soluciones de alta calidad.
 \end{itemize}
 
-Aunque los algoritmos evolutivos EA y los algoritmos genéticos GA han sido descritos de manera general, es importante presentar una variante de especial relevancia para esta investigación. Dicha técnica será fundamental en el desarrollo del presente trabajo, ya que se implementará como parte del enfoque de optimización propuesto. A continuación, se detalla el funcionamiento del algoritmo de Evolución Diferencial DE.
 \subsubsection*{Metaheurísticas inspiradas en la biología}
 
-Una clase particular de metaheurísticas que ha ganado gran popularidad en los últimos años se basa en reglas inspiradas en conceptos biológicos, tales como la evolución natural, el comportamiento de las hormigas o los patrones de vuelo de las aves. A este conjunto de técnicas se le conoce como metaheurísticas bio-inspiradas \cite{coello2022metaheuristicas}.
+Una clase particular de metaheurísticas que ha ganado gran popularidad en los últimos años se basa en reglas inspiradas en conceptos biológicos, tales como la evolución natural, el comportamiento de las hormigas o los patrones de vuelo de las aves. A este conjunto de técnicas se le conoce como metaheurísticas bio-inspiradas \cite{coello2022metaheuristicas}. Estas técnicas buscan reproducir comportamientos colectivos o procesos naturales que conducen a la emergencia de soluciones eficientes sin supervisión centralizada.
 
 Un ejemplo representativo de este tipo de técnicas es la Optimización basada en Colonias de Hormigas, la cual es una metaheurística bio-inspirada y relativamente reciente \citep{antonioSuarez2014}.
 
 \subsubsection*{Optimización basada en Colonias de Hormigas}
 
-La Optimización basada en Colonias de Hormigas (Ant Colony Optimization, ACO) es una metaheurística bioinspirada que toma como referencia el comportamiento colectivo de las hormigas al buscar caminos eficientes entre su colonia y una fuente de alimento \citep{dorigo1997ant}.
+La Optimización basada en Colonias de Hormigas (*Ant Colony Optimization*, ACO) es una metaheurística bio-inspirada que toma como referencia el comportamiento colectivo de las hormigas al buscar caminos eficientes entre su colonia y una fuente de alimento \citep{dorigo1997ant}.
 
 En la naturaleza, las hormigas depositan una sustancia química llamada feromona sobre el suelo al desplazarse. A mayor cantidad de feromona en un camino, mayor es la probabilidad de que otras hormigas lo sigan. Con el tiempo, los caminos más cortos tienden a concentrar más feromonas, ya que son recorridos con mayor frecuencia. Este mecanismo colectivo da lugar a la autoorganización y a la aparición de soluciones eficientes sin supervisión centralizada \citep{cobos2010,dorigo1997ant}.
 
 De forma análoga, en ACO cada hormiga representa una solución candidata al problema de optimización. Las decisiones de construcción de soluciones están guiadas por dos factores: la cantidad de feromona acumulada en cada componente de la solución y una medida heurística que representa la deseabilidad local. La selección del siguiente componente se realiza mediante una regla de transición estocástica que pondera ambos factores \citep{cobos2010}.
 
-% Este enfoque es especialmente útil en problemas como el TSP, VRP y VRPTW, donde el objetivo es construir rutas eficientes bajo restricciones combinatorias. Gracias a su carácter probabilístico y a la retroalimentación positiva de las feromonas, ACO es capaz de explorar el espacio de soluciones evitando caer prematuramente en óptimos locales.
+El algoritmo opera iterativamente: un conjunto de hormigas construye soluciones, se evalúan los costos de las mismas, se actualiza la cantidad de feromona en función de la calidad de las rutas encontradas y se repite el proceso durante un número determinado de iteraciones o hasta alcanzar una condición de parada. Con el tiempo, el sistema converge hacia soluciones de alta calidad \citep{dorigo1997ant}.
 
-El algoritmo opera iterativamente: un conjunto de hormigas construye soluciones, se evalúan los costos de las mismas, se actualiza la cantidad de feromona en función de la calidad de las rutas encontradas, y se repite el proceso durante un número determinado de iteraciones o hasta alcanzar una condición de parada. Con el tiempo, el sistema converge hacia soluciones de alta calidad \citep{dorigo1997ant}.
-
-\subsubsection*{Modelo de selección probabilística en Ant Colony Optimization}
+\subsubsection*{Modelo de selección probabilística en la Optimización basada en Colonias de Hormigas}
 
 En el algoritmo de Optimización basada en Colonias de Hormigas (ACO), la probabilidad de que una hormiga en el nodo \( i \) seleccione el nodo \( j \) como siguiente destino se calcula utilizando la siguiente expresión \citep{dorigo1997ant}:
 
@@ -998,10 +989,12 @@ donde:
 Esta regla de transición balancea el conocimiento aprendido (feromonas) y la heurística (visibilidad), dirigiendo la exploración de las hormigas a lo largo del espacio de soluciones. Fue propuesta originalmente por Dorigo, Maniezzo y Colorni en sus estudios sobre el TSP \citep{dorigo1997ant}.
 
 \subsubsection*{Metaheurísticas inspiradas en la física}
-Este tipo de metaheurísticas toma como referencia principios y fenómenos de la física para guiar el proceso de búsqueda de soluciones óptimas. Un ejemplo representativo, es el Recocido Simulado \citep{antonioSuarez2014}.
+
+Este tipo de metaheurísticas toma como referencia principios y fenómenos físicos para guiar el proceso de búsqueda de soluciones óptimas. Un ejemplo representativo es el Recocido Simulado \citep{antonioSuarez2014}.
 
 \subsubsection*{Recocido Simulado}
-El recocido simulado SA(\textit{Simulated Annealing}) es una metaheurística inspirada en el proceso físico de recocido de los metales, donde se calienta un sólido a altas temperaturas y luego se enfría de manera controlada, permitiendo que sus partículas se reorganicen y alcancen una estructura de mínima energía \citep{cobos2010}.
+
+El Recocido Simulado (*Simulated Annealing*, SA) es una metaheurística inspirada en el proceso físico de recocido de los metales, donde se calienta un sólido a altas temperaturas y luego se enfría de manera controlada, permitiendo que sus partículas se reorganicen y alcancen una estructura de mínima energía \citep{cobos2010}.
 
 De forma análoga, en el contexto de la optimización combinatoria, cada solución posible del problema se considera un “estado” del sistema, y su calidad se mide como si fuera una “energía”. El objetivo es encontrar el estado (solución) con la menor energía (mejor valor de la función objetivo) \citep{cobos2010}.
 
@@ -1009,10 +1002,9 @@ El algoritmo comienza con una solución inicial y, en cada iteración, genera un
 
 Este enfoque resulta particularmente útil en problemas de optimización combinatoria, donde el objetivo es minimizar una función de costo (por ejemplo, distancia total recorrida, tiempo o penalizaciones por restricciones de ventanas de tiempo). Al incorporar una aceptación probabilística de soluciones no óptimas, el algoritmo equilibra la exploración y la explotación, favoreciendo una búsqueda más efectiva del óptimo global.
 
-
 \subsubsection*{Modelo de distribución de Maxwell-Boltzmann aplicado al Recocido Simulado}
 
-La distribución de Maxwell-Boltzmann describe la probabilidad de que un sistema físico adopte un estado con una energía \( E_i \) a una temperatura \( T \). Esta probabilidad viene dada por la expresión:
+La distribución de Maxwell-Boltzmann describe la probabilidad de que un sistema físico adopte un estado con una energía \( E_i \) a una temperatura \( T \). Esta probabilidad se expresa como:
 
 \begin{equation}
 	p_i = \frac{e^{-E_i / kT}}{Z}
@@ -1020,18 +1012,20 @@ La distribución de Maxwell-Boltzmann describe la probabilidad de que un sistema
 \end{equation}
 \addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Distribución de Boltzmann}
 
-donde:
+donde se tiene que:
 \begin{itemize}
-	\item \( p_i \): Probabilidad de que el sistema se encuentre en el estado \( i \),
-	\item \( E_i \): Energía del estado \( i \),
-	\item \( k \): Constante de Boltzmann,
-	\item \( T \): Temperatura absoluta del sistema,
-	\item \( Z = \sum_j e^{-E_j / kT} \): Función de partición que normaliza las probabilidades.
+	\item \( p_i \): probabilidad de que el sistema se encuentre en el estado \( i \),
+	\item \( E_i \): energía del estado \( i \),
+	\item \( k \): constante de Boltzmann,
+	\item \( T \): temperatura absoluta del sistema,
+	\item \( Z = \sum_j e^{-E_j / kT} \): función de partición que normaliza las probabilidades.
 \end{itemize}
 
 Este modelo permite explicar cómo se distribuyen los estados energéticos en sistemas en equilibrio térmico, y es ampliamente utilizado como base probabilística en algoritmos como el SA para justificar la aceptación de soluciones peores durante las fases iniciales del proceso de enfriamiento \citep{kirkpatrick1983optimization}.
 
-Cada una de las metaheurísticas mencionadas (DE, ACO y SA) puede aplicarse eficazmente a problemas de optimización complejos. Es importante mencionar que estas técnicas han contribuido significativamente a la resolución del VRP-TW. Dichas metaheurísticas destacan por su capacidad para explorar amplios espacios de búsqueda y aproximarse a soluciones óptimas en tiempos computacionales razonables. Si bien existen numerosas estrategias metaheurísticas en la literatura, en este trabajo se han seleccionado estas tres por su relevancia, versatilidad y desempeño comprobado en problemas de optimización combinatoria. En el siguiente capítulo se describirá detalladamente la forma en que cada una de estas técnicas fueron adaptadas dentro del contexto de la presente investigación.
+Cada una de las metaheurísticas mencionadas —Evolución Diferencial (DE), Optimización basada en Colonias de Hormigas (ACO) y Recocido Simulado (SA)— puede aplicarse eficazmente a problemas de optimización complejos. Estas técnicas han demostrado ser herramientas valiosas en la resolución del VRP-TW, gracias a su capacidad para explorar amplios espacios de búsqueda y aproximarse a soluciones óptimas en tiempos computacionales razonables.
+
+Si bien existen numerosas estrategias metaheurísticas documentadas en la literatura, en este trabajo se han seleccionado estas tres por su relevancia teórica, versatilidad y desempeño comprobado en problemas de optimización combinatoria. En el siguiente capítulo se describirá detalladamente la forma en que cada una de estas técnicas fue adaptada e implementada dentro del contexto de la presente investigación.
 
 \subsubsection{Algoritmos Híbridos}
 
@@ -1049,16 +1043,15 @@ Los algoritmos híbridos son especialmente valiosos para el problema VRP-TW, don
 \textbf{Ejemplos de algoritmos híbridos:}
 \begin{itemize}
 	\item \textbf{GA + Búsqueda Local:} combina algoritmos genéticos con operadores de mejora local para refinar las soluciones generadas por la población; es útil en el TSP, el VRP y su variante con ventanas de tiempo, el VRP-TW.
-	\item \textbf{DE + Recocido Simulado (SA):} integra Evolución Diferencial con recocido simulado, equilibrando exploración global y ajuste fino de soluciones.
+	\item \textbf{DE + Recocido Simulado (SA):} integra Evolución Diferencial con Recocido Simulado, equilibrando exploración global y ajuste fino de soluciones.
 	\item \textbf{ACO + Algoritmo Genético:} emplea la información de feromonas generada por Colonias de Hormigas como semilla para un algoritmo genético, acelerando la convergencia en problemas VRP-TW.
 \end{itemize}
 
 Por estas razones, los algoritmos híbridos se han consolidado como herramientas poderosas para resolver problemas complejos en logística, planificación de rutas, diseño de redes y otras áreas donde las metaheurísticas puras podrían no ser suficientes \cite{blum2003metaheuristics, eiben2003introduction}.
 
-En este trabajo, se adopta un enfoque híbrido que integra el Algoritmo Evolutivo Diferencial (DE), la Optimización por Colonias de Hormigas (ACO) y el Recocido Simulado (SA) para abordar el VRP-TW. Esta combinación busca aprovechar las fortalezas complementarias de cada técnica: el DE se emplea para la calibración adaptativa de parámetros, optimizando el rendimiento global del sistema; el ACO se encarga de la construcción de rutas factibles mediante el uso de información heurística y de feromonas; y el SA se aplica como mecanismo de refinamiento local, mejorando las soluciones generadas y evitando la convergencia prematura.
+En este trabajo se adopta un enfoque híbrido que integra el Algoritmo Evolutivo Diferencial (DE), la Optimización por Colonias de Hormigas (ACO) y el Recocido Simulado (SA) para abordar el VRP-TW, como se mencionó anteriormente. Esta combinación busca aprovechar las fortalezas complementarias de cada técnica. De esta manera, el enfoque híbrido propuesto no solo mejora la calidad de las soluciones obtenidas, sino que también contribuye a reducir el tiempo de cómputo necesario para alcanzar resultados competitivos.
 
-La sinergia entre estos métodos permite equilibrar los procesos de exploración y explotación, logrando una búsqueda más robusta y eficiente en espacios de soluciones altamente complejos, como los que caracterizan al VRP-TW. De esta manera, el enfoque híbrido propuesto no solo mejora la calidad de las soluciones obtenidas, sino que también contribuye a reducir el tiempo de cómputo necesario para alcanzar resultados competitivos.
-
+En el siguiente capítulo se explicará con detalle cada etapa de nuestro algoritmo híbrido.
 
 \section{Referencias Relevantes}
 El Problema del Agente Viajero (TSP) constituye uno de los problemas fundamentales en optimización combinatoria y ha sido objeto de estudio desde principios del siglo XX. \cite{dantzig1954solution} presentaron la primera formulación matemática rigurosa del TSP y desarrollaron el método de planos de corte, estableciendo las bases teóricas para su resolución. Posteriormente, \cite{held1962dynamic} propusieron un algoritmo de programación dinámica que reduce la complejidad computacional, aunque el problema permanece como NP-difícil. La importancia del TSP radica en que constituye el fundamento teórico de problemas más complejos de ruteo, siendo ampliamente estudiado tanto desde la perspectiva teórica como aplicada.
@@ -1067,7 +1060,7 @@ El Problema de Ruteo de Vehículos (VRP), introducido por \cite{dantzig1959truck
 
 El Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW), que constituye el enfoque principal de este trabajo, fue formalmente definido por \cite{solomon1987algorithms}, quien además generó el conjunto de instancias de prueba que se ha convertido en el estándar de la industria para evaluar algoritmos. Solomon clasificó las instancias en seis categorías (C1, C2, R1, R2, RC1, RC2) según la distribución geográfica de los clientes y la amplitud de las ventanas de tiempo, estableciendo un marco de referencia que permanece vigente. \cite{desrosiers1995time} desarrollaron métodos exactos basados en generación de columnas y programación dinámica, demostrando la viabilidad teórica de resolver instancias de tamaño moderado de manera óptima.
 
-En cuanto a enfoques metaheurísticos para el VRP-TW, \cite{braysy2005vehicle1, braysy2005vehicle2} publicaron una revisión exhaustiva en dos partes que analiza más de 200 trabajos, clasificando las metaheurísticas en búsqueda local, métodos basados en población y enfoques híbridos. \cite{taillard1997tabu} introdujeron la Búsqueda Tabú adaptativa para el VRP-TW, estableciendo nuevos estándares de calidad en las soluciones. \cite{gambardella1999macs} aplicaron el sistema de Colonia de Hormigas con múltiples colonias (MACS-VRPTW), demostrando la efectividad de algoritmos bioinspirados en este dominio.
+En cuanto a enfoques metaheurísticos para el VRP-TW, \cite{braysy2005vehicle1, braysy2005vehicle2} publicaron una revisión exhaustiva en dos partes que analiza más de 200 trabajos, clasificando las metaheurísticas en búsqueda local, métodos basados en población y enfoques híbridos. \cite{taillard1997tabu} introdujeron la Búsqueda Tabú adaptativa para el VRP-TW, estableciendo nuevos estándares de calidad en las soluciones. \cite{gambardella1999macs} aplicaron el sistema de Colonia de Hormigas con múltiples colonias (MACS-VRP-TW), demostrando la efectividad de algoritmos bioinspirados en este dominio.
 
 Los algoritmos genéticos han mostrado particular eficacia para el VRP-TW. \cite{potvin1996vehicle} desarrollaron un algoritmo genético con operadores especializados que considera simultáneamente la minimización de vehículos y distancia total. \cite{homberger1999two} propusieron un algoritmo evolutivo de dos fases que logró resultados competitivos en instancias de gran escala. Más recientemente, \cite{vidal2012hybrid} presentaron un algoritmo genético híbrido (HGSADC) que incorpora búsqueda local intensiva y mecanismos de control de diversidad, estableciendo nuevos mejores resultados conocidos en múltiples instancias de Solomon.
 

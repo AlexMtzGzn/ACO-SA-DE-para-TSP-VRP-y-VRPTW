@@ -19,7 +19,7 @@
 \contentsline {myequations}{\numberline {2.19} Restricción: inicio del servicio dentro de la ventana de tiempo}{19}{equation.2.2.19}%
 \contentsline {myequations}{\numberline {2.20} Restricción: capacidad máxima del vehículo}{19}{equation.2.2.20}%
 \contentsline {myequations}{\numberline {2.21} Variables binarias y tiempos no negativos}{19}{equation.2.2.21}%
-\contentsline {myequations}{\numberline {2.22} Vector mutante en Evolución Diferencial (DE/rand/1)}{27}{equation.2.2.22}%
+\contentsline {myequations}{\numberline {2.22} Vector mutante en Evolución Diferencial (DE/rand/1)}{26}{equation.2.2.22}%
 \contentsline {myequations}{\numberline {2.23} Cruce binomial en Evolución Diferencial}{27}{equation.2.2.23}%
 \contentsline {myequations}{\numberline {2.24} Operador de selección en Evolución Diferencial}{27}{equation.2.2.24}%
 \contentsline {myequations}{\numberline {2.25} Regla de transición en ACO (Dorigo, 1997)}{28}{equation.2.2.25}%
