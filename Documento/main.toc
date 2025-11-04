@@ -43,7 +43,7 @@
 \contentsline {subsection}{\numberline {3.1.4}Herramientas de apoyo}{36}{subsection.3.1.4}%
 \contentsline {section}{\numberline {3.2}Métodos}{36}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Descripción general del algortimo híbrido}{36}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Calibración de parámetros mediante Evolucion Diferencial (DE)}{37}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.2}Calibración de parámetros mediante Evolución Diferencial}{37}{subsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.2.1}Configuración de rangos de parámetros según tamaño de instancia}{38}{subsubsection.3.2.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2.2}Representación de individuos}{40}{subsubsection.3.2.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.2.3}Función de Aptitud}{41}{subsubsection.3.2.2.3}%
@@ -51,7 +51,7 @@
 \contentsline {subsubsection}{\numberline {3.2.2.5}Parámetros del Algoritmo Evolutivo Diferencial}{42}{subsubsection.3.2.2.5}%
 \contentsline {subsubsection}{\numberline {3.2.2.6}Criterio de parada}{43}{subsubsection.3.2.2.6}%
 \contentsline {subsubsection}{\numberline {3.2.2.7}Pseudocódigo del Algoritmo Evolutivo Diferencial}{43}{subsubsection.3.2.2.7}%
-\contentsline {subsection}{\numberline {3.2.3}Construcción de rutas iniciales mediante Optimización por Colonia de Hormigas (ACO)}{44}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.3}Construcción de rutas iniciales mediante Optimización por Colonia de Hormigas}{44}{subsection.3.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.3.1}Fundamentos del algoritmo ACO}{45}{subsubsection.3.2.3.1}%
 \contentsline {subsubsection}{\numberline {3.2.3.2}Construcción probabilística de rutas}{45}{subsubsection.3.2.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.3.3}Gestión de restricciones temporales}{47}{subsubsection.3.2.3.3}%
@@ -65,12 +65,12 @@
 \contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo del ACO integrado con Recocido Simulado}{52}{subsubsection.3.2.3.8}%
 \contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado (SA)}{53}{subsection.3.2.4}%
 \contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo SA}{53}{subsubsection.3.2.4.1}%
-\contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{53}{subsubsection.3.2.4.2}%
+\contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{54}{subsubsection.3.2.4.2}%
 \contentsline {paragraph}{Clasificación de operadores:}{54}{section*.34}%
 \contentsline {paragraph}{Estrategia adaptativa de selección:}{56}{section*.35}%
 \contentsline {subsubsection}{\numberline {3.2.4.3}Criterio de aceptación de Metropolis}{57}{subsubsection.3.2.4.3}%
 \contentsline {subsubsection}{\numberline {3.2.4.4}Esquema de enfriamiento}{58}{subsubsection.3.2.4.4}%
-\contentsline {paragraph}{Limpieza de vehículos vacíos:}{58}{section*.36}%
+\contentsline {paragraph}{Limpieza de vehículos vacíos:}{59}{section*.36}%
 \contentsline {subsubsection}{\numberline {3.2.4.5}Algoritmo principal de Recocido Simulado}{60}{subsubsection.3.2.4.5}%
 \contentsline {chapter}{\numberline {4}Resultados}{61}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Conclusiones}{63}{chapter.5}%

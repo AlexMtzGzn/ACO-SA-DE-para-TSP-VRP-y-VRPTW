@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  3 NOV 2025 22:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  3 NOV 2025 22:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -759,85 +759,11 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 
 ] [2
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 164--165
+] [3
 
- []
+] [4
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 166--167
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 168--169
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 170--171
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 172--173
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 174--175
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 178--179
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 180--181
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 182--183
-
- []
-
-[3
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 186--187
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 188--189
-
- []
-
-
-Overfull \hbox (5.2437pt too wide) in paragraph at lines 190--191
-[]\T1/ppl/m/n/12 A to-dos, gra-cias por ser parte de este gran sueño lla-ma-do In-ge-niería en Com-putación. 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--191
-
- []
-
-[4] [5
-
+] [5
 
 ] [6
 
@@ -848,13 +774,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 190--191
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.I}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.217 \cleardoublepage
+l.219 \cleardoublepage
                        [1
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.II}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.217 \cleardoublepage
+l.219 \cleardoublepage
                        [2
 
 ] (./main.toc
@@ -868,12 +794,12 @@ l.31 ...©todos Exactos}{21}{subsubsection.2.2.5.1}
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
-LaTeX Info: Redefining \. on input line 232.
-LaTeX Info: Redefining \% on input line 232.
+LaTeX Info: Redefining \. on input line 234.
+LaTeX Info: Redefining \% on input line 234.
 pdfTeX warning (ext4): destination with the same identifier (name{page.IV}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.232 \cleardoublepage
+l.234 \cleardoublepage
                        [4] (./main.lof
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
@@ -884,13 +810,13 @@ LaTeX Info: Redefining \% on input line 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.V}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.236 \cleardoublepage
+l.238 \cleardoublepage
                        [5
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.VI}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.236 \cleardoublepage
+l.238 \cleardoublepage
                        [6
 
 ] (./main.lot
@@ -903,11 +829,11 @@ LaTeX Info: Redefining \% on input line 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.VII}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.240 \cleardoublepage
+l.242 \cleardoublepage
                        [7]pdfTeX warning (ext4): destination with the same identifier (name{page.VIII}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.240 \cleardoublepage
+l.242 \cleardoublepage
                        [8
 
 ] (./main.eq)
@@ -917,8 +843,13 @@ l.240 \cleardoublepage
  [9] [10
 
 ]
-Overfull \hbox (17.62482pt too wide) in paragraph at lines 265--266
-[][] 
+Overfull \hbox (17.62482pt too wide) in paragraph at lines 270--272
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 270--272
+
  []
 
 [11
@@ -927,60 +858,47 @@ Overfull \hbox (17.62482pt too wide) in paragraph at lines 265--266
 
 ]
 Cap\'{\i }tulo 1.
-
-Overfull \hbox (0.69131pt too wide) in paragraph at lines 297--298
-\T1/ppl/m/n/12 obten-er solu-ciones de bue-na cal-i-dad en tiem-pos ra-zon-ables. En-tre el-las, la Op-ti-mización
- []
-
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.300 
+l.306 
        [1
 
 ]
-LaTeX Info: Redefining \. on input line 321.
-LaTeX Info: Redefining \% on input line 321.
+LaTeX Info: Redefining \. on input line 327.
+LaTeX Info: Redefining \% on input line 327.
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.321 
+l.327 
        [2]
-Overfull \hbox (8.66582pt too wide) in paragraph at lines 348--349
-[]\T1/ppl/m/n/12 Las prue-bas es-tán lim-i-tadas a con-jun-tos de datos ar-ti-fi-ciales y bench-marks académi-
- []
-
-LaTeX Info: Redefining \. on input line 356.
-LaTeX Info: Redefining \% on input line 356.
-[3]
-LaTeX Info: Redefining \. on input line 367.
-LaTeX Info: Redefining \% on input line 367.
+LaTeX Info: Redefining \. on input line 362.
+LaTeX Info: Redefining \% on input line 362.
+ [3]
+LaTeX Info: Redefining \. on input line 373.
+LaTeX Info: Redefining \% on input line 373.
  [4]
 Cap\'{\i }tulo 2.
 [5
 
 ]
-Overfull \hbox (6.59001pt too wide) in paragraph at lines 384--385
-\T1/ppl/m/n/12 Hol-land en 1975, que uti-lizan op-er-adores genéti-cos para evolu-cionar una población
- []
-
-LaTeX Info: Redefining \. on input line 403.
-LaTeX Info: Redefining \% on input line 403.
-[6]
-LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 404.
+LaTeX Info: Redefining \. on input line 409.
+LaTeX Info: Redefining \% on input line 409.
+ [6]
+LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 410.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-LaTeX Info: Redefining \. on input line 443.
-LaTeX Info: Redefining \% on input line 443.
+LaTeX Info: Redefining \. on input line 449.
+LaTeX Info: Redefining \% on input line 449.
  [7]
-LaTeX Info: Redefining \. on input line 472.
-LaTeX Info: Redefining \% on input line 472.
+LaTeX Info: Redefining \. on input line 478.
+LaTeX Info: Redefining \% on input line 478.
  [8]
 <Figuras/grafico-complejidad-computacionala3.png, id=631, 813.0375pt x 638.385pt>
 File: Figuras/grafico-complejidad-computacionala3.png Graphic file (type png)
 <use Figuras/grafico-complejidad-computacionala3.png>
-Package pdftex.def Info: Figuras/grafico-complejidad-computacionala3.png  used on input line 476.
+Package pdftex.def Info: Figuras/grafico-complejidad-computacionala3.png  used on input line 482.
 (pdftex.def)             Requested size: 274.6857pt x 215.67455pt.
 
 
@@ -988,289 +906,193 @@ pdfTeX warning: pdflatex (file ./Figuras/Diagrama.pdf): PDF inclusion: found PDF
 <Figuras/Diagrama.pdf, id=635, 1003.75pt x 702.625pt>
 File: Figuras/Diagrama.pdf Graphic file (type pdf)
 <use Figuras/Diagrama.pdf>
-Package pdftex.def Info: Figuras/Diagrama.pdf  used on input line 488.
+Package pdftex.def Info: Figuras/Diagrama.pdf  used on input line 494.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 492.
-LaTeX Info: Redefining \% on input line 492.
+LaTeX Info: Redefining \. on input line 498.
+LaTeX Info: Redefining \% on input line 498.
 [9 <./Figuras/grafico-complejidad-computacionala3.png>]
-LaTeX Info: Redefining \. on input line 516.
-LaTeX Info: Redefining \% on input line 516.
+LaTeX Info: Redefining \. on input line 522.
+LaTeX Info: Redefining \% on input line 522.
  [10 <./Figuras/Diagrama.pdf>]
 
 pdfTeX warning: pdflatex (file ./Figuras/P_vs_NP.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
 <Figuras/P_vs_NP.pdf, id=761, 1003.75pt x 702.625pt>
 File: Figuras/P_vs_NP.pdf Graphic file (type pdf)
 <use Figuras/P_vs_NP.pdf>
-Package pdftex.def Info: Figuras/P_vs_NP.pdf  used on input line 531.
+Package pdftex.def Info: Figuras/P_vs_NP.pdf  used on input line 537.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 535.
-LaTeX Info: Redefining \% on input line 535.
+LaTeX Info: Redefining \. on input line 541.
+LaTeX Info: Redefining \% on input line 541.
 [11]
-Overfull \hbox (2.91869pt too wide) in paragraph at lines 542--543
-[]\T1/ppl/m/n/12 Los prob-le-mas de op-ti-mización com-bi-na-to-ria con-sti-tuyen una clase am-plia de mod-
- []
-
-LaTeX Info: Redefining \. on input line 549.
-LaTeX Info: Redefining \% on input line 549.
-[12 <./Figuras/P_vs_NP.pdf>]
+LaTeX Info: Redefining \. on input line 555.
+LaTeX Info: Redefining \% on input line 555.
+ [12 <./Figuras/P_vs_NP.pdf>]
 <Figuras/TSP.pdf, id=880, 1003.75pt x 702.625pt>
 File: Figuras/TSP.pdf Graphic file (type pdf)
 <use Figuras/TSP.pdf>
-Package pdftex.def Info: Figuras/TSP.pdf  used on input line 554.
+Package pdftex.def Info: Figuras/TSP.pdf  used on input line 560.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 576.
-LaTeX Info: Redefining \% on input line 576.
+LaTeX Info: Redefining \. on input line 582.
+LaTeX Info: Redefining \% on input line 582.
  [13 <./Figuras/TSP.pdf>]
-LaTeX Info: Redefining \. on input line 612.
-LaTeX Info: Redefining \% on input line 612.
+LaTeX Info: Redefining \. on input line 618.
+LaTeX Info: Redefining \% on input line 618.
  [14]
 <Figuras/VRP.pdf, id=1040, 1003.75pt x 702.625pt>
 File: Figuras/VRP.pdf Graphic file (type pdf)
 <use Figuras/VRP.pdf>
-Package pdftex.def Info: Figuras/VRP.pdf  used on input line 622.
+Package pdftex.def Info: Figuras/VRP.pdf  used on input line 628.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 628.
-LaTeX Info: Redefining \% on input line 628.
+LaTeX Info: Redefining \. on input line 634.
+LaTeX Info: Redefining \% on input line 634.
  [15 <./Figuras/VRP.pdf>]
-LaTeX Info: Redefining \. on input line 681.
-LaTeX Info: Redefining \% on input line 681.
+LaTeX Info: Redefining \. on input line 687.
+LaTeX Info: Redefining \% on input line 687.
  [16]
-LaTeX Info: Redefining \. on input line 699.
-LaTeX Info: Redefining \% on input line 699.
+LaTeX Info: Redefining \. on input line 705.
+LaTeX Info: Redefining \% on input line 705.
  [17]
 <Figuras/VRPTW.pdf, id=1207, 1003.75pt x 702.625pt>
 File: Figuras/VRPTW.pdf Graphic file (type pdf)
 <use Figuras/VRPTW.pdf>
-Package pdftex.def Info: Figuras/VRPTW.pdf  used on input line 706.
+Package pdftex.def Info: Figuras/VRPTW.pdf  used on input line 712.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-
-Overfull \hbox (15.90472pt too wide) in paragraph at lines 714--714
-[][]\T1/ppl/b/n/12 Modelo Matemáti-co del Prob-le-ma de Ru-teo de Ve-hícu-los con Ven-tanas de Tiempo(VRP-
- []
-
-LaTeX Info: Redefining \. on input line 719.
-LaTeX Info: Redefining \% on input line 719.
-[18 <./Figuras/VRPTW.pdf>]
-LaTeX Info: Redefining \. on input line 777.
-LaTeX Info: Redefining \% on input line 777.
+LaTeX Info: Redefining \. on input line 725.
+LaTeX Info: Redefining \% on input line 725.
+ [18 <./Figuras/VRPTW.pdf>]
+LaTeX Info: Redefining \. on input line 783.
+LaTeX Info: Redefining \% on input line 783.
  [19]
-Overfull \hbox (7.82568pt too wide) in paragraph at lines 787--788
-[]$\OML/zplm/m/it/12 M$ \T1/ppl/m/n/12 es un número grande us-a-do para ac-ti-var o de-sac-ti-var re-stric-ciones condi-cionales. 
- []
-
-LaTeX Info: Redefining \. on input line 797.
-LaTeX Info: Redefining \% on input line 797.
-[20]
-LaTeX Info: Redefining \. on input line 818.
-LaTeX Info: Redefining \% on input line 818.
+LaTeX Info: Redefining \. on input line 803.
+LaTeX Info: Redefining \% on input line 803.
+ [20]
+LaTeX Info: Redefining \. on input line 824.
+LaTeX Info: Redefining \% on input line 824.
  [21]
-LaTeX Info: Redefining \. on input line 844.
-LaTeX Info: Redefining \% on input line 844.
+LaTeX Info: Redefining \. on input line 849.
+LaTeX Info: Redefining \% on input line 849.
  [22]
-Overfull \hbox (3.43773pt too wide) in paragraph at lines 862--863
-[]\T1/ppl/b/n/12 Operadores de Van Breedam: \T1/ppl/m/n/12 El primero, de-nom-i-na-do Ca-de-na de Trasla-do (\T1/ppl/m/it/12 String
- []
-
-LaTeX Info: Redefining \. on input line 867.
-LaTeX Info: Redefining \% on input line 867.
-[23]
-Overfull \hbox (2.38254pt too wide) in paragraph at lines 885--886
-\T1/ppl/m/n/12 que las fun-da-men-ta. A con-tin-uación, se de-scriben breve-mente tres cat-e-gorías rel-e-vantes. 
- []
-
-LaTeX Info: Redefining \. on input line 890.
-LaTeX Info: Redefining \% on input line 890.
-[24]
-LaTeX Info: Redefining \. on input line 912.
-LaTeX Info: Redefining \% on input line 912.
+LaTeX Info: Redefining \. on input line 872.
+LaTeX Info: Redefining \% on input line 872.
+ [23]
+LaTeX Info: Redefining \. on input line 896.
+LaTeX Info: Redefining \% on input line 896.
+ [24]
+LaTeX Info: Redefining \. on input line 918.
+LaTeX Info: Redefining \% on input line 918.
  [25]
-LaTeX Info: Redefining \. on input line 941.
-LaTeX Info: Redefining \% on input line 941.
+LaTeX Info: Redefining \. on input line 947.
+LaTeX Info: Redefining \% on input line 947.
  [26]
-LaTeX Info: Redefining \. on input line 970.
-LaTeX Info: Redefining \% on input line 970.
+LaTeX Info: Redefining \. on input line 976.
+LaTeX Info: Redefining \% on input line 976.
  [27]
-Overfull \hbox (5.24693pt too wide) in paragraph at lines 998--999
-[]\T1/ppl/m/n/12 Esta regla de tran-si-ción bal-ancea el conocimien-to apren-di-do (fer-omonas) y la heurís-
- []
-
-LaTeX Info: Redefining \. on input line 1003.
-LaTeX Info: Redefining \% on input line 1003.
-[28]
-LaTeX Info: Redefining \. on input line 1027.
-LaTeX Info: Redefining \% on input line 1027.
+LaTeX Info: Redefining \. on input line 1009.
+LaTeX Info: Redefining \% on input line 1009.
+ [28]
+LaTeX Info: Redefining \. on input line 1033.
+LaTeX Info: Redefining \% on input line 1033.
  [29]
-LaTeX Info: Redefining \. on input line 1050.
-LaTeX Info: Redefining \% on input line 1050.
+LaTeX Info: Redefining \. on input line 1056.
+LaTeX Info: Redefining \% on input line 1056.
  [30]
-LaTeX Info: Redefining \. on input line 1069.
-LaTeX Info: Redefining \% on input line 1069.
+LaTeX Info: Redefining \. on input line 1075.
+LaTeX Info: Redefining \% on input line 1075.
  [31]
-LaTeX Info: Redefining \. on input line 1078.
-LaTeX Info: Redefining \% on input line 1078.
+LaTeX Info: Redefining \. on input line 1084.
+LaTeX Info: Redefining \% on input line 1084.
  [32]
 Cap\'{\i }tulo 3.
-
-Overfull \hbox (13.68237pt too wide) in paragraph at lines 1090--1092
-[]\T1/ppl/b/n/12 Instancias Solomon para VRP-TW: \T1/ppl/m/n/12 Se em-plearon las in-stan-cias clási-cas de Solomon,
- []
-
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1092.
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1098.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
-)
-Overfull \hbox (1.38228pt too wide) in paragraph at lines 1098--1099
-\T1/ppl/m/n/12 máx-i-ma, uti-liza-da para ase-gu-rar que la asig-nación de clientes no ex-ce-da los límites
- []
-
-LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 11.40997pt on input line 1112.
-LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 1112.
-LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 1112.
-LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 11.40997pt on input line 1112.
-LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 8.33606pt on input line 1112.
-LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 6.25204pt on input line 1112.
-[33
+) [33
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1137.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1143.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Info: Redefining \. on input line 1155.
-LaTeX Info: Redefining \% on input line 1155.
+LaTeX Info: Redefining \. on input line 1161.
+LaTeX Info: Redefining \% on input line 1161.
  [34]
-LaTeX Info: Redefining \. on input line 1189.
-LaTeX Info: Redefining \% on input line 1189.
+LaTeX Info: Redefining \. on input line 1195.
+LaTeX Info: Redefining \% on input line 1195.
  [35]
-LaTeX Info: Redefining \. on input line 1220.
-LaTeX Info: Redefining \% on input line 1220.
+LaTeX Info: Redefining \. on input line 1226.
+LaTeX Info: Redefining \% on input line 1226.
  [36]
-Overfull \hbox (4.53278pt too wide) in paragraph at lines 1232--1232
-[]\T1/ppl/b/n/14.4 Calibración de parámet-ros me-di-ante Evolu-cion Difer-en-cial (DE) 
- []
-
-LaTeX Info: Redefining \. on input line 1262.
-LaTeX Info: Redefining \% on input line 1262.
-[37]
-LaTeX Info: Redefining \. on input line 1312.
-LaTeX Info: Redefining \% on input line 1312.
+LaTeX Info: Redefining \. on input line 1267.
+LaTeX Info: Redefining \% on input line 1267.
+ [37]
+LaTeX Info: Redefining \. on input line 1317.
+LaTeX Info: Redefining \% on input line 1317.
  [38]
-LaTeX Info: Redefining \. on input line 1370.
-LaTeX Info: Redefining \% on input line 1370.
+LaTeX Info: Redefining \. on input line 1375.
+LaTeX Info: Redefining \% on input line 1375.
  [39]
-LaTeX Info: Redefining \. on input line 1385.
-LaTeX Info: Redefining \% on input line 1385.
+LaTeX Info: Redefining \. on input line 1390.
+LaTeX Info: Redefining \% on input line 1390.
  [40]
-Overfull \hbox (4.4191pt too wide) in paragraph at lines 1406--1407
-\T1/ppl/m/n/12 vec-tor de parámet-ros, me-di-ante la eje-cu-ción del al-go-rit-mo híbri-do ACO+SA. Su propósi-
- []
-
-LaTeX Info: Redefining \. on input line 1414.
-LaTeX Info: Redefining \% on input line 1414.
-[41]
-Underfull \hbox (badness 10000) in paragraph at lines 1445--1446
-[]|\T1/ppl/m/n/12 Número de con-fig-u-ra-ciones de
- []
-
-
-Underfull \hbox (badness 2393) in paragraph at lines 1445--1446
-\T1/ppl/m/n/12 la di-ver-si-dad pero in-cre-men-tan el
- []
-
-
-Underfull \hbox (badness 2393) in paragraph at lines 1451--1452
-[]|\T1/ppl/m/n/12 Probabilidad de que ca-da com-po-
- []
-
-
-Underfull \hbox (badness 1430) in paragraph at lines 1451--1452
-\T1/ppl/m/n/12 mu-tante du-rante la re-com-bi-nación.
- []
-
-LaTeX Info: Redefining \. on input line 1456.
-LaTeX Info: Redefining \% on input line 1456.
-[42]
-LaTeX Info: Redefining \. on input line 1507.
-LaTeX Info: Redefining \% on input line 1507.
+LaTeX Info: Redefining \. on input line 1419.
+LaTeX Info: Redefining \% on input line 1419.
+ [41]
+LaTeX Info: Redefining \. on input line 1461.
+LaTeX Info: Redefining \% on input line 1461.
+ [42]
+LaTeX Info: Redefining \. on input line 1512.
+LaTeX Info: Redefining \% on input line 1512.
  [43]
-Overfull \hbox (9.6446pt too wide) in paragraph at lines 1508--1508
-[]\T1/ppl/b/n/14.4 Construcción de ru-tas ini-ciales me-di-ante Op-ti-mización por Colo-
- []
-
-
-Overfull \hbox (13.77689pt too wide) in paragraph at lines 1510--1511
-\T1/ppl/m/n/12 híbri-do con-siste en con-stru-ir solu-ciones factibles para el VRP-TW uti-lizan-do Op-ti-mización
- []
-
-
-Overfull \hbox (2.05438pt too wide) in paragraph at lines 1510--1511
-\T1/ppl/m/n/12 por Colo-nia de Hormi-gas (ACO). Este al-go-rit-mo bio-inspirado sim-u-la el com-por-tamien-
- []
-
 LaTeX Info: Redefining \. on input line 1517.
 LaTeX Info: Redefining \% on input line 1517.
-[44]
-LaTeX Info: Redefining \. on input line 1546.
-LaTeX Info: Redefining \% on input line 1546.
+ [44]
+LaTeX Info: Redefining \. on input line 1550.
+LaTeX Info: Redefining \% on input line 1550.
  [45]
-LaTeX Info: Redefining \. on input line 1591.
-LaTeX Info: Redefining \% on input line 1591.
+LaTeX Info: Redefining \. on input line 1596.
+LaTeX Info: Redefining \% on input line 1596.
  [46]
-LaTeX Info: Redefining \. on input line 1664.
-LaTeX Info: Redefining \% on input line 1664.
+LaTeX Info: Redefining \. on input line 1669.
+LaTeX Info: Redefining \% on input line 1669.
  [47]
-LaTeX Info: Redefining \. on input line 1666.
-LaTeX Info: Redefining \% on input line 1666.
+LaTeX Info: Redefining \. on input line 1671.
+LaTeX Info: Redefining \% on input line 1671.
  [48]
-LaTeX Info: Redefining \. on input line 1709.
-LaTeX Info: Redefining \% on input line 1709.
+LaTeX Info: Redefining \. on input line 1714.
+LaTeX Info: Redefining \% on input line 1714.
  [49]
-Overfull \hbox (5.78726pt too wide) in paragraph at lines 1718--1719
- []\T1/ppl/b/n/12 Depósito de fer-omonas.[] \T1/ppl/m/n/12 Las hormi-gas que ob-tienen las mejores solu-ciones ^^Vdefinidas
- []
-
-LaTeX Info: Redefining \. on input line 1789.
-LaTeX Info: Redefining \% on input line 1789.
-[50]
-LaTeX Info: Redefining \. on input line 1800.
-LaTeX Info: Redefining \% on input line 1800.
+LaTeX Info: Redefining \. on input line 1795.
+LaTeX Info: Redefining \% on input line 1795.
+ [50]
+LaTeX Info: Redefining \. on input line 1806.
+LaTeX Info: Redefining \% on input line 1806.
  [51]
-LaTeX Info: Redefining \. on input line 1849.
-LaTeX Info: Redefining \% on input line 1849.
+LaTeX Info: Redefining \. on input line 1855.
+LaTeX Info: Redefining \% on input line 1855.
  [52]
-LaTeX Info: Redefining \. on input line 1873.
-LaTeX Info: Redefining \% on input line 1873.
+LaTeX Info: Redefining \. on input line 1879.
+LaTeX Info: Redefining \% on input line 1879.
  [53]
-LaTeX Info: Redefining \. on input line 1943.
-LaTeX Info: Redefining \% on input line 1943.
+LaTeX Info: Redefining \. on input line 1949.
+LaTeX Info: Redefining \% on input line 1949.
  [54]
-LaTeX Info: Redefining \. on input line 2012.
-LaTeX Info: Redefining \% on input line 2012.
+LaTeX Info: Redefining \. on input line 2018.
+LaTeX Info: Redefining \% on input line 2018.
  [55]
-LaTeX Info: Redefining \. on input line 2065.
-LaTeX Info: Redefining \% on input line 2065.
+LaTeX Info: Redefining \. on input line 2071.
+LaTeX Info: Redefining \% on input line 2071.
  [56]
-Overfull \hbox (19.39183pt too wide) in paragraph at lines 2070--2071
-[]\T1/ppl/m/it/12 Múltiples ve-hícu-los: \T1/ppl/m/n/12 Bal-ance en-tre op-er-adores inter-ruta (cross-exchange 30$ $%, relocate-
- []
-
-LaTeX Info: Redefining \. on input line 2103.
-LaTeX Info: Redefining \% on input line 2103.
-[57]
-LaTeX Info: Redefining \. on input line 2258.
-LaTeX Info: Redefining \% on input line 2258.
+LaTeX Info: Redefining \. on input line 2108.
+LaTeX Info: Redefining \% on input line 2108.
+ [57]
+LaTeX Info: Redefining \. on input line 2264.
+LaTeX Info: Redefining \% on input line 2264.
  [58]
-LaTeX Info: Redefining \. on input line 2304.
-LaTeX Info: Redefining \% on input line 2304.
+LaTeX Info: Redefining \. on input line 2310.
+LaTeX Info: Redefining \% on input line 2310.
  [59]
-LaTeX Info: Redefining \. on input line 2405.
-LaTeX Info: Redefining \% on input line 2405.
+LaTeX Info: Redefining \. on input line 2411.
+LaTeX Info: Redefining \% on input line 2411.
  [60]
 Cap\'{\i }tulo 4.
 [61
@@ -1287,49 +1109,31 @@ Cap\'{\i }tulo 5.
 LaTeX Info: Redefining \. on input line 149.
 LaTeX Info: Redefining \% on input line 149.
  [66]
-Underfull \hbox (badness 10000) in paragraph at lines 233--239
-\T1/cmtt/m/n/12 wp-[]content / uploads / 2019 / 08 / grafico-[]complejidad-[]computacionala3 . png$[][]\T1/ppl/m/n/12 ,
- []
-
-LaTeX Info: Redefining \. on input line 239.
-LaTeX Info: Redefining \% on input line 239.
-[67]
-Underfull \hbox (badness 7759) in paragraph at lines 317--322
-[]\T1/ppl/m/n/12 Jhonny Var-gas Pare-des and Víc-tor Pen-it Grana-do.  Es-tu-dio y apli-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 317--322
-\T1/ppl/m/n/12 cación de meta-heurís-ti-cas y com-para-ción con méto-dos ex-haus-tivos,
- []
-
-
-Underfull \hbox (badness 6110) in paragraph at lines 317--322
-\T1/ppl/m/n/12 2016.  Disponible en: [][]$\T1/cmtt/m/n/12 https : / / docta . ucm . es / rest / api / core / bitstreams /
- []
-
-LaTeX Info: Redefining \. on input line 328.
-LaTeX Info: Redefining \% on input line 328.
-[68])
-LaTeX Info: Redefining \. on input line 2423.
-LaTeX Info: Redefining \% on input line 2423.
+LaTeX Info: Redefining \. on input line 231.
+LaTeX Info: Redefining \% on input line 231.
+ [67]
+LaTeX Info: Redefining \. on input line 315.
+LaTeX Info: Redefining \% on input line 315.
+ [68])
+LaTeX Info: Redefining \. on input line 2429.
+LaTeX Info: Redefining \% on input line 2429.
  [69] (./main.aux
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
 )
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 586434A4E43C24C47F4DF7E05B97F586;14101.
+(rerunfilecheck)             Checksum: 572FA659419D23F02132A74BAD35F3D2;14031.
  ) 
 Here is how much of TeX's memory you used:
- 23237 strings out of 480247
- 384179 string characters out of 5896151
- 712597 words of memory out of 5000000
- 40208 multiletter control sequences out of 15000+600000
- 529670 words of font info for 153 fonts, out of 8000000 for 9000
+ 23239 strings out of 480247
+ 384203 string characters out of 5896151
+ 712606 words of memory out of 5000000
+ 40209 multiletter control sequences out of 15000+600000
+ 531223 words of font info for 155 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
- 60i,20n,63p,1050b,811s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,20n,63p,1050b,803s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/amg/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (91 pages, 30166027 bytes).
+Output written on main.pdf (91 pages, 30162933 bytes).
 PDF statistics:
  2229 PDF objects out of 2487 (max. 8388607)
  1562 compressed objects within 16 object streams
