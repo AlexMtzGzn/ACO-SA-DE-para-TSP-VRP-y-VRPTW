@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  3 NOV 2025 22:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  3 NOV 2025 22:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -842,17 +842,7 @@ l.242 \cleardoublepage
 
  [9] [10
 
-]
-Overfull \hbox (17.62482pt too wide) in paragraph at lines 270--272
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 270--272
-
- []
-
-[11
+] [11
 
 ] [12
 
@@ -861,44 +851,44 @@ Cap\'{\i }tulo 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.306 
+l.302 
        [1
 
 ]
-LaTeX Info: Redefining \. on input line 327.
-LaTeX Info: Redefining \% on input line 327.
+LaTeX Info: Redefining \. on input line 323.
+LaTeX Info: Redefining \% on input line 323.
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.327 
+l.323 
        [2]
-LaTeX Info: Redefining \. on input line 362.
-LaTeX Info: Redefining \% on input line 362.
+LaTeX Info: Redefining \. on input line 358.
+LaTeX Info: Redefining \% on input line 358.
  [3]
-LaTeX Info: Redefining \. on input line 373.
-LaTeX Info: Redefining \% on input line 373.
+LaTeX Info: Redefining \. on input line 369.
+LaTeX Info: Redefining \% on input line 369.
  [4]
 Cap\'{\i }tulo 2.
 [5
 
 ]
-LaTeX Info: Redefining \. on input line 409.
-LaTeX Info: Redefining \% on input line 409.
+LaTeX Info: Redefining \. on input line 405.
+LaTeX Info: Redefining \% on input line 405.
  [6]
-LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 410.
+LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 406.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
-LaTeX Info: Redefining \. on input line 449.
-LaTeX Info: Redefining \% on input line 449.
+LaTeX Info: Redefining \. on input line 445.
+LaTeX Info: Redefining \% on input line 445.
  [7]
-LaTeX Info: Redefining \. on input line 478.
-LaTeX Info: Redefining \% on input line 478.
+LaTeX Info: Redefining \. on input line 474.
+LaTeX Info: Redefining \% on input line 474.
  [8]
 <Figuras/grafico-complejidad-computacionala3.png, id=631, 813.0375pt x 638.385pt>
 File: Figuras/grafico-complejidad-computacionala3.png Graphic file (type png)
 <use Figuras/grafico-complejidad-computacionala3.png>
-Package pdftex.def Info: Figuras/grafico-complejidad-computacionala3.png  used on input line 482.
+Package pdftex.def Info: Figuras/grafico-complejidad-computacionala3.png  used on input line 478.
 (pdftex.def)             Requested size: 274.6857pt x 215.67455pt.
 
 
@@ -906,193 +896,206 @@ pdfTeX warning: pdflatex (file ./Figuras/Diagrama.pdf): PDF inclusion: found PDF
 <Figuras/Diagrama.pdf, id=635, 1003.75pt x 702.625pt>
 File: Figuras/Diagrama.pdf Graphic file (type pdf)
 <use Figuras/Diagrama.pdf>
-Package pdftex.def Info: Figuras/Diagrama.pdf  used on input line 494.
+Package pdftex.def Info: Figuras/Diagrama.pdf  used on input line 490.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 498.
-LaTeX Info: Redefining \% on input line 498.
+LaTeX Info: Redefining \. on input line 494.
+LaTeX Info: Redefining \% on input line 494.
 [9 <./Figuras/grafico-complejidad-computacionala3.png>]
-LaTeX Info: Redefining \. on input line 522.
-LaTeX Info: Redefining \% on input line 522.
+LaTeX Info: Redefining \. on input line 518.
+LaTeX Info: Redefining \% on input line 518.
  [10 <./Figuras/Diagrama.pdf>]
 
 pdfTeX warning: pdflatex (file ./Figuras/P_vs_NP.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
 <Figuras/P_vs_NP.pdf, id=761, 1003.75pt x 702.625pt>
 File: Figuras/P_vs_NP.pdf Graphic file (type pdf)
 <use Figuras/P_vs_NP.pdf>
-Package pdftex.def Info: Figuras/P_vs_NP.pdf  used on input line 537.
+Package pdftex.def Info: Figuras/P_vs_NP.pdf  used on input line 533.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 541.
-LaTeX Info: Redefining \% on input line 541.
+LaTeX Info: Redefining \. on input line 537.
+LaTeX Info: Redefining \% on input line 537.
 [11]
-LaTeX Info: Redefining \. on input line 555.
-LaTeX Info: Redefining \% on input line 555.
+LaTeX Info: Redefining \. on input line 551.
+LaTeX Info: Redefining \% on input line 551.
  [12 <./Figuras/P_vs_NP.pdf>]
 <Figuras/TSP.pdf, id=880, 1003.75pt x 702.625pt>
 File: Figuras/TSP.pdf Graphic file (type pdf)
 <use Figuras/TSP.pdf>
-Package pdftex.def Info: Figuras/TSP.pdf  used on input line 560.
+Package pdftex.def Info: Figuras/TSP.pdf  used on input line 556.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 582.
-LaTeX Info: Redefining \% on input line 582.
+LaTeX Info: Redefining \. on input line 578.
+LaTeX Info: Redefining \% on input line 578.
  [13 <./Figuras/TSP.pdf>]
-LaTeX Info: Redefining \. on input line 618.
-LaTeX Info: Redefining \% on input line 618.
+LaTeX Info: Redefining \. on input line 614.
+LaTeX Info: Redefining \% on input line 614.
  [14]
 <Figuras/VRP.pdf, id=1040, 1003.75pt x 702.625pt>
 File: Figuras/VRP.pdf Graphic file (type pdf)
 <use Figuras/VRP.pdf>
-Package pdftex.def Info: Figuras/VRP.pdf  used on input line 628.
+Package pdftex.def Info: Figuras/VRP.pdf  used on input line 624.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 634.
-LaTeX Info: Redefining \% on input line 634.
+LaTeX Info: Redefining \. on input line 630.
+LaTeX Info: Redefining \% on input line 630.
  [15 <./Figuras/VRP.pdf>]
-LaTeX Info: Redefining \. on input line 687.
-LaTeX Info: Redefining \% on input line 687.
+LaTeX Info: Redefining \. on input line 683.
+LaTeX Info: Redefining \% on input line 683.
  [16]
-LaTeX Info: Redefining \. on input line 705.
-LaTeX Info: Redefining \% on input line 705.
+LaTeX Info: Redefining \. on input line 701.
+LaTeX Info: Redefining \% on input line 701.
  [17]
 <Figuras/VRPTW.pdf, id=1207, 1003.75pt x 702.625pt>
 File: Figuras/VRPTW.pdf Graphic file (type pdf)
 <use Figuras/VRPTW.pdf>
-Package pdftex.def Info: Figuras/VRPTW.pdf  used on input line 712.
+Package pdftex.def Info: Figuras/VRPTW.pdf  used on input line 708.
 (pdftex.def)             Requested size: 274.6857pt x 192.28436pt.
-LaTeX Info: Redefining \. on input line 725.
-LaTeX Info: Redefining \% on input line 725.
+LaTeX Info: Redefining \. on input line 721.
+LaTeX Info: Redefining \% on input line 721.
  [18 <./Figuras/VRPTW.pdf>]
-LaTeX Info: Redefining \. on input line 783.
-LaTeX Info: Redefining \% on input line 783.
+LaTeX Info: Redefining \. on input line 779.
+LaTeX Info: Redefining \% on input line 779.
  [19]
-LaTeX Info: Redefining \. on input line 803.
-LaTeX Info: Redefining \% on input line 803.
+LaTeX Info: Redefining \. on input line 799.
+LaTeX Info: Redefining \% on input line 799.
  [20]
-LaTeX Info: Redefining \. on input line 824.
-LaTeX Info: Redefining \% on input line 824.
+LaTeX Info: Redefining \. on input line 820.
+LaTeX Info: Redefining \% on input line 820.
  [21]
-LaTeX Info: Redefining \. on input line 849.
-LaTeX Info: Redefining \% on input line 849.
+LaTeX Info: Redefining \. on input line 845.
+LaTeX Info: Redefining \% on input line 845.
  [22]
-LaTeX Info: Redefining \. on input line 872.
-LaTeX Info: Redefining \% on input line 872.
+LaTeX Info: Redefining \. on input line 868.
+LaTeX Info: Redefining \% on input line 868.
  [23]
-LaTeX Info: Redefining \. on input line 896.
-LaTeX Info: Redefining \% on input line 896.
+LaTeX Info: Redefining \. on input line 892.
+LaTeX Info: Redefining \% on input line 892.
  [24]
-LaTeX Info: Redefining \. on input line 918.
-LaTeX Info: Redefining \% on input line 918.
+LaTeX Info: Redefining \. on input line 914.
+LaTeX Info: Redefining \% on input line 914.
  [25]
-LaTeX Info: Redefining \. on input line 947.
-LaTeX Info: Redefining \% on input line 947.
+LaTeX Info: Redefining \. on input line 943.
+LaTeX Info: Redefining \% on input line 943.
  [26]
-LaTeX Info: Redefining \. on input line 976.
-LaTeX Info: Redefining \% on input line 976.
+LaTeX Info: Redefining \. on input line 972.
+LaTeX Info: Redefining \% on input line 972.
  [27]
-LaTeX Info: Redefining \. on input line 1009.
-LaTeX Info: Redefining \% on input line 1009.
+LaTeX Info: Redefining \. on input line 1005.
+LaTeX Info: Redefining \% on input line 1005.
  [28]
-LaTeX Info: Redefining \. on input line 1033.
-LaTeX Info: Redefining \% on input line 1033.
+LaTeX Info: Redefining \. on input line 1029.
+LaTeX Info: Redefining \% on input line 1029.
  [29]
-LaTeX Info: Redefining \. on input line 1056.
-LaTeX Info: Redefining \% on input line 1056.
+LaTeX Info: Redefining \. on input line 1052.
+LaTeX Info: Redefining \% on input line 1052.
  [30]
-LaTeX Info: Redefining \. on input line 1075.
-LaTeX Info: Redefining \% on input line 1075.
+LaTeX Info: Redefining \. on input line 1071.
+LaTeX Info: Redefining \% on input line 1071.
  [31]
-LaTeX Info: Redefining \. on input line 1084.
-LaTeX Info: Redefining \% on input line 1084.
+LaTeX Info: Redefining \. on input line 1080.
+LaTeX Info: Redefining \% on input line 1080.
  [32]
 Cap\'{\i }tulo 3.
-LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1098.
+LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1094.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
-) [33
+)
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 11.40997pt on input line 1114.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 1114.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 1114.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 11.40997pt on input line 1114.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 8.33606pt on input line 1114.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 6.25204pt on input line 1114.
+ [33
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1143.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1139.
  (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Info: Redefining \. on input line 1161.
-LaTeX Info: Redefining \% on input line 1161.
+LaTeX Info: Redefining \. on input line 1157.
+LaTeX Info: Redefining \% on input line 1157.
  [34]
-LaTeX Info: Redefining \. on input line 1195.
-LaTeX Info: Redefining \% on input line 1195.
+LaTeX Info: Redefining \. on input line 1191.
+LaTeX Info: Redefining \% on input line 1191.
  [35]
-LaTeX Info: Redefining \. on input line 1226.
-LaTeX Info: Redefining \% on input line 1226.
+LaTeX Info: Redefining \. on input line 1222.
+LaTeX Info: Redefining \% on input line 1222.
  [36]
-LaTeX Info: Redefining \. on input line 1267.
-LaTeX Info: Redefining \% on input line 1267.
+LaTeX Info: Redefining \. on input line 1263.
+LaTeX Info: Redefining \% on input line 1263.
  [37]
-LaTeX Info: Redefining \. on input line 1317.
-LaTeX Info: Redefining \% on input line 1317.
+LaTeX Info: Redefining \. on input line 1313.
+LaTeX Info: Redefining \% on input line 1313.
  [38]
-LaTeX Info: Redefining \. on input line 1375.
-LaTeX Info: Redefining \% on input line 1375.
+LaTeX Info: Redefining \. on input line 1371.
+LaTeX Info: Redefining \% on input line 1371.
  [39]
-LaTeX Info: Redefining \. on input line 1390.
-LaTeX Info: Redefining \% on input line 1390.
+LaTeX Info: Redefining \. on input line 1386.
+LaTeX Info: Redefining \% on input line 1386.
  [40]
-LaTeX Info: Redefining \. on input line 1419.
-LaTeX Info: Redefining \% on input line 1419.
+LaTeX Info: Redefining \. on input line 1415.
+LaTeX Info: Redefining \% on input line 1415.
  [41]
-LaTeX Info: Redefining \. on input line 1461.
-LaTeX Info: Redefining \% on input line 1461.
+LaTeX Info: Redefining \. on input line 1457.
+LaTeX Info: Redefining \% on input line 1457.
  [42]
-LaTeX Info: Redefining \. on input line 1512.
-LaTeX Info: Redefining \% on input line 1512.
+LaTeX Info: Redefining \. on input line 1508.
+LaTeX Info: Redefining \% on input line 1508.
  [43]
-LaTeX Info: Redefining \. on input line 1517.
-LaTeX Info: Redefining \% on input line 1517.
+LaTeX Info: Redefining \. on input line 1513.
+LaTeX Info: Redefining \% on input line 1513.
  [44]
-LaTeX Info: Redefining \. on input line 1550.
-LaTeX Info: Redefining \% on input line 1550.
+LaTeX Info: Redefining \. on input line 1546.
+LaTeX Info: Redefining \% on input line 1546.
  [45]
-LaTeX Info: Redefining \. on input line 1596.
-LaTeX Info: Redefining \% on input line 1596.
+LaTeX Info: Redefining \. on input line 1592.
+LaTeX Info: Redefining \% on input line 1592.
  [46]
-LaTeX Info: Redefining \. on input line 1669.
-LaTeX Info: Redefining \% on input line 1669.
+LaTeX Info: Redefining \. on input line 1665.
+LaTeX Info: Redefining \% on input line 1665.
  [47]
-LaTeX Info: Redefining \. on input line 1671.
-LaTeX Info: Redefining \% on input line 1671.
+LaTeX Info: Redefining \. on input line 1667.
+LaTeX Info: Redefining \% on input line 1667.
  [48]
-LaTeX Info: Redefining \. on input line 1714.
-LaTeX Info: Redefining \% on input line 1714.
+LaTeX Info: Redefining \. on input line 1710.
+LaTeX Info: Redefining \% on input line 1710.
  [49]
-LaTeX Info: Redefining \. on input line 1795.
-LaTeX Info: Redefining \% on input line 1795.
+LaTeX Info: Redefining \. on input line 1791.
+LaTeX Info: Redefining \% on input line 1791.
  [50]
-LaTeX Info: Redefining \. on input line 1806.
-LaTeX Info: Redefining \% on input line 1806.
+LaTeX Info: Redefining \. on input line 1802.
+LaTeX Info: Redefining \% on input line 1802.
  [51]
-LaTeX Info: Redefining \. on input line 1855.
-LaTeX Info: Redefining \% on input line 1855.
+LaTeX Info: Redefining \. on input line 1851.
+LaTeX Info: Redefining \% on input line 1851.
  [52]
-LaTeX Info: Redefining \. on input line 1879.
-LaTeX Info: Redefining \% on input line 1879.
+LaTeX Info: Redefining \. on input line 1875.
+LaTeX Info: Redefining \% on input line 1875.
  [53]
-LaTeX Info: Redefining \. on input line 1949.
-LaTeX Info: Redefining \% on input line 1949.
+LaTeX Info: Redefining \. on input line 1945.
+LaTeX Info: Redefining \% on input line 1945.
  [54]
-LaTeX Info: Redefining \. on input line 2018.
-LaTeX Info: Redefining \% on input line 2018.
+LaTeX Info: Redefining \. on input line 2014.
+LaTeX Info: Redefining \% on input line 2014.
  [55]
-LaTeX Info: Redefining \. on input line 2071.
-LaTeX Info: Redefining \% on input line 2071.
+LaTeX Info: Redefining \. on input line 2067.
+LaTeX Info: Redefining \% on input line 2067.
  [56]
-LaTeX Info: Redefining \. on input line 2108.
-LaTeX Info: Redefining \% on input line 2108.
+LaTeX Info: Redefining \. on input line 2104.
+LaTeX Info: Redefining \% on input line 2104.
  [57]
-LaTeX Info: Redefining \. on input line 2264.
-LaTeX Info: Redefining \% on input line 2264.
+LaTeX Info: Redefining \. on input line 2260.
+LaTeX Info: Redefining \% on input line 2260.
  [58]
-LaTeX Info: Redefining \. on input line 2310.
-LaTeX Info: Redefining \% on input line 2310.
+LaTeX Info: Redefining \. on input line 2306.
+LaTeX Info: Redefining \% on input line 2306.
  [59]
-LaTeX Info: Redefining \. on input line 2411.
-LaTeX Info: Redefining \% on input line 2411.
+LaTeX Info: Redefining \. on input line 2407.
+LaTeX Info: Redefining \% on input line 2407.
  [60]
 Cap\'{\i }tulo 4.
 [61
@@ -1115,8 +1118,8 @@ LaTeX Info: Redefining \% on input line 231.
 LaTeX Info: Redefining \. on input line 315.
 LaTeX Info: Redefining \% on input line 315.
  [68])
-LaTeX Info: Redefining \. on input line 2429.
-LaTeX Info: Redefining \% on input line 2429.
+LaTeX Info: Redefining \. on input line 2425.
+LaTeX Info: Redefining \% on input line 2425.
  [69] (./main.aux
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
@@ -1125,15 +1128,15 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 572FA659419D23F02132A74BAD35F3D2;14031.
  ) 
 Here is how much of TeX's memory you used:
- 23239 strings out of 480247
- 384203 string characters out of 5896151
+ 23244 strings out of 480247
+ 384357 string characters out of 5896151
  712606 words of memory out of 5000000
- 40209 multiletter control sequences out of 15000+600000
+ 40214 multiletter control sequences out of 15000+600000
  531223 words of font info for 155 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
  60i,20n,63p,1050b,803s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/amg/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (91 pages, 30162933 bytes).
+Output written on main.pdf (91 pages, 30162899 bytes).
 PDF statistics:
  2229 PDF objects out of 2487 (max. 8388607)
  1562 compressed objects within 16 object streams
