@@ -1567,6 +1567,7 @@ En el siguiente psudocodigo detalla el proceso de verificación de factibilidad 
 	\label{fig:algoritmo_clientes_factibles}
 \end{figure}
 
+El pseudocódigo \ref{alg:clientes_factibles} determina qué clientes pueden ser visitados desde la posición actual del vehículo considerando las restricciones del problema. Para cada cliente no visitado, se calcula el tiempo de viaje, la hora estimada de llegada, el tiempo de servicio y el retorno al depósito. Un cliente se considera factible si puede ser atendido dentro de su ventana de tiempo, no excede la capacidad del vehículo y permite regresar al depósito antes del límite temporal. El conjunto final de clientes factibles se utiliza posteriormente en el proceso de construcción de la solución para guiar la selección probabilística del siguiente destino.
 
 \subsubsection*{Gestión de restricciones temporales}
 
@@ -1576,30 +1577,25 @@ El manejo de las ventanas de tiempo es crítico en el VRP-TW. Para cada cliente 
 	t_{\text{llegada}}^j = t_{\text{salida}}^i + \frac{d_{ij}}{v}
 	\label{eq:tiempo_llegada}
 \end{equation}
-\noindent
-\textbf{Ecuación \ref{eq:tiempo_llegada}:} Calcula el tiempo de llegada del vehículo al cliente $j$, sumando el tiempo de salida del cliente anterior $i$ y el tiempo de viaje desde $i$ hasta $j$.  
 
 \begin{equation}
 	t_{\text{inicio\_servicio}}^j = \max(t_{\text{llegada}}^j, e_j)
 	\label{eq:inicio_servicio}
 \end{equation}
-\noindent
-\textbf{Ecuación \ref{eq:inicio_servicio}:} Determina el instante en que inicia el servicio en el cliente $j$. Si el vehículo llega antes de $e_j$, debe esperar hasta el inicio de la ventana; si llega dentro de la ventana, comienza el servicio inmediatamente.  
 
 \begin{equation}
 	t_{\text{salida}}^j = t_{\text{inicio\_servicio}}^j + s_j
 	\label{eq:salida_cliente}
 \end{equation}
-\noindent
-\textbf{Ecuación \ref{eq:salida_cliente}:} Calcula el tiempo de salida del vehículo del cliente $j$, sumando al inicio del servicio el tiempo de servicio requerido $s_j$.
 
-\subsubsection*{Mecanismo de gestión de flota}
+La ecuación \ref{eq:tiempo_llegada} calcula el tiempo de llegada del vehículo al cliente $j$, considerando el tiempo de salida del cliente anterior y el tiempo de viaje entre ambos puntos.
+La ecuación \ref{eq:inicio_servicio} determina el instante en que comienza la atención al cliente, contemplando posibles tiempos de espera cuando el vehículo arriba antes del inicio de la ventana de tiempo.
+Finalmente, la ecuación \ref{eq:salida_cliente} establece el momento de salida del cliente, sumando al inicio del servicio el tiempo de atención requerido.
+En conjunto, estas expresiones permiten verificar la factibilidad temporal de las rutas y asegurar el cumplimiento de las restricciones de ventanas de tiempo en el VRP-TW.
 
-Cuando una hormiga no encuentra clientes factibles desde su posición actual, se implementa una estrategia de avance temporal: el tiempo del vehículo se incrementa gradualmente (en intervalos de un minuto) hasta que algún cliente se vuelva accesible o se alcance el límite temporal del vehículo. Si después de este proceso no hay clientes disponibles y el número de vehículos utilizados no excede el máximo permitido, se asigna un nuevo vehículo a la flota. El vehículo actual cierra su ruta regresando al depósito, y el nuevo vehículo inicia desde el depósito con carga y tiempo reiniciados. Si se alcanza el límite máximo de vehículos sin poder atender a todos los clientes, la hormiga se reinicia completamente para construir una nueva solución.
+\subsubsection*{Proceso de construcción de soluciones y gestión de flota}
 
-\subsubsection*{Proceso de construcción de soluciones}
-
-El algoritmo \ref{fig:algoritmo_construccion_solucion} presenta el proceso completo de construcción de una solución por parte de una hormiga, integrando la selección probabilística de clientes, la gestión de restricciones y la asignación dinámica de vehículos.
+En el algoritmo ACO aplicado al VRP-TW, cada hormiga construye soluciones factibles mediante un proceso probabilístico que combina la selección guiada por feromonas con la verificación de restricciones temporales y de capacidad. Además, se incorpora un mecanismo dinámico de gestión de flota para asignar nuevos vehículos cuando no existan clientes factibles desde la posición actual.
 
 \begin{figure}[H]
 	\centering
@@ -1647,18 +1643,21 @@ El algoritmo \ref{fig:algoritmo_construccion_solucion} presenta el proceso compl
 		Retornar Rutas.\\
 
 	\end{algorithm}
-	\caption{Proceso de construcción probabilística de una solución completa por una hormiga. El algoritmo maneja dinámicamente la asignación de vehículos y el avance temporal cuando no hay clientes factibles disponibles, garantizando el cumplimiento de todas las restricciones del VRP-TW.}
+	\caption{Pseudocódigo del proceso de construcción de una solución completa por una hormiga.}
 	\label{fig:algoritmo_construccion_solucion}
 \end{figure}
 
+El pseudocódigo \ref{alg:construccion_solucion} muestra el procedimiento mediante el cual una hormiga construye una solución completa para el VRP-TW. En cada iteración, selecciona probabilísticamente el siguiente cliente considerando la información de feromonas, heurística y factibilidad temporal. Cuando no hay clientes accesibles, se aplica un avance temporal hasta habilitar nuevas opciones o cerrar la ruta actual, asignando un nuevo vehículo si el límite no ha sido alcanzado. Este proceso asegura la generación de soluciones coherentes y factibles que respetan las restricciones de capacidad, tiempo y número de vehículos.
+
+
 \subsubsection*{Evaluación de la función objetivo}
 
-Una vez construida la solución, se evalúa su calidad calculando la distancia total recorrida por todos los vehículos. El algoritmo \ref{fig:algoritmo_evaluacion_fitness} describe este proceso de evaluación.
+Una vez construida la solución, se evalúa su calidad mediante el cálculo de la distancia total recorrida por todos los vehículos. Este valor representa el fitness de la solución y permite comparar la eficiencia de las rutas generadas por cada hormiga.
 
 \begin{figure}[H]
 	\centering
 	\begin{algorithm}[H]
-		\caption{Evaluación de Fitness de una Solución}
+		\caption{Evaluación de la función objetivo}
 		\label{alg:evaluacion_fitness}
 		\SetAlgoLined
 		\SetAlFnt{\footnotesize}
@@ -1680,101 +1679,101 @@ Una vez construida la solución, se evalúa su calidad calculando la distancia t
 		Retornar FitnessTotal.\\
 
 	\end{algorithm}
-	\caption{Cálculo del fitness de una solución como la suma de las distancias totales recorridas por todos los vehículos. Cada ruta se evalúa sumando las distancias entre clientes consecutivos, incluyendo los trayectos desde y hacia el depósito.}
+	\caption{Pseudocódigo del cálculo del fitness total de una solución.}
 	\label{fig:algoritmo_evaluacion_fitness}
 \end{figure}
 
+El algoritmo \ref{alg:evaluacion_fitness} calcula el fitness total de la solución sumando las distancias recorridas por cada vehículo. Para cada ruta, se acumulan las distancias entre clientes consecutivos, incluyendo los trayectos desde y hacia el depósito. Este valor cuantifica la eficiencia global de la solución, siendo menor el fitness cuanto más cortas sean las rutas generadas.
+
 \subsubsection*{Actualización de feromonas}
 
-Al finalizar cada iteración, todas las hormigas han construido soluciones completas. Las feromonas se actualizan mediante dos mecanismos complementarios que balancean exploración y explotación.
+Tras cada iteración, las feromonas se actualizan para reflejar la calidad de las soluciones construidas por las hormigas. Este proceso combina tres fases: evaporación, depósito y refuerzo elitista, que en conjunto equilibran la exploración de nuevas rutas y la explotación de las soluciones más prometedoras.
 
-\paragraph{Evaporación de feromonas:}
-Reduce uniformemente los niveles de feromona para evitar convergencia prematura y permitir exploración de nuevas rutas:
+\paragraph{Evaporación de feromonas.}
+Este mecanismo reduce uniformemente los niveles de feromona para evitar la saturación de ciertos caminos y fomentar la exploración de alternativas. Se define mediante la ecuación \ref{eq:evaporacion_feromona}:
 
 \begin{equation}
-	\tau_{ij} \leftarrow (1-\rho) \cdot \tau_{ij}, \quad \forall (i,j)
+	\tau_{ij} \leftarrow (1 - \rho) \cdot \tau_{ij}, \quad \forall (i,j)
+	\label{eq:evaporacion_feromona}
 \end{equation}
 
-donde $\rho \in [0,1]$ es la tasa de evaporación.
+donde $\rho \in [0,1]$ es la tasa de evaporación. Un valor alto de $\rho$ acelera la pérdida de feromonas, promoviendo la diversidad, mientras que un valor bajo intensifica la explotación de rutas ya exploradas.
 
-\paragraph{Depósito de feromonas:}
-Las mejores hormigas (determinadas por un porcentaje $p_{elite}$ de la población ordenada por fitness) depositan feromona en las aristas que utilizaron:
+\paragraph{Depósito de feromonas.}
+Las hormigas que obtienen las mejores soluciones —definidas como el conjunto élite— depositan feromonas sobre las aristas que conforman sus rutas. Este refuerzo se modela en la ecuación \ref{eq:deposito_feromona}:
 
 \begin{equation}
 	\tau_{ij} \leftarrow \tau_{ij} + \sum_{k \in \text{Elite}} \Delta\tau_{ij}^k
+	\label{eq:deposito_feromona}
 \end{equation}
 
-donde:
+donde la cantidad de feromona añadida por cada hormiga $k$ se determina mediante la ecuación \ref{eq:delta_tau}:
+
 \begin{equation}
-	\Delta\tau_{ij}^k = \begin{cases}
-		\frac{1}{L_k} & \text{si la hormiga } k \text{ usó la arista } (i,j) \\
-		0             & \text{en otro caso}
+	\Delta\tau_{ij}^k =
+	\begin{cases}
+		\dfrac{1}{L_k}, & \text{si la hormiga } k \text{ usa la arista } (i,j) \\
+		0,              & \text{en otro caso}
 	\end{cases}
+	\label{eq:delta_tau}
 \end{equation}
 
-siendo $L_k$ el costo total (distancia recorrida) de la solución de la hormiga $k$.
+Aquí, $L_k$ representa el costo total (distancia recorrida) de la solución de la hormiga $k$. En consecuencia, las soluciones más cortas (menor $L_k$) contribuyen con una mayor cantidad de feromona, orientando a futuras hormigas hacia rutas más eficientes.
 
-\paragraph{Refuerzo elitista:}
-Adicionalmente, se aplica un refuerzo extra a la mejor solución global encontrada hasta el momento, multiplicando su contribución de feromona por un factor de 2:
+\paragraph{Refuerzo elitista.}
+Finalmente, se aplica un refuerzo adicional a la mejor solución global encontrada hasta el momento, modelado en la ecuación \ref{eq:refuerzo_elitista}:
 
 \begin{equation}
 	\tau_{ij} \leftarrow \tau_{ij} + 2 \cdot \frac{1}{L_{best}}, \quad \forall (i,j) \in \text{MejorRuta}
+	\label{eq:refuerzo_elitista}
 \end{equation}
 
-donde $L_{best}$ es el costo de la mejor solución encontrada.
-
-El algoritmo \ref{fig:algoritmo_actualizacion_feromonas} detalla el proceso completo de actualización de la matriz de feromonas.
+donde $L_{best}$ corresponde al costo total de la mejor solución histórica. El factor multiplicativo (en este caso, 2) duplica la influencia de dicha solución sobre la actualización global, intensificando su preservación.
 
 \begin{figure}[H]
 	\centering
 	\begin{algorithm}[H]
-		\caption{Actualización de Matriz de Feromonas}
+		\caption{Pseudocódigo de la Actualización de Feromonas}
 		\label{alg:actualizacion_feromonas}
 		\SetAlgoLined
 		\SetAlFnt{\footnotesize}
 
-		\KwIn{Matriz $\tau$, conjunto Elite de hormigas, MejorSoluciónGlobal, tasa $\rho$}
+		\KwIn{Matriz $\tau$, tasa $\rho$, hormigas elite, mejor solución global}
 		\KwOut{Matriz $\tau$ actualizada}
 
-		\textbf{Fase 1: Evaporación}\\
-		\textbf{para} $i=0$ \textbf{hasta} $n-1$ \textbf{hacer}\\
-		\hspace{1em} \textbf{para} $j=0$ \textbf{hasta} $n-1$ \textbf{hacer}\\
-		\hspace{2em} \textbf{si} $i \neq j$ \textbf{entonces}\\
-		\hspace{3em} $\tau_{ij} \gets (1 - \rho) \cdot \tau_{ij}$.\\
-		\hspace{2em} \textbf{fin si}\\
-		\hspace{1em} \textbf{fin para}\\
-		\textbf{fin para}\\
+		\textbf{Evaporación:}\\
+		\For{$i=0$ \KwTo $n-1$}{
+			\For{$j=0$ \KwTo $n-1$}{
+				\If{$i \neq j$}{
+					$\tau_{ij} \gets (1 - \rho) \cdot \tau_{ij}$.
+				}
+			}
+		}
 
-		\textbf{Fase 2: Depósito por hormigas elite}\\
-		\textbf{para cada} hormiga $k \in$ Elite \textbf{hacer}\\
-		\hspace{1em} $\Delta \tau \gets 1 / \text{Costo}_k$.\\
-		\hspace{1em} \textbf{para cada} vehículo $v$ en Solución$_k$ \textbf{hacer}\\
-		\hspace{2em} \textbf{para cada} arista $(i,j)$ en ruta de $v$ \textbf{hacer}\\
-		\hspace{3em} \textbf{si} $i \neq j$ \textbf{entonces}\\
-		\hspace{4em} $\tau_{ij} \gets \tau_{ij} + \Delta\tau$.\\
-		\hspace{4em} $\tau_{ji} \gets \tau_{ji} + \Delta\tau$ \textit{(grafo no dirigido)}.\\
-		\hspace{3em} \textbf{si no}\\
-		\hspace{4em} $\tau_{ii} \gets 0$ \textit{(eliminar autoenlaces)}.\\
-		\hspace{3em} \textbf{fin si}\\
-		\hspace{2em} \textbf{fin para}\\
-		\hspace{1em} \textbf{fin para}\\
-		\textbf{fin para}\\
+		\textbf{Depósito de feromonas:}\\
+		\ForEach{hormiga $k$ en Elite}{
+			$\Delta\tau \gets 1 / L_k$\\
+			\ForEach{arista $(i,j)$ en la ruta de $k$}{
+				$\tau_{ij} \gets \tau_{ij} + \Delta\tau$\\
+				$\tau_{ji} \gets \tau_{ji} + \Delta\tau$
+			}
+		}
 
-		\textbf{Fase 3: Refuerzo elitista}\\
-		$\Delta \tau_{best} \gets 2 / \text{CostoMejorGlobal}$.\\
-		\textbf{para cada} vehículo $v$ en MejorSoluciónGlobal \textbf{hacer}\\
-		\hspace{1em} \textbf{para cada} arista $(i,j)$ en ruta de $v$ \textbf{hacer}\\
-		\hspace{2em} $\tau_{ij} \gets \tau_{ij} + \Delta\tau_{best}$.\\
-		\hspace{2em} $\tau_{ji} \gets \tau_{ji} + \Delta\tau_{best}$.\\
-		\hspace{1em} \textbf{fin para}\\
-		\textbf{fin para}\\
+		\textbf{Refuerzo elitista:}\\
+		$\Delta\tau_{best} \gets 2 / L_{best}$\\
+		\ForEach{arista $(i,j)$ en MejorRuta}{
+			$\tau_{ij} \gets \tau_{ij} + \Delta\tau_{best}$\\
+			$\tau_{ji} \gets \tau_{ji} + \Delta\tau_{best}$
+		}
 
-		Retornar $\tau$.\\
-
+		\Return{$\tau$}
 	\end{algorithm}
-	\caption{Mecanismo de actualización de feromonas en tres fases: evaporación uniforme para favorecer exploración, depósito proporcional al fitness de las hormigas elite, y refuerzo adicional en la mejor solución global para intensificar la explotación de rutas prometedoras.}
+	\caption{Pseudocódigo del proceso de actualización de feromonas en tres fases: evaporación, depósito y refuerzo elitista.}
 	\label{fig:algoritmo_actualizacion_feromonas}
 \end{figure}
+
+El pseudocódigo \ref{alg:actualizacion_feromonas} muestra el procedimiento completo de actualización de la matriz de feromonas. Este proceso regula el equilibrio entre exploración y explotación, garantizando que el sistema mantenga la diversidad de soluciones mientras converge hacia rutas de alta calidad.
+
 
 \subsubsection*{Criterio de factibilidad}
 
@@ -1789,28 +1788,24 @@ Una solución se considera factible si:
 
 El algoritmo garantiza la factibilidad mediante la construcción de listas de candidatos que verifican todas estas restricciones antes de la selección probabilística.
 
-\subsubsection*{Algoritmo principal ACO integrado}
+\subsubsection*{Pseudocódigo del ACO integrado con Recocido Simulado}
 
-El algoritmo \ref{fig:algoritmo_aco_principal} presenta la estructura completa del algoritmo ACO, integrando todas las fases descritas previamente: construcción de soluciones, evaluación, ordenamiento, aplicación de Simulated Annealing a las mejores hormigas, y actualización de feromonas.
+A continuación se presenta la estructura general del algoritmo ACO aplicado al VRP-TW.
 
 \begin{figure}[H]
 	\centering
 	\begin{algorithm}[H]
-		\caption{Optimización por Colonia de Hormigas para VRP-TW}
+		\caption{ACO integrado con Recocido Simulado para VRP-TW}
 		\label{alg:aco_vrptw}
 		\SetAlgoLined
 		\SetAlFnt{\footnotesize}
 
-		\KwIn{Parámetros $\alpha, \beta, \gamma, \rho$, número de hormigas $m$, iteraciones $n_{iter}$, porcentaje elite $p_{elite}$}
-		\KwOut{Mejor solución de rutas encontrada}
+		\KwIn{Parámetros $\alpha, \beta, \gamma, \rho$, número de hormigas $m$, iteraciones $n_{iter}$, porcentaje élite $p_{elite}$}
+		\KwOut{Mejor solución encontrada}
 
-		\textbf{Inicialización:}\\
-		Inicializar matriz de feromonas $\tau_{ij} = 1/l_j$ para todo $i, j$.\\
-		Calcular matriz de visibilidad $\eta_{ij} = 1/d_{ij}$.\\
-		Calcular matriz de información temporal $\omega_{ij} = 1/l_j$.\\
+		Inicializar matrices de feromonas, visibilidad e información temporal.\\
 		MejorSoluciónGlobal $\gets$ NULL, MejorCostoGlobal $\gets \infty$.\\
 
-		\textbf{Iteración principal:}\\
 		\textbf{para} $iter=1$ \textbf{hasta} $n_{iter}$ \textbf{hacer}\\
 		\hspace{1em} \textbf{para} $k=1$ \textbf{hasta} $m$ \textbf{hacer}\\
 		\hspace{2em} Solución$_k$ $\gets$ ConstruirSolución($\alpha, \beta, \gamma$).\\
@@ -1819,7 +1814,7 @@ El algoritmo \ref{fig:algoritmo_aco_principal} presenta la estructura completa d
 		\hspace{1em} OrdenarHormigas por Costo ascendente.\\
 		\hspace{1em} Elite $\gets$ primeras $\lceil m \times p_{elite} \rceil$ hormigas.\\
 		\hspace{1em} \textbf{para cada} hormiga $k \in$ Elite \textbf{hacer}\\
-		\hspace{2em} Solución$_k$ $\gets$ AplicarSimulatedAnnealing(Solución$_k$).\\
+		\hspace{2em} Solución$_k$ $\gets$ AplicarRecocidoSimulado(Solución$_k$).\\
 		\hspace{2em} Costo$_k$ $\gets$ EvaluarFitness(Solución$_k$).\\
 		\hspace{2em} \textbf{si} Costo$_k$ $<$ MejorCostoGlobal \textbf{entonces}\\
 		\hspace{3em} MejorSoluciónGlobal $\gets$ Solución$_k$.\\
@@ -1827,23 +1822,23 @@ El algoritmo \ref{fig:algoritmo_aco_principal} presenta la estructura completa d
 		\hspace{2em} \textbf{fin si}\\
 		\hspace{1em} \textbf{fin para}\\
 		\hspace{1em} ActualizarFeromonas(Elite, MejorSoluciónGlobal, $\rho$).\\
-		\hspace{1em} \textbf{si} $iter < n_{iter}$ \textbf{entonces}\\
-		\hspace{2em} ReiniciarTodasHormigas().\\
-		\hspace{1em} \textbf{fin si}\\
+		\hspace{1em} \textbf{si} $iter < n_{iter}$ \textbf{entonces} ReiniciarHormigas().\\
 		\textbf{fin para}\\
 		Retornar MejorSoluciónGlobal.\\
-
 	\end{algorithm}
-	\caption{Algoritmo principal de ACO con integración de Simulated Annealing para la resolución del problema VRP-TW. Las hormigas construyen soluciones de forma probabilística, las mejores se optimizan con SA, y se actualiza la matriz de feromonas considerando únicamente las soluciones elite y reforzando la mejor solución global.}
+	\caption{Pseudocódigo del ACO con Recocido Simulado para VRP-TW.}
 	\label{fig:algoritmo_aco_principal}
 \end{figure}
+
+El pseudocódigo \ref{fig:algoritmo_aco_principal} describe el flujo completo del proceso de optimización. Las hormigas generan soluciones basadas en la información de feromonas y la heurística; las mejores son refinadas mediante Recocido Simulado. Finalmente, la actualización de feromonas refuerza las rutas más prometedoras, guiando la búsqueda hacia soluciones de mayor calidad.
+
 \subsection{Refinamiento de rutas mediante Recocido Simulado (SA)}
 
-La tercera y última etapa del enfoque híbrido consiste en refinar las soluciones generadas por ACO mediante \textbf{Recocido Simulado (SA)}, una metaheurística de búsqueda local que permite escapar de óptimos locales a través de la aceptación probabilística de soluciones que empeoran temporalmente la función objetivo. SA recibe como entrada las mejores rutas construidas por ACO y aplica operadores de vecindad para explorar sistemáticamente el espacio de soluciones cercanas, buscando mejoras incrementales que reduzcan el costo total de las rutas mientras se mantiene la factibilidad.
+La tercera y última etapa del enfoque híbrido consiste en refinar las soluciones generadas por ACO mediante Recocido Simulado (SA), una metaheurística de búsqueda local que permite escapar de óptimos locales a través de la aceptación probabilística de soluciones que empeoran temporalmente la función objetivo. SA recibe como entrada las mejores rutas construidas por ACO y aplica operadores de vecindad para explorar sistemáticamente el espacio de soluciones cercanas, buscando mejoras incrementales que reduzcan el costo total de las rutas mientras se mantiene la factibilidad.
 
 \subsubsection*{Fundamentos del algoritmo SA}
 
-El algoritmo SA está inspirado en el proceso metalúrgico de recocido, donde un metal se calienta a alta temperatura y luego se enfría gradualmente para alcanzar un estado de mínima energía. En el contexto de optimización, la \textit{temperatura} controla la probabilidad de aceptar soluciones deteriorantes, permitiendo escapar de óptimos locales en etapas tempranas (alta temperatura) y convergiendo hacia soluciones de alta calidad en etapas finales (baja temperatura).
+El algoritmo SA está inspirado en el proceso metalúrgico de recocido, donde un metal se calienta a alta temperatura y luego se enfría gradualmente para alcanzar un estado de mínima energía. En el contexto de optimización, la temperatura controla la probabilidad de aceptar soluciones deteriorantes, permitiendo escapar de óptimos locales en etapas tempranas (alta temperatura) y convergiendo hacia soluciones de alta calidad en etapas finales (baja temperatura).
 
 Los componentes principales del algoritmo son:
 
@@ -2313,102 +2308,102 @@ La implementación utiliza una estructura jerárquica eficiente:
 
 \subsubsection*{Algoritmo principal de Recocido Simulado}
 
-El algoritmo \ref{fig:algoritmo_sa_principal} presenta la estructura completa del proceso de refinamiento mediante SA.
+% El algoritmo \ref{fig:algoritmo_sa_principal} presenta la estructura completa del proceso de refinamiento mediante SA.
 
-\begin{figure}[H]
-	\centering
-	\begin{algorithm}[H]
-		\caption{Recocido Simulado para Refinamiento de Rutas VRP-TW}
-		\label{alg:sa_vrptw}
-		\SetAlgoLined
-		\SetAlFnt{\footnotesize}
+% \begin{figure}[H]
+% 	\centering
+% 	\begin{algorithm}[H]
+% 		\caption{Recocido Simulado para Refinamiento de Rutas VRP-TW}
+% 		\label{alg:sa_vrptw}
+% 		\SetAlgoLined
+% 		\SetAlFnt{\footnotesize}
 
-		\KwIn{Solución inicial $s_0$ (de ACO), $T_0$, $T_f$, $\alpha_{\text{cool}}$, $n_{\text{iter}}$}
-		\KwOut{Solución refinada $s^*$}
+% 		\KwIn{Solución inicial $s_0$ (de ACO), $T_0$, $T_f$, $\alpha_{\text{cool}}$, $n_{\text{iter}}$}
+% 		\KwOut{Solución refinada $s^*$}
 
-		\textbf{Inicialización:}\\
-		$s_{\text{vecina}} \gets$ copiar($s_0$).\\
-		$s_{\text{actual}} \gets$ copiar($s_0$).\\
-		$s^* \gets$ copiar($s_0$).\\
-		$T \gets T_0$.\\
+% 		\textbf{Inicialización:}\\
+% 		$s_{\text{vecina}} \gets$ copiar($s_0$).\\
+% 		$s_{\text{actual}} \gets$ copiar($s_0$).\\
+% 		$s^* \gets$ copiar($s_0$).\\
+% 		$T \gets T_0$.\\
 
-		\textbf{Ciclo de enfriamiento:}\\
-		\textbf{mientras} $T > T_f$ y $T > 10^{-10}$ \textbf{hacer}\\
-		\hspace{1em} \textbf{para} $iter=1$ \textbf{hasta} $n_{\text{iter}}$ \textbf{hacer}\\
-		\hspace{2em} Liberar($s_{\text{vecina}}.$flota).\\
-		\hspace{2em} $s_{\text{vecina}} \gets$ copiar($s_{\text{actual}}$).\\
+% 		\textbf{Ciclo de enfriamiento:}\\
+% 		\textbf{mientras} $T > T_f$ y $T > 10^{-10}$ \textbf{hacer}\\
+% 		\hspace{1em} \textbf{para} $iter=1$ \textbf{hasta} $n_{\text{iter}}$ \textbf{hacer}\\
+% 		\hspace{2em} Liberar($s_{\text{vecina}}.$flota).\\
+% 		\hspace{2em} $s_{\text{vecina}} \gets$ copiar($s_{\text{actual}}$).\\
 
-		\hspace{2em} \textit{// Selección adaptativa de operador}\\
-		\hspace{2em} $r \gets$ aleatorio$[0,1]$.\\
-		\hspace{2em} operador $\gets$ SeleccionarOperador($r$, instancia.tamaño, $s_{\text{vecina}}.$vehículos).\\
-		\hspace{2em} aceptado $\gets$ AplicarOperador(operador, $s_{\text{vecina}}$).\\
+% 		\hspace{2em} \textit{// Selección adaptativa de operador}\\
+% 		\hspace{2em} $r \gets$ aleatorio$[0,1]$.\\
+% 		\hspace{2em} operador $\gets$ SeleccionarOperador($r$, instancia.tamaño, $s_{\text{vecina}}.$vehículos).\\
+% 		\hspace{2em} aceptado $\gets$ AplicarOperador(operador, $s_{\text{vecina}}$).\\
 
-		\hspace{2em} \textbf{si} no aceptado \textbf{entonces} continuar.\\
+% 		\hspace{2em} \textbf{si} no aceptado \textbf{entonces} continuar.\\
 
-		\hspace{2em} \textit{// Limpieza de vehículos vacíos (condicional)}\\
-		\hspace{2em} \textbf{si} operador $\in \{$swap\_inter, reinserción, cross-exchange, relocate-chain$\}$ \textbf{entonces}\\
-		\hspace{3em} $v_{\text{antes}} \gets s_{\text{vecina}}.$vehiculos\_necesarios.\\
-		\hspace{3em} $s_{\text{vecina}}.$vehiculos\_necesarios $\gets$ EliminarVehiculosVacios($s_{\text{vecina}}.$flota).\\
-		\hspace{3em} \textbf{si} $v_{\text{antes}} \neq s_{\text{vecina}}.$vehiculos\_necesarios \textbf{entonces}\\
-		\hspace{4em} EvaluarFitness($s_{\text{vecina}}$).\\
-		\hspace{3em} \textbf{fin si}\\
-		\hspace{2em} \textbf{fin si}\\
+% 		\hspace{2em} \textit{// Limpieza de vehículos vacíos (condicional)}\\
+% 		\hspace{2em} \textbf{si} operador $\in \{$swap\_inter, reinserción, cross-exchange, relocate-chain$\}$ \textbf{entonces}\\
+% 		\hspace{3em} $v_{\text{antes}} \gets s_{\text{vecina}}.$vehiculos\_necesarios.\\
+% 		\hspace{3em} $s_{\text{vecina}}.$vehiculos\_necesarios $\gets$ EliminarVehiculosVacios($s_{\text{vecina}}.$flota).\\
+% 		\hspace{3em} \textbf{si} $v_{\text{antes}} \neq s_{\text{vecina}}.$vehiculos\_necesarios \textbf{entonces}\\
+% 		\hspace{4em} EvaluarFitness($s_{\text{vecina}}$).\\
+% 		\hspace{3em} \textbf{fin si}\\
+% 		\hspace{2em} \textbf{fin si}\\
 
-		\hspace{2em} \textit{// Limpieza periódica}\\
-		\hspace{2em} \textbf{si} $iter \mod 20 = 0$ \textbf{entonces}\\
-		\hspace{3em} EliminarVehiculosVacios($s_{\text{vecina}}.$flota).\\
-		\hspace{2em} \textbf{fin si}\\
+% 		\hspace{2em} \textit{// Limpieza periódica}\\
+% 		\hspace{2em} \textbf{si} $iter \mod 20 = 0$ \textbf{entonces}\\
+% 		\hspace{3em} EliminarVehiculosVacios($s_{\text{vecina}}.$flota).\\
+% 		\hspace{2em} \textbf{fin si}\\
 
-		\hspace{2em} \textit{// Evaluación de fitness}\\
-		\hspace{2em} EvaluarFitness($s_{\text{vecina}}$).\\
-		\hspace{2em} $\Delta f \gets s_{\text{vecina}}.$fitness $- s_{\text{actual}}.$fitness.\\
+% 		\hspace{2em} \textit{// Evaluación de fitness}\\
+% 		\hspace{2em} EvaluarFitness($s_{\text{vecina}}$).\\
+% 		\hspace{2em} $\Delta f \gets s_{\text{vecina}}.$fitness $- s_{\text{actual}}.$fitness.\\
 
-		\hspace{2em} \textit{// Criterio de aceptación de Metropolis}\\
-		\hspace{2em} aceptar $\gets$ false.\\
-		\hspace{2em} \textbf{si} $\Delta f < -10^{-6}$ \textbf{entonces}\\
-		\hspace{3em} aceptar $\gets$ true \textit{(mejora)}.\\
-		\hspace{2em} \textbf{si no, si} $\Delta f > 10^{-6}$ y $T > 10^{-10}$ \textbf{entonces}\\
-		\hspace{3em} $p \gets e^{-\Delta f / T}$.\\
-		\hspace{3em} \textbf{si} aleatorio$[0,1] < p$ \textbf{entonces}\\
-		\hspace{4em} aceptar $\gets$ true \textit{(aceptar empeoramiento)}.\\
-		\hspace{3em} \textbf{fin si}\\
-		\hspace{2em} \textbf{fin si}\\
+% 		\hspace{2em} \textit{// Criterio de aceptación de Metropolis}\\
+% 		\hspace{2em} aceptar $\gets$ false.\\
+% 		\hspace{2em} \textbf{si} $\Delta f < -10^{-6}$ \textbf{entonces}\\
+% 		\hspace{3em} aceptar $\gets$ true \textit{(mejora)}.\\
+% 		\hspace{2em} \textbf{si no, si} $\Delta f > 10^{-6}$ y $T > 10^{-10}$ \textbf{entonces}\\
+% 		\hspace{3em} $p \gets e^{-\Delta f / T}$.\\
+% 		\hspace{3em} \textbf{si} aleatorio$[0,1] < p$ \textbf{entonces}\\
+% 		\hspace{4em} aceptar $\gets$ true \textit{(aceptar empeoramiento)}.\\
+% 		\hspace{3em} \textbf{fin si}\\
+% 		\hspace{2em} \textbf{fin si}\\
 
-		\hspace{2em} \textit{// Actualización de soluciones}\\
-		\hspace{2em} \textbf{si} aceptar \textbf{entonces}\\
-		\hspace{3em} Liberar($s_{\text{actual}}.$flota).\\
-		\hspace{3em} $s_{\text{actual}} \gets$ copiar($s_{\text{vecina}}$).\\
+% 		\hspace{2em} \textit{// Actualización de soluciones}\\
+% 		\hspace{2em} \textbf{si} aceptar \textbf{entonces}\\
+% 		\hspace{3em} Liberar($s_{\text{actual}}.$flota).\\
+% 		\hspace{3em} $s_{\text{actual}} \gets$ copiar($s_{\text{vecina}}$).\\
 
-		\hspace{3em} \textbf{si} $s_{\text{vecina}}.$fitness $< s^*.$fitness $- 10^{-6}$ \textbf{entonces}\\
-		\hspace{4em} Liberar($s^*.$flota).\\
-		\hspace{4em} $s^* \gets$ copiar($s_{\text{vecina}}$).\\
-		\hspace{3em} \textbf{fin si}\\
-		\hspace{2em} \textbf{fin si}\\
+% 		\hspace{3em} \textbf{si} $s_{\text{vecina}}.$fitness $< s^*.$fitness $- 10^{-6}$ \textbf{entonces}\\
+% 		\hspace{4em} Liberar($s^*.$flota).\\
+% 		\hspace{4em} $s^* \gets$ copiar($s_{\text{vecina}}$).\\
+% 		\hspace{3em} \textbf{fin si}\\
+% 		\hspace{2em} \textbf{fin si}\\
 
-		\hspace{1em} \textbf{fin para}\\
+% 		\hspace{1em} \textbf{fin para}\\
 
-		\hspace{1em} \textit{// Enfriamiento geométrico}\\
-		\hspace{1em} $T \gets \alpha_{\text{cool}} \cdot T$.\\
+% 		\hspace{1em} \textit{// Enfriamiento geométrico}\\
+% 		\hspace{1em} $T \gets \alpha_{\text{cool}} \cdot T$.\\
 
-		\hspace{1em} \textbf{si} $T < 10^{-10}$ \textbf{entonces} romper.\\
-		\textbf{fin mientras}\\
+% 		\hspace{1em} \textbf{si} $T < 10^{-10}$ \textbf{entonces} romper.\\
+% 		\textbf{fin mientras}\\
 
-		\textit{// Limpieza final}\\
-		\textbf{si} $s^*.$vehiculos\_necesarios $> 1$ \textbf{entonces}\\
-		\hspace{1em} $v_{\text{antes}} \gets s^*.$vehiculos\_necesarios.\\
-		\hspace{1em} $s^*.$vehiculos\_necesarios $\gets$ EliminarVehiculosVacios($s^*.$flota).\\
-		\hspace{1em} \textbf{si} $v_{\text{antes}} \neq s^*.$vehiculos\_necesarios \textbf{entonces}\\
-		\hspace{2em} EvaluarFitness($s^*$).\\
-		\hspace{1em} \textbf{fin si}\\
-		\textbf{fin si}\\
+% 		\textit{// Limpieza final}\\
+% 		\textbf{si} $s^*.$vehiculos\_necesarios $> 1$ \textbf{entonces}\\
+% 		\hspace{1em} $v_{\text{antes}} \gets s^*.$vehiculos\_necesarios.\\
+% 		\hspace{1em} $s^*.$vehiculos\_necesarios $\gets$ EliminarVehiculosVacios($s^*.$flota).\\
+% 		\hspace{1em} \textbf{si} $v_{\text{antes}} \neq s^*.$vehiculos\_necesarios \textbf{entonces}\\
+% 		\hspace{2em} EvaluarFitness($s^*$).\\
+% 		\hspace{1em} \textbf{fin si}\\
+% 		\textbf{fin si}\\
 
-		Liberar memoria temporal.\\
-		retornar $s^*$.\\
+% 		Liberar memoria temporal.\\
+% 		retornar $s^*$.\\
 
-	\end{algorithm}
-	\caption{Algoritmo completo de Recocido Simulado para refinamiento de soluciones VRP-TW. El proceso incluye selección adaptativa de operadores según características de la instancia, criterio de aceptación de Metropolis con tolerancia numérica, limpieza condicional y periódica de vehículos vacíos, y gestión explícita de memoria. La temperatura se reduce geométricamente hasta alcanzar el umbral final, con protección contra valores extremadamente bajos.}
-	\label{fig:algoritmo_sa_principal}
-\end{figure}
+% 	\end{algorithm}
+% 	\caption{Algoritmo completo de Recocido Simulado para refinamiento de soluciones VRP-TW. El proceso incluye selección adaptativa de operadores según características de la instancia, criterio de aceptación de Metropolis con tolerancia numérica, limpieza condicional y periódica de vehículos vacíos, y gestión explícita de memoria. La temperatura se reduce geométricamente hasta alcanzar el umbral final, con protección contra valores extremadamente bajos.}
+% 	\label{fig:algoritmo_sa_principal}
+% \end{figure}
 
 \chapter{Resultados}
 \label{cap:resultados}

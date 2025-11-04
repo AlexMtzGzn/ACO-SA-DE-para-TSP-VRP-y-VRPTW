@@ -10,21 +10,20 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Pseudocódigo del algoritmo de Evolución Diferencial (DE) aplicado al problema VRP-TW.}}{44}{figure.3.1}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Pseudocódigo de verificación de clientes factibles en ACO.}}{46}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Proceso de construcción probabilística de una solución completa por una hormiga. El algoritmo maneja dinámicamente la asignación de vehículos y el avance temporal cuando no hay clientes factibles disponibles, garantizando el cumplimiento de todas las restricciones del VRP-TW.}}{48}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Cálculo del fitness de una solución como la suma de las distancias totales recorridas por todos los vehículos. Cada ruta se evalúa sumando las distancias entre clientes consecutivos, incluyendo los trayectos desde y hacia el depósito.}}{49}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Mecanismo de actualización de feromonas en tres fases: evaporación uniforme para favorecer exploración, depósito proporcional al fitness de las hormigas elite, y refuerzo adicional en la mejor solución global para intensificar la explotación de rutas prometedoras.}}{51}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Algoritmo principal de ACO con integración de Simulated Annealing para la resolución del problema VRP-TW. Las hormigas construyen soluciones de forma probabilística, las mejores se optimizan con SA, y se actualiza la matriz de feromonas considerando únicamente las soluciones elite y reforzando la mejor solución global.}}{53}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Pseudocódigo del operador Swap Intra-Ruta.}}{55}{figure.3.7}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Pseudocódigo del operador 2-opt.}}{55}{figure.3.8}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Pseudocódigo del proceso de construcción de una solución completa por una hormiga.}}{48}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Pseudocódigo del cálculo del fitness total de una solución.}}{49}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Pseudocódigo del proceso de actualización de feromonas en tres fases: evaporación, depósito y refuerzo elitista.}}{51}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Pseudocódigo del ACO con Recocido Simulado para VRP-TW.}}{52}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Pseudocódigo del operador Swap Intra-Ruta.}}{54}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Pseudocódigo del operador 2-opt.}}{54}{figure.3.8}%
 \contentsline {figure}{\numberline {3.9}{\ignorespaces Pseudocódigo del operador Or-opt.}}{55}{figure.3.9}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Pseudocódigo del operador Swap Inter-Ruta.}}{56}{figure.3.10}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Pseudocódigo del operador Reinserción Intra-Inter.}}{56}{figure.3.11}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Pseudocódigo del operador Swap Inter-Ruta.}}{55}{figure.3.10}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Pseudocódigo del operador Reinserción Intra-Inter.}}{55}{figure.3.11}%
 \contentsline {figure}{\numberline {3.12}{\ignorespaces Pseudocódigo del operador 2.5-opt.}}{56}{figure.3.12}%
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Pseudocódigo del operador Cross-exchange.}}{57}{figure.3.13}%
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Pseudocódigo del operador Relocate-chain.}}{57}{figure.3.14}%
-\contentsline {figure}{\numberline {3.15}{\ignorespaces Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo.}}{60}{figure.3.15}%
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta.}}{62}{figure.3.16}%
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito.}}{63}{figure.3.17}%
-\contentsline {figure}{\numberline {3.18}{\ignorespaces Algoritmo completo de Recocido Simulado para refinamiento de soluciones VRP-TW. El proceso incluye selección adaptativa de operadores según características de la instancia, criterio de aceptación de Metropolis con tolerancia numérica, limpieza condicional y periódica de vehículos vacíos, y gestión explícita de memoria. La temperatura se reduce geométricamente hasta alcanzar el umbral final, con protección contra valores extremadamente bajos.}}{65}{figure.3.18}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Pseudocódigo del operador Cross-exchange.}}{56}{figure.3.13}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Pseudocódigo del operador Relocate-chain.}}{56}{figure.3.14}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo.}}{59}{figure.3.15}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta.}}{61}{figure.3.16}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito.}}{62}{figure.3.17}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

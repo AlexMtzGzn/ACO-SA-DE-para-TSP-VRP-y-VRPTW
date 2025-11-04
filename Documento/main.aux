@@ -279,82 +279,82 @@
 \newlabel{alg:clientes_factibles}{{3.2}{46}{Construcción probabilística de rutas}{algocf.3.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Pseudocódigo de verificación de clientes factibles en ACO.}}{46}{figure.3.2}\protected@file@percent }
 \newlabel{fig:algoritmo_clientes_factibles}{{3.2}{46}{Pseudocódigo de verificación de clientes factibles en ACO}{figure.3.2}{}}
-\newlabel{eq:tiempo_llegada}{{3.3}{46}{Gestión de restricciones temporales}{equation.3.2.3}{}}
-\newlabel{eq:inicio_servicio}{{3.4}{46}{Gestión de restricciones temporales}{equation.3.2.4}{}}
+\newlabel{eq:tiempo_llegada}{{3.3}{47}{Gestión de restricciones temporales}{equation.3.2.3}{}}
+\newlabel{eq:inicio_servicio}{{3.4}{47}{Gestión de restricciones temporales}{equation.3.2.4}{}}
 \newlabel{eq:salida_cliente}{{3.5}{47}{Gestión de restricciones temporales}{equation.3.2.5}{}}
 \@writefile{loa}{\contentsline {algocf}{\numberline {3.3}{\ignorespaces Construcción de Solución por una Hormiga}}{48}{algocf.3.3}\protected@file@percent }
-\newlabel{alg:construccion_solucion}{{3.3}{48}{Proceso de construcción de soluciones}{algocf.3.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Proceso de construcción probabilística de una solución completa por una hormiga. El algoritmo maneja dinámicamente la asignación de vehículos y el avance temporal cuando no hay clientes factibles disponibles, garantizando el cumplimiento de todas las restricciones del VRP-TW.}}{48}{figure.3.3}\protected@file@percent }
-\newlabel{fig:algoritmo_construccion_solucion}{{3.3}{48}{Proceso de construcción probabilística de una solución completa por una hormiga. El algoritmo maneja dinámicamente la asignación de vehículos y el avance temporal cuando no hay clientes factibles disponibles, garantizando el cumplimiento de todas las restricciones del VRP-TW}{figure.3.3}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.4}{\ignorespaces Evaluación de Fitness de una Solución}}{49}{algocf.3.4}\protected@file@percent }
+\newlabel{alg:construccion_solucion}{{3.3}{48}{Proceso de construcción de soluciones y gestión de flota}{algocf.3.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Pseudocódigo del proceso de construcción de una solución completa por una hormiga.}}{48}{figure.3.3}\protected@file@percent }
+\newlabel{fig:algoritmo_construccion_solucion}{{3.3}{48}{Pseudocódigo del proceso de construcción de una solución completa por una hormiga}{figure.3.3}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.4}{\ignorespaces Evaluación de la función objetivo}}{49}{algocf.3.4}\protected@file@percent }
 \newlabel{alg:evaluacion_fitness}{{3.4}{49}{Evaluación de la función objetivo}{algocf.3.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Cálculo del fitness de una solución como la suma de las distancias totales recorridas por todos los vehículos. Cada ruta se evalúa sumando las distancias entre clientes consecutivos, incluyendo los trayectos desde y hacia el depósito.}}{49}{figure.3.4}\protected@file@percent }
-\newlabel{fig:algoritmo_evaluacion_fitness}{{3.4}{49}{Cálculo del fitness de una solución como la suma de las distancias totales recorridas por todos los vehículos. Cada ruta se evalúa sumando las distancias entre clientes consecutivos, incluyendo los trayectos desde y hacia el depósito}{figure.3.4}{}}
-\@writefile{toc}{\contentsline {paragraph}{Evaporación de feromonas:}{49}{section*.45}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Depósito de feromonas:}{49}{section*.46}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Refuerzo elitista:}{50}{section*.47}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.5}{\ignorespaces Actualización de Matriz de Feromonas}}{51}{algocf.3.5}\protected@file@percent }
-\newlabel{alg:actualizacion_feromonas}{{3.5}{51}{Refuerzo elitista:}{algocf.3.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Mecanismo de actualización de feromonas en tres fases: evaporación uniforme para favorecer exploración, depósito proporcional al fitness de las hormigas elite, y refuerzo adicional en la mejor solución global para intensificar la explotación de rutas prometedoras.}}{51}{figure.3.5}\protected@file@percent }
-\newlabel{fig:algoritmo_actualizacion_feromonas}{{3.5}{51}{Mecanismo de actualización de feromonas en tres fases: evaporación uniforme para favorecer exploración, depósito proporcional al fitness de las hormigas elite, y refuerzo adicional en la mejor solución global para intensificar la explotación de rutas prometedoras}{figure.3.5}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.6}{\ignorespaces Optimización por Colonia de Hormigas para VRP-TW}}{53}{algocf.3.6}\protected@file@percent }
-\newlabel{alg:aco_vrptw}{{3.6}{53}{Algoritmo principal ACO integrado}{algocf.3.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Algoritmo principal de ACO con integración de Simulated Annealing para la resolución del problema VRP-TW. Las hormigas construyen soluciones de forma probabilística, las mejores se optimizan con SA, y se actualiza la matriz de feromonas considerando únicamente las soluciones elite y reforzando la mejor solución global.}}{53}{figure.3.6}\protected@file@percent }
-\newlabel{fig:algoritmo_aco_principal}{{3.6}{53}{Algoritmo principal de ACO con integración de Simulated Annealing para la resolución del problema VRP-TW. Las hormigas construyen soluciones de forma probabilística, las mejores se optimizan con SA, y se actualiza la matriz de feromonas considerando únicamente las soluciones elite y reforzando la mejor solución global}{figure.3.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Pseudocódigo del cálculo del fitness total de una solución.}}{49}{figure.3.4}\protected@file@percent }
+\newlabel{fig:algoritmo_evaluacion_fitness}{{3.4}{49}{Pseudocódigo del cálculo del fitness total de una solución}{figure.3.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Evaporación de feromonas.}{50}{section*.44}\protected@file@percent }
+\newlabel{eq:evaporacion_feromona}{{3.6}{50}{Evaporación de feromonas}{equation.3.2.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Depósito de feromonas.}{50}{section*.45}\protected@file@percent }
+\newlabel{eq:deposito_feromona}{{3.7}{50}{Depósito de feromonas}{equation.3.2.7}{}}
+\newlabel{eq:delta_tau}{{3.8}{50}{Depósito de feromonas}{equation.3.2.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Refuerzo elitista.}{50}{section*.46}\protected@file@percent }
+\newlabel{eq:refuerzo_elitista}{{3.9}{50}{Refuerzo elitista}{equation.3.2.9}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.5}{\ignorespaces Pseudocódigo de la Actualización de Feromonas}}{51}{algocf.3.5}\protected@file@percent }
+\newlabel{alg:actualizacion_feromonas}{{3.5}{51}{Refuerzo elitista}{algocf.3.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Pseudocódigo del proceso de actualización de feromonas en tres fases: evaporación, depósito y refuerzo elitista.}}{51}{figure.3.5}\protected@file@percent }
+\newlabel{fig:algoritmo_actualizacion_feromonas}{{3.5}{51}{Pseudocódigo del proceso de actualización de feromonas en tres fases: evaporación, depósito y refuerzo elitista}{figure.3.5}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.6}{\ignorespaces ACO integrado con Recocido Simulado para VRP-TW}}{52}{algocf.3.6}\protected@file@percent }
+\newlabel{alg:aco_vrptw}{{3.6}{52}{Pseudocódigo del ACO integrado con Recocido Simulado}{algocf.3.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Pseudocódigo del ACO con Recocido Simulado para VRP-TW.}}{52}{figure.3.6}\protected@file@percent }
+\newlabel{fig:algoritmo_aco_principal}{{3.6}{52}{Pseudocódigo del ACO con Recocido Simulado para VRP-TW}{figure.3.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado (SA)}{53}{subsection.3.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Clasificación de operadores:}{54}{section*.52}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.7}{\ignorespaces Operador Swap Intra-Ruta}}{55}{algocf.3.7}\protected@file@percent }
-\newlabel{alg:swap_intra}{{3.7}{55}{Clasificación de operadores:}{algocf.3.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Pseudocódigo del operador Swap Intra-Ruta.}}{55}{figure.3.7}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.8}{\ignorespaces Operador 2-opt}}{55}{algocf.3.8}\protected@file@percent }
-\newlabel{alg:2opt}{{3.8}{55}{Clasificación de operadores:}{algocf.3.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Pseudocódigo del operador 2-opt.}}{55}{figure.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Clasificación de operadores:}{54}{section*.51}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.7}{\ignorespaces Operador Swap Intra-Ruta}}{54}{algocf.3.7}\protected@file@percent }
+\newlabel{alg:swap_intra}{{3.7}{54}{Clasificación de operadores:}{algocf.3.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Pseudocódigo del operador Swap Intra-Ruta.}}{54}{figure.3.7}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.8}{\ignorespaces Operador 2-opt}}{54}{algocf.3.8}\protected@file@percent }
+\newlabel{alg:2opt}{{3.8}{54}{Clasificación de operadores:}{algocf.3.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Pseudocódigo del operador 2-opt.}}{54}{figure.3.8}\protected@file@percent }
 \@writefile{loa}{\contentsline {algocf}{\numberline {3.9}{\ignorespaces Operador Or-opt}}{55}{algocf.3.9}\protected@file@percent }
 \newlabel{alg:or_opt}{{3.9}{55}{Clasificación de operadores:}{algocf.3.9}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Pseudocódigo del operador Or-opt.}}{55}{figure.3.9}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.10}{\ignorespaces Operador Swap Inter-Ruta}}{56}{algocf.3.10}\protected@file@percent }
-\newlabel{alg:swap_inter}{{3.10}{56}{Clasificación de operadores:}{algocf.3.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Pseudocódigo del operador Swap Inter-Ruta.}}{56}{figure.3.10}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.11}{\ignorespaces Operador Reinserción Intra-Inter}}{56}{algocf.3.11}\protected@file@percent }
-\newlabel{alg:reinsercion}{{3.11}{56}{Clasificación de operadores:}{algocf.3.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces Pseudocódigo del operador Reinserción Intra-Inter.}}{56}{figure.3.11}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.10}{\ignorespaces Operador Swap Inter-Ruta}}{55}{algocf.3.10}\protected@file@percent }
+\newlabel{alg:swap_inter}{{3.10}{55}{Clasificación de operadores:}{algocf.3.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Pseudocódigo del operador Swap Inter-Ruta.}}{55}{figure.3.10}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.11}{\ignorespaces Operador Reinserción Intra-Inter}}{55}{algocf.3.11}\protected@file@percent }
+\newlabel{alg:reinsercion}{{3.11}{55}{Clasificación de operadores:}{algocf.3.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces Pseudocódigo del operador Reinserción Intra-Inter.}}{55}{figure.3.11}\protected@file@percent }
 \@writefile{loa}{\contentsline {algocf}{\numberline {3.12}{\ignorespaces Operador 2.5-opt}}{56}{algocf.3.12}\protected@file@percent }
 \newlabel{alg:2_5_opt}{{3.12}{56}{Clasificación de operadores:}{algocf.3.12}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces Pseudocódigo del operador 2.5-opt.}}{56}{figure.3.12}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.13}{\ignorespaces Operador Cross-exchange}}{57}{algocf.3.13}\protected@file@percent }
-\newlabel{alg:cross_exchange}{{3.13}{57}{Clasificación de operadores:}{algocf.3.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces Pseudocódigo del operador Cross-exchange.}}{57}{figure.3.13}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.14}{\ignorespaces Operador Relocate-chain}}{57}{algocf.3.14}\protected@file@percent }
-\newlabel{alg:relocate_chain}{{3.14}{57}{Clasificación de operadores:}{algocf.3.14}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.14}{\ignorespaces Pseudocódigo del operador Relocate-chain.}}{57}{figure.3.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Estrategia adaptativa de selección:}{57}{section*.53}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.15}{\ignorespaces Verificación de Restricciones y Factibilidad}}{60}{algocf.3.15}\protected@file@percent }
-\newlabel{alg:verificacion_restricciones}{{3.15}{60}{Manejo de factibilidad y limpieza de vehículos}{algocf.3.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.15}{\ignorespaces Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo.}}{60}{figure.3.15}\protected@file@percent }
-\newlabel{fig:verificacion_restricciones}{{3.15}{60}{Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo}{figure.3.15}{}}
-\@writefile{toc}{\contentsline {paragraph}{Limpieza de vehículos vacíos:}{61}{section*.57}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.16}{\ignorespaces Eliminación de Vehículos Vacíos}}{62}{algocf.3.16}\protected@file@percent }
-\newlabel{alg:limpieza_vehiculos}{{3.16}{62}{Limpieza de vehículos vacíos:}{algocf.3.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.16}{\ignorespaces Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta.}}{62}{figure.3.16}\protected@file@percent }
-\newlabel{fig:limpieza_vehiculos}{{3.16}{62}{Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta}{figure.3.16}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.17}{\ignorespaces Evaluación de Fitness para SA}}{63}{algocf.3.17}\protected@file@percent }
-\newlabel{alg:evaluacion_fitness_sa}{{3.17}{63}{Limpieza de vehículos vacíos:}{algocf.3.17}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.17}{\ignorespaces Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito.}}{63}{figure.3.17}\protected@file@percent }
-\newlabel{fig:evaluacion_fitness_sa}{{3.17}{63}{Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito}{figure.3.17}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3.18}{\ignorespaces Recocido Simulado para Refinamiento de Rutas VRP-TW}}{65}{algocf.3.18}\protected@file@percent }
-\newlabel{alg:sa_vrptw}{{3.18}{65}{Algoritmo principal de Recocido Simulado}{algocf.3.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.18}{\ignorespaces Algoritmo completo de Recocido Simulado para refinamiento de soluciones VRP-TW. El proceso incluye selección adaptativa de operadores según características de la instancia, criterio de aceptación de Metropolis con tolerancia numérica, limpieza condicional y periódica de vehículos vacíos, y gestión explícita de memoria. La temperatura se reduce geométricamente hasta alcanzar el umbral final, con protección contra valores extremadamente bajos.}}{65}{figure.3.18}\protected@file@percent }
-\newlabel{fig:algoritmo_sa_principal}{{3.18}{65}{Algoritmo completo de Recocido Simulado para refinamiento de soluciones VRP-TW. El proceso incluye selección adaptativa de operadores según características de la instancia, criterio de aceptación de Metropolis con tolerancia numérica, limpieza condicional y periódica de vehículos vacíos, y gestión explícita de memoria. La temperatura se reduce geométricamente hasta alcanzar el umbral final, con protección contra valores extremadamente bajos}{figure.3.18}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Resultados}{67}{chapter.4}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.13}{\ignorespaces Operador Cross-exchange}}{56}{algocf.3.13}\protected@file@percent }
+\newlabel{alg:cross_exchange}{{3.13}{56}{Clasificación de operadores:}{algocf.3.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces Pseudocódigo del operador Cross-exchange.}}{56}{figure.3.13}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.14}{\ignorespaces Operador Relocate-chain}}{56}{algocf.3.14}\protected@file@percent }
+\newlabel{alg:relocate_chain}{{3.14}{56}{Clasificación de operadores:}{algocf.3.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.14}{\ignorespaces Pseudocódigo del operador Relocate-chain.}}{56}{figure.3.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Estrategia adaptativa de selección:}{56}{section*.52}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.15}{\ignorespaces Verificación de Restricciones y Factibilidad}}{59}{algocf.3.15}\protected@file@percent }
+\newlabel{alg:verificacion_restricciones}{{3.15}{59}{Manejo de factibilidad y limpieza de vehículos}{algocf.3.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.15}{\ignorespaces Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo.}}{59}{figure.3.15}\protected@file@percent }
+\newlabel{fig:verificacion_restricciones}{{3.15}{59}{Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo}{figure.3.15}{}}
+\@writefile{toc}{\contentsline {paragraph}{Limpieza de vehículos vacíos:}{60}{section*.56}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.16}{\ignorespaces Eliminación de Vehículos Vacíos}}{61}{algocf.3.16}\protected@file@percent }
+\newlabel{alg:limpieza_vehiculos}{{3.16}{61}{Limpieza de vehículos vacíos:}{algocf.3.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.16}{\ignorespaces Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta.}}{61}{figure.3.16}\protected@file@percent }
+\newlabel{fig:limpieza_vehiculos}{{3.16}{61}{Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta}{figure.3.16}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3.17}{\ignorespaces Evaluación de Fitness para SA}}{62}{algocf.3.17}\protected@file@percent }
+\newlabel{alg:evaluacion_fitness_sa}{{3.17}{62}{Limpieza de vehículos vacíos:}{algocf.3.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.17}{\ignorespaces Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito.}}{62}{figure.3.17}\protected@file@percent }
+\newlabel{fig:evaluacion_fitness_sa}{{3.17}{62}{Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito}{figure.3.17}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Resultados}{65}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{cap:resultados}{{4}{67}{Resultados}{chapter.4}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusiones}{69}{chapter.5}\protected@file@percent }
+\newlabel{cap:resultados}{{4}{65}{Resultados}{chapter.4}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusiones}{67}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{loa}{\addvspace {10\p@ }}
-\newlabel{cap:conclusiones}{{5}{69}{Conclusiones}{chapter.5}{}}
+\newlabel{cap:conclusiones}{{5}{67}{Conclusiones}{chapter.5}{}}
 \bibstyle{plain}
 \bibdata{referencias}
 \bibcite{aarts1988local}{{1}{}{{}}{{}}}
@@ -413,4 +413,4 @@
 \bibcite{vargas2016}{{54}{}{{}}{{}}}
 \bibcite{vidal2012hybrid}{{55}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\gdef \@abspage@last{97}
+\gdef \@abspage@last{95}
