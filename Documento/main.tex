@@ -27,8 +27,6 @@
 \usepackage[linesnumbered,ruled,vlined,algochapter,longend]{algorithm2e}
 
 
-
-
 % Encabezados
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -103,7 +101,7 @@
 \nombre{\uppercase{Alejandro Martínez Guzmán}}
 \carrera{Licenciatura en Ingeniería en Computación}
 \director{\uppercase{Edwin Montes Orozco}}
-\fecha{Junio 2025}
+\fecha{Diciembre 2025}
 
 
 \begin{document}
@@ -112,35 +110,37 @@
 % PORTADA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{titlepage}
-	\thispagestyle{empty}
-	\hskip-1.5cm
-	\begin{minipage}[c][5cm][s]{4cm}
-		\begin{center}
-			\hskip2pt \vrule width2pt height16cm\hskip1mm
-			\vrule width1pt height16cm\\[10pt]
-		\end{center}
-	\end{minipage}\quad
-	\begin{minipage}[c][9.5cm][s]{10cm}
-		\begin{center}
-			{\Large \scshape Universidad Autónoma Metropolitana}
-			\vspace{.5cm}\hrule height2pt\vspace{.1cm}\hrule height1pt
-			\vspace{.5cm}{\scshape UNIDAD CUAJIMALPA}\vspace{.5cm}
-			\\
-			\includegraphics[width=3cm]{Imagenes/uamlogo.png}\vspace{.5cm}
-			\\
-			{\Large \textsc{\eltitulo}}\vspace{1cm}
-			\makebox[8cm][c]{\Large Proyecto Terminal}\vspace{1cm}
-			\makebox[6cm]{QUE PRESENTA:}\\[3pt]\elnombre\vspace{1cm}
-			{\textsc{\large \lacarrera}}\vspace{1cm}\\
-			Departamento de Matemáticas Aplicadas y Sistemas\\[13pt]
-			División de Ciencias Naturales e Ingeniería\vspace{.5cm}
-			\\
-			Asesor:\\ \eldirector\vfill
-			\begin{flushright}\lafecha\end{flushright}
-		\end{center}
-	\end{minipage}
+    \thispagestyle{empty}
+    \begin{center}
+        {\Large \scshape Universidad Autónoma Metropolitana}\\[0.3cm]
+        {\Large \scshape Unidad Cuajimalpa}\\[1cm]
+
+        \includegraphics[width=3.5cm]{Imagenes/uamlogo.png}\\[1cm]
+
+        {\LARGE \textbf{\eltitulo}}\\[1.5cm]
+
+        {\large \textbf{Proyecto Terminal}}\\[1cm]
+
+        \textbf{QUE PRESENTA:}\\[5pt]
+        {\large \textbf{\elnombre}}\\[1cm]
+
+        {\large \textsc{\lacarrera}}\\[1cm]
+
+        Departamento de Matemáticas Aplicadas y Sistemas\\[0.8cm]
+        División de Ciencias Naturales e Ingeniería\\[1.5cm]
+
+        \textbf{Asesor:} {\eldirector}\\[1cm]
+
+        \vfill
+        \begin{flushright}
+            \lafecha
+        \end{flushright}
+    \end{center}
 \end{titlepage}
 \cleardoublepage
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PÁGINAS PRELIMINARES SIN NÚMERO
@@ -234,15 +234,22 @@ Here goes the abstract in English. Briefly describe the goal of your project, me
 
 \tableofcontents
 \cleardoublepage
+
 \listoffigures
 \addcontentsline{toc}{chapter}{Índice de Figuras}
 \cleardoublepage
+
 \listoftables
 \addcontentsline{toc}{chapter}{Índice de Tablas}
 \cleardoublepage
+
+
+\setlength{\cftmyequationsnumwidth}{2.5 em}
+
 \listofmyequations
 \addcontentsline{toc}{chapter}{Índice de Fórmulas}
 \cleardoublepage
+
 \chapter*{Lista de Abreviaciones}
 \addcontentsline{toc}{chapter}{Lista de Abreviaciones}
 
@@ -348,6 +355,18 @@ Diseñar, implementar, probar y evaluar un algoritmo híbrido que combine la ACO
 \end{itemize}
 
 \section{Estructura del Documento}
+
+La estructura del presente documento se ha diseñado con el propósito de facilitar la comprensión del desarrollo y los resultados obtenidos en esta investigación. El contenido se organiza en cinco capítulos, los cuales se describen a continuación:
+
+En el \textbf{Capítulo 1} se presenta la introducción general del trabajo. En él se aborda el planteamiento del problema, la justificación, los objetivos generales y específicos, así como los alcances y limitaciones del estudio. Este capítulo proporciona el contexto necesario para comprender la motivación y el propósito de la investigación.
+
+El \textbf{Capítulo 2} está dedicado al marco teórico y al estado del arte. En este se definen los conceptos fundamentales relacionados con la optimización, la complejidad computacional y los principales problemas de optimización combinatoria, tales como el TSP, VRP y VRP-TW. Además, se presenta una revisión de los métodos de solución, incluyendo técnicas exactas, heurísticas, metaheurísticas e híbridas, así como referencias relevantes que sustentan el trabajo.
+
+En el \textbf{Capítulo 3} se describen los materiales y métodos utilizados. Se detallan las instancias del problema, las herramientas de software y hardware empleadas, así como las metodologías aplicadas. Además, se explica la propuesta híbrida desarrollada, la cual combina los algoritmos de Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA), presentando el pseudocódigo y la descripción de cada técnica.
+
+El \textbf{Capítulo 4} presenta los resultados experimentales obtenidos a partir de las pruebas realizadas. Se muestran las comparaciones entre las técnicas implementadas y los algoritmos reportados en la literatura, destacando el desempeño de la propuesta híbrida en términos de calidad de las soluciones y eficiencia computacional.
+
+Finalmente, en el \textbf{Capítulo 5} se exponen las conclusiones generales del estudio, así como las posibles líneas de trabajo futuro que pueden derivarse de la presente investigación.
 
 \chapter{Marco Teórico / Estado del Arte}
 \label{cap:marco-teorico}
@@ -1264,7 +1283,7 @@ Sin importar la instancia o sus medidas, se realizó el proceso de calibración 
 Para ambas metaheurísticas, es necesario definir rangos mínimos y máximos de los parámetros, y ajustar estos rangos según el tamaño específico de la instancia (pequeña, mediana o grande). Esto asegura que el algoritmo pueda adaptarse dinámicamente a la complejidad del problema.
 
 
-\subsubsection*{Configuración de rangos de parámetros según tamaño de instancia}
+\subsubsection{Configuración de rangos de parámetros según tamaño de instancia}
 
 La calibración efectiva del algoritmo híbrido requiere establecer rangos de búsqueda apropiados para los parámetros de ACO y SA, adaptados a la complejidad de cada instancia. A continuación se presentan los rangos definidos para tres categorías de tamaño: pequeña (25 clientes), mediana (50 clientes) y grande (100 clientes). Estos rangos se ajustan progresivamente para equilibrar la exploración del espacio de soluciones con la eficiencia computacional.
 
@@ -1358,7 +1377,7 @@ Para instancias grandes se emplean rangos amplios que permiten exploración robu
 \vspace{0.3cm}
 
 La configuración progresiva de estos rangos según el tamaño de instancia es fundamental para el desempeño del algoritmo DE. Los rangos más amplios en instancias grandes permiten mayor exploración, evitando convergencia prematura en espacios complejos con múltiples óptimos locales. Por otro lado, los rangos más acotados en instancias pequeñas aceleran la convergencia sin sacrificar calidad, aprovechando la menor complejidad del problema. Esta estratificación facilita la calibración automática mediante DE y garantiza la replicabilidad de los experimentos, permitiendo que el algoritmo híbrido se adapte eficientemente a diferentes escalas del VRP-TW.
-\subsubsection*{Representación de individuos}
+\subsubsection{Representación de individuos}
 
 En el contexto del DE, cada individuo de la población no representa una solución directa del problema VRP-TW, sino una configuración completa de los parámetros que controlan el comportamiento de las metaheurísticas ACO y SA. Es decir, un individuo codifica cómo se ejecutarán los algoritmos de optimización, incluyendo aspectos como la importancia relativa de la información heurística, la cantidad de agentes exploradores, el número de iteraciones y las estrategias de enfriamiento de SA.
 
@@ -1386,7 +1405,7 @@ La existencia de individuos en el DE permite que el algoritmo explore de manera 
 
 Cada componente del vector está acotada dentro de rangos específicos $[min_j, max_j]$, que dependen del tamaño de la instancia (pequeña, mediana o grande), asegurando que los valores generados sean factibles y coherentes con el problema a resolver, y evitando configuraciones que puedan producir resultados inestables o poco eficientes.
 
-\subsubsection*{Función de Aptitud}
+\subsubsection{Función de Aptitud}
 
 La función de aptitud evalúa la calidad de cada individuo, representado por un vector de parámetros, mediante la ejecución del algoritmo híbrido ACO+SA. Su propósito es cuantificar el desempeño de cada configuración de parámetros para determinar qué tan efectiva resulta en la resolución del VRP-TW.
 
@@ -1400,7 +1419,7 @@ El proceso de evaluación se desarrolla conforme a los siguientes pasos:
 	\item Calcular el \textit{fitness} del individuo a partir del costo total de las rutas finales, recopilando la información necesaria para su evaluación.
 \end{enumerate}
 
-\subsubsection*{Definición de la Función de Aptitud}
+\subsubsection{Definición de la Función de Aptitud}
 
 La función de aptitud se define a partir de la función objetivo del VRP-TW como:
 
@@ -1417,7 +1436,7 @@ donde:
 
 Cada evaluación de la función de aptitud implica ejecutar de forma completa el proceso híbrido ACO $\rightarrow$ SA, lo cual constituye el componente de mayor costo computacional dentro del algoritmo evolutivo diferencial (DE). Por este motivo, los valores del tamaño de población y del número de generaciones deben seleccionarse cuidadosamente para lograr un equilibrio entre precisión y tiempo de ejecución.
 
-\subsubsection*{Parámetros del Algoritmo Evolutivo Diferencial}
+\subsubsection{Parámetros del Algoritmo Evolutivo Diferencial}
 
 El DE requiere configurar cuatro parámetros principales que controlan su comportamiento y rendimiento:
 
@@ -1439,7 +1458,7 @@ El DE requiere configurar cuatro parámetros principales que controlan su compor
 	\caption{Parámetros del Algoritmo Evolutivo Diferencial}
 \end{table}
 
-\subsubsection*{Criterio de parada}
+\subsubsection{Criterio de parada}
 
 El algoritmo DE finaliza su ejecución cuando se alcanza el número máximo de generaciones. Esto ocurre al completarse el número de generaciones $G$ especificado.
 
@@ -1447,7 +1466,7 @@ El criterio principal utilizado en la implementación es el número máximo de g
 
 Al finalizar, el algoritmo encuentra el individuo con el menor fitness de toda la ejecución, el cual representa la mejor configuración de parámetros para ACO y SA, además de la mejor ruta encontrada durante el proceso evolutivo.
 
-\subsubsection*{Pseudocódigo del Algoritmo Evolutivo Diferencial}
+\subsubsection{Pseudocódigo del Algoritmo Evolutivo Diferencial}
 
 A continuación se presenta el pseudocódigo del algoritmo DE implementado para la calibración automática de parámetros:
 
@@ -1494,7 +1513,7 @@ A continuación se presenta el pseudocódigo del algoritmo DE implementado para 
 
 Una vez calibrados los parámetros mediante DE, la segunda etapa del enfoque híbrido consiste en construir soluciones factibles para el VRP-TW utilizando Optimización por Colonia de Hormigas (ACO). Este algoritmo bio-inspirado simula el comportamiento de las hormigas reales al buscar alimento, utilizando rastros de feromonas para encontrar rutas eficientes que minimicen la distancia total recorrida mientras respetan las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes.
 
-\subsubsection*{Fundamentos del algoritmo ACO}
+\subsubsection{Fundamentos del algoritmo ACO}
 
 El algoritmo ACO se basa en tres componentes principales que guían la construcción probabilística de soluciones:
 
@@ -1506,7 +1525,7 @@ El algoritmo ACO se basa en tres componentes principales que guían la construcc
 	\item \textbf{Información de ventanas de tiempo ($\omega_{ij}$):} Componente adicional específico para VRP-TW que considera la factibilidad temporal de visitar el cliente $j$ después del cliente $i$. Se calcula como $\omega_{ij} = 1/l_j$, donde $l_j$ es el límite superior de la ventana de tiempo del cliente $j$.
 \end{enumerate}
 
-\subsubsection*{Construcción probabilística de rutas}
+\subsubsection{Construcción probabilística de rutas}
 
 Cada hormiga artificial construye una solución completa siguiendo una estrategia constructiva voraz aleatorizada. El proceso inicia desde el depósito y en cada paso, la hormiga $k$ selecciona el siguiente cliente $j$ a visitar desde su posición actual $i$ con una probabilidad dada por:
 
@@ -1569,7 +1588,7 @@ En el siguiente psudocodigo detalla el proceso de verificación de factibilidad 
 
 El pseudocódigo \ref{alg:clientes_factibles} determina qué clientes pueden ser visitados desde la posición actual del vehículo considerando las restricciones del problema. Para cada cliente no visitado, se calcula el tiempo de viaje, la hora estimada de llegada, el tiempo de servicio y el retorno al depósito. Un cliente se considera factible si puede ser atendido dentro de su ventana de tiempo, no excede la capacidad del vehículo y permite regresar al depósito antes del límite temporal. El conjunto final de clientes factibles se utiliza posteriormente en el proceso de construcción de la solución para guiar la selección probabilística del siguiente destino.
 
-\subsubsection*{Gestión de restricciones temporales}
+\subsubsection{Gestión de restricciones temporales}
 
 El manejo de las ventanas de tiempo es crítico en el VRP-TW. Para cada cliente $j$ visitado, se calculan:
 
@@ -1593,7 +1612,7 @@ La ecuación \ref{eq:inicio_servicio} determina el instante en que comienza la a
 Finalmente, la ecuación \ref{eq:salida_cliente} establece el momento de salida del cliente, sumando al inicio del servicio el tiempo de atención requerido.
 En conjunto, estas expresiones permiten verificar la factibilidad temporal de las rutas y asegurar el cumplimiento de las restricciones de ventanas de tiempo en el VRP-TW.
 
-\subsubsection*{Proceso de construcción de soluciones y gestión de flota}
+\subsubsection{Proceso de construcción de soluciones y gestión de flota}
 
 En el algoritmo ACO aplicado al VRP-TW, cada hormiga construye soluciones factibles mediante un proceso probabilístico que combina la selección guiada por feromonas con la verificación de restricciones temporales y de capacidad. Además, se incorpora un mecanismo dinámico de gestión de flota para asignar nuevos vehículos cuando no existan clientes factibles desde la posición actual.
 
@@ -1650,7 +1669,7 @@ En el algoritmo ACO aplicado al VRP-TW, cada hormiga construye soluciones factib
 El pseudocódigo \ref{alg:construccion_solucion} muestra el procedimiento mediante el cual una hormiga construye una solución completa para el VRP-TW. En cada iteración, selecciona probabilísticamente el siguiente cliente considerando la información de feromonas, heurística y factibilidad temporal. Cuando no hay clientes accesibles, se aplica un avance temporal hasta habilitar nuevas opciones o cerrar la ruta actual, asignando un nuevo vehículo si el límite no ha sido alcanzado. Este proceso asegura la generación de soluciones coherentes y factibles que respetan las restricciones de capacidad, tiempo y número de vehículos.
 
 
-\subsubsection*{Evaluación de la función objetivo}
+\subsubsection{Evaluación de la función objetivo}
 
 Una vez construida la solución, se evalúa su calidad mediante el cálculo de la distancia total recorrida por todos los vehículos. Este valor representa el fitness de la solución y permite comparar la eficiencia de las rutas generadas por cada hormiga.
 
@@ -1685,7 +1704,7 @@ Una vez construida la solución, se evalúa su calidad mediante el cálculo de l
 
 El algoritmo \ref{alg:evaluacion_fitness} calcula el fitness total de la solución sumando las distancias recorridas por cada vehículo. Para cada ruta, se acumulan las distancias entre clientes consecutivos, incluyendo los trayectos desde y hacia el depósito. Este valor cuantifica la eficiencia global de la solución, siendo menor el fitness cuanto más cortas sean las rutas generadas.
 
-\subsubsection*{Actualización de feromonas}
+\subsubsection{Actualización de feromonas}
 
 Tras cada iteración, las feromonas se actualizan para reflejar la calidad de las soluciones construidas por las hormigas. Este proceso combina tres fases: evaporación, depósito y refuerzo elitista, que en conjunto equilibran la exploración de nuevas rutas y la explotación de las soluciones más prometedoras.
 
@@ -1775,7 +1794,7 @@ donde $L_{best}$ corresponde al costo total de la mejor solución histórica. El
 El pseudocódigo \ref{alg:actualizacion_feromonas} muestra el procedimiento completo de actualización de la matriz de feromonas. Este proceso regula el equilibrio entre exploración y explotación, garantizando que el sistema mantenga la diversidad de soluciones mientras converge hacia rutas de alta calidad.
 
 
-\subsubsection*{Criterio de factibilidad}
+\subsubsection{Criterio de factibilidad}
 
 Una solución se considera factible si:
 \begin{itemize}
@@ -1788,7 +1807,7 @@ Una solución se considera factible si:
 
 El algoritmo garantiza la factibilidad mediante la construcción de listas de candidatos que verifican todas estas restricciones antes de la selección probabilística.
 
-\subsubsection*{Pseudocódigo del ACO integrado con Recocido Simulado}
+\subsubsection{Pseudocódigo del ACO integrado con Recocido Simulado}
 
 A continuación se presenta la estructura general del algoritmo ACO aplicado al VRP-TW.
 
@@ -1836,7 +1855,7 @@ El pseudocódigo \ref{fig:algoritmo_aco_principal} describe el flujo completo de
 
 La tercera y última etapa del enfoque híbrido consiste en refinar las soluciones generadas por ACO mediante Recocido Simulado (SA), una metaheurística de búsqueda local que permite escapar de óptimos locales a través de la aceptación probabilística de soluciones que empeoran temporalmente la función objetivo. SA recibe como entrada las mejores rutas construidas por ACO y aplica operadores de vecindad para explorar sistemáticamente el espacio de soluciones cercanas, buscando mejoras incrementales que reduzcan el costo total de las rutas mientras se mantiene la factibilidad.
 
-\subsubsection*{Fundamentos del algoritmo SA}
+\subsubsection{Fundamentos del algoritmo SA}
 
 El algoritmo SA está inspirado en el proceso metalúrgico de recocido, donde un metal se calienta a alta temperatura y luego se enfría gradualmente para alcanzar un estado de mínima energía. En el contexto de optimización, la temperatura controla la probabilidad de aceptar soluciones deteriorantes, permitiendo escapar de óptimos locales en etapas tempranas (alta temperatura) y convergiendo hacia soluciones de alta calidad en etapas finales (baja temperatura).
 
@@ -1852,7 +1871,7 @@ Los componentes principales del algoritmo son:
 	\item \textbf{Iteraciones por nivel de temperatura ($n_{\text{iter}}$):} Número de iteraciones a realizar en cada nivel de temperatura antes de enfriar, permitiendo una exploración adecuada del vecindario.
 \end{itemize}
 
-\subsubsection*{Operadores de vecindad adaptativos}
+\subsubsection{Operadores de vecindad adaptativos}
 
 Para explorar el espacio de soluciones, SA implementa un conjunto de ocho operadores de vecindad especializados que modifican las rutas de manera controlada. La selección de operadores se realiza de forma \textbf{adaptativa} según dos criterios fundamentales: el tamaño de la instancia (número de clientes) y el número de vehículos en la solución actual. Esta estrategia permite ajustar dinámicamente la exploración del espacio de búsqueda según las características específicas del problema.
 
@@ -2062,7 +2081,7 @@ La probabilidad de aplicar cada operador se ajusta dinámicamente según tres co
 	\item \textit{Un solo vehículo:} Fuerte énfasis en relocate-chain (40\%) y 2.5-opt (35\%) con operadores adicionales en menor proporción.
 \end{itemize}
 
-\subsubsection*{Criterio de aceptación de Metropolis}
+\subsubsection{Criterio de aceptación de Metropolis}
 
 En cada iteración, SA genera una solución vecina $s'$ a partir de la solución actual $s$ aplicando probabilísticamente uno de los ocho operadores de vecindad según la estrategia adaptativa. La decisión de aceptar o rechazar $s'$ se basa en el \textbf{criterio de Metropolis}:
 
@@ -2088,7 +2107,7 @@ La probabilidad de aceptar un empeoramiento es mayor cuando:
 	\item La diferencia de costo $\Delta f$ es pequeña (empeoramiento leve)
 \end{itemize}
 
-\subsubsection*{Esquema de enfriamiento}
+\subsubsection{Esquema de enfriamiento}
 
 La temperatura se reduce gradualmente siguiendo un esquema de \textbf{enfriamiento geométrico}:
 
@@ -2100,7 +2119,7 @@ con $\alpha_{\text{cool}} \in [0.95, 0.995]$ según el tamaño de la instancia. 
 
 El algoritmo finaliza cuando la temperatura alcanza $T_f$ o cuando $T < 10^{-10}$ (protección numérica).
 
-\subsubsection*{Manejo de factibilidad y limpieza de vehículos}
+\subsubsection{Manejo de factibilidad y limpieza de vehículos}
 
 Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos descritos en el algoritmo \ref{fig:verificacion_restricciones}.
 
@@ -2287,26 +2306,8 @@ Cuando se eliminan vehículos, se re-evalúa la función objetivo completa media
 	\label{fig:evaluacion_fitness_sa}
 \end{figure}
 
-\subsubsection*{Estructura de datos y gestión de memoria}
 
-La implementación utiliza una estructura jerárquica eficiente:
-
-\begin{itemize}
-	\item \textbf{Hormiga:} Representa una solución completa con atributos de fitness global, número de vehículos necesarios y una lista enlazada de vehículos (flota).
-
-	\item \textbf{Vehículo:} Contiene una ruta (lista enlazada de clientes), capacidad acumulada, tiempos de salida/llegada, velocidad y fitness individual.
-
-	\item \textbf{Ruta:} Lista doblemente enlazada de nodos que representan clientes, permitiendo inserciones y eliminaciones eficientes en cualquier posición.
-
-	\item \textbf{Gestión de memoria:} En cada iteración se realiza:
-	      \begin{itemize}
-		      \item Copia profunda de la solución actual para generar solución vecina
-		      \item Liberación explícita de memoria al aceptar/rechazar movimientos
-		      \item Protección contra fugas de memoria mediante funciones especializadas
-	      \end{itemize}
-\end{itemize}
-
-\subsubsection*{Algoritmo principal de Recocido Simulado}
+\subsubsection{Algoritmo principal de Recocido Simulado}
 
 % El algoritmo \ref{fig:algoritmo_sa_principal} presenta la estructura completa del proceso de refinamiento mediante SA.
 
