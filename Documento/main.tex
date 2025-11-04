@@ -1,9 +1,9 @@
 \documentclass[12pt,titlepage,twoside,openright]{book}
 
 % Codificación y lenguaje
-\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
 \usepackage{enumitem}
 \usepackage{tocloft}
 \usepackage{tabularx}
@@ -13,11 +13,10 @@
 \addto\captionsspanish{\renewcommand{\listfigurename}{Índice de figuras}}
 \addto\captionsspanish{\renewcommand{\listequationsname}{Índice de fórmulas}}
 
-% Tipografía
+
 \usepackage{mathpazo}
 
 
-% Paquetes gráficos y matemáticos
 \usepackage{graphicx}
 \usepackage{float}  
 \raggedbottom
@@ -27,21 +26,6 @@
 \usepackage[linesnumbered,ruled,vlined,algochapter,longend]{algorithm2e}
 
 
-% Encabezados
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead{} % Limpia encabezados
-\fancyfoot{} % Limpia pies
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\leftmark}
-\fancyhead[LO]{\rightmark}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0pt}
-
-% Hipervínculos y URLs
-\usepackage{hyperref}
-
-% Márgenes
 \usepackage{geometry}
 \geometry{
     left=3cm,
@@ -49,13 +33,26 @@
     top=2.5cm,
     bottom=2.5cm
 }
-\setlength{\headheight}{15pt}
+
+% Encabezados
+\usepackage{fancyhdr}
+\setlength{\headheight}{16pt}  
+\addtolength{\topmargin}{-1pt} 
+\pagestyle{fancy}
+\fancyhead{} 
+\fancyfoot{} 
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
 
 
-% Bibliografía
+\usepackage{hyperref}
+
+
 \usepackage{natbib}
 
-% Configuración hipervínculos
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
@@ -65,7 +62,7 @@
     pdfauthor={Alejandro Martínez Guzmán}
 }
 
-% Páginas en blanco sin número ni encabezado
+
 \makeatletter
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
 \hbox{}
@@ -76,7 +73,7 @@
 
 \hyphenation{Colores fa-mi-lia caracte-rizarlos}
 
-% Entornos matemáticos
+
 \newtheorem{teo}{Teorema}[chapter]
 \newtheorem{defi}{Definición}[chapter]
 \newtheorem{coro}{Corolario}[chapter]
@@ -90,7 +87,7 @@
   \hfill$\square$\par
 }
 
-% Comandos para portada
+
 \newcommand{\titulo}[1]{\def\eltitulo{#1}}
 \newcommand{\carrera}[1]{\def\lacarrera{#1}}
 \newcommand{\nombre}[1]{\def\elnombre{#1}}
@@ -103,39 +100,38 @@
 \director{\uppercase{Edwin Montes Orozco}}
 \fecha{Diciembre 2025}
 
-
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PORTADA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{titlepage}
-    \thispagestyle{empty}
-    \begin{center}
-        {\Large \scshape Universidad Autónoma Metropolitana}\\[0.3cm]
-        {\Large \scshape Unidad Cuajimalpa}\\[1cm]
+	\thispagestyle{empty}
+	\begin{center}
+		{\Large \scshape Universidad Autónoma Metropolitana}\\[0.3cm]
+		{\Large \scshape Unidad Cuajimalpa}\\[1cm]
 
-        \includegraphics[width=3.5cm]{Imagenes/uamlogo.png}\\[1cm]
+		\includegraphics[width=3.5cm]{Imagenes/uamlogo.png}\\[1cm]
 
-        {\LARGE \textbf{\eltitulo}}\\[1.5cm]
+		{\LARGE \textbf{\eltitulo}}\\[1.5cm]
 
-        {\large \textbf{Proyecto Terminal}}\\[1cm]
+		{\large \textbf{Proyecto Terminal}}\\[1cm]
 
-        \textbf{QUE PRESENTA:}\\[5pt]
-        {\large \textbf{\elnombre}}\\[1cm]
+		\textbf{QUE PRESENTA:}\\[5pt]
+		{\large \textbf{\elnombre}}\\[1cm]
 
-        {\large \textsc{\lacarrera}}\\[1cm]
+		{\large \textsc{\lacarrera}}\\[1cm]
 
-        Departamento de Matemáticas Aplicadas y Sistemas\\[0.8cm]
-        División de Ciencias Naturales e Ingeniería\\[1.5cm]
+		Departamento de Matemáticas Aplicadas y Sistemas\\[0.8cm]
+		División de Ciencias Naturales e Ingeniería\\[1.5cm]
 
-        \textbf{Asesor:} {\eldirector}\\[1cm]
+		\textbf{Asesor:} {\eldirector}\\[1cm]
 
-        \vfill
-        \begin{flushright}
-            \lafecha
-        \end{flushright}
-    \end{center}
+		\vfill
+		\begin{flushright}
+			\lafecha
+		\end{flushright}
+	\end{center}
 \end{titlepage}
 \cleardoublepage
 
@@ -2119,76 +2115,76 @@ con $\alpha_{\text{cool}} \in [0.95, 0.995]$ según el tamaño de la instancia. 
 
 El algoritmo finaliza cuando la temperatura alcanza $T_f$ o cuando $T < 10^{-10}$ (protección numérica).
 
-\subsubsection{Manejo de factibilidad y limpieza de vehículos}
+% \subsubsection{Manejo de factibilidad y limpieza de vehículos}
 
-Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos descritos en el algoritmo \ref{fig:verificacion_restricciones}.
+% Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos descritos en el algoritmo \ref{fig:verificacion_restricciones}.
 
-\begin{figure}[H]
-	\centering
-	\begin{algorithm}[H]
-		\caption{Verificación de Restricciones y Factibilidad}
-		\label{alg:verificacion_restricciones}
-		\SetAlgoLined
-		\SetAlFnt{\footnotesize}
+% \begin{figure}[H]
+% 	\centering
+% 	\begin{algorithm}[H]
+% 		\caption{Verificación de Restricciones y Factibilidad}
+% 		\label{alg:verificacion_restricciones}
+% 		\SetAlgoLined
+% 		\SetAlFnt{\footnotesize}
 
-		\KwIn{Vehículo $v$, configuración VRP, matriz de distancias $D$}
-		\KwOut{true si factible, false en caso contrario}
+% 		\KwIn{Vehículo $v$, configuración VRP, matriz de distancias $D$}
+% 		\KwOut{true si factible, false en caso contrario}
 
-		\textbf{Inicialización:}\\
-		$t \gets 0$ (tiempo acumulado), $q \gets 0$ (capacidad acumulada).\\
-		clienteAnterior $\gets$ NULL.\\
+% 		\textbf{Inicialización:}\\
+% 		$t \gets 0$ (tiempo acumulado), $q \gets 0$ (capacidad acumulada).\\
+% 		clienteAnterior $\gets$ NULL.\\
 
-		\textbf{Recorrido de la ruta:}\\
-		\textbf{para cada} nodo en $v.$ruta \textbf{hacer}\\
-		\hspace{1em} cliente $\gets$ nodo.cliente.\\
+% 		\textbf{Recorrido de la ruta:}\\
+% 		\textbf{para cada} nodo en $v.$ruta \textbf{hacer}\\
+% 		\hspace{1em} cliente $\gets$ nodo.cliente.\\
 
-		\hspace{1em} \textbf{si} clienteAnterior $\neq$ NULL \textbf{entonces}\\
-		\hspace{2em} \textbf{si} clienteAnterior $\neq 0$ \textbf{entonces}\\
-		\hspace{3em} $t \gets t + s_{\text{clienteAnterior}}$ \textit{(tiempo de servicio)}.\\
-		\hspace{2em} \textbf{fin si}\\
-		\hspace{2em} $t \gets t + D_{\text{clienteAnterior}, \text{cliente}} / v.\text{velocidad}$ \textit{(tiempo de viaje)}.\\
-		\hspace{2em} \textbf{si} $t < e_{\text{cliente}}$ \textbf{entonces}\\
-		\hspace{3em} $t \gets e_{\text{cliente}}$ \textit{(esperar hasta ventana inicial)}.\\
-		\hspace{2em} \textbf{fin si}\\
-		\hspace{1em} \textbf{si no} \textit{(primer cliente desde depósito)}\\
-		\hspace{2em} \textbf{si} cliente $\neq 0$ \textbf{entonces}\\
-		\hspace{3em} $t \gets D_{0, \text{cliente}} / v.\text{velocidad}$.\\
-		\hspace{3em} \textbf{si} $t < e_{\text{cliente}}$ \textbf{entonces}\\
-		\hspace{4em} $t \gets e_{\text{cliente}}$.\\
-		\hspace{3em} \textbf{fin si}\\
-		\hspace{2em} \textbf{fin si}\\
-		\hspace{1em} \textbf{fin si}\\
+% 		\hspace{1em} \textbf{si} clienteAnterior $\neq$ NULL \textbf{entonces}\\
+% 		\hspace{2em} \textbf{si} clienteAnterior $\neq 0$ \textbf{entonces}\\
+% 		\hspace{3em} $t \gets t + s_{\text{clienteAnterior}}$ \textit{(tiempo de servicio)}.\\
+% 		\hspace{2em} \textbf{fin si}\\
+% 		\hspace{2em} $t \gets t + D_{\text{clienteAnterior}, \text{cliente}} / v.\text{velocidad}$ \textit{(tiempo de viaje)}.\\
+% 		\hspace{2em} \textbf{si} $t < e_{\text{cliente}}$ \textbf{entonces}\\
+% 		\hspace{3em} $t \gets e_{\text{cliente}}$ \textit{(esperar hasta ventana inicial)}.\\
+% 		\hspace{2em} \textbf{fin si}\\
+% 		\hspace{1em} \textbf{si no} \textit{(primer cliente desde depósito)}\\
+% 		\hspace{2em} \textbf{si} cliente $\neq 0$ \textbf{entonces}\\
+% 		\hspace{3em} $t \gets D_{0, \text{cliente}} / v.\text{velocidad}$.\\
+% 		\hspace{3em} \textbf{si} $t < e_{\text{cliente}}$ \textbf{entonces}\\
+% 		\hspace{4em} $t \gets e_{\text{cliente}}$.\\
+% 		\hspace{3em} \textbf{fin si}\\
+% 		\hspace{2em} \textbf{fin si}\\
+% 		\hspace{1em} \textbf{fin si}\\
 
-		\hspace{1em} \textbf{si} cliente $\neq 0$ \textbf{entonces}\\
-		\hspace{2em} $q \gets q + d_{\text{cliente}}$ \textit{(acumular demanda)}.\\
-		\hspace{2em} \textbf{si} $t > l_{\text{cliente}}$ \textbf{entonces}\\
-		\hspace{3em} retornar false \textit{(violación ventana de tiempo)}.\\
-		\hspace{2em} \textbf{fin si}\\
-		\hspace{1em} \textbf{fin si}\\
+% 		\hspace{1em} \textbf{si} cliente $\neq 0$ \textbf{entonces}\\
+% 		\hspace{2em} $q \gets q + d_{\text{cliente}}$ \textit{(acumular demanda)}.\\
+% 		\hspace{2em} \textbf{si} $t > l_{\text{cliente}}$ \textbf{entonces}\\
+% 		\hspace{3em} retornar false \textit{(violación ventana de tiempo)}.\\
+% 		\hspace{2em} \textbf{fin si}\\
+% 		\hspace{1em} \textbf{fin si}\\
 
-		\hspace{1em} clienteAnterior $\gets$ cliente.\\
-		\textbf{fin para}\\
+% 		\hspace{1em} clienteAnterior $\gets$ cliente.\\
+% 		\textbf{fin para}\\
 
-		\textbf{Validación de capacidad:}\\
-		\textbf{si} $q > v.Q$ \textbf{entonces}\\
-		\hspace{1em} retornar false \textit{(violación de capacidad)}.\\
-		\textbf{fin si}\\
+% 		\textbf{Validación de capacidad:}\\
+% 		\textbf{si} $q > v.Q$ \textbf{entonces}\\
+% 		\hspace{1em} retornar false \textit{(violación de capacidad)}.\\
+% 		\textbf{fin si}\\
 
-		\textbf{Validación de retorno al depósito:}\\
-		\textbf{si} clienteAnterior $\neq 0$ \textbf{entonces}\\
-		\hspace{1em} $t \gets t + s_{\text{clienteAnterior}}$.\\
-		\hspace{1em} $t \gets t + D_{\text{clienteAnterior}, 0} / v.\text{velocidad}$.\\
-		\hspace{1em} \textbf{si} $t > l_0$ \textbf{entonces}\\
-		\hspace{2em} retornar false \textit{(no puede regresar a tiempo)}.\\
-		\hspace{1em} \textbf{fin si}\\
-		\textbf{fin si}\\
+% 		\textbf{Validación de retorno al depósito:}\\
+% 		\textbf{si} clienteAnterior $\neq 0$ \textbf{entonces}\\
+% 		\hspace{1em} $t \gets t + s_{\text{clienteAnterior}}$.\\
+% 		\hspace{1em} $t \gets t + D_{\text{clienteAnterior}, 0} / v.\text{velocidad}$.\\
+% 		\hspace{1em} \textbf{si} $t > l_0$ \textbf{entonces}\\
+% 		\hspace{2em} retornar false \textit{(no puede regresar a tiempo)}.\\
+% 		\hspace{1em} \textbf{fin si}\\
+% 		\textbf{fin si}\\
 
-		retornar true.\\
+% 		retornar true.\\
 
-	\end{algorithm}
-	\caption{Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo.}
-	\label{fig:verificacion_restricciones}
-\end{figure}
+% 	\end{algorithm}
+% 	\caption{Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo.}
+% 	\label{fig:verificacion_restricciones}
+% \end{figure}
 
 El mecanismo de validación opera en tres niveles:
 

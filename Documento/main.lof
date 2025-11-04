@@ -22,8 +22,7 @@
 \contentsline {figure}{\numberline {3.12}{\ignorespaces Pseudocódigo del operador 2.5-opt.}}{56}{figure.3.12}%
 \contentsline {figure}{\numberline {3.13}{\ignorespaces Pseudocódigo del operador Cross-exchange.}}{56}{figure.3.13}%
 \contentsline {figure}{\numberline {3.14}{\ignorespaces Pseudocódigo del operador Relocate-chain.}}{56}{figure.3.14}%
-\contentsline {figure}{\numberline {3.15}{\ignorespaces Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo.}}{59}{figure.3.15}%
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta.}}{61}{figure.3.16}%
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito.}}{62}{figure.3.17}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta.}}{59}{figure.3.15}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito.}}{60}{figure.3.16}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
