@@ -2,7 +2,6 @@
 
 for i in {1..5}; do
     echo "Ejecución $i"
-    ./main 5 5 C109 25
     ./main 5 5 C103 25
     ./main 5 5 C105 25
     ./main 5 5 C106 25
