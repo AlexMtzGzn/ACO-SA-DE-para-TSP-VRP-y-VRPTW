@@ -356,15 +356,15 @@ Diseñar, implementar, probar y evaluar un algoritmo híbrido que combine la ACO
 
 La estructura del presente documento se ha diseñado con el propósito de facilitar la comprensión del desarrollo y los resultados obtenidos en esta investigación. El contenido se organiza en cinco capítulos, los cuales se describen a continuación:
 
-En el \textbf{Capítulo 1} se presenta la introducción general del trabajo. En él se aborda el planteamiento del problema, la justificación, los objetivos generales y específicos, así como los alcances y limitaciones del estudio. Este capítulo proporciona el contexto necesario para comprender la motivación y el propósito de la investigación.
+En el Capítulo 1 se presenta la introducción del trabajo. Aquí se aborda el planteamiento del problema, la justificación, los objetivos general y específicos, así como los alcances y limitaciones. Este capítulo establece el contexto y la motivación que guían el desarrollo de la investigación.
 
-El \textbf{Capítulo 2} está dedicado al marco teórico y al estado del arte. En este se definen los conceptos fundamentales relacionados con la optimización, la complejidad computacional y los principales problemas de optimización combinatoria, tales como el TSP, VRP y VRP-TW. Además, se presenta una revisión de los métodos de solución, incluyendo técnicas exactas, heurísticas, metaheurísticas e híbridas, así como referencias relevantes que sustentan el trabajo.
+En el Capítulo 2 se desarrolla el marco teórico y el estado del arte. Se presentan los antecedentes del estudio, incluyendo la evolución histórica de las técnicas de optimización aplicadas a problemas de ruteo. Asimismo, se exponen los conceptos clave en optimización, la complejidad computacional y las clases de problemas P y NP. Se revisan también los principales problemas de optimización combinatoria, como el TSP, el VRP y el VRP-TW, junto con los métodos de solución empleados en la literatura: técnicas exactas, heurísticas, metaheurísticas y enfoques híbridos que han demostrado ser eficientes en la resolución del VRP-TW. Finalmente, se integran referencias relevantes provenientes de trabajos recientes y clásicos, las cuales sirven como base para sustentar teóricamente la propuesta desarrollada en esta investigación.
 
-En el \textbf{Capítulo 3} se describen los materiales y métodos utilizados. Se detallan las instancias del problema, las herramientas de software y hardware empleadas, así como las metodologías aplicadas. Además, se explica la propuesta híbrida desarrollada, la cual combina los algoritmos de Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA), presentando el pseudocódigo y la descripción de cada técnica.
+El Capítulo 3 describe los materiales y métodos utilizados en la investigación. Aquí se detallan las instancias del problema, el software y hardware empleados, así como las herramientas de apoyo. Además, se expone la propuesta híbrida desarrollada, que integra los algoritmos de Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA). Se presentan las metodologías aplicadas, la calibración de parámetros, la construcción de rutas y el proceso de refinamiento, junto con sus respectivos pseudocódigos.
 
-El \textbf{Capítulo 4} presenta los resultados experimentales obtenidos a partir de las pruebas realizadas. Se muestran las comparaciones entre las técnicas implementadas y los algoritmos reportados en la literatura, destacando el desempeño de la propuesta híbrida en términos de calidad de las soluciones y eficiencia computacional.
+El Capítulo 4 presenta los resultados experimentales obtenidos a partir de la implementación del algoritmo híbrido desarrollado. Se describe la calidad de las soluciones generadas y el comportamiento del proceso de búsqueda bajo distintas configuraciones de parámetros. Aunque no se realizó una comparación directa con otros algoritmos mediante experimentación propia, se incluyen referencias a resultados reportados en la literatura, lo cual permite contextualizar el rendimiento del enfoque propuesto.
 
-Finalmente, en el \textbf{Capítulo 5} se exponen las conclusiones generales del estudio, así como las posibles líneas de trabajo futuro que pueden derivarse de la presente investigación.
+Finalmente, en el Capítulo 5 se presentan las conclusiones generales del estudio, así como posibles líneas de investigación futura que surgen a partir del trabajo realizado.
 
 \chapter{Marco Teórico / Estado del Arte}
 \label{cap:marco-teorico}
@@ -1849,7 +1849,7 @@ A continuación se presenta la estructura general del algoritmo ACO aplicado al 
 
 El pseudocódigo \ref{fig:algoritmo_aco_principal} describe el flujo completo del proceso de optimización. Las hormigas generan soluciones basadas en la información de feromonas y la heurística; las mejores son refinadas mediante Recocido Simulado. Finalmente, la actualización de feromonas refuerza las rutas más prometedoras, guiando la búsqueda hacia soluciones de mayor calidad.
 
-\subsection{Refinamiento de rutas mediante Recocido Simulado (SA)}
+\subsection{Refinamiento de rutas mediante Recocido Simulado}
 
 La tercera y última etapa del enfoque híbrido consiste en refinar las soluciones generadas por ACO mediante Recocido Simulado (SA), una metaheurística de búsqueda local que permite escapar de óptimos locales a través de la aceptación probabilística de soluciones que empeoran temporalmente la función objetivo. SA recibe como entrada las mejores rutas construidas por ACO y aplica operadores de vecindad para explorar sistemáticamente el espacio de soluciones cercanas, buscando mejoras incrementales que reduzcan el costo total de las rutas mientras se mantiene la factibilidad.
 
@@ -2117,9 +2117,9 @@ con $\alpha_{\text{cool}} \in [0.95, 0.995]$ según el tamaño de la instancia. 
 
 El algoritmo finaliza cuando la temperatura alcanza $T_f$ o cuando $T < 10^{-10}$ (protección numérica).
 
-% \subsubsection{Manejo de factibilidad y limpieza de vehículos}
+\subsubsection{Manejo de factibilidad y limpieza de vehículos}
 
-% Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos descritos en el algoritmo \ref{fig:verificacion_restricciones}.
+Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos descritos en el algoritmo \ref{fig:verificacion_restricciones}.
 
 % \begin{figure}[H]
 % 	\centering
@@ -2307,7 +2307,7 @@ Cuando se eliminan vehículos, se re-evalúa la función objetivo completa media
 
 \subsubsection{Algoritmo principal de Recocido Simulado}
 
-% El algoritmo \ref{fig:algoritmo_sa_principal} presenta la estructura completa del proceso de refinamiento mediante SA.
+El algoritmo \ref{fig:algoritmo_sa_principal} presenta la estructura completa del proceso de refinamiento mediante SA.
 
 % \begin{figure}[H]
 % 	\centering

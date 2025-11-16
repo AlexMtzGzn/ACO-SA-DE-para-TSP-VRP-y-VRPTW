@@ -63,14 +63,15 @@
 \contentsline {paragraph}{Refuerzo elitista.}{50}{section*.33}%
 \contentsline {subsubsection}{\numberline {3.2.3.7}Criterio de factibilidad}{51}{subsubsection.3.2.3.7}%
 \contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo del ACO integrado con Recocido Simulado}{52}{subsubsection.3.2.3.8}%
-\contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado (SA)}{53}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado}{53}{subsection.3.2.4}%
 \contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo SA}{53}{subsubsection.3.2.4.1}%
 \contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{54}{subsubsection.3.2.4.2}%
 \contentsline {paragraph}{Clasificación de operadores:}{54}{section*.34}%
 \contentsline {paragraph}{Estrategia adaptativa de selección:}{56}{section*.35}%
 \contentsline {subsubsection}{\numberline {3.2.4.3}Criterio de aceptación de Metropolis}{57}{subsubsection.3.2.4.3}%
 \contentsline {subsubsection}{\numberline {3.2.4.4}Esquema de enfriamiento}{58}{subsubsection.3.2.4.4}%
+\contentsline {subsubsection}{\numberline {3.2.4.5}Manejo de factibilidad y limpieza de vehículos}{58}{subsubsection.3.2.4.5}%
 \contentsline {paragraph}{Limpieza de vehículos vacíos:}{59}{section*.36}%
-\contentsline {subsubsection}{\numberline {3.2.4.5}Algoritmo principal de Recocido Simulado}{60}{subsubsection.3.2.4.5}%
+\contentsline {subsubsection}{\numberline {3.2.4.6}Algoritmo principal de Recocido Simulado}{60}{subsubsection.3.2.4.6}%
 \contentsline {chapter}{\numberline {4}Resultados}{61}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Conclusiones}{63}{chapter.5}%
