@@ -1,10 +1,12 @@
 \babel@toc {spanish}{}\relax 
+\contentsline {chapter}{Declaración}{\es@scroman {i}}{chapter*.1}%
+\contentsline {chapter}{Agradecimientos y Dedicatoria}{\es@scroman {iii}}{chapter*.2}%
 \contentsline {chapter}{Resumen}{\es@scroman {v}}{chapter*.3}%
 \contentsline {chapter}{Abstract}{\es@scroman {vii}}{chapter*.4}%
-\contentsline {chapter}{Índice de Figuras}{\es@scroman {v}}{chapter*.4}%
-\contentsline {chapter}{Índice de Tablas}{\es@scroman {vii}}{chapter*.4}%
-\contentsline {chapter}{Índice de Fórmulas}{\es@scroman {ix}}{chapter*.4}%
-\contentsline {chapter}{Lista de Abreviaciones}{\es@scroman {xi}}{chapter*.5}%
+\contentsline {chapter}{Índice de Figuras}{\es@scroman {xv}}{chapter*.4}%
+\contentsline {chapter}{Índice de Tablas}{\es@scroman {xvii}}{chapter*.4}%
+\contentsline {chapter}{Índice de Fórmulas}{\es@scroman {xix}}{chapter*.4}%
+\contentsline {chapter}{Lista de Abreviaciones}{\es@scroman {xxi}}{chapter*.5}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Planteamiento del Problema}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Justificación}{2}{section.1.2}%
@@ -51,7 +53,7 @@
 \contentsline {subsubsection}{\numberline {3.2.2.5}Parámetros del Algoritmo Evolutivo Diferencial}{42}{subsubsection.3.2.2.5}%
 \contentsline {subsubsection}{\numberline {3.2.2.6}Criterio de parada}{43}{subsubsection.3.2.2.6}%
 \contentsline {subsubsection}{\numberline {3.2.2.7}Pseudocódigo del Algoritmo Evolutivo Diferencial}{43}{subsubsection.3.2.2.7}%
-\contentsline {subsection}{\numberline {3.2.3}Construcción de rutas iniciales mediante Optimización por Colonia de Hormigas}{44}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.3}Construcción de rutas iniciales mediante Optimización por Colonia de Hormigas}{45}{subsection.3.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.3.1}Fundamentos del algoritmo ACO}{45}{subsubsection.3.2.3.1}%
 \contentsline {subsubsection}{\numberline {3.2.3.2}Construcción probabilística de rutas}{45}{subsubsection.3.2.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.3.3}Gestión de restricciones temporales}{47}{subsubsection.3.2.3.3}%
@@ -65,13 +67,12 @@
 \contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo del ACO integrado con Recocido Simulado}{52}{subsubsection.3.2.3.8}%
 \contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado}{53}{subsection.3.2.4}%
 \contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo SA}{53}{subsubsection.3.2.4.1}%
-\contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{54}{subsubsection.3.2.4.2}%
-\contentsline {paragraph}{Clasificación de operadores:}{54}{section*.34}%
-\contentsline {paragraph}{Estrategia adaptativa de selección:}{56}{section*.35}%
+\contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{53}{subsubsection.3.2.4.2}%
+\contentsline {paragraph}{Estrategia adaptativa de selección:}{56}{section*.34}%
 \contentsline {subsubsection}{\numberline {3.2.4.3}Criterio de aceptación de Metropolis}{57}{subsubsection.3.2.4.3}%
 \contentsline {subsubsection}{\numberline {3.2.4.4}Esquema de enfriamiento}{58}{subsubsection.3.2.4.4}%
 \contentsline {subsubsection}{\numberline {3.2.4.5}Manejo de factibilidad y limpieza de vehículos}{58}{subsubsection.3.2.4.5}%
-\contentsline {paragraph}{Limpieza de vehículos vacíos:}{59}{section*.36}%
-\contentsline {subsubsection}{\numberline {3.2.4.6}Algoritmo principal de Recocido Simulado}{60}{subsubsection.3.2.4.6}%
-\contentsline {chapter}{\numberline {4}Resultados}{61}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones}{63}{chapter.5}%
+\contentsline {paragraph}{Limpieza de vehículos vacíos:}{60}{section*.35}%
+\contentsline {subsubsection}{\numberline {3.2.4.6}Algoritmo principal de Recocido Simulado}{62}{subsubsection.3.2.4.6}%
+\contentsline {chapter}{\numberline {4}Resultados}{65}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusiones}{67}{chapter.5}%

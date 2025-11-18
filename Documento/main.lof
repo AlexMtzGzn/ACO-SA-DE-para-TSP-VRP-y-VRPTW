@@ -22,7 +22,9 @@
 \contentsline {figure}{\numberline {3.12}{\ignorespaces Pseudocódigo del operador 2.5-opt.}}{56}{figure.3.12}%
 \contentsline {figure}{\numberline {3.13}{\ignorespaces Pseudocódigo del operador Cross-exchange.}}{56}{figure.3.13}%
 \contentsline {figure}{\numberline {3.14}{\ignorespaces Pseudocódigo del operador Relocate-chain.}}{56}{figure.3.14}%
-\contentsline {figure}{\numberline {3.15}{\ignorespaces Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta.}}{59}{figure.3.15}%
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito.}}{60}{figure.3.16}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Pseudocódigo de verificación completa de restricciones para una ruta.}}{59}{figure.3.15}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Pseudocódigo del proceso de limpieza de vehículos vacíos de la flota.}}{61}{figure.3.16}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Pseudocódigo de evaluación de la función objetivo para una solución completa en el Recocido Simulado.}}{62}{figure.3.17}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Algoritmo de Recocido Simulado para refinamiento de soluciones VRP-TW.}}{63}{figure.3.18}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

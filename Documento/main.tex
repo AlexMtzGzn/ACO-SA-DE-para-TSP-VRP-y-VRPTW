@@ -144,6 +144,7 @@
 \frontmatter
 
 \chapter*{Declaración}
+\addcontentsline{toc}{chapter}{Declaración}
 \thispagestyle{empty}
 Yo, \elnombre, declaro que este trabajo titulado
 \textit{«\eltitulo»} es de mi autoría. Asimismo, confirmo que:
@@ -160,6 +161,7 @@ Yo, \elnombre, declaro que este trabajo titulado
 \cleardoublepage
 
 \chapter*{Agradecimientos y Dedicatoria}
+\addcontentsline{toc}{chapter}{Agradecimientos y Dedicatoria}
 \begin{flushleft}
 
 	Quisiera comenzar agradeciendo a Dios, por ser mi guía y acompañante en cada etapa de mi vida académica. Su presencia me ha dado fortaleza y sabiduría para superar los retos y alcanzar mis metas. \\
@@ -196,16 +198,39 @@ Yo, \elnombre, declaro que este trabajo titulado
 
 \chapter*{Resumen}
 \addcontentsline{toc}{chapter}{Resumen}
-Aquí va el resumen en español. Este apartado debe sintetizar brevemente el objetivo del trabajo, la metodología empleada y los resultados más relevantes.
+
+El Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW) es una de las variantes más estudiadas del VRP debido a su complejidad y a sus aplicaciones en logística, transporte y distribución. Su naturaleza NP-difícil impide resolver instancias de tamaño medio o grande mediante técnicas exactas, lo que ha motivado el desarrollo de enfoques heurísticos y metaheurísticos capaces de obtener soluciones de alta calidad en tiempos razonables.
+\vspace{1em}
+
+En este trabajo se propone un enfoque híbrido que integra tres técnicas metaheurísticas complementarias: Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA). El objetivo del DE es calibrar automáticamente los parámetros principales de los algoritmos ACO y SA, con el fin de mejorar la exploración y explotación del espacio de búsqueda según el tamaño de cada instancia. Posteriormente, ACO se emplea para construir rutas iniciales factibles bajo restricciones de capacidad y ventanas de tiempo. Finalmente, SA funciona como método de refinamiento local para mejorar la calidad de las soluciones mediante operadores de vecindad adaptativos.
+\vspace{1em}
+
+Se realizaron experimentos utilizando instancias de referencia del conjunto Solomon, específicamente la familia C1, ampliamente utilizada en la literatura para evaluar algoritmos de ruteo con restricciones temporales. Los resultados muestran que el método híbrido propuesto es capaz de generar soluciones competitivas en términos de distancia total recorrida y número de vehículos utilizados. El desempeño obtenido se analiza y contextualiza con base en resultados reportados en la literatura.
+\vspace{1em}
+
+En conjunto, los resultados indican que la integración DE–ACO–SA logra un equilibrio adecuado entre exploración global, construcción guiada de rutas y mejora local intensiva, mostrando potencial para aplicaciones logísticas reales y abriendo la puerta a futuras mejoras orientadas a paralelización, incorporación de nuevas restricciones y análisis comparativo formal.
+\vspace{1em}
+
 \cleardoublepage
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
-Here goes the abstract in English. Briefly describe the goal of your project, methodology, and key results.
+
+The Vehicle Routing Problem with Time Windows (VRP-TW) is one of the most widely studied variants of the VRP due to its complexity and its applications in logistics, transportation, and distribution. Its NP-hard nature prevents medium and large instances from being solved through exact methods, which has motivated the development of heuristic and metaheuristic approaches capable of obtaining high-quality solutions within reasonable computational times.
+\vspace{1em}
+
+This work proposes a hybrid approach that integrates three complementary metaheuristic techniques: Differential Evolution (DE), Ant Colony Optimization (ACO), and Simulated Annealing (SA). The purpose of DE is to automatically calibrate the main parameters of the ACO and SA algorithms to improve exploration and exploitation of the search space according to the characteristics of each instance. ACO is then used to construct feasible initial routes under capacity and time-window constraints. Finally, SA serves as a local refinement method, improving solution quality through adaptive neighborhood operators.
+\vspace{1em}
+
+Experiments were conducted using benchmark instances from the Solomon dataset, specifically the C1 family, which is widely used in the literature to evaluate routing algorithms under time-window constraints. The results show that the proposed hybrid method is capable of generating competitive solutions in terms of total distance traveled and number of vehicles used. The performance obtained is analyzed and contextualized based on results reported in the literature.
+\vspace{1em}
+
+Overall, the results indicate that the integration of DE–ACO–SA achieves a suitable balance between global exploration, guided route construction, and intensive local improvement. This demonstrates the potential of the proposed method for real-world logistics applications and suggests future research directions involving parallelization, the incorporation of additional constraints, and formal comparative analyses.
+\vspace{1em}
+
 \cleardoublepage
 
 
-\frontmatter
 \thispagestyle{empty}
 
 \vspace*{6cm}
@@ -253,23 +278,23 @@ Here goes the abstract in English. Briefly describe the goal of your project, me
 
 \vspace{0.5cm}
 {\small
-\begin{description}[leftmargin=1.8cm, labelwidth=1.5cm, labelsep=0.3cm, itemsep=0.3em]
-	\item[ACO] \textbf{A}nt \textbf{C}olony \textbf{O}ptimization (\textit{Optimización por Colonias de Hormigas})
-	\item[DE] \textbf{D}ifferential \textbf{E}volution (\textit{Evolución Diferencial})
-	\item[EA] \textbf{E}volutionary \textbf{A}lgorithm (\textit{Algoritmo Evolutivo})
-	\item[GA] \textbf{G}enetic \textbf{A}lgorithm (\textit{Algoritmo Genético})
-	\item[NP] \textbf{N}ondeterministic \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial No Determinista})
-	\item[P] \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial})
-	\item[SA] \textbf{S}imulated \textbf{A}nnealing (\textit{Recocido Simulado})
-	\item[TB] \textbf{T}abu \textbf{S}earch (\textit{Búsqueda Tabú})
-	\item[TSP] \textbf{T}ravelling \textbf{S}alesman \textbf{P}roblem (\textit{Problema del Viajante})
-	\item[VRP] \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem (\textit{Problema de Ruteo de Vehículos})
-	\item[VRP-TW] \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem with \textbf{T}ime \textbf{W}indows (\textit{Problema de Ruteo de Vehículos con Ventanas de Tiempo})
-\end{description}
+	\begin{description}[leftmargin=1.8cm, labelwidth=1.5cm, labelsep=0.3cm, itemsep=0.3em]
+		\item[ACO] \textbf{A}nt \textbf{C}olony \textbf{O}ptimization (\textit{Optimización por Colonias de Hormigas})
+		\item[DE] \textbf{D}ifferential \textbf{E}volution (\textit{Evolución Diferencial})
+		\item[EA] \textbf{E}volutionary \textbf{A}lgorithm (\textit{Algoritmo Evolutivo})
+		\item[GA] \textbf{G}enetic \textbf{A}lgorithm (\textit{Algoritmo Genético})
+		\item[NP] \textbf{N}ondeterministic \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial No Determinista})
+		\item[P] \textbf{P}olynomial \textbf{T}ime (\textit{Tiempo Polinomial})
+		\item[SA] \textbf{S}imulated \textbf{A}nnealing (\textit{Recocido Simulado})
+		\item[TB] \textbf{T}abu \textbf{S}earch (\textit{Búsqueda Tabú})
+		\item[TSP] \textbf{T}ravelling \textbf{S}alesman \textbf{P}roblem (\textit{Problema del Viajante})
+		\item[VRP] \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem (\textit{Problema de Ruteo de Vehículos})
+		\item[VRP-TW] \textbf{V}ehicle \textbf{R}outing \textbf{P}roblem with \textbf{T}ime \textbf{W}indows (\textit{Problema de Ruteo de Vehículos con Ventanas de Tiempo})
+	\end{description}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CUERPO PRINCIPAL (ya numerado)
+% CUERPO PRINCIPAL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
 \pagestyle{fancy}
@@ -281,8 +306,6 @@ Here goes the abstract in English. Briefly describe the goal of your project, me
 
 \setlength{\parindent}{2em}
 \setlength{\parskip}{1.5ex}
-
-% Reducir espacio extra después de subsubsection
 
 \newcommand{\tab}{\hspace*{1cm}}
 
@@ -1506,6 +1529,9 @@ A continuación se presenta el pseudocódigo del algoritmo DE implementado para 
 	\label{fig:algoritmo_de_vrptw}
 \end{figure}
 
+El pseudocódigo \ref{alg:de_vrptw} resume el funcionamiento del algoritmo de Evolución Diferencial aplicado a la calibración automática de parámetros para el VRP-TW. El proceso inicia con la generación aleatoria de una población inicial cuyos individuos son evaluados mediante la combinación ACO+SA. Posteriormente, cada generación aplica las tres etapas fundamentales de DE: mutación, recombinación y selección, produciendo nuevos candidatos que se ajustan a los rangos permitidos para cada parámetro. El mecanismo evolutivo garantiza la mejora progresiva de las soluciones, manteniendo siempre el mejor individuo encontrado durante el proceso, lo que permite identificar configuraciones de parámetros más adecuadas para las instancias evaluadas.
+
+
 \subsection{Construcción de rutas iniciales mediante Optimización por Colonia de Hormigas}
 
 Una vez calibrados los parámetros mediante DE, la segunda etapa del enfoque híbrido consiste en construir soluciones factibles para el VRP-TW utilizando Optimización por Colonia de Hormigas (ACO). Este algoritmo bio-inspirado simula el comportamiento de las hormigas reales al buscar alimento, utilizando rastros de feromonas para encontrar rutas eficientes que minimicen la distancia total recorrida mientras respetan las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes.
@@ -1699,7 +1725,7 @@ Una vez construida la solución, se evalúa su calidad mediante el cálculo de l
 	\label{fig:algoritmo_evaluacion_fitness}
 \end{figure}
 
-El algoritmo \ref{alg:evaluacion_fitness} calcula el fitness total de la solución sumando las distancias recorridas por cada vehículo. Para cada ruta, se acumulan las distancias entre clientes consecutivos, incluyendo los trayectos desde y hacia el depósito. Este valor cuantifica la eficiencia global de la solución, siendo menor el fitness cuanto más cortas sean las rutas generadas.
+El pseudocódigo \ref{alg:evaluacion_fitness} calcula el fitness total de la solución sumando las distancias recorridas por cada vehículo. Para cada ruta, se acumulan las distancias entre clientes consecutivos, incluyendo los trayectos desde y hacia el depósito. Este valor cuantifica la eficiencia global de la solución, siendo menor el fitness cuanto más cortas sean las rutas generadas.
 
 \subsubsection{Actualización de feromonas}
 
@@ -1753,37 +1779,35 @@ donde $L_{best}$ corresponde al costo total de la mejor solución histórica. El
 		\caption{Pseudocódigo de la Actualización de Feromonas}
 		\label{alg:actualizacion_feromonas}
 		\SetAlgoLined
-		\SetAlFnt{\footnotesize}
+		\SetAlFnt{\scriptsize}
+		\setlength{\algomargin}{0.5em}
 
 		\KwIn{Matriz $\tau$, tasa $\rho$, hormigas elite, mejor solución global}
 		\KwOut{Matriz $\tau$ actualizada}
 
 		\textbf{Evaporación:}\\
-		\For{$i=0$ \KwTo $n-1$}{
-			\For{$j=0$ \KwTo $n-1$}{
-				\If{$i \neq j$}{
-					$\tau_{ij} \gets (1 - \rho) \cdot \tau_{ij}$.
-				}
-			}
-		}
+		\textbf{para} $i=0$ \textbf{hasta} $n-1$ \textbf{hacer}\\
+		\hspace{1em} \textbf{para} $j=0$ \textbf{hasta} $n-1$ \textbf{hacer}\\
+		\hspace{2em} \textbf{si} $i \neq j$ \textbf{entonces} $\tau_{ij} \gets (1 - \rho) \cdot \tau_{ij}$ \textbf{fin si}\\
+		\hspace{1em} \textbf{fin para}\\
+		\textbf{fin para}\\
 
 		\textbf{Depósito de feromonas:}\\
-		\ForEach{hormiga $k$ en Elite}{
-			$\Delta\tau \gets 1 / L_k$\\
-			\ForEach{arista $(i,j)$ en la ruta de $k$}{
-				$\tau_{ij} \gets \tau_{ij} + \Delta\tau$\\
-				$\tau_{ji} \gets \tau_{ji} + \Delta\tau$
-			}
-		}
+		\textbf{para cada} hormiga $k$ en Elite \textbf{hacer}\\
+		\hspace{1em} $\Delta\tau \gets 1 / L_k$\\
+		\hspace{1em} \textbf{para cada} arista $(i,j)$ en la ruta de $k$ \textbf{hacer}\\
+		\hspace{2em} $\tau_{ij} \gets \tau_{ij} + \Delta\tau$; $\tau_{ji} \gets \tau_{ji} + \Delta\tau$\\
+		\hspace{1em} \textbf{fin para}\\
+		\textbf{fin para}\\
 
 		\textbf{Refuerzo elitista:}\\
 		$\Delta\tau_{best} \gets 2 / L_{best}$\\
-		\ForEach{arista $(i,j)$ en MejorRuta}{
-			$\tau_{ij} \gets \tau_{ij} + \Delta\tau_{best}$\\
-			$\tau_{ji} \gets \tau_{ji} + \Delta\tau_{best}$
-		}
+		\textbf{para cada} arista $(i,j)$ en MejorRuta \textbf{hacer}\\
+		\hspace{1em} $\tau_{ij} \gets \tau_{ij} + \Delta\tau_{best}$; $\tau_{ji} \gets \tau_{ji} + \Delta\tau_{best}$\\
+		\textbf{fin para}\\
 
-		\Return{$\tau$}
+		\textbf{retornar} $\tau$
+
 	\end{algorithm}
 	\caption{Pseudocódigo del proceso de actualización de feromonas en tres fases: evaporación, depósito y refuerzo elitista.}
 	\label{fig:algoritmo_actualizacion_feromonas}
@@ -1871,16 +1895,13 @@ Los componentes principales del algoritmo son:
 
 \subsubsection{Operadores de vecindad adaptativos}
 
-Para explorar el espacio de soluciones, SA implementa un conjunto de ocho operadores de vecindad especializados que modifican las rutas de manera controlada. La selección de operadores se realiza de forma \textbf{adaptativa} según dos criterios fundamentales: el tamaño de la instancia (número de clientes) y el número de vehículos en la solución actual. Esta estrategia permite ajustar dinámicamente la exploración del espacio de búsqueda según las características específicas del problema.
+Para explorar el espacio de soluciones, SA implementa un conjunto de ocho operadores de vecindad especializados que modifican las rutas de manera controlada. La selección de operadores se realiza de forma adaptativa según dos criterios fundamentales: el tamaño de la instancia (número de clientes) y el número de vehículos en la solución actual. Esta estrategia permite ajustar dinámicamente la exploración del espacio de búsqueda según las características específicas del problema.
 
-\paragraph{Clasificación de operadores:}
-
-Los operadores se dividen en dos categorías principales:
+Los operadores se dividen en dos categorías principales operadores intra-ruta y operadores inter-ruta:
 
 \textbf{Operadores intra-ruta:} Modifican la secuencia de clientes dentro de una misma ruta:
 \begin{itemize}
 	\item \textbf{Swap intra-ruta:} Intercambia las posiciones de dos clientes dentro de la misma ruta.
-
 	      \begin{figure}[H]
 		      \centering
 		      \begin{algorithm}[H]
@@ -2036,25 +2057,23 @@ Los operadores se dividen en dos categorías principales:
 
 	\item \textbf{Relocate-chain:} Reubica una cadena de 2–4 clientes consecutivos desde un vehículo origen hacia un vehículo destino.
 
-	      \begin{figure}[H]
-		      \centering
-		      \begin{algorithm}[H]
-			      \caption{Operador Relocate-chain}
-			      \label{alg:relocate_chain}
-			      \SetAlgoLined
-			      \SetAlFnt{\footnotesize}
-
-			      \KwIn{Solución $s$, configuración VRP}
-			      \KwOut{Solución vecina $s'$ o rechazo del movimiento}
-
-			      Seleccionar vehículo origen con $\geq 2$ clientes.\\
-			      Seleccionar cadena de 2–4 clientes consecutivos (máx. 50\% de la ruta).\\
-			      Eliminar cadena del origen; Seleccionar vehículo destino.\\
-			      Insertar cadena completa en destino.\\
-			      \textbf{si} verificar\_restricciones(ambos) \textbf{entonces} retornar $s'$ \textbf{si no} restaurar.\\
-		      \end{algorithm}
-		      \caption{Pseudocódigo del operador Relocate-chain.}
-	      \end{figure}
+	\begin{figure}[H]
+		\centering
+		\begin{algorithm}[H]
+			\caption{Operador Relocate-chain}
+			\label{alg:relocate_chain}
+			\SetAlgoLined
+			\SetAlFnt{\footnotesize}
+			\KwIn{Solución $s$, configuración VRP}
+			\KwOut{Solución vecina $s'$ o rechazo del movimiento}
+			Seleccionar vehículo origen con $\geq 2$ clientes.\\
+			Seleccionar cadena de 2–4 clientes consecutivos (máx. 50\% de la ruta).\\
+			Eliminar cadena del origen; Seleccionar vehículo destino.\\
+			Insertar cadena completa en destino.\\
+			\textbf{si} verificar\_restricciones(ambos) \textbf{entonces} retornar $s'$ \textbf{si no} restaurar.\\
+		\end{algorithm}
+		\caption{Pseudocódigo del operador Relocate-chain.}
+	\end{figure}
 \end{itemize}
 
 \paragraph{Estrategia adaptativa de selección:}
@@ -2119,98 +2138,82 @@ El algoritmo finaliza cuando la temperatura alcanza $T_f$ o cuando $T < 10^{-10}
 
 \subsubsection{Manejo de factibilidad y limpieza de vehículos}
 
-Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos descritos en el algoritmo \ref{fig:verificacion_restricciones}.
+Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos para asegurar que cada ruta cumpla con las restricciones operativas del VRPTW.
 
-% \begin{figure}[H]
-% 	\centering
-% 	\begin{algorithm}[H]
-% 		\caption{Verificación de Restricciones y Factibilidad}
-% 		\label{alg:verificacion_restricciones}
-% 		\SetAlgoLined
-% 		\SetAlFnt{\footnotesize}
+\begin{figure}[H]
+	\centering
+	\begin{algorithm}[H]
+		\caption{Verificación de Restricciones y Factibilidad}
+		\label{alg:verificacion_restricciones}
+		\SetAlgoLined
+		\SetAlFnt{\scriptsize}
+		\setlength{\algomargin}{0.5em}
 
-% 		\KwIn{Vehículo $v$, configuración VRP, matriz de distancias $D$}
-% 		\KwOut{true si factible, false en caso contrario}
+		\KwIn{Vehículo $v$, configuración VRP, matriz de distancias $D$}
+		\KwOut{true si factible, false en caso contrario}
 
-% 		\textbf{Inicialización:}\\
-% 		$t \gets 0$ (tiempo acumulado), $q \gets 0$ (capacidad acumulada).\\
-% 		clienteAnterior $\gets$ NULL.\\
+		\textbf{Inicialización:} $t \gets 0$, $q \gets 0$, clienteAnterior $\gets$ NULL\\
 
-% 		\textbf{Recorrido de la ruta:}\\
-% 		\textbf{para cada} nodo en $v.$ruta \textbf{hacer}\\
-% 		\hspace{1em} cliente $\gets$ nodo.cliente.\\
+		\textbf{para cada} nodo en $v.$ruta \textbf{hacer}\\
+		\hspace{1em} cliente $\gets$ nodo.cliente\\
+		\hspace{1em} \textbf{si} clienteAnterior $\neq$ NULL \textbf{entonces}\\
+		\hspace{2em} \textbf{si} clienteAnterior $\neq 0$ \textbf{entonces}\\
+		\hspace{3em} $t \gets t + s_{\text{clienteAnterior}}$\\
+		\hspace{2em} \textbf{fin si}\\
+		\hspace{2em} $t \gets t + D_{\text{clienteAnterior}, \text{cliente}} / v.\text{velocidad}$\\
+		\hspace{2em} \textbf{si} $t < e_{\text{cliente}}$ \textbf{entonces} $t \gets e_{\text{cliente}}$ \textbf{fin si}\\
+		\hspace{1em} \textbf{si no}\\
+		\hspace{2em} \textbf{si} cliente $\neq 0$ \textbf{entonces}\\
+		\hspace{3em} $t \gets D_{0, \text{cliente}} / v.\text{velocidad}$\\
+		\hspace{3em} \textbf{si} $t < e_{\text{cliente}}$ \textbf{entonces} $t \gets e_{\text{cliente}}$ \textbf{fin si}\\
+		\hspace{2em} \textbf{fin si}\\
+		\hspace{1em} \textbf{fin si}\\
+		\hspace{1em} \textbf{si} cliente $\neq 0$ \textbf{entonces}\\
+		\hspace{2em} $q \gets q + d_{\text{cliente}}$\\
+		\hspace{2em} \textbf{si} $q > v.Q$ \textbf{entonces} retornar false \textbf{fin si}\\
+		\hspace{2em} \textbf{si} $t > l_{\text{cliente}}$ \textbf{entonces} retornar false \textbf{fin si}\\
+		\hspace{1em} \textbf{fin si}\\
+		\hspace{1em} clienteAnterior $\gets$ cliente\\
+		\textbf{fin para}\\
 
-% 		\hspace{1em} \textbf{si} clienteAnterior $\neq$ NULL \textbf{entonces}\\
-% 		\hspace{2em} \textbf{si} clienteAnterior $\neq 0$ \textbf{entonces}\\
-% 		\hspace{3em} $t \gets t + s_{\text{clienteAnterior}}$ \textit{(tiempo de servicio)}.\\
-% 		\hspace{2em} \textbf{fin si}\\
-% 		\hspace{2em} $t \gets t + D_{\text{clienteAnterior}, \text{cliente}} / v.\text{velocidad}$ \textit{(tiempo de viaje)}.\\
-% 		\hspace{2em} \textbf{si} $t < e_{\text{cliente}}$ \textbf{entonces}\\
-% 		\hspace{3em} $t \gets e_{\text{cliente}}$ \textit{(esperar hasta ventana inicial)}.\\
-% 		\hspace{2em} \textbf{fin si}\\
-% 		\hspace{1em} \textbf{si no} \textit{(primer cliente desde depósito)}\\
-% 		\hspace{2em} \textbf{si} cliente $\neq 0$ \textbf{entonces}\\
-% 		\hspace{3em} $t \gets D_{0, \text{cliente}} / v.\text{velocidad}$.\\
-% 		\hspace{3em} \textbf{si} $t < e_{\text{cliente}}$ \textbf{entonces}\\
-% 		\hspace{4em} $t \gets e_{\text{cliente}}$.\\
-% 		\hspace{3em} \textbf{fin si}\\
-% 		\hspace{2em} \textbf{fin si}\\
-% 		\hspace{1em} \textbf{fin si}\\
+		\textbf{si} clienteAnterior $\neq 0$ \textbf{entonces}\\
+		\hspace{1em} $t \gets t + s_{\text{clienteAnterior}} + D_{\text{clienteAnterior}, 0} / v.\text{velocidad}$\\
+		\hspace{1em} \textbf{si} $t > l_0$ \textbf{entonces} retornar false \textbf{fin si}\\
+		\textbf{fin si}\\
 
-% 		\hspace{1em} \textbf{si} cliente $\neq 0$ \textbf{entonces}\\
-% 		\hspace{2em} $q \gets q + d_{\text{cliente}}$ \textit{(acumular demanda)}.\\
-% 		\hspace{2em} \textbf{si} $t > l_{\text{cliente}}$ \textbf{entonces}\\
-% 		\hspace{3em} retornar false \textit{(violación ventana de tiempo)}.\\
-% 		\hspace{2em} \textbf{fin si}\\
-% 		\hspace{1em} \textbf{fin si}\\
+		retornar true\\
 
-% 		\hspace{1em} clienteAnterior $\gets$ cliente.\\
-% 		\textbf{fin para}\\
+	\end{algorithm}
+	\caption{Pseudocódigo de verificación completa de restricciones para una ruta.}
+	\label{fig:verificacion_restricciones}
+\end{figure}
 
-% 		\textbf{Validación de capacidad:}\\
-% 		\textbf{si} $q > v.Q$ \textbf{entonces}\\
-% 		\hspace{1em} retornar false \textit{(violación de capacidad)}.\\
-% 		\textbf{fin si}\\
 
-% 		\textbf{Validación de retorno al depósito:}\\
-% 		\textbf{si} clienteAnterior $\neq 0$ \textbf{entonces}\\
-% 		\hspace{1em} $t \gets t + s_{\text{clienteAnterior}}$.\\
-% 		\hspace{1em} $t \gets t + D_{\text{clienteAnterior}, 0} / v.\text{velocidad}$.\\
-% 		\hspace{1em} \textbf{si} $t > l_0$ \textbf{entonces}\\
-% 		\hspace{2em} retornar false \textit{(no puede regresar a tiempo)}.\\
-% 		\hspace{1em} \textbf{fin si}\\
-% 		\textbf{fin si}\\
-
-% 		retornar true.\\
-
-% 	\end{algorithm}
-% 	\caption{Algoritmo de verificación completa de restricciones para una ruta. Valida secuencialmente las ventanas de tiempo de cada cliente considerando tiempos de viaje, tiempos de servicio y posibles esperas. Además verifica que la capacidad total no exceda el límite del vehículo y que sea posible retornar al depósito dentro de su ventana de tiempo.}
-% 	\label{fig:verificacion_restricciones}
-% \end{figure}
+El pseudocódigo \ref{fig:verificacion_restricciones} ejecuta una verificación completa de factibilidad sobre cada vehículo. El procedimiento evalúa secuencialmente los tiempos de viaje, los tiempos de servicio y las esperas necesarias, garantizando que cada cliente sea atendido dentro de su ventana de tiempo. Además, acumula la demanda total para verificar que no se exceda la capacidad del vehículo y comprueba que el retorno al depósito pueda realizarse antes del cierre de su ventana temporal. Esta validación asegura que cualquier ruta generada por los operadores de vecindad sea descartada de inmediato si incurre en violaciones, manteniendo así la coherencia y factibilidad del conjunto completo de rutas.
 
 El mecanismo de validación opera en tres niveles:
 
 \begin{enumerate}
 	\item \textbf{Validación de capacidad:} Después de aplicar un operador, se verifica que ninguna ruta exceda la capacidad máxima del vehículo $Q$ mediante la acumulación de demandas:
-	      \begin{equation}
-		      \sum_{i \in \text{ruta}} d_i \leq Q
-	      \end{equation}
+	\begin{equation}
+		\sum_{i \in \text{ruta}} d_i \leq Q
+	\end{equation}
 
 	\item \textbf{Validación temporal:} Se recalculan los tiempos de llegada considerando:
-	      \begin{equation}
-		      t_{\text{llegada}}^j = t_{\text{salida}}^i + \frac{d_{ij}}{v} + s_i
-	      \end{equation}
-	      donde $t_{\text{inicio}}^j = \max(t_{\text{llegada}}^j, e_j)$ y se verifica que $t_{\text{inicio}}^j \leq l_j$ para todo cliente $j$.
+	\begin{equation}
+    t_{\text{llegada}}^j = t_{\text{salida}}^i + \frac{d_{ij}}{v} + s_i
+	\end{equation}
+	donde $t_{\text{inicio}}^j = \max(t_{\text{llegada}}^j, e_j)$ y se verifica que $t_{\text{inicio}}^j \leq l_j$ para todo cliente $j$.
 
 	\item \textbf{Validación de retorno:} Se asegura que el vehículo pueda regresar al depósito dentro de su ventana de tiempo:
-	      \begin{equation}
-		      t_{\text{último}} + s_{\text{último}} + \frac{d_{\text{último},0}}{v} \leq l_0
-	      \end{equation}
+	\begin{equation}
+	t_{\text{último}} + s_{\text{último}} + \frac{d_{\text{último},0}}{v} \leq l_0
+	\end{equation}
 \end{enumerate}
 
 \paragraph{Limpieza de vehículos vacíos:}
 
-Los operadores inter-ruta pueden dejar vehículos sin clientes. El algoritmo \ref{fig:limpieza_vehiculos} describe el proceso de eliminación de vehículos vacíos.
+Los operadores inter-ruta pueden dejar ciertos vehículos sin clientes. Debido a esto, se implementó un procedimiento de eliminación de vehículos vacíos con el fin de mantener una flota compacta y consistente.
 
 \begin{figure}[H]
 	\centering
@@ -2254,18 +2257,21 @@ Los operadores inter-ruta pueden dejar vehículos sin clientes. El algoritmo \re
 		retornar vehiculos\_activos.\\
 
 	\end{algorithm}
-	\caption{Proceso de limpieza de vehículos vacíos de la flota. Este procedimiento se ejecuta después de aplicar operadores inter-ruta que pueden transferir todos los clientes de un vehículo, periódicamente cada 20 iteraciones, y al finalizar el algoritmo SA para asegurar una solución compacta.}
+	\caption{Pseudocódigo del proceso de limpieza de vehículos vacíos de la flota.}
 	\label{fig:limpieza_vehiculos}
 \end{figure}
 
-La limpieza de vehículos se realiza:
+El pseudocódigo \ref{fig:limpieza_vehiculos} describe el procedimiento encargado de eliminar de la flota aquellos vehículos que han quedado sin clientes después de aplicar operadores inter-ruta. Este proceso se ejecuta periódicamente cada 20 iteraciones y nuevamente al finalizar el algoritmo SA, con el fin de asegurar que la solución final sea compacta y no contenga vehículos innecesarios. La limpieza permite mantener la estructura de la flota consistente, reducir el número total de vehículos utilizados y garantizar que el costo reportado refleje únicamente rutas activas y realmente empleadas.
+
+La limpieza de vehículos vacíos se realiza en los siguientes momentos:
 \begin{itemize}
-	\item Después de operadores swap\_inter, reinserción, cross-exchange y relocate-chain
-	\item Periódicamente cada 20 iteraciones
-	\item Al finalizar el algoritmo
+    \item Después de aplicar los operadores \textit{swap\_inter}, \textit{reinserción}, \textit{cross-exchange} y \textit{relocate-chain}.
+    \item De manera periódica, cada 20 iteraciones.
+    \item Al finalizar la ejecución completa del algoritmo SA.
 \end{itemize}
 
-Cuando se eliminan vehículos, se re-evalúa la función objetivo completa mediante el algoritmo \ref{fig:evaluacion_fitness_sa}.
+
+Cuando se eliminan vehículos, es necesario re-evaluar la función objetivo completa para reflejar la nueva estructura de la solución, como se muestra en el pseudocódigo.
 
 \begin{figure}[H]
 	\centering
@@ -2300,109 +2306,76 @@ Cuando se eliminan vehículos, se re-evalúa la función objetivo completa media
 		retornar hormiga.fitness\_global.\\
 
 	\end{algorithm}
-	\caption{Evaluación de la función objetivo para una solución completa. Recorre todos los vehículos de la flota y suma las distancias entre clientes consecutivos en cada ruta, incluyendo los trayectos desde y hacia el depósito.}
+	\caption{Pseudocódigo de evaluación de la función objetivo para una solución completa en el Recocido Simulado.}
 	\label{fig:evaluacion_fitness_sa}
 \end{figure}
 
+El pseudocódigo \ref{fig:evaluacion_fitness_sa} recorre todos los vehículos de la flota y acumula las distancias entre clientes consecutivos en cada ruta. Este proceso considera completamente la estructura de cada vehículo, incluyendo los desplazamientos desde y hacia el depósito cuando corresponda. Con ello se actualiza el \textit{fitness} global de la solución tras cualquier modificación en la flota o en las rutas.
 
 \subsubsection{Algoritmo principal de Recocido Simulado}
 
-El algoritmo \ref{fig:algoritmo_sa_principal} presenta la estructura completa del proceso de refinamiento mediante SA.
+El proceso de Recocido Simulado (SA) se utiliza como mecanismo de mejora local para refinar las soluciones generadas inicialmente por ACO. Su objetivo es explorar vecindarios diversos mediante un esquema probabilístico que permite aceptar soluciones peores de manera controlada, con el fin de escapar de óptimos locales. El algoritmo completo se presenta en la Figura~\ref{fig:algoritmo_sa_principal}. Este procedimiento incluye la selección de operadores adaptativos, la actualización de temperatura y la gestión explícita de memoria para las estructuras de rutas y flotas.
 
-% \begin{figure}[H]
-% 	\centering
-% 	\begin{algorithm}[H]
-% 		\caption{Recocido Simulado para Refinamiento de Rutas VRP-TW}
-% 		\label{alg:sa_vrptw}
-% 		\SetAlgoLined
-% 		\SetAlFnt{\footnotesize}
+\begin{figure}[H]
+	\centering
+	\begin{algorithm}[H]
+		\caption{Recocido Simulado para Refinamiento de Rutas VRP-TW}
+		\label{alg:sa_vrptw}
+		\SetAlgoLined
+		\SetAlFnt{\scriptsize}
+		\setlength{\algomargin}{0.5em}
 
-% 		\KwIn{Solución inicial $s_0$ (de ACO), $T_0$, $T_f$, $\alpha_{\text{cool}}$, $n_{\text{iter}}$}
-% 		\KwOut{Solución refinada $s^*$}
+		\KwIn{Solución inicial $s_0$ (de ACO), $T_0$, $T_f$, $\alpha_{\text{cool}}$, $n_{\text{iter}}$}
+		\KwOut{Solución refinada $s^*$}
 
-% 		\textbf{Inicialización:}\\
-% 		$s_{\text{vecina}} \gets$ copiar($s_0$).\\
-% 		$s_{\text{actual}} \gets$ copiar($s_0$).\\
-% 		$s^* \gets$ copiar($s_0$).\\
-% 		$T \gets T_0$.\\
+		\textbf{Inicialización:} $s_{\text{vecina}} \gets$ copiar($s_0$), $s_{\text{actual}} \gets$ copiar($s_0$), $s^* \gets$ copiar($s_0$), $T \gets T_0$\\
 
-% 		\textbf{Ciclo de enfriamiento:}\\
-% 		\textbf{mientras} $T > T_f$ y $T > 10^{-10}$ \textbf{hacer}\\
-% 		\hspace{1em} \textbf{para} $iter=1$ \textbf{hasta} $n_{\text{iter}}$ \textbf{hacer}\\
-% 		\hspace{2em} Liberar($s_{\text{vecina}}.$flota).\\
-% 		\hspace{2em} $s_{\text{vecina}} \gets$ copiar($s_{\text{actual}}$).\\
+		\textbf{mientras} $T > T_f$ y $T > 10^{-10}$ \textbf{hacer}\\
+		\hspace{1em} \textbf{para} $iter=1$ \textbf{hasta} $n_{\text{iter}}$ \textbf{hacer}\\
+		\hspace{2em} Liberar($s_{\text{vecina}}.$flota); $s_{\text{vecina}} \gets$ copiar($s_{\text{actual}}$)\\
+		\hspace{2em} $r \gets$ aleatorio$[0,1]$; operador $\gets$ SeleccionarOperador($r$, instancia.tamaño, $s_{\text{vecina}}.$vehículos)\\
+		\hspace{2em} aceptado $\gets$ AplicarOperador(operador, $s_{\text{vecina}}$)\\
+		\hspace{2em} \textbf{si} no aceptado \textbf{entonces} continuar \textbf{fin si}\\
 
-% 		\hspace{2em} \textit{// Selección adaptativa de operador}\\
-% 		\hspace{2em} $r \gets$ aleatorio$[0,1]$.\\
-% 		\hspace{2em} operador $\gets$ SeleccionarOperador($r$, instancia.tamaño, $s_{\text{vecina}}.$vehículos).\\
-% 		\hspace{2em} aceptado $\gets$ AplicarOperador(operador, $s_{\text{vecina}}$).\\
+		\hspace{2em} \textbf{si} operador $\in \{$swap\_inter, reinserción, cross-exchange, relocate-chain$\}$ \textbf{entonces}\\
+		\hspace{3em} $v_{\text{antes}} \gets s_{\text{vecina}}.$vehiculos\_necesarios\\
+		\hspace{3em} $s_{\text{vecina}}.$vehiculos\_necesarios $\gets$ EliminarVehiculosVacios($s_{\text{vecina}}.$flota)\\
+		\hspace{3em} \textbf{si} $v_{\text{antes}} \neq s_{\text{vecina}}.$vehiculos\_necesarios \textbf{entonces} EvaluarFitness($s_{\text{vecina}}$) \textbf{fin si}\\
+		\hspace{2em} \textbf{fin si}\\
 
-% 		\hspace{2em} \textbf{si} no aceptado \textbf{entonces} continuar.\\
+		\hspace{2em} \textbf{si} $iter \mod 20 = 0$ \textbf{entonces} EliminarVehiculosVacios($s_{\text{vecina}}.$flota) \textbf{fin si}\\
 
-% 		\hspace{2em} \textit{// Limpieza de vehículos vacíos (condicional)}\\
-% 		\hspace{2em} \textbf{si} operador $\in \{$swap\_inter, reinserción, cross-exchange, relocate-chain$\}$ \textbf{entonces}\\
-% 		\hspace{3em} $v_{\text{antes}} \gets s_{\text{vecina}}.$vehiculos\_necesarios.\\
-% 		\hspace{3em} $s_{\text{vecina}}.$vehiculos\_necesarios $\gets$ EliminarVehiculosVacios($s_{\text{vecina}}.$flota).\\
-% 		\hspace{3em} \textbf{si} $v_{\text{antes}} \neq s_{\text{vecina}}.$vehiculos\_necesarios \textbf{entonces}\\
-% 		\hspace{4em} EvaluarFitness($s_{\text{vecina}}$).\\
-% 		\hspace{3em} \textbf{fin si}\\
-% 		\hspace{2em} \textbf{fin si}\\
+		\hspace{2em} EvaluarFitness($s_{\text{vecina}}$); $\Delta f \gets s_{\text{vecina}}.$fitness $- s_{\text{actual}}.$fitness\\
 
-% 		\hspace{2em} \textit{// Limpieza periódica}\\
-% 		\hspace{2em} \textbf{si} $iter \mod 20 = 0$ \textbf{entonces}\\
-% 		\hspace{3em} EliminarVehiculosVacios($s_{\text{vecina}}.$flota).\\
-% 		\hspace{2em} \textbf{fin si}\\
+		\hspace{2em} aceptar $\gets$ false\\
+		\hspace{2em} \textbf{si} $\Delta f < -10^{-6}$ \textbf{entonces} aceptar $\gets$ true\\
+		\hspace{2em} \textbf{si no, si} $\Delta f > 10^{-6}$ y $T > 10^{-10}$ \textbf{entonces}\\
+		\hspace{3em} $p \gets e^{-\Delta f / T}$; \textbf{si} aleatorio$[0,1] < p$ \textbf{entonces} aceptar $\gets$ true \textbf{fin si}\\
+		\hspace{2em} \textbf{fin si}\\
 
-% 		\hspace{2em} \textit{// Evaluación de fitness}\\
-% 		\hspace{2em} EvaluarFitness($s_{\text{vecina}}$).\\
-% 		\hspace{2em} $\Delta f \gets s_{\text{vecina}}.$fitness $- s_{\text{actual}}.$fitness.\\
+		\hspace{2em} \textbf{si} aceptar \textbf{entonces}\\
+		\hspace{3em} Liberar($s_{\text{actual}}.$flota); $s_{\text{actual}} \gets$ copiar($s_{\text{vecina}}$)\\
+		\hspace{3em} \textbf{si} $s_{\text{vecina}}.$fitness $< s^*.$fitness $- 10^{-6}$ \textbf{entonces}\\
+		\hspace{4em} Liberar($s^*.$flota); $s^* \gets$ copiar($s_{\text{vecina}}$)\\
+		\hspace{3em} \textbf{fin si}\\
+		\hspace{2em} \textbf{fin si}\\
+		\hspace{1em} \textbf{fin para}\\
 
-% 		\hspace{2em} \textit{// Criterio de aceptación de Metropolis}\\
-% 		\hspace{2em} aceptar $\gets$ false.\\
-% 		\hspace{2em} \textbf{si} $\Delta f < -10^{-6}$ \textbf{entonces}\\
-% 		\hspace{3em} aceptar $\gets$ true \textit{(mejora)}.\\
-% 		\hspace{2em} \textbf{si no, si} $\Delta f > 10^{-6}$ y $T > 10^{-10}$ \textbf{entonces}\\
-% 		\hspace{3em} $p \gets e^{-\Delta f / T}$.\\
-% 		\hspace{3em} \textbf{si} aleatorio$[0,1] < p$ \textbf{entonces}\\
-% 		\hspace{4em} aceptar $\gets$ true \textit{(aceptar empeoramiento)}.\\
-% 		\hspace{3em} \textbf{fin si}\\
-% 		\hspace{2em} \textbf{fin si}\\
+		\hspace{1em} $T \gets \alpha_{\text{cool}} \cdot T$; \textbf{si} $T < 10^{-10}$ \textbf{entonces} romper \textbf{fin si}\\
+		\textbf{fin mientras}\\
 
-% 		\hspace{2em} \textit{// Actualización de soluciones}\\
-% 		\hspace{2em} \textbf{si} aceptar \textbf{entonces}\\
-% 		\hspace{3em} Liberar($s_{\text{actual}}.$flota).\\
-% 		\hspace{3em} $s_{\text{actual}} \gets$ copiar($s_{\text{vecina}}$).\\
+		\textbf{si} $s^*.$vehiculos\_necesarios $> 1$ \textbf{entonces}\\
+		\hspace{1em} $v_{\text{antes}} \gets s^*.$vehiculos\_necesarios; $s^*.$vehiculos\_necesarios $\gets$ EliminarVehiculosVacios($s^*.$flota)\\
+		\hspace{1em} \textbf{si} $v_{\text{antes}} \neq s^*.$vehiculos\_necesarios \textbf{entonces} EvaluarFitness($s^*$) \textbf{fin si}\\
+		\textbf{fin si}\\
 
-% 		\hspace{3em} \textbf{si} $s_{\text{vecina}}.$fitness $< s^*.$fitness $- 10^{-6}$ \textbf{entonces}\\
-% 		\hspace{4em} Liberar($s^*.$flota).\\
-% 		\hspace{4em} $s^* \gets$ copiar($s_{\text{vecina}}$).\\
-% 		\hspace{3em} \textbf{fin si}\\
-% 		\hspace{2em} \textbf{fin si}\\
+		Liberar memoria temporal; \textbf{retornar} $s^*$
 
-% 		\hspace{1em} \textbf{fin para}\\
+	\end{algorithm}
+	\caption{Algoritmo de Recocido Simulado para refinamiento de soluciones VRP-TW.}
+	\label{fig:algoritmo_sa_principal}
+\end{figure}
 
-% 		\hspace{1em} \textit{// Enfriamiento geométrico}\\
-% 		\hspace{1em} $T \gets \alpha_{\text{cool}} \cdot T$.\\
-
-% 		\hspace{1em} \textbf{si} $T < 10^{-10}$ \textbf{entonces} romper.\\
-% 		\textbf{fin mientras}\\
-
-% 		\textit{// Limpieza final}\\
-% 		\textbf{si} $s^*.$vehiculos\_necesarios $> 1$ \textbf{entonces}\\
-% 		\hspace{1em} $v_{\text{antes}} \gets s^*.$vehiculos\_necesarios.\\
-% 		\hspace{1em} $s^*.$vehiculos\_necesarios $\gets$ EliminarVehiculosVacios($s^*.$flota).\\
-% 		\hspace{1em} \textbf{si} $v_{\text{antes}} \neq s^*.$vehiculos\_necesarios \textbf{entonces}\\
-% 		\hspace{2em} EvaluarFitness($s^*$).\\
-% 		\hspace{1em} \textbf{fin si}\\
-% 		\textbf{fin si}\\
-
-% 		Liberar memoria temporal.\\
-% 		retornar $s^*$.\\
-
-% 	\end{algorithm}
-% 	\caption{Algoritmo completo de Recocido Simulado para refinamiento de soluciones VRP-TW. El proceso incluye selección adaptativa de operadores según características de la instancia, criterio de aceptación de Metropolis con tolerancia numérica, limpieza condicional y periódica de vehículos vacíos, y gestión explícita de memoria. La temperatura se reduce geométricamente hasta alcanzar el umbral final, con protección contra valores extremadamente bajos.}
-% 	\label{fig:algoritmo_sa_principal}
-% \end{figure}
 
 \chapter{Resultados}
 \label{cap:resultados}
@@ -2410,13 +2383,19 @@ El algoritmo \ref{fig:algoritmo_sa_principal} presenta la estructura completa de
 \chapter{Conclusiones}
 \label{cap:conclusiones}
 
+El presente estudio propuso un enfoque híbrido basado en la combinación de Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA) para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW). Los resultados obtenidos demostraron que la integración de estas tres técnicas permite construir soluciones factibles de manera consistente y posteriormente refinarlas para reducir la distancia total recorrida y el número de vehículos empleados. El método híbrido mostró ser competitivo frente a valores de referencia reportados para las instancias Solomon.
+
+El objetivo principal del trabajo fue diseñar y evaluar un método híbrido capaz de mejorar el desempeño de técnicas metaheurísticas tradicionales aplicadas al VRP-TW. Este objetivo se cumplió satisfactoriamente al integrar DE para la calibración automática de parámetros, ACO para la construcción inicial de rutas y SA como mecanismo de mejora local. Cada componente cumplió su rol esperado dentro del enfoque híbrido, contribuyendo a obtener soluciones de mayor calidad y reduciendo el esfuerzo manual de calibración de parámetros.
+
+El enfoque híbrido propuesto aporta evidencia de que la combinación ordenada de técnicas metaheurísticas puede superar el desempeño de sus versiones individuales. Además, la automatización de la calibración reduce significativamente la dependencia de conocimiento experto, lo cual abre la puerta a sistemas más autónomos para problemas complejos de logística. El método es flexible y puede adaptarse para incluir distintos operadores, restricciones adicionales o incluso otras metaheurísticas, lo que amplía su potencial de aplicación en diversos contextos prácticos.
+
+Entre las líneas futuras de investigación se propone explorar versiones paralelas del método híbrido que permitan reducir tiempos de ejecución manteniendo la calidad de las soluciones. También resulta prometedor incorporar nuevas restricciones del mundo real, como ventanas de tiempo variables, demandas estocásticas o múltiples depósitos. Otra línea importante consiste en realizar comparaciones formales contra métodos híbridos del estado del arte y extender el análisis a otros conjuntos de instancias más desafiantes, así como evaluar el desempeño del método en problemas de mayor escala que reflejen mejor las complejidades de la logística moderna.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % REFERENCIAS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
-
-
 \bibliographystyle{plain}
 \bibliography{referencias}
 
