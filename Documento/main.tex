@@ -2057,23 +2057,23 @@ Los operadores se dividen en dos categorías principales operadores intra-ruta y
 
 	\item \textbf{Relocate-chain:} Reubica una cadena de 2–4 clientes consecutivos desde un vehículo origen hacia un vehículo destino.
 
-	\begin{figure}[H]
-		\centering
-		\begin{algorithm}[H]
-			\caption{Operador Relocate-chain}
-			\label{alg:relocate_chain}
-			\SetAlgoLined
-			\SetAlFnt{\footnotesize}
-			\KwIn{Solución $s$, configuración VRP}
-			\KwOut{Solución vecina $s'$ o rechazo del movimiento}
-			Seleccionar vehículo origen con $\geq 2$ clientes.\\
-			Seleccionar cadena de 2–4 clientes consecutivos (máx. 50\% de la ruta).\\
-			Eliminar cadena del origen; Seleccionar vehículo destino.\\
-			Insertar cadena completa en destino.\\
-			\textbf{si} verificar\_restricciones(ambos) \textbf{entonces} retornar $s'$ \textbf{si no} restaurar.\\
-		\end{algorithm}
-		\caption{Pseudocódigo del operador Relocate-chain.}
-	\end{figure}
+	      \begin{figure}[H]
+		      \centering
+		      \begin{algorithm}[H]
+			      \caption{Operador Relocate-chain}
+			      \label{alg:relocate_chain}
+			      \SetAlgoLined
+			      \SetAlFnt{\footnotesize}
+			      \KwIn{Solución $s$, configuración VRP}
+			      \KwOut{Solución vecina $s'$ o rechazo del movimiento}
+			      Seleccionar vehículo origen con $\geq 2$ clientes.\\
+			      Seleccionar cadena de 2–4 clientes consecutivos (máx. 50\% de la ruta).\\
+			      Eliminar cadena del origen; Seleccionar vehículo destino.\\
+			      Insertar cadena completa en destino.\\
+			      \textbf{si} verificar\_restricciones(ambos) \textbf{entonces} retornar $s'$ \textbf{si no} restaurar.\\
+		      \end{algorithm}
+		      \caption{Pseudocódigo del operador Relocate-chain.}
+	      \end{figure}
 \end{itemize}
 
 \paragraph{Estrategia adaptativa de selección:}
@@ -2195,20 +2195,20 @@ El mecanismo de validación opera en tres niveles:
 
 \begin{enumerate}
 	\item \textbf{Validación de capacidad:} Después de aplicar un operador, se verifica que ninguna ruta exceda la capacidad máxima del vehículo $Q$ mediante la acumulación de demandas:
-	\begin{equation}
-		\sum_{i \in \text{ruta}} d_i \leq Q
-	\end{equation}
+	      \begin{equation}
+		      \sum_{i \in \text{ruta}} d_i \leq Q
+	      \end{equation}
 
 	\item \textbf{Validación temporal:} Se recalculan los tiempos de llegada considerando:
-	\begin{equation}
-    t_{\text{llegada}}^j = t_{\text{salida}}^i + \frac{d_{ij}}{v} + s_i
-	\end{equation}
-	donde $t_{\text{inicio}}^j = \max(t_{\text{llegada}}^j, e_j)$ y se verifica que $t_{\text{inicio}}^j \leq l_j$ para todo cliente $j$.
+	      \begin{equation}
+		      t_{\text{llegada}}^j = t_{\text{salida}}^i + \frac{d_{ij}}{v} + s_i
+	      \end{equation}
+	      donde $t_{\text{inicio}}^j = \max(t_{\text{llegada}}^j, e_j)$ y se verifica que $t_{\text{inicio}}^j \leq l_j$ para todo cliente $j$.
 
 	\item \textbf{Validación de retorno:} Se asegura que el vehículo pueda regresar al depósito dentro de su ventana de tiempo:
-	\begin{equation}
-	t_{\text{último}} + s_{\text{último}} + \frac{d_{\text{último},0}}{v} \leq l_0
-	\end{equation}
+	      \begin{equation}
+		      t_{\text{último}} + s_{\text{último}} + \frac{d_{\text{último},0}}{v} \leq l_0
+	      \end{equation}
 \end{enumerate}
 
 \paragraph{Limpieza de vehículos vacíos:}
@@ -2265,9 +2265,9 @@ El pseudocódigo \ref{fig:limpieza_vehiculos} describe el procedimiento encargad
 
 La limpieza de vehículos vacíos se realiza en los siguientes momentos:
 \begin{itemize}
-    \item Después de aplicar los operadores \textit{swap\_inter}, \textit{reinserción}, \textit{cross-exchange} y \textit{relocate-chain}.
-    \item De manera periódica, cada 20 iteraciones.
-    \item Al finalizar la ejecución completa del algoritmo SA.
+	\item Después de aplicar los operadores \textit{swap\_inter}, \textit{reinserción}, \textit{cross-exchange} y \textit{relocate-chain}.
+	\item De manera periódica, cada 20 iteraciones.
+	\item Al finalizar la ejecución completa del algoritmo SA.
 \end{itemize}
 
 
