@@ -1,0 +1,869 @@
+{
+	"Archivo":	"C105_(50)",
+	"Tiempo Ejecucion en Minutos":	82,
+	"Poblacion":	10,
+	"Generaciones":	5,
+	"Alpha":	2.8110730526089078,
+	"Beta":	4.384133640389952,
+	"Gamma":	1.5495977390322824,
+	"Rho":	0.41659499302813552,
+	"Numero Hormigas":	9,
+	"Porcentaje Hormigas":	0.30182222053493479,
+	"Numero Iteraciones ACO":	101,
+	"Temperatura Inicial":	1666.181815446439,
+	"Temperatura Final":	0.03219074294305907,
+	"Factor de Enfriamiento":	0.9796449476897926,
+	"Numero Iteraciones SA":	175,
+	"Fitness Global":	362.4,
+	"Flota":	[{
+			"Id_vehiculo":	1,
+			"Velocidad":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	140,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1169,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	11,
+			"Fitness Vehiculo":	59.7,
+			"Ruta Clientes":	[0, 43, 42, 41, 40, 44, 46, 45, 48, 50, 49, 47, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	33,
+					"Y":	35
+				}, {
+					"X":	33,
+					"Y":	32
+				}, {
+					"X":	35,
+					"Y":	32
+				}, {
+					"X":	35,
+					"Y":	30
+				}, {
+					"X":	32,
+					"Y":	30
+				}, {
+					"X":	30,
+					"Y":	32
+				}, {
+					"X":	30,
+					"Y":	30
+				}, {
+					"X":	28,
+					"Y":	30
+				}, {
+					"X":	26,
+					"Y":	32
+				}, {
+					"X":	28,
+					"Y":	35
+				}, {
+					"X":	30,
+					"Y":	35
+				}, {
+					"X":	40,
+					"Y":	50
+				}],
+			"Detalles Cliente":	[{
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	0,
+					"Espera":	0,
+					"Inicio Servicio":	0,
+					"Duración":	0,
+					"Salida":	0
+				}, {
+					"Cliente":	43,
+					"Demanda":	10,
+					"Ventana Inicial":	16,
+					"Ventana Final":	144,
+					"Llegada":	16.5,
+					"Espera":	0,
+					"Inicio Servicio":	16.5,
+					"Duración":	90,
+					"Salida":	106.5
+				}, {
+					"Cliente":	42,
+					"Demanda":	20,
+					"Ventana Inicial":	27,
+					"Ventana Final":	190,
+					"Llegada":	109.5,
+					"Espera":	0,
+					"Inicio Servicio":	109.5,
+					"Duración":	90,
+					"Salida":	199.5
+				}, {
+					"Cliente":	41,
+					"Demanda":	10,
+					"Ventana Inicial":	132,
+					"Ventana Final":	269,
+					"Llegada":	201.5,
+					"Espera":	0,
+					"Inicio Servicio":	201.5,
+					"Duración":	90,
+					"Salida":	291.5
+				}, {
+					"Cliente":	40,
+					"Demanda":	10,
+					"Ventana Inicial":	236,
+					"Ventana Final":	349,
+					"Llegada":	293.5,
+					"Espera":	0,
+					"Inicio Servicio":	293.5,
+					"Duración":	90,
+					"Salida":	383.5
+				}, {
+					"Cliente":	44,
+					"Demanda":	10,
+					"Ventana Inicial":	332,
+					"Ventana Final":	439,
+					"Llegada":	386.5,
+					"Espera":	0,
+					"Inicio Servicio":	386.5,
+					"Duración":	90,
+					"Salida":	476.5
+				}, {
+					"Cliente":	46,
+					"Demanda":	30,
+					"Ventana Inicial":	417,
+					"Ventana Final":	540,
+					"Llegada":	479.3,
+					"Espera":	0,
+					"Inicio Servicio":	479.3,
+					"Duración":	90,
+					"Salida":	569.3
+				}, {
+					"Cliente":	45,
+					"Demanda":	10,
+					"Ventana Inicial":	512,
+					"Ventana Final":	629,
+					"Llegada":	571.3,
+					"Espera":	0,
+					"Inicio Servicio":	571.3,
+					"Duración":	90,
+					"Salida":	661.3
+				}, {
+					"Cliente":	48,
+					"Demanda":	10,
+					"Ventana Inicial":	601,
+					"Ventana Final":	724,
+					"Llegada":	663.3,
+					"Espera":	0,
+					"Inicio Servicio":	663.3,
+					"Duración":	90,
+					"Salida":	753.3
+				}, {
+					"Cliente":	50,
+					"Demanda":	10,
+					"Ventana Inicial":	783,
+					"Ventana Final":	912,
+					"Llegada":	756.1,
+					"Espera":	26.900000000000091,
+					"Inicio Servicio":	783,
+					"Duración":	90,
+					"Salida":	873
+				}, {
+					"Cliente":	49,
+					"Demanda":	10,
+					"Ventana Inicial":	969,
+					"Ventana Final":	1098,
+					"Llegada":	876.6,
+					"Espera":	92.399999999999977,
+					"Inicio Servicio":	969,
+					"Duración":	90,
+					"Salida":	1059
+				}, {
+					"Cliente":	47,
+					"Demanda":	10,
+					"Ventana Inicial":	982,
+					"Ventana Final":	1127,
+					"Llegada":	1061,
+					"Espera":	0,
+					"Inicio Servicio":	1061,
+					"Duración":	90,
+					"Salida":	1151
+				}, {
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	1169,
+					"Espera":	0,
+					"Inicio Servicio":	1169,
+					"Duración":	0,
+					"Salida":	1169
+				}]
+		}, {
+			"Id_vehiculo":	2,
+			"Velocidad":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	170,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1040.7,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	11,
+			"Fitness Vehiculo":	50.7,
+			"Ruta Clientes":	[0, 20, 24, 25, 27, 29, 30, 28, 26, 23, 22, 21, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	30,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	50
+				}, {
+					"X":	25,
+					"Y":	52
+				}, {
+					"X":	23,
+					"Y":	52
+				}, {
+					"X":	20,
+					"Y":	50
+				}, {
+					"X":	20,
+					"Y":	55
+				}, {
+					"X":	23,
+					"Y":	55
+				}, {
+					"X":	25,
+					"Y":	55
+				}, {
+					"X":	28,
+					"Y":	55
+				}, {
+					"X":	28,
+					"Y":	52
+				}, {
+					"X":	30,
+					"Y":	52
+				}, {
+					"X":	40,
+					"Y":	50
+				}],
+			"Detalles Cliente":	[{
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	0,
+					"Espera":	0,
+					"Inicio Servicio":	0,
+					"Duración":	0,
+					"Salida":	0
+				}, {
+					"Cliente":	20,
+					"Demanda":	10,
+					"Ventana Inicial":	10,
+					"Ventana Final":	137,
+					"Llegada":	10,
+					"Espera":	0,
+					"Inicio Servicio":	10,
+					"Duración":	90,
+					"Salida":	100
+				}, {
+					"Cliente":	24,
+					"Demanda":	10,
+					"Ventana Inicial":	25,
+					"Ventana Final":	184,
+					"Llegada":	105,
+					"Espera":	0,
+					"Inicio Servicio":	105,
+					"Duración":	90,
+					"Salida":	195
+				}, {
+					"Cliente":	25,
+					"Demanda":	40,
+					"Ventana Inicial":	142,
+					"Ventana Final":	251,
+					"Llegada":	197,
+					"Espera":	0,
+					"Inicio Servicio":	197,
+					"Duración":	90,
+					"Salida":	287
+				}, {
+					"Cliente":	27,
+					"Demanda":	10,
+					"Ventana Inicial":	234,
+					"Ventana Final":	343,
+					"Llegada":	289,
+					"Espera":	0,
+					"Inicio Servicio":	289,
+					"Duración":	90,
+					"Salida":	379
+				}, {
+					"Cliente":	29,
+					"Demanda":	10,
+					"Ventana Inicial":	335,
+					"Ventana Final":	428,
+					"Llegada":	382.6,
+					"Espera":	0,
+					"Inicio Servicio":	382.6,
+					"Duración":	90,
+					"Salida":	472.6
+				}, {
+					"Cliente":	30,
+					"Demanda":	10,
+					"Ventana Inicial":	422,
+					"Ventana Final":	531,
+					"Llegada":	477.6,
+					"Espera":	0,
+					"Inicio Servicio":	477.6,
+					"Duración":	90,
+					"Salida":	567.6
+				}, {
+					"Cliente":	28,
+					"Demanda":	20,
+					"Ventana Inicial":	523,
+					"Ventana Final":	616,
+					"Llegada":	570.6,
+					"Espera":	0,
+					"Inicio Servicio":	570.6,
+					"Duración":	90,
+					"Salida":	660.6
+				}, {
+					"Cliente":	26,
+					"Demanda":	10,
+					"Ventana Inicial":	582,
+					"Ventana Final":	741,
+					"Llegada":	662.6,
+					"Espera":	0,
+					"Inicio Servicio":	662.6,
+					"Duración":	90,
+					"Salida":	752.6
+				}, {
+					"Cliente":	23,
+					"Demanda":	10,
+					"Ventana Inicial":	709,
+					"Ventana Final":	800,
+					"Llegada":	755.6,
+					"Espera":	0,
+					"Inicio Servicio":	755.6,
+					"Duración":	90,
+					"Salida":	845.6
+				}, {
+					"Cliente":	22,
+					"Demanda":	20,
+					"Ventana Inicial":	776,
+					"Ventana Final":	919,
+					"Llegada":	848.6,
+					"Espera":	0,
+					"Inicio Servicio":	848.6,
+					"Duración":	90,
+					"Salida":	938.6
+				}, {
+					"Cliente":	21,
+					"Demanda":	20,
+					"Ventana Inicial":	888,
+					"Ventana Final":	991,
+					"Llegada":	940.6,
+					"Espera":	0,
+					"Inicio Servicio":	940.6,
+					"Duración":	90,
+					"Salida":	1030.6
+				}, {
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	1040.7,
+					"Espera":	0,
+					"Inicio Servicio":	1040.7,
+					"Duración":	0,
+					"Salida":	1040.7
+				}]
+		}, {
+			"Id_vehiculo":	3,
+			"Velocidad":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	160,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	1049.2,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	11,
+			"Fitness Vehiculo":	59.2,
+			"Ruta Clientes":	[0, 5, 3, 7, 8, 10, 11, 9, 6, 4, 2, 1, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	42,
+					"Y":	65
+				}, {
+					"X":	42,
+					"Y":	66
+				}, {
+					"X":	40,
+					"Y":	66
+				}, {
+					"X":	38,
+					"Y":	68
+				}, {
+					"X":	35,
+					"Y":	66
+				}, {
+					"X":	35,
+					"Y":	69
+				}, {
+					"X":	38,
+					"Y":	70
+				}, {
+					"X":	40,
+					"Y":	69
+				}, {
+					"X":	42,
+					"Y":	68
+				}, {
+					"X":	45,
+					"Y":	70
+				}, {
+					"X":	45,
+					"Y":	68
+				}, {
+					"X":	40,
+					"Y":	50
+				}],
+			"Detalles Cliente":	[{
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	0,
+					"Espera":	0,
+					"Inicio Servicio":	0,
+					"Duración":	0,
+					"Salida":	0
+				}, {
+					"Cliente":	5,
+					"Demanda":	10,
+					"Ventana Inicial":	15,
+					"Ventana Final":	120,
+					"Llegada":	15.1,
+					"Espera":	0,
+					"Inicio Servicio":	15.1,
+					"Duración":	90,
+					"Salida":	105.1
+				}, {
+					"Cliente":	3,
+					"Demanda":	10,
+					"Ventana Inicial":	25,
+					"Ventana Final":	186,
+					"Llegada":	106.1,
+					"Espera":	0,
+					"Inicio Servicio":	106.1,
+					"Duración":	90,
+					"Salida":	196.1
+				}, {
+					"Cliente":	7,
+					"Demanda":	20,
+					"Ventana Inicial":	142,
+					"Ventana Final":	253,
+					"Llegada":	198.1,
+					"Espera":	0,
+					"Inicio Servicio":	198.1,
+					"Duración":	90,
+					"Salida":	288.1
+				}, {
+					"Cliente":	8,
+					"Demanda":	20,
+					"Ventana Inicial":	220,
+					"Ventana Final":	359,
+					"Llegada":	290.9,
+					"Espera":	0,
+					"Inicio Servicio":	290.9,
+					"Duración":	90,
+					"Salida":	380.9
+				}, {
+					"Cliente":	10,
+					"Demanda":	10,
+					"Ventana Inicial":	331,
+					"Ventana Final":	436,
+					"Llegada":	384.5,
+					"Espera":	0,
+					"Inicio Servicio":	384.5,
+					"Duración":	90,
+					"Salida":	474.5
+				}, {
+					"Cliente":	11,
+					"Demanda":	10,
+					"Ventana Inicial":	420,
+					"Ventana Final":	533,
+					"Llegada":	477.5,
+					"Espera":	0,
+					"Inicio Servicio":	477.5,
+					"Duración":	90,
+					"Salida":	567.5
+				}, {
+					"Cliente":	9,
+					"Demanda":	10,
+					"Ventana Inicial":	499,
+					"Ventana Final":	640,
+					"Llegada":	570.6,
+					"Espera":	0,
+					"Inicio Servicio":	570.6,
+					"Duración":	90,
+					"Salida":	660.6
+				}, {
+					"Cliente":	6,
+					"Demanda":	20,
+					"Ventana Inicial":	580,
+					"Ventana Final":	743,
+					"Llegada":	662.8,
+					"Espera":	0,
+					"Inicio Servicio":	662.8,
+					"Duración":	90,
+					"Salida":	752.8
+				}, {
+					"Cliente":	4,
+					"Demanda":	10,
+					"Ventana Inicial":	699,
+					"Ventana Final":	810,
+					"Llegada":	755,
+					"Espera":	0,
+					"Inicio Servicio":	755,
+					"Duración":	90,
+					"Salida":	845
+				}, {
+					"Cliente":	2,
+					"Demanda":	30,
+					"Ventana Inicial":	802,
+					"Ventana Final":	893,
+					"Llegada":	848.6,
+					"Espera":	0,
+					"Inicio Servicio":	848.6,
+					"Duración":	90,
+					"Salida":	938.6
+				}, {
+					"Cliente":	1,
+					"Demanda":	10,
+					"Ventana Inicial":	885,
+					"Ventana Final":	994,
+					"Llegada":	940.6,
+					"Espera":	0,
+					"Inicio Servicio":	940.6,
+					"Duración":	90,
+					"Salida":	1030.6
+				}, {
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	1049.2,
+					"Espera":	0,
+					"Inicio Servicio":	1049.2,
+					"Duración":	0,
+					"Salida":	1049.2
+				}]
+		}, {
+			"Id_vehiculo":	4,
+			"Velocidad":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	190,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	815.8,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	8,
+			"Fitness Vehiculo":	95.8,
+			"Ruta Clientes":	[0, 13, 17, 18, 19, 15, 16, 14, 12, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	22,
+					"Y":	75
+				}, {
+					"X":	18,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	75
+				}, {
+					"X":	15,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	80
+				}, {
+					"X":	20,
+					"Y":	85
+				}, {
+					"X":	22,
+					"Y":	85
+				}, {
+					"X":	25,
+					"Y":	85
+				}, {
+					"X":	40,
+					"Y":	50
+				}],
+			"Detalles Cliente":	[{
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	0,
+					"Espera":	0,
+					"Inicio Servicio":	0,
+					"Duración":	0,
+					"Salida":	0
+				}, {
+					"Cliente":	13,
+					"Demanda":	30,
+					"Ventana Inicial":	30,
+					"Ventana Final":	155,
+					"Llegada":	30.8,
+					"Espera":	0,
+					"Inicio Servicio":	30.8,
+					"Duración":	90,
+					"Salida":	120.8
+				}, {
+					"Cliente":	17,
+					"Demanda":	20,
+					"Ventana Inicial":	75,
+					"Ventana Final":	172,
+					"Llegada":	124.8,
+					"Espera":	0,
+					"Inicio Servicio":	124.8,
+					"Duración":	90,
+					"Salida":	214.8
+				}, {
+					"Cliente":	18,
+					"Demanda":	20,
+					"Ventana Inicial":	142,
+					"Ventana Final":	291,
+					"Llegada":	217.8,
+					"Espera":	0,
+					"Inicio Servicio":	217.8,
+					"Duración":	90,
+					"Salida":	307.8
+				}, {
+					"Cliente":	19,
+					"Demanda":	10,
+					"Ventana Inicial":	244,
+					"Ventana Final":	379,
+					"Llegada":	312.8,
+					"Espera":	0,
+					"Inicio Servicio":	312.8,
+					"Duración":	90,
+					"Salida":	402.8
+				}, {
+					"Cliente":	15,
+					"Demanda":	40,
+					"Ventana Inicial":	362,
+					"Ventana Final":	451,
+					"Llegada":	407.8,
+					"Espera":	0,
+					"Inicio Servicio":	407.8,
+					"Duración":	90,
+					"Salida":	497.8
+				}, {
+					"Cliente":	16,
+					"Demanda":	40,
+					"Ventana Inicial":	448,
+					"Ventana Final":	555,
+					"Llegada":	502.8,
+					"Espera":	0,
+					"Inicio Servicio":	502.8,
+					"Duración":	90,
+					"Salida":	592.8
+				}, {
+					"Cliente":	14,
+					"Demanda":	10,
+					"Ventana Inicial":	541,
+					"Ventana Final":	646,
+					"Llegada":	594.8,
+					"Espera":	0,
+					"Inicio Servicio":	594.8,
+					"Duración":	90,
+					"Salida":	684.8
+				}, {
+					"Cliente":	12,
+					"Demanda":	20,
+					"Ventana Inicial":	617,
+					"Ventana Final":	756,
+					"Llegada":	687.8,
+					"Espera":	0,
+					"Inicio Servicio":	687.8,
+					"Duración":	90,
+					"Salida":	777.8
+				}, {
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	815.8,
+					"Espera":	0,
+					"Inicio Servicio":	815.8,
+					"Duración":	0,
+					"Salida":	815.8
+				}]
+		}, {
+			"Id_vehiculo":	5,
+			"Velocidad":	1,
+			"Capacidad Maxima":	200,
+			"Capacidad Acumulada":	200,
+			"Tiempo Salida":	0,
+			"Tiempo Llegada":	907,
+			"Ventana Inicial":	0,
+			"Ventana Final":	1236,
+			"Numero Clientes":	9,
+			"Fitness Vehiculo":	97,
+			"Ruta Clientes":	[0, 32, 33, 31, 35, 37, 38, 39, 36, 34, 0],
+			"Ruta Coordenadas":	[{
+					"X":	40,
+					"Y":	50
+				}, {
+					"X":	10,
+					"Y":	40
+				}, {
+					"X":	8,
+					"Y":	40
+				}, {
+					"X":	10,
+					"Y":	35
+				}, {
+					"X":	5,
+					"Y":	35
+				}, {
+					"X":	2,
+					"Y":	40
+				}, {
+					"X":	0,
+					"Y":	40
+				}, {
+					"X":	0,
+					"Y":	45
+				}, {
+					"X":	5,
+					"Y":	45
+				}, {
+					"X":	8,
+					"Y":	45
+				}, {
+					"X":	40,
+					"Y":	50
+				}],
+			"Detalles Cliente":	[{
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	0,
+					"Espera":	0,
+					"Inicio Servicio":	0,
+					"Duración":	0,
+					"Salida":	0
+				}, {
+					"Cliente":	32,
+					"Demanda":	30,
+					"Ventana Inicial":	31,
+					"Ventana Final":	170,
+					"Llegada":	31.6,
+					"Espera":	0,
+					"Inicio Servicio":	31.6,
+					"Duración":	90,
+					"Salida":	121.6
+				}, {
+					"Cliente":	33,
+					"Demanda":	40,
+					"Ventana Inicial":	52,
+					"Ventana Final":	193,
+					"Llegada":	123.6,
+					"Espera":	0,
+					"Inicio Servicio":	123.6,
+					"Duración":	90,
+					"Salida":	213.6
+				}, {
+					"Cliente":	31,
+					"Demanda":	20,
+					"Ventana Inicial":	181,
+					"Ventana Final":	256,
+					"Llegada":	218.9,
+					"Espera":	0,
+					"Inicio Servicio":	218.9,
+					"Duración":	90,
+					"Salida":	308.9
+				}, {
+					"Cliente":	35,
+					"Demanda":	10,
+					"Ventana Inicial":	252,
+					"Ventana Final":	375,
+					"Llegada":	313.9,
+					"Espera":	0,
+					"Inicio Servicio":	313.9,
+					"Duración":	90,
+					"Salida":	403.9
+				}, {
+					"Cliente":	37,
+					"Demanda":	20,
+					"Ventana Inicial":	357,
+					"Ventana Final":	460,
+					"Llegada":	409.7,
+					"Espera":	0,
+					"Inicio Servicio":	409.7,
+					"Duración":	90,
+					"Salida":	499.7
+				}, {
+					"Cliente":	38,
+					"Demanda":	30,
+					"Ventana Inicial":	457,
+					"Ventana Final":	544,
+					"Llegada":	501.7,
+					"Espera":	0,
+					"Inicio Servicio":	501.7,
+					"Duración":	90,
+					"Salida":	591.7
+				}, {
+					"Cliente":	39,
+					"Demanda":	20,
+					"Ventana Inicial":	538,
+					"Ventana Final":	653,
+					"Llegada":	596.7,
+					"Espera":	0,
+					"Inicio Servicio":	596.7,
+					"Duración":	90,
+					"Salida":	686.7
+				}, {
+					"Cliente":	36,
+					"Demanda":	10,
+					"Ventana Inicial":	639,
+					"Ventana Final":	742,
+					"Llegada":	691.7,
+					"Espera":	0,
+					"Inicio Servicio":	691.7,
+					"Duración":	90,
+					"Salida":	781.7
+				}, {
+					"Cliente":	34,
+					"Demanda":	20,
+					"Ventana Inicial":	719,
+					"Ventana Final":	848,
+					"Llegada":	784.7,
+					"Espera":	0,
+					"Inicio Servicio":	784.7,
+					"Duración":	90,
+					"Salida":	874.7
+				}, {
+					"Cliente":	"Depósito",
+					"Demanda":	0,
+					"Ventana Inicial":	0,
+					"Ventana Final":	1236,
+					"Llegada":	907,
+					"Espera":	0,
+					"Inicio Servicio":	907,
+					"Duración":	0,
+					"Salida":	907
+				}]
+		}]
+}
