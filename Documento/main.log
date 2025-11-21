@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  21 NOV 2025 02:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.5.29)  21 NOV 2025 02:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1087,7 +1087,9 @@ Cap\'{\i }tulo 4.
 
 ]
 Cap\'{\i }tulo 5.
-[67] [68
+[67
+
+] [68
 
 ] (./main.bbl [69
 
@@ -1101,25 +1103,25 @@ LaTeX Info: Redefining \% on input line 231.
 LaTeX Info: Redefining \. on input line 315.
 LaTeX Info: Redefining \% on input line 315.
  [72])
-LaTeX Info: Redefining \. on input line 2405.
-LaTeX Info: Redefining \% on input line 2405.
+LaTeX Info: Redefining \. on input line 2550.
+LaTeX Info: Redefining \% on input line 2550.
  [73] (./main.aux
 LaTeX Info: Redefining \. on input line 26.
 LaTeX Info: Redefining \% on input line 26.
 )
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 66D5D08899491A1287781E1C4935E98F;15200.
+(rerunfilecheck)             Checksum: 1274849C17964C0B62E8F8490EDCF8D2;15294.
  ) 
 Here is how much of TeX's memory you used:
  23333 strings out of 480247
  385561 string characters out of 5896151
- 713590 words of memory out of 5000000
+ 713607 words of memory out of 5000000
  40227 multiletter control sequences out of 15000+600000
  531223 words of font info for 155 fonts, out of 8000000 for 9000
  17 hyphenation exceptions out of 8191
  60i,16n,63p,1050b,808s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/amg/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on main.pdf (97 pages, 30177347 bytes).
+Output written on main.pdf (97 pages, 30177371 bytes).
 PDF statistics:
  2360 PDF objects out of 2487 (max. 8388607)
  1686 compressed objects within 17 object streams

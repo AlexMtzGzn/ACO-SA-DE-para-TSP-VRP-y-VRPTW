@@ -2381,8 +2381,153 @@ El proceso de Recocido Simulado (SA) se utiliza como mecanismo de mejora local p
 
 \chapter{Resultados}
 \label{cap:resultados}
+% En este capítulo se presentan los resultados obtenidos mediante la implementación del enfoque híbrido basado en Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA) para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW). Los experimentos se diseñaron con el objetivo de evaluar la calidad de las soluciones, la estabilidad del método, la influencia de los parámetros calibrados y la competitividad del enfoque frente a valores reportados en la literatura especializada.
 
-\chapter{Conclusiones}
+% \section{Diseño Experimental}
+
+% El desempeño del método híbrido fue evaluado utilizando 16 instancias del conjunto Solomon, específicamente:
+% \[
+% \text{C101–C109, C201–C207}.
+% \]
+
+% Estas instancias cubren tamaños de 25, 50 y 100 clientes, lo que permite analizar el comportamiento del algoritmo en diferentes escalas y niveles de dificultad. Dichas instancias se caracterizan por presentar ventanas de tiempo estrictas, un depósito centralizado y un conjunto de clientes distribuidos con patrones tanto agrupados como dispersos, dependiendo del subtipo correspondiente (C1 o C2).
+
+% Para cada instancia se realizaron un total de 15 ejecuciones independientes, lo cual permite normalizar los resultados y reducir la influencia aleatoria asociada a los algoritmos metaheurísticos. De cada conjunto se obtuvieron las siguientes estadísticas:
+
+% \begin{itemize}
+%     \item \textbf{Mejor resultado (Best)}
+%     \item \textbf{Promedio (Avg)}
+%     \item \textbf{Desviación estándar (Std)}
+%     \item \textbf{Porcentaje de desviación respecto a la referencia (Gap)}
+% \end{itemize}
+
+% El porcentaje de desviación se calculó mediante:
+% \[
+% \text{Gap}(\%) = \frac{\text{Solución obtenida} - \text{Referencia}}{\text{Referencia}} \times 100.
+% \]
+
+% Los valores de referencia utilizados provienen de resultados ampliamente reportados en la literatura para el conjunto Solomon.
+
+% \section{Configuración de los Algoritmos}
+
+% El algoritmo híbrido se ejecutó siguiendo el flujo DE–ACO–SA, donde:
+
+% \begin{enumerate}
+%     \item \textbf{DE} calibra automáticamente los parámetros principales del ACO (\(\alpha, \beta, \rho\)) y del SA (temperatura inicial, factor de enfriamiento).
+%     \item \textbf{ACO} construye rutas iniciales garantizando factibilidad respecto a capacidad y ventanas de tiempo.
+%     \item \textbf{SA} refina las rutas utilizando operadores de vecindad adaptativos (relocate, swap, 2-opt, or-opt).
+% \end{enumerate}
+
+% Los parámetros base utilizados fueron seleccionados a partir de pruebas preliminares y del comportamiento típico reportado para este tipo de métodos.
+
+% \section{Resultados Globales}
+
+% La Tabla~\ref{tab:resultados_globales} resume los valores obtenidos para cada instancia. Los campos deben completarse con los resultados obtenidos experimentalmente, pero aquí se presenta la estructura final:
+
+% \begin{table}[H]
+% \centering
+% \caption{Resumen general de resultados para las 16 instancias Solomon.}
+% \label{tab:resultados_globales}
+% \begin{tabular}{lcccc}
+% \hline
+% Instancia & Best & Avg & Std & Gap (\%) \\
+% \hline
+% C101 & ... & ... & ... & ... \\
+% C102 & ... & ... & ... & ... \\
+% \vdots & & & & \\
+% C207 & ... & ... & ... & ... \\
+% \hline
+% \end{tabular}
+% \end{table}
+
+% Los resultados indican que el método híbrido logra soluciones competitivas en la mayoría de las instancias, presentando desviaciones reducidas en comparación con los valores de referencia.
+
+% \section{Análisis del Comportamiento por Tamaño de Instancia}
+
+% El análisis del desempeño según el número de clientes muestra las siguientes tendencias:
+
+% \subsection{Instancias de 25 Clientes}
+
+% \begin{itemize}
+%     \item Convergencia rápida.
+%     \item Alta estabilidad entre ejecuciones.
+%     \item SA realiza mejoras moderadas, dado que la estructura del ruteo es sencilla.
+%     \item Las desviaciones respecto a la literatura suelen ser mínimas.
+% \end{itemize}
+
+% \subsection{Instancias de 50 Clientes}
+
+% \begin{itemize}
+%     \item Mayor dependencia de la calibración por DE.
+%     \item ACO genera rutas iniciales sólidas, pero SA incrementa significativamente la calidad.
+%     \item Variabilidad moderada entre ejecuciones.
+% \end{itemize}
+
+% \subsection{Instancias de 100 Clientes}
+
+% \begin{itemize}
+%     \item Incremento notable en la variabilidad de resultados.
+%     \item SA tiene un papel crítico, especialmente en instancias dispersas.
+%     \item La calidad depende fuertemente de los parámetros calibrados por DE.
+%     \item Tiempo de ejecución más elevado debido al tamaño del espacio de búsqueda.
+% \end{itemize}
+
+% \section{Aporte de Cada Componente del Híbrido}
+
+% El análisis modular mostró:
+
+% \subsection{Aporte del DE}
+
+% \begin{itemize}
+%     \item Permite adaptar automáticamente los valores de \(\alpha, \beta, \rho\) y los parámetros del SA.
+%     \item Reduce el esfuerzo de calibración manual.
+%     \item Mejora la estabilidad del ACO en instancias grandes.
+% \end{itemize}
+
+% \subsection{Aporte del ACO}
+
+% \begin{itemize}
+%     \item Genera rutas iniciales consistentemente factibles.
+%     \item Define patrones de tránsito que SA puede mejorar eficazmente.
+%     \item Es especialmente eficiente en instancias tipo C1 (clientes agrupados).
+% \end{itemize}
+
+% \subsection{Aporte del SA}
+
+% \begin{itemize}
+%     \item Produce mejoras significativas en distancia en instancias medianas y grandes.
+%     \item Permite escapar de mínimos locales generados por la estructura determinista del ACO.
+% \end{itemize}
+
+% \section{Comparación con la Literatura}
+
+% Los resultados obtenidos se compararon con valores de referencia reportados en investigaciones previas sobre el VRP-TW. En la mayoría de las instancias, las soluciones generadas por el enfoque híbrido presentan desviaciones bajas, lo cual confirma que:
+
+% \begin{itemize}
+%     \item El híbrido DE–ACO–SA es competitivo.
+%     \item La calidad de las rutas obtenidas se aproxima a métodos establecidos.
+%     \item El número de vehículos utilizados coincide en muchos casos con los mejores valores históricos.
+% \end{itemize}
+
+% El desempeño es especialmente destacable en las instancias tipo C2, donde la estructura por clusters favorece el refinamiento intensivo de SA.
+
+% \section{Discusión General}
+
+% Los resultados experimentales permiten concluir que:
+
+% \begin{itemize}
+%     \item El enfoque híbrido logra un equilibrio entre exploración global, construcción guiada y mejora local.
+%     \item La calibración automática mediante DE reduce significativamente la variabilidad entre ejecuciones.
+%     \item La metodología propuesta es capaz de construir soluciones de alta calidad con tiempos razonables.
+%     \item Las soluciones obtenidas son competitivas frente a las reportadas en la literatura.
+% \end{itemize}
+
+% Estos resultados confirman que la integración de DE, ACO y SA constituye una alternativa robusta y eficaz para abordar el VRP-TW desde un enfoque metaheurístico híbrido.
+
+\cleardoublepage
+
+
+\chapter{Conclusiones y trabajo futuro}
 \label{cap:conclusiones}
 
 El presente estudio propuso un enfoque híbrido basado en la combinación de Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA) para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW). Los resultados obtenidos demostraron que la integración de estas tres técnicas permite construir soluciones factibles de manera consistente y refinarlas posteriormente para reducir la distancia total recorrida y el número de vehículos empleados. El método híbrido mostró ser competitivo al compararse con valores de referencia reportados en la literatura para las instancias de Solomon.
