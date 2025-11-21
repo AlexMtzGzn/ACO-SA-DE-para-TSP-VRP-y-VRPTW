@@ -26,10 +26,10 @@
 \contentsline {subsubsection}{\numberline {2.2.3.1}Clases P y NP}{10}{subsubsection.2.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.2.3.2}NP-Completo y NP-Difícil}{11}{subsubsection.2.2.3.2}%
 \contentsline {subsection}{\numberline {2.2.4}Problemas de Optimización Combinatoria}{12}{subsection.2.2.4}%
-\contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero (TSP)}{13}{subsubsection.2.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos (VRP)}{15}{subsubsection.2.2.4.2}%
-\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW)}{17}{subsubsection.2.2.4.3}%
-\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el VRP-TW}{21}{subsection.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero}{13}{subsubsection.2.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos}{15}{subsubsection.2.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo}{17}{subsubsection.2.2.4.3}%
+\contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el Problema de Ruteo de Vehículos con Ventanas de Tiempo}{21}{subsection.2.2.5}%
 \contentsline {subsubsection}{\numberline {2.2.5.1}Métodos Exactos}{21}{subsubsection.2.2.5.1}%
 \contentsline {subsubsection}{\numberline {2.2.5.2}Heurísticas}{22}{subsubsection.2.2.5.2}%
 \contentsline {subsubsection}{\numberline {2.2.5.3}Metaheurísticas}{24}{subsubsection.2.2.5.3}%
@@ -54,7 +54,7 @@
 \contentsline {subsubsection}{\numberline {3.2.2.6}Criterio de parada}{43}{subsubsection.3.2.2.6}%
 \contentsline {subsubsection}{\numberline {3.2.2.7}Pseudocódigo del Algoritmo Evolutivo Diferencial}{43}{subsubsection.3.2.2.7}%
 \contentsline {subsection}{\numberline {3.2.3}Construcción de rutas iniciales mediante Optimización por Colonia de Hormigas}{45}{subsection.3.2.3}%
-\contentsline {subsubsection}{\numberline {3.2.3.1}Fundamentos del algoritmo ACO}{45}{subsubsection.3.2.3.1}%
+\contentsline {subsubsection}{\numberline {3.2.3.1}Fundamentos del algoritmo Optimización por Colonia de Hormigas}{45}{subsubsection.3.2.3.1}%
 \contentsline {subsubsection}{\numberline {3.2.3.2}Construcción probabilística de rutas}{45}{subsubsection.3.2.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.3.3}Gestión de restricciones temporales}{47}{subsubsection.3.2.3.3}%
 \contentsline {subsubsection}{\numberline {3.2.3.4}Proceso de construcción de soluciones y gestión de flota}{47}{subsubsection.3.2.3.4}%
@@ -64,9 +64,9 @@
 \contentsline {paragraph}{Depósito de feromonas.}{50}{section*.32}%
 \contentsline {paragraph}{Refuerzo elitista.}{50}{section*.33}%
 \contentsline {subsubsection}{\numberline {3.2.3.7}Criterio de factibilidad}{51}{subsubsection.3.2.3.7}%
-\contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo del ACO integrado con Recocido Simulado}{52}{subsubsection.3.2.3.8}%
+\contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo de la Optimización por Colonia de Hormigas integrado con Recocido Simulado}{52}{subsubsection.3.2.3.8}%
 \contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado}{53}{subsection.3.2.4}%
-\contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo SA}{53}{subsubsection.3.2.4.1}%
+\contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo Recocido Simulado}{53}{subsubsection.3.2.4.1}%
 \contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{53}{subsubsection.3.2.4.2}%
 \contentsline {paragraph}{Estrategia adaptativa de selección:}{56}{section*.34}%
 \contentsline {subsubsection}{\numberline {3.2.4.3}Criterio de aceptación de Metropolis}{57}{subsubsection.3.2.4.3}%

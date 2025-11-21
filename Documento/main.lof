@@ -4,16 +4,16 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Tasa de crecimiento de varias funciones en análisis de algoritmos \cite {numerentur2019}.}}{9}{figure.2.1}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Clasificación de los problemas computacionales en decidibles e indecidibles~\citep {maldonado2013problema}.}}{10}{figure.2.2}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Relación entre las clases de complejidad: P, NP, NP-completo y NP-difícil.}}{12}{figure.2.3}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Ejemplificación de una solución al Problema del Agente Viajero (TSP).}}{13}{figure.2.4}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos (VRP).}}{15}{figure.2.5}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW).}}{18}{figure.2.6}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Ejemplificación de una solución al Problema del Agente Viajero.}}{13}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos.}}{15}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo.}}{18}{figure.2.6}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Pseudocódigo del algoritmo de Evolución Diferencial (DE) aplicado al problema VRP-TW.}}{44}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Pseudocódigo de verificación de clientes factibles en ACO.}}{46}{figure.3.2}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Pseudocódigo del algoritmo de Evolución Diferencial aplicado al problema VRP-TW.}}{44}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Pseudocódigo de verificación de clientes factibles en Optimización por Colonia de Hormigas.}}{46}{figure.3.2}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Pseudocódigo del proceso de construcción de una solución completa por una hormiga.}}{48}{figure.3.3}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Pseudocódigo del cálculo del fitness total de una solución.}}{49}{figure.3.4}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Pseudocódigo del proceso de actualización de feromonas en tres fases: evaporación, depósito y refuerzo elitista.}}{51}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Pseudocódigo del ACO con Recocido Simulado para VRP-TW.}}{52}{figure.3.6}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Pseudocódigo de la Optimización por Colonia de Hormigas con Recocido Simulado para VRP-TW.}}{52}{figure.3.6}%
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Pseudocódigo del operador Swap Intra-Ruta.}}{54}{figure.3.7}%
 \contentsline {figure}{\numberline {3.8}{\ignorespaces Pseudocódigo del operador 2-opt.}}{54}{figure.3.8}%
 \contentsline {figure}{\numberline {3.9}{\ignorespaces Pseudocódigo del operador Or-opt.}}{55}{figure.3.9}%
