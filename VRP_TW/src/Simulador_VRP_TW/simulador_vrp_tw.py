@@ -249,4 +249,4 @@ if __name__ == "__main__":
     simulator.plot_static_routes()
     
     # Animar las rutas
-    simulator.animate_routes()
+    simulator.animate_routes() 
