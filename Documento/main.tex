@@ -8,17 +8,14 @@
 \usepackage{tocloft}
 \usepackage{tabularx}
 
-
 \newcommand{\listequationsname}{Índice de fórmulas}
 \newlistof{myequations}{eq}{\listequationsname}
 \addto\captionsspanish{\renewcommand{\listtablename}{Índice de tablas}}
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
 \addto\captionsspanish{\renewcommand{\listfigurename}{Índice de figuras}}
 \addto\captionsspanish{\renewcommand{\listequationsname}{Índice de fórmulas}}
 
-
 \usepackage{mathpazo}
-
-
 \usepackage{graphicx}
 \usepackage{float}  
 \raggedbottom
@@ -27,7 +24,6 @@
 \usepackage{amsfonts, amsmath, amssymb, amsthm} 
 \usepackage[linesnumbered,ruled,vlined,algochapter,longend]{algorithm2e}
 \renewcommand{\algorithmcfname}{Pseudocódigo}
-
 
 \usepackage{geometry}
 \geometry{
@@ -50,10 +46,7 @@
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
 
-
 \usepackage{hyperref}
-
-
 \usepackage{natbib}
 
 \hypersetup{
@@ -65,7 +58,6 @@
     pdfauthor={Alejandro Martínez Guzmán}
 }
 
-
 \makeatletter
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
 \hbox{}
@@ -75,8 +67,6 @@
 \makeatother
 
 \hyphenation{Colores fa-mi-lia caracte-rizarlos}
-
-
 \newtheorem{teo}{Teorema}[chapter]
 \newtheorem{defi}{Definición}[chapter]
 \newtheorem{coro}{Corolario}[chapter]
@@ -84,11 +74,7 @@
 \newtheorem{prop}{Proposición}[chapter]
 \newtheorem{ejemplo}{Ejemplo}[chapter]
 \newtheorem{obs}{Observación}[chapter]
-\newenvironment{demo}{
-  \par\noindent\textbf{Demostración:}\quad
-}{
-  \hfill$\square$\par
-}
+\newenvironment{demo}{\par\noindent\textbf{Demostración:}\quad}{\hfill$\square$\par}
 
 
 \newcommand{\titulo}[1]{\def\eltitulo{#1}}
@@ -167,33 +153,33 @@ Yo, \elnombre, declaro que este trabajo titulado
 \addcontentsline{toc}{chapter}{Agradecimientos y Dedicatoria}
 \begin{flushleft}
 
-	Quisiera comenzar agradeciendo a Dios, por ser mi guía y acompañante en cada etapa de mi vida académica. Su presencia me ha dado fortaleza y sabiduría para superar los retos y alcanzar mis metas. \\
+	% Quisiera comenzar agradeciendo a Dios, por ser mi guía y acompañante en cada etapa de mi vida académica. Su presencia me ha dado fortaleza y sabiduría para superar los retos y alcanzar mis metas. \\
 
-	A la Universidad Autónoma Metropolitana, en especial a la Unidad Cuajimalpa y al Departamento de Matemáticas Aplicadas y Sistemas, por ser una pieza clave en mi formación académica, profesional y personal, sin dejar atrás a cada uno de mis profesores, de quienes siempre guardaré un recuerdo especial. \\
+	% A la Universidad Autónoma Metropolitana, en especial a la Unidad Cuajimalpa y al Departamento de Matemáticas Aplicadas y Sistemas, por ser una pieza clave en mi formación académica, profesional y personal, sin dejar atrás a cada uno de mis profesores, de quienes siempre guardaré un recuerdo especial. \\
 
-	Al Dr. Edwin Montes Orozco, amigo, profesor y asesor de este proyecto, por su constante apoyo, orientación, paciencia y valiosos consejos durante todo el proceso de investigación y desarrollo. Su conocimiento, experiencia y confianza fueron determinantes para la culminación exitosa de este trabajo, así como su experticia compartida en proyectos de la industria. \\
+	% Al Dr. Edwin Montes Orozco, amigo, profesor y asesor de este proyecto, por su constante apoyo, orientación, paciencia y valiosos consejos durante todo el proceso de investigación y desarrollo. Su conocimiento, experiencia y confianza fueron determinantes para la culminación exitosa de este trabajo, así como su experticia compartida en proyectos de la industria. \\
 
-	A mis padres, Laura y Alejandro, por creer siempre en mí, apoyarme incondicionalmente y enseñarme a confiar en mis capacidades. Su amor, cariño, motivación y consejos constantes han sido el pilar que me sostiene y la inspiración para esforzarme y alcanzar mis metas. \\
+	% A mis padres, Laura y Alejandro, por creer siempre en mí, apoyarme incondicionalmente y enseñarme a confiar en mis capacidades. Su amor, cariño, motivación y consejos constantes han sido el pilar que me sostiene y la inspiración para esforzarme y alcanzar mis metas. \\
 
-	A mi hermana Linda, por su apoyo, compañía y amor incondicional, siempre motivándome y acompañándome en cada etapa de mi vida. \\
+	% A mi hermana Linda, por su apoyo, compañía y amor incondicional, siempre motivándome y acompañándome en cada etapa de mi vida. \\
 
-	A mis abuelos maternos, Margarita y Salvador, gracias por consentirme, brindarme cariño y enseñanzas que han marcado mi vida desde pequeño. \\
+	% A mis abuelos maternos, Margarita y Salvador, gracias por consentirme, brindarme cariño y enseñanzas que han marcado mi vida desde pequeño. \\
 
-	A mis abuelos paternos, Flor y Trinidad, gracias por su apoyo, ejemplo y cariño constante, que me han acompañado en cada paso de mi formación y crecimiento personal. \\
+	% A mis abuelos paternos, Flor y Trinidad, gracias por su apoyo, ejemplo y cariño constante, que me han acompañado en cada paso de mi formación y crecimiento personal. \\
 
-	A Alpha \\
+	% A Alpha \\
 
-	A Jaime López, por ser mi gran amigo, por estar siempre dispuesto a ayudar y hacerme sentir que puedo contar con él para lo que sea. \\
+	% A Jaime López, por ser mi gran amigo, por estar siempre dispuesto a ayudar y hacerme sentir que puedo contar con él para lo que sea. \\
 
-	A Sara Hernadez, \\
+	% A Sara Hernadez, \\
 
-	A Rebeca López, por recordarme que enseñar también es aprender. \\
+	% A Rebeca López, por recordarme que enseñar también es aprender. \\
 
-	A Alfredo López, \\
+	% A Alfredo López, \\
 
-	A mi tío Javier Martínez, quien me introdujo al mundo de la computación cuando era niño y a quien considero una fuente de inspiración al elegir esta carrera. \\
+	% A mi tío Javier Martínez, quien me introdujo al mundo de la computación cuando era niño y a quien considero una fuente de inspiración al elegir esta carrera. \\
 
-	A todos, gracias por ser parte de este gran sueño llamado Ingeniería en Computación. \\
+	% A todos, gracias por ser parte de este gran sueño llamado Ingeniería en Computación. \\
 
 	% Finalmente, quiero agradecer a mis amigos \textbf{Bruno Meneses Fuentes}, por ser mi primer amigo y acompañarme durante toda la carrera; \textbf{Jaime Hilich}, \textbf{Yoshua Valdez} y \textbf{Eduardo González}, por su apoyo, camaradería y motivación en los momentos más difíciles y felices de esta etapa.
 \end{flushleft}
@@ -387,7 +373,7 @@ En el Capítulo 1 se presenta la introducción del trabajo. Aquí se aborda el p
 
 En el Capítulo 2 se desarrolla el marco teórico y el estado del arte. Se presentan los antecedentes del estudio, incluyendo la evolución histórica de las técnicas de optimización aplicadas a problemas de ruteo. Asimismo, se exponen los conceptos clave en optimización, la complejidad computacional y las clases de problemas P y NP. Se revisan también los principales problemas de optimización combinatoria, como el TSP, el VRP y el VRP-TW, junto con los métodos de solución empleados en la literatura: técnicas exactas, heurísticas, metaheurísticas y enfoques híbridos que han demostrado ser eficientes en la resolución del VRP-TW. Finalmente, se integran referencias relevantes provenientes de trabajos recientes y clásicos, las cuales sirven como base para sustentar teóricamente la propuesta desarrollada en esta investigación.
 
-El Capítulo 3 describe los materiales y métodos utilizados en la investigación. Aquí se detallan las instancias del problema, el software y hardware empleados, así como las herramientas de apoyo. Además, se expone la propuesta híbrida desarrollada, que integra los algoritmos de Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA). Se presentan las metodologías aplicadas, la calibración de parámetros, la construcción de rutas y el proceso de refinamiento, junto con sus respectivos pseudocódigos.
+El Capítulo 3 describe los materiales y métodos utilizados en la investigación. Aquí se detallan las instancias del problema, el software y hardware empleados, así como las herramientas de apoyo. Además, se expone la propuesta híbrida desarrollada, que integra el DE, ACO y SA. Se presentan las metodologías aplicadas, la calibración de parámetros, la construcción de rutas y el proceso de refinamiento, junto con sus respectivos pseudocódigos.
 
 El Capítulo 4 presenta los resultados experimentales obtenidos a partir de la implementación del algoritmo híbrido desarrollado. Se describe la calidad de las soluciones generadas y el comportamiento del proceso de búsqueda bajo distintas configuraciones de parámetros. Además, se realiza una comparación del rendimiento del enfoque propuesto con resultados reportados en la literatura.
 
@@ -397,30 +383,29 @@ Finalmente, en el Capítulo 5 se presentan las conclusiones generales del estudi
 \label{cap:marco-teorico}
 \section{Antecedentes}
 
-El estudio de problemas de optimización en rutas se remonta al desarrollo del Problema del Agente Viajero (TSP), formulado a principios del siglo XX, cuyo objetivo es encontrar la ruta de costo mínimo que recorra un conjunto de ciudades exactamente una vez, regresando al punto de partida. A lo largo de las décadas, este problema se ha consolidado como uno de los pilares de la optimización combinatoria \citep{papadimitriou1994}.
+El estudio de problemas de optimización en rutas se remonta al desarrollo del Problema del Agente Viajero, formulado a principios del siglo XX, cuyo objetivo es encontrar la ruta de costo mínimo que recorra un conjunto de ciudades exactamente una vez, regresando al punto de partida. A lo largo de las décadas, este problema se ha consolidado como uno de los pilares de la optimización combinatoria \citep{papadimitriou1994}.
 
-Más adelante, se propuso el Problema de Ruteo de Vehículos (VRP) como una generalización del TSP, considerando una flota de vehículos que deben atender a múltiples clientes desde un depósito central. Este problema fue introducido por primera vez por Dantzig y Ramser en 1959 para optimizar rutas de distribución de gasolina \citep{dantzig1959truck}.
+Más adelante, se propuso el Problema de Ruteo de Vehículos como una generalización del TSP, considerando una flota de vehículos que deben atender a múltiples clientes desde un depósito central. Este problema fue introducido por primera vez por Dantzig y Ramser en 1959 para optimizar rutas de distribución de gasolina \citep{dantzig1959truck}.
 
 Durante la década de 1970, el interés por resolver variantes del VRP aumentó significativamente, y surgieron métodos heurísticos como el algoritmo de Clarke y Wright (1964), que se convirtió en un referente para aproximaciones iniciales \citep{clarke1964scheduling}.
 
 Entre la década de 1970 y la de 1980, se desarrollaron versiones especializadas como el \textit{Fleet Routing Problem}, sistemas \textit{Dial-a-Bus} y el diseño de redes de transporte, así como enfoques probabilísticos y la incorporación de incertidumbre \citep{eksioglu2009, golden1988, laporte1992}.
 
-Dentro de estas variantes, el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW) surgió como una extensión crítica que incorpora restricciones temporales para reflejar mejor las condiciones reales de operación, tales como horarios de entrega y recogida. Este problema fue estudiado ampliamente a partir del trabajo de Solomon en 1987, quien introdujo instancias benchmark y algoritmos heurísticos clásicos \citep{solomon1987algorithms}.
+Dentro de estas variantes, el Problema de Ruteo de Vehículos con Ventanas de Tiempo surgió como una extensión crítica que incorpora restricciones temporales para reflejar mejor las condiciones reales de operación, tales como horarios de entrega y recogida. Este problema fue estudiado ampliamente a partir del trabajo de Solomon en 1987, quien introdujo instancias benchmark y algoritmos heurísticos clásicos \citep{solomon1987algorithms}.
 
 Durante la década de 1990, se desarrollaron enfoques exactos basados en programación entera y técnicas como \textit{branch-and-bound}, \textit{branch-and-cut} y \textit{column generation}, aplicados con éxito a instancias pequeñas \citep{desrochers1992, cordeau2002}. Sin embargo, la elevada complejidad del VRP-TW motivó el uso creciente de heurísticas y metaheurísticas, tales como:
 
 \begin{itemize}
-	\item \textbf{Algoritmos Genéticos (GA)}, inspirados en la evolución natural, propuestos por Holland en 1975, que utilizan operadores genéticos para evolucionar una población de soluciones \citep{holland1975adaptation}.
-	\item \textbf{Algoritmo de Colonias de Hormigas (ACO)}, propuesto inicialmente por Dorigo en 1992, basado en el comportamiento colectivo de las hormigas para resolver problemas combinatorios \citep{dorigo1992}.
-	\item \textbf{Recocido Simulado (SA)}, inspirado en el proceso físico de enfriamiento de metales, introducido por Kirkpatrick, Gelatt y Vecchi en 1983, que permite escapar de óptimos locales mediante la aceptación controlada de soluciones peores \citep{kirkpatrick1983}.
-	\item \textbf{Búsqueda Tabú (TB)}, una técnica heurística que explora iterativamente soluciones vecinas para mejorar la calidad de la solución, evitando ciclos mediante la prohibición temporal de movimientos \citep{aarts1988local}.
+	\item \textbf{Algoritmos Genéticos}, inspirados en la evolución natural, propuestos por Holland en 1975, que utilizan operadores genéticos para evolucionar una población de soluciones \citep{holland1975adaptation}.
+	\item \textbf{Algoritmo de Colonias de Hormigas}, propuesto inicialmente por Dorigo en 1992, basado en el comportamiento colectivo de las hormigas para resolver problemas combinatorios \citep{dorigo1992}.
+	\item \textbf{Recocido Simulado}, inspirado en el proceso físico de enfriamiento de metales, introducido por Kirkpatrick, Gelatt y Vecchi en 1983, que permite escapar de óptimos locales mediante la aceptación controlada de soluciones peores \citep{kirkpatrick1983}.
+	\item \textbf{Búsqueda Tabú}, una técnica heurística que explora iterativamente soluciones vecinas para mejorar la calidad de la solución, evitando ciclos mediante la prohibición temporal de movimientos \citep{aarts1988local}.
 \end{itemize}
 
 Estas metaheurísticas han demostrado ser eficaces para obtener soluciones cercanas al óptimo en tiempos razonables \citep{eksioglu2009}.
 
 En las últimas dos décadas, la investigación se ha enfocado en algoritmos híbridos, técnicas de aprendizaje automático aplicadas al VRP, optimización robusta y modelos dinámicos, buscando mejorar la eficiencia y adaptabilidad de las soluciones en contextos logísticos cada vez más complejos y cambiantes \citep{toth2014}.
 
-El presente trabajo se inscribe en esta línea de investigación, proponiendo un modelo basado en un algoritmo híbrido con metaheurísticas para abordar el VRP-TW, considerando específicamente restricciones operativas como la capacidad limitada de los vehículos y los intervalos estrictos de tiempo de servicio asignados a cada cliente. Con el objetivo de mejorar la calidad y eficiencia de las rutas generadas, se implementaron tres enfoques metaheurísticos: el Algoritmo Evolutivo Diferencial (DE), el Algoritmo de Optimización por Colonias de Hormigas (ACO) y el Recocido Simulado (SA).
 
 \section{Conceptos Clave}
 
@@ -488,7 +473,7 @@ mientras que para problemas de maximización, se requiere que
 
 La solución \(i_{opt}\) se denomina solución óptima global, y el valor \(f(i_{opt})\) representa el costo óptimo. El conjunto de todas las soluciones óptimas se denota como \(S_{opt}\). Un problema de optimización combinatoria se define entonces como el conjunto de todas sus instancias \citep{cobos2010}.
 
-Comprender esta distinción es esencial para abordar el problema central de este trabajo VRP-TW, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es finito, y el desafío consiste en identificar cuál de ellas representa la mejor opción según un criterio específico.
+Comprender esta distinción es esencial para abordar el problema central de este trabajo: VRP-TW, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es finito, y el desafío consiste en identificar cuál de ellas representa la mejor opción según un criterio específico.
 
 Esta base teórica permite introducir los problemas clásicos de enrutamiento, como el TSP, el VRP y sus variantes, como el VRP-TW, los cuales serán analizados más adelante por su relación directa con la planificación eficiente de rutas en contextos reales.
 
@@ -562,7 +547,7 @@ Por otro lado, los problemas NP-difíciles pueden ser incluso más complejos que
 	\label{fig:p_vs_np}
 \end{figure}
 
-El crecimiento exponencial del tiempo requerido para resolver problemas como el TSP, el VRP y el VRP-TW los ubica dentro de la clase NP. Estos problemas, aunque decidibles, presentan una complejidad tan elevada que no se conoce ningún algoritmo exacto que los resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de NP, así como las estrategias metaheurísticas empleadas para aproximar soluciones en tiempos razonables.
+El crecimiento exponencial del tiempo requerido para resolver problemas como el TSP, el VRP y el VRP-TW los ubica dentro de la clase NP. Estos problemas, aunque decidibles, presentan una complejidad tan elevada que no se conoce ningún algoritmo exacto que los resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de NP.
 
 \subsection{Problemas de Optimización Combinatoria}
 
@@ -828,11 +813,11 @@ Por ello, resulta fundamental comprender los fundamentos del TSP y del VRP, ya q
 
 
 \subsection{Métodos de Solución para el Problema de Ruteo de Vehículos con Ventanas de Tiempo}
-Los problemas de enrutamiento como el TSP, el VRP y su extensión con ventanas de tiempo, el VRP-TW, mencionados en secciones anteriores, pertenecen a la clase de problemas NP-difíciles \citep{papadimitriou1998, laporte1987, toth2014}. Esta clasificación se debe al crecimiento exponencial del tiempo requerido para resolverlos a medida que aumenta el número de nodos o clientes en la instancia.
+Resumiendo las secciones pasadas, los problemas de enrutamiento como el TSP, el VRP y su extensión con ventanas de tiempo, el VRP-TW, mencionados anteriormente, pertenecen a la clase de problemas NP-difíciles \citep{papadimitriou1998, laporte1987, toth2014}. Esta clasificación se debe al crecimiento exponencial del tiempo requerido para resolverlos a medida que aumenta el número de nodos o clientes en la instancia.
 
-Dada su complejidad computacional, estos problemas han sido abordados mediante diversas estrategias de solución que tienen como objetivo minimizar el costo total del recorrido, respetando las restricciones impuestas. Entre ellos se incluyen los métodos exactos, así como las técnicas heurísticas y metaheurísticas.
+Dada su complejidad computacional, el problema VRP-TW ha sido abordado mediante diversas estrategias de solución que tienen como objetivo minimizar el costo total del recorrido, respetando las restricciones impuestas. Entre ellas se incluyen los métodos exactos, así como las técnicas heurísticas y metaheurísticas.
 
-A continuación, se describen estos enfoques, junto con ejemplos representativos aplicados en los problemas mencionados.
+A continuación, se describen estos enfoques, junto con ejemplos representativos aplicados al problema del VRP-TW.
 
 \subsubsection{Métodos Exactos}
 
@@ -940,8 +925,7 @@ Los algoritmos genéticos (GA, \emph{Genetic Algorithms}) son una de las técnic
 
 Estos algoritmos destacan por su capacidad para explorar de manera eficiente grandes espacios de búsqueda y adaptarse a distintas configuraciones del problema. Gracias a la combinación de operadores genéticos y mecanismos de selección, los GA permiten generar soluciones robustas y competitivas incluso en escenarios de alta complejidad combinatoria.
 
-Aunque los algoritmos evolutivos (EA) y los algoritmos genéticos (GA) han sido descritos de manera general, a continuación se presenta una variante de especial relevancia para esta investigación. Dicha técnica será fundamental en el desarrollo del presente trabajo, ya que se implementará como parte del enfoque de optimización propuesto. En la siguiente sección se describe el funcionamiento del algoritmo de Evolución Diferencial.
-
+Aunque los algoritmos evolutivos y los algoritmos genéticos han sido descritos de manera general, a continuación se presenta una variante de especial relevancia para esta investigación. Dicha técnica es fundamental en el desarrollo del presente trabajo, ya que se implementó como parte del enfoque de optimización propuesto.
 \subsubsection*{Evolución Diferencial}
 
 Dentro de la familia de los algoritmos evolutivos, la Evolución Diferencial (\emph{Differential Evolution}, DE) se ha consolidado como una de las técnicas más eficaces para la optimización de problemas continuos, debido a su simplicidad conceptual, bajo número de parámetros de control y alta capacidad de exploración del espacio de búsqueda \cite{storn1997differential,price2005differential}.
@@ -1036,7 +1020,6 @@ De forma análoga, en el contexto de la optimización combinatoria, cada soluci�
 
 El algoritmo comienza con una solución inicial y, en cada iteración, genera una nueva solución vecina. Si la nueva solución es mejor, se acepta; si es peor, puede ser aceptada con una cierta probabilidad que depende de un parámetro llamado “temperatura”. A medida que el algoritmo avanza, la temperatura disminuye, reduciendo así la probabilidad de aceptar soluciones peores. Este mecanismo permite escapar de óptimos locales y explorar mejor el espacio de soluciones \citep{cobos2010}.
 
-Este enfoque resulta particularmente útil en problemas de optimización combinatoria, donde el objetivo es minimizar una función de costo (por ejemplo, distancia total recorrida, tiempo o penalizaciones por restricciones de ventanas de tiempo). Al incorporar una aceptación probabilística de soluciones no óptimas, el algoritmo equilibra la exploración y la explotación, favoreciendo una búsqueda más efectiva del óptimo global.
 
 \subsubsection*{Modelo de distribución de Maxwell-Boltzmann aplicado al Recocido Simulado}
 
@@ -1061,7 +1044,7 @@ Este modelo permite explicar cómo se distribuyen los estados energéticos en si
 
 Cada una de las metaheurísticas mencionadas —Evolución Diferencial, Optimización por Colonias de Hormigas y Recocido Simulado— puede aplicarse eficazmente a problemas de optimización complejos. Estas técnicas han demostrado ser herramientas valiosas en la resolución del VRP-TW, gracias a su capacidad para explorar amplios espacios de búsqueda y aproximarse a soluciones óptimas en tiempos computacionales razonables.
 
-Si bien existen numerosas estrategias metaheurísticas documentadas en la literatura, en este trabajo se han seleccionado estas tres por su relevancia teórica, versatilidad y desempeño comprobado en problemas de optimización combinatoria. En el siguiente capítulo se describirá detalladamente la forma en que cada una de estas técnicas fue adaptada e implementada dentro del contexto de la presente investigación.
+Si bien existen numerosas estrategias metaheurísticas documentadas en la literatura, en este trabajo se han seleccionado estas tres por su relevancia teórica, versatilidad y desempeño comprobado en problemas de optimización combinatoria.
 
 \subsubsection{Algoritmos Híbridos}
 
@@ -1085,16 +1068,15 @@ Los algoritmos híbridos son especialmente valiosos para el problema VRP-TW, don
 
 Por estas razones, los algoritmos híbridos se han consolidado como herramientas poderosas para resolver problemas complejos en logística, planificación de rutas, diseño de redes y otras áreas donde las metaheurísticas puras podrían no ser suficientes \cite{blum2003metaheuristics, eiben2003introduction}.
 
-En este trabajo se adopta un enfoque híbrido que integra el Algoritmo Evolutivo Diferencial, la Optimización por Colonias de Hormigas y el Recocido Simulado para abordar el VRP-TW, como se mencionó anteriormente. Esta combinación busca aprovechar las fortalezas complementarias de cada técnica. De esta manera, el enfoque híbrido propuesto no solo mejora la calidad de las soluciones obtenidas, sino que también contribuye a reducir el tiempo de cómputo necesario para alcanzar resultados competitivos.
+En este trabajo se adopta un enfoque híbrido que integra el Algoritmo Evolutivo Diferencial, la Optimización por Colonias de Hormigas y el Recocido Simulado para abordar el VRP-TW, como se mencionó anteriormente. De esta manera, el enfoque híbrido propuesto no solo mejora la calidad de las soluciones obtenidas, sino que también contribuye a reducir el tiempo de cómputo necesario para alcanzar resultados competitivos.
 
-En el siguiente capítulo se explicará con detalle cada etapa de nuestro algoritmo híbrido.
 
 \section{Referencias Relevantes}
-El Problema del Agente Viajero (TSP) constituye uno de los problemas fundamentales en optimización combinatoria y ha sido objeto de estudio desde principios del siglo XX. \cite{dantzig1954solution} presentaron la primera formulación matemática rigurosa del TSP y desarrollaron el método de planos de corte, estableciendo las bases teóricas para su resolución. Posteriormente, \cite{held1962dynamic} propusieron un algoritmo de programación dinámica que reduce la complejidad computacional, aunque el problema permanece como NP-difícil. La importancia del TSP radica en que constituye el fundamento teórico de problemas más complejos de ruteo, siendo ampliamente estudiado tanto desde la perspectiva teórica como aplicada.
+El Problema del Agente Viajero constituye uno de los problemas fundamentales en optimización combinatoria y ha sido objeto de estudio desde principios del siglo XX. \cite{dantzig1954solution} presentaron la primera formulación matemática rigurosa del TSP y desarrollaron el método de planos de corte, estableciendo las bases teóricas para su resolución. Posteriormente, \cite{held1962dynamic} propusieron un algoritmo de programación dinámica que reduce la complejidad computacional, aunque el problema permanece como NP-difícil. La importancia del TSP radica en que constituye el fundamento teórico de problemas más complejos de ruteo, siendo ampliamente estudiado tanto desde la perspectiva teórica como aplicada.
 
-El Problema de Ruteo de Vehículos (VRP), introducido por \cite{dantzig1959truck}, representa una generalización natural del TSP al considerar múltiples vehículos con capacidad limitada. Este trabajo seminal estableció el VRP como un problema central en logística y distribución. \cite{clarke1964scheduling} desarrollaron el algoritmo de ahorros, una de las heurísticas constructivas más influyentes que continúa siendo referencia en el campo. \cite{laporte1992vehicle} realizó una revisión comprehensiva de los métodos exactos para el VRP, consolidando el conocimiento acumulado durante tres décadas de investigación. \cite{toth2002vehicle} compilaron el estado del arte en su obra ``The Vehicle Routing Problem'', que se ha convertido en referencia obligada para investigadores en el área.
+El Problema de Ruteo de Vehículos, introducido por \cite{dantzig1959truck}, representa una generalización natural del TSP al considerar múltiples vehículos con capacidad limitada. Este trabajo seminal estableció el VRP como un problema central en logística y distribución. \cite{clarke1964scheduling} desarrollaron el algoritmo de ahorros, una de las heurísticas constructivas más influyentes que continúa siendo referencia en el campo. \cite{laporte1992vehicle} realizó una revisión comprehensiva de los métodos exactos para el VRP, consolidando el conocimiento acumulado durante tres décadas de investigación. \cite{toth2002vehicle} compilaron el estado del arte en su obra ``The Vehicle Routing Problem'', que se ha convertido en referencia obligada para investigadores en el área.
 
-El Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW), que constituye el enfoque principal de este trabajo, fue formalmente definido por \cite{solomon1987algorithms}, quien además generó el conjunto de instancias de prueba que se ha convertido en el estándar de la industria para evaluar algoritmos. Solomon clasificó las instancias en seis categorías (C1, C2, R1, R2, RC1, RC2) según la distribución geográfica de los clientes y la amplitud de las ventanas de tiempo, estableciendo un marco de referencia que permanece vigente. \cite{desrosiers1995time} desarrollaron métodos exactos basados en generación de columnas y programación dinámica, demostrando la viabilidad teórica de resolver instancias de tamaño moderado de manera óptima.
+El Problema de Ruteo de Vehículos con Ventanas de Tiempo, que constituye el enfoque principal de este trabajo, fue formalmente definido por \cite{solomon1987algorithms}, quien además generó el conjunto de instancias de prueba que se ha convertido en el estándar de la industria para evaluar algoritmos. Solomon clasificó las instancias en seis categorías (C1, C2, R1, R2, RC1, RC2) según la distribución geográfica de los clientes y la amplitud de las ventanas de tiempo, estableciendo un marco de referencia que permanece vigente. \cite{desrosiers1995time} desarrollaron métodos exactos basados en generación de columnas y programación dinámica, demostrando la viabilidad teórica de resolver instancias de tamaño moderado de manera óptima.
 
 En cuanto a enfoques metaheurísticos para el VRP-TW, \cite{braysy2005vehicle1, braysy2005vehicle2} publicaron una revisión exhaustiva en dos partes que analiza más de 200 trabajos, clasificando las metaheurísticas en búsqueda local, métodos basados en población y enfoques híbridos. \cite{taillard1997tabu} introdujeron la Búsqueda Tabú adaptativa para el VRP-TW, estableciendo nuevos estándares de calidad en las soluciones. \cite{gambardella1999macs} aplicaron el sistema de Colonia de Hormigas con múltiples colonias (MACS-VRP-TW), demostrando la efectividad de algoritmos bio-inspirados en este dominio.
 
@@ -1242,22 +1224,23 @@ Para complementar el desarrollo de esta investigación y facilitar la presentaci
 
 \subsection{Descripción general del algortimo híbrido}
 
-Para resolver el problema de VRP-TW, se propone un algoritmo híbrido que combina tres técnicas metaheurísticas: Algoritmo Evolutivo Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA).
+Para resolver el Problema de Enrutamiento de Vehículos con Ventanas de Tiempo, se propone un algoritmo híbrido que combina tres técnicas metaheurísticas: el Algoritmo Evolutivo Diferencial, la Optimización por Colonia de Hormigas y el Recocido Simulado.
+
 Este enfoque aprovecha la capacidad de exploración global del ACO, la explotación local del SA y la calibración automática de parámetros mediante DE, con el objetivo de generar soluciones de alta calidad de manera eficiente.
 
 El flujo jerárquico del método híbrido es el siguiente:
 
 \begin{enumerate}
-	\item \textbf{Algoritmo Evolutivo Diferencial (DE):} se encarga de calibrar los parámetros de ACO y SA para optimizar la búsqueda de soluciones.
-	\item \textbf{Optimización por Colonia de Hormigas (ACO):} genera rutas iniciales factibles, cumpliendo las restricciones de capacidad y ventanas de tiempo de los vehículos o clientes.
-	\item \textbf{Recocido Simulado (SA):} refina las rutas iniciales aplicando heurísticas de mejora local sin violas las restricciones mecionadas con anterioridad y aceptando soluciones subóptimas bajo un criterio probabilístico, lo que permite escapar de óptimos locales.
+	\item \textbf{Algoritmo Evolutivo Diferencial:} se encarga de calibrar los parámetros de ACO y SA para optimizar la búsqueda de soluciones.
+	\item \textbf{Optimización por Colonia de Hormigas:} genera rutas iniciales factibles, cumpliendo las restricciones de capacidad y ventanas de tiempo de los vehículos o clientes.
+	\item \textbf{Recocido Simulado:} refina las rutas iniciales aplicando heurísticas de mejora local sin violas las restricciones mecionadas con anterioridad y aceptando soluciones subóptimas bajo un criterio probabilístico, lo que permite escapar de óptimos locales.
 \end{enumerate}
 
 El objetivo principal del enfoque propuesto es generar soluciones de alta calidad para instancias de VRP-TW, cumpliendo con las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes, y optimizando la eficiencia y robustez del método a través de la calibración automática de parámetros y el refinamiento de rutas.
 
 \subsection{Calibración de parámetros mediante Evolución Diferencial}
 
-Como primera etapa del enfoque híbrido, se emplea el Algoritmo Evolutivo Diferencial (DE) con el objetivo de calibrar los parámetros de las metaheurísticas ACO y SA de manera automatica. Esta calibración permite maximizar la calidad de las soluciones obtenidas por ACO y SA para el VRP-TW.
+Como primera etapa del enfoque híbrido, se emplea el Algoritmo Evolutivo Diferencial con el objetivo de calibrar los parámetros de las metaheurísticas ACO y SA de manera automatica. Esta calibración permite maximizar la calidad de las soluciones obtenidas por ACO y SA para el VRP-TW.
 
 Como se hizo mencion en la seccion anterior, cada instancia fue segametada en 3 partes la cual se especifica en la siguiente tabla:
 
@@ -1336,7 +1319,7 @@ La calibración efectiva del algoritmo híbrido requiere establecer rangos de b�
 	\label{tab:param_pequenas}
 \end{table}
 
-Para instancias pequeñas se establecen rangos moderados que equilibran exploración y explotación sin incurrir en costos computacionales innecesarios. Los valores de $\alpha$ (2.0--3.5) y $\beta$ (2.5--4.0) balancean la influencia de feromonas e información heurística, mientras que $\rho$ (0.3--0.5) mantiene diversidad mediante evaporación moderada. El parámetro $\gamma$ (1.0--2.5) prioriza inicialmente el cumplimiento de ventanas de tiempo. Con 3--6 hormigas y 60--80 iteraciones ACO, seguidas de 80--120 iteraciones SA con temperatura inicial moderada (1200.0--1800.0), se logra refinamiento eficiente en espacios de búsqueda reducidos.
+Para instancias pequeñas, se emplean rangos moderados que permiten equilibrar exploración y explotación sin incrementar el costo computacional de manera innecesaria. Como se observa en la Tabla~\ref{tab:param_pequenas}, los valores de $\alpha$ (2.0--3.5) y $\beta$ (2.5--4.0) regulan adecuadamente la influencia de las feromonas y la información heurística, respectivamente. El valor de evaporación $\rho$ (0.3--0.5) introduce una evaporación moderada que evita la convergencia prematura. El parámetro $\gamma$ (1.0--2.5) asegura el respeto de las ventanas de tiempo desde las primeras iteraciones. Con un número reducido de hormigas (3--6) y un total de 60--80 iteraciones ACO, seguido de 80--120 iteraciones SA con temperaturas iniciales entre 1200.0 y 1800.0, se logra un refinamiento eficiente en espacios de búsqueda relativamente reducidos.
 
 \subsubsection*{Instancias Medianas (50 clientes)}
 
@@ -1365,7 +1348,7 @@ Para instancias pequeñas se establecen rangos moderados que equilibran explorac
 	\label{tab:param_medianas}
 \end{table}
 
-En instancias medianas se incrementan los rangos para fortalecer la exploración en espacios de búsqueda más amplios. Los valores elevados de $\alpha$ (2.5--4.0) y $\beta$ (3.5--5.0) intensifican la influencia de feromonas e información heurística. La tasa de evaporación reducida $\rho$ (0.25--0.45) preserva mejor las buenas soluciones en la memoria colectiva. Con 6--12 hormigas y 100--150 iteraciones ACO, seguidas de refinamiento SA más exhaustivo (120--200 iteraciones, temperatura inicial 1600.0--2200.0), se equilibra calidad de solución y tiempo de cómputo en problemas de complejidad intermedia.
+Para instancias medianas se amplían los rangos de los parámetros con el objetivo de incrementar la capacidad de exploración en un espacio de búsqueda más complejo. Tal como se detalla en la Tabla~\ref{tab:param_medianas}, los valores de $\alpha$ (2.5--4.0) y $\beta$ (3.5--5.0) refuerzan la explotación guiada por feromonas y heurística. La evaporación $\rho$ (0.25--0.45) se mantiene en un nivel moderado para preservar buenas soluciones sin perder diversidad. Con 6--12 hormigas y 100--150 iteraciones ACO, seguidas de un refinamiento SA más exhaustivo (120--200 iteraciones y temperaturas iniciales entre 1600.0 y 2200.0), se obtiene un equilibrio adecuado entre calidad de solución y tiempo de cómputo para problemas de complejidad intermedia.
 
 \subsubsection*{Instancias Grandes (100 clientes)}
 
@@ -1394,11 +1377,10 @@ En instancias medianas se incrementan los rangos para fortalecer la exploración
 	\label{tab:param_grandes}
 \end{table}
 
-Para instancias grandes se emplean rangos amplios que permiten exploración robusta en espacios de alta dimensionalidad. Los valores máximos de $\alpha$ (3.0--5.0) y $\beta$ (4.0--6.0) intensifican la explotación de soluciones prometedoras, mientras que $\rho$ reducida (0.10--0.30) preserva conocimiento acumulado por más tiempo. El parámetro $\gamma$ (2.0--4.0) alcanza sus valores máximos, reforzando el cumplimiento de ventanas de tiempo en problemas complejos. Con 10--20 hormigas, 120--180 iteraciones ACO y refinamiento SA intensivo (200--300 iteraciones, temperatura inicial elevada 2500.0--4000.0), se justifica el mayor costo computacional mediante la obtención de soluciones de alta calidad.
-
-\vspace{0.3cm}
+Para instancias grandes se requieren rangos más amplios que permitan una exploración robusta en espacios altamente dimensionales. Como se muestra en la Tabla~\ref{tab:param_grandes}, los valores elevados de $\alpha$ (3.0--5.0) y $\beta$ (4.0--6.0) intensifican la explotación de rutas prometedoras detectadas por las hormigas. Una evaporación más baja $\rho$ (0.10--0.30) conserva durante más tiempo el conocimiento acumulado, lo que resulta útil en problemas complejos. El incremento de $\gamma$ (2.0--4.0) asegura un mayor cumplimiento de las ventanas de tiempo en escenarios con rutas más extensas. Con 10--20 hormigas y 120--180 iteraciones ACO, seguido de un refinamiento SA intensivo (200--300 iteraciones y temperaturas iniciales entre 2500.0 y 4000.0), se justifica el mayor costo computacional mediante la obtención de soluciones de alta calidad.
 
 La configuración progresiva de estos rangos según el tamaño de instancia es fundamental para el desempeño del algoritmo DE. Los rangos más amplios en instancias grandes permiten mayor exploración, evitando convergencia prematura en espacios complejos con múltiples óptimos locales. Por otro lado, los rangos más acotados en instancias pequeñas aceleran la convergencia sin sacrificar calidad, aprovechando la menor complejidad del problema. Esta estratificación facilita la calibración automática mediante DE y garantiza la replicabilidad de los experimentos, permitiendo que el algoritmo híbrido se adapte eficientemente a diferentes escalas del VRP-TW.
+
 \subsubsection{Representación de individuos}
 
 En el contexto del DE, cada individuo de la población no representa una solución directa del problema VRP-TW, sino una configuración completa de los parámetros que controlan el comportamiento de las metaheurísticas ACO y SA. Es decir, un individuo codifica cómo se ejecutarán los algoritmos de optimización, incluyendo aspectos como la importancia relativa de la información heurística, la cantidad de agentes exploradores, el número de iteraciones y las estrategias de enfriamiento de SA.
@@ -1429,7 +1411,7 @@ Cada componente del vector está acotada dentro de rangos específicos $[min_j, 
 
 \subsubsection{Función de Aptitud}
 
-La función de aptitud evalúa la calidad de cada individuo, representado por un vector de parámetros, mediante la ejecución del algoritmo híbrido ACO+SA. Su propósito es cuantificar el desempeño de cada configuración de parámetros para determinar qué tan efectiva resulta en la resolución del VRP-TW.
+La función de aptitud evalúa la calidad de cada individuo, representado por un vector de parámetros, mediante la ejecución del algoritmo híbrido ACO y SA. Su propósito es cuantificar el desempeño de cada configuración de parámetros para determinar qué tan efectiva resulta en la resolución del VRP-TW.
 
 El proceso de evaluación se desarrolla conforme a los siguientes pasos:
 
@@ -1446,7 +1428,7 @@ El proceso de evaluación se desarrolla conforme a los siguientes pasos:
 La función de aptitud se define a partir de la función objetivo del VRP-TW como:
 
 \begin{equation}
-	f(\mathbf{x}_i) = \text{Costo}_{\text{total}}
+	f(x_i) = \text{Costo}_{\text{total}}
 \end{equation}
 
 donde:
@@ -1454,9 +1436,9 @@ donde:
 	\item $\text{Costo}_{\text{total}}$ representa la distancia total recorrida por todos los vehículos en la solución generada.
 \end{itemize}
 
-\textbf{Objetivo:} Minimizar $f(\mathbf{x}_i)$, es decir, encontrar la configuración de parámetros que produzca el menor costo total de rutas, cumpliendo las restricciones impuestas por el VRP-TW.
+El objetivo es Minimizar $f(x_i)$, es decir, encontrar la configuración de parámetros que produzca el menor costo total de rutas, cumpliendo las restricciones impuestas por el VRP-TW.
 
-Cada evaluación de la función de aptitud implica ejecutar de forma completa el proceso híbrido ACO $\rightarrow$ SA, lo cual constituye el componente de mayor costo computacional dentro del algoritmo evolutivo diferencial (DE). Por este motivo, los valores del tamaño de población y del número de generaciones deben seleccionarse cuidadosamente para lograr un equilibrio entre precisión y tiempo de ejecución.
+Cada evaluación de la función de aptitud implica ejecutar de forma completa el proceso híbrido ACO $\rightarrow$ SA, lo cual constituye el componente de mayor costo computacional dentro del DE. Por este motivo, los valores del tamaño de población y del número de generaciones deben seleccionarse cuidadosamente para lograr un equilibrio entre precisión y tiempo de ejecución.
 
 \subsubsection{Parámetros del Algoritmo Evolutivo Diferencial}
 
@@ -1527,7 +1509,7 @@ A continuación se presenta el pseudocódigo del algoritmo DE implementado para 
 		\textbf{fin para}\\
 		Retornar MejorIndividuo.\\
 	\end{algorithm}
-	\caption{Pseudocódigo del algoritmo de Evolución Diferencial aplicado al problema VRP-TW.}
+	\caption{Pseudocódigo del Algoritmo de Evolución Diferencial aplicado al problema VRP-TW.}
 	\label{fig:algoritmo_de_vrptw}
 \end{figure}
 
@@ -1536,7 +1518,7 @@ El pseudocódigo \ref{alg:de_vrptw} resume el funcionamiento del algoritmo de Ev
 
 \subsection{Construcción de rutas iniciales mediante Optimización por Colonia de Hormigas}
 
-Una vez calibrados los parámetros mediante DE, la segunda etapa del enfoque híbrido consiste en construir soluciones factibles para el VRP-TW utilizando Optimización por Colonia de Hormigas (ACO). Este algoritmo bio-inspirado simula el comportamiento de las hormigas reales al buscar alimento, utilizando rastros de feromonas para encontrar rutas eficientes que minimicen la distancia total recorrida mientras respetan las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes.
+Una vez calibrados los parámetros mediante DE, la segunda etapa del enfoque híbrido consiste en construir soluciones factibles para el VRP-TW utilizando Optimización por Colonia de Hormigas. Este algoritmo bio-inspirado simula el comportamiento de las hormigas reales al buscar alimento, utilizando rastros de feromonas para encontrar rutas eficientes que minimicen la distancia total recorrida mientras respetan las restricciones de capacidad de los vehículos y las ventanas de tiempo de los clientes.
 
 \subsubsection{Fundamentos del algoritmo Optimización por Colonia de Hormigas}
 
@@ -1579,7 +1561,7 @@ En el siguiente psudocodigo detalla el proceso de verificación de factibilidad 
 \begin{figure}[H]
 	\centering
 	\begin{algorithm}[H]
-		\caption{Cálculo de Clientes Factibles}
+		\caption{Cálculo de Clientes Factibles en Optimización por Colonia de Hormigas.}
 		\label{alg:clientes_factibles}
 		\SetAlgoLined
 		\SetAlFnt{\footnotesize}
@@ -1607,7 +1589,7 @@ En el siguiente psudocodigo detalla el proceso de verificación de factibilidad 
 		Retornar Candidatos.\\
 
 	\end{algorithm}
-	\caption{Pseudocódigo de verificación de clientes factibles en Optimización por Colonia de Hormigas.}
+	\caption{Pseudocódigo para calcular clientes factibles en Optimización por Colonia de Hormigas.}
 	\label{fig:algoritmo_clientes_factibles}
 \end{figure}
 
@@ -1701,7 +1683,7 @@ Una vez construida la solución, se evalúa su calidad mediante el cálculo de l
 \begin{figure}[H]
 	\centering
 	\begin{algorithm}[H]
-		\caption{Evaluación de la función objetivo}
+		\caption{Evaluación de la función objetivo en Optimización por Colonia de Hormigas}
 		\label{alg:evaluacion_fitness}
 		\SetAlgoLined
 		\SetAlFnt{\footnotesize}
@@ -1723,7 +1705,7 @@ Una vez construida la solución, se evalúa su calidad mediante el cálculo de l
 		Retornar FitnessTotal.\\
 
 	\end{algorithm}
-	\caption{Pseudocódigo del cálculo del fitness total de una solución.}
+	\caption{Pseudocódigo del cálculo del fitness total de una solución en Optimización por Colonia de Hormigas.}
 	\label{fig:algoritmo_evaluacion_fitness}
 \end{figure}
 
@@ -1733,7 +1715,7 @@ El pseudocódigo \ref{alg:evaluacion_fitness} calcula el fitness total de la sol
 
 Tras cada iteración, las feromonas se actualizan para reflejar la calidad de las soluciones construidas por las hormigas. Este proceso combina tres fases: evaporación, depósito y refuerzo elitista, que en conjunto equilibran la exploración de nuevas rutas y la explotación de las soluciones más prometedoras.
 
-\paragraph{Evaporación de feromonas.}
+\subsubsection*{Evaporación de feromonas}
 Este mecanismo reduce uniformemente los niveles de feromona para evitar la saturación de ciertos caminos y fomentar la exploración de alternativas. Se define mediante la ecuación \ref{eq:evaporacion_feromona}:
 
 \begin{equation}
@@ -1743,7 +1725,7 @@ Este mecanismo reduce uniformemente los niveles de feromona para evitar la satur
 
 donde $\rho \in [0,1]$ es la tasa de evaporación. Un valor alto de $\rho$ acelera la pérdida de feromonas, promoviendo la diversidad, mientras que un valor bajo intensifica la explotación de rutas ya exploradas.
 
-\paragraph{Depósito de feromonas.}
+\subsubsection*{Depósito de feromonas}
 \raggedright
 Las hormigas que obtienen las mejores soluciones —definidas como el conjunto élite— depositan feromonas sobre las aristas que conforman sus rutas. Este refuerzo se modela en la ecuación \ref{eq:deposito_feromona}:
 
@@ -1765,7 +1747,7 @@ donde la cantidad de feromona añadida por cada hormiga $k$ se determina mediant
 
 Aquí, $L_k$ representa el costo total (distancia recorrida) de la solución de la hormiga $k$. En consecuencia, las soluciones más cortas (menor $L_k$) contribuyen con una mayor cantidad de feromona, orientando a futuras hormigas hacia rutas más eficientes.
 
-\paragraph{Refuerzo elitista.}
+\subsubsection*{Refuerzo elitista}
 Finalmente, se aplica un refuerzo adicional a la mejor solución global encontrada hasta el momento, modelado en la ecuación \ref{eq:refuerzo_elitista}:
 
 \begin{equation}
@@ -1877,7 +1859,7 @@ El pseudocódigo \ref{fig:algoritmo_aco_principal} describe el flujo completo de
 
 \subsection{Refinamiento de rutas mediante Recocido Simulado}
 
-La tercera y última etapa del enfoque híbrido consiste en refinar las soluciones generadas por ACO mediante Recocido Simulado (SA), una metaheurística de búsqueda local que permite escapar de óptimos locales a través de la aceptación probabilística de soluciones que empeoran temporalmente la función objetivo. SA recibe como entrada las mejores rutas construidas por ACO y aplica operadores de vecindad para explorar sistemáticamente el espacio de soluciones cercanas, buscando mejoras incrementales que reduzcan el costo total de las rutas mientras se mantiene la factibilidad.
+La tercera y última etapa del enfoque híbrido consiste en refinar las soluciones generadas por ACO mediante Recocido Simulado, una metaheurística de búsqueda local que permite escapar de óptimos locales a través de la aceptación probabilística de soluciones que empeoran temporalmente la función objetivo. SA recibe como entrada las mejores rutas construidas por ACO y aplica operadores de vecindad para explorar sistemáticamente el espacio de soluciones cercanas, buscando mejoras incrementales que reduzcan el costo total de las rutas mientras se mantiene la factibilidad.
 
 \subsubsection{Fundamentos del algoritmo Recocido Simulado}
 
@@ -1897,11 +1879,14 @@ Los componentes principales del algoritmo son:
 
 \subsubsection{Operadores de vecindad adaptativos}
 
-Para explorar el espacio de soluciones, SA implementa un conjunto de ocho operadores de vecindad especializados que modifican las rutas de manera controlada. La selección de operadores se realiza de forma adaptativa según dos criterios fundamentales: el tamaño de la instancia (número de clientes) y el número de vehículos en la solución actual. Esta estrategia permite ajustar dinámicamente la exploración del espacio de búsqueda según las características específicas del problema.
+Para explorar el espacio de soluciones, SA implementa un conjunto de ocho operadores de vecindad especializados que modifican las rutas de manera controlada. La selección de operadores se realiza de forma adaptativa según el tamaño de la instancia y el número de vehículos en la solución actual, ajustando dinámicamente la exploración del espacio de búsqueda.
 
-Los operadores se dividen en dos categorías principales operadores intra-ruta y operadores inter-ruta:
+Los operadores se dividen en dos categorías: operadores intra-ruta, que modifican únicamente la secuencia de visitas dentro de cada ruta, y operadores inter-ruta, que redistribuyen clientes entre diferentes vehículos.
 
-\textbf{Operadores intra-ruta:} Modifican la secuencia de clientes dentro de una misma ruta:
+\subsubsection*{Operadores intra-ruta}
+
+Los operadores intra-ruta optimizan la secuencia de visitas dentro de una misma ruta sin transferir clientes entre vehículos. Son efectivos para eliminar cruces geométricos, reducir distancias locales y mejorar el cumplimiento de ventanas de tiempo. Su principal ventaja es que mantienen constante la carga del vehículo, reduciendo el riesgo de violar restricciones de capacidad.
+
 \begin{itemize}
 	\item \textbf{Swap intra-ruta:} Intercambia las posiciones de dos clientes dentro de la misma ruta.
 	      \begin{figure}[H]
@@ -1967,7 +1952,12 @@ Los operadores se dividen en dos categorías principales operadores intra-ruta y
 	      \end{figure}
 \end{itemize}
 
-\textbf{Operadores inter-ruta:} Transfieren clientes o segmentos entre diferentes rutas:
+\subsubsection*{Operadores inter-ruta}
+
+Los operadores inter-ruta transfieren clientes o segmentos entre diferentes vehículos, realizando modificaciones más disruptivas. Son esenciales para explorar regiones distantes del espacio de soluciones y tienen potencial para reducir el número total de vehículos necesarios.
+
+Debido a que modifican la asignación de clientes a vehículos, requieren verificación rigurosa de las restricciones de capacidad y ventanas de tiempo en ambas rutas afectadas.
+
 \begin{itemize}
 	\item \textbf{Swap inter-ruta:} Intercambia un cliente de una ruta con un cliente de otra ruta.
 
@@ -2078,31 +2068,18 @@ Los operadores se dividen en dos categorías principales operadores intra-ruta y
 	      \end{figure}
 \end{itemize}
 
-\paragraph{Estrategia adaptativa de selección:}
+\subsubsection*{Estrategia adaptativa de selección}
 
-La probabilidad de aplicar cada operador se ajusta dinámicamente según tres configuraciones basadas en el tamaño de la instancia:
+La probabilidad de aplicar cada operador se ajusta dinámicamente considerando el tamaño de la instancia y el número de vehículos en la solución actual. Esta adaptación permite enfatizar diferentes estrategias de búsqueda según el contexto específico.
 
-\textbf{Instancias pequeñas ($n \leq 26$ clientes):}
-\begin{itemize}
-	\item \textit{Múltiples vehículos:} Se priorizan operadores inter-ruta intensivos (cross-exchange 25\%, relocate-chain 20\%, swap inter 20\%) para facilitar consolidación de rutas y redistribución de cargas.
-	\item \textit{Un solo vehículo:} Se enfatiza la optimización intra-ruta con relocate-chain (30\%), 2.5-opt (25\%) y reinserción (20\%) para mejorar la secuencia de visitas.
-\end{itemize}
+En instancias pequeñas ($n \leq 26$ clientes) con múltiples vehículos, se priorizan operadores inter-ruta intensivos: cross-exchange (25\%), relocate-chain (20\%) y swap inter (20\%) para consolidar rutas. Con un solo vehículo, se enfatiza la optimización intra-ruta: relocate-chain (30\%), 2.5-opt (25\%) y reinserción (20\%).
 
-\textbf{Instancias medianas ($26 < n \leq 51$ clientes):}
-\begin{itemize}
-	\item \textit{Múltiples vehículos:} Balance entre operadores inter-ruta (cross-exchange 30\%, relocate-chain 25\%, swap inter 20\%) e intra-ruta para mantener diversificación.
-	\item \textit{Un solo vehículo:} Mayor peso en relocate-chain (35\%), 2.5-opt (30\%) y reinserción (20\%) para optimización intensiva de la ruta única.
-\end{itemize}
+Para instancias medianas ($26 < n \leq 51$ clientes), la estrategia busca balance. Con múltiples vehículos se mantienen activos operadores inter-ruta (cross-exchange 30\%, relocate-chain 25\%, swap inter 20\%) e intra-ruta. Con un solo vehículo aumenta el peso en relocate-chain (35\%), 2.5-opt (30\%) y reinserción (20\%).
 
-\textbf{Instancias grandes ($n > 51$ clientes):}
-\begin{itemize}
-	\item \textit{Múltiples vehículos:} Dominio de relocate-chain (35\%) y cross-exchange (30\%) para manejar la complejidad combinatoria, complementado con swap inter (20\%).
-	\item \textit{Un solo vehículo:} Fuerte énfasis en relocate-chain (40\%) y 2.5-opt (35\%) con operadores adicionales en menor proporción.
-\end{itemize}
-
+En instancias grandes ($n > 51$ clientes), la complejidad combinatoria requiere operadores más agresivos. Con múltiples vehículos dominan relocate-chain (35\%) y cross-exchange (30\%), complementados con swap inter (20\%). Con un solo vehículo se aplica fuerte énfasis en relocate-chain (40\%) y 2.5-opt (35\%).
 \subsubsection{Criterio de aceptación de Metropolis}
 
-En cada iteración, SA genera una solución vecina $s'$ a partir de la solución actual $s$ aplicando probabilísticamente uno de los ocho operadores de vecindad según la estrategia adaptativa. La decisión de aceptar o rechazar $s'$ se basa en el \textbf{criterio de Metropolis}:
+En cada iteración, SA genera una solución vecina $s'$ a partir de la solución actual $s$ aplicando probabilísticamente uno de los ocho operadores de vecindad según la estrategia adaptativa. La decisión de aceptar o rechazar $s'$ se basa en el criterio de Metropolis:
 
 \begin{equation}
 	\text{Aceptar } s' = \begin{cases}
@@ -2128,7 +2105,7 @@ La probabilidad de aceptar un empeoramiento es mayor cuando:
 
 \subsubsection{Esquema de enfriamiento}
 
-La temperatura se reduce gradualmente siguiendo un esquema de \textbf{enfriamiento geométrico}:
+La temperatura se reduce gradualmente siguiendo un esquema de enfriamiento geométrico:
 
 \begin{equation}
 	T_{t+1} = \alpha_{\text{cool}} \cdot T_t
@@ -2316,7 +2293,7 @@ El pseudocódigo \ref{fig:evaluacion_fitness_sa} recorre todos los vehículos de
 
 \subsubsection{Algoritmo principal de Recocido Simulado}
 
-El proceso de Recocido Simulado (SA) se utiliza como mecanismo de mejora local para refinar las soluciones generadas inicialmente por ACO. Su objetivo es explorar vecindarios diversos mediante un esquema probabilístico que permite aceptar soluciones peores de manera controlada, con el fin de escapar de óptimos locales. El algoritmo completo se presenta en la Figura~\ref{fig:algoritmo_sa_principal}. Este procedimiento incluye la selección de operadores adaptativos, la actualización de temperatura y la gestión explícita de memoria para las estructuras de rutas y flotas.
+El proceso del SA se utiliza como mecanismo de mejora local para refinar las soluciones generadas inicialmente por ACO. Su objetivo es explorar vecindarios diversos mediante un esquema probabilístico que permite aceptar soluciones peores de manera controlada, con el fin de escapar de óptimos locales. El algoritmo completo se presenta en la Figura~\ref{fig:algoritmo_sa_principal}. Este procedimiento incluye la selección de operadores adaptativos, la actualización de temperatura y la gestión explícita de memoria para las estructuras de rutas y flotas.
 
 \begin{figure}[H]
 	\centering
@@ -2381,6 +2358,8 @@ El proceso de Recocido Simulado (SA) se utiliza como mecanismo de mejora local p
 
 \chapter{Resultados}
 \label{cap:resultados}
+
+
 % En este capítulo se presentan los resultados obtenidos mediante la implementación del enfoque híbrido basado en Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA) para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW). Los experimentos se diseñaron con el objetivo de evaluar la calidad de las soluciones, la estabilidad del método, la influencia de los parámetros calibrados y la competitividad del enfoque frente a valores reportados en la literatura especializada.
 
 % \section{Diseño Experimental}
@@ -2530,7 +2509,7 @@ El proceso de Recocido Simulado (SA) se utiliza como mecanismo de mejora local p
 \chapter{Conclusiones y trabajo futuro}
 \label{cap:conclusiones}
 
-El presente estudio propuso un enfoque híbrido basado en la combinación de Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA) para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW). Los resultados obtenidos demostraron que la integración de estas tres técnicas permite construir soluciones factibles de manera consistente y refinarlas posteriormente para reducir la distancia total recorrida y el número de vehículos empleados. El método híbrido mostró ser competitivo al compararse con valores de referencia reportados en la literatura para las instancias de Solomon.
+El presente estudio propuso un enfoque híbrido basado en la combinación de Evolución Diferencial, Optimización por Colonia de Hormigas y Recocido Simulado para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo. Los resultados obtenidos demostraron que la integración de estas tres técnicas permite construir soluciones factibles de manera consistente y refinarlas posteriormente para reducir la distancia total recorrida y el número de vehículos empleados. El método híbrido mostró ser competitivo al compararse con valores de referencia reportados en la literatura para las instancias de Solomon.
 
 El objetivo principal del trabajo fue diseñar y evaluar un método híbrido capaz de mejorar el desempeño de técnicas metaheurísticas tradicionales aplicadas al VRP-TW. Este objetivo se cumplió satisfactoriamente al integrar DE para la calibración automática de parámetros, ACO para la construcción inicial de rutas y SA como mecanismo de mejora local. Cada componente desempeñó el rol esperado dentro del enfoque híbrido, contribuyendo a obtener soluciones de mayor calidad y reduciendo el esfuerzo manual asociado a la calibración de parámetros.
 
