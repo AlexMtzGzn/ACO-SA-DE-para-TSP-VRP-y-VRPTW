@@ -348,43 +348,6 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
       rango->maxIteracionesSA = 200; // Asignamos 200 a maxIteracionesSA
       rango->minIteracionesSA = 120; // Asignamos 120 a minIteracionesSA
    }
-
-   if (vrp->num_clientes > 51 && vrp->num_clientes <= 101)
-   {
-      rango->maxAlpha = 5.0; // Asignamos 5.0 a maxAlpha
-      rango->minAlpha = 3.0; // Asignamos 3.0 a minAlpha
-
-      rango->maxBeta = 6.0; // Asignamos 6.0 a maxBeta
-      rango->minBeta = 4.0; // Asignamos 4.0 a minBeta
-
-      rango->maxGamma = 4.0; // Asignamos 4.0 a maxGamma
-      rango->minGamma = 2.0; // Asignamos 2.0 a minGamma
-
-      rango->maxRho = 0.3; // Asignamos 0.3 a maxRho
-      rango->minRho = 0.1; // Asignamos 0.1 a minRho
-
-      rango->maxNumHormigas = 20; // Asignamos 20 a maxNumHormigas
-      rango->minNumHormigas = 10; // Asignamos 10 a minNumHormigas
-
-      rango->maxPorcentajeHormigas = 0.35; // Asignamos 0.35 a maxPorcentajeHormigas
-      rango->minPorcentajeHormigas = 0.15; // Asignamos 0.15 a minPorcentajeHormigas
-
-      rango->maxNumIteracionesACO = 180; // Asignamos 180 a maxNumIteracionesACO
-      rango->minNumIteracionesACO = 120; // Asignamos 120 a minNumIteracionesACO
-
-      rango->maxTemperatura_inicial = 4000.0; // Asignamos 4000.0 a maxTemperatura_inicial
-      rango->minTemperatura_inicial = 2500.0; // Asignamos 2500.0 a minTemperatura_inicial
-
-      rango->maxTemperatura_final = 0.01;  // Asignamos 0.01 a maxTemperatura_final
-      rango->minTemperatura_final = 0.001; // Asignamos 0.001 a minTemperatura_final
-
-      rango->maxFactor_enfriamiento = 0.995; // Asignamos 0.995 a maxFactor_enfriamiento
-      rango->minFactor_enfriamiento = 0.97;  // Asignamos 0.98 a minFactor_enfriamiento
-
-      rango->maxIteracionesSA = 300; // Asignamos 300 a maxIteracionesSA
-      rango->minIteracionesSA = 200; // Asignamos 200 a minIteracionesSA
-   }
-
    // Itera sobre cada individuo de la población
    for (int i = 0; i < poblacion; ++i)
    {
