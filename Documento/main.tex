@@ -54,7 +54,7 @@
     linkcolor=black,
     citecolor=black,
     urlcolor=black,
-    pdftitle={VRPTW: Proyecto Terminal},
+    pdftitle={VRP-TW: Proyecto Terminal},
     pdfauthor={Alejandro Martínez Guzmán}
 }
 
@@ -475,15 +475,11 @@ La solución \(i_{opt}\) se denomina solución óptima global, y el valor \(f(i_
 
 Comprender esta distinción es esencial para abordar el problema central de este trabajo: VRP-TW, el cual se enmarca dentro de la optimización combinatoria. En este tipo de problemas, el número de soluciones posibles es finito, y el desafío consiste en identificar cuál de ellas representa la mejor opción según un criterio específico.
 
-Esta base teórica permite introducir los problemas clásicos de enrutamiento, como el TSP, el VRP y sus variantes, como el VRP-TW, los cuales serán analizados más adelante por su relación directa con la planificación eficiente de rutas en contextos reales.
-
 \subsection{Complejidad Computacional y Algorítmica}
 
 El estudio de la complejidad en ciencias computacionales busca comprender qué tan difícil es resolver un problema, tanto desde su estructura teórica como desde los recursos requeridos para su solución. Esta dificultad se aborda desde dos enfoques: la complejidad computacional, que clasifica los problemas según el crecimiento de recursos necesarios en función del tamaño de la entrada, y la complejidad algorítmica, que evalúa el desempeño de algoritmos específicos al aplicarse sobre dichas entradas \citep{garey1979computers, papadimitriou1994}.
 
 De forma simplificada, la complejidad computacional se refiere al análisis general del problema sin importar el algoritmo, mientras que la algorítmica se enfoca en el tiempo y espacio consumido por un algoritmo concreto \citep{maldonado2013problema}.
-
-Esta distinción es clave al abordar problemas de optimización combinatoria como el TSP, el VRP y su variante principal en este trabajo: el VRP-TW, que presentan una explosión combinatoria (crecimiento factorial) de soluciones conforme crece el número de clientes.
 
 \begin{figure}[H]
 	\centering
@@ -492,10 +488,10 @@ Esta distinción es clave al abordar problemas de optimización combinatoria com
 	\label{fig:figura_complejidad_computacional}
 \end{figure}
 
-En la Figura~\ref{fig:figura_complejidad_computacional} se observa cómo las funciones constantes $\mathcal{O}(1)$ y logarítmicas $\mathcal{O}(\log n)$ crecen lentamente, incluso para entradas de gran tamaño. Las funciones polinomiales, como $\mathcal{O}(n)$ y $\mathcal{O}(n \log n)$, presentan un crecimiento más acelerado pero aún manejable. En contraste, las funciones exponenciales $\mathcal{O}(2^n)$ y factoriales $\mathcal{O}(n!)$ crecen de manera extremadamente rápida, lo que vuelve intratables los problemas asociados a medida que aumenta el tamaño de la entrada. Por esta razón, problemas como el TSP, VRP y VRP-TW se consideran de alta complejidad computacional, ya que su espacio de búsqueda crece factorialmente.
+En la Figura~\ref{fig:figura_complejidad_computacional} se observa cómo las funciones constantes $\mathcal{O}(1)$ y logarítmicas $\mathcal{O}(\log n)$ crecen lentamente, incluso para entradas de gran tamaño. Las funciones polinomiales, como $\mathcal{O}(n)$ y $\mathcal{O}(n \log n)$, presentan un crecimiento más acelerado pero aún manejable. En contraste, las funciones exponenciales $\mathcal{O}(2^n)$ y factoriales $\mathcal{O}(n!)$ crecen de manera extremadamente rápida, lo que vuelve intratables los problemas asociados a medida que aumenta el tamaño de la entrada. Por esta razón, problemas como el VRP-TW se consideran de alta complejidad computacional, ya que su espacio de búsqueda crece factorialmente.
 \subsection{El Problema P vs NP}
 
-En ciencias de la computación, todos los problemas pueden clasificarse en dos grupos principales: problemas decidibles y problemas indecidibles. Un problema es \emph{indecidible} cuando no existe ningún algoritmo que pueda resolverlo, incluso si se dispone de tiempo y recursos ilimitados. En consecuencia, no es posible determinar si dicho problema terminará su ejecución. Por contraste, un problema es \emph{decidible} cuando existe (o podría existir) un algoritmo capaz de resolverlo \citep{maldonado2013problema}.
+En ciencias de la computación, todos los problemas pueden clasificarse en dos grupos principales: problemas decidibles y problemas indecidibles. Un problema es indecidible cuando no existe ningún algoritmo que pueda resolverlo, incluso si se dispone de tiempo y recursos ilimitados. En consecuencia, no es posible determinar si dicho problema terminará su ejecución. Por contraste, un problema es decidible cuando existe (o podría existir) un algoritmo capaz de resolverlo \citep{maldonado2013problema}.
 
 \begin{figure}[H]
 	\centering
@@ -504,9 +500,8 @@ En ciencias de la computación, todos los problemas pueden clasificarse en dos g
 	\label{fig:decidibilidad}
 \end{figure}
 
-En este trabajo, los problemas abordados —el TSP, el VRP y el VRP-TW— son considerados problemas decidibles. A continuación, se presenta una clasificación más detallada dentro de esta categoría, basada en la teoría de la complejidad computacional.
+En este trabajo, el problema abordado —VRP-TW— se considera un problema decidible. A continuación, se presenta una clasificación más detallada dentro de esta categoría, basada en la teoría de la complejidad computacional.
 
-% [Sigue tu sección de Clases P y NP...]
 
 \subsubsection{Clases P y NP}
 
@@ -547,15 +542,13 @@ Por otro lado, los problemas NP-difíciles pueden ser incluso más complejos que
 	\label{fig:p_vs_np}
 \end{figure}
 
-El crecimiento exponencial del tiempo requerido para resolver problemas como el TSP, el VRP y el VRP-TW los ubica dentro de la clase NP. Estos problemas, aunque decidibles, presentan una complejidad tan elevada que no se conoce ningún algoritmo exacto que los resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de NP.
-
+El crecimiento exponencial del tiempo requerido para resolver el problema VRP-TW lo ubica dentro de la clase NP. Este problema, aunque decidible, presenta una complejidad tan elevada que no se conoce ningún algoritmo exacto que lo resuelva eficientemente para instancias grandes. Por ello, más adelante se analizará su clasificación específica dentro de NP.
 \subsection{Problemas de Optimización Combinatoria}
 
 De manera complementaria a la definición formal presentada en la sección~\ref{subsec:opt_discreta}, Papadimitriou y Steiglitz \citep{papadimitriou1998} definen la optimización combinatoria como el estudio de problemas de optimización en los que el conjunto de soluciones factibles es discreto, o puede discretizarse mediante un proceso de enumeración, y donde se busca una solución que optimice una función objetivo definida sobre dicho conjunto.
 
-Los problemas de optimización combinatoria constituyen una clase amplia de modelos aplicables a diversas áreas, especialmente en la planificación y el enrutamiento de vehículos. Dentro de este campo destacan el TSP, que representa la forma más básica de optimización de rutas, y sus extensiones, que incorporan restricciones adicionales propias de escenarios reales, como la capacidad limitada de los vehículos o las ventanas de tiempo en las que deben realizarse las entregas.
+Los problemas de optimización combinatoria son ampliamente utilizados en planificación y enrutamiento de vehículos. Entre ellos destaca el TSP como base de los modelos de rutas y sus variantes con restricciones más realistas, como capacidad o ventanas de tiempo. En este ámbito, el VRP y el VRP-TW son dos de los casos más estudiados por su relevancia práctica y alta complejidad, por lo que a continuación se describen con detalle.
 
-En este contexto, el VRP y el VRP-TW se han consolidado como dos de los desafíos más estudiados, debido a su relevancia práctica y su elevada complejidad computacional. A continuación, se describen estos problemas en detalle.
 \subsubsection{Problema del Agente Viajero}
 \label{subsec:problem_tsp}
 
@@ -586,19 +579,19 @@ sujeto a:
 	\sum_{j=1}^N x_{ij} = 1, \quad \forall i = 1,\dots,N
 	\label{eq:TSP_out}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de salida única de cada nodo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: salida única de cada nodo}
 
 \begin{equation}
 	\sum_{i=1}^N x_{ij} = 1, \quad \forall j = 1,\dots,N
 	\label{eq:TSP_in}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de entrada única a cada nodo}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: entrada única a cada nodo}
 
 \begin{equation}
 	u_i - u_j + N x_{ij} \leq N - 1, \quad \forall i,j = 2,\dots,N, \; i \neq j
 	\label{eq:TSP_subtour}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción de eliminación de subciclos}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation}Restricción: eliminación de subciclos}
 
 \begin{equation}
 	x_{ij} \in \{0,1\}, \quad \forall i,j = 1,\dots,N
@@ -618,9 +611,9 @@ La función objetivo~\eqref{eq:TSP_obj} representa la suma total de los costos (
 
 \subsubsection*{Complejidad del Problema del Agente Viajero}
 
-Como explica \cite{papadimitriou1998}, el TSP es NP-difícil, y su versión de decisión es NP-completa. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo representa un desafío fundamental en la teoría de la computación, pues encontrar una solución polinomial para el TSP permitiría resolver eficientemente toda la clase \textit{NP}. Esta dificultad justifica la utilización de algoritmos heurísticos y metaheurísticos, dado que las técnicas exactas sólo resultan prácticas para instancias
+Como explica \cite{papadimitriou1998}, el TSP es NP-difícil, y su versión de decisión es NP-completa. Esto implica que la búsqueda de un algoritmo eficiente para resolverlo representa un desafío fundamental en la teoría de la computación, pues encontrar una solución polinomial para el TSP permitiría resolver eficientemente toda la clase \textit{NP}.
 
-El TSP ha sido tradicionalmente considerado como el punto de partida para el estudio de problemas más complejos de enrutamiento, como el VRP y sus variantes, entre ellas el  VRP-TW. Su análisis proporciona una base conceptual sólida para comprender aspectos fundamentales como la construcción de rutas, la minimización de costos y el manejo de restricciones operativas. Estudiar el TSP permite introducir de forma gradual nuevas variables y condiciones, lo que lo convierte en un modelo introductorio ideal para el desarrollo de enfoques logísticos más realistas.
+El TSP ha sido tradicionalmente considerado como el punto de partida para el estudio de problemas más complejos de enrutamiento, como el VRP y sus variantes, entre ellas el  VRP-TW. Su análisis proporciona una base conceptual sólida para comprender aspectos fundamentales como la construcción de rutas, la minimización de costos y el manejo de restricciones operativas.
 
 \subsubsection{Problema del Problema Ruteo de Vehículos}
 \label{subsec:problem_vrp}
@@ -700,16 +693,15 @@ La función objetivo~\eqref{eq:VRP_obj} minimiza el costo total de todas las rut
 \subsubsection*{Complejidad del Problema de Ruteo de Vehículos}
 \label{subsec:complejidad_vrp}
 
-Como señalan Laporte y Nobert \cite{laporte1987}, el VRP es NP-difícil, incluso en su versión más simple con un solo vehículo (es decir, el TSP). Esto significa que no se conoce ningún algoritmo que lo resuelva de forma exacta en tiempo polinomial, y su complejidad crece exponencialmente con el número de clientes. Por ello, la mayoría de las instancias prácticas requieren el uso de técnicas heurísticas o metaheurísticas, ya que los métodos exactos son computacionalmente inviables para problemas de tamaño medio o grande.
+Como señalan Laporte y Nobert \cite{laporte1987}, el VRP es NP-difícil, incluso en su versión más simple con un solo vehículo (es decir, el TSP).
 
-El VRP representa la extensión natural del TSP hacia escenarios logísticos más realistas y complejos, incorporando restricciones operativas que reflejan las limitaciones del mundo real. Su estudio es fundamental para comprender cómo las restricciones de capacidad, múltiples vehículos y la gestión de flotas impactan en la optimización de rutas. El VRP sirve como base conceptual para abordar problemas logísticos avanzados como la distribución con ventanas de tiempo, el ruteo con múltiples depósitos y la optimización de última milla en el comercio electrónico. Analizar el VRP permite desarrollar una comprensión profunda de los compromisos inherentes entre la minimización de costos, la utilización eficiente de recursos y la satisfacción de restricciones operativas, estableciendo los fundamentos teóricos necesarios para abordar las complejidades de los sistemas de distribución modernos.
-
+El VRP representa la extensión natural del TSP hacia escenarios logísticos más realistas y complejos, incorporando restricciones operativas que reflejan las limitaciones del mundo real. Su estudio es fundamental para comprender cómo las restricciones de capacidad, múltiples vehículos y la gestión de flotas impactan en la optimización de rutas.
 \subsubsection{Problema de Ruteo de Vehículos con Ventanas de Tiempo}
 \label{subsec:problem_vrptw}
 
 El Problema de Ruteo de Vehículos con Ventanas de Tiempo, conocido por sus siglas en inglés como VRP-TW (\textit{Vehicle Routing Problem with Time Windows}), es una extensión del clásico VRP mencionado anteriormene en la sección~\ref{subsec:problem_vrp} que incorpora restricciones temporales. En este problema, además de satisfacer las demandas específicas de cada cliente, es imprescindible que las visitas se realicen dentro de una franja horaria determinada para cada uno de ellos \citep{toth2014}. Específicamente, el servicio a un cliente debe comenzar en un instante mayor o igual al inicio de su ventana de tiempo, y el arribo al punto de servicio no puede exceder el límite superior de dicha ventana. Asimismo, en caso de que un vehículo llegue antes del inicio de la ventana, deberá esperar hasta el momento indicado para poder atender al cliente \citep{montes2017}.
 
-En este contexto, el objetivo fundamental del VRP-TW es determinar un conjunto de rutas para una flota de vehículos homogéneos que partan y regresen al depósito, visiten cada cliente exactamente una vez dentro de su respectiva ventana temporal, y sin exceder la capacidad de los vehículos. Todo esto debe lograrse minimizando el costo total del recorrido, usualmente expresado en términos de distancia o tiempo \cite{solomon1987algorithms}.
+El objetivo fundamental del VRP-TW es determinar un conjunto de rutas para una flota de vehículos homogéneos que partan y regresen al depósito, visiten cada cliente exactamente una vez dentro de su respectiva ventana temporal, y sin exceder la capacidad de los vehículos. Todo esto debe lograrse minimizando el costo total del recorrido, usualmente expresado en términos de distancia o tiempo \cite{solomon1987algorithms}.
 
 \begin{figure}[H]
 	\centering
@@ -729,7 +721,7 @@ Según \citep{toth2014}, el VRP-TW se define sobre un grafo dirigido \(G = (V, A
 	\min \sum_{k \in K} \sum_{i \in V} \sum_{j \in V} c_{ij} x_{ijk}
 	\label{eq:VRPTW_obj}
 \end{equation}
-\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Función objetivo VRPTW: minimizar el costo total del recorrido}
+\addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Función objetivo VRP-TW: minimizar el costo total del recorrido}
 
 sujeto a:
 
@@ -809,8 +801,7 @@ El VRP-TW representa una evolución del VRP, el cual a su vez deriva del TSP. Es
 
 Esta variante refleja de forma más precisa los desafíos logísticos actuales, en los que los clientes no solo deben ser visitados, sino también atendidos dentro de intervalos de tiempo específicos. Esto impone una coordinación precisa entre la planificación de rutas, la gestión de recursos y el cumplimiento de niveles de servicio.
 
-Por ello, resulta fundamental comprender los fundamentos del TSP y del VRP, ya que constituyen la base teórica sobre la cual se desarrolla el VRP-TW, que es el problema principal abordado en este trabajo. A partir de este punto, se profundizará en las técnicas y metodologías empleadas para resolver dicha variante.
-
+Por ello, resulta fundamental comprender los fundamentos del TSP y del VRP, ya que constituyen la base teórica sobre la cual se desarrolla el VRP-TW, que es el problema principal abordado en este trabajo.
 
 \subsection{Métodos de Solución para el Problema de Ruteo de Vehículos con Ventanas de Tiempo}
 Resumiendo las secciones pasadas, los problemas de enrutamiento como el TSP, el VRP y su extensión con ventanas de tiempo, el VRP-TW, mencionados anteriormente, pertenecen a la clase de problemas NP-difíciles \citep{papadimitriou1998, laporte1987, toth2014}. Esta clasificación se debe al crecimiento exponencial del tiempo requerido para resolverlos a medida que aumenta el número de nodos o clientes en la instancia.
@@ -874,11 +865,7 @@ Entre los operadores clásicos utilizados en los métodos de mejora para problem
 	\item \textbf{Operadores de Van Breedam:} El primero, denominado Cadena de Traslado (\textit{String Relocation}), se define como una secuencia de $m$ nodos que es transferida de una ruta a otra manteniendo el orden en la ruta original. El segundo, denominado Cadena de Intercambio (\textit{String Exchange}), intercambia una secuencia de $m$ clientes con una secuencia de $n$ clientes entre dos rutas  \citep{montes2017, toth2014, olivera2004heur}.
 \end{enumerate}
 
-En relación con lo expuesto en la subsubsection~\ref{subsec: clase_np}, los problemas de decisión pertenecientes a la clase NP presentan una complejidad tal que no es posible garantizar la obtención de una solución óptima en tiempo polinómico razonable.
-
-En este contexto, los métodos heurísticos constituyen una alternativa eficaz para abordar el problema de optimización combinatoria VRP-TW, donde los métodos exactos resultan inviables a gran escala.
-
-Por lo tanto, las heurísticas permiten obtener soluciones satisfactorias en tiempos razonables, priorizando el equilibrio entre la calidad de la solución y la eficiencia computacional. Aunque no garantizan la optimalidad, su aplicación resulta esencial cuando las soluciones exactas son \ prohibitivas.
+En relación con lo expuesto en la subsubsection~\ref{subsec: clase_np}, los problemas de decisión pertenecientes a la clase NP presentan una complejidad tal que no es posible garantizar la obtención de una solución óptima en tiempo polinómico razonable; en este contexto, los métodos heurísticos constituyen una alternativa eficaz para abordar el problema de optimización combinatoria VRP-TW, donde los métodos exactos resultan inviables a gran escala. Por lo tanto, las heurísticas permiten obtener soluciones satisfactorias en tiempos razonables, priorizando el equilibrio entre la calidad de la solución y la eficiencia computacional; aunque no garantizan la optimalidad, su aplicación resulta esencial cuando las soluciones exactas son prohibitivas.
 
 \subsubsection{Metaheurísticas}
 
@@ -1132,7 +1119,7 @@ Para la evaluación del algoritmo implementado se utilizaron conjuntos de datos 
 	      Esta información es utilizada por los algoritmos para determinar la asignación de clientes a vehículos y planificar las rutas cumpliendo con las restricciones de capacidad y ventanas de tiempo.
 \end{itemize}
 
-\noindent En conjunto, estas instancias permiten evaluar el desempeño, eficiencia y calidad de las soluciones generadas por los algoritmos para distintos tamaños y configuraciones del problema VRPTW.
+\noindent En conjunto, estas instancias permiten evaluar el desempeño, eficiencia y calidad de las soluciones generadas por los algoritmos para distintos tamaños y configuraciones del problema VRP-TW.
 
 
 \subsection{Software}
@@ -1205,9 +1192,6 @@ Adicionalmente, se emplearon otras computadoras para la recolección de datos:
 	\item \textbf{Memoria RAM:} 8 GB.
 	\item \textbf{Sistema operativo:} Linux (Ubuntu).
 \end{itemize}
-
-Estas configuraciones permitieron realizar pruebas de ejecución de los algoritmos y generar los datos necesarios para el análisis de resultados, considerando diferentes capacidades de hardware para evaluar la eficiencia y escalabilidad de los métodos implementados.
-
 
 \subsection{Herramientas de apoyo}
 
@@ -1975,8 +1959,7 @@ Debido a que modifican la asignación de clientes a vehículos, requieren verifi
 			      Seleccionar dos vehículos distintos con $\geq 1$ cliente cada uno.\\
 			      Seleccionar posición $i$ en vehículo 1 y posición $j$ en vehículo 2.\\
 			      Intercambiar clientes entre ambas posiciones.\\
-			      \textbf{si} verificar\_restricciones(vehículo 1) y verificar\_restricciones(vehículo 2) \textbf{entonces}\\
-			      \hspace{1em} retornar $s'$ \textbf{si no} revertir.\\
+			      \textbf{si} verificar\_restricciones(ambos) \textbf{entonces} retornar $s'$ \textbf{si no} revertir.\\
 		      \end{algorithm}
 		      \caption{Pseudocódigo del operador Swap Inter-Ruta.}
 	      \end{figure}
@@ -1998,7 +1981,7 @@ Debido a que modifican la asignación de clientes a vehículos, requieren verifi
 			      Seleccionar cliente $c$ y eliminarlo de su posición.\\
 			      Seleccionar vehículo destino y posición de inserción.\\
 			      Insertar cliente $c$ en nueva posición.\\
-			      \textbf{si} verificar\_restricciones(ambos vehículos) \textbf{entonces} retornar $s'$ \textbf{si no} revertir.\\
+			      \textbf{si} verificar\_restricciones(ambos) \textbf{entonces} retornar $s'$ \textbf{si no} revertir.\\
 		      \end{algorithm}
 		      \caption{Pseudocódigo del operador Reinserción Intra-Inter.}
 	      \end{figure}
@@ -2117,7 +2100,7 @@ El algoritmo finaliza cuando la temperatura alcanza $T_f$ o cuando $T < 10^{-10}
 
 \subsubsection{Manejo de factibilidad y limpieza de vehículos}
 
-Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos para asegurar que cada ruta cumpla con las restricciones operativas del VRPTW.
+Dado que los operadores de vecindad pueden generar soluciones infactibles que violan restricciones de capacidad o ventanas de tiempo, se implementan mecanismos de validación rigurosos para asegurar que cada ruta cumpla con las restricciones operativas del VRP-TW.
 
 \begin{figure}[H]
 	\centering
@@ -2289,7 +2272,7 @@ Cuando se eliminan vehículos, es necesario re-evaluar la función objetivo comp
 	\label{fig:evaluacion_fitness_sa}
 \end{figure}
 
-El pseudocódigo \ref{fig:evaluacion_fitness_sa} recorre todos los vehículos de la flota y acumula las distancias entre clientes consecutivos en cada ruta. Este proceso considera completamente la estructura de cada vehículo, incluyendo los desplazamientos desde y hacia el depósito cuando corresponda. Con ello se actualiza el \textit{fitness} global de la solución tras cualquier modificación en la flota o en las rutas.
+El pseudocódigo \ref{fig:evaluacion_fitness_sa} recorre todos los vehículos de la flota y acumula las distancias entre clientes consecutivos en cada ruta. Este proceso considera completamente la estructura de cada vehículo, incluyendo los desplazamientos desde y hacia el depósito cuando corresponda. Con ello se actualiza el fitness global de la solución tras cualquier modificación en la flota o en las rutas.
 
 \subsubsection{Algoritmo principal de Recocido Simulado}
 
@@ -2351,7 +2334,7 @@ El proceso del SA se utiliza como mecanismo de mejora local para refinar las sol
 		Liberar memoria temporal; \textbf{retornar} $s^*$
 
 	\end{algorithm}
-	\caption{Algoritmo de Recocido Simulado para refinamiento de soluciones VRP-TW.}
+	\caption{Pseudocódigo de Recocido Simulado para refinamiento de soluciones VRP-TW.}
 	\label{fig:algoritmo_sa_principal}
 \end{figure}
 
@@ -2359,163 +2342,80 @@ El proceso del SA se utiliza como mecanismo de mejora local para refinar las sol
 \chapter{Resultados}
 \label{cap:resultados}
 
+% % En esta sección se presentan los resultados obtenidos mediante la implementación del algoritmo de Optimización por Colonia de Hormigas (ACO) aplicado al problema VRPTW sobre las instancias de Solomon. Se analizaron instancias de 25, 50 y 100 clientes, evaluando el desempeño del algoritmo en términos de su mejor solución alcanzada, valor promedio, peor caso y estabilidad medida con varianza y desviación estándar.
 
-% En este capítulo se presentan los resultados obtenidos mediante la implementación del enfoque híbrido basado en Evolución Diferencial (DE), Optimización por Colonia de Hormigas (ACO) y Recocido Simulado (SA) para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo (VRP-TW). Los experimentos se diseñaron con el objetivo de evaluar la calidad de las soluciones, la estabilidad del método, la influencia de los parámetros calibrados y la competitividad del enfoque frente a valores reportados en la literatura especializada.
+% Las pruebas se realizaron ejecutando el algoritmo 15 veces por instancia, manteniendo fijos los parámetros globales (número de hormigas, iteraciones, $\alpha$, $\beta$, $\rho$). Con ello se busca medir robustez, consistencia y sensibilidad del método frente a la aleatoriedad inherente del proceso.
 
-% \section{Diseño Experimental}
+\section{Resultados con 25 clientes}
 
-% El desempeño del método híbrido fue evaluado utilizando 16 instancias del conjunto Solomon, específicamente:
-% \[
-% \text{C101–C109, C201–C207}.
-% \]
+% En la Tabla \ref{tabla_25} se muestran los resultados obtenidos para las instancias con 25 clientes. Puede observarse que para C101, C103, C201 y C202 el algoritmo logra igualar el valor reportado en la literatura, lo que indica que el ACO presenta buena capacidad de convergencia en problemas de baja escala. 
 
-% Estas instancias cubren tamaños de 25, 50 y 100 clientes, lo que permite analizar el comportamiento del algoritmo en diferentes escalas y niveles de dificultad. Dichas instancias se caracterizan por presentar ventanas de tiempo estrictas, un depósito centralizado y un conjunto de clientes distribuidos con patrones tanto agrupados como dispersos, dependiendo del subtipo correspondiente (C1 o C2).
-
-% Para cada instancia se realizaron un total de 15 ejecuciones independientes, lo cual permite normalizar los resultados y reducir la influencia aleatoria asociada a los algoritmos metaheurísticos. De cada conjunto se obtuvieron las siguientes estadísticas:
-
-% \begin{itemize}
-%     \item \textbf{Mejor resultado (Best)}
-%     \item \textbf{Promedio (Avg)}
-%     \item \textbf{Desviación estándar (Std)}
-%     \item \textbf{Porcentaje de desviación respecto a la referencia (Gap)}
-% \end{itemize}
-
-% El porcentaje de desviación se calculó mediante:
-% \[
-% \text{Gap}(\%) = \frac{\text{Solución obtenida} - \text{Referencia}}{\text{Referencia}} \times 100.
-% \]
-
-% Los valores de referencia utilizados provienen de resultados ampliamente reportados en la literatura para el conjunto Solomon.
-
-% \section{Configuración de los Algoritmos}
-
-% El algoritmo híbrido se ejecutó siguiendo el flujo DE–ACO–SA, donde:
-
-% \begin{enumerate}
-%     \item \textbf{DE} calibra automáticamente los parámetros principales del ACO (\(\alpha, \beta, \rho\)) y del SA (temperatura inicial, factor de enfriamiento).
-%     \item \textbf{ACO} construye rutas iniciales garantizando factibilidad respecto a capacidad y ventanas de tiempo.
-%     \item \textbf{SA} refina las rutas utilizando operadores de vecindad adaptativos (relocate, swap, 2-opt, or-opt).
-% \end{enumerate}
-
-% Los parámetros base utilizados fueron seleccionados a partir de pruebas preliminares y del comportamiento típico reportado para este tipo de métodos.
-
-% \section{Resultados Globales}
-
-% La Tabla~\ref{tab:resultados_globales} resume los valores obtenidos para cada instancia. Los campos deben completarse con los resultados obtenidos experimentalmente, pero aquí se presenta la estructura final:
+% La instancia C102 muestra un comportamiento diferente al presentar desviación estándar de 7.04, reflejando variabilidad entre ejecuciones debido a la naturaleza probabilística del método. No obstante, el valor mínimo alcanzado coincide con el reportado, señalando que el algoritmo sí es capaz de llegar al óptimo aunque no siempre de manera consistente.
 
 % \begin{table}[H]
 % \centering
-% \caption{Resumen general de resultados para las 16 instancias Solomon.}
-% \label{tab:resultados_globales}
-% \begin{tabular}{lcccc}
+% \caption{Resultados con instancias de 25 clientes.}
+% \label{tabla_25}
+% \begin{tabular}{|c|c|c|c|c|c|c|}
 % \hline
-% Instancia & Best & Avg & Std & Gap (\%) \\
+% Instancia & Mejor Rep. & Mejor & Peor & Promedio & Varianza & Desviación \\
 % \hline
-% C101 & ... & ... & ... & ... \\
-% C102 & ... & ... & ... & ... \\
-% \vdots & & & & \\
-% C207 & ... & ... & ... & ... \\
+% C101 & 191.3 & 191.3 & 191.3 & 191.30 & 0.00 & 0.00 \\
+% C102 & 190.3 & 190.3 & 215.8 & 193.66 & 49.56 & 7.04 \\
+% C103 & 190.3 & 190.3 & 192.2 & 190.49 & 0.29 & 0.54 \\
+% C201 & 214.7 & 214.7 & 214.7 & 214.7 & 0.00 & 0.00 \\
+% C202 & 214.7 & 214.7 & 214.7 & 214.7 & 0.00 & 0.00 \\
 % \hline
 % \end{tabular}
 % \end{table}
 
-% Los resultados indican que el método híbrido logra soluciones competitivas en la mayoría de las instancias, presentando desviaciones reducidas en comparación con los valores de referencia.
+\section{Resultados con 50 clientes}
 
-% \section{Análisis del Comportamiento por Tamaño de Instancia}
+% En la Tabla \ref{tabla_50} se presentan los resultados correspondientes a las instancias con 50 clientes. Nuevamente se observa un comportamiento estable para C105 y C106, donde todas las ejecuciones alcanzaron el mismo valor. Sin embargo, la instancia C104 presenta variación moderada, lo que sugiere un incremento en la complejidad del espacio de búsqueda a medida que crece el número de clientes.
+% \begin{table}[H]
+% \centering
+% \caption{Resultados con instancias de 50 clientes.}
+% \label{tabla_50}
+% \begin{tabular}{|c|c|c|c|c|c|c|}
+% \hline
+% Instancia & Mejor Rep. & Mejor & Peor & Promedio & Varianza & Desviación \\
+% \hline
+% C104 & 359.0 & 358.0 & 366.1 & 361.11 & 6.17 & 2.48 \\
+% C105 & 362.4 & 362.4 & 362.4 & 362.4  & 0.00 & 0.00 \\
+% C106 & 362.4 & 362.4 & 362.4 & 362.4  & 0.00 & 0.00 \\
+% C203 & 359.8 & -- & -- & -- & -- & -- \\
+% C204 & 359.8 & -- & -- & -- & -- & -- \\
+% \hline
+% \end{tabular}
+% \end{table}
 
-% El análisis del desempeño según el número de clientes muestra las siguientes tendencias:
-
-% \subsection{Instancias de 25 Clientes}
-
-% \begin{itemize}
-%     \item Convergencia rápida.
-%     \item Alta estabilidad entre ejecuciones.
-%     \item SA realiza mejoras moderadas, dado que la estructura del ruteo es sencilla.
-%     \item Las desviaciones respecto a la literatura suelen ser mínimas.
-% \end{itemize}
-
-% \subsection{Instancias de 50 Clientes}
-
-% \begin{itemize}
-%     \item Mayor dependencia de la calibración por DE.
-%     \item ACO genera rutas iniciales sólidas, pero SA incrementa significativamente la calidad.
-%     \item Variabilidad moderada entre ejecuciones.
-% \end{itemize}
-
-% \subsection{Instancias de 100 Clientes}
-
-% \begin{itemize}
-%     \item Incremento notable en la variabilidad de resultados.
-%     \item SA tiene un papel crítico, especialmente en instancias dispersas.
-%     \item La calidad depende fuertemente de los parámetros calibrados por DE.
-%     \item Tiempo de ejecución más elevado debido al tamaño del espacio de búsqueda.
-% \end{itemize}
-
-% \section{Aporte de Cada Componente del Híbrido}
-
-% El análisis modular mostró:
-
-% \subsection{Aporte del DE}
-
-% \begin{itemize}
-%     \item Permite adaptar automáticamente los valores de \(\alpha, \beta, \rho\) y los parámetros del SA.
-%     \item Reduce el esfuerzo de calibración manual.
-%     \item Mejora la estabilidad del ACO en instancias grandes.
-% \end{itemize}
-
-% \subsection{Aporte del ACO}
-
-% \begin{itemize}
-%     \item Genera rutas iniciales consistentemente factibles.
-%     \item Define patrones de tránsito que SA puede mejorar eficazmente.
-%     \item Es especialmente eficiente en instancias tipo C1 (clientes agrupados).
-% \end{itemize}
-
-% \subsection{Aporte del SA}
-
-% \begin{itemize}
-%     \item Produce mejoras significativas en distancia en instancias medianas y grandes.
-%     \item Permite escapar de mínimos locales generados por la estructura determinista del ACO.
-% \end{itemize}
-
-% \section{Comparación con la Literatura}
-
-% Los resultados obtenidos se compararon con valores de referencia reportados en investigaciones previas sobre el VRP-TW. En la mayoría de las instancias, las soluciones generadas por el enfoque híbrido presentan desviaciones bajas, lo cual confirma que:
-
-% \begin{itemize}
-%     \item El híbrido DE–ACO–SA es competitivo.
-%     \item La calidad de las rutas obtenidas se aproxima a métodos establecidos.
-%     \item El número de vehículos utilizados coincide en muchos casos con los mejores valores históricos.
-% \end{itemize}
-
-% El desempeño es especialmente destacable en las instancias tipo C2, donde la estructura por clusters favorece el refinamiento intensivo de SA.
+\section{Resultados con 100 clientes}
 
 % \section{Discusión General}
 
-% Los resultados experimentales permiten concluir que:
+% Los resultados muestran que ACO es especialmente robusto en instancias pequeñas y medianas, logrando soluciones óptimas o muy cercanas al valor teórico. El desempeño se mantiene estable hasta las 50 solicitudes, aunque comienza a mostrarse ligera dispersión conforme crece la complejidad del VRPTW.
 
-% \begin{itemize}
-%     \item El enfoque híbrido logra un equilibrio entre exploración global, construcción guiada y mejora local.
-%     \item La calibración automática mediante DE reduce significativamente la variabilidad entre ejecuciones.
-%     \item La metodología propuesta es capaz de construir soluciones de alta calidad con tiempos razonables.
-%     \item Las soluciones obtenidas son competitivas frente a las reportadas en la literatura.
-% \end{itemize}
+% En términos estadísticos, la varianza cercana a cero en la mayoría de las instancias confirma que el algoritmo converge de manera consistente. Sin embargo, instancias como C102 y C104 abren oportunidad para futuras mejoras mediante ajuste de parámetros o inclusión de métodos híbridos como búsqueda local, recocido simulado o evolución diferencial.
 
-% Estos resultados confirman que la integración de DE, ACO y SA constituye una alternativa robusta y eficaz para abordar el VRP-TW desde un enfoque metaheurístico híbrido.
+% \section{Conclusión del Capítulo}
+
+% A partir de los resultados obtenidos se concluye que ACO es un enfoque eficaz para resolver VRPTW en instancias pequeñas y medianas, logrando gran estabilidad estadística y competitividad con respecto a resultados de referencia. 
+
+% El crecimiento del problema empieza a impactar la variabilidad, lo que sugiere que futuras líneas de trabajo deben considerar hibridación, ajuste dinámico de parámetros y paralelización del proceso de construcción de soluciones, con el fin de mejorar la exploración del espacio de búsqueda en instancias de mayor escala.
 
 \cleardoublepage
 
 
-\chapter{Conclusiones y trabajo futuro}
+\chapter{Conclusiones y Trabajo Futuro}
 \label{cap:conclusiones}
 
-El presente estudio propuso un enfoque híbrido basado en la combinación de Evolución Diferencial, Optimización por Colonia de Hormigas y Recocido Simulado para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo. Los resultados obtenidos demostraron que la integración de estas tres técnicas permite construir soluciones factibles de manera consistente y refinarlas posteriormente para reducir la distancia total recorrida y el número de vehículos empleados. El método híbrido mostró ser competitivo al compararse con valores de referencia reportados en la literatura para las instancias de Solomon.
+% El presente estudio propuso un enfoque híbrido basado en la combinación de Evolución Diferencial, Optimización por Colonia de Hormigas y Recocido Simulado para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo. Los resultados obtenidos demostraron que la integración de estas tres técnicas permite construir soluciones factibles de manera consistente y refinarlas posteriormente para reducir la distancia total recorrida y el número de vehículos empleados. El método híbrido mostró ser competitivo al compararse con valores de referencia reportados en la literatura para las instancias de Solomon.
 
-El objetivo principal del trabajo fue diseñar y evaluar un método híbrido capaz de mejorar el desempeño de técnicas metaheurísticas tradicionales aplicadas al VRP-TW. Este objetivo se cumplió satisfactoriamente al integrar DE para la calibración automática de parámetros, ACO para la construcción inicial de rutas y SA como mecanismo de mejora local. Cada componente desempeñó el rol esperado dentro del enfoque híbrido, contribuyendo a obtener soluciones de mayor calidad y reduciendo el esfuerzo manual asociado a la calibración de parámetros.
+% El objetivo principal del trabajo fue diseñar y evaluar un método híbrido capaz de mejorar el desempeño de técnicas metaheurísticas tradicionales aplicadas al VRP-TW. Este objetivo se cumplió satisfactoriamente al integrar DE para la calibración automática de parámetros, ACO para la construcción inicial de rutas y SA como mecanismo de mejora local. Cada componente desempeñó el rol esperado dentro del enfoque híbrido, contribuyendo a obtener soluciones de mayor calidad y reduciendo el esfuerzo manual asociado a la calibración de parámetros.
 
-Entre las líneas futuras de investigación se propone explorar versiones paralelas del método híbrido que permitan reducir los tiempos de ejecución sin comprometer la calidad de las soluciones. También resulta prometedor incorporar nuevas restricciones del mundo real, como múltiples depósitos, flotas heterogéneas o prioridades diferenciadas entre clientes. Otra línea relevante consiste en extender el análisis a otros conjuntos de instancias más desafiantes, así como evaluar el desempeño del método en problemas de mayor escala que reflejen con mayor fidelidad las complejidades de la logística moderna.
+% Entre las líneas futuras de investigación se propone explorar versiones paralelas del método híbrido que permitan reducir los tiempos de ejecución sin comprometer la calidad de las soluciones. También resulta prometedor incorporar nuevas restricciones del mundo real, como múltiples depósitos, flotas heterogéneas o prioridades diferenciadas entre clientes. Otra línea relevante consiste en extender el análisis a otros conjuntos de instancias más desafiantes, así como evaluar el desempeño del método en problemas de mayor escala que reflejen con mayor fidelidad las complejidades de la logística moderna.
 
-Finalmente, se confirma que el objetivo del trabajo fue alcanzado, dado que el método híbrido desarrollado logró generar soluciones competitivas frente a las técnicas reportadas en la literatura. Esto demuestra que la integración de DE, ACO y SA constituye una alternativa sólida, viable y eficaz para abordar el VRP-TW.
+% Finalmente, se confirma que el objetivo del trabajo fue alcanzado, dado que el método híbrido desarrollado logró generar soluciones competitivas frente a las técnicas reportadas en la literatura. Esto demuestra que la integración de DE, ACO y SA constituye una alternativa sólida, viable y eficaz para abordar el VRP-TW.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % REFERENCIAS

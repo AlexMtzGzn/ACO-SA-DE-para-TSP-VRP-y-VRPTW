@@ -26,8 +26,8 @@
 \contentsline {subsubsection}{\numberline {2.2.3.1}Clases P y NP}{10}{subsubsection.2.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.2.3.2}NP-Completo y NP-Difícil}{11}{subsubsection.2.2.3.2}%
 \contentsline {subsection}{\numberline {2.2.4}Problemas de Optimización Combinatoria}{12}{subsection.2.2.4}%
-\contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero}{13}{subsubsection.2.2.4.1}%
-\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos}{15}{subsubsection.2.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.2.4.1}Problema del Agente Viajero}{12}{subsubsection.2.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.2.4.2}Problema del Problema Ruteo de Vehículos}{14}{subsubsection.2.2.4.2}%
 \contentsline {subsubsection}{\numberline {2.2.4.3}Problema de Ruteo de Vehículos con Ventanas de Tiempo}{17}{subsubsection.2.2.4.3}%
 \contentsline {subsection}{\numberline {2.2.5}Métodos de Solución para el Problema de Ruteo de Vehículos con Ventanas de Tiempo}{21}{subsection.2.2.5}%
 \contentsline {subsubsection}{\numberline {2.2.5.1}Métodos Exactos}{21}{subsubsection.2.2.5.1}%
@@ -50,25 +50,28 @@
 \contentsline {subsubsection}{\numberline {3.2.2.2}Representación de individuos}{40}{subsubsection.3.2.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.2.3}Función de Aptitud}{41}{subsubsection.3.2.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.2.4}Definición de la Función de Aptitud}{42}{subsubsection.3.2.2.4}%
-\contentsline {subsubsection}{\numberline {3.2.2.5}Parámetros del Algoritmo Evolutivo Diferencial}{43}{subsubsection.3.2.2.5}%
+\contentsline {subsubsection}{\numberline {3.2.2.5}Parámetros del Algoritmo Evolutivo Diferencial}{42}{subsubsection.3.2.2.5}%
 \contentsline {subsubsection}{\numberline {3.2.2.6}Criterio de parada}{43}{subsubsection.3.2.2.6}%
-\contentsline {subsubsection}{\numberline {3.2.2.7}Pseudocódigo del Algoritmo Evolutivo Diferencial}{44}{subsubsection.3.2.2.7}%
+\contentsline {subsubsection}{\numberline {3.2.2.7}Pseudocódigo del Algoritmo Evolutivo Diferencial}{43}{subsubsection.3.2.2.7}%
 \contentsline {subsection}{\numberline {3.2.3}Construcción de rutas iniciales mediante Optimización por Colonia de Hormigas}{45}{subsection.3.2.3}%
 \contentsline {subsubsection}{\numberline {3.2.3.1}Fundamentos del algoritmo Optimización por Colonia de Hormigas}{45}{subsubsection.3.2.3.1}%
 \contentsline {subsubsection}{\numberline {3.2.3.2}Construcción probabilística de rutas}{45}{subsubsection.3.2.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.3.3}Gestión de restricciones temporales}{47}{subsubsection.3.2.3.3}%
-\contentsline {subsubsection}{\numberline {3.2.3.4}Proceso de construcción de soluciones y gestión de flota}{48}{subsubsection.3.2.3.4}%
-\contentsline {subsubsection}{\numberline {3.2.3.5}Evaluación de la función objetivo}{50}{subsubsection.3.2.3.5}%
-\contentsline {subsubsection}{\numberline {3.2.3.6}Actualización de feromonas}{50}{subsubsection.3.2.3.6}%
-\contentsline {subsubsection}{\numberline {3.2.3.7}Criterio de factibilidad}{52}{subsubsection.3.2.3.7}%
-\contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo de la Optimización por Colonia de Hormigas integrado con Recocido Simulado}{53}{subsubsection.3.2.3.8}%
-\contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado}{54}{subsection.3.2.4}%
-\contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo Recocido Simulado}{54}{subsubsection.3.2.4.1}%
-\contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{55}{subsubsection.3.2.4.2}%
-\contentsline {subsubsection}{\numberline {3.2.4.3}Criterio de aceptación de Metropolis}{59}{subsubsection.3.2.4.3}%
-\contentsline {subsubsection}{\numberline {3.2.4.4}Esquema de enfriamiento}{59}{subsubsection.3.2.4.4}%
-\contentsline {subsubsection}{\numberline {3.2.4.5}Manejo de factibilidad y limpieza de vehículos}{60}{subsubsection.3.2.4.5}%
-\contentsline {paragraph}{Limpieza de vehículos vacíos:}{61}{section*.37}%
-\contentsline {subsubsection}{\numberline {3.2.4.6}Algoritmo principal de Recocido Simulado}{63}{subsubsection.3.2.4.6}%
+\contentsline {subsubsection}{\numberline {3.2.3.4}Proceso de construcción de soluciones y gestión de flota}{47}{subsubsection.3.2.3.4}%
+\contentsline {subsubsection}{\numberline {3.2.3.5}Evaluación de la función objetivo}{49}{subsubsection.3.2.3.5}%
+\contentsline {subsubsection}{\numberline {3.2.3.6}Actualización de feromonas}{49}{subsubsection.3.2.3.6}%
+\contentsline {subsubsection}{\numberline {3.2.3.7}Criterio de factibilidad}{51}{subsubsection.3.2.3.7}%
+\contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo de la Optimización por Colonia de Hormigas integrado con Recocido Simulado}{52}{subsubsection.3.2.3.8}%
+\contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado}{53}{subsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo Recocido Simulado}{53}{subsubsection.3.2.4.1}%
+\contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{54}{subsubsection.3.2.4.2}%
+\contentsline {subsubsection}{\numberline {3.2.4.3}Criterio de aceptación de Metropolis}{58}{subsubsection.3.2.4.3}%
+\contentsline {subsubsection}{\numberline {3.2.4.4}Esquema de enfriamiento}{58}{subsubsection.3.2.4.4}%
+\contentsline {subsubsection}{\numberline {3.2.4.5}Manejo de factibilidad y limpieza de vehículos}{59}{subsubsection.3.2.4.5}%
+\contentsline {paragraph}{Limpieza de vehículos vacíos:}{60}{section*.37}%
+\contentsline {subsubsection}{\numberline {3.2.4.6}Algoritmo principal de Recocido Simulado}{62}{subsubsection.3.2.4.6}%
 \contentsline {chapter}{\numberline {4}Resultados}{65}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones y trabajo futuro}{67}{chapter.5}%
+\contentsline {section}{\numberline {4.1}Resultados con 25 clientes}{65}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Resultados con 50 clientes}{65}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Resultados con 100 clientes}{65}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Conclusiones y Trabajo Futuro}{67}{chapter.5}%
