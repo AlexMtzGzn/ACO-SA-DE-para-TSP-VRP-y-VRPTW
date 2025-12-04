@@ -61,7 +61,7 @@
 \contentsline {subsubsection}{\numberline {3.2.3.5}Evaluación de la función objetivo}{49}{subsubsection.3.2.3.5}%
 \contentsline {subsubsection}{\numberline {3.2.3.6}Actualización de feromonas}{49}{subsubsection.3.2.3.6}%
 \contentsline {subsubsection}{\numberline {3.2.3.7}Criterio de factibilidad}{51}{subsubsection.3.2.3.7}%
-\contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo de la Optimización por Colonia de Hormigas integrado con Recocido Simulado}{52}{subsubsection.3.2.3.8}%
+\contentsline {subsubsection}{\numberline {3.2.3.8}Pseudocódigo del Algortimo Optimización por Colonia de Hormigas integrado con Recocido Simulado}{52}{subsubsection.3.2.3.8}%
 \contentsline {subsection}{\numberline {3.2.4}Refinamiento de rutas mediante Recocido Simulado}{53}{subsection.3.2.4}%
 \contentsline {subsubsection}{\numberline {3.2.4.1}Fundamentos del algoritmo Recocido Simulado}{53}{subsubsection.3.2.4.1}%
 \contentsline {subsubsection}{\numberline {3.2.4.2}Operadores de vecindad adaptativos}{54}{subsubsection.3.2.4.2}%
@@ -69,7 +69,7 @@
 \contentsline {subsubsection}{\numberline {3.2.4.4}Esquema de enfriamiento}{58}{subsubsection.3.2.4.4}%
 \contentsline {subsubsection}{\numberline {3.2.4.5}Manejo de factibilidad y limpieza de vehículos}{59}{subsubsection.3.2.4.5}%
 \contentsline {paragraph}{Limpieza de vehículos vacíos:}{60}{section*.37}%
-\contentsline {subsubsection}{\numberline {3.2.4.6}Algoritmo principal de Recocido Simulado}{62}{subsubsection.3.2.4.6}%
+\contentsline {subsubsection}{\numberline {3.2.4.6}Pseudocódigo del Algortimo Recocido Simulado}{62}{subsubsection.3.2.4.6}%
 \contentsline {chapter}{\numberline {4}Resultados}{65}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Resultados con 25 clientes}{65}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Resultados con 50 clientes}{65}{section.4.2}%

@@ -1797,7 +1797,7 @@ Una solución se considera factible si:
 
 El algoritmo garantiza la factibilidad mediante la construcción de listas de candidatos que verifican todas estas restricciones antes de la selección probabilística.
 
-\subsubsection{Pseudocódigo de la Optimización por Colonia de Hormigas integrado con Recocido Simulado}
+\subsubsection{Pseudocódigo del Algortimo Optimización por Colonia de Hormigas integrado con Recocido Simulado}
 
 A continuación se presenta la estructura general del algoritmo ACO aplicado al VRP-TW.
 
@@ -2274,7 +2274,7 @@ Cuando se eliminan vehículos, es necesario re-evaluar la función objetivo comp
 
 El pseudocódigo \ref{fig:evaluacion_fitness_sa} recorre todos los vehículos de la flota y acumula las distancias entre clientes consecutivos en cada ruta. Este proceso considera completamente la estructura de cada vehículo, incluyendo los desplazamientos desde y hacia el depósito cuando corresponda. Con ello se actualiza el fitness global de la solución tras cualquier modificación en la flota o en las rutas.
 
-\subsubsection{Algoritmo principal de Recocido Simulado}
+\subsubsection{Pseudocódigo del Algortimo Recocido Simulado}
 
 El proceso del SA se utiliza como mecanismo de mejora local para refinar las soluciones generadas inicialmente por ACO. Su objetivo es explorar vecindarios diversos mediante un esquema probabilístico que permite aceptar soluciones peores de manera controlada, con el fin de escapar de óptimos locales. El algoritmo completo se presenta en la Figura~\ref{fig:algoritmo_sa_principal}. Este procedimiento incluye la selección de operadores adaptativos, la actualización de temperatura y la gestión explícita de memoria para las estructuras de rutas y flotas.
 
