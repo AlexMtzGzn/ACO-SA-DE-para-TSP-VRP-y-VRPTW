@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: plain.bst
+Database file #1: referencias.bib
+Warning--entry type for "vargas2016" isn't style-file defined
+--line 255 of file referencias.bib
+You've used 55 entries,
+            2118 wiz_defined-function locations,
+            819 strings with 13461 characters,
+and the built_in function-call counts, 16971 in all, are:
+= -- 1696
+> -- 752
+< -- 3
++ -- 308
+- -- 240
+* -- 1180
+:= -- 2876
+add.period$ -- 171
+call.type$ -- 55
+change.case$ -- 274
+chr.to.int$ -- 0
+cite$ -- 55
+duplicate$ -- 626
+empty$ -- 1378
+format.name$ -- 240
+if$ -- 3496
+int.to.chr$ -- 0
+int.to.str$ -- 55
+missing$ -- 61
+newline$ -- 280
+num.names$ -- 111
+pop$ -- 290
+preamble$ -- 1
+purify$ -- 230
+quote$ -- 0
+skip$ -- 403
+stack$ -- 0
+substring$ -- 1081
+swap$ -- 69
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 194
+warning$ -- 0
+while$ -- 178
+width$ -- 57
+write$ -- 608
+(There was 1 warning)

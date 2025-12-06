@@ -1,0 +1,329 @@
+\begin{thebibliography}{10}
+
+\bibitem{aarts1988local}
+Emile Aarts and Jan~K Lenstra.
+\newblock {\em Local Search in Combinatorial Optimization}.
+\newblock John Wiley \& Sons, 1988.
+
+\bibitem{antonioSuarez2014}
+Orlando Antonio~Suárez.
+\newblock Una aproximación a la heurística y metaheurísticas.
+\newblock {\em INGE@UAN -- Tendencias en la Ingeniería}, 1(2), 2014.
+
+\bibitem{back1997handbook}
+Thomas B{\"a}ck, David~B. Fogel, and Zbigniew Michalewicz, editors.
+\newblock {\em Handbook of Evolutionary Computation}.
+\newblock Oxford University Press and Institute of Physics Publishing, New
+  York, NY, 1997.
+
+\bibitem{baldacci2012recent}
+Roberto Baldacci, Aristide Mingozzi, and Roberto Roberti.
+\newblock Recent exact algorithms for solving the vehicle routing problem under
+  capacity and time window constraints.
+\newblock {\em European Journal of Operational Research}, 218(1):1--6, 2012.
+
+\bibitem{blum2003metaheuristics}
+Christian Blum and Andrea Roli.
+\newblock Metaheuristics in combinatorial optimization: Overview and conceptual
+  comparison.
+\newblock {\em ACM Computing Surveys}, 35(3):268--308, 2003.
+
+\bibitem{braysy2005vehicle1}
+Olli Br{\"a}ysy and Michel Gendreau.
+\newblock Vehicle routing problem with time windows, part i: Route construction
+  and local search algorithms.
+\newblock {\em Transportation Science}, 39(1):104--118, 2005.
+
+\bibitem{braysy2005vehicle2}
+Olli Br{\"a}ysy and Michel Gendreau.
+\newblock Vehicle routing problem with time windows, part ii: Metaheuristics.
+\newblock {\em Transportation Science}, 39(1):119--139, 2005.
+
+\bibitem{braysy2005}
+Olli Bräysy and Michel Gendreau.
+\newblock Vehicle routing problem with time windows, part i: Route construction
+  and local search algorithms.
+\newblock {\em Transportation Science}, 39(1):104--118, 2005.
+
+\bibitem{clarke1964scheduling}
+G~Clarke and J~W Wright.
+\newblock Scheduling of vehicles from a central depot to a number of delivery
+  points.
+\newblock {\em Operations research}, 12(4):568--581, 1964.
+
+\bibitem{coello2022metaheuristicas}
+Carlos A.~Coello Coello.
+\newblock Metaheurísticas bio-inspiradas para optimización: La última
+  frontera.
+\newblock
+  \url{https://www.math.cinvestav.mx/sites/default/files/platica-escuela-2022-Coello.pdf},
+  2022.
+\newblock Presentación en la Escuela de Verano de Matemáticas, CINVESTAV-IPN.
+
+\bibitem{cordeau2002}
+Jean-Fran{\c{c}}ois Cordeau and Gilbert Laporte.
+\newblock A unified tabu search heuristic for vehicle routing problems with
+  time windows.
+\newblock {\em Journal of the operational research society}, 53(5):528--536,
+  2002.
+
+\bibitem{dantzig1954solution}
+George~B Dantzig, D~Ray Fulkerson, and Selmer~M Johnson.
+\newblock Solution of a large-scale traveling-salesman problem.
+\newblock {\em Journal of the Operations Research Society of America},
+  2(4):393--410, 1954.
+
+\bibitem{dantzig1959truck}
+George~B Dantzig and John~H Ramser.
+\newblock The truck dispatching problem.
+\newblock {\em Management science}, 6(1):80--91, 1959.
+
+\bibitem{daza2009}
+Julio~Mario Daza, Jairo~R. Montoya, and Francesco Narducci.
+\newblock Resolución del problema de enrutamiento de vehículos con
+  limitaciones de capacidad utilizando un procedimiento metaheurístico de dos
+  fases.
+\newblock {\em Revista EIA}, 0(12):23--38, diciembre 2009.
+
+\bibitem{cobos2010}
+Sergio~Gerardo de~los Cobos~Silva, John~Goddard Close, Miguel Ángel
+  Gutiérrez~Andrade, and Alma Edith~Martínez Licona.
+\newblock {\em Búsqueda y exploración estocástica}.
+\newblock Libros CBI, Universidad Autónoma Metropolitana Iztapalapa, México,
+  2010.
+
+\bibitem{desrochers1992}
+Martin Desrochers, Jacques Desrosiers, and Marius~M Solomon.
+\newblock A new optimization algorithm for the vehicle routing problem with
+  time windows.
+\newblock {\em Operations research}, 40(2):342--354, 1992.
+
+\bibitem{desrosiers1995time}
+Jacques Desrosiers, Yvan Dumas, Marius~M Solomon, and Fran{\c{c}}ois Soumis.
+\newblock Time constrained routing and scheduling.
+\newblock In {\em Handbooks in Operations Research and Management Science},
+  volume~8, pages 35--139. Elsevier, 1995.
+
+\bibitem{dorigo1992}
+Marco Dorigo.
+\newblock {\em Optimization, Learning and Natural Algorithms}.
+\newblock Phd thesis, Politecnico di Milano, Milán, Italia, 1992.
+
+\bibitem{dorigo1997ant}
+Marco Dorigo and Luca~Maria Gambardella.
+\newblock Ant colonies for the travelling salesman problem.
+\newblock {\em BioSystems}, 43(2):73--81, 1997.
+
+\bibitem{eiben2003introduction}
+A.~E. Eiben and J.~E. Smith.
+\newblock {\em Introduction to Evolutionary Computing}.
+\newblock Springer, Berlin, Heidelberg, 2003.
+
+\bibitem{eksioglu2009}
+Burak Eksioglu, Arif~Volkan Vural, and Arnold Reisman.
+\newblock The vehicle routing problem: A taxonomic review.
+\newblock {\em Computers \& Industrial Engineering}, 57(4):1472--1483, 2009.
+
+\bibitem{Flores2014}
+Xavier~Alejandro Flores~Cabezas.
+\newblock Problemas del milenio: P vs np.
+\newblock {\em Revista de Divulgación Amarun}, 1:1--15, 2014.
+
+\bibitem{gambardella1999macs}
+Luca~Maria Gambardella, {\'E}ric Taillard, and Giovanni Agazzi.
+\newblock Macs-vrptw: A multiple ant colony system for vehicle routing problems
+  with time windows.
+\newblock In {\em New Ideas in Optimization}, pages 63--76. McGraw-Hill, 1999.
+
+\bibitem{garey1979computers}
+Michael~R. Garey and David~S. Johnson.
+\newblock {\em Computers and Intractability: A Guide to the Theory of
+  NP-Completeness}.
+\newblock W. H. Freeman, 1979.
+
+\bibitem{goldberg1989genetic}
+David~E. Goldberg.
+\newblock {\em Genetic Algorithms in Search, Optimization, and Machine
+  Learning}.
+\newblock Addison-Wesley, Reading, Massachusetts, 1989.
+
+\bibitem{golden1988}
+Bruce~L. Golden and Arjang~A. Assad.
+\newblock Vehicle routing: Methods and studies.
+\newblock In {\em Studies in Management Science and Systems}. North-Holland,
+  1988.
+
+\bibitem{held1962dynamic}
+Michael Held and Richard~M Karp.
+\newblock A dynamic programming approach to sequencing problems.
+\newblock {\em Journal of the Society for Industrial and Applied Mathematics},
+  10(1):196--210, 1962.
+
+\bibitem{holland1975adaptation}
+John~H Holland.
+\newblock {\em Adaptation in Natural and Artificial Systems}.
+\newblock University of Michigan Press, 1975.
+
+\bibitem{homberger1999two}
+J{\"o}rg Homberger and Hermann Gehring.
+\newblock Two evolutionary metaheuristics for the vehicle routing problem with
+  time windows.
+\newblock {\em INFOR: Information Systems and Operational Research},
+  37(3):297--318, 1999.
+
+\bibitem{kirkpatrick1983optimization}
+Scott Kirkpatrick, C.~Daniel Gelatt, and Mario~P. Vecchi.
+\newblock Optimization by simulated annealing.
+\newblock {\em Science}, 220(4598):671--680, 1983.
+
+\bibitem{kirkpatrick1983}
+Scott Kirkpatrick, C.~Daniel~Gelatt Jr., and Mario~P. Vecchi.
+\newblock Optimization by simulated annealing.
+\newblock {\em Science}, 220(4598):671--680, 1983.
+
+\bibitem{laporte1992}
+Gilbert Laporte.
+\newblock The vehicle routing problem: An overview of exact and approximate
+  algorithms.
+\newblock {\em European Journal of Operational Research}, 59(3):345--358, 1992.
+
+\bibitem{laporte1992vehicle}
+Gilbert Laporte.
+\newblock The vehicle routing problem: An overview of exact and approximate
+  algorithms.
+\newblock {\em European Journal of Operational Research}, 59(3):345--358, 1992.
+
+\bibitem{laporte1987}
+Gilbert Laporte and Yves Nobert.
+\newblock Exact algorithms for the vehicle routing problem.
+\newblock {\em Annals of Discrete Mathematics}, 31:147--184, 1987.
+
+\bibitem{lopez2014tabu}
+Erasmo López, Óscar Salas, and Álex Murillo.
+\newblock El problema del agente viajero: Un algoritmo determinístico usando
+  búsqueda tabú.
+\newblock {\em Revista de Matemática: Teoría y Aplicaciones}, 21(1):127--144,
+  2014.
+
+\bibitem{luer2009}
+Armin Lüer, Magdalena Benavente, Jaime Bustos, and Bárbara Venegas.
+\newblock El problema de rutas de vehículos: Extensiones y métodos de
+  resolución, estado del arte.
+\newblock In {\em Workshop Internacional EIG2009}, Temuco, Chile, 2009.
+  Universidad de La Frontera, Departamento de Ingeniería de Sistemas.
+
+\bibitem{maldonado2013problema}
+Carlos Maldonado.
+\newblock Un problema fundamental en la investigación: Los problemas p vs. np.
+\newblock {\em Revista Logos, Ciencia \& Tecnología}, 4(2):10--20, 2013.
+
+\bibitem{duarte2007metaheuristicas}
+Abraham~Duarte Muñoz, Juan José~Pantrigo Fernández, and Micael~Gallego
+  Carrillo.
+\newblock {\em Metaheurísticas}.
+\newblock Dykinson, Madrid, España, 2007.
+
+\bibitem{nagata2009powerful}
+Yuichi Nagata and Olli Br{\"a}ysy.
+\newblock A powerful route minimization heuristic for the vehicle routing
+  problem with time windows.
+\newblock {\em Operations Research Letters}, 37(5):333--338, 2009.
+
+\bibitem{numerentur2019}
+Numerentur.
+\newblock Gráfico de complejidad computacional.
+\newblock
+  \url{https://numerentur.org/wp-content/uploads/2019/08/grafico-complejidad-computacionala3.png},
+  2019.
+\newblock Imagen descargada el 15 de julio de 2025.
+
+\bibitem{olivera2004heur}
+Alfredo Olivera.
+\newblock Heurísticas para problemas de ruteo de vehículos.
+\newblock Technical report, Instituto de Computación, Facultad de Ingeniería,
+  Universidad de la República, Montevideo, Uruguay, agosto 2004.
+\newblock Monografía/Informe Técnico.
+
+\bibitem{montes2017}
+Edwin~Montes Orozco.
+\newblock Metaheurísticas para el problema de ruteo de vehículos con ventanas
+  de tiempo (vrp-tw), 2017.
+
+\bibitem{papadimitriou1994}
+Christos~H. Papadimitriou.
+\newblock {\em Computational Complexity}.
+\newblock Addison-Wesley, 1994.
+
+\bibitem{papadimitriou1998}
+Christos~H. Papadimitriou and Kenneth Steiglitz.
+\newblock {\em Combinatorial Optimization: Algorithms and Complexity}.
+\newblock Dover Publications, New York, 1998.
+
+\bibitem{pisinger2007general}
+David Pisinger and Stefan Ropke.
+\newblock A general heuristic for vehicle routing problems.
+\newblock {\em Computers \& Operations Research}, 34(8):2403--2435, 2007.
+
+\bibitem{potvin1996vehicle}
+Jean-Yves Potvin and Samy Bengio.
+\newblock The vehicle routing problem with time windows part ii: Genetic
+  search.
+\newblock {\em INFORMS Journal on Computing}, 8(2):165--172, 1996.
+
+\bibitem{price2005differential}
+Kenneth Price, Rainer Storn, and Jouni~A. Lampinen.
+\newblock {\em Differential Evolution: A Practical Approach to Global
+  Optimization}.
+\newblock Springer, Berlin, Heidelberg, 2005.
+
+\bibitem{solomon1987algorithms}
+Marius~M. Solomon.
+\newblock Algorithms for the vehicle routing and scheduling problems with time
+  window constraints.
+\newblock {\em Operations Research}, 35(2):254--265, 1987.
+
+\bibitem{storn1997differential}
+Rainer Storn and Kenneth Price.
+\newblock Differential evolution – a simple and efficient heuristic for
+  global optimization over continuous spaces.
+\newblock {\em Journal of Global Optimization}, 11(4):341--359, 1997.
+
+\bibitem{taillard1997tabu}
+{\'E}ric Taillard, Philippe Badeau, Michel Gendreau, Fran{\c{c}}ois Guertin,
+  and Jean-Yves Potvin.
+\newblock A tabu search heuristic for the vehicle routing problem with soft
+  time windows.
+\newblock {\em Transportation Science}, 31(2):170--186, 1997.
+
+\bibitem{torres2018}
+J.~Torres-Jiménez, A.~Aguilar-Melendéz, and M.~G. Cedillo-Campos.
+\newblock El problema del agente viajero con restricciones de ventanas de
+  tiempo: revisión y clasificación de métodos de solución.
+\newblock {\em Revista Iberoamericana de Automática e Informática
+  Industrial}, 15(4):440--452, 2018.
+
+\bibitem{toth2002vehicle}
+Paolo Toth and Daniele Vigo.
+\newblock {\em The Vehicle Routing Problem}.
+\newblock Society for Industrial and Applied Mathematics, 2002.
+
+\bibitem{toth2014}
+Paolo Toth and Daniele Vigo.
+\newblock {\em Vehicle Routing: Problems, Methods, and Applications}.
+\newblock SIAM (Society for Industrial and Applied Mathematics), 2nd edition,
+  2014.
+
+\bibitem{vargas2016}
+Jhonny Vargas~Paredes and Víctor Penit~Granado.
+\newblock Estudio y aplicación de metaheurísticas y comparación con métodos
+  exhaustivos, 2016.
+\newblock Disponible en:
+  \url{https://docta.ucm.es/rest/api/core/bitstreams/69240770-849a-4014-a672-6fad30912f88/content}.
+
+\bibitem{vidal2012hybrid}
+Thibaut Vidal, Teodor~Gabriel Crainic, Michel Gendreau, and Christian Prins.
+\newblock A hybrid genetic algorithm with adaptive diversity management for a
+  large class of vehicle routing problems with time-windows.
+\newblock {\em Computers \& Operations Research}, 40(1):475--489, 2012.
+
+\end{thebibliography}
