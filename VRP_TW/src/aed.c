@@ -76,7 +76,7 @@ void inicializar_distancias(double **instancia_distancias, struct vrp_configurac
          if (i != j)
          {
             distancia = calcular_distancia(vrp, i, j);
-            distancia = floor(distancia * pow(10.0, 1.0)) / pow(10.0, 1.0);
+            distancia = floor(distancia * pow(10.0,1.0)) /pow(10.0,1.0);
             instancia_distancias[i][j] = distancia;
             instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
          }
@@ -384,51 +384,51 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
       // rango->maxIteracionesSA = 300; // Asignamos 300 a maxIteracionesSA
       // rango->minIteracionesSA = 200; // Asignamos 200 a minIteracionesSA
 
-      // ALPHA (importancia de feromonas)
-      rango->maxAlpha = 2.0; // Reducido de 5.0 - evita convergencia prematura
-      rango->minAlpha = 0.5; // Reducido de 3.0 - permite más exploración
-
-      // BETA (importancia de heurística/distancia) - CRÍTICO en VRPTW
-      rango->maxBeta = 5.0; // Mantener - distancia+ventanas cruciales
-      rango->minBeta = 2.5; // Aumentado de 4.0 - prioriza heurística
-
-      // GAMMA (importancia de ventanas de tiempo)
-      rango->maxGamma = 3.0; // Reducido de 4.0 - balance con otros parámetros
-      rango->minGamma = 1.5; // Reducido de 2.0 - siempre considera ventanas
-
-      // RHO (tasa de evaporación de feromonas)
-      rango->maxRho = 0.3; // Mantener - buena exploración
-      rango->minRho = 0.1; // Mantener - buena explotación
-
-      // NÚMERO DE HORMIGAS
-      rango->maxNumHormigas = 25; // Reducido de 20 para mayor velocidad
-      rango->minNumHormigas = 15; // Aumentado de 10 - mínimo efectivo
-
-      // PORCENTAJE DE HORMIGAS (alternativa)
-      rango->maxPorcentajeHormigas = 0.25; // Reducido de 0.35 para velocidad
-      rango->minPorcentajeHormigas = 0.15; // Mantener
-
-      // ITERACIONES ACO - AJUSTADO PARA VELOCIDAD
-      rango->maxNumIteracionesACO = 150; // Reducido de 180 - balance velocidad/calidad
-      rango->minNumIteracionesACO = 80;  // Reducido de 120 - más rápido
-
-      // ============ PARÁMETROS SA (OPTIMIZADOS PARA VELOCIDAD) ============
-
-      // TEMPERATURA INICIAL - Debe aceptar 80 - 90 % de soluciones malas inicialmente 
-      rango->maxTemperatura_inicial = 15000.0; // Alta para exploración agresiva inicial
-      rango->minTemperatura_inicial = 8000.0;                                                                                  // Moderada pero efectiva
-
-      // TEMPERATURA FINAL - Cuando prácticamente solo acepta mejoras
-      rango->maxTemperatura_final = 0.01;  // Muy refinado al final
-      rango->minTemperatura_final = 0.001; // Extremadamente refinado
-
-      // FACTOR DE ENFRIAMIENTO - CRÍTICO PARA CALIDAD
-      rango->maxFactor_enfriamiento = 0.98; // Enfriamiento más lento = mejor refinamiento
-      rango->minFactor_enfriamiento = 0.95; // Balance entre velocidad y calidad
-
-      // ITERACIONES POR TEMPERATURA - Para refinamiento exhaustivo
-      rango->maxIteracionesSA = 200; // Más iteraciones por temperatura = mejor refinamiento
-      rango->minIteracionesSA = 100; // Suficiente para explorar cada nivel de temperatura
+         // ALPHA (importancia de feromonas)
+   rango->maxAlpha = 2.0;  // Reducido de 5.0 - evita convergencia prematura
+   rango->minAlpha = 0.5;  // Reducido de 3.0 - permite más exploración
+   
+   // BETA (importancia de heurística/distancia) - CRÍTICO en VRPTW
+   rango->maxBeta = 5.0;   // Mantener - distancia+ventanas cruciales
+   rango->minBeta = 2.5;   // Aumentado de 4.0 - prioriza heurística
+   
+   // GAMMA (importancia de ventanas de tiempo)
+   rango->maxGamma = 3.0;  // Reducido de 4.0 - balance con otros parámetros
+   rango->minGamma = 1.5;  // Reducido de 2.0 - siempre considera ventanas
+   
+   // RHO (tasa de evaporación de feromonas)
+   rango->maxRho = 0.3;    // Mantener - buena exploración
+   rango->minRho = 0.1;    // Mantener - buena explotación
+   
+   // NÚMERO DE HORMIGAS
+   rango->maxNumHormigas = 25;  // Reducido de 20 para mayor velocidad
+   rango->minNumHormigas = 15;  // Aumentado de 10 - mínimo efectivo
+   
+   // PORCENTAJE DE HORMIGAS (alternativa)
+   rango->maxPorcentajeHormigas = 0.25;  // Reducido de 0.35 para velocidad
+   rango->minPorcentajeHormigas = 0.15;  // Mantener
+   
+   // ITERACIONES ACO - AJUSTADO PARA VELOCIDAD
+   rango->maxNumIteracionesACO = 150;  // Reducido de 180 - balance velocidad/calidad
+   rango->minNumIteracionesACO = 80;   // Reducido de 120 - más rápido
+   
+   // ============ PARÁMETROS SA (OPTIMIZADOS PARA VELOCIDAD) ============
+   
+   // TEMPERATURA INICIAL
+   rango->maxTemperatura_inicial = 8000.0;   // Aumentado de 4000.0 - mejor exploración
+   rango->minTemperatura_inicial = 5000.0;   // Aumentado de 2500.0 - suficiente para 100 clientes
+   
+   // TEMPERATURA FINAL
+   rango->maxTemperatura_final = 0.1;   // Aumentado de 0.01 - termina antes
+   rango->minTemperatura_final = 0.05;  // Aumentado de 0.001 - más velocidad
+   
+   // FACTOR DE ENFRIAMIENTO - AJUSTADO PARA VELOCIDAD
+   rango->maxFactor_enfriamiento = 0.97;  // Reducido de 0.995 - enfría más rápido
+   rango->minFactor_enfriamiento = 0.93;  // Aumentado de 0.97 - mucho más rápido
+   
+   // ITERACIONES POR TEMPERATURA - REDUCIDAS PARA VELOCIDAD
+   rango->maxIteracionesSA = 100;  // Reducido de 300 - balance
+   rango->minIteracionesSA = 50;   // Reducido de 200 - más rápido
    }
 
    // Itera sobre cada individuo de la población

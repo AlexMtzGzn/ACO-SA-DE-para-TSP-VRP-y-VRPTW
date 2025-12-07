@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for i in {1..1}; do
+for i in {1..15}; do
     echo "Ejecución $i"
-    ./main 3 10 C109 100 
+    ./main 5 5 C101 100 
 done
 
 
