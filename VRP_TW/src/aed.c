@@ -76,7 +76,7 @@ void inicializar_distancias(double **instancia_distancias, struct vrp_configurac
          if (i != j)
          {
             distancia = calcular_distancia(vrp, i, j);
-            distancia = floor(distancia * pow(10.0,1.0)) /pow(10.0,1.0);
+            distancia = floor(distancia * pow(10.0, 1.0)) / pow(10.0, 1.0);
             instancia_distancias[i][j] = distancia;
             instancia_distancias[j][i] = distancia; // Aprovechamos la simetría
          }
@@ -351,84 +351,38 @@ void inicializa_poblacion(struct individuo *objetivo, struct vrp_configuracion *
 
    if (vrp->num_clientes > 51 && vrp->num_clientes <= 101)
    {
-      // rango->maxAlpha = 5.0; // Asignamos 5.0 a maxAlpha
-      // rango->minAlpha = 3.0; // Asignamos 3.0 a minAlpha
+      rango->maxAlpha = 5.0; // Asignamos 5.0 a maxAlpha
+      rango->minAlpha = 3.0; // Asignamos 3.0 a minAlpha
 
-      // rango->maxBeta = 6.0; // Asignamos 6.0 a maxBeta
-      // rango->minBeta = 4.0; // Asignamos 4.0 a minBeta
+      rango->maxBeta = 6.0; // Asignamos 6.0 a maxBeta
+      rango->minBeta = 4.0; // Asignamos 4.0 a minBeta
 
-      // rango->maxGamma = 4.0; // Asignamos 4.0 a maxGamma
-      // rango->minGamma = 2.0; // Asignamos 2.0 a minGamma
+      rango->maxGamma = 4.0; // Asignamos 4.0 a maxGamma
+      rango->minGamma = 2.0; // Asignamos 2.0 a minGamma
 
-      // rango->maxRho = 0.3; // Asignamos 0.3 a maxRho
-      // rango->minRho = 0.1; // Asignamos 0.1 a minRho
+      rango->maxRho = 0.3; // Asignamos 0.3 a maxRho
+      rango->minRho = 0.1; // Asignamos 0.1 a minRho
 
-      // rango->maxNumHormigas = 20; // Asignamos 20 a maxNumHormigas
-      // rango->minNumHormigas = 10; // Asignamos 10 a minNumHormigas
+      rango->maxNumHormigas = 20; // Asignamos 20 a maxNumHormigas
+      rango->minNumHormigas = 10; // Asignamos 10 a minNumHormigas
 
-      // rango->maxPorcentajeHormigas = 0.35; // Asignamos 0.35 a maxPorcentajeHormigas
-      // rango->minPorcentajeHormigas = 0.15; // Asignamos 0.15 a minPorcentajeHormigas
+      rango->maxPorcentajeHormigas = 0.35; // Asignamos 0.35 a maxPorcentajeHormigas
+      rango->minPorcentajeHormigas = 0.15; // Asignamos 0.15 a minPorcentajeHormigas
 
-      // rango->maxNumIteracionesACO = 180; // Asignamos 180 a maxNumIteracionesACO
-      // rango->minNumIteracionesACO = 120; // Asignamos 120 a minNumIteracionesACO
+      rango->maxNumIteracionesACO = 180; // Asignamos 180 a maxNumIteracionesACO
+      rango->minNumIteracionesACO = 120; // Asignamos 120 a minNumIteracionesACO
 
-      // rango->maxTemperatura_inicial = 4000.0; // Asignamos 4000.0 a maxTemperatura_inicial
-      // rango->minTemperatura_inicial = 2500.0; // Asignamos 2500.0 a minTemperatura_inicial
+      rango->maxTemperatura_inicial = 4000.0; // Asignamos 4000.0 a maxTemperatura_inicial
+      rango->minTemperatura_inicial = 2500.0; // Asignamos 2500.0 a minTemperatura_inicial
 
-      // rango->maxTemperatura_final = 0.01;  // Asignamos 0.01 a maxTemperatura_final
-      // rango->minTemperatura_final = 0.001; // Asignamos 0.001 a minTemperatura_final
+      rango->maxTemperatura_final = 0.01;  // Asignamos 0.01 a maxTemperatura_final
+      rango->minTemperatura_final = 0.001; // Asignamos 0.001 a minTemperatura_final
 
-      // rango->maxFactor_enfriamiento = 0.995; // Asignamos 0.995 a maxFactor_enfriamiento
-      // rango->minFactor_enfriamiento = 0.97;  // Asignamos 0.98 a minFactor_enfriamiento
+      rango->maxFactor_enfriamiento = 0.995; // Asignamos 0.995 a maxFactor_enfriamiento
+      rango->minFactor_enfriamiento = 0.97;  // Asignamos 0.98 a minFactor_enfriamiento
 
-      // rango->maxIteracionesSA = 300; // Asignamos 300 a maxIteracionesSA
-      // rango->minIteracionesSA = 200; // Asignamos 200 a minIteracionesSA
-
-         // ALPHA (importancia de feromonas)
-   rango->maxAlpha = 2.0;  // Reducido de 5.0 - evita convergencia prematura
-   rango->minAlpha = 0.5;  // Reducido de 3.0 - permite más exploración
-   
-   // BETA (importancia de heurística/distancia) - CRÍTICO en VRPTW
-   rango->maxBeta = 5.0;   // Mantener - distancia+ventanas cruciales
-   rango->minBeta = 2.5;   // Aumentado de 4.0 - prioriza heurística
-   
-   // GAMMA (importancia de ventanas de tiempo)
-   rango->maxGamma = 3.0;  // Reducido de 4.0 - balance con otros parámetros
-   rango->minGamma = 1.5;  // Reducido de 2.0 - siempre considera ventanas
-   
-   // RHO (tasa de evaporación de feromonas)
-   rango->maxRho = 0.3;    // Mantener - buena exploración
-   rango->minRho = 0.1;    // Mantener - buena explotación
-   
-   // NÚMERO DE HORMIGAS
-   rango->maxNumHormigas = 25;  // Reducido de 20 para mayor velocidad
-   rango->minNumHormigas = 15;  // Aumentado de 10 - mínimo efectivo
-   
-   // PORCENTAJE DE HORMIGAS (alternativa)
-   rango->maxPorcentajeHormigas = 0.25;  // Reducido de 0.35 para velocidad
-   rango->minPorcentajeHormigas = 0.15;  // Mantener
-   
-   // ITERACIONES ACO - AJUSTADO PARA VELOCIDAD
-   rango->maxNumIteracionesACO = 150;  // Reducido de 180 - balance velocidad/calidad
-   rango->minNumIteracionesACO = 80;   // Reducido de 120 - más rápido
-   
-   // ============ PARÁMETROS SA (OPTIMIZADOS PARA VELOCIDAD) ============
-   
-   // TEMPERATURA INICIAL
-   rango->maxTemperatura_inicial = 8000.0;   // Aumentado de 4000.0 - mejor exploración
-   rango->minTemperatura_inicial = 5000.0;   // Aumentado de 2500.0 - suficiente para 100 clientes
-   
-   // TEMPERATURA FINAL
-   rango->maxTemperatura_final = 0.1;   // Aumentado de 0.01 - termina antes
-   rango->minTemperatura_final = 0.05;  // Aumentado de 0.001 - más velocidad
-   
-   // FACTOR DE ENFRIAMIENTO - AJUSTADO PARA VELOCIDAD
-   rango->maxFactor_enfriamiento = 0.97;  // Reducido de 0.995 - enfría más rápido
-   rango->minFactor_enfriamiento = 0.93;  // Aumentado de 0.97 - mucho más rápido
-   
-   // ITERACIONES POR TEMPERATURA - REDUCIDAS PARA VELOCIDAD
-   rango->maxIteracionesSA = 100;  // Reducido de 300 - balance
-   rango->minIteracionesSA = 50;   // Reducido de 200 - más rápido
+      rango->maxIteracionesSA = 300; // Asignamos 300 a maxIteracionesSA
+      rango->minIteracionesSA = 200; // Asignamos 200 a minIteracionesSA
    }
 
    // Itera sobre cada individuo de la población
