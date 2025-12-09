@@ -70,6 +70,6 @@
 \contentsline {subsubsection}{\numberline {3.2.4.4}Esquema de Enfriamiento}{59}{subsubsection.3.2.4.4}%
 \contentsline {subsubsection}{\numberline {3.2.4.5}Manejo de Factibilidad y Limpieza de Vehículos}{60}{subsubsection.3.2.4.5}%
 \contentsline {paragraph}{Limpieza de Vehículos Vacíos:}{61}{section*.41}%
-\contentsline {subsubsection}{\numberline {3.2.4.6}Pseudocódigo del Algortimo Recocido Simulado}{63}{subsubsection.3.2.4.6}%
-\contentsline {chapter}{\numberline {4}Resultados}{65}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones y Trabajo Futuro}{67}{chapter.5}%
+\contentsline {subsubsection}{\numberline {3.2.4.6}Pseudocódigo del Algoritmo de Recocido Simulado}{63}{subsubsection.3.2.4.6}%
+\contentsline {chapter}{\numberline {4}Resultados}{67}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusiones y Trabajo Futuro}{69}{chapter.5}%
