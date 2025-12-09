@@ -3,47 +3,44 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plain.bst
 Database file #1: referencias.bib
-Warning--entry type for "vargas2016" isn't style-file defined
---line 255 of file referencias.bib
-You've used 55 entries,
+You've used 57 entries,
             2118 wiz_defined-function locations,
-            819 strings with 13461 characters,
-and the built_in function-call counts, 16971 in all, are:
-= -- 1696
-> -- 752
+            829 strings with 13820 characters,
+and the built_in function-call counts, 17493 in all, are:
+= -- 1752
+> -- 772
 < -- 3
-+ -- 308
-- -- 240
-* -- 1180
-:= -- 2876
-add.period$ -- 171
-call.type$ -- 55
-change.case$ -- 274
++ -- 316
+- -- 246
+* -- 1213
+:= -- 2975
+add.period$ -- 178
+call.type$ -- 57
+change.case$ -- 282
 chr.to.int$ -- 0
-cite$ -- 55
-duplicate$ -- 626
-empty$ -- 1378
-format.name$ -- 240
-if$ -- 3496
+cite$ -- 57
+duplicate$ -- 650
+empty$ -- 1416
+format.name$ -- 246
+if$ -- 3600
 int.to.chr$ -- 0
-int.to.str$ -- 55
-missing$ -- 61
-newline$ -- 280
-num.names$ -- 111
-pop$ -- 290
+int.to.str$ -- 57
+missing$ -- 64
+newline$ -- 291
+num.names$ -- 115
+pop$ -- 293
 preamble$ -- 1
-purify$ -- 230
+purify$ -- 237
 quote$ -- 0
-skip$ -- 403
+skip$ -- 416
 stack$ -- 0
-substring$ -- 1081
-swap$ -- 69
+substring$ -- 1107
+swap$ -- 70
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 194
+type$ -- 200
 warning$ -- 0
-while$ -- 178
-width$ -- 57
-write$ -- 608
-(There was 1 warning)
+while$ -- 184
+width$ -- 59
+write$ -- 633

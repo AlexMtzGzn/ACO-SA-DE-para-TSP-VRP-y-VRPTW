@@ -10,6 +10,12 @@ Orlando Antonio~Suárez.
 \newblock Una aproximación a la heurística y metaheurísticas.
 \newblock {\em INGE@UAN -- Tendencias en la Ingeniería}, 1(2), 2014.
 
+\bibitem{back1996evolutionary}
+Thomas B{\"a}ck.
+\newblock {\em Evolutionary Algorithms in Theory and Practice: Evolution
+  Strategies, Evolutionary Programming, Genetic Algorithms}.
+\newblock Oxford University Press, 1996.
+
 \bibitem{back1997handbook}
 Thomas B{\"a}ck, David~B. Fogel, and Zbigniew Michalewicz, editors.
 \newblock {\em Handbook of Evolutionary Computation}.
@@ -77,6 +83,12 @@ George~B Dantzig, D~Ray Fulkerson, and Selmer~M Johnson.
 George~B Dantzig and John~H Ramser.
 \newblock The truck dispatching problem.
 \newblock {\em Management science}, 6(1):80--91, 1959.
+
+\bibitem{das2011differential}
+Swagatam Das and Ponnuthurai~Nagaratnam Suganthan.
+\newblock Differential evolution: A survey of the state-of-the-art.
+\newblock {\em IEEE Transactions on Evolutionary Computation}, 15(1):4--31,
+  2011.
 
 \bibitem{daza2009}
 Julio~Mario Daza, Jairo~R. Montoya, and Francesco Narducci.
@@ -316,8 +328,10 @@ Paolo Toth and Daniele Vigo.
 \bibitem{vargas2016}
 Jhonny Vargas~Paredes and Víctor Penit~Granado.
 \newblock Estudio y aplicación de metaheurísticas y comparación con métodos
-  exhaustivos, 2016.
-\newblock Disponible en:
+  exhaustivos.
+\newblock Master's thesis, Universidad Complutense de Madrid, Facultad de
+  Informática, Madrid, España, 2016.
+\newblock Trabajo de Fin de Grado. Disponible en:
   \url{https://docta.ucm.es/rest/api/core/bitstreams/69240770-849a-4014-a672-6fad30912f88/content}.
 
 \bibitem{vidal2012hybrid}

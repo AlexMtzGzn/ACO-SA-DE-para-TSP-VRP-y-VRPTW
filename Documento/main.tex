@@ -233,35 +233,45 @@ Overall, the results indicate that the DE–ACO–SA integration achieves an ade
 \vfill
 \cleardoublepage
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ÍNDICES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Ajustes para tocloft
 \cftsetindents{subsection}{2em}{3em}
 \cftsetindents{subsubsection}{4em}{3em}
+
+% Profundidad de índice y numeración
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 
-
+% --- Tabla de contenidos ---
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Índice general}
 \tableofcontents
-\cleardoublepage
 
-\listoffigures
+% --- Índice de figuras ---
+\cleardoublepage
+\phantomsection
 \addcontentsline{toc}{chapter}{Índice de Figuras}
-\cleardoublepage
+\listoffigures
 
-\listoftables
+% --- Índice de tablas ---
+\cleardoublepage
+\phantomsection
 \addcontentsline{toc}{chapter}{Índice de Tablas}
+\listoftables
+
+% --- Índice de fórmulas (ajuste de ancho de número + lista) ---
 \cleardoublepage
-
-
-\setlength{\cftmyequationsnumwidth}{2.5 em}
-
-\listofmyequations
+\phantomsection
 \addcontentsline{toc}{chapter}{Índice de Fórmulas}
+\setlength{\cftmyequationsnumwidth}{2.5em} % ancho para números en lista de ecuaciones
+\listofmyequations
+
 \cleardoublepage
+
 
 \chapter*{Lista de Abreviaciones}
 \addcontentsline{toc}{chapter}{Lista de Abreviaciones}
@@ -309,7 +319,7 @@ Dentro de la investigación operativa y la logística, modelos clásicos como el
 El VRP-TW consiste en planificar rutas para una flota de vehículos de manera que se minimice el costo total (distancia, tiempo o recursos), asegurando que cada cliente sea atendido dentro de un intervalo de tiempo predefinido y sin violar las capacidades de los vehículos. Este problema pertenece a la clase NP-difícil y presenta una alta complejidad combinatoria, lo que hace inviable su resolución mediante algoritmos exactos para instancias de gran tamaño.
 
 \sloppy
-En este contexto, las metaheurísticas se presentan como una alternativa eficaz para obtener soluciones de buena calidad en tiempos razonables. Entre ellas, la Optimización por Colonia de Hormigas (ACO, \emph{Ant Colony Optimization}) ha demostrado ser útil en la construcción de rutas iniciales, mientras que el Recocido Simulado (SA, \emph{Simulated Annealing}), apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. No obstante, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda; por ello, se propone incorporar el Algoritmo Evolutivo Diferencial (DE, \emph{Differential Evolution}) como componente global de refinamiento.
+En este contexto, las metaheurísticas se presentan como una alternativa eficaz para obtener soluciones de buena calidad en tiempos razonables. Entre ellas, la Optimización por Colonia de Hormigas (ACO, \emph{Ant Colony Optimization}) ha demostrado ser útil en la construcción de rutas iniciales, mientras que el Recocido Simulado (SA, \emph{Simulated Annealing}), apoyado en diversas heurísticas locales, permite mejorar las soluciones generadas. No obstante, ambos enfoques pueden beneficiarse de mecanismos adicionales de exploración y explotación del espacio de búsqueda; por ello, se incorporo el Algoritmo Evolutivo Diferencial (DE, \emph{Differential Evolution}) como componente global de refinamiento.
 
 El problema a resolver, por tanto, se centra en diseñar e implementar un algoritmo híbrido que combine de manera coordinada y efectiva ACO, SA y DE. En este esquema, el DE se emplea para calibrar los parámetros de los otros métodos, permitiendo abordar el VRP-TW a partir de modelos más simples como el TSP y el VRP, considerando tanto la calidad de la solución como su robustez y eficiencia computacional.
 
@@ -917,19 +927,19 @@ Aunque los algoritmos evolutivos y los algoritmos genéticos han sido descritos 
 
 Dentro de la familia de los algoritmos evolutivos, la Evolución Diferencial (\emph{Differential Evolution}, DE) se ha consolidado como una de las técnicas más eficaces para la optimización de problemas continuos, debido a su simplicidad conceptual, bajo número de parámetros de control y alta capacidad de exploración del espacio de búsqueda \cite{storn1997differential,price2005differential}.
 
-El DE comparte los fundamentos biológicos de otras metaheurísticas evolutivas, como la selección natural y la supervivencia del más apto, pero se diferencia por su mecanismo basado en combinaciones vectoriales de diferencias entre individuos de la población, lo que le permite mantener un equilibrio adecuado entre exploración y explotación.
+El DE comparte los fundamentos biológicos de otras metaheurísticas evolutivas, como la selección natural y la supervivencia del más apto \cite{back1996evolutionary}, pero se diferencia por su mecanismo basado en combinaciones vectoriales de diferencias entre individuos de la población, lo que le permite mantener un equilibrio adecuado entre exploración y explotación \cite{das2011differential}.
 
-Este algoritmo trabaja con una población de soluciones candidatas representadas como vectores de valores reales, que evolucionan a lo largo de varias generaciones mediante tres operadores principales: mutación, recombinación y selección. De manera general, su funcionamiento puede describirse de la siguiente forma:
+Este algoritmo trabaja con una población de soluciones candidatas representadas como vectores de valores reales, que evolucionan a lo largo de varias generaciones mediante tres operadores principales: mutación, recombinación y selección \cite{price2005differential}. De manera general, su funcionamiento puede describirse de la siguiente forma:
 
 \begin{itemize}
-	\item \textbf{Mutación:} genera un vector mutante $v_i$ combinando individuos de la población. Una de las estrategias más utilizadas es DE/rand/1:
+	\item \textbf{Mutación:} genera un vector mutante $v_i$ combinando individuos de la población \cite{storn1997differential}. Una de las estrategias más utilizadas es DE/rand/1:
 	      \begin{equation}
 		      v_i = x_{r_1} + F \cdot (x_{r_2} - x_{r_3})
 	      \end{equation}
 	      \addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Vector mutante en Evolución Diferencial (DE/rand/1)}
-	      donde $r_1, r_2, r_3$ son índices aleatorios distintos entre sí y diferentes de $i$, y $F$ es el factor de mutación ($F \in [0, 2]$, típicamente entre 0.5 y 1). Este operador introduce diversidad y permite explorar nuevas regiones del espacio de búsqueda.
+	      donde $r_1, r_2, r_3$ son índices aleatorios distintos entre sí y diferentes de $i$, y $F$ es el factor de mutación ($F \in [0, 2]$, típicamente entre 0.5 y 1) \cite{price2005differential,das2011differential}. Este operador introduce diversidad y permite explorar nuevas regiones del espacio de búsqueda.
 
-	\item \textbf{Recombinación:} combina el vector mutante con el vector original $x_i$ para formar un vector de prueba $u_i$, siguiendo el esquema de cruce binomial:
+	\item \textbf{Recombinación:} combina el vector mutante con el vector original $x_i$ para formar un vector de prueba $u_i$, siguiendo el esquema de cruce binomial \cite{storn1997differential}:
 	      \begin{equation}
 		      u_{i,j} =
 		      \begin{cases}
@@ -938,9 +948,9 @@ Este algoritmo trabaja con una población de soluciones candidatas representadas
 		      \end{cases}
 	      \end{equation}
 	      \addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Cruce binomial en Evolución Diferencial}
-	      donde $CR \in [0, 1]$ es la tasa de cruce o probabilidad de recombinación. Este operador combina información de distintas soluciones, favoreciendo la explotación de configuraciones prometedoras.
+	      donde $CR \in [0, 1]$ es la tasa de cruce o probabilidad de recombinación \cite{price2005differential}. Este operador combina información de distintas soluciones, favoreciendo la explotación de configuraciones prometedoras.
 
-	\item \textbf{Selección:} compara el vector de prueba $u_i$ con el individuo original $x_i$ mediante la función objetivo, conservando únicamente el de mejor aptitud para la siguiente generación:
+	\item \textbf{Selección:} compara el vector de prueba $u_i$ con el individuo original $x_i$ mediante la función objetivo, conservando únicamente el de mejor aptitud para la siguiente generación \cite{storn1997differential}:
 	      \begin{equation}
 		      x_i^{(t+1)} =
 		      \begin{cases}
@@ -949,7 +959,7 @@ Este algoritmo trabaja con una población de soluciones candidatas representadas
 		      \end{cases}
 	      \end{equation}
 	      \addcontentsline{eq}{myequations}{\protect\numberline{\theequation} Operador de selección en Evolución Diferencial}
-	      Este mecanismo garantiza la mejora progresiva de la población, evitando el deterioro de soluciones de alta calidad.
+	      Este mecanismo garantiza la mejora progresiva de la población, evitando el deterioro de soluciones de alta calidad \cite{price2005differential}.
 \end{itemize}
 
 \subsubsection*{Metaheurísticas inspiradas en la biología}
@@ -1432,19 +1442,29 @@ El DE requiere configurar cuatro parámetros principales que controlan su compor
 	\centering
 	\begin{tabular}{|l|c|>{\raggedright\arraybackslash}p{7cm}|}
 		\hline
-		\textbf{Parámetro}           & \textbf{Valor} & \textbf{Descripción}                                                                                                                                                       \\
+		\textbf{Parámetro} & \textbf{Valor}                                                                                                                                                                                                                                                                                                                                                  & \textbf{Descripción} \\
 		\hline
-		Tamaño de población ($NP$)   & 20--30         & Número de configuraciones de parámetros evaluadas en cada generación. Valores mayores aumentan la diversidad pero incrementan el costo computacional.                      \\
+		Tamaño de población ($NP$)
+		                   & $\geq 3$
+		                   & Número de configuraciones de parámetros evaluadas en cada generación. Valores mayores aumentan la diversidad pero incrementan el costo computacional. Se requiere un mínimo de 3 individuos para garantizar el funcionamiento del operador de mutación.                                                                                                                                \\
 		\hline
-		Número de generaciones ($G$) & 50--150        & Número de iteraciones del algoritmo evolutivo. Se ajusta según el tamaño de la instancia: 50--80 para instancias pequeñas, 80--120 para medianas, y 100--150 para grandes. \\
+		Número de generaciones ($G$)
+		                   & $\geq 1$
+		                   & Número de iteraciones del algoritmo evolutivo. El valor no se ajusta automáticamente; sin embargo, se recomienda seleccionar un número adecuado en función del tamaño de la instancia. Para instancias pequeñas se sugieren valores bajos, mientras que instancias medianas y grandes requieren un mayor número de generaciones para favorecer la convergencia.                        \\
 		\hline
-		Factor de mutación ($F$)     & 0.5            & Controla la magnitud de la perturbación en el operador de mutación. Un valor de 0.5 proporciona un balance adecuado entre exploración y explotación.                       \\
+		Factor de mutación ($F$)
+		                   & 0.5
+		                   & Controla la magnitud de la perturbación en el operador de mutación. Un valor de 0.5 proporciona un balance adecuado entre exploración y explotación.                                                                                                                                                                                                                                   \\
 		\hline
-		Tasa de cruce ($CR$)         & 0.5            & Probabilidad de que cada componente del vector provenga del vector mutante durante la recombinación. Un valor de 0.5 garantiza igual influencia de ambos padres.           \\
+		Tasa de cruce ($CR$)
+		                   & 0.5
+		                   & Probabilidad de que cada componente del vector provenga del vector mutante durante la recombinación. Un valor de 0.5 garantiza una influencia equilibrada entre ambos padres.                                                                                                                                                                                                          \\
 		\hline
 	\end{tabular}
 	\caption{Parámetros del Algoritmo Evolutivo Diferencial}
+	\label{tab:parametros_de}
 \end{table}
+
 
 \subsubsection{Criterio de parada}
 
@@ -2342,66 +2362,6 @@ El proceso del SA se utiliza como mecanismo de mejora local para refinar las sol
 \chapter{Resultados}
 \label{cap:resultados}
 
-% % En esta sección se presentan los resultados obtenidos mediante la implementación del algoritmo de Optimización por Colonia de Hormigas (ACO) aplicado al problema VRPTW sobre las instancias de Solomon. Se analizaron instancias de 25, 50 y 100 clientes, evaluando el desempeño del algoritmo en términos de su mejor solución alcanzada, valor promedio, peor caso y estabilidad medida con varianza y desviación estándar.
-
-% Las pruebas se realizaron ejecutando el algoritmo 15 veces por instancia, manteniendo fijos los parámetros globales (número de hormigas, iteraciones, $\alpha$, $\beta$, $\rho$). Con ello se busca medir robustez, consistencia y sensibilidad del método frente a la aleatoriedad inherente del proceso.
-
-\section{Resultados con 25 clientes}
-
-% En la Tabla \ref{tabla_25} se muestran los resultados obtenidos para las instancias con 25 clientes. Puede observarse que para C101, C103, C201 y C202 el algoritmo logra igualar el valor reportado en la literatura, lo que indica que el ACO presenta buena capacidad de convergencia en problemas de baja escala. 
-
-% La instancia C102 muestra un comportamiento diferente al presentar desviación estándar de 7.04, reflejando variabilidad entre ejecuciones debido a la naturaleza probabilística del método. No obstante, el valor mínimo alcanzado coincide con el reportado, señalando que el algoritmo sí es capaz de llegar al óptimo aunque no siempre de manera consistente.
-
-% \begin{table}[H]
-% \centering
-% \caption{Resultados con instancias de 25 clientes.}
-% \label{tabla_25}
-% \begin{tabular}{|c|c|c|c|c|c|c|}
-% \hline
-% Instancia & Mejor Rep. & Mejor & Peor & Promedio & Varianza & Desviación \\
-% \hline
-% C101 & 191.3 & 191.3 & 191.3 & 191.30 & 0.00 & 0.00 \\
-% C102 & 190.3 & 190.3 & 215.8 & 193.66 & 49.56 & 7.04 \\
-% C103 & 190.3 & 190.3 & 192.2 & 190.49 & 0.29 & 0.54 \\
-% C201 & 214.7 & 214.7 & 214.7 & 214.7 & 0.00 & 0.00 \\
-% C202 & 214.7 & 214.7 & 214.7 & 214.7 & 0.00 & 0.00 \\
-% \hline
-% \end{tabular}
-% \end{table}
-
-\section{Resultados con 50 clientes}
-
-% En la Tabla \ref{tabla_50} se presentan los resultados correspondientes a las instancias con 50 clientes. Nuevamente se observa un comportamiento estable para C105 y C106, donde todas las ejecuciones alcanzaron el mismo valor. Sin embargo, la instancia C104 presenta variación moderada, lo que sugiere un incremento en la complejidad del espacio de búsqueda a medida que crece el número de clientes.
-% \begin{table}[H]
-% \centering
-% \caption{Resultados con instancias de 50 clientes.}
-% \label{tabla_50}
-% \begin{tabular}{|c|c|c|c|c|c|c|}
-% \hline
-% Instancia & Mejor Rep. & Mejor & Peor & Promedio & Varianza & Desviación \\
-% \hline
-% C104 & 359.0 & 358.0 & 366.1 & 361.11 & 6.17 & 2.48 \\
-% C105 & 362.4 & 362.4 & 362.4 & 362.4  & 0.00 & 0.00 \\
-% C106 & 362.4 & 362.4 & 362.4 & 362.4  & 0.00 & 0.00 \\
-% C203 & 359.8 & -- & -- & -- & -- & -- \\
-% C204 & 359.8 & -- & -- & -- & -- & -- \\
-% \hline
-% \end{tabular}
-% \end{table}
-
-\section{Resultados con 100 clientes}
-
-% \section{Discusión General}
-
-% Los resultados muestran que ACO es especialmente robusto en instancias pequeñas y medianas, logrando soluciones óptimas o muy cercanas al valor teórico. El desempeño se mantiene estable hasta las 50 solicitudes, aunque comienza a mostrarse ligera dispersión conforme crece la complejidad del VRPTW.
-
-% En términos estadísticos, la varianza cercana a cero en la mayoría de las instancias confirma que el algoritmo converge de manera consistente. Sin embargo, instancias como C102 y C104 abren oportunidad para futuras mejoras mediante ajuste de parámetros o inclusión de métodos híbridos como búsqueda local, recocido simulado o evolución diferencial.
-
-% \section{Conclusión del Capítulo}
-
-% A partir de los resultados obtenidos se concluye que ACO es un enfoque eficaz para resolver VRPTW en instancias pequeñas y medianas, logrando gran estabilidad estadística y competitividad con respecto a resultados de referencia. 
-
-% El crecimiento del problema empieza a impactar la variabilidad, lo que sugiere que futuras líneas de trabajo deben considerar hibridación, ajuste dinámico de parámetros y paralelización del proceso de construcción de soluciones, con el fin de mejorar la exploración del espacio de búsqueda en instancias de mayor escala.
 
 \cleardoublepage
 
@@ -2409,13 +2369,13 @@ El proceso del SA se utiliza como mecanismo de mejora local para refinar las sol
 \chapter{Conclusiones y Trabajo Futuro}
 \label{cap:conclusiones}
 
-% El presente estudio propuso un enfoque híbrido basado en la combinación de Evolución Diferencial, Optimización por Colonia de Hormigas y Recocido Simulado para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo. Los resultados obtenidos demostraron que la integración de estas tres técnicas permite construir soluciones factibles de manera consistente y refinarlas posteriormente para reducir la distancia total recorrida y el número de vehículos empleados. El método híbrido mostró ser competitivo al compararse con valores de referencia reportados en la literatura para las instancias de Solomon.
+El presente estudio propuso un enfoque híbrido basado en la combinación de Evolución Diferencial, Optimización por Colonia de Hormigas y Recocido Simulado para resolver el Problema de Ruteo de Vehículos con Ventanas de Tiempo. Los resultados obtenidos demostraron que la integración de estas tres técnicas permite construir soluciones factibles de manera consistente y refinarlas posteriormente para reducir la distancia total recorrida y el número de vehículos empleados. El método híbrido mostró ser competitivo al compararse con valores de referencia reportados en la literatura para las instancias de Solomon.
 
-% El objetivo principal del trabajo fue diseñar y evaluar un método híbrido capaz de mejorar el desempeño de técnicas metaheurísticas tradicionales aplicadas al VRP-TW. Este objetivo se cumplió satisfactoriamente al integrar DE para la calibración automática de parámetros, ACO para la construcción inicial de rutas y SA como mecanismo de mejora local. Cada componente desempeñó el rol esperado dentro del enfoque híbrido, contribuyendo a obtener soluciones de mayor calidad y reduciendo el esfuerzo manual asociado a la calibración de parámetros.
+El objetivo principal del trabajo fue diseñar y evaluar un método híbrido capaz de mejorar el desempeño de técnicas metaheurísticas tradicionales aplicadas al VRP-TW. Este objetivo se cumplió satisfactoriamente al integrar DE para la calibración automática de parámetros, ACO para la construcción inicial de rutas y SA como mecanismo de mejora local. Cada componente desempeñó el rol esperado dentro del enfoque híbrido, contribuyendo a obtener soluciones de mayor calidad y reduciendo el esfuerzo manual asociado a la calibración de parámetros.
 
-% Entre las líneas futuras de investigación se propone explorar versiones paralelas del método híbrido que permitan reducir los tiempos de ejecución sin comprometer la calidad de las soluciones. También resulta prometedor incorporar nuevas restricciones del mundo real, como múltiples depósitos, flotas heterogéneas o prioridades diferenciadas entre clientes. Otra línea relevante consiste en extender el análisis a otros conjuntos de instancias más desafiantes, así como evaluar el desempeño del método en problemas de mayor escala que reflejen con mayor fidelidad las complejidades de la logística moderna.
+Entre las líneas futuras de investigación se propone explorar versiones paralelas del método híbrido que permitan reducir los tiempos de ejecución sin comprometer la calidad de las soluciones. También resulta prometedor incorporar nuevas restricciones del mundo real, como múltiples depósitos, flotas heterogéneas o prioridades diferenciadas entre clientes. Otra línea relevante consiste en extender el análisis a otros conjuntos de instancias más desafiantes, así como evaluar el desempeño del método en problemas de mayor escala que reflejen con mayor fidelidad las complejidades de la logística moderna.
 
-% Finalmente, se confirma que el objetivo del trabajo fue alcanzado, dado que el método híbrido desarrollado logró generar soluciones competitivas frente a las técnicas reportadas en la literatura. Esto demuestra que la integración de DE, ACO y SA constituye una alternativa sólida, viable y eficaz para abordar el VRP-TW.
+Finalmente, se confirma que el objetivo del trabajo fue alcanzado, dado que el método híbrido desarrollado logró generar soluciones competitivas frente a las técnicas reportadas en la literatura. Esto demuestra que la integración de DE, ACO y SA constituye una alternativa sólida, viable y eficaz para abordar el VRP-TW.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % REFERENCIAS
