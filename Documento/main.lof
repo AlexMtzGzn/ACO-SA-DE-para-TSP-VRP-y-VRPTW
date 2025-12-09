@@ -1,30 +1,30 @@
 \babel@toc {spanish}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Tasa de crecimiento de varias funciones en análisis de algoritmos \cite {numerentur2019}.}}{9}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Clasificación de los problemas computacionales en decidibles e indecidibles~\citep {maldonado2013problema}.}}{10}{figure.2.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Relación entre las clases de complejidad: P, NP, NP-completo y NP-difícil.}}{12}{figure.2.3}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Ejemplificación de una solución al Problema del Agente Viajero.}}{13}{figure.2.4}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos.}}{15}{figure.2.5}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Ejemplificación de una solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo.}}{18}{figure.2.6}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Tasa de Crecimiento de Varias Funciones en Análisis de Algoritmos \cite {numerentur2019}.}}{9}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Clasificación de los Problemas Computacionales en Decidibles e Indecidibles~\citep {maldonado2013problema}.}}{10}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Relación Entre las Clases de Complejidad: P, NP, NP-Completo y NP-Difícil.}}{12}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Ejemplificación de una Solución al Problema del Agente Viajero.}}{13}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Ejemplificación de una Solución al Problema de Ruteo de Vehículos.}}{15}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Ejemplificación de una Solución al Problema de Ruteo de Vehículos con Ventanas de Tiempo.}}{18}{figure.2.6}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Pseudocódigo del Algoritmo de Evolución Diferencial aplicado al problema VRP-TW.}}{44}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Pseudocódigo para calcular clientes factibles en Optimización por Colonia de Hormigas.}}{47}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Pseudocódigo del proceso de construcción de una solución completa por una hormiga.}}{49}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Pseudocódigo del cálculo del fitness total de una solución en Optimización por Colonia de Hormigas.}}{50}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Pseudocódigo del proceso de actualización de feromonas en tres fases: evaporación, depósito y refuerzo elitista.}}{52}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Pseudocódigo de la Optimización por Colonia de Hormigas con Recocido Simulado para VRP-TW.}}{53}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Pseudocódigo del operador Swap Intra-Ruta.}}{55}{figure.3.7}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Pseudocódigo del operador 2-opt.}}{56}{figure.3.8}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Pseudocódigo del operador Or-opt.}}{56}{figure.3.9}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Pseudocódigo del operador Swap Inter-Ruta.}}{57}{figure.3.10}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Pseudocódigo del operador Reinserción Intra-Inter.}}{57}{figure.3.11}%
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Pseudocódigo del operador 2.5-opt.}}{57}{figure.3.12}%
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Pseudocódigo del operador Cross-exchange.}}{58}{figure.3.13}%
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Pseudocódigo del operador Relocate-chain.}}{58}{figure.3.14}%
-\contentsline {figure}{\numberline {3.15}{\ignorespaces Pseudocódigo de verificación completa de restricciones para una ruta.}}{60}{figure.3.15}%
-\contentsline {figure}{\numberline {3.16}{\ignorespaces Pseudocódigo del proceso de limpieza de vehículos vacíos de la flota.}}{62}{figure.3.16}%
-\contentsline {figure}{\numberline {3.17}{\ignorespaces Pseudocódigo de evaluación de la función objetivo para una solución completa en el Recocido Simulado.}}{63}{figure.3.17}%
-\contentsline {figure}{\numberline {3.18}{\ignorespaces Pseudocódigo de Recocido Simulado para refinamiento de soluciones VRP-TW.}}{64}{figure.3.18}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Pseudocódigo del Evolución Diferencial para Calibración de Parámetros en el Problema de Ruteo de Vehículos con Ventanas de Tiempo.}}{44}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Pseudocódigo para Cálculo de Clientes Factibles en Optimización por Colonia de Hormigas.}}{47}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Pseudocódigo de Construcción de Solución por una Hormiga.}}{49}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Pseudocódigo de Evaluación de la Función Objetivo en Optimización por Colonia de Hormigas.}}{50}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Pseudocódigo de la Actualización de Feromonas.}}{52}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Pseudocódigo de la Optimización por Colonia de Hormigas con Recocido Simulado para Problema de Ruteo de Vehículos con Ventanas de Tiempo.}}{53}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Pseudocódigo del Operador Swap Intra-Ruta.}}{55}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Pseudocódigo del Operador 2-Opt.}}{56}{figure.3.8}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Pseudocódigo del Operador Or-Opt.}}{56}{figure.3.9}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Pseudocódigo del Operador Swap Inter-Ruta.}}{57}{figure.3.10}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Pseudocódigo del Operador Reinserción Intra-Inter.}}{57}{figure.3.11}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Pseudocódigo del Operador 2.5-opt.}}{57}{figure.3.12}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Pseudocódigo del Operador Cross-Exchange.}}{58}{figure.3.13}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Pseudocódigo del Operador Relocate-Chain.}}{58}{figure.3.14}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Pseudocódigo de Verificación de Restricciones y Factibilidad de Ruta.}}{60}{figure.3.15}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Pseudocódigo de Eliminación de Vehículos Vacíos.}}{62}{figure.3.16}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Pseudocódigo de Evaluación de la Función Objetivo en Recocido Simulado.}}{63}{figure.3.17}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Pseudocódigo de Recocido Simulado para Refinamiento de Rutas Problema de Ruteo de Vehículos con Ventanas de Tiempo.}}{64}{figure.3.18}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
