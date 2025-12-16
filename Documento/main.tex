@@ -1827,7 +1827,7 @@ A continuación se presenta la estructura general del algoritmo ACO aplicado al 
 	\centering
 	\begin{algorithm}[H]
 		\caption{Optimización por Colonia de Hormigas con Recocido Simulado para el Problema de Ruteo de Vehículos con Ven-
-tanas de Tiempo}
+			tanas de Tiempo}
 		\label{alg:aco_vrptw}
 		\SetAlgoLined
 		\SetAlFnt{\footnotesize}
@@ -2366,9 +2366,277 @@ El pseudocódigo~\ref{alg:sa_vrptw} describe el procedimiento completo del algor
 \chapter{Resultados}
 \label{cap:resultados}
 
+Se presentan los resultados obtenidos al aplicar el algoritmo híbrido DE+ACO+SA al VRP-TW. Se realizaron pruebas con instancias de 25, 50 y 100 clientes, ejecutando cada instancia 15 veces para evaluar la consistencia y robustez del algoritmo propuesto.
 
-\cleardoublepage
+\section{Resultados con 25 Clientes}
 
+Las instancias con 25 clientes representan problemas de tamaño pequeño que permiten validar el correcto funcionamiento del algoritmo. La Tabla~\ref{tab:results_25} muestra los resultados obtenidos.
+
+\begin{table}[H]
+	\centering
+	\caption{Resultados para Instancias de 25 clientes}
+	\label{tab:results_25}
+	\begin{tabular}{|l|c|c|c|c|c|}
+		\hline
+		\textbf{Instancia} & \textbf{Mejor Reportado} & \textbf{Mejor} & \textbf{Peor} & \textbf{Promedio} & \textbf{Desv. Est.} \\
+		\hline
+		C101               & 191.3                    & 191.3          & 191.3         & 191.3             & 0.00                \\
+		C102               & 190.3                    & 190.3          & 190.3         & 190.3             & 0.00                \\
+		C103               & 190.3                    & 190.3          & 190.3         & 190.3             & 0.00                \\
+		C201               & 214.7                    & 214.7          & 214.7         & 214.7             & 0.00                \\
+		C202               & 214.7                    & 214.7          & 214.7         & 214.7             & 0.00                \\
+		\hline
+	\end{tabular}
+\end{table}
+
+El algoritmo híbrido demostró una excelente consistencia en estas instancias, alcanzando la solución óptima en todas las ejecuciones. La desviación estándar de 0.00 indica que el algoritmo convergió al mismo resultado en las 15 pruebas, lo cual refleja la efectividad de la combinación DE+ACO+SA para problemas de esta escala.
+
+Se muestran las rutas generadas para todas las instancias de 25 clientes. Dado que todas las ejecuciones convergieron al mismo resultado, las rutas de mejor y peor caso son idénticas en todas las instancias.
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c101_25_mejor.png}
+		\caption{Mejor solución C101 (191.3)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c101_25_peor.png}
+		\caption{Peor solución C101 (191.3)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c102_25_mejor.png}
+		\caption{Mejor solución C102 (190.3)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c102_25_peor.png}
+		\caption{Peor solución C102 (190.3)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c103_25_mejor.png}
+		\caption{Mejor solución C103 (190.3)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c103_25_peor.png}
+		\caption{Peor solución C103 (190.3)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c201_25_mejor.png}
+		\caption{Mejor solución C201 (214.7)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c201_25_peor.png}
+		\caption{Peor solución C201 (214.7)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c202_25_mejor.png}
+		\caption{Mejor solución C202 (214.7)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c202_25_peor.png}
+		\caption{Peor solución C202 (214.7)}
+	\end{minipage}
+\end{figure}
+
+\section{Resultados con 50 Clientes}
+
+Las instancias de 50 clientes presentan mayor complejidad debido al incremento en el espacio de búsqueda. Los resultados se presentan en la Tabla~\ref{tab:results_50}.
+
+\begin{table}[H]
+	\centering
+	\caption{Resultados para Instancias de 50 clientes}
+	\label{tab:results_50}
+	\begin{tabular}{|l|c|c|c|c|c|}
+		\hline
+		\textbf{Instancia} & \textbf{Mejor Reportado} & \textbf{Mejor} & \textbf{Peor} & \textbf{Promedio} & \textbf{Desv. Est.} \\
+		\hline
+		C104               & 359.0                    & 358.0          & 360.5         & 359.4             & 1.04                \\
+		C105               & 362.4                    & 362.4          & 362.4         & 362.4             & 0.00                \\
+		C106               & 362.4                    & 362.4          & 362.4         & 362.4             & 0.00                \\
+		C203               & 359.8                    & 359.8          & 364.8         & 361.8             & 1.77                \\
+		C204               & 353.4                    & 350.1          & 359.6         & 352.9             & 3.06                \\
+		\hline
+	\end{tabular}
+\end{table}
+
+En este conjunto, el algoritmo mantuvo un buen desempeño aunque con mayor variabilidad. Las instancias C105 y C106 mantuvieron consistencia perfecta, mientras que C104, C203 y C204 mostraron variaciones moderadas. La instancia C204 presentó la mayor desviación estándar (3.06), con una diferencia de 9.5 unidades entre la mejor y peor solución, sugiriendo que el paisaje de búsqueda de esta instancia presenta mayor complejidad. El componente de Simulated Annealing ayudó a escapar de óptimos locales, aunque la naturaleza estocástica del algoritmo generó cierta dispersión en los resultados.
+
+Se ilustran las rutas obtenidas para las instancias de 50 clientes. En este conjunto se observan diferencias más notables entre mejor y peor caso, especialmente en C104, C203 y C204, reflejando la mayor complejidad de estas instancias.
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c104_50_mejor.png}
+		\caption{Mejor solución C104 (358.0)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c104_50_peor.png}
+		\caption{Peor solución C104 (360.5)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c105_50_mejor.png}
+		\caption{Mejor solución C105 (362.4)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c105_50_peor.png}
+		\caption{Peor solución C105 (362.4)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c106_50_mejor.png}
+		\caption{Mejor solución C106 (362.4)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c106_50_peor.png}
+		\caption{Peor solución C106 (362.4)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c203_50_mejor.png}
+		\caption{Mejor solución C203 (359.8)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c203_50_peor.png}
+		\caption{Peor solución C203 (364.8)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c204_50_mejor.png}
+		\caption{Mejor solución C204 (350.1)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c204_50_peor.png}
+		\caption{Peor solución C204 (359.6)}
+	\end{minipage}
+\end{figure}
+
+\section{Resultados con 100 Clientes}
+
+Las instancias de 100 clientes representan el mayor desafío, con un espacio de soluciones significativamente más amplio. La Tabla~\ref{tab:results_100} resume los resultados.
+
+\begin{table}[H]
+	\centering
+	\caption{Resultados para Instancias de 100 clientes}
+	\label{tab:results_100}
+	\begin{tabular}{|l|c|c|c|c|c|}
+		\hline
+		\textbf{Instancia} & \textbf{Mejor Reportado} & \textbf{Mejor} & \textbf{Peor} & \textbf{Promedio} & \textbf{Desv. Est.} \\
+		\hline
+		C101               & 827.3                    & 827.3          & 827.3         & 827.3             & 0.00                \\
+		C107               & 827.3                    & 827.3          & 837.1         & 830.2             & 3.89                \\
+		C108               & 827.3                    & 827.3          & 851.4         & 832.5             & 8.04                \\
+		\hline
+	\end{tabular}
+\end{table}
+
+En las instancias de 100 clientes, se observa un comportamiento diferenciado. C101 mantuvo consistencia perfecta, logrando la solución óptima en todas las ejecuciones. Sin embargo, C107 y especialmente C108 mostraron mayor variabilidad. La instancia C108 presentó la mayor desviación estándar (8.04) de todo el conjunto experimental, con una diferencia de 24.1 unidades entre mejor y peor caso. Esto indica que la complejidad del problema escala de manera no lineal, y que la exploración del espacio de búsqueda requiere más iteraciones o ajustes paramétricos para instancias de mayor tamaño.
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c101_100_mejor.png}
+		\caption{Mejor solución C101 (827.3)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c101_100_peor.png}
+		\caption{Peor solución C101 (827.3)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c107_100_mejor.png}
+		\caption{Mejor solución C107 (827.3)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c107_100_peor.png}
+		\caption{Peor solución C107 (837.1)}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c108_100_mejor.png}
+		\caption{Mejor solución C108 (827.3)}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{Imagenes/c108_100_peor.png}
+		\caption{Peor solución C108 (851.4)}
+	\end{minipage}
+\end{figure}
+
+El algoritmo híbrido demostró un desempeño robusto en las instancias evaluadas. En instancias pequeñas de 25 clientes, el algoritmo alcanzó consistentemente soluciones óptimas con desviación estándar nula en todos los casos, lo que valida la correcta integración de los tres componentes del enfoque híbrido. Para las instancias de escala media con 50 clientes, se observó una variabilidad controlada, con desviaciones estándar que no superaron las 3.06 unidades, indicando que el algoritmo mantiene una buena calidad de solución aun con el incremento de la complejidad del problema. 
+
+Sin embargo, en las instancias grandes de 100 clientes se evidenció una mayor dispersión en los resultados, lo que sugiere desafíos en términos de escalabilidad, particularmente en instancias con características específicas como C107 y C108, donde la desviación estándar alcanzó valores de hasta 8.04. La combinación del algoritmo de Evolución Diferencial para la diversificación, la Optimización por Colonia de Hormigas para la construcción de soluciones y el Recocido Simulado para el refinamiento local resultó efectiva; no obstante, los resultados sugieren que ajustes paramétricos específicos podrían mejorar el desempeño en instancias de gran escala. En general, el algoritmo logró igualar las mejores soluciones reportadas en la literatura en la mayoría de los casos.
 
 \chapter{Conclusiones y Trabajo Futuro}
 \label{cap:conclusiones}

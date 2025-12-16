@@ -72,4 +72,7 @@
 \contentsline {paragraph}{Limpieza de Vehículos Vacíos:}{61}{section*.41}%
 \contentsline {subsubsection}{\numberline {3.2.4.6}Pseudocódigo del Algoritmo de Recocido Simulado}{63}{subsubsection.3.2.4.6}%
 \contentsline {chapter}{\numberline {4}Resultados}{67}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusiones y Trabajo Futuro}{69}{chapter.5}%
+\contentsline {section}{\numberline {4.1}Resultados con 25 Clientes}{67}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Resultados con 50 Clientes}{70}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Resultados con 100 Clientes}{73}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Conclusiones y Trabajo Futuro}{77}{chapter.5}%
